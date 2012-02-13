@@ -1,0 +1,7 @@
+<h1>Register</h1>
+<h2><%= flash[:notice] %></h2>
+
+<%= form_for @user do |f| -%>
+  <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+  <%= f.submit "Register" %>
+<% end %>
