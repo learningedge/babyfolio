@@ -1,6 +1,9 @@
 Babyfolio::Application.routes.draw do
-  get "home/index"
 
+  get "home/index"
+  get "confirmation" => "confirmation#index", :as => :confirmation
+  get "confirmation/resend" => "confirmation#re_send_email"
+  get "confirmation/confirm_email"
 
   resources :user_sessions
 

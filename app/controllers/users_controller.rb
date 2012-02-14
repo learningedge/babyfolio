@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  
   before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_confirmation, :only => [:show, :edit, :update]
   before_filter :require_user, :only => [:show, :edit, :update]
 
   def new
@@ -13,6 +15,9 @@ class UsersController < ApplicationController
     # auto-login which can't happen here because
     # the User has not yet been activated
     if @user.save
+
+      UserMailer.confirmation_email(@user).deliver
+
       flash[:notice] = "Your account has been created."
       redirect_to signup_url
     else
