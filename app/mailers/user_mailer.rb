@@ -7,7 +7,18 @@ class UserMailer < ActionMailer::Base
     @url = confirmation_confirm_email_url
 
     @url += '?token='+ @user.perishable_token
-    mail(:to => user.email, :subject => "Registratin email")
+    mail(:to => user.email, :subject => "Confirmation email")
+  end
+
+  def forgot_password(user)
+
+    @user = user
+
+
+    @url = edit_forgot_password_url
+    @url += "?token=" + @user.perishable_token
+
+    mail(:to => @user.email, :subject => "Forgot password")
   end
 
 end
