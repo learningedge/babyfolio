@@ -58,7 +58,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 /* Header Logo */
 #header #logo {width: 1078px;margin: 0 auto; padding: 18px 0 21px}
 
-/* StoreBook */
+/* StoreyBook Container */
 #wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;padding: 10px 10px 15px 32px;height: 100%}
 #wrraper .container {height: 100%}
 #container_header {margin: 5px 0 0;height: 90px}
@@ -69,12 +69,49 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #drop_list a {font: 14px arial;color: #9b7804;text-decoration: none}
 #wrraper .container #drop_list span {display: block;text-align: center}
 #wrraper .container #container_left {float: left;width: 740px;position: relative;top: 0;left: 0;height: 100%}
+
+/* Book */
 #wrraper .container #container_left #book_box {position: relative;width: 300px;top: 0;left: 0}
-#wrraper .container #container_left #book {position: relative;left: -126px;top: 25px;background: url('/images/storybook.png');width: 907px;height: 781px;z-index: 1}
-#wrraper .container #container_left #storybook_moments {background: #fff;padding: 25px 0 0}
-#wrraper .container #container_left #storybook_moments h1 {background: #f5f2dd;color: #9b7804;font: 30px 'Helvetiva_seven'}
-#wrraper .container #container_left #storybook_moments .shadow {background: url('/images/shadow.png')}
+#wrraper .container #container_left #book {position: relative;left: -126px;top: 25px;z-index: 1}
+#wrraper .container #container_left #book #container_book {background: url('/images/storybook.png') no-repeat;width: 907px;height: 781px;padding: 78px 0 0 72px}
+#wrraper .container #container_left #book #container_book #book_left {float: left;width: 300px}
+#wrraper .container #container_left #book #container_book #book_left img {border: 10px solid #D5D2BE}
+#wrraper .container #container_left #book #container_book #book_left span {display: inline-block;width: 228px;color:#636363;font: 24px 'Helvetica_seven';padding: 0 0 0 25px}
+#wrraper .container #container_left #book #container_book #book_right {float: left;width: 415px;margin: 0 0 0 26px}
+#wrraper .container #container_left #book #container_book #book_right ul {list-style: none}
+#wrraper .container #container_left #book #container_book #book_right ul li div  {padding: 0 0 0 110px;margin: 0 0 25px}
+#wrraper .container #container_left #book #container_book #book_right ul li div h2 {font: 36px 'Helvetica_seven';color:#9b7804}
+#wrraper .container #container_left #book #container_book #book_right ul li div ul {list-style-image: url('/images/dot.png');padding: 0 0 0 20px}
+#wrraper .container #container_left #book #container_book #book_right ul li div a {display: block;text-align: right}
+#wrraper .container #container_left #book #container_book #book_right .icon1 {background: url('/images/icon1.png') no-repeat;}
+#wrraper .container #container_left #book #container_book #book_right .icon2 {background: url('/images/icon2.png') no-repeat;}
+#wrraper .container #container_left #book #container_book #book_right .icon3 {background: url('/images/icon3.png') no-repeat;}
+
+/* StoryBook */
+#wrraper .container #container_left #storybook_moments {background: #fff;padding: 25px 0 0;position: relative}
+#wrraper .container #container_left #storybook_moments h1 {background: #f5f2dd;color: #9b7804;font: 30px 'Helvetiva_seven';position: relative;z-index: 2;margin: 0 0 30px}
+#wrraper .container #container_left #storybook_moments .shadow {position: absolute;top: 50px;z-index: 1;left: 12px}
+#wrraper .container #container_left #storybook_moments a {float: left;padding: 0 30px 0}
+#wrraper .container #container_left #storybook_moments .text {color:#464646;height: 52px;font:14px arial;margin: 0 0 0 20px;display: inline-block}
+#wrraper .container #container_left #storybook_moments #moments_list {padding: 0 30px 25px;margin: 30px 0 0}
+#wrraper .container #container_left #storybook_moments #moments_list h3 {font:18px 'helvetica_seven';color:#9b7804}
+#wrraper .container #container_left #storybook_moments #moments_list .moment .title {font:bold 14px arial;color:#636363}
+#wrraper .container #container_left #storybook_moments #moments_list .moment p {font:12px arial;color:#898989}
 
 #wrraper .container #container_right {float: right;width: 274px;background: #E8E3C0;border-radius: 11px;position: relative;padding: 166px 0 0;height: 100%}
 #wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
 #wrraper .container #container_right #most_post {margin: 0 0 0 35px}
+
+/* Footer */
+#footer {background: #cbcac5;padding: 50px 0 0; height: 95px}
+#footer #footer_link ul {list-style: none}
+#footer #footer_left {float: left;padding: 0 0 0 20px}
+#footer #footer_left #copyright {font: 12px arial;color: #363636;margin: 0 0 10px}
+#footer #footer_right {float: right;padding: 0 32px 0 0}
+#footer #footer_right #social_links span {font: 12px arial;color: #363636;;display: inline-block; padding: 0 0 8px}
+#footer #footer_right #social_links ul {list-style: none}
+#footer #footer_right #social_links ul li {display: inline;padding: 0 7px 0 0}
+
+#footer #footer_link ul li {display: inline}
+#footer #footer_link ul li a{text-decoration: none;font: 12px arial;color: #363636;}
+#footer #footer_link ul li  a span {padding: 0 0 0 5px}
