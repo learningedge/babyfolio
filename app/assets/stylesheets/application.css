@@ -11,3 +11,70 @@
  *= require_self
  *= require_tree .
 */
+
+@font-face {
+font-family: 'Helvetica_seven';
+src: url('/font/helvetica77condensed_bold.otf');
+}
+
+tml, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+html {height: 100%}
+
+body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd;height: 100%}
+
+#clear {clear: both;height: 0px}
+
+/* TOP Profile*/
+#top {background: #c8ba7b;height: 36px}
+#top #login_box {width: 1078px;margin: 0px auto;padding: 5px 0 0}
+#top #login_box ul {list-style: none;float: right; padding: 0 14px 0 0}
+#top #login_box ul li {float: left;font: 12px arial;color: #713500;padding: 6px 5px 0}
+#top #login_box ul li.avatar {padding: 0;}
+#top #login_box ul li.avatar img{border: 1px solid #cec9bb}
+#top #login_box ul li .profile_name {margin: 0 15px 0 0}
+#top #login_box ul li a {text-decoration: none;color: #713500}
+#top #login_box ul li a .border {padding: 0 0 0 10px }
+
+/* Header Logo */
+#header #logo {width: 1078px;margin: 0 auto; padding: 18px 0 21px}
+
+/* StoreBook */
+#wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;padding: 10px 10px 15px 32px;height: 100%}
+#wrraper .container {height: 100%}
+#container_header {margin: 5px 0 0;height: 90px}
+#wrraper .container #title {display: inline;font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left}
+#wrraper .container #drop_list {width: 206px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 124px;float: left}
+#wrraper .container #drop_list select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+#wrraper .container #drop_list #setting_kids {margin: 12px 0 0}
+#wrraper .container #drop_list a {font: 14px arial;color: #9b7804;text-decoration: none}
+#wrraper .container #drop_list span {display: block;text-align: center}
+#wrraper .container #container_left {float: left;width: 740px;position: relative;top: 0;left: 0;height: 100%}
+#wrraper .container #container_left #book_box {position: relative;width: 300px;top: 0;left: 0}
+#wrraper .container #container_left #book {position: relative;left: -126px;top: 25px;background: url('/images/storybook.png');width: 907px;height: 781px;z-index: 1}
+#wrraper .container #container_left #storybook_moments {background: #fff;padding: 25px 0 0}
+#wrraper .container #container_left #storybook_moments h1 {background: #f5f2dd;color: #9b7804;font: 30px 'Helvetiva_seven'}
+#wrraper .container #container_left #storybook_moments .shadow {background: url('/images/shadow.png')}
+
+#wrraper .container #container_right {float: right;width: 274px;background: #E8E3C0;border-radius: 11px;position: relative;padding: 166px 0 0;height: 100%}
+#wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
+#wrraper .container #container_right #most_post {margin: 0 0 0 35px}
