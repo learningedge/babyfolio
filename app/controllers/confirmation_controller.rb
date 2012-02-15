@@ -14,9 +14,10 @@ class ConfirmationController < ApplicationController
 
   def confirm_email
     @token = params[:token]
-    @user = User.find_by_persistence_token @token
+    @user = User.find_by_perishable_token @token
     @user.email_confirmed = 1
     @user.save
+    @user.reset_perishable_token!
     redirect_to account_url
   end
 

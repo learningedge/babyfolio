@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
     
     @url = confirmation_confirm_email_url
 
-    @url += '?token='+ @user.persistence_token
+    @url += '?token='+ @user.perishable_token
     mail(:to => user.email, :subject => "Registratin email")
   end
 
