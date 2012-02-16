@@ -1,5 +1,8 @@
 Babyfolio::Application.routes.draw do
 
+  resources :families
+    
+
   get "home/index"
 
   get "confirmation" => "confirmation#index", :as => :confirmation
