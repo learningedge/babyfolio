@@ -1,0 +1,14 @@
+<h1>Update your password</h1>
+
+<p>Please enter the new password below and then press "Update Password".</p>
+
+<%= form_tag update_forgot_password_url(:token => params[:token]), :method => :put do %>
+
+  <%= render "shared/error_messages", :target => @user -%>
+
+  <%= label_tag :password, "New password" -%>
+  <%= password_field_tag :password -%><br/>
+  <%= label_tag :password_confirmation, "Confirm" -%>
+  <%= password_field_tag :password_confirmation -%><br/>
+  <%= submit_tag "Update Password" %>
+<% end %>

@@ -9,6 +9,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
+      @user_session.user.reset_perishable_token!
       flash[:notice] = "Login successful!"
       redirect_back_or_default account_url(@current_user)
     else

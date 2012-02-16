@@ -1,12 +1,18 @@
 Babyfolio::Application.routes.draw do
 
   get "home/index"
+
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
   get "confirmation/confirm_email"
 
-  resources :user_sessions
+  get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
+  post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
+  get "reset-password/password" => "forgot_passwords#edit", :as => :edit_forgot_password
+  put "reset-password/password/update" => "forgot_passwords#update", :as => :update_forgot_password
 
+  resources :user_sessions
+  
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
 

@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.reset_perishable_token
+    @user.reset_single_access_token
     
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
