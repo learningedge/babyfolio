@@ -17,7 +17,7 @@ class FamiliesController < ApplicationController
         format.xml  { render :xml => @product, :status => :created, :location => @product }
       else
 
-        format.html { render :action => "new" }
+       format.html { render :action => "new" }
         format.xml  { render :xml => @product.errors, :status => :unprocessable_entity }
       end
     end

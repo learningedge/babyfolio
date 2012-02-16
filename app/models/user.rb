@@ -6,10 +6,8 @@ class User < ActiveRecord::Base
   has_many :relations
   has_many :families, :through => :relations
 
-#  validates :first_name, :presence => true
-#  validates :last_name, :presence => true
-#  validates :password, :presence => true, :confirmation => true
-#  validates :password_confirmation, :presence => true
-#  validates :email, :uniqueness => { :case_sensitive => false }, :presence => true
+  def has_family?
+     self.relations.is_parent.empty?
+  end
 
 end

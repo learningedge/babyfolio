@@ -8,8 +8,11 @@ gem 'rails', '3.2.1'
 gem 'authlogic'
 gem 'execjs'
 gem 'json'
+gem 'metaclass'
+gem 'mocha'
 gem 'mysql2'
 gem 'therubyracer'
+
 
 
 

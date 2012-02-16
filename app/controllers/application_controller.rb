@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_no_user
-      if current_user
+      if current_userz
         store_location
         flash[:notice] = "You must be logged out to access this page"
         redirect_to account_url
@@ -48,6 +48,14 @@ class ApplicationController < ActionController::Base
         redirect_to confirmation_url
       end
     end
+
+    def require_family
+      @current_user = current_user
+      unless @current_user.has_family?
+        redirect_to new_family_url
+      end      
+    end
+
 end
 
 
