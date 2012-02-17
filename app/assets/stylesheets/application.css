@@ -49,6 +49,23 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 #clear {clear: both;height: 0px}
 
+/* Home */
+
+#home #top {background: #fff;border-bottom: 6px solid #debd6c;border-top: 6px solid #debd6c;height: 117px}
+#home #top div {display: inline-block;float: left}
+#home #top #center {width:993px; margin-left: 13%;margin-right: 15%;padding: 20px 0 0}
+#home #login_box {display: block;width: 993px;clear: both;height: 58px;margin: 0 auto;}
+#home #login_box ul {float: right;list-style: none}
+#home #login_box ul li {float: left;color: #fff}
+#home #login_box ul li a {color: #fff}
+#home #slider {height: 388px;width: 1360px;margin: 0 auto;background: url('/images/home_slider.png') no-repeat 0 0}
+#home #slider #welcome_container {margin: 0 auto;width: 1000px}
+#home #slider #welcome_container .container_left {width: 636px;float: left;margin: 244px 0 0;background: url('/images/background_box.png')}
+#home #slider #welcome_container .container_right {float: left;width: 200px}
+#home #wrraper #container_home #container_start_multi {background: url('/images/img_start.png') no-repeat 0 0;height: 301px;position: relative;top: 0;left: 0}
+#home #wrraper #container_home .start_multi {float: right}
+#home #wrraper #container_home #social_panel {background: url('/images/home_social_panel.png') no-repeat;height: 64px;width: 533px;position: absolute;bottom: 1px;right: 1px}
+
 /* TOP Profile*/
 #top {background: #c8ba7b;height: 36px}
 #top #login_box {width: 1078px;margin: 0px auto;padding: 5px 0 0}
