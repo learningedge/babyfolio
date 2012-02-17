@@ -40,7 +40,7 @@ time, mark, audio, video {
 
 html {height: 100%}
 
-/*body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd;height: 100%}*/
+body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd;height: 100%}
 
 #clear {clear: both;height: 0px}
 

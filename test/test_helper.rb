@@ -9,5 +9,14 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
+  def login_user
+    user = users(:one)
+    @controller.stubs(:current_user).returns(user)
+  end
+
   # Add more helper methods to be used by all tests here...
 end
+
+
+
+

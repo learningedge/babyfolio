@@ -5,17 +5,36 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-  <div>
-    <ul>
-      <li><%= link_to "login", login_path %></li>
-      <li><%= link_to "logout", logout_path %></li>     
-    </ul>
+  <div id="top">
+    <div id="login_box">
+      <% unless current_user %>
+        <ul>
+          <li><%= link_to "login", login_path -%></li>
+          <li><%= link_to "sign in",  new_account_path -%></li>
+        </ul>
+      <% else %>
+        <ul>
+          <li class="avatar"><img src="/images/img_login.jpg" alt="img_login" /></li>
+          <li>Hi, <span class="profile_name"><%= current_user.first_name + " " + current_user.last_name -%></span></li>
+          <li><a href="<%= logout_path -%>">Log Out <span class="border">|</span></a></li>
+          <li><a href="#">Setting <span class="border">|</span></a></li>
+          <li><a href="#">Tour</a></li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <div id="header">
+    <div id="logo">
+      <a href="#"><img src="/images/logo.png" alt="logo" /></a>
+    </div>
+  </div>
+  <div id="wrraper" class="storybook_container">
+    <%= yield %>
   </div>
 
-
-<%= yield %>
 
 </body>
 </html>

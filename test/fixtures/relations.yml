@@ -6,22 +6,13 @@
 #
 one: {
   id: 1,
-  first_name: Rafal,
-  last_name: Walczak,
-  email: rafal@codephonic.com,
-  email_confirmed: 1
+  user_id: 1,
+  family_id: 1,
+  member_type: parent
 }
 two: {
   id: 2,
-  first_name: John,
-  last_name: Smith,
-  email: john@smith.com,
-  email_confirmed: 1
-}
-three: {
-  id: 3,
-  first_name: John,
-  last_name: Kowalski,
-  email: john@kowalski.com,
-  email_confirmed: 1
+  user_id: 3,
+  family_id: 1,
+  member_type: cousin
 }

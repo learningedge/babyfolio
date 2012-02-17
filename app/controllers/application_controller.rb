@@ -48,6 +48,16 @@ class ApplicationController < ActionController::Base
         redirect_to confirmation_url
       end
     end
+
+    def require_family
+      @current_user = current_user
+      unless @current_user.is_parent?
+        redirect_to new_family_url
+      end      
+    end
+
+    
+
 end
 
 
