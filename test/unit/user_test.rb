@@ -13,9 +13,9 @@ class UserTest < ActiveSupport::TestCase
 
   test "user has family" do
 
-    assert @user_one.has_family?, 'USER HAS FAMILY'
-    assert !@user_two.has_family?, 'USER HAS NOT FAMILY'
-    assert !@user_three.has_family?, 'USER IS ONLY FRIEND OF FAMILY'
+    assert @user_one.is_parent?, 'USER HAS FAMILY'
+    assert !@user_two.is_parent?, 'USER HAS NOT FAMILY'
+    assert !@user_three.is_parent?, 'USER IS ONLY FRIEND OF FAMILY'
     
   end
 end
