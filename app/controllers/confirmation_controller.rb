@@ -18,7 +18,9 @@ class ConfirmationController < ApplicationController
     @user.email_confirmed = 1
     @user.save
     @user.reset_perishable_token!
-    redirect_to account_url
+    redirect_to new_family_url
   end
+
+  
 
 end

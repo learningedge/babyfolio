@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :relations
   has_many :families, :through => :relations
 
-  def has_family?
+  def is_parent?
      self.relations.is_parent.empty?
   end
 
