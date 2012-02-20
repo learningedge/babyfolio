@@ -45,11 +45,34 @@ class FamiliesController < ApplicationController
 
   def create_friend_relations
 
-    @family = current_user.families.parent
+    @error = false
+    users = Array.new
 
-    puts @family
-
-    redirect_to add_friends_families_url
+    @family = current_family
+    @friends = params[:friends]
+    @friends.each do |friend|
+      user = User.new(:email => friend[1][:email])
+      user.relations << Relation.new(:member_type => friend[1][:member_type], :family_id => @family.id)
+      user.reset_password
+      user.reset_perishable_token
+      user.reset_single_access_token
+      unless user.valid?
+        flash[:notice] = "Invalid emails"
+        @error = true
+        break
+      else
+        users << user
+      end
+    end
+    
+    unless @error
+      users.each do |user|
+        user.save
+      end
+      redirect_to add_friends_families_url
+    else
+      render :action => :add_friends
+    end
   end
 
 end

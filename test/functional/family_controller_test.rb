@@ -5,8 +5,7 @@ class FamiliesControllerTest < ActionController::TestCase
   def setup
     
     login_user
-    @one = families(:one)
-
+    
   end
 
   test "should get new" do
@@ -27,14 +26,45 @@ class FamiliesControllerTest < ActionController::TestCase
 
   test "should get create friend relations" do
 
+    assert_difference("User.count", 3) do
+      assert_difference("Relation.count", 3) do
+          
+        post :create_friend_relations, :friends => {
+         "0" => { :email => 'raf.walczak@gmail.com', :member_type => 'cousin'},
+         "2" => { :email => 'augustyn@codephonic.com', :member_type => 'grandmother' },
+         "1" => { :email => 'jarek@codephonic.com', :member_type => 'grandfuther' }
+        }
+        assert_response :redirect
+      end
+    end
+
+    assert_no_difference("User.count") do
+      assert_no_difference("Relation.count") do
+        post :create_friend_relations, :friends => {
+          "0" => { :email => 'raf.walczak@gmail.com', :member_type => 'cousin'}
+        }
+
+        assert_response :success
+      end
+    end
+
+    assert_no_difference("User.count") do
+      assert_no_difference("Relation.count") do
+        post :create_friend_relations, :friends => {
+          "0" => { :email => 'niepoprawnymail', :member_type => 'cousin'}
+        }
+
+        assert_response :success
+      end
+    end
+
     assert_difference("User.count") do
       assert_difference("Relation.count") do
+        post :create_friend_relations, :friends => {
+          "0" => { :email => 'rafcio@gmail.com', :member_type => 'cousin'}
+        }
 
-        post :create_friend_relations, :friends => { "0" => {:email => 'augustyn@codephonic.com', :relation => 'grandmother' },
-                                                     "1" => {:email => 'raf.walczak@gmail.com', :relation => 'cousin' },
-                                                     "2" => {:email => 'jarek@codephonic.com', :relation => 'grandfuther'}
-                                                   }
-        
+        assert_response :redirect
       end
     end
     

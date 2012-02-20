@@ -11,8 +11,6 @@ class UserSessionsController < ApplicationController
     if @user_session.save
       @user_session.user.reset_perishable_token!
 
-      session[:current_family] = @user_session.user.main_family
-
       flash[:notice] = "Login successful!"
       redirect_back_or_default account_url(@current_user)
     else

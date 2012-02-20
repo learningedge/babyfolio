@@ -15,17 +15,13 @@ class User < ActiveRecord::Base
   end
 
   def main_family
-    unless self.families.empty?
-      unless self.families.parent.empty?
-
+    
+    unless self.families.parent.empty?
         return self.families.parent.first
-
       else
-
         return self.families.first
-        
-      end
-    end
+    end unless self.families.empty?
+
   end
   
 
