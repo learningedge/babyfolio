@@ -10,11 +10,11 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(params['family']);
+
     current_user.attributes.merge!(@family.relations.first.user.attributes)
     @family.relations.first.user = current_user
     #    @family.relations.first.user.id = current_user.id
     
-
     respond_to do |format|
       if @family.save
         format.html { redirect_to :controller => 'home', :action => 'index' , :notice => 'Product was successfully created.' }
@@ -28,6 +28,19 @@ class FamiliesController < ApplicationController
         format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def add_friends
+    
+  end
+
+  def create_friend_relations
+
+    @family = current_user.families.parent
+
+    puts @family
+
+    redirect_to add_friends_families_url
   end
 
 end
