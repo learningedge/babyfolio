@@ -26,14 +26,19 @@
     <br/>
     Parents:
   </h2>
-  <div>    
+  <div>
     <%= f.fields_for :relations do |relation_form| %>
       <div class="single_parent">
         <%= relation_form.label :display_name, "Name: "%>
         <%= relation_form.text_field :display_name %>
         <%= relation_form.fields_for :user do |user_form| %>
-          <%= user_form.object != current_user ? (user_form.label :email, "Email: ") : "YOU"  %>
-          <%= user_form.text_field :email unless user_form.object == current_user %>
+          <% if(user_form.object.email == current_user.email) %>
+            <span>YOU</span>
+            <%=  user_form.hidden_field :email %>
+          <% else %>
+            <%= user_form.label :email, "Email: "%>
+            <%= user_form.text_field :email %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
@@ -55,11 +60,11 @@
 
 <script type="text/javascript">
   $(function() {
-    $('.add_child_btn').click(function() {
-      $(this).parents('.single_child').siblings('.single_child:hidden').first().fadeIn();
-      $(this).fadeOut();
-      return false;
-    });
-    $('.birth_date_input').datepicker();
+  $('.add_child_btn').click(function() {
+  $(this).parents('.single_child').siblings('.single_child:hidden').first().fadeIn();
+  $(this).fadeOut();
+  return false;
+  });
+  $('.birth_date_input').datepicker();
   });
 </script>

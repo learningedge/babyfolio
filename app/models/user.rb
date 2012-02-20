@@ -1,10 +1,9 @@
 class User < ActiveRecord::Base
-
-  acts_as_authentic do |c|
-    c.ignore_blank_passwords = true
-  end
+  attr_accessor :skip_pass_validation
+  
+  acts_as_authentic 
   disable_perishable_token_maintenance(true)
-
+  
   has_many :relations
   has_many :families, :through => :relations
 
@@ -30,4 +29,12 @@ class User < ActiveRecord::Base
   end
   
 
+  def get_user_name
+    if first_name.empty? || last_name.empty?
+      return email
+    else
+      return first_name + " " + last_name
+    end    
+  end
+  
 end

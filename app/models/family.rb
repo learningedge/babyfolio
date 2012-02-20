@@ -7,10 +7,8 @@ class Family < ActiveRecord::Base
   has_many :users, :through => :relations
 
   accepts_nested_attributes_for :children, :allow_destroy => true, :reject_if => proc { |attributes| attributes['first_name'].blank? and attributes['birth_date'].blank?}
-  accepts_nested_attributes_for :relations, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['user_id'].blank?}
-#  accepts_nested_attributes_for 'relations.user', :allow_destroy => true, :reject_if => proc { |attributes| attributes['email'].blank? }
+  accepts_nested_attributes_for :relations, :allow_destroy => true
 
 
   scope :parent, where( :relations => { :member_type => Relation::MEMBER_TYPE[:PARENT] } )
-
 end
