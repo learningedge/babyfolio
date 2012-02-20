@@ -8,3 +8,7 @@ one: {
   id: 1,
   name: Walczaki
 }
+two: {
+  id: 2,
+  name: Gutoslawki
+}

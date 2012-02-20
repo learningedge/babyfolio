@@ -1,6 +1,11 @@
 Babyfolio::Application.routes.draw do
 
-  resources :families
+  resources :families, :only => [:new, :create] do
+    collection do
+      get :add_friends
+      post :create_friend_relations
+    end
+  end
     
 
   get "home/index"
@@ -9,12 +14,17 @@ Babyfolio::Application.routes.draw do
   get "confirmation/resend" => "confirmation#re_send_email"
   get "confirmation/confirm_email"
 
+  
   get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
   post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
   get "reset-password/password" => "forgot_passwords#edit", :as => :edit_forgot_password
   put "reset-password/password/update" => "forgot_passwords#update", :as => :update_forgot_password
 
-  resources :user_sessions
+  resources :user_sessions do
+    collection do
+      post :change_family
+    end
+  end
   
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout

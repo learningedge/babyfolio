@@ -18,7 +18,7 @@
       <% else %>
         <ul>
           <li class="avatar"><img src="/images/img_login.jpg" alt="img_login" /></li>
-          <li>Hi, <span class="profile_name"><%= current_user.first_name + " " + current_user.last_name -%></span></li>
+          <li>Hi, <span class="profile_name"><%= current_user.get_user_name -%></span></li>
           <li><a href="<%= logout_path -%>">Log Out <span class="border">|</span></a></li>
           <li><a href="#">Setting <span class="border">|</span></a></li>
           <li><a href="#">Tour</a></li>
