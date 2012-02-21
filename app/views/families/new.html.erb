@@ -29,11 +29,12 @@
   <div>
     <%= f.fields_for :relations do |relation_form| %>
       <div class="single_parent">
+        <%= relation_form.hidden_field :member_type %>
         <%= relation_form.label :display_name, "Name: "%>
         <%= relation_form.text_field :display_name %>
         <%= relation_form.fields_for :user do |user_form| %>
           <% if(user_form.object.email == current_user.email) %>
-            <span>YOU</span>
+            <span>(You)</span>
             <%=  user_form.hidden_field :email %>
           <% else %>
             <%= user_form.label :email, "Email: "%>

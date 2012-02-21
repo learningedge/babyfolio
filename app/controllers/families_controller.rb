@@ -4,9 +4,8 @@ class FamiliesController < ApplicationController
     10.times {
       @family.children.build
     }
-    @family.relations.build :user => User.new(:email => current_user.email), :member_type => 'parent', :display_name => current_user.first_name
-    @family.relations.build :user => User.new , :member_type => 'parent'
-    
+    @family.relations.build :user => User.new(:email => current_user.email), :member_type => 'parent'
+    @family.relations.build :user => User.new, :member_type => 'parent'
   end
 
   def create
