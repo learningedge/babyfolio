@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => :destroy
+  before_filter :require_user, :only => [:destroy, :change_family]
 
   def new
     @user_session = UserSession.new
@@ -10,11 +10,19 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       @user_session.user.reset_perishable_token!
+
       flash[:notice] = "Login successful!"
       redirect_back_or_default account_url(@current_user)
     else
       render :action => :new
     end
+  end
+
+  def change_family
+
+    session[:current_family] = Family.find(params[:id])
+    redirect_back_or_default account_url(current_user)
+    
   end
 
   def destroy

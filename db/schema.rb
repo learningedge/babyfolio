@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120215104158) do
+ActiveRecord::Schema.define(:version => 20120220111856) do
 
   create_table "children", :force => true do |t|
     t.string   "first_name",  :null => false
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(:version => 20120215104158) do
 
   create_table "families", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "zip_code",   :limit => 10
   end
 
   create_table "relations", :force => true do |t|
@@ -47,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20120215104158) do
   add_index "user_sessions", ["update_at"], :name => "index_user_sessions_on_update_at"
 
   create_table "users", :force => true do |t|
-    t.string   "first_name",                             :null => false
-    t.string   "last_name",                              :null => false
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "email",                                  :null => false
     t.string   "crypted_password",                       :null => false
     t.string   "password_salt",                          :null => false

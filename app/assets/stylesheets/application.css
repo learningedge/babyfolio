@@ -22,6 +22,26 @@ font-family: 'Helvetica_57';
 src: url('/font/helvetica57condensed.otf');
 }
 
+@font-face {
+font-family: 'Helvetica_rd';
+src: url('/font/helveticardbd.otf');
+}
+
+@font-face {
+font-family: 'Helvetica_light';
+src: url('/font/helvetica_lightnormal.otf');
+}
+
+@font-face {
+font-family: 'Helvetica_67';
+src: url('/font/helvetica67condensedmedium.otf');
+}
+
+@font-face {
+font-family: 'Helvetica_Inserat';
+src: url('/font/helveticainserat.otf');
+}
+
 tml, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -48,6 +68,55 @@ html {height: 100%}
 body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd;height: 100%}
 
 #clear {clear: both;height: 0px}
+
+/* Home */
+
+#home #top {background: #fff;border-bottom: 6px solid #debd6c;border-top: 6px solid #debd6c;height: 117px}
+#home #top div {display: inline-block;float: left}
+#home #top #center {width:993px; margin-left: 13%;margin-right: 15%;padding: 20px 0 0}
+#home #login_box {display: block;width: 993px;clear: both;height: 40px;margin: 0 auto;padding: 18px 0 0}
+#home #login_box ul {float: right;list-style: none}
+#home #login_box ul li {float: left;color: #fff}
+#home #login_box ul li a {color: #fff;font:500 18px 'Helvetica_67';text-decoration: none}
+#home #login_box ul li span {font: 18px 'Helvetica_67'; padding: 0 10px}
+#home #slider {height: 373px;width: 1360px;margin: 0 auto 66px;background: url('/images/home_slider.png') no-repeat 0 0;border-top: 7px solid #debd6c;border-bottom: 7px solid #debd6c;}
+#home #slider #welcome_container {margin: 0 auto;width: 1000px}
+#home #slider #welcome_container .container_left {width: 540px;float: left;margin: 190px 0 0 24px;background: url('/images/background_box.png');border-radius: 15px;padding: 5px 24px 8px 30px}
+#home #slider #welcome_container .container_left h1 {font:32px 'Helvetica_rd';color: #fff}
+#home #slider #welcome_container .container_left p {font: 18px 'Helvetica_light';color:#fff;margin: 5px 0 2px}
+#home #slider #welcome_container .container_left p span {font:bold 18px 'Helvetica_light';color:#fff}
+#home #slider #welcome_container .container_right {float: left;width: 346px;position: relative;top: 0;left: 0}
+#home #slider #welcome_container .container_right  #profile_logo {background: url('/images/profile_bg.png') no-repeat;position:absolute;width: 562px;height: 436px;top: -4px;left: -84px}
+#home #slider #welcome_container .container_right  #profile_form {z-index: 2;position: relative;margin: 94px 0 0 73px}
+#home #slider #welcome_container .container_right  #profile_form p {font:16px/19px 'Helvetica_light';color:#fff;padding: 0 0 11px}
+#home #slider #welcome_container .container_right  #profile_form p a {text-decoration: underline;font-size: 17px;color: #fff;text-align: left}
+#home #slider #welcome_container .container_right  #profile_form h3 {color:#fff;font:16px/19px 'Helvetica_light';padding: 0 0 7px}
+#home #slider #welcome_container .container_right  #profile_form ul {list-style: none;}
+#home #slider #welcome_container .container_right  #profile_form ul li {display: inline;}
+#home #slider #welcome_container .container_right  #profile_form ul li input[type="text"] {width: 63px;border: none;font: 14px arial;padding:  2px 0 2px 10px}
+#home #slider #welcome_container .container_right  #profile_form ul li input[type="checkbox"] {margin: 19px 0 0 40px;}
+#home #slider #welcome_container .container_right  #profile_form ul li:last-child input[type="checkbox"] {margin: 0 0 0 16px} 
+#home #slider #welcome_container .container_right  #profile_form ul li label {color:#fff;padding: 0 0 0 14px;}
+#home #slider #welcome_container .container_right  #profile_form a {display: block;text-align: center;width: 245px}
+#home #wrraper {background: #fff;border-radius: 0;width: 1004px;padding: 0 10px 15px}
+#home #wrraper #container_home {position: relative}
+#home #wrraper #container_home #container_start_multi .start_multi h1{font:30px Helvetica_Inserat;color:#636363}
+#home #wrraper #container_home #container_start_multi .start_multi h3{font:20px Helvetica_67;color:#9b7804;margin: 4px 0 6px}
+#home #wrraper #container_home #container_start_multi .start_multi p{font:20px Helvetica_67;color:#636363;margin: 0 29px 27px;width: 446px}
+#home #wrraper #container_home #container_start_multi {margin:0 0 38px;text-align: center;background: url('/images/img_start.png') no-repeat 0 -24px #fff;height: 287px;position: relative;top: 0;left: 0;z-index: 2}
+#home #wrraper #container_home .start_multi {float: right;width: 500px;margin: 14px 34px 0 0}
+#home #wrraper #container_home #social_panel {background: url('/images/home_social_panel.png') no-repeat;height: 64px;width: 533px;position: absolute;bottom: -22px;right: -31px;padding: 5px 0 0}
+#home #wrraper #container_home #social_panel p {font:12px arial;color:#636363;width: 150px;text-align: right;margin: 0 14px 0 265px;float: left;padding: 5px 0 0}
+#home #wrraper #container_home #social_panel  img {display:block;float:left;margin: 0 7px 0 0}
+#home #wrraper #container_home .shadow {left: 7px;position: absolute;top: 255px}
+#home #wrraper #container_home h2 {font: 24px 'Helvetica_seven';color:#555555;margin: 0 0 20px}
+#home #wrraper #container_home #moments ul {border-top: 1px dotted #555555;padding: 22px 0 0}
+#home #wrraper #container_home #moments ul li {display: inline-block;width: 316px;background: url('/images/moments_bg.png') no-repeat;padding: 0 0 0 12px;}
+#home #wrraper #container_home #moments ul li a {text-decoration: none;display: block;font:11px arial;margin: 0 13px 0 223px;color: #9b7804;background: #f5f2dd;border-radius: 11px;display: inline-block;padding: 4px 10px}
+#home #wrraper #container_home #moments ul li .icon {width: 222px;height: 100px;padding: 0 93px;text-align: center;margin: 0 0 39px}
+#home #wrraper #container_home #moments ul li .icon h1 {font:27px Helvetica_seven;color:#9b7804}
+#home #wrraper #container_home #moments ul li .icon p {font:14px arial; color:#898989;margin: 10px 0 0;width: 200px}
+#home .footer_container {width: 1079px; margin:0 auto}
 
 /* TOP Profile*/
 #top {background: #c8ba7b;height: 36px}
@@ -97,9 +166,9 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #container_left #book #container_book #book_right ul li div ul {list-style-image: url('/images/dot.png');padding: 0 0 0 20px}
 #wrraper .container #container_left #book #container_book #book_right ul li div a {display: block;text-align: right;color:#5674b9;font: 13px arial}
 #wrraper .container #container_left #book #container_book #book_right ul li div ul li {font:13px arial;color:#636363}
-#wrraper .container #container_left #book #container_book #book_right .icon1 {background: url('/images/icon1.png') no-repeat;}
-#wrraper .container #container_left #book #container_book #book_right .icon2 {background: url('/images/icon2.png') no-repeat;}
-#wrraper .container #container_left #book #container_book #book_right .icon3 {background: url('/images/icon3.png') no-repeat;}
+#wrraper .container #container_left #book #container_book #book_right .icon1,#home #container_home #moments .icon1 {background: url('/images/icon1.png') no-repeat;}
+#wrraper .container #container_left #book #container_book #book_right .icon2,#home #container_home #moments .icon2 {background: url('/images/icon2.png') no-repeat;}
+#wrraper .container #container_left #book #container_book #book_right .icon3,#home #container_home #moments .icon3 {background: url('/images/icon3.png') no-repeat;}
 
 /* StoryBook */
 #wrraper .container #container_left #storybook_moments {background: #fff;padding: 25px 0 0;position: relative}
