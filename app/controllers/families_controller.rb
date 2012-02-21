@@ -13,18 +13,23 @@ class FamiliesController < ApplicationController
     @family.relations.first.user = current_user    
     @family.relations.first.user.reset_perishable_token
     @family.relations.first.user.reset_single_access_token
-    if @family.relations.fetch(1).user.email.empty?
+    second_parent = @family.relations.fetch(1).user
+    if second_parent.email.empty?
       @family.relations.delete_at(1)
     else
-      @family.relations.fetch(1).user.reset_password
-      @family.relations.fetch(1).user.reset_perishable_token
-      @family.relations.fetch(1).user.reset_single_access_token
+      second_parent.reset_password
+      second_parent.reset_perishable_token
+      second_parent.reset_single_access_token
     end   
     
     respond_to do |format|
       if @family.save
+        second_relation = @family.relations.fetch(1);
+        unless second_relation.nil?
+          UserMailer.invite_user(second_relation.user, second_relation.member_type).deliver
+        end
         format.html { redirect_to :controller => 'home', :action => 'index' , :notice => 'Family has been successfully created.' }
-        format.xml  { render :xml => @family, :status => :created, :location => @family }
+        format.xml { render :xml => @family, :status => :created, :location => @family }
       else
         @family.relations.first.user = User.new(:email => current_user.email)
         @family.relations.build(:user => User.new, :member_type => 'parent') if @family.relations.length == 1

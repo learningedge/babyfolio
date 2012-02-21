@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Your account has been created."
       redirect_to signup_url
     else
-      flash[:notice] = "There was a problem creating you."
+      flash[:notice] = "There was a problem creating your account."
       render :action => :new
     end
     

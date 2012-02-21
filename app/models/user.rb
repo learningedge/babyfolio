@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base    
-  acts_as_authentic 
+  acts_as_authentic do |t|
+    t.ignore_blank_passwords = false;
+  end
   disable_perishable_token_maintenance(true)
   
   has_many :relations
@@ -23,7 +25,7 @@ class User < ActiveRecord::Base
   end
   
   def get_user_name
-    return email if first_name.empty? || last_name.empty?
+    return email if first_name.nil? || last_name.nil?
     first_name + " " + last_name
   end
   
