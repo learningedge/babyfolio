@@ -14,6 +14,7 @@ class FamiliesController < ApplicationController
   end
 
   def create
+    parents_count = 2;
     @family = Family.new(params['family'])    
     @family.relations.first.user = current_user    
     @family.relations.first.user.reset_perishable_token
@@ -21,6 +22,7 @@ class FamiliesController < ApplicationController
     second_parent = @family.relations.fetch(1).user
     if second_parent.email.empty?
       @family.relations.delete_at(1)
+      parents_count -= 1
     else
       second_parent.reset_password
       second_parent.reset_perishable_token
@@ -28,15 +30,14 @@ class FamiliesController < ApplicationController
     end   
     
     respond_to do |format|
-      if @family.save
-
-        second_relation = @family.relations.fetch(1);
-        unless second_relation.nil?
+      if @family.save        
+        if parents_count == 2
+          second_relation = @family.relations.fetch(1)
           UserMailer.invite_user(second_relation.user, second_relation.member_type).deliver
         end
         
         flash[:notice] = 'Family has been successfully created.'
-        session[:current_family] = @family
+        session[:current_family] = @family.id
         format.html { redirect_to add_friends_families_path }
         format.xml  { render :xml => @family, :status => :created, :location => @family }
         
