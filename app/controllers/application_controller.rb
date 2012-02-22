@@ -57,12 +57,14 @@ class ApplicationController < ActionController::Base
     end
 
     def current_family
-      unless session[:current_family]
-        if current_user.main_family
-            return session[:current_family] = current_user.main_family
-        end
+      return @current_family if defined?(@current_family)
+      if session[:current_family]
+        return @current_family = Family.find(session[:current_family])
+      else
+        @current_family = current_user.main_family
+        session[:current_family] = @current_family.id if @current_family
+        return @current_family
       end
-      session[:current_family]
     end
 
 end

@@ -1,0 +1,22 @@
+<div>
+  <%= form_tag create_relations_families_path do %>
+
+    <% index = 0 %>
+
+    <% @relations.each do |relation| %>
+
+      <div>
+        <%= label_tag relation.user.email, relation.user.email %>
+        <%= text_field_tag 'relations['+index.to_s+'][display_name]' -%>
+        <%= hidden_field_tag 'relations['+index.to_s+'][token]', relation.token  %>
+        <%= select_tag 'relations['+index.to_s+'][member_type]', options_for_select(@select_options) -%>
+      </div>
+      <% index += 1 %>
+    <% end %>
+      
+    <div>
+      <%= submit_tag -%>
+    </div>
+
+  <% end %>
+</div>

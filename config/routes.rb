@@ -4,16 +4,22 @@ Babyfolio::Application.routes.draw do
     collection do
       get :add_friends
       post :create_friend_relations
+
+      post :create_friends
+      get :relations
+      post :create_relations
+
+
     end
   end
     
-
   get "home/index"
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
   get "confirmation/confirm_email"
-
+  get "confirmation/accept_invitation" => "confirmation#accept_invitation"
+  put "confirmation/update_user" => "confirmation#update_user"
   
   get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
   post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
