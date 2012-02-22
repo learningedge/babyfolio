@@ -33,7 +33,7 @@ class FamiliesController < ApplicationController
       if @family.save        
         if parents_count == 2
           second_relation = @family.relations.fetch(1)
-          UserMailer.invite_user(second_relation.user, second_relation.member_type).deliver
+          UserMailer.invite_user(second_relation.user, current_user, second_relation.member_type).deliver
         end
         
         flash[:notice] = 'Family has been successfully created.'

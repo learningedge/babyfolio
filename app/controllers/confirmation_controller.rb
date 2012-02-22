@@ -29,11 +29,8 @@ class ConfirmationController < ApplicationController
 
   def update_user
     params[:user][:email_confirmed] ||= 1
-    #    if current_user.update_attributes(params[:user])
-    current_user.assign_attributes(params[:user])
-    #      @user.reset_perishable_token
-    #      @user.reset_single_access_token
-    #current_user.reset_perishable_token!
+    current_user.assign_attributes(params[:user])    
+    current_user.reset_perishable_token!
     if current_user.save
       flash[:notice] = "Account details sucessfully updated."
       redirect_to home_index_path

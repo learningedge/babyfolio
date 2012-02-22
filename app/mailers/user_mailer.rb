@@ -19,9 +19,11 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "Forgot password")
   end
 
-  def invite_user(user, relation)
-    @user = user
+  def invite_user(to, from, relation, message = nil)
+    @user = to
+    @from = from
     @relation = relation #@user.relations.find(:family_id => family.id).display_name
+    @message = message
     @url = confirmation_accept_invitation_url
     @url += "?token=" + @user.perishable_token
     mail(:to => @user.email, :subject => "Join family at Babyfolio")

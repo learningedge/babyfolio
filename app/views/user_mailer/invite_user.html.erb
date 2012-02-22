@@ -4,10 +4,11 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    Hi! I am using Babyfolio and would like you to join the family as <%= @relation %>.
+    Hi <%=  @user.email.split('@').first %>! I am using Babyfolio and would like you to join the family as <%= @relation %>.
 
     In order to accept the invitaion <%= link_to "click here", @url %> or copy and paste following url: <%=  @url %>
 
-    Thanks! 
+    Thanks!
+    <%= @from.get_user_name %>
   </body>
 </html>
