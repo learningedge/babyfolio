@@ -235,7 +235,14 @@ class FamiliesController < ApplicationController
 
   def relations
 
-    @relations = Relation.where(['token IN (?)', flash[:tokens]]).all
+    @select_options = Array.new
+
+    Relation::MEMBER_TYPE.each do |member_type|
+      @select_options << member_type unless member_type[1] == Relation::MEMBER_TYPE[:PARENT]
+    end
+
+
+    @relations = Relation.where(['token IN (?)', flash[:tokens]]).includes(:user).all
     flash[:tokens] = flash[:tokens]
     
   end

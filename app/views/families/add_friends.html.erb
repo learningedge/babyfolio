@@ -64,3 +64,19 @@
   }
   
 </script>
+
+<div>
+  <div class="second-form">
+    <%= form_tag create_friends_families_path do %>
+    <div class="email">
+      <%= text_area_tag :emails, params[:emails], :size => '100x10' -%>
+    </div>
+    <div class="message">
+      <%= text_area_tag :message, params[:message], :size => '100x10' -%>
+    </div>
+    <div>
+      <%= submit_tag 'Submit' -%>
+    </div>
+    <% end %>
+  </div>
+</div>
