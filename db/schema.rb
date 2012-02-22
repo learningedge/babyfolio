@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220111856) do
+ActiveRecord::Schema.define(:version => 20120222134351) do
 
   create_table "children", :force => true do |t|
     t.string   "first_name",  :null => false
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120220111856) do
     t.integer "family_id"
     t.string  "member_type"
     t.string  "display_name"
+    t.string  "token"
+    t.boolean "accepted",     :default => false
   end
 
   create_table "user_sessions", :force => true do |t|

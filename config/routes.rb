@@ -4,10 +4,15 @@ Babyfolio::Application.routes.draw do
     collection do
       get :add_friends
       post :create_friend_relations
+
+      post :create_friends
+      get :relations
+      post :create_relations
+
+
     end
   end
     
-
   get "home/index"
 
   get "confirmation" => "confirmation#index", :as => :confirmation

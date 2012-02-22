@@ -44,9 +44,10 @@ class FamiliesControllerTest < ActionController::TestCase
 
     assert_no_difference("User.count") do
       assert_no_difference("Relation.count") do
-        post :create_friend_relations, :friends => {
-          "0" => { :email => 'raf.walczak@gmail.com', :member_type => 'cousin'}
-        }
+
+        post :create_friend_relations, :friends => {"3" => { :email => 'raf.walczak@gmail.com', :member_type => 'grandmother'}}
+
+#        pp flash[:notice]
 
         assert_response :success
       end
@@ -72,7 +73,7 @@ class FamiliesControllerTest < ActionController::TestCase
           "0" => { :email => 'rafalek@gmail.com', :member_type => 'cousin'},
           "1" => { :email => '  ', :member_type => 'grandmother'}
         }
-   
+  
         assert_response :redirect
       end
     end
@@ -112,5 +113,125 @@ class FamiliesControllerTest < ActionController::TestCase
           "1" => { :email => 'raf.walczak@gmail.com', :member_type => 'grandmother'}
         }
   end
-  
+
+  test "post empty form" do
+    post :create_friend_relations, :friends => {
+          "0" => { :email => '', :member_type => 'cousin'},
+          "1" => { :email => '', :member_type => 'grandmother'}
+        }
+    assert_response :success   
+  end
+
+# testing second form
+
+  test "post empty second form" do
+    
+    assert_no_difference("User.count") do
+      assert_no_difference("Relation.count") do
+        post :create_friends, :emails => '', :message => 'Some message to users'
+        assert_response :success
+        
+        post :create_friends, :emails => ',,,', :message => 'Some message to users'
+        assert_response :success
+        
+      end
+    end
+
+  end
+
+  test "post correct email" do
+    assert_difference("User.count") do
+      assert_difference("Relation.count") do
+        
+        post :create_friends, :emails => 'rafal@gmail.com', :message => 'Some message to users'
+        assert_response :redirect
+
+        post :create_friends, :emails => '   rafal@gmail.com,   , , ', :message => 'Some message to users'
+        assert_response :success
+
+        post :create_friends, :emails => ',,,rafal@gmail.com,,', :message => 'Some message to users'
+        assert_response :success
+        
+      end
+    end
+  end
+
+  test "post 3 emails" do
+
+    assert_difference("User.count", 3) do
+      assert_difference("Relation.count", 3) do
+        post :create_friends, :emails => 'one@gmail.com,two@gmail.com,   three@gmail.com', :message => 'Some message to users'
+        assert_response :redirect
+        
+      end
+    end
+
+  end
+
+  test "post 2 emails with one in db" do
+
+    assert_no_difference("User.count") do
+      assert_no_difference("Relation.count") do
+        post :create_friends, :emails => 'one@gmail.com,john@smith.com', :message => 'Some message to users'
+        assert_response :success
+      end
+    end
+    
+  end
+
+  test "get relations" do
+    post :create_friends, :emails => 'one@gmail.com,two@gmail.com,   three@gmail.com', :message => 'Some message to users'
+    get :relations
+    assert_response :success
+  end
+
+  test "update relations" do
+    post :create_friends, :emails => 'one@gmail.com,two@gmail.com,   three@gmail.com', :message => 'Some message to users'
+    get :relations
+
+    assert_no_difference("Relation.count") do
+      post :create_relations, :relations => {
+        "0" => {:display_name => 'one', :member_type => 'grandmother', :token => flash[:tokens][0] },
+        "1" => {:display_name => 'two', :member_type => 'uncle', :token => flash[:tokens][1] },
+        "2" => {:display_name => 'three', :member_type => 'godmother', :token => flash[:tokens][2]}
+      }
+
+      assert_not_nil flash[:tokens]
+
+      relation = Relation.where(['display_name = ?', 'one']).first
+      assert_not_nil relation
+      assert_equal relation.member_type, 'grandmother', 'SHOULD BE GRANDMOTHER'
+      assert_equal relation.user.email, 'one@gmail.com', 'SHOULD BE one@gmail.com'
+
+      relation = Relation.where(['display_name = ?', 'two']).first
+      assert_not_nil relation
+      assert_equal relation.member_type, 'uncle', 'SHOULD BE UNCLE'
+      assert_equal relation.user.email, "two@gmail.com", 'SHOULD BE two@gmail.com'
+
+      relation = Relation.where(['display_name = ?', 'three']).first
+      assert_not_nil relation
+      assert_equal relation.member_type, 'godmother', 'SHOULD BE GODMOTHER'
+      assert_equal relation.user.email, "three@gmail.com", "SHOULD BE three@gmail.com"
+
+      
+
+      assert_response :redirect
+    end
+
+  end
+
+  test "get relations tokens" do
+    post :create_friends, :emails => 'one@gmail.com,two@gmail.com,   three@gmail.com', :message => 'Some message to users'
+    get :relations
+    assert_not_nil flash[:tokens]
+
+    get :relations
+    assert_not_nil flash[:tokens]
+
+    get :relations
+    get :relations
+    assert_not_nil flash[:tokens]
+    
+  end
+
 end

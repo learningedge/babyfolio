@@ -19,7 +19,8 @@ class UserSessionsController < ApplicationController
   end
 
   def change_family
-    session[:current_family] = Family.find(params[:id])
+    
+    session[:current_family] = params[:id]
     redirect_back_or_default account_url(current_user)
     
   end
