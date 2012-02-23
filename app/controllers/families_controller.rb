@@ -15,25 +15,32 @@ class FamiliesController < ApplicationController
 
   def create
     parents_count = 2;
-    @family = Family.new(params['family'])    
+    @family = Family.new(params['family'])
+    @family.relations.first.token = current_user.perishable_token
+    @family.relations.first.accepted = 1
+    current_user.reset_perishable_token
     @family.relations.first.user = current_user    
     @family.relations.first.user.reset_perishable_token
     @family.relations.first.user.reset_single_access_token
-    second_parent = @family.relations.fetch(1).user
-    if second_parent.email.empty?
+    second_parent = @family.relations.fetch(1)
+    if second_parent.user.email.empty?
       @family.relations.delete_at(1)
       parents_count -= 1
     else
-      second_parent.reset_password
-      second_parent.reset_perishable_token
-      second_parent.reset_single_access_token
+      second_parent.user.reset_password
+      second_parent.user.reset_perishable_token
+      second_parent.user.reset_single_access_token
+      second_parent.token = second_parent.user.perishable_token
+      second_parent.accepted = 0
+      second_parent.user.reset_perishable_token
     end   
     
     respond_to do |format|
       if @family.save        
         if parents_count == 2
           second_relation = @family.relations.fetch(1)
-          UserMailer.invite_user(second_relation.user, current_user, second_relation.member_type).deliver
+          UserMailer.invite_user(second_relation , current_user).deliver
+
         end
         
         flash[:notice] = 'Family has been successfully created.'
@@ -136,7 +143,7 @@ class FamiliesController < ApplicationController
       unless @error
         users.each do |user|
           user.save
-          UserMailer.invite_user(user, current_user, user.relations.where(["family_id = ?",@family.id]).first.member_type).deliver
+          UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user).deliver
         end
         flash[:notice] = "Congrats you send emails to your friends :D!!"
         redirect_to add_friends_families_url
@@ -224,7 +231,7 @@ class FamiliesController < ApplicationController
     else
       users.each do |user|
         user.save
-        UserMailer.invite_user(user, current_user, user.relations.where(["family_id = ?",@family.id]).first.member_type, @message).deliver
+        UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user, @message).deliver
       end
       flash[:notice] = 'Congrats you send emails to your friends :D!!'
       flash[:tokens] = tokens
