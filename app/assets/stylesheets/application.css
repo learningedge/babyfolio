@@ -241,6 +241,7 @@ a:hover {text-decoration:none}
 /* .confirmation */
 .confirmation-index .titles {padding-bottom:20px}
 .confirmation-index .content {padding:20px 0px}
+.confirmation-welcome .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
 
 /* .create-family */
 .create-family .user-form label {width:85px;display:inline-block;text-align:right}
