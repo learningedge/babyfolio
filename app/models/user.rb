@@ -25,8 +25,11 @@ class User < ActiveRecord::Base
   end
   
   def get_user_name
-    return email if first_name.nil? || last_name.nil?
-    first_name + " " + last_name
+    if first_name.nil? || last_name.nil?
+      return email.split('@').first.capitalize unless email.nil?
+    else 
+      return first_name.capitalize + " " + last_name.capitalize
+    end
   end
   
 end
