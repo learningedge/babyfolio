@@ -202,3 +202,14 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #footer #footer_link ul li {display: inline}
 #footer #footer_link ul li a{text-decoration: none;font: 12px arial;color: #363636;}
 #footer #footer_link ul li  a span {padding: 0 0 0 5px}
+
+h1 {font: 38px/40px "helvetica_seven";color:#9b7804 }
+
+
+.user-form {}
+.user-form .row {padding:0px 0px 15px}
+.user-form span.label {display:inline-block; width:143px; text-align:right}
+.user-form span.field {display:inline-block}
+.user-form label {color: #898989; font: 14px arial}
+.user-form input[type=text],
+.user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}

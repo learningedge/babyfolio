@@ -14,6 +14,7 @@ Babyfolio::Application.routes.draw do
   end
     
   get "home/index"
+  get "interior" => "home#interior", :as => :interior
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
