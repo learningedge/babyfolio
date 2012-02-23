@@ -1,5 +1,5 @@
 class Relation < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :autosave => true, :validate => true
   belongs_to :family
 
   validates :token, :uniqueness => true, :presence => true
