@@ -1,22 +1,30 @@
-<div>
-  <%= form_tag create_relations_families_path do %>
+<div class="container relations">
+  <div id="title">Relations</div>
+  <div class="user-form">
+    <%= form_tag create_relations_families_path do %>
 
-    <% index = 0 %>
+      <% index = 0 %>
 
-    <% @relations.each do |relation| %>
+      <% @relations.each do |relation| %>
+
+        <div class="row">
+          <span class="label">
+            <%= label_tag relation.user.email, relation.user.email %>
+          </span>
+          <span class="field">
+            <%= text_field_tag 'relations['+index.to_s+'][display_name]' -%>
+          </span>          
+          <%= select_tag 'relations['+index.to_s+'][member_type]', options_for_select(@select_options, relation.member_type) -%>
+          <%= hidden_field_tag 'relations['+index.to_s+'][token]', relation.token  %>
+        </div>
+        <% index += 1 %>
+      <% end %>
 
       <div>
-        <%= label_tag relation.user.email, relation.user.email %>
-        <%= text_field_tag 'relations['+index.to_s+'][display_name]' -%>
-        <%= hidden_field_tag 'relations['+index.to_s+'][token]', relation.token  %>
-        <%= select_tag 'relations['+index.to_s+'][member_type]', options_for_select(@select_options, relation.member_type) -%>
+        <%= submit_tag -%>
       </div>
-      <% index += 1 %>
-    <% end %>
-      
-    <div>
-      <%= submit_tag -%>
-    </div>
 
-  <% end %>
+    <% end %>
+  </div>
+  <div class="clear"></div>
 </div>

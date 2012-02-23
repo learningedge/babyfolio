@@ -1,14 +1,33 @@
-<h1>Update your password</h1>
+<div class="container forgot-password">
+  <div id="title">Update your password</div>
+  <div class="user-form">
+    <h2>Please enter the new password below and then press "Update Password".</h2>
+    <%= form_tag update_forgot_password_url(:token => params[:token]), :method => :put do %>
 
-<p>Please enter the new password below and then press "Update Password".</p>
+      <%= render "shared/error_messages", :target => @user -%>
 
-<%= form_tag update_forgot_password_url(:token => params[:token]), :method => :put do %>
+      <div class="row">
+        <span class="label">
+          <%= label_tag :password, "New password" -%>
+        </span>
+        <span class="field">
+          <%= password_field_tag :password -%>
+        </span>
+      </div>
+      <div class="row">
+        <span class="label">
+          <%= label_tag :password_confirmation, "Confirm" -%>
+        </span>
+        <span class="field">
+          <%= password_field_tag :password_confirmation -%>
+        </span>
+      </div>
 
-  <%= render "shared/error_messages", :target => @user -%>
+      <div class="submit">
+        <%= submit_tag "Submit" -%>
+      </div>
 
-  <%= label_tag :password, "New password" -%>
-  <%= password_field_tag :password -%><br/>
-  <%= label_tag :password_confirmation, "Confirm" -%>
-  <%= password_field_tag :password_confirmation -%><br/>
-  <%= submit_tag "Update Password" %>
-<% end %>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>

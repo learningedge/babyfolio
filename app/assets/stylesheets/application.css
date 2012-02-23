@@ -220,6 +220,7 @@ a:hover {text-decoration:none}
 
 
 .user-form {float:right;background:#e8e3c0;border-radius:11px;width:720px;padding: 20px 20px 20px 50px;font: 14px arial; color:#898989}
+.user-form h2 {margin-bottom:20px}
 .user-form #errorExplanation {padding-bottom:20px}
 .user-form #errorExplanation h2 {font-size:14px;color:red;font-weight:bold}
 .user-form #errorExplanation ul {padding-left:20px; list-style:none}
@@ -259,3 +260,10 @@ a:hover {text-decoration:none}
 .family-and-friends div.submit {float:left;margin-right:20px}
 .family-and-friends .skip {float:left}
 .family-and-friends .skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
+
+/* relations */
+.relations .row span.label {width: 250px}
+.relations .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+
+/* forgot-password */
+.forgot-password .user-form {width:560px}
