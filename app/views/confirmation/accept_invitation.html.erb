@@ -13,18 +13,20 @@
     <% end %>
     <%= f.label :display_name %><br />
     <%= f.text_field :display_name %><br />
-    <%= f.fields_for :user do |usr| %>
-      <%= usr.hidden_field :email %>
-      <%= usr.label :first_name %><br />
-      <%= usr.text_field :first_name, :value => @relation.user.email.split('@').first %><br />
-      <%= usr.label :last_name %><br />
-      <%= usr.text_field :last_name %><br />
-      <%= usr.label :password %><br />
-      <%= usr.password_field :password %><br />
-      <br />
-      <%= usr.label :password_confirmation %><br />
-      <%= usr.password_field :password_confirmation %><br />
-      <br />
+    <% unless f.object.user.email_confirmed  %>
+      <%= f.fields_for :user do |usr| %>
+        <%= usr.hidden_field :email %>
+        <%= usr.label :first_name %><br />
+        <%= usr.text_field :first_name, :value => @relation.user.email.split('@').first %><br />
+        <%= usr.label :last_name %><br />
+        <%= usr.text_field :last_name %><br />
+        <%= usr.label :password %><br />
+        <%= usr.password_field :password %><br />
+        <br />
+        <%= usr.label :password_confirmation %><br />
+        <%= usr.password_field :password_confirmation %><br />
+        <br />
+      <% end %>
     <% end %>
     <%= f.submit "Submit" %>
   <% end %>
