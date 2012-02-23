@@ -45,7 +45,9 @@ class ConfirmationController < ApplicationController
     @token = params[:token]
     @relation = Relation.find_by_token(@token, :include => [:user])
     UserSession.create(@relation.user)
-  rescue
+    rescue NoMethodError
+      flash[:notice] = "Ooooooooops, there's something wrong with your invitation."
+      redirect_to login_url
   end
 
   def update_user    
@@ -53,14 +55,13 @@ class ConfirmationController < ApplicationController
     @relation.assign_attributes(params[:relation])    
     
     if @relation.save
-      @relation.update_attribute(:accepted, 1)
-      @relation.user.update_attribute(:email_confirmed, 1)
       flash[:notice] = "Your settings has been sucessfully updated."
+      @relation.user.update_attribute :email_confirmed, 1
+      @relation.update_attribute :accepted, 1
       redirect_to home_index_path
     else
       render :accept_invitation
     end
   end
-
   
 end

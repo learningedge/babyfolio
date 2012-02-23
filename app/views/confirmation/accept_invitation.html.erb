@@ -7,7 +7,7 @@
     <%= f.hidden_field :token %>
     <% if f.object.member_type != Relation::MEMBER_TYPE[:PARENT]  %>
       <%= f.label :member_type %><br />
-      <%= f.collection_select(:member_type , Relation::MEMBER_TYPE.select { |key, val| key != :PARENT }, :first, :last) %>
+      <%= f.collection_select(:member_type , (Relation::MEMBER_TYPE.select { |key, val| key != :PARENT }).collect {|key, value| [value.capitalize, value]}, :last, :first) %>
     <% else %>
       <%= f.hidden_field :member_type %><br />
     <% end %>
