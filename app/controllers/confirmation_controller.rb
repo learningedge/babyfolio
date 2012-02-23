@@ -51,11 +51,12 @@ class ConfirmationController < ApplicationController
     params[:relation][:user_attributes][:email_confirmed] ||= 1
     @relation = Relation.find_by_token(params[:relation][:token], :include => [:user])
     @relation.assign_attributes(params[:relation])
-    @relation.accepted = 1
+    #@relation.accepted = 1
 
     # render :text => @relation.user.last_name
     
     if @relation.save
+      @relation.update_attribute(:accepted => 1)
       flash[:notice] = "Account details sucessfully updated."
       redirect_to home_index_path
     else

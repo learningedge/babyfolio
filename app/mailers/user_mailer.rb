@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
   def invite_user(relation, from, message = nil)
     @user = relation.user
     @from = from
-    @relation = relation.member_type #@user.relations.find(:family_id => family.id).display_name
+    @relation = relation
     @message = message
     @url = confirmation_accept_invitation_url
     @url += "?token=" + relation.token
