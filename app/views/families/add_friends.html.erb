@@ -1,58 +1,132 @@
-<div>
-  <%= form_tag create_friend_relations_families_path do %>
-    <div class="relations">
-      <div class="relation">
-        <%= label_tag 'grandfuther', 'Grandfather' -%>
-        <%= text_field_tag 'friends[0][email]' -%>
-        <%= hidden_field_tag 'friends[0][member_type]', Relation::MEMBER_TYPE[:GRANDFATHER] -%>
-        <a href="#" class="another" onclick="add_after(this)">Add Another</a>
-      </div>
-      <div class="relation">
-        <%= label_tag 'grandmother', 'Grandmother' -%>
-        <%= text_field_tag 'friends[1][email]' -%>
-        <%= hidden_field_tag 'friends[1][member_type]', Relation::MEMBER_TYPE[:GRANDMOTHER] -%>
-        <a href="#" class="another" onclick="add_after(this)">Add Another</a>
-      </div>
-      <div class="relation">
-        <%= label_tag 'uncle', 'Uncle' -%>
-        <%= text_field_tag 'friends[2][email]' -%>
-        <%= hidden_field_tag 'friends[2][member_type]', Relation::MEMBER_TYPE[:UNCLE] -%>
-        <a href="#" class="another" onclick="add_after(this)">Add Another</a>
-      </div>
-      <div class="relation">
-        <%= label_tag 'aunt', 'Aunt' -%>
-        <%= text_field_tag 'friends[3][email]' -%>
-        <%= hidden_field_tag 'friends[3][member_type]', Relation::MEMBER_TYPE[:AUNT] -%>
-        <a href="#" class="another" onclick="add_after(this)">Add Another</a>
-      </div>
-      <div class="relation">
-        <%= label_tag 'friend', 'Friend' -%>
-        <%= text_field_tag 'friends[4][email]' -%>
-        <%= hidden_field_tag 'friends[4][member_type]', Relation::MEMBER_TYPE[:FRIEND] -%>
-        <a href="#" class="another" onclick="add_after(this)">Add Another</a>
-      </div>
-      <div class="relation">
-        <%= label_tag 'godmother', 'Godmother' -%>
-        <%= text_field_tag 'friends[5][email]' -%>
-        <%= hidden_field_tag 'friends[5][member_type]', Relation::MEMBER_TYPE[:GODMOTHER] -%>
-        <a href="#" class="another" onclick="add_after(this)">Add Another</a>
-      </div>
-      <div class="relation">
-        <%= label_tag 'godfather', 'Godfather' -%>
-        <%= text_field_tag 'friends[6][email]' -%>
-        <%= hidden_field_tag 'friends[6][member_type]', Relation::MEMBER_TYPE[:GODFATHER] -%>
-        <a href="#" class="another" onclick="add_after(this)" >Add Another</a>
-      </div>
-      <div class="relation">
-        <%= submit_tag 'Submit' -%>
-      </div>
+<div class="container family-and-friends">
+  <div id="left">
+    <div id="title">Family & Friends</div>
+    <div id="change-form">
+      <a href="#family-members">Add family members</a>
+      <a href="#email-addresses" class="current">Ener email addresses</a>
     </div>
-  <% end %>
+  </div>
+  <div id="family-members" class="user-form first-form">
+    <%= form_tag create_friend_relations_families_path do %>
+      <div class="relations">
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'grandfuther', 'Grandfather' -%>
+          </span>
+          <span class="field">
+            <%= text_field_tag 'friends[0][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[0][member_type]', Relation::MEMBER_TYPE[:GRANDFATHER] -%>
+          <a href="#" class="another" onclick="add_after(this)">Add Another</a>
+        </div>
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'grandmother', 'Grandmother' -%>
+          </span>
+          <span class="field">
+            <%= text_field_tag 'friends[1][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[1][member_type]', Relation::MEMBER_TYPE[:GRANDMOTHER] -%>
+          <a href="#" class="another" onclick="add_after(this)">Add Another</a>
+        </div>
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'uncle', 'Uncle' -%>
+          </span>
+          <span class="field">
+          <%= text_field_tag 'friends[2][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[2][member_type]', Relation::MEMBER_TYPE[:UNCLE] -%>
+          <a href="#" class="another" onclick="add_after(this)">Add Another</a>
+        </div>
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'aunt', 'Aunt' -%>
+          </span>
+          <span>
+            <%= text_field_tag 'friends[3][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[3][member_type]', Relation::MEMBER_TYPE[:AUNT] -%>
+          <a href="#" class="another" onclick="add_after(this)">Add Another</a>
+        </div>
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'friend', 'Friend' -%>
+          </span>
+          <span class="field">
+            <%= text_field_tag 'friends[4][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[4][member_type]', Relation::MEMBER_TYPE[:FRIEND] -%>
+          <a href="#" class="another" onclick="add_after(this)">Add Another</a>
+        </div>
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'godmother', 'Godmother' -%>
+          </span>
+          <span class="field">
+            <%= text_field_tag 'friends[5][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[5][member_type]', Relation::MEMBER_TYPE[:GODMOTHER] -%>
+          <a href="#" class="another" onclick="add_after(this)">Add Another</a>
+        </div>
+        <div class="relation row">
+          <span class="label">
+            <%= label_tag 'godfather', 'Godfather' -%>
+          </span>
+          <span class="field">
+            <%= text_field_tag 'friends[6][email]' -%>
+          </span>
+          <%= hidden_field_tag 'friends[6][member_type]', Relation::MEMBER_TYPE[:GODFATHER] -%>
+          <a href="#" class="another" onclick="add_after(this)" >Add Another</a>
+        </div>
+        <div class="submit">
+          <%= submit_tag 'Submit' -%>
+        </div>
+        <div class="skip">
+          <%= link_to 'Skip', account_path %>          
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div id="email-addresses" class="user-form second-form">
+    
+    <%= form_tag create_friends_families_path do %>
+      <div>
+        <b>To: </b>(Use commas to separate email addresses)
+      </div>
+      <div class="email row">
+        <%= text_area_tag :emails, params[:emails], :rows => 10 -%>
+      </div>
+      <div>
+        <b>Message:</b>(optional)
+      </div>
+      <div class="message row">
+        <%= text_area_tag :message, params[:message], :rows => 10 -%>
+      </div>
+      <div>
+        <div class="submit">
+          <%= submit_tag 'Submit' -%>
+        </div>
+        <div class="skip">
+          <%= link_to 'Skip', account_path %>
+        </div>
+        
+        
+      </div>
+    <% end %>
+
+    
+    
+  </div>
+
+  <div class="clear"></div>
+
 </div>
+
+
 <script type="text/javascript">
 
   var index = 7;
-
   function add_after(element) {
     var clone_div = $(element).parents('.relation').clone()
 
@@ -62,21 +136,18 @@
     $(element).parents('.relation').after(clone_div);
     
   }
+
+  $(function(){
+    $('#change-form a').click(function(){
+
+      $('#change-form a').removeClass();
+      $(this).addClass('current');
+      $('.user-form').hide();
+      $($(this).attr('href')).show();
+      
+    })
+  })
+
   
 </script>
 
-<div>
-  <div class="second-form">
-    <%= form_tag create_friends_families_path do %>
-    <div class="email">
-      <%= text_area_tag :emails, params[:emails], :size => '100x10' -%>
-    </div>
-    <div class="message">
-      <%= text_area_tag :message, params[:message], :size => '100x10' -%>
-    </div>
-    <div>
-      <%= submit_tag 'Submit' -%>
-    </div>
-    <% end %>
-  </div>
-</div>

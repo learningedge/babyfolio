@@ -1,20 +1,41 @@
-<h1>Login</h1>
+<div class="container">
+  <div id="title">Login</div>
+  <div class="user-form">
+    <%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
 
-<%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
-  <%= render "shared/error_messages", :target => @user_session %>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
-  <br />
-  <%= f.submit "Login" %>
-<% end %>
-
-  <div>
+      <%= render "shared/error_messages", :target => @user_session %>
     
-    <%= link_to 'Forgot Password link.', new_forgot_password_url -%>
-
+      <div class="email row">
+        <span class="label">
+          <%= f.label :email %>
+        </span>
+        <span class="field">
+          <%= f.text_field :email %>
+        </span>
+      </div>
+      <div class="password row">
+        <span class="label">
+          <%= f.label :password %>
+        </span>
+        <span class="field">
+          <%= f.password_field :password %>
+        </span>
+      </div>
+      <div class="remember_me row">
+        <span class="label">
+          <%= f.label :remember_me %>
+        </span>
+        <span class="field">
+          <%= f.check_box :remember_me %>
+        </span>
+      </div>
+      <div class="submit">
+          <%= f.submit "Login" %>
+      </div>
+    <% end %>
+    <div class="forgot-link">
+      <%= link_to 'Forgot Password?', new_forgot_password_url -%> If you can't figure out how to log in, <%= link_to 'click', new_forgot_password_url -%> here to reset your password.
+    </div>
   </div>
+  <div class="clear"></div>
+</div>

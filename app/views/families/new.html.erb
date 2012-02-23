@@ -1,58 +1,63 @@
-<h1>Create family</h1>
-<%= render "shared/error_messages", :target => @family %>
-<% counter = 0 %>
+<div class="container create-family">
+  <div id="title">Create family</div>
+  <div class="user-form">
+    <%= render "shared/error_messages", :target => @family %>
+    <% counter = 0 %>
 
-<%= form_for @family do |f| -%>  
-  <h2>
-    <br/>
-    Children:
-  </h2>
-  <div>
-    <%= f.fields_for :children do |child_form| %>
-      <div class="single_child" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
-        <%= child_form.label :first_name, "First Name: "%>
-        <%= child_form.text_field :first_name %>
-        <%= child_form.label :birth_date, "Birth Date: "%>
-        <%= child_form.text_field :birth_date, { :class => 'birth_date_input'} %>
-        <%= link_to "Add another child" , '#', { :class => 'add_child_btn' } unless counter >= (@family.children.length - 1)  %>
-        <% counter += 1 %>
-      </div>
-    <% end %>
-  </div>
-
-  <h2>
-    <br/>
-    Parents:
-  </h2>
-  <div>
-    <%= f.fields_for :relations do |relation_form| %>
-      <div class="single_parent">
-        <%= relation_form.hidden_field :member_type %>
-        <%= relation_form.label :display_name, "Name: "%>
-        <%= relation_form.text_field :display_name, :value => relation_form.object.user.get_user_name %>
-        <%= relation_form.fields_for :user do |user_form| %>
-          <% if(user_form.object.email == current_user.email) %>
-            <span>(You)</span>
-            <%=  user_form.hidden_field :email %>
-          <% else %>
-            <%= user_form.label :email, "Email: "%>
-            <%= user_form.text_field :email %>
-          <% end %>
+    <%= form_for @family do |f| -%>
+      <h2>
+        Children:
+      </h2>
+      <div>
+        <%= f.fields_for :children do |child_form| %>
+          <div class="single_child row" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
+            <%= child_form.label :first_name, "First Name: "%>
+            <%= child_form.text_field :first_name %>
+            <%= child_form.label :birth_date, "Birth Date: "%>
+            <%= child_form.text_field :birth_date, { :class => 'birth_date_input'} %>
+            <%= link_to "Add another" , '#', { :class => 'add_child_btn' } unless counter >= (@family.children.length - 1)  %>
+            <% counter += 1 %>
+          </div>
         <% end %>
       </div>
+
+      <h2>
+        <br/>
+        Parents:
+      </h2>
+      <div>
+        <%= f.fields_for :relations do |relation_form| %>
+          <div class="single_parent row">
+            <%= relation_form.hidden_field :member_type %>
+            <%= relation_form.label :display_name, "Name: "%>
+            <%= relation_form.text_field :display_name, :value => relation_form.object.user.get_user_name %>
+            <%= relation_form.fields_for :user do |user_form| %>
+              <% if(user_form.object.email == current_user.email) %>
+                <span>(You)</span>
+                <%=  user_form.hidden_field :email %>
+              <% else %>
+                <%= user_form.label :email, "Email: "%>
+                <%= user_form.text_field :email %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <%= f.label :name, "Family Name: " %>
+        <%= f.text_field :name %>
+        <%= f.label :zip_code, "Zip Code: " %>
+        <%= f.text_field :zip_code %>
+      </div>
+
+      <div class="submit">
+        <%= f.submit "Create" %>
+      </div>
     <% end %>
   </div>
-
-  <div>
-    <%= f.label :name, "Family Name: " %>
-    <%= f.text_field :name %>
-    <%= f.label :zip_code, "Zip Code: " %>
-    <%= f.text_field :zip_code %>
-  </div>
-
-
-  <%= f.submit "Create" %>
-<% end %>
+  <div class="clear"></div>
+</div>
 
 
 

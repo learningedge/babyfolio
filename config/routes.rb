@@ -3,9 +3,9 @@ Babyfolio::Application.routes.draw do
   resources :families, :only => [:new, :create] do
     collection do
       get :add_friends
-      post :create_friend_relations
+      match :create_friend_relations
 
-      post :create_friends
+      match :create_friends
       get :relations
       post :create_relations
 

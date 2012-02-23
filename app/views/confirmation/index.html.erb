@@ -1,5 +1,11 @@
-<h1>Thanks for signing up! We just sent a confirmation email to <%=  @user.email %></h1>
+<div class="container confirmation-index">
+  <div class="titles">
+    <h1>Thanks for signing up! </h1>
+    <h1>We just sent a confirmation email to <%=  @user.email %></h1>
+  </div>
+  <div class="content">
+    <p>Please check your email and click the link to finish your sign-up.</p>
 
-<h2>Please check your email and click the link to finish your sign-up.</h2>
-
-<p>If you don't receive your confirmation email within a few minutes, <%= link_to 'click here to re-send it', confirmation_resend_url %></p>
+    <p>If you don't receive your confirmation email within a few minutes, <%= link_to 'click here to re-send it', confirmation_resend_url %></p>
+  </div>
+</div>
