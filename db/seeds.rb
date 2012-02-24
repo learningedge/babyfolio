@@ -15,3 +15,7 @@ Child.delete_all
 @user = User.new(:email => 'admin@codephonic.com', :password => 'admin', :password_confirmation => 'admin', :email_confirmed => 1)
 @user.reset_perishable_token
 @user.save
+
+@user = User.new(:email => 'admin2@codephonic.com', :password => 'admin', :password_confirmation => 'admin', :email_confirmed => 1)
+@user.reset_perishable_token
+@user.save
