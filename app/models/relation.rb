@@ -23,5 +23,5 @@ class Relation < ActiveRecord::Base
     :OTHER => 'other'    
     }
 
-    scope :is_parent, where(:member_type => MEMBER_TYPE[:PARENT])
+    scope :is_parent, where(:member_type => MEMBER_TYPE[:PARENT])    
 end

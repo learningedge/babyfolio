@@ -1,6 +1,6 @@
 Babyfolio::Application.routes.draw do
 
-  resources :families, :only => [:new, :create] do
+  resources :families, :only => [:new, :create, :index] do
     collection do
       get :add_friends
       match :create_friend_relations
@@ -8,8 +8,6 @@ Babyfolio::Application.routes.draw do
       match :create_friends
       get :relations
       post :create_relations
-
-
     end
   end
     

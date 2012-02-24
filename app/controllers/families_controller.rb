@@ -4,6 +4,13 @@ class FamiliesController < ApplicationController
   before_filter :require_confirmation
   before_filter :require_family, :only => [:add_friends, :create_friend_relations]
 
+  def index
+    @family = current_family
+#    render :text => @family.relations.length
+  end
+
+
+
   def new
     @family = Family.new
     10.times {
