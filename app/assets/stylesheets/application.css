@@ -66,7 +66,7 @@ time, mark, audio, video {
 
 html {height: 100%}
 
-body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd;height: 100%}
+body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #fff;height: 100%}
 
 #clear,
 .clear {clear: both;height: 0px}
@@ -102,27 +102,28 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #home #slider #welcome_container .container_right  #profile_form ul li:last-child input[type="checkbox"] {margin: 0 0 0 16px} 
 #home #slider #welcome_container .container_right  #profile_form ul li label {color:#fff;padding: 0 0 0 14px;}
 #home #slider #welcome_container .container_right  #profile_form a {display: block;text-align: center;width: 245px}
-#home #wrraper {background: #fff;border-radius: 0;width: 1004px;padding: 0 10px 15px}
+#home #wrraper {background: #fff;border-radius: 0;width: 1016px;padding: 0 10px 0px}
 #home #wrraper #container_home {position: relative}
-#home #wrraper .shadow_left {background: url('/images/shadow_left.png') repeat-y 0 0}
-#home #wrraper .shadow_right {background: url('/images/shadow_right.png') repeat-y right 0}
+#home #wrraper .shadow_left {background: url('/images/shadow_left.png') repeat-y 0 0;margin-left: -10px;padding-left: 10px}
+#home #wrraper .shadow_right {background: url('/images/shadow_right.png') repeat-y right 0;margin-right: -10px;padding-right: 10px}
 #home #wrraper #container_home #container_start_multi .start_multi h1{font:30px Helvetica_Inserat;color:#636363}
 #home #wrraper #container_home #container_start_multi .start_multi h3{font:20px Helvetica_67;color:#9b7804;margin: 4px 0 6px}
 #home #wrraper #container_home #container_start_multi .start_multi p{font:20px Helvetica_67;color:#636363;margin: 0 29px 27px;width: 446px}
-#home #wrraper #container_home #container_start_multi {margin:0 0 38px;text-align: center;background: url('/images/img_start.png') no-repeat 0 -24px #fff;height: 287px;position: relative;top: 0;left: 0;z-index: 2}
+#home #wrraper #container_home #container_start_multi {margin:0 0 38px;text-align: center;background: url('/images/img_start.png') no-repeat 10px -24px #fff;height: 287px;position: relative;top: 0;left: 0;z-index: 2}
 #home #wrraper #container_home .start_multi {float: right;width: 500px;margin: 14px 34px 0 0}
-#home #wrraper #container_home #social_panel {background: url('/images/home_social_panel.png') no-repeat;height: 64px;width: 533px;position: absolute;bottom: -22px;right: -31px;padding: 5px 0 0}
+#home #wrraper #container_home #social_panel {background: url('/images/home_social_panel.png') no-repeat;height: 64px;width: 533px;position: absolute;bottom: -22px;right: -23px;padding: 5px 0 0}
 #home #wrraper #container_home #social_panel p {font:12px arial;color:#636363;width: 150px;text-align: right;margin: 0 14px 0 265px;float: left;padding: 5px 0 0}
 #home #wrraper #container_home #social_panel  img {display:block;float:left;margin: 0 7px 0 0}
-#home #wrraper #container_home .shadow {left: 7px;position: absolute;top: 255px}
-#home #wrraper #container_home h2 {font: 24px 'Helvetica_seven';color:#555555;margin: 0 0 20px}
+#home #wrraper #container_home .shadow {left: 16px;position: absolute;top: 255px}
+#home #wrraper #container_home h2 {font: 24px 'Helvetica_seven';color:#555555;margin: 0 0 20px;padding: 0 21px}
+#home #wrraper #container_home #moments {width: 993px;padding: 0 12px 15px}
 #home #wrraper #container_home #moments ul {border-top: 1px dotted #555555;padding: 22px 0 0}
 #home #wrraper #container_home #moments ul li {display: inline-block;width: 316px;background: url('/images/moments_bg.png') no-repeat;padding: 0 0 0 12px;}
 #home #wrraper #container_home #moments ul li a {text-decoration: none;display: block;font:11px arial;margin: 0 13px 0 223px;color: #9b7804;background: #f5f2dd;border-radius: 11px;display: inline-block;padding: 4px 10px}
 #home #wrraper #container_home #moments ul li .icon {width: 222px;height: 100px;padding: 0 93px;text-align: center;margin: 0 0 39px}
 #home #wrraper #container_home #moments ul li .icon h1 {font:27px Helvetica_seven;color:#9b7804}
 #home #wrraper #container_home #moments ul li .icon p {font:14px arial; color:#898989;margin: 10px 0 0;width: 200px}
-#home .footer_container {width: 1079px; margin:0 auto}
+#home .footer_container {width: 1020px; margin:0 auto}
 
 /* TOP Profile*/
 #top {background: #c8ba7b;height: 36px}
@@ -197,7 +198,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #container_right #most_post .single_post a {text-align: right;color: #5674b9;font: 12px arial;display: block;margin: 22px 0 0}
 
 /* Footer */
-#footer {background: #cbcac5;padding: 50px 0 0; height: 95px}
+#footer {background: #cbcac5;padding: 50px 0 0; height: 95px;width: 1021px;margin: 0 auto}
 #footer #footer_link ul {list-style: none}
 #footer #footer_left {float: left;padding: 0 0 0 20px}
 #footer #footer_left #copyright {font: 12px arial;color: #363636;margin: 0 0 10px}
