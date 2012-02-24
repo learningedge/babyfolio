@@ -1,0 +1,16 @@
+Welcome to Babyfolio, <%= @user.get_user_name %>
+===============================================
+
+Hi <%= @user.email.split('@').first %>!
+
+<% if @message.nil? %>
+  I am using Babyfolio and would like you to join the family as <%= @relation.member_type %>.
+
+<% else %>
+  <%= @message %>
+<% end %>
+
+In order to accept the invitaion <%= link_to "click here", @url %> or copy and paste following url: <%= @url %>
+
+Thanks!
+<%= @from.get_user_name %>

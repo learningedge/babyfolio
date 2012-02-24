@@ -17,12 +17,11 @@ class UserSessionsControllerTest < ActionController::TestCase
     
     post :change_family, :id => @family.id
     
-    assert_equal session[:current_family], @family, 'CHECK IF CURRENT FAMILY SESSION IS CORRECT'
+    assert_equal session[:current_family], @family.id.to_s, 'CHECK IF CURRENT FAMILY SESSION IS CORRECT'
 
     post :change_family, :id => 1
 
-    assert_not_equal session[:current_family], @family, 'CHECK IF CURRENT FAMILY SESSION IS NOT CORRECT'
-
+    assert_not_equal session[:current_family], @family.id.to_s, 'CHECK IF CURRENT FAMILY SESSION IS NOT CORRECT'
 
   end
   

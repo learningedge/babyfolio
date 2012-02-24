@@ -1,7 +1,9 @@
 class Relation < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :autosave => true, :validate => true
   belongs_to :family
-  
+
+  validates :token, :uniqueness => true, :presence => true
+
   accepts_nested_attributes_for :user, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['email'].blank?}
 
   MEMBER_TYPE = {

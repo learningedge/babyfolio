@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_confirmation, :only => [:show, :edit, :update]
   before_filter :require_user, :only => [:show, :edit, :update]
+  before_filter :require_confirmation, :only => [:show, :edit, :update]
 
   def new
     @user = User.new
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Your account has been created."
       redirect_to signup_url
     else
-      flash[:notice] = "There was a problem creating you."
+      flash[:notice] = "There was a problem creating your account."
       render :action => :new
     end
     

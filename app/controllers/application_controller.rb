@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
       unless current_user
         store_location
         flash[:notice] = "You must be logged in to access this page"
-        redirect_to new_user_session_url
+        redirect_to login_url
         return false
       end
     end
@@ -57,7 +57,14 @@ class ApplicationController < ActionController::Base
     end
 
     def current_family
-      session[:current_family]
+      return @current_family if defined?(@current_family)
+      if session[:current_family]
+        return @current_family = Family.find(session[:current_family])
+      else
+        @current_family = current_user.main_family
+        session[:current_family] = @current_family.id if @current_family
+        return @current_family
+      end
     end
 
 end

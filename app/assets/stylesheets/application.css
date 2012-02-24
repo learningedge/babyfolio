@@ -60,6 +60,7 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
+  font-family: 'arial';
 	vertical-align: baseline;
 }
 
@@ -67,7 +68,8 @@ html {height: 100%}
 
 body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd;height: 100%}
 
-#clear {clear: both;height: 0px}
+#clear,
+.clear {clear: both;height: 0px}
 
 /* Home */
 
@@ -138,9 +140,10 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 /* StoreyBook Container */
 #wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;padding: 10px 10px 15px 32px;/*height: 100%*/}
-#wrraper .container {/*height: 100%*/}
-#container_header {margin: 5px 0 0;height: 90px}
-#wrraper .container #title {display: inline;font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left}
+#wrraper .notice {color:red;padding:10px 0;}
+#wrraper .container {/*height: 100%*/min-height:200px}
+#container_header {margin: 5px 0 0;height: 90px;}
+#wrraper .container #title {display: inline;font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left;min-width:200px;text-align:center}
 #wrraper .container #drop_list {width: 206px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 124px;float: left}
 #wrraper .container #drop_list select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
 #wrraper .container #drop_list #setting_kids {margin: 12px 0 0}
@@ -206,3 +209,66 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #footer #footer_link ul li {display: inline}
 #footer #footer_link ul li a{text-decoration: none;font: 12px arial;color: #363636;}
 #footer #footer_link ul li  a span {padding: 0 0 0 5px}
+
+h1 {font: 38px/40px "helvetica_seven";color:#9b7804 }
+a {color:#5674B9;}
+a:hover {text-decoration:none}
+
+#ui-datepicker-div {width:216px;background-color:#f5f2dd;font-size:12px;}
+#ui-datepicker-div .ui-datepicker-header {padding: 0px 5px}
+#ui-datepicker-div .ui-datepicker-prev {width:50%; display:inline-block;cursor:pointer}
+#ui-datepicker-div .ui-datepicker-next {width:50%; display:inline-block;text-align:right;cursor:pointer}
+#ui-datepicker-div table {width:100%;text-align:center;border:solid 1px #9b7804;}
+#ui-datepicker-div table td{border:solid 1px #9b7804}
+#ui-datepicker-div table td a{text-decoration:none}
+
+
+.user-form {float:right;background:#e8e3c0;border-radius:11px;width:720px;padding: 20px 20px 20px 50px;font: 14px arial; color:#898989}
+.user-form h2 {margin-bottom:20px}
+.user-form #errorExplanation {padding-bottom:20px}
+.user-form #errorExplanation h2 {font-size:14px;color:red;font-weight:bold}
+.user-form #errorExplanation ul {padding-left:20px; list-style:none}
+.user-form #errorExplanation ul li{font-size:14px;color:red;padding:3px 0}
+
+.user-form div.field_with_errors {display:inline}
+
+.user-form .row {padding:0px 0px 15px}
+.user-form span.label {display:inline-block; width:143px; text-align:right}
+.user-form span.field {display:inline-block}
+.user-form div.submit {margin-left:145px}
+.user-form div.forgot-link {margin: 10px 0px 0px 145px}
+.user-form label {color: #898989; font: 14px arial}
+.user-form input[type=text],
+.user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+.user-form input[type=submit] {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
+
+/* .confirmation */
+.confirmation-index .titles {padding-bottom:20px}
+.confirmation-index .content {padding:20px 0px}
+.confirmation-welcome .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+
+/* .create-family */
+.create-family .user-form label {width:85px;display:inline-block;text-align:right}
+.create-family .user-form div.submit {margin-left:89px}
+
+/* .family-and-friends */
+.family-and-friends {position:relative}
+.family-and-friends .user-form {width:612px;padding-right:53px}
+.family-and-friends #left {float:left}
+#wrraper .container.family-and-friends #title {float:none;display:block}
+.family-and-friends #left a{display:block}
+.family-and-friends #left a.current {text-decoration:none;font-weight:bold;cursor:default}
+.family-and-friends .first-form {display:none;position:relative;top:0}
+.family-and-friends .second-form {position:relative;top:0}
+.family-and-friends textarea {width:100%;}
+.family-and-friends .second-form div.submit {margin-left:0px;}
+.family-and-friends div.submit {float:left;margin-right:20px}
+.family-and-friends .skip {float:left}
+.family-and-friends .skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
+
+/* relations */
+.relations .row span.label {width: 250px}
+.relations .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+
+/* forgot-password */
+.forgot-password .user-form {width:560px}
