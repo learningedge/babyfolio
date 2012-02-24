@@ -27,9 +27,13 @@ class FamiliesController < ApplicationController
       @family.relations.delete_at(1)
       parents_count -= 1
     else
-      second_parent.user.reset_password
-      second_parent.user.reset_perishable_token
-      second_parent.user.reset_single_access_token
+      unless User.where(:email => second_parent.user.email).exists?
+        second_parent.user.reset_password
+        second_parent.user.reset_perishable_token
+        second_parent.user.reset_single_access_token
+      else
+        second_parent.user = User.find_by_email second_parent.user.email
+      end
       second_parent.token = second_parent.user.perishable_token
       second_parent.accepted = 0
       second_parent.user.reset_perishable_token
@@ -97,7 +101,7 @@ class FamiliesController < ApplicationController
         unless exist_user.families.empty?
           exist_user.families.each do |family|
             if family == @family
-             @error = true
+              @error = true
             end
           end
         end
@@ -182,8 +186,8 @@ class FamiliesController < ApplicationController
         unless exist_user.families.empty?
           exist_user.families.each do |family|
             if family == @family
-             @error = true
-             @flash_notice = 'Sorry one of the email you wrote is exist in your family'
+              @error = true
+              @flash_notice = 'Sorry one of the emails you provided exists in your family'
             end
           end
         end
@@ -268,12 +272,12 @@ class FamiliesController < ApplicationController
 
   private
 
-    def require_family
-      redirect_to new_family_url unless current_family
-    end
+  def require_family
+    redirect_to new_family_url unless current_family
+  end
     
-    def require_no_family
-      redirect_to new_family_url if current_family
-    end
+  def require_no_family
+    redirect_to new_family_url if current_family
+  end
 
 end
