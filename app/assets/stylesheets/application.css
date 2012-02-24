@@ -71,9 +71,11 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 /* Home */
 
-#home #top {background: #fff;border-bottom: 6px solid #debd6c;border-top: 6px solid #debd6c;height: 117px}
-#home #top div {display: inline-block;float: left}
-#home #top #center {width:993px; margin-left: 13%;margin-right: 15%;padding: 20px 0 0}
+#home #top {background: #fff;border-bottom: 6px solid #debd6c;border-top: 6px solid #debd6c;height: 117px;width: 100%;min-width: 1360px}
+#home #top div {display: inline-block;}
+#home #top #left {float: left;;min-width: 120px;width: 15%}
+#home #top #right {float: right;min-width: 250px;width: 10%}
+#home #top #center {width:993px;padding: 20px 0 0;float: left;min-width: 500px;width: 30%}
 #home #login_box {display: block;width: 993px;clear: both;height: 40px;margin: 0 auto;padding: 18px 0 0}
 #home #login_box ul {float: right;list-style: none}
 #home #login_box ul li {float: left;color: #fff}
@@ -100,6 +102,8 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #home #slider #welcome_container .container_right  #profile_form a {display: block;text-align: center;width: 245px}
 #home #wrraper {background: #fff;border-radius: 0;width: 1004px;padding: 0 10px 15px}
 #home #wrraper #container_home {position: relative}
+#home #wrraper .shadow_left {background: url('/images/shadow_left.png') repeat-y 0 0}
+#home #wrraper .shadow_right {background: url('/images/shadow_right.png') repeat-y right 0}
 #home #wrraper #container_home #container_start_multi .start_multi h1{font:30px Helvetica_Inserat;color:#636363}
 #home #wrraper #container_home #container_start_multi .start_multi h3{font:20px Helvetica_67;color:#9b7804;margin: 4px 0 6px}
 #home #wrraper #container_home #container_start_multi .start_multi p{font:20px Helvetica_67;color:#636363;margin: 0 29px 27px;width: 446px}
