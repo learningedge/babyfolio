@@ -1,13 +1,15 @@
 Babyfolio::Application.routes.draw do
 
-  resources :families, :only => [:new, :create, :index] do
+  resources :families, :only => [:new, :create, :index, :edit, :update] do
     collection do
       get :add_friends
+      get :add_children
       match :create_friend_relations
 
       match :create_friends
       get :relations
       post :create_relations
+      post :change_family_to_edit
     end
   end
     

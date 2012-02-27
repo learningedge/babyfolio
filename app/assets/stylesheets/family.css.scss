@@ -4,3 +4,4 @@
 
 .single_child { display: none; }
 .single_child:first-child { display: block; }
+.single_child input[type="checkbox"] { display: none }

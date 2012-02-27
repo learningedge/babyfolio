@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
   end
 
   def main_family    
-    unless self.families.parenting_family.empty?
-      return self.families.parenting_family.first
+    unless self.families.parenting_families.empty?
+      return self.families.parenting_families.first
     else
       return self.families.first
     end

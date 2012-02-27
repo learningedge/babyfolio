@@ -6,10 +6,8 @@ class FamiliesController < ApplicationController
 
   def index
     @family = current_family
-#    render :text => @family.relations.length
+    #    render :text => @family.relations.length
   end
-
-
 
   def new
     @family = Family.new
@@ -64,13 +62,37 @@ class FamiliesController < ApplicationController
         @family.relations.build(:user => User.new, :member_type => 'parent') if @family.relations.length == 1
 
         while @family.children.length < 10 do
-          @family.children << Child.new
+          @family.children.build Child.new.attributes
         end
         format.html { render :action => "new" }
         format.xml  { render :xml => @family.errors, :status => :unprocessable_entity }
       end
     end
   end
+
+  def change_family_to_edit
+    redirect_to :controller => "families", :action => "edit", :id => params[:id]
+  end
+
+  def edit    
+    @families_for_select = current_user.families.parenting_families.collect { |fam| [fam.name, fam.id] }
+    #@families_for_select.delete_at(1)
+    @family = current_user.families.parenting_families.includes(:children).find(params[:id])
+    while @family.children.length < 10 do
+      @family.children.build Child.new.attributes
+    end
+  end
+
+  def update
+    @family = current_user.families.parenting_families.includes(:children).find(params[:id])
+    if @family.update_attributes(params[:family])
+      flash[:notice] = 'Family successfully updated.'
+      redirect_to edit_family_path
+    else
+      @families_for_select = current_user.families.parenting_families.collect { |fam| [fam.name, fam.id] }
+      render :action => 'edit'
+    end
+  end 
 
   def add_friends
     
