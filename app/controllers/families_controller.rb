@@ -71,11 +71,12 @@ class FamiliesController < ApplicationController
   end
 
   def change_family_to_edit
-    redirect_to :controller => "families", :action => "edit", :id => params[:id]
+    session[:current_family] = params[:id]
+    redirect_to :back
+#    redirect_to :controller => "families", :action => "edit", :id => params[:id]
   end
 
   def edit    
-    @families_for_select = current_user.families.parenting_families.collect { |fam| [fam.name, fam.id] }
     #@families_for_select.delete_at(1)
     @family = current_user.families.parenting_families.includes(:children).find(params[:id])
     while @family.children.length < 10 do
@@ -126,16 +127,6 @@ class FamiliesController < ApplicationController
 
     unless @error
       exist_users = User.where(['email IN (?)', user_emails]).all
-#      exist_users.each do |exist_user|
-#        unless exist_user.families.empty?
-#          exist_user.families.each do |family|
-#            unless exist_user.relations.where(:family_id => @family.id).first.nil?
-#              @flash_note = "Error"
-#              @error = true
-#            end
-#          end
-#        end
-#      end
     end
 
     unless @error
@@ -161,24 +152,23 @@ class FamiliesController < ApplicationController
             @user.reset_single_access_token
           end
 
+
           unless @user.valid?
-            if @user.relations.where(:family_id => @family.id).first.nil?              
               @error = true
               break
-            else
-              @have_relation = true
-              @user.relations.where(:family_id => @family.id).first.token = @user.perishable_token
-              @user.reset_perishable_token
-            end
           end
 
-          unless @have_relation
+          user_relation = @user.relations.where(:family_id => @family.id).first
+
+          if user_relation.nil?
             @user.relations.build :member_type => friend[1][:member_type], :family_id => @family.id, :token => @user.perishable_token
+          else
+            user_relation.update_attribute(:token, @user.perishable_token)
           end
 
           @user.reset_perishable_token
           users << @user
-          
+
         end
       end
 
@@ -220,16 +210,6 @@ class FamiliesController < ApplicationController
     unless @error
 
       exist_users = User.where(['email IN (?)', @emails]).all
-#      exist_users.each do |exist_user|
-#        unless exist_user.families.empty?
-#          exist_user.families.each do |family|
-#            if family == @family
-#              @error = true
-#              @flash_notice = 'Sorry one of the emails you provided exists in your family'
-#            end
-#          end
-#        end
-#      end
 
       unless @error
         @emails.each do |email|
@@ -250,8 +230,6 @@ class FamiliesController < ApplicationController
             @user.reset_single_access_token
           end
 
-          @have_relation = false
-          
           unless @user.valid?
               @error = true
               break
@@ -284,7 +262,6 @@ class FamiliesController < ApplicationController
         UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user, @message).deliver
       end
       flash[:notice] = 'Congrats you send emails to your friends :D!!'
-#      flash[:notice] = @flash_info
       flash[:tokens] = tokens
       redirect_to relations_families_path
     end
@@ -318,9 +295,9 @@ class FamiliesController < ApplicationController
   end
 
   def family_relations_info
-
-    @parents = current_family.relations.is_parent.accepted
-    @rest = current_family.relations.is_not_parent.accepted
+    @parents = my_family.relations.is_parent.accepted
+    @rest = my_family.relations.is_not_parent.accepted
+    
   end
   
   private

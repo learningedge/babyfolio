@@ -1,0 +1,27 @@
+<div class="container settings">
+  <div id="left">
+    <div id="title">Edit Account</div>
+    <div id="change-form">
+      <a href="<%= edit_account_path %>" class="current">Main Settings</a>
+      <a href="#">My Family Info</a>
+      <a href="#" class="current">Friends & Families</a>
+    </div>
+    <div>
+      <%= render :partial => 'select_family' %>
+    </div>
+  </div>
+  <div class="user-form">
+    <% @parents.each do |parent| %>
+    <div>
+      <%=  parent.user.email %>
+    </div>
+    <% end %>
+    <br/><br/>
+    <% @rest.each do |member| %>
+    <div>
+      <%=  member.user.email %>
+    </div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>

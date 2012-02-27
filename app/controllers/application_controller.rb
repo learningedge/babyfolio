@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
     end
 
     def my_family      
-      if current_user.families.parenting_families.exist? session[:current_family]
+      if current_user.families.parenting_families.exists? session[:current_family]
         current_family
       else
         session[:current_family] = current_user.families.parenting_families.first
