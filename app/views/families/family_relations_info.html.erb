@@ -1,27 +1,52 @@
-<div class="container settings">
+<div class="container settings family-relations-info">
   <div id="left">
     <div id="title">Edit Account</div>
     <div id="change-form">
-      <a href="<%= edit_account_path %>" class="current">Main Settings</a>
-      <a href="#">My Family Info</a>
+      <a href="<%= edit_account_path %>">Main Settings</a>
+      <a href="<%= edit_families_path %>">My Family Info</a>
       <a href="#" class="current">Friends & Families</a>
+      <div class="change-family">
+        <h2>Change family</h2>
+        <%= render :partial => 'select_family' %>
+      </div>
+      
     </div>
-    <div>
-      <%= render :partial => 'select_family' %>
+    <div class="add-friend">
+      <a href="<%= add_friends_families_path -%>">Add Friend</a>
     </div>
   </div>
   <div class="user-form">
-    <% @parents.each do |parent| %>
-    <div>
-      <%=  parent.user.email %>
+    <h2>Parents</h2>
+    <div class="parents">
+      <% @parents.each do |parent| %>
+        <div class="row user">
+          <img src="/images/icon1.png" class="avatar" />
+          <div class="user-info">
+            <div class="name"><%= parent.display_name -%></div>
+            <div><%=  parent.user.email %></div>
+            <div><%= parent.member_type %></div>
+            <div><%= parent.user.first_name + " " + parent.user.last_name -%></div>            
+          </div>
+          <div class="clear"></div>
+        </div>
+      <% end %>
     </div>
-    <% end %>
-    <br/><br/>
-    <% @rest.each do |member| %>
-    <div>
-      <%=  member.user.email %>
+    <div class="clear"></div>
+    <div class="friends">
+      <h2>Family & Friends</h2>
+      <% @rest.each do |member| %>
+        <div class="row user">
+          <img src="/images/icon1.png" class="avatar" />
+          <div class="user-info">
+            <div class="name"><%= member.display_name -%></div>
+            <div><%=  member.user.email %></div>
+            <div><%= member.member_type %></div>
+            <div><%= member.user.first_name + " " + member.user.last_name -%></div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
   <div class="clear"></div>
 </div>

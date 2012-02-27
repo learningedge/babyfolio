@@ -233,7 +233,6 @@ a:hover {text-decoration:none}
 .user-form #errorExplanation h2 {font-size:14px;color:red;font-weight:bold}
 .user-form #errorExplanation ul {padding-left:20px; list-style:none}
 .user-form #errorExplanation ul li{font-size:14px;color:red;padding:3px 0}
-
 .user-form div.field_with_errors {display:inline}
 
 .user-form .row {padding:0px 0px 15px}
@@ -245,6 +244,13 @@ a:hover {text-decoration:none}
 .user-form input[type=text],
 .user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
 .user-form input[type=submit] {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
+
+/* .settings */
+.settings #change-form {padding-top:20px}
+.settings #change-form a.current{font-weight:bold;text-decoration:none;cursor:default}
+.settings #change-form h2 {font: 30px 'helvetica_seven';color:#555}
+.settings #change-form .change-family {padding-top:20px}
+.settings #change-form select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
 
 /* .confirmation */
 .confirmation-index .titles {padding-bottom:20px}
@@ -281,3 +287,11 @@ a:hover {text-decoration:none}
 .settings #left {float:left}
 .settings #left #title {float:none;display:block}
 .settings #left a {display:block}
+
+/* .family-relations-info */
+.family-relations-info {}
+.family-relations-info .add-friend {text-align:center;width:140px;margin:40px auto}
+.family-relations-info .add-friend a{background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-decoration:none}
+.family-relations-info .user {float:left;width:50%}
+.family-relations-info .user img {float:left;margin-right:20px}
+.family-relations-info .user .user-info .name{font-weight:bold;font-size:18px;padding-bottom:3px}

@@ -8,16 +8,19 @@
   <div id="left">
     <div id="title">Edit Account</div>
     <div id="change-form">
-      <a href="#" class="current">Main Settings</a>
-      <a href="#">My Family Info</a>
+      <a href="<%= edit_account_path %>">Main Settings</a>
+      <a href="#" class="current">My Family Info</a>
       <a href="<%= family_relations_families_path %>">Friends & Families</a>
+
+      <div class="change-family">
+        <h2>Change family</h2>
+        <%= render :partial => 'select_family' %>
+      </div>
+      
     </div>
   </div>
   
   <div class="user-form update_form">
-    <h1>Edit family <%= render :partial => 'select_family' %></h1>    
-    <br/>
-
     <%= render "shared/error_messages", :target => @family %>
     <h2>Family details</h2>
 
