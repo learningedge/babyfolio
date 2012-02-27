@@ -36,8 +36,12 @@ Babyfolio::Application.routes.draw do
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
 
-  resources :users  # give us our some normal resource routes for users
-  resource :user, :as => 'account'  # a convenience route
+  resource :user, :as => 'account' do
+    collection do
+      get 'edit' => "users#edit"
+      get ':child_id' => "users#show", :as => "child_profile"
+    end
+  end
 
   match 'signup' => "users#new", :as => :signup
 

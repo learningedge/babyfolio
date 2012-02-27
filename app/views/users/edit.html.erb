@@ -1,9 +1,13 @@
-# app/views/users/edit.html.erb
-<h1>Edit My Account</h1>
+<div class="container">
+  <div id="title">Edit Account</div>
+  <div class="user-form">
 
-<% form_for @user, :url => account_path do |f| %>
-  <%= render :partial => "form", :object => f, :locals => { :user => @user } %>
-  <%= f.submit "Update" %>
-<% end %>
+    <%= form_for @user, :url => account_path do |f| %>
+    <%= render :partial => "form", :object => f, :locals => { :user => @user } %>
+    <%= f.submit "Update" %>
+    <% end %>
 
-<br /><%= link_to "My Profile", account_path %>
+    <br /><%= link_to "My Profile", account_path %>
+  </div>
+  <div class="clear"></div>
+</div>

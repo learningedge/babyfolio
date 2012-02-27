@@ -10,6 +10,7 @@ gem 'execjs'
 gem 'json'
 gem 'mysql2'
 gem 'therubyracer'
+gem 'jquery-rails'
 
 group :test do
 
