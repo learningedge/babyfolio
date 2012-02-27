@@ -274,3 +274,8 @@ a:hover {text-decoration:none}
 
 /* forgot-password */
 .forgot-password .user-form {width:560px}
+
+/* settings */
+.settings #left {float:left}
+.settings #left #title {float:none;display:block}
+.settings #left a {display:block}

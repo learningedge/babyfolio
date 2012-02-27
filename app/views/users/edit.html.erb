@@ -1,13 +1,24 @@
-<div class="container">
-  <div id="title">Edit Account</div>
+<div class="container settings">
+  <div id="left">
+    <div id="title">Edit Account</div>
+    <div id="change-form">
+      <a href="#" class="current">Main Settings</a>
+      <a href="#">My Family Info</a>
+      <a href="<%= family_relations_families_path %>">Friends & Families</a>
+    </div>
+  </div>
   <div class="user-form">
 
     <%= form_for @user, :url => account_path do |f| %>
-    <%= render :partial => "form", :object => f, :locals => { :user => @user } %>
-    <%= f.submit "Update" %>
+      <%= render :partial => "form", :object => f, :locals => { :user => @user, :edit => @edit} %>
+    
+      <div class="submit">
+        <%= f.submit "Update" %>
+      </div>
+    
     <% end %>
 
-    <br /><%= link_to "My Profile", account_path %>
+
   </div>
   <div class="clear"></div>
 </div>

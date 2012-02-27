@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   config.filter_parameters :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :current_family
+  helper_method :current_user_session, :current_user, :current_family, :my_family
 
   private
     def current_user_session
@@ -64,6 +64,15 @@ class ApplicationController < ActionController::Base
         @current_family = current_user.main_family
         session[:current_family] = @current_family.id if @current_family
         return @current_family
+      end
+    end
+
+    def my_family      
+      if current_user.families.parenting_families.exist? session[:current_family]
+        current_family
+      else
+        session[:current_family] = current_user.families.parenting_families.first
+        current_family
       end
     end
 
