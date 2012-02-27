@@ -293,5 +293,7 @@ a:hover {text-decoration:none}
 .family-relations-info .add-friend {text-align:center;width:140px;margin:40px auto}
 .family-relations-info .add-friend a{background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-decoration:none}
 .family-relations-info .user {float:left;width:50%}
-.family-relations-info .user img {float:left;margin-right:20px}
-.family-relations-info .user .user-info .name{font-weight:bold;font-size:18px;padding-bottom:3px}
+.family-relations-info .user img.avatar {float:left;margin-right:20px}
+.family-relations-info .user .remove {display:inline-block;background: url('/images/delete_btn.png') no-repeat; width:20px;height:20px;text-indent:-9999px}
+.family-relations-info .user .user-info .name {font-weight:bold;font-size:18px;padding-bottom:3px}
+.family-relations-info .user .user-info .name .remove-button {}

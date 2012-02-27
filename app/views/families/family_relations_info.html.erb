@@ -20,7 +20,7 @@
     <div class="parents">
       <% @parents.each do |parent| %>
         <div class="row user">
-          <img src="/images/icon1.png" class="avatar" />
+          <img src="/images/icon1.png" class="avatar" />          
           <div class="user-info">
             <div class="name"><%= parent.display_name -%></div>
             <div><%=  parent.user.email %></div>
@@ -36,9 +36,9 @@
       <h2>Family & Friends</h2>
       <% @rest.each do |member| %>
         <div class="row user">
-          <img src="/images/icon1.png" class="avatar" />
+          <img src="/images/icon1.png" class="avatar" />       
           <div class="user-info">
-            <div class="name"><%= member.display_name -%></div>
+            <div class="name"><%= member.display_name -%> <%= link_to 'Remove', relation_path(member), :confirm => "Are you sure?", :method => :delete, :class => 'remove' -%></div>
             <div><%=  member.user.email %></div>
             <div><%= member.member_type %></div>
             <div><%= member.user.first_name + " " + member.user.last_name -%></div>

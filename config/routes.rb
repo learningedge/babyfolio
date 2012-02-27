@@ -14,7 +14,9 @@ Babyfolio::Application.routes.draw do
       post :change_family_to_edit
     end
   end
-    
+
+  resources :relations, :only => [:destroy]
+
   get "home/index"
   get "interior" => "home#interior", :as => :interior
 
