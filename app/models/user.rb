@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base    
   acts_as_authentic do |t|
-    t.ignore_blank_passwords = false;
+    t.ignore_blank_passwords = true;
   end
   disable_perishable_token_maintenance(true)
   

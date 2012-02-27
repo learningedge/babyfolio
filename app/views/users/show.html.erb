@@ -1,46 +1,165 @@
-
-
-<p>
-  <b>First Name:</b>
-  <%=h @user.first_name %>
-</p>
-<p>
-  <b>Last Name:</b>
-  <%=h @user.last_name %>
-</p>
-<p>
-  <b>Email:</b>
-  <%=h @user.email %>
-</p>
-
-<p>
-  <b>Login count:</b>
-  <%=h @user.login_count %>
-</p>
-
-<p>
-  <b>Last request at:</b>
-  <%=h @user.last_request_at %>
-</p>
-
-<p>
-  <b>Last login at:</b>
-  <%=h @user.last_login_at %>
-</p>
-
-<p>
-  <b>Current login at:</b>
-  <%=h @user.current_login_at %>
-</p>
-
-<p>
-  <b>Last login ip:</b>
-  <%=h @user.last_login_ip %>
-</p>
-
-<p>
-  <b>Current login ip:</b>
-  <%=h @user.current_login_ip %>
-</p>
-
-<%= link_to 'Edit', edit_account_path %>
+  <div class="container">
+    <div id="container_left">
+      <div id="container_header">
+        <div id="title"><%= @selected_child.first_name -%>'s Unique Story</div>
+        <div id="drop_list">
+	  <%= form_tag({}, { :method => :get }) do -%>
+	  <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/user/' + this.value" } -%>
+	  <% end -%>
+          <span id="setting_kids">
+            <a href="#">Add</a>
+            Or
+            <a href="#">Select Another Child</a>
+          </span>
+        </div>
+        <div id="clear"></div>
+      </div>
+      
+      <div id="book">
+        <div id="container_book">
+          <div id="book_left">
+            <div id="child_profile">
+              <img src="/images/img_kids.png" alt="photo" />
+              <span id="name"><span>Name</span> : <%= @selected_child.first_name -%></span>
+              <span id="age"><span>Age</span> : <%= @selected_child.age_text -%></span>
+              <span id="count_entries">xx Story Entries</span>
+            </div>
+            <div id="family_list">
+              <span>Add Family & Friends</span>
+              <ul>
+		<% @selected_family.relations.each do |relation| -%>
+                <li>
+		  <% if relation.user_id == current_user.id -%>
+		  <%= link_to relation.get_member_type_name, edit_account_path -%>
+		  <% else -%>
+		  <%= relation.get_member_type_name -%>
+		  <% end -%>
+		</li>
+		<% end -%>
+              </ul>
+              <a href="<%= add_friends_families_path -%>">Invite Another</a>
+            </div>
+          </div>
+          <div id="book_right">
+            <ul>
+              <li>
+                <div class="icon1">
+                  <h2>Getting to know you</h2>
+                  <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                  </ul>
+                  <a href="#">see more</a>
+                </div>
+              </li>
+              <li>
+                <div class="icon2">
+                  <h2>Places you went & Things you did</h2>
+                  <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                  </ul>
+                  <a href="#">see more</a>
+                </div>
+              </li>
+              <li>
+                <div class="icon3">
+                  <h2>People in your life</h2>
+                  <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
+                  </ul>
+                  <a href="#">see more</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="clear"></div>
+        </div>
+      </div>
+      <div id="storybook_moments">
+        <h1>Build upon #first#'s storybook</h1>
+        <div class="shadow"><img src="/images/shadow.png" alt="" /></div>
+        <a href="#"><img src="/images/add_moment.png" alt="" /></a>
+        <div class="text">text text text</div>
+        <div class="clear"></div>
+        <div id="moments_list">
+          <h3>List of Existing Moments to be processed:</h3>
+          <div class="moment">
+            <h3 class="title">Title: First five words</h3>
+            <p>
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+               eiusmod tempor incididunt ut labore et dolore magna aliqua.
+               Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+               laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="footer_left">
+          <div id="copyright">
+            Copyright &copy; 2011. Baby folio. All rights reserved.
+          </div>
+          <div id="footer_link">
+            <ul>
+              <li><a href="">Home<span>|</span></a></li>
+              <li><a href="">Blog<span>|</span></a></li>
+              <li><a href="">About Us<span>|</span></a></li>
+              <li><a href="">Contact Us<span>|</span></a></li>
+              <li><a href="">Privacy<span>|</span></a></li>
+              <li><a href="">Site Map<span>|</span></a></li>
+              <li><a href="">Resources<span>|</span></a></li>
+              <li><a href="">Help</a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="footer_right">
+          <div id="social_links">
+            <span>Follow us on</span>
+            <ul>
+              <li><a href="#"><img src="/images/twitter.png" alt="" /></a></li>
+              <li><a href="#"><img src="/images/facebook.png" alt="" /></a></li>
+              <li><a href="#"><img src="/images/sweetbook.png" alt="" /></a></li>
+              <li><a href="#"><img src="/images/rss.png" alt="" /></a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="clear"></div>
+      </div>
+      <div id="clear"></div>
+    </div>
+    
+    <div id="container_right">
+      <div class="logo"></div>
+      <div id="most_post">
+        <div class="single_post">
+          <h1>Getting to Know You Tools</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <a href="#">Learn more</a>
+        </div>
+        <div class="single_post">
+          <h1>Getting to Know You Tools</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <a href="#">Learn more</a>
+        </div>
+      </div>
+      <div id="clear"></div>
+    </div>
+    
+    <div id="clear"></div>
+    
+  </div>

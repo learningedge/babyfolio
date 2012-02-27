@@ -73,6 +73,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 /* Home */
 
+
 #home #top {background: #fff;border-bottom: 6px solid #debd6c;border-top: 6px solid #debd6c;height: 117px;width: 100%;min-width: 1360px}
 #home #top div {display: inline-block;}
 #home #top #left {float: left;;min-width: 120px;width: 15%}
