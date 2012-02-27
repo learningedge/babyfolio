@@ -6,7 +6,7 @@
   <body>
     Hi <%= @user.email.split('@').first %>!
 
-    <% if @message.empty? %>
+    <% if @message.blank? %>
       I am using Babyfolio and would like you to join the family as <%= @relation.member_type %>.
     <% else %>
       <%= @message %>
