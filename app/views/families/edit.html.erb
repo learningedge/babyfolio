@@ -3,65 +3,81 @@
 # and open the template in the editor.
 %>
 
-<h1>Edit family</h1>
-<%= form_tag change_family_to_edit_families_path do %>
-  <%= select_tag :id, options_for_select(@families_for_select, @family.id), :onchange => "$(this).parents('form').submit();" unless @families_for_select.length <= 1 %>
-<% end %>
-<hr/>
-<h2>Family details</h2>
-<%= render "shared/error_messages", :target => @family %>
+<div class="container settings">
 
-<%= form_for @family do |f| -%>
-
-  <%= f.label :name, "Family Name: " %>
-  <%= f.text_field :name %>
-  <%= f.label :zip_code, "Zip Code: " %>
-  <%= f.text_field :zip_code %>
-
-  <hr/>
-  <h2>Children</h2>
-  <%= f.fields_for :children do |child_form| %>
-    <div class="single_child row" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
-      <%= child_form.label :first_name, "First Name: "%>
-      <%= child_form.text_field :first_name %>
-      <%= child_form.label :birth_date, "Birth Date: "%>
-      <%= child_form.text_field :birth_date,:value => child_form.object.formated_birth_date , :readonly => true, :class => 'birth_date_input' %>
-
-      <%#*<span>%>
-        <%# unless child_form.object.new_record? %>
-          <%#= link_to "Remove", '#', :class => "remove_child_btn" %>
-          <%#= child_form.check_box :_destroy %>
-        <%# end %>
-      <%#*</span>%>
-
-
+  <div id="left">
+    <div id="title">Edit Account</div>
+    <div id="change-form">
+      <a href="#" class="current">Main Settings</a>
+      <a href="#">My Family Info</a>
+      <a href="<%= family_relations_families_path %>">Friends & Families</a>
     </div>
-  <% end %>
-  <%= link_to "Add another child" , '#', { :class => 'add_child_btn' } %>
-
-  <div class="submit">
-    <%= f.submit "Update" %>
   </div>
-<% end %>
+  
+  <div class="user-form update_form">
+    <h1>Edit family <%= render :partial => 'select_family' %></h1>    
+    <br/>
 
+    <%= render "shared/error_messages", :target => @family %>
+    <h2>Family details</h2>
 
+    <%= form_for @family, :method => 'put' do |f| -%>
+
+      <%= f.label :name, "Family Name: " %>
+      <%= f.text_field :name %>
+      <%= f.label :zip_code, "Zip Code: " %>
+      <%= f.text_field :zip_code %>
+
+      <br/>
+      <br/>
+      <h2>Children</h2>
+      <div class="user_form">
+        <%= f.fields_for :children do |child_form| %>
+          <div class="single_child row" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
+            <%= child_form.label :first_name, "First Name: "%>
+            <%= child_form.text_field :first_name %>
+            <%= child_form.label :birth_date, "Birth Date: "%>
+            <%= child_form.text_field :birth_date,:value => child_form.object.formated_birth_date , :readonly => true, :class => 'birth_date_input' %>
+
+    <%#*<span>%>
+    <%# unless child_form.object.new_record? %>
+    <%#= link_to "Remove", '#', :class => "remove_child_btn" %>
+    <%#= child_form.check_box :_destroy %>
+    <%# end %>
+    <%#*</span>%>
+
+          </div>
+        <% end %>
+        <%= link_to "Add another child" , '#', { :class => 'add_child_btn' } %>
+
+        <br/>
+        <br/>
+        <div class="submit">
+          <%= f.submit "Update" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+</div>
 
 
 <script type="text/javascript">
   $(function() {
-    $('.single_child').first().show();
-    $('.add_child_btn').click(function() {
-      var display_btn = $(this).parents('form').find('.single_child:hidden').length <= 1;
-      $(this).parents('form').find('.single_child:hidden').first().fadeIn();
-      if(display_btn) $(this).fadeOut();
-      return false;
-    });
-    <%#*$('.remove_child_btn').click(function() {%>
-    <%#*$(this).parents('span').find('input[type="checkbox"]').click();%>
-    <%#*$(this).parents('.single_child').fadeOut().removeClass('single_child');%>
-    <%#*alert($(this).parents('span').find('input[type="checkbox"]').attr('checked'));%>
-    <%#*});%>
-    $('.birth_date_input').datepicker();
+  $('.single_child').first().show();
+  $('.add_child_btn').click(function() {
+  var display_btn = $(this).parents('form').find('.single_child:hidden').length <= 1;
+  $(this).parents('form').find('.single_child:hidden').first().fadeIn();
+  if(display_btn) $(this).fadeOut();
+  return false;
+  });
+<%#*$('.remove_child_btn').click(function() {%>
+<%#*$(this).parents('span').find('input[type="checkbox"]').click();%>
+<%#*$(this).parents('.single_child').fadeOut().removeClass('single_child');%>
+<%#*alert($(this).parents('span').find('input[type="checkbox"]').attr('checked'));%>
+<%#*});%>
+  $('.birth_date_input').datepicker();
   });
 </script>
 

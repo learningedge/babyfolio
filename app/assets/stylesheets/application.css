@@ -71,6 +71,8 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #clear,
 .clear {clear: both;height: 0px}
 
+.user-form h2 { font: 30px 'helvetica_seven';color:#555555 }
+
 /* Home */
 
 

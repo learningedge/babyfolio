@@ -3,7 +3,7 @@ Welcome to Babyfolio, <%= @user.get_user_name %>
 
 Hi <%= @user.email.split('@').first %>!
 
-<% if @message.nil? %>
+<% if @message.blank? %>
   I am using Babyfolio and would like you to join the family as <%= @relation.member_type %>.
 
 <% else %>

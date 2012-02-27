@@ -5,3 +5,5 @@
 .single_child { display: none; }
 .single_child:first-child { display: block; }
 .single_child input[type="checkbox"] { display: none }
+.user-form.update_form div.submit { margin: 0 }
+.user-form.update_form .select_family_form { display: inline }

@@ -1,5 +1,5 @@
 <%  @families_for_select = current_user.families.parenting_families.collect { |fam| [fam.name, fam.id] } %>
 
-<%= form_tag change_family_to_edit_families_path do %>
+<%= form_tag change_family_to_edit_families_path, :class => "select_family_form" do %>
   <%= select_tag :id, options_for_select(@families_for_select, my_family.id), :onchange => "$(this).parents('form').submit();" unless @families_for_select.length <= 1 %>
 <% end %>

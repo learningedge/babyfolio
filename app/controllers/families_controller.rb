@@ -73,24 +73,21 @@ class FamiliesController < ApplicationController
   def change_family_to_edit
     session[:current_family] = params[:id]
     redirect_to :back
-#    redirect_to :controller => "families", :action => "edit", :id => params[:id]
   end
 
-  def edit    
-    #@families_for_select.delete_at(1)
-    @family = current_user.families.parenting_families.includes(:children).find(params[:id])
+  def edit        
+    @family = my_family
     while @family.children.length < 10 do
       @family.children.build Child.new.attributes
     end
   end
 
   def update
-    @family = current_user.families.parenting_families.includes(:children).find(params[:id])
+    @family = current_user.families.parenting_families.includes(:children).find(my_family.id)
     if @family.update_attributes(params[:family])
       flash[:notice] = 'Family successfully updated.'
-      redirect_to edit_family_path
+      redirect_to edit_families_path
     else
-      @families_for_select = current_user.families.parenting_families.collect { |fam| [fam.name, fam.id] }
       render :action => 'edit'
     end
   end 
