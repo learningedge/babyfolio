@@ -1,7 +1,7 @@
 <div class="container">
   <div id="title">Register</div>
   <div class="user-form">
-    <%= form_for @user do |f| -%>
+    <%= form_for @user, :url => account_path(@user) do |f| -%>
       <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
       <div class="submit">
         <%= f.submit "Register" %>

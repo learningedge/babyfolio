@@ -5,7 +5,7 @@ Babyfolio::Application.routes.draw do
       get :add_friends
       get :add_children
       match :create_friend_relations
-
+      get 'family/relations' => :family_relations_info
       match :create_friends
       get :relations
       post :create_relations

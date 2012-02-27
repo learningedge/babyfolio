@@ -234,4 +234,26 @@ class FamiliesControllerTest < ActionController::TestCase
     
   end
 
+  test "get family relations info" do
+    post :create_friend_relations, :friends => {
+          "0" => { :email => 'one@gmail.com', :member_type => 'cousin'},
+          "1" => { :email => 'two@gmail.com', :member_type => 'grandmother'},
+          "2" => { :email => 'three@gmail.com', :member_type => 'sister'},
+          "3" => { :email => 'four@gmail.com', :member_type => 'grandmother'}
+        }
+
+    @relations = Relation.where(['member_type != "sister"']).all
+
+    @relations.each do |relation|
+      relation.update_attribute(:accepted, true)
+    end
+
+    get :family_relations_info
+      pp assigns(:parents)
+      pp assigns(:rest)
+      assert_equal assigns(:parents).length, 1, 'ONLY ONE PARENT'
+      assert_equal assigns(:rest).length, 4, 'FOUR FRIENDS'
+    assert_response :success
+  end
+
 end

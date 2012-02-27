@@ -43,9 +43,11 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    @edit = true
   end
 
   def update
+    @edit = true
     @user = current_user # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
@@ -54,5 +56,7 @@ class UsersController < ApplicationController
       render :action => :edit
     end
   end
+
+
 
 end

@@ -1,5 +1,27 @@
 <%= render "shared/error_messages", :target => @user %>
 
+
+<% unless @edit %>
+  <div class="email row">
+    <span class="label">
+      <%= form.label :email %>
+    </span>
+    <span class="field">
+      <%= form.text_field :email %>
+    </span>
+  </div>
+<% else %>
+  <div class="row">
+    <span class="label">
+      <%= form.label :email %>
+    </span>
+    <span class="field">
+      <%= @user.email %>
+    </span>
+  </div>
+<% end %>
+
+
 <div class="first-name row">
   <span class="label">
     <%= form.label :first_name %>
@@ -16,16 +38,6 @@
     <%= form.text_field :last_name %>
   </span>
 </div>
-
-<div class="email row">
-  <span class="label">
-    <%= form.label :email %>
-  </span>
-  <span class="field">
-    <%= form.text_field :email %>
-  </span>
-</div>
-
 <div class="password row">
   <span class="label">
     <%= form.label :password, form.object.new_record? ? nil : "Change password" %>

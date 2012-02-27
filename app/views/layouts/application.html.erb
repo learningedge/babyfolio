@@ -13,14 +13,14 @@
       <% unless current_user %>
         <ul>
           <li><%= link_to "login", login_path -%></li>
-          <li><%= link_to "sign in",  new_account_path -%></li>
+          <li><%= link_to "sign up",  signup_path -%></li>
         </ul>
       <% else %>
         <ul>
           <li class="avatar"><img src="/images/img_login.jpg" alt="img_login" /></li>
           <li>Hi, <span class="profile_name"><%= current_user.get_user_name -%></span></li>
           <li><a href="<%= logout_path -%>">Log Out <span class="border">|</span></a></li>
-          <li><a href="#">Setting <span class="border">|</span></a></li>
+          <li><a href="<%= edit_account_path -%>">Setting <span class="border">|</span></a></li>
           <li><a href="#">Tour</a></li>
         </ul>
       <% end %>
