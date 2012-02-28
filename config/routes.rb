@@ -1,6 +1,5 @@
 Babyfolio::Application.routes.draw do
 
-  
   get "home/index"
   get "interior" => "home#interior", :as => :interior
 
@@ -38,7 +37,6 @@ Babyfolio::Application.routes.draw do
     end
   end
 
-  
   resources :children, :only => [:edit, :update] do
     collection do
       get ':id' => "children#show", :as => :child_profile
