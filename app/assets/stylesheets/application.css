@@ -210,9 +210,11 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #top #login_box ul li {float: left;font: 12px arial;color: #713500;padding: 6px 5px 0}
 #top #login_box ul li.avatar {padding: 0;}
 #top #login_box ul li.avatar img{border: 1px solid #cec9bb}
+#top #login_box ul li.family-select {padding:5px 0px 0px;margin:0px;}
+#top #login_box ul li.family-select select{color:#713500;background:#c8ba7b;border:none;font: 12px arial;margin:0px}
+#top #login_box ul li.family-select select option {}
 #top #login_box ul li .profile_name {margin: 0 15px 0 0}
 #top #login_box ul li a {text-decoration: none;color: #713500}
-#top #login_box ul li a .border {padding: 0 0 0 10px }
 
 /* Header Logo */
 #header #logo {width: 1078px;margin: 0 auto; padding: 18px 0 21px}

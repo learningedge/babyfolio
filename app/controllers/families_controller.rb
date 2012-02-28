@@ -296,15 +296,5 @@ class FamiliesController < ApplicationController
     @rest = my_family.relations.is_not_parent.accepted
     
   end
-  
-  private
-
-  def require_family
-    redirect_to new_family_url unless current_family
-  end
-    
-  def require_no_family
-    redirect_to new_family_url if current_family
-  end
 
 end
