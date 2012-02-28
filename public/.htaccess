@@ -1,1 +1,7 @@
+AuthName "Restricted Area"
+AuthType Basic
+AuthUserFile /home/queju/passwords/codephonic/.htpasswd
+AuthGroupFile /dev/null
+require valid-user
+
 RackEnv development
