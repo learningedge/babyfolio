@@ -14,7 +14,7 @@
             <%= child_form.label :first_name, "First Name: "%>
             <%= child_form.text_field :first_name %>
             <%= child_form.label :birth_date, "Birth Date: "%>
-            <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date, :disabled => 'disabled',  :class => 'birth_date_input' } %>
+            <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date,  :class => 'birth_date_input' } %>
             <%= link_to "Add another" , '#', { :class => 'add_child_btn' } unless counter >= (@family.children.length - 1)  %>
             <% counter += 1 %>
           </div>
@@ -67,6 +67,6 @@
       $(this).fadeOut();
       return false;
     });
-    $('.birth_date_input').datepicker();
+    $('.birth_date_input').datepicker({ changeYear: true, maxDate: '+0'});
   });
 </script>

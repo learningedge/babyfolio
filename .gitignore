@@ -5,6 +5,7 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 .htaccess
+public/.htaccess
 *~
 # Ignore bundler config
 /.bundle
