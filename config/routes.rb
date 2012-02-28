@@ -1,5 +1,7 @@
 Babyfolio::Application.routes.draw do
 
+  resources :authentications
+
   resources :families, :only => [:new, :create, :index, :update] do
     collection do
       get :add_friends
@@ -14,6 +16,8 @@ Babyfolio::Application.routes.draw do
       post :change_family_to_edit
     end
   end
+
+  match '/auth/:provider/callback', :to => 'authentications#create'
 
   resources :relations, :only => [:destroy]
 

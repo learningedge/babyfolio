@@ -1,0 +1,790 @@
+Script started on Tue 28 Feb 2012 09:34:53 AM CET
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ sudo shutdown -h nowgit push origin mastercommit -m "redirect after login - gutto"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[Kstatus[1Padd .commit -m "redirect after login - gutto"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[22Ppush origin master[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kgit commit -m "redirect after login - gutto"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cadd .[Kstatuspull origin masterrake routes | grep home[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[11P(reverse-i-search)`':[Cs': rake routes | grep user[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc': rails generate scaffold line_item product_id:integer cart_id:integer[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cr': rails generate scaffold Product title:string description:text image_url:string price:decimal[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@i[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@p[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@t[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -p[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails generate scaffold Product title:string description:text image_url:string price:decimal -p[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P -p[1P-p[1Pp[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Knetbeans &rails destroy controller Say[18Pnetbeans &[Knetbeans &[K[K[K[K[K[K[K[K[K[Kscript/plugin install git://github.com/kalasjocke/authlogic_facebook_connect.git
+bash: script/plugin: No such file or directory
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ script/plugin install git://github.com/kalasjocke/authlogic_facebook_connect.git[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[1P[C[1P git://github.com/kalasjocke/authlogic_facebook_connect.git[1P git://github.com/kalasjocke/authlogic_facebook_connect.git[1Pgit://github.com/kalasjocke/authlogic_facebook_connect.git[1Pit://github.com/kalasjocke/authlogic_facebook_connect.git[1Pt://github.com/kalasjocke/authlogic_facebook_connect.git[1P://github.com/kalasjocke/authlogic_facebook_connect.git[1P//github.com/kalasjocke/authlogic_facebook_connect.git[C[1Pgithub.com/kalasjocke/authlogic_facebook_connect.git[1Pgithub.com/kalasjocke/authlogic_facebook_connect.git[1Pithub.com/kalasjocke/authlogic_facebook_connect.git[1Pthub.com/kalasjocke/authlogic_facebook_connect.git[1Phub.com/kalasjocke/authlogic_facebook_connect.git[1Pub.com/kalasjocke/authlogic_facebook_connect.git[1Pb.com/kalasjocke/authlogic_facebook_connect.git[1P.com/kalasjocke/authlogic_facebook_connect.git[1Pcom/kalasjocke/authlogic_facebook_connect.git[1Pom/kalasjocke/authlogic_facebook_connect.git[1Pm/kalasjocke/authlogic_facebook_connect.git[1P/kalasjocke/authlogic_facebook_connect.git[1Pkalasjocke/authlogic_facebook_connect.git[1Palasjocke/authlogic_facebook_connect.git[1Plasjocke/authlogic_facebook_connect.git[1Pasjocke/authlogic_facebook_connect.git[1Psjocke/authlogic_facebook_connect.git[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pjocke/authlogic_facebook_connect.git[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Pocke/authlogic_facebook_connect.git[1Pcke/authlogic_facebook_connect.git[1Pke/authlogic_facebook_connect.git[1Pe/authlogic_facebook_connect.git[1P/authlogic_facebook_connect.git[1Pauthlogic_facebook_connect.git[1Puthlogic_facebook_connect.git[1Pthlogic_facebook_connect.git[1Phlogic_facebook_connect.git[1Plogic_facebook_connect.git[1Pogic_facebook_connect.git[1Pgic_facebook_connect.git[1Pic_facebook_connect.git[1Pc_facebook_connect.git[1P_facebook_connect.git[1Pfacebook_connect.git[1Pacebook_connect.git[1Pcebook_connect.git[1Pebook_connect.git[1Pbook_connect.git[1Pook_connect.git[C[1Pk_connect.git[1Pk_connect.git[1P_connect.git[1Pconnect.git[1Ponnect.git[1Pnnect.git[C[1Pect.git[1Pect.git[1Pct.git[1Pt.git[1P.git[1Pgit[1Pit[1Pt[K[Kmkdir scri[K[K[K[K[K[K[K[K[K[Kcd script/
+]0;gxx@gxx-PC: ~/projects/babyfolio/scriptgxx@gxx-PC:~/projects/babyfolio/script$ m[Kls -la
+total 12
+drwxr-xr-x  2 gxx gxx 4096 2012-02-13 15:31 [0m[01;34m.[0m
+drwxr-xr-x 15 gxx gxx 4096 2012-02-28 09:34 [01;34m..[0m
+-rwxr-xr-x  1 gxx gxx  298 2012-02-13 15:31 [01;32mrails[0m
+]0;gxx@gxx-PC: ~/projects/babyfolio/scriptgxx@gxx-PC:~/projects/babyfolio/script$ mkdr [K[Kir plugin
+]0;gxx@gxx-PC: ~/projects/babyfolio/scriptgxx@gxx-PC:~/projects/babyfolio/script$ cd ..
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ script/plugin install git://github.com/kalasjocke/authlogic_facebook_connect.git
+bash: script/plugin: is a directory
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ gem list
+
+*** LOCAL GEMS ***
+
+abstract (1.0.0)
+actionmailer (3.2.1, 3.0.4, 3.0.1)
+actionpack (3.2.1, 3.0.4, 3.0.1)
+activemerchant (1.9.2)
+activemodel (3.2.1, 3.0.4, 3.0.1)
+activerecord (3.2.1, 3.0.4, 3.0.1)
+activeresource (3.2.1, 3.0.4, 3.0.1)
+activesupport (3.2.1, 3.0.4, 3.0.1)
+arel (3.0.0, 2.0.8, 1.0.1)
+authlogic (3.1.0)
+braintree (2.6.2)
+builder (3.0.0, 2.1.2)
+bundler (1.0.10)
+capistrano (2.5.19)
+capistrano-ext (1.2.1)
+coffee-rails (3.2.2)
+coffee-script (2.2.0)
+coffee-script-source (1.2.0)
+daemon_controller (0.2.6)
+erubis (2.7.0, 2.6.6)
+execjs (1.3.0)
+facebooker (1.0.75)
+fastthread (1.0.7)
+file-tail (1.0.5)
+highline (1.6.1)
+hike (1.2.1)
+hpricot (0.8.3)
+i18n (0.6.0, 0.5.0, 0.4.1)
+journey (1.0.1)
+jquery-rails (2.0.0, 0.2.4)
+json (1.6.5)
+json_pure (1.4.6)
+libv8 (3.3.10.4 x86-linux)
+linecache (0.43)
+mail (2.4.1, 2.2.15, 2.2.6.1)
+metaclass (0.0.1)
+mime-types (1.17.2, 1.16)
+mocha (0.10.4, 0.9.10)
+multi_json (1.0.4)
+mysql (2.8.1)
+mysql2 (0.3.11)
+net-scp (1.0.4)
+net-sftp (2.0.5)
+net-ssh (2.0.23)
+net-ssh-gateway (1.0.1)
+on_the_spot (0.0.6, 0.0.4)
+paperclip (2.3.8, 2.3.5)
+passenger (3.0.2)
+polyglot (0.3.3, 0.3.1)
+rack (1.4.1, 1.2.1)
+rack-cache (1.1)
+rack-mount (0.6.13)
+rack-ssl (1.3.2)
+rack-test (0.6.1, 0.5.7, 0.5.6)
+rails (3.2.1, 3.0.4, 3.0.1)
+railties (3.2.1, 3.0.4, 3.0.1)
+rake (0.9.2.2, 0.8.7)
+rdoc (3.12)
+ruby-debug-base (0.10.4)
+ruby-debug-ide (0.4.9)
+sass (3.1.15)
+sass-rails (3.2.4)
+sprockets (2.1.2)
+spruz (0.2.5)
+sqlite3 (1.3.5, 1.3.3)
+sqlite3-ruby (1.3.3)
+therubyracer (0.9.9)
+thor (0.14.6, 0.14.2)
+tilt (1.3.3)
+tiny_mce (0.1.4)
+treetop (1.4.10, 1.4.9, 1.4.8)
+tzinfo (0.3.31, 0.3.24, 0.3.23)
+uglifier (1.2.3)
+will_paginate (3.0.pre2)
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle list
+Gems included by the bundle:
+  * actionmailer (3.2.1)
+  * actionpack (3.2.1)
+  * activemodel (3.2.1)
+  * activerecord (3.2.1)
+  * activeresource (3.2.1)
+  * activesupport (3.2.1)
+  * arel (3.0.0)
+  * authlogic (3.1.0)
+  * builder (3.0.0)
+  * bundler (1.0.10)
+  * coffee-rails (3.2.2)
+  * coffee-script (2.2.0)
+  * coffee-script-source (1.2.0)
+  * erubis (2.7.0)
+  * execjs (1.3.0)
+  * facebooker (1.0.75)
+  * hike (1.2.1)
+  * i18n (0.6.0)
+  * journey (1.0.1)
+  * jquery-rails (2.0.0)
+  * json (1.6.5)
+  * json_pure (1.4.6)
+  * libv8 (3.3.10.4)
+  * mail (2.4.1)
+  * metaclass (0.0.1)
+  * mime-types (1.17.2)
+  * mocha (0.10.4)
+  * multi_json (1.0.4)
+  * mysql2 (0.3.11)
+  * polyglot (0.3.3)
+  * rack (1.4.1)
+  * rack-cache (1.1)
+  * rack-ssl (1.3.2)
+  * rack-test (0.6.1)
+  * rails (3.2.1)
+  * railties (3.2.1)
+  * rake (0.9.2.2)
+  * rdoc (3.12)
+  * sass (3.1.15)
+  * sass-rails (3.2.4)
+  * sprockets (2.1.2)
+  * therubyracer (0.9.9)
+  * thor (0.14.6)
+  * tilt (1.3.3)
+  * treetop (1.4.10)
+  * tzinfo (0.3.31)
+  * uglifier (1.2.3)
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails generate migration AddFacebookConnection[K[K[KFieldsToUsers
+/usr/lib/ruby/gems/1.8/gems/facebooker-1.0.75/lib/facebooker/adapters/adapter_base.rb:6: uninitialized constant ActiveSupport::CoreExtensions (NameError)
+	from /usr/lib/ruby/gems/1.8/gems/facebooker-1.0.75/lib/facebooker.rb:259
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:68:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:68:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:66:in `each'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:66:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:55:in `each'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:55:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler.rb:120:in `require'
+	from /home/gxx/projects/babyfolio/config/application.rb:7
+	from /usr/lib/ruby/gems/1.8/gems/railties-3.2.1/lib/rails/commands.rb:24:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/railties-3.2.1/lib/rails/commands.rb:24
+	from script/rails:6:in `require'
+	from script/rails:6
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle install
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Using json_pure (1.4.6) 
+Using facebooker (1.0.75) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+Updating .gem files in vendor/cache
+  * json_pure-1.4.6.gem
+  * facebooker-1.0.75.gem
+  * libv8-3.3.10.4-x86-linux.gem
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle installrails generate migration AddFacebookConnectFieldsToUsers
+/usr/lib/ruby/gems/1.8/gems/facebooker-1.0.75/lib/facebooker/adapters/adapter_base.rb:6: uninitialized constant ActiveSupport::CoreExtensions (NameError)
+	from /usr/lib/ruby/gems/1.8/gems/facebooker-1.0.75/lib/facebooker.rb:259
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:68:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:68:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:66:in `each'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:66:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:55:in `each'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler/runtime.rb:55:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/bundler-1.0.10/lib/bundler.rb:120:in `require'
+	from /home/gxx/projects/babyfolio/config/application.rb:7
+	from /usr/lib/ruby/gems/1.8/gems/railties-3.2.1/lib/rails/commands.rb:24:in `require'
+	from /usr/lib/ruby/gems/1.8/gems/railties-3.2.1/lib/rails/commands.rb:24
+	from script/rails:6:in `require'
+	from script/rails:6
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails generate migration AddFacebookConnectFieldsToUsers
+[1m[37m      invoke[0m  active_record
+[1m[32m      create[0m    db/migrate/20120228084121_add_facebook_connect_fields_to_users.rb
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ sudo s[Kbundle install
+[sudo] password for gxx: 
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Using json_pure (1.4.6) 
+Using facebooker (1.0.75) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+Updating .gem files in vendor/cache
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ sudo gem install authlogic-connect
+[sudo] password for gxx: 
+raile       Fetching: ruby-openid-2.1.8.gemFetching: ruby-openid-2.1.8.gem (  7%)Fetching: ruby-openid-2.1.8.gem ( 12%)Fetching: ruby-openid-2.1.8.gem ( 18%)Fetching: ruby-openid-2.1.8.gem ( 25%)Fetching: ruby-openid-2.1.8.gem ( 28%)Fetching: ruby-openid-2.1.8.gem ( 34%)Fetching: ruby-openid-2.1.8.gem ( 35%)Fetching: ruby-openid-2.1.8.gem ( 41%)Fetching: ruby-openid-2.1.8.gem ( 44%)Fetching: ruby-openid-2.1.8.gem ( 50%)Fetching: ruby-openid-2.1.8.gem ( 54%)Fetching: ruby-openid-2.1.8.gem ( 60%)Fetching: ruby-openid-2.1.8.gem ( 66%)Fetching: ruby-openid-2.1.8.gem ( 67%)Fetching: ruby-openid-2.1.8.gem ( 70%)Fetching: ruby-openid-2.1.8.gem ( 76%)Fetching: ruby-openid-2.1.8.gem ( 82%)Fetching: ruby-openid-2.1.8.gem ( 83%)Fetching: ruby-openid-2.1.8.gem ( 89%)Fetching: ruby-openid-2.1.8.gem ( 92%)Fetching: ruby-openid-2.1.8.gem ( 98%)Fetching: ruby-openid-2.1.8.gem (100%)Fetching: ruby-openid-2.1.8.gem (100%)
+Fetching: rack-openid-1.3.1.gemFetching: rack-openid-1.3.1.gem (100%)Fetching: rack-openid-1.3.1.gem (100%)
+Fetching: oauth-0.4.5.gemFetching: oauth-0.4.5.gem ( 34%)Fetching: oauth-0.4.5.gem ( 65%)Fetching: oauth-0.4.5.gem ( 98%)Fetching: oauth-0.4.5.gem (100%)Fetching: oauth-0.4.5.gem (100%)
+Fetching: addressable-2.2.7.gemFetching: addressable-2.2.7.gem ( 17%)Fetching: addressable-2.2.7.gem ( 34%)Fetching: addressable-2.2.7.gem ( 50%)Fetching: addressable-2.2.7.gem ( 52%)Fetching: addressable-2.2.7.gem ( 68%)Fetching: addressable-2.2.7.gem ( 78%)Fetching: addressable-2.2.7.gem ( 95%)Fetching: addressable-2.2.7.gem ( 96%)Fetching: addressable-2.2.7.gem (100%)Fetching: addressable-2.2.7.gem (100%)
+Fetching: multipart-post-1.1.5.gemFetching: multipart-post-1.1.5.gem (100%)Fetching: multipart-post-1.1.5.gem (100%)
+Fetching: faraday-0.7.6.gemFetching: faraday-0.7.6.gem ( 53%)Fetching: faraday-0.7.6.gem (100%)Fetching: faraday-0.7.6.gem (100%)
+Fetching: oauth2-0.5.2.gemFetching: oauth2-0.5.2.gem (100%)Fetching: oauth2-0.5.2.gem (100%)
+Fetching: authlogic-connect-0.0.6.gemFetching: authlogic-connect-0.0.6.gem ( 58%)Fetching: authlogic-connect-0.0.6.gem ( 70%)Fetching: authlogic-connect-0.0.6.gem (100%)Fetching: authlogic-connect-0.0.6.gem (100%)
+Successfully installed ruby-openid-2.1.8
+Successfully installed rack-openid-1.3.1
+Successfully installed oauth-0.4.5
+Successfully installed addressable-2.2.7
+Successfully installed multipart-post-1.1.5
+Successfully installed faraday-0.7.6
+Successfully installed oauth2-0.5.2
+Successfully installed authlogic-connect-0.0.6
+8 gems installed
+Installing ri documentation for ruby-openid-2.1.8...
+Installing ri documentation for rack-openid-1.3.1...
+Installing ri documentation for oauth-0.4.5...
+Installing ri documentation for addressable-2.2.7...
+Installing ri documentation for multipart-post-1.1.5...
+Installing ri documentation for faraday-0.7.6...
+Installing ri documentation for oauth2-0.5.2...
+Installing ri documentation for authlogic-connect-0.0.6...
+Installing RDoc documentation for ruby-openid-2.1.8...
+Installing RDoc documentation for rack-openid-1.3.1...
+Installing RDoc documentation for oauth-0.4.5...
+Installing RDoc documentation for addressable-2.2.7...
+Installing RDoc documentation for multipart-post-1.1.5...
+Installing RDoc documentation for faraday-0.7.6...
+Installing RDoc documentation for oauth2-0.5.2...
+Installing RDoc documentation for authlogic-connect-0.0.6...
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails drop migration sudo gem install authlogic-connect[15Pbundle installrails generate migration AddFacebookConnectFieldsToUsers[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1@d[1@e[1@s[1@t[1@r[1@o[1@y
+[31mYou cannot specify the same gem twice coming from different sources. You specified that authlogic (>= 0) should come from an unspecfied source and git://github.com/odorcicd/authlogic.git (at rails3)[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails destroy migration AddFacebookConnectFieldsToUsers
+[1m[37m      invoke[0m  active_record
+[1m[31m      remove[0m    db/migrate/20120228084121_add_facebook_connect_fields_to_users.rb
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails generadestroy migration AddFacebookConnectFieldsToUsers[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Psudo gem install authlogic-connect[15Pbundle installrails generate migration AddFacebookConnectFieldsToUsers[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cbundle install[Krails generate migration AddFacebookConnectFieldsToUsers[1PacebookConnectFieldsToUsers[1PcebookConnectFieldsToUsers[1PebookConnectFieldsToUsers[1PbookConnectFieldsToUsers[1PookConnectFieldsToUsers[C[1PkConnectFieldsToUsers[1PkConnectFieldsToUsers[1PConnectFieldsToUsers[1PonnectFieldsToUsers[1PnnectFieldsToUsers[C[1PectFieldsToUsers[1PectFieldsToUsers[1PctFieldsToUsers[1PtFieldsToUsers[1PFieldsToUsers[1PieldsToUsers[1PeldsToUsers[1PldsToUsers[1PdsToUsers[1PsToUsers[1PToUsers[1PoUsers[1PUsers[1Psers[1Pers[1Prs[1Ps[KActiveTokenToUsers
+[1m[37m      invoke[0m  active_record
+[1m[32m      create[0m    db/migrate/20120228100720_add_active_token_to_users.rb
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails generate migration AddActiveTokenToUsers[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1PddActiveTokenToUsers[C[1PActiveTokenToUsers[1PActiveTokenToUsers[1PctiveTokenToUsers[1PtiveTokenToUsers[1PiveTokenToUsers[1PveTokenToUsers[1PeTokenToUsers[1PTokenToUsers[1PokenToUsers[1PkenToUsers[1PenToUsers[1PnToUsers[1PToUsers[1PoUsers[1PUsers[1Psers[1Pers[1Prs[1Ps[KCreateAccessTokens
+[1m[37m      invoke[0m  active_record
+[1m[32m      create[0m    db/migrate/20120228100923_create_access_tokens.rb
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails [K[K[K[K[K[Krake db :[K[K:migrate
+==  AddActiveTokenToUsers: migrating ==========================================
+-- add_column(:users, :active_token_id, :integer)
+   -> 0.0713s
+-- add_index(:users, :active_token_id)
+   -> 0.0213s
+==  AddActiveTokenToUsers: migrated (0.0929s) =================================
+
+==  CreateAccessTokens: migrating =============================================
+-- create_table(:access_tokens)
+   -> 0.0475s
+-- add_index(:access_tokens, :key, :unique)
+   -> 0.0587s
+==  CreateAccessTokens: migrated (0.1064s) ====================================
+
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rakde b:[K[Krdb:[K[K:rollback
+No command 'rakde' found, did you mean:
+ Command 'rake' from package 'rake' (universe)
+rakde: command not found
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rakde rd:rollback[C[1Pd:rollback[Cb:rollback
+No command 'rakde' found, did you mean:
+ Command 'rake' from package 'rake' (universe)
+rakde: command not found
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rakde db:rollback[1P db:rollback
+No command 'rakd' found, did you mean:
+ Command 'rake' from package 'rake' (universe)
+ Command 'rand' from package 'rand' (universe)
+ Command 'rad' from package 'radiance' (universe)
+rakd: command not found
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rakd db:rollback[1P db:rollbacke db:rollback
+==  CreateAccessTokens: reverting =============================================
+-- drop_table(:access_tokens)
+   -> 0.0095s
+==  CreateAccessTokens: reverted (0.0096s) ====================================
+
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rake db [K:rollback
+==  AddActiveTokenToUsers: reverting ==========================================
+-- remove_index("users", {:column=>:active_token_id})
+   -> 0.0783s
+-- remove_column("users", :active_token_id)
+   -> 0.0682s
+==  AddActiveTokenToUsers: reverted (0.1467s) =================================
+
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rake db:rollbackd[C[C[C[C[C[C[C[C[C[C[C[Ce db:rollbackrd:rollback[2Pe db:migrateils generate migration CreateAccessTokens[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P[1P[1P[1@d[1@r[1@o[1@p
+Error: Command not recognized
+Usage: rails COMMAND [ARGS]
+
+The most common rails commands are:
+ generate    Generate new code (short-cut alias: "g")
+ console     Start the Rails console (short-cut alias: "c")
+ server      Start the Rails server (short-cut alias: "s")
+ dbconsole   Start a console for the database specified in config/database.yml
+             (short-cut alias: "db")
+ new         Create a new Rails application. "rails new my_app" creates a
+             new application called MyApp in "./my_app"
+
+In addition to those, there are:
+ application  Generate the Rails application code
+ destroy      Undo code generated with "generate" (short-cut alias: "d")
+ benchmarker  See how fast a piece of code runs
+ profiler     Get profile information from a piece of code
+ plugin       Install a plugin
+ runner       Run a piece of code in the application environment (short-cut alias: "r")
+
+All commands can be run with -h (or --help) for more information.
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails drop migration CreateAccessTokens[C[C[1P[1P[1P[1@e[1@s[1@t[1@r[1@o[1@y
+[1m[37m      invoke[0m  active_record
+[1m[31m      remove[0m    db/migrate/20120228100923_create_access_tokens.rb
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails destroy migration CreateAccessTokens[3Prop[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pke db:rollbackd[C[C[C[C[C[C[C[C[C[C[C[Ce db:rollbackrd:rollback[2Pe db:migrateils generate migration CreateAccessTokensAddActiveTokenToUsers[1P[1P[1P[1P[1P[1P[1P[1P[1@d[1@e[1@s[1@t[1@r[1@o[1@y
+[1m[37m      invoke[0m  active_record
+[1m[31m      remove[0m    db/migrate/20120228100720_add_active_token_to_users.rb
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ ls =[K-la
+total 140
+drwxr-xr-x 15 gxx gxx  4096 2012-02-28 09:34 [0m[01;34m.[0m
+drwxr-xr-x 19 gxx gxx  4096 2012-02-21 10:32 [01;34m..[0m
+drwxr-xr-x  8 gxx gxx  4096 2012-02-13 15:31 [01;34mapp[0m
+drwxr-xr-x  5 gxx gxx  4096 2012-02-28 12:54 [01;34mconfig[0m
+-rwxr-xr-x  1 gxx gxx   159 2012-02-16 11:02 [01;32mconfig.ru[0m
+drwxr-xr-x  3 gxx gxx  4096 2012-02-23 13:41 [01;34mdb[0m
+drwxr-xr-x  2 gxx gxx  4096 2012-02-16 11:02 [01;34mdoc[0m
+-rwxr-xr-x  1 gxx gxx   894 2012-02-28 12:58 [01;32mGemfile[0m
+-rwxr-xr-x  1 gxx gxx   795 2012-02-16 11:02 [01;32m#Gemfile#[0m
+-rwxr-xr-x  1 gxx gxx   789 2012-02-16 11:02 [01;32mGemfile~[0m
+-rwxr-xr-x  1 gxx gxx  3346 2012-02-28 11:01 [01;32mGemfile.lock[0m
+drwxr-xr-x  8 gxx gxx  4096 2012-02-28 08:22 [01;34m.git[0m
+-rwxr-xr-x  1 gxx gxx   464 2012-02-23 13:35 [01;32m.gitignore[0m
+-rw-r--r--  1 gxx gxx   446 2012-02-15 12:24 #.gitignore#
+-rw-r--r--  1 gxx gxx 28672 2012-02-28 12:53 install
+drwxr-xr-x  4 gxx gxx  4096 2012-02-13 15:31 [01;34mlib[0m
+drwxr-xr-x  2 gxx gxx  4096 2012-02-21 15:16 [01;34mlog[0m
+drwxr-xr-x  3 gxx gxx  4096 2012-02-16 11:02 [01;34mnbproject[0m
+drwxr-xr-x  4 gxx gxx  4096 2012-02-23 13:35 [01;34mpublic[0m
+-rwxr-xr-x  1 gxx gxx   274 2012-02-16 11:02 [01;32mRakefile[0m
+-rwxr-xr-x  1 gxx gxx  9208 2012-02-16 11:02 [01;32mREADME.rdoc[0m
+drwxr-xr-x  3 gxx gxx  4096 2012-02-28 09:38 [01;34mscript[0m
+drwxr-xr-x  7 gxx gxx  4096 2012-02-17 08:02 [01;34mtest[0m
+drwxr-xr-x  3 gxx gxx  4096 2012-02-15 13:57 [01;34mtmp[0m
+-rw-r--r--  1 gxx gxx    99 2012-02-27 13:29 TODO
+drwxr-xr-x  4 gxx gxx  4096 2012-02-23 13:35 [01;34mvendor[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ cd vendor/
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ ls -la
+total 16
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [0m[01;34m.[0m
+drwxr-xr-x 15 gxx gxx 4096 2012-02-28 09:34 [01;34m..[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mbundle[0m
+drwxr-xr-x  2 gxx gxx 4096 2012-02-28 09:40 [01;34mcache[0m
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ cd bundle/
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendor/bundlegxx@gxx-PC:~/projects/babyfolio/vendor/bundle$ ls -la
+total 12
+drwxr-xr-x 3 gxx gxx 4096 2012-02-23 13:35 [0m[01;34m.[0m
+drwxr-xr-x 4 gxx gxx 4096 2012-02-23 13:35 [01;34m..[0m
+drwxr-xr-x 3 gxx gxx 4096 2012-02-23 13:35 [01;34mruby[0m
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendor/bundlegxx@gxx-PC:~/projects/babyfolio/vendor/bundle$ ls -la ruby/1.8/
+bin/            cache/          gems/           specifications/ 
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendor/bundlegxx@gxx-PC:~/projects/babyfolio/vendor/bundle$ ls -la ruby/1.8/
+bin/            cache/          gems/           specifications/ 
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendor/bundlegxx@gxx-PC:~/projects/babyfolio/vendor/bundle$ ls -la ruby/1.8/
+bin/            cache/          gems/           specifications/ 
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendor/bundlegxx@gxx-PC:~/projects/babyfolio/vendor/bundle$ ls -la ruby/1.8/gems/
+total 180
+drwxr-xr-x 45 gxx gxx 4096 2012-02-23 13:35 [0m[01;34m.[0m
+drwxr-xr-x  6 gxx gxx 4096 2012-02-23 13:35 [01;34m..[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mactionmailer-3.2.1[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mactionpack-3.2.1[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mactivemodel-3.2.1[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mactiverecord-3.2.1[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mactiveresource-3.2.1[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mactivesupport-3.2.1[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34marel-3.0.0[0m
+drwxr-xr-x  7 gxx gxx 4096 2012-02-23 13:35 [01;34mauthlogic-3.1.0[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mbuilder-3.0.0[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mcoffee-rails-3.2.2[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mcoffee-script-2.2.0[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mcoffee-script-source-1.2.0[0m
+drwxr-xr-x 10 gxx gxx 4096 2012-02-23 13:35 [01;34merubis-2.7.0[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mexecjs-1.3.0[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mhike-1.2.1[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mi18n-0.6.0[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mjourney-1.0.1[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mjquery-rails-2.0.0[0m
+drwxr-xr-x 10 gxx gxx 4096 2012-02-23 13:35 [01;34mjson-1.6.5[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mlibv8-3.3.10.4-x86_64-linux[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mmail-2.4.1[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mmetaclass-0.0.1[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mmime-types-1.17.2[0m
+drwxr-xr-x  6 gxx gxx 4096 2012-02-23 13:35 [01;34mmocha-0.10.4[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mmulti_json-1.0.4[0m
+drwxr-xr-x  8 gxx gxx 4096 2012-02-23 13:35 [01;34mmysql2-0.3.11[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mpolyglot-0.3.3[0m
+drwxr-xr-x  7 gxx gxx 4096 2012-02-23 13:35 [01;34mrack-1.4.1[0m
+drwxr-xr-x  6 gxx gxx 4096 2012-02-23 13:35 [01;34mrack-cache-1.1[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34mrack-ssl-1.3.2[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mrack-test-0.6.1[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mrailties-3.2.1[0m
+drwxr-xr-x  6 gxx gxx 4096 2012-02-23 13:35 [01;34mrake-0.9.2.2[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mrdoc-3.12[0m
+drwxr-xr-x  8 gxx gxx 4096 2012-02-23 13:35 [01;34msass-3.1.15[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34msass-rails-3.2.4[0m
+drwxr-xr-x  3 gxx gxx 4096 2012-02-23 13:35 [01;34msprockets-2.1.2[0m
+drwxr-xr-x  8 gxx gxx 4096 2012-02-23 13:35 [01;34mtherubyracer-0.9.9[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mthor-0.14.6[0m
+drwxr-xr-x  5 gxx gxx 4096 2012-02-23 13:35 [01;34mtilt-1.3.3[0m
+drwxr-xr-x  7 gxx gxx 4096 2012-02-23 13:35 [01;34mtreetop-1.4.10[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34mtzinfo-0.3.31[0m
+drwxr-xr-x  4 gxx gxx 4096 2012-02-23 13:35 [01;34muglifier-1.2.3[0m
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendor/bundlegxx@gxx-PC:~/projects/babyfolio/vendor/bundle$ ls -la ruby/1.8/gems/[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcd ..
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ ls -la 
+bundle/ cache/  
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ ls -la cache/
+actionmailer-3.2.1.gem           authlogic-3.1.0.gem              facebooker-1.0.75.gem            libv8-3.3.10.4-x86_64-linux.gem  mysql2-0.3.11.gem                railties-3.2.1.gem               thor-0.14.6.gem
+actionpack-3.2.1.gem             builder-3.0.0.gem                hike-1.2.1.gem                   libv8-3.3.10.4-x86-linux.gem     polyglot-0.3.3.gem               rake-0.9.2.2.gem                 tilt-1.3.3.gem
+activemodel-3.2.1.gem            coffee-rails-3.2.2.gem           i18n-0.6.0.gem                   mail-2.4.1.gem                   rack-1.4.1.gem                   rdoc-3.12.gem                    treetop-1.4.10.gem
+activerecord-3.2.1.gem           coffee-script-2.2.0.gem          journey-1.0.1.gem                metaclass-0.0.1.gem              rack-cache-1.1.gem               sass-3.1.15.gem                  tzinfo-0.3.31.gem
+activeresource-3.2.1.gem         coffee-script-source-1.2.0.gem   jquery-rails-2.0.0.gem           mime-types-1.17.2.gem            rack-ssl-1.3.2.gem               sass-rails-3.2.4.gem             uglifier-1.2.3.gem
+activesupport-3.2.1.gem          erubis-2.7.0.gem                 json-1.6.5.gem                   mocha-0.10.4.gem                 rack-test-0.6.1.gem              sprockets-2.1.2.gem              
+arel-3.0.0.gem                   execjs-1.3.0.gem                 json_pure-1.4.6.gem              multi_json-1.0.4.gem             rails-3.2.1.gem                  therubyracer-0.9.9.gem           
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ ls -la cache/[K[K[K[K[K[K[K[K[K[K[K[K[Krm -r *
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ ls -la
+total 8
+drwxr-xr-x  2 gxx gxx 4096 2012-02-28 13:00 [0m[01;34m.[0m
+drwxr-xr-x 15 gxx gxx 4096 2012-02-28 09:34 [01;34m..[0m
+]0;gxx@gxx-PC: ~/projects/babyfolio/vendorgxx@gxx-PC:~/projects/babyfolio/vendor$ cd ..
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle instal[K[K[K[K[K[Klist
+[31mCould not find gem 'omniauth (>= 0, runtime)' in any of the gem sources listed in your Gemfile.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle install
+Fetching source index for https://rubygems.org/
+Enter your password to install the bundled RubyGems to your system: 
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Installing hashie (1.2.0) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Installing omniauth (1.0.2) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle install
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Using hashie (1.2.0) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Using omniauth (1.0.2) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle is[Knstall develeopment[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C-develeopment-develeopment-develeopment[1Pdeveleopment[C[1Pdeveleopment[1Pdeveleopment[1Peveleopment[1Pveleopment[1Peleopment[1Pleopment[1Peopment[1Popment[1Ppment[1Pment[1Pent[1Pnt[1Pt[K[1@s[1@u[1@d[1@o[1@ 
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Using hashie (1.2.0) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Using omniauth (1.0.2) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ touch tmp/restart.txt
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ 
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ budl[K[Kndle install
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Using hashie (1.2.0) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Using omniauth (1.0.2) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ bundle install
+Fetching source index for https://rubygems.org/
+Using rake (0.9.2.2) 
+Using i18n (0.6.0) 
+Using multi_json (1.0.4) 
+Using activesupport (3.2.1) 
+Using builder (3.0.0) 
+Using activemodel (3.2.1) 
+Using erubis (2.7.0) 
+Using journey (1.0.1) 
+Using rack (1.4.1) 
+Using rack-cache (1.1) 
+Using rack-test (0.6.1) 
+Using hike (1.2.1) 
+Using tilt (1.3.3) 
+Using sprockets (2.1.2) 
+Using actionpack (3.2.1) 
+Using mime-types (1.17.2) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.10) 
+Using mail (2.4.1) 
+Using actionmailer (3.2.1) 
+Using arel (3.0.0) 
+Using tzinfo (0.3.31) 
+Using activerecord (3.2.1) 
+Using activeresource (3.2.1) 
+Using addressable (2.2.7) 
+Using authlogic (3.1.0) 
+Using bundler (1.0.10) 
+Using coffee-script-source (1.2.0) 
+Using execjs (1.3.0) 
+Using coffee-script (2.2.0) 
+Using rack-ssl (1.3.2) 
+Using json (1.6.5) 
+Using rdoc (3.12) 
+Using thor (0.14.6) 
+Using railties (3.2.1) 
+Using coffee-rails (3.2.2) 
+Using multipart-post (1.1.5) 
+Using faraday (0.7.6) 
+Using hashie (1.2.0) 
+Using jquery-rails (2.0.0) 
+Using libv8 (3.3.10.4) 
+Using metaclass (0.0.1) 
+Using mocha (0.10.4) 
+Using mysql2 (0.3.11) 
+Using oauth2 (0.5.2) 
+Using omniauth (1.0.2) 
+Installing omniauth-oauth2 (1.0.0) 
+Installing omniauth-facebook (1.2.0) 
+Using rails (3.2.1) 
+Using sass (3.1.15) 
+Using sass-rails (3.2.4) 
+Using therubyracer (0.9.9) 
+Using uglifier (1.2.3) 
+[32mYour bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.[0m
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails g nifty:scaffold authentication user_id:integer provider:string uid:string index create destroy
+Could not find generator nifty:scaffold.
+]0;gxx@gxx-PC: ~/projects/babyfoliogxx@gxx-PC:~/projects/babyfolio$ rails g nifty:scaffold authentication user_id:integer provider:string uid:string index create destroy[C[C[C[C[C[C[C[C[1P[1P[1P[1P[1P[1P
+[1m[37m      invoke[0m  active_record
+[1m[32m      create[0m    db/migrate/20120228130729_create_authentications.rb
+[1m[32m      create[0m    app/models/authentication.rb
+[1m[37m      invoke[0m    test_unit
+[1m[32m      create[0m      test/unit/authentication_test.rb
+[1m[32m      create[0m      test/fixtures/authentications.yml
+[1m[32m       route[0m  resources :authentications
+[1m[37m      invoke[0m  scaffold_controller
+[1m[32m      create[0m    app/controllers/authentications_controller.rb
+[1m[37m      invoke[0m    erb
+[1m[32m      create[0m      app/views/authentications
+[1m[32m      create[0m      app/views/authentications/index.html.erb
+[1m[32m      create[0m      app/views/authentications/edit.html.erb
+[1m[32m      create[0m      app/views/authentications/show.html.erb
+[1m[32m      create[0m      app/views/authentications/new.html.erb
+[1m[32m      create[0m      app/views/authentications/_form.html.erb
+[1m[37m      invoke[0m    test_unit
+[1m[32m      create[0m      test/functional/authentications_controller_test.rb
+[1m[37m      invoke[0m    helper
+[1m[32m      create[0m      app/helpers/authentications_helper.rb
+[1m[37m      invoke[0m      test_unit
+[1m[32m      create[0m        test/unit/helpers/authentications_helper_test.rb
+[1m[37m      invoke[0m  assets
+[1m

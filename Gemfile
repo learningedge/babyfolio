@@ -12,6 +12,9 @@ gem 'mysql2'
 gem 'therubyracer'
 gem 'jquery-rails'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 group :test do
 
   gem 'metaclass'

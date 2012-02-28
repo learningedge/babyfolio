@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
     t.ignore_blank_passwords = true;
   end
   disable_perishable_token_maintenance(true)
-  
+
+  has_many :authentications
   has_many :relations
   has_many :families, :through => :relations
 
