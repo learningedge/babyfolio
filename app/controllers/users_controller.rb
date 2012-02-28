@@ -33,12 +33,11 @@ class UsersController < ApplicationController
     @user = current_user
 
     @families = @user.families
-    @selected_family = @families.first
+    @selected_family = current_family
         
     @children = @selected_family.children
-    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
+    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first    
     
-    puts @user
   end
 
   def edit

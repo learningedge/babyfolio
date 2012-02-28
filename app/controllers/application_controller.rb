@@ -76,6 +76,14 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def require_family
+      redirect_to new_family_url unless current_family
+    end
+
+    def require_no_family
+      redirect_to new_family_url if current_family
+    end
+
 end
 
 

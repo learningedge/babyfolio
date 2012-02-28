@@ -18,9 +18,14 @@
       <% else %>
         <ul>
           <li class="avatar"><img src="/images/img_login.jpg" alt="img_login" /></li>
-          <li><a href="<%= child_profile_account_path -%>">Hi, <span class="profile_name"><%= current_user.get_user_name -%></span></a></li>
-          <li><a href="<%= logout_path -%>">Log Out <span class="border">|</span></a></li>
-          <li><a href="<%= edit_account_path -%>">Setting <span class="border">|</span></a></li>
+          <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
+          <li><span class="border">|</span></li>
+          <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
+          <li><span class="border">|</span></li>
+          <li><a href="<%= logout_path -%>">Log Out </a></li>
+          <li><span class="border">|</span></li>
+          <li><a href="<%= edit_account_path -%>">Setting </a></li>
+          <li><span class="border">|</span></li>
           <li><a href="#">Tour</a></li>
         </ul>
       <% end %>

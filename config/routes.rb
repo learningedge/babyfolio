@@ -1,5 +1,26 @@
 Babyfolio::Application.routes.draw do
 
+  
+  get "home/index"
+  get "interior" => "home#interior", :as => :interior
+
+  get "confirmation" => "confirmation#index", :as => :confirmation
+  get "confirmation/resend" => "confirmation#re_send_email"
+  get "confirmation/confirm_email"
+  get "confirmation/accept_invitation" => "confirmation#accept_invitation"
+  put "confirmation/update_user" => "confirmation#update_user"
+
+  get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
+  post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
+  get "reset-password/password" => "forgot_passwords#edit", :as => :edit_forgot_password
+  put "reset-password/password/update" => "forgot_passwords#update", :as => :update_forgot_password
+
+  match 'login' => "user_sessions#new", :as => :login
+  match 'logout' => "user_sessions#destroy", :as => :logout
+  match 'signup' => "users#new", :as => :signup
+  
+  match '/auth/:provider/callback', :to => 'authentications#create'
+  
   resources :authentications
 
   resources :families, :only => [:new, :create, :index, :update] do
@@ -17,23 +38,15 @@ Babyfolio::Application.routes.draw do
     end
   end
 
-  match '/auth/:provider/callback', :to => 'authentications#create'
+  
+  resources :children, :only => [:edit, :update] do
+    collection do
+      get ':id' => "children#show", :as => :child_profile
+      get :show
+    end
+  end
 
   resources :relations, :only => [:destroy]
-
-  get "home/index"
-  get "interior" => "home#interior", :as => :interior
-
-  get "confirmation" => "confirmation#index", :as => :confirmation
-  get "confirmation/resend" => "confirmation#re_send_email"
-  get "confirmation/confirm_email"
-  get "confirmation/accept_invitation" => "confirmation#accept_invitation"
-  put "confirmation/update_user" => "confirmation#update_user"
-  
-  get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
-  post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
-  get "reset-password/password" => "forgot_passwords#edit", :as => :edit_forgot_password
-  put "reset-password/password/update" => "forgot_passwords#update", :as => :update_forgot_password
 
   resources :user_sessions do
     collection do
@@ -41,18 +54,11 @@ Babyfolio::Application.routes.draw do
     end
   end
   
-  match 'login' => "user_sessions#new", :as => :login
-  match 'logout' => "user_sessions#destroy", :as => :logout
-
   resource :user, :as => 'account' do
     collection do
       get 'edit' => "users#edit"
-      get ':child_id' => "users#show", :as => "child_profile"
     end
   end
-
-  match 'signup' => "users#new", :as => :signup
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
