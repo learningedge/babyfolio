@@ -1,0 +1,9 @@
+<%  @families_for_select = current_user.families.accepted.collect { |fam| ["#{fam.name}'s family", fam.id] } %>
+
+<% unless @families_for_select.length <= 1 %>
+  <%= form_tag change_family_to_edit_families_path, :class => "select_family_form" do %>
+    <%= select_tag :id, options_for_select(@families_for_select, my_family.id), :onchange => "$(this).parents('form').submit();"  %>
+  <% end %>
+<% else %>
+  <%= "#{current_family.name}'s family" -%>
+<% end %>

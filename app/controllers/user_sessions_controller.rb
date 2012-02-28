@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
       if result
         @user_session.user.reset_perishable_token!
         flash[:notice] # "Login successful!"
-        redirect_back_or_default account_url
+        redirect_back_or_default children_path
       else
         render :action => :new
       end
@@ -31,7 +31,7 @@ class UserSessionsController < ApplicationController
 
   def change_family    
     session[:current_family] = params[:id]
-    redirect_back_or_default account_url(current_user)    
+    redirect_to :back
   end
 
   def destroy

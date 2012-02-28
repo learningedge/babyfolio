@@ -11,4 +11,5 @@ class Family < ActiveRecord::Base
   accepts_nested_attributes_for :relations, :allow_destroy => true
 
   scope :parenting_families, where( :relations => { :member_type => Relation::MEMBER_TYPE[:PARENT] } )
+  scope :accepted, where( :relations => {:accepted => true})
 end
