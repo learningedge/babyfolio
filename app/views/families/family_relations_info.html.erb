@@ -20,7 +20,7 @@
     <div class="parents">
       <% @parents.each do |parent| %>
         <div class="row user">
-          <img src="/images/icon1.png" class="avatar" />          
+          <%= image_tag parent.user.avatar.url(:medium), :class => 'avatar' -%>
           <div class="user-info">
             <div class="name"><%= parent.user.first_name -%></div>
             <div><%=  parent.user.email %></div>

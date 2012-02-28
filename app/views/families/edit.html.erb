@@ -1,9 +1,4 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
-
-<div class="container settings">
+<div class="container settings my-family-info">
 
   <div id="left">
     <div id="title">Edit Account</div>
@@ -41,6 +36,8 @@
             <%= child_form.text_field :first_name %>
             <%= child_form.label :birth_date, "Birth Date: "%>
             <%= child_form.text_field :birth_date,:value => child_form.object.formated_birth_date , :readonly => true, :class => 'birth_date_input' %>
+            <%= child_form.label :profile_image, "Image: "%>
+            <%= child_form.file_field :profile_image %><%= image_tag child_form.object.profile_image.url(:small) if child_form.object.profile_image.size %>
 
     <%#*<span>%>
     <%# unless child_form.object.new_record? %>

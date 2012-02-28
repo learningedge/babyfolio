@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
       if current_user
         store_location
         flash[:notice] = "You must be logged out to access this page"
-        redirect_to account_url
+        redirect_to child_profile_children_url
         return false
       end
     end
@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def require_family
+    def require_my_family
       @current_user = current_user
       unless @current_user.is_parent?
         redirect_to new_family_url
@@ -67,12 +67,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def my_family      
+    def my_family
+      return @my_family if defined?(@my_family)
       if current_user.families.parenting_families.exists? session[:current_family]
-        current_family
+        @my_family = current_family
       else
         session[:current_family] = current_user.families.parenting_families.first
-        current_family
+        @my_family = current_family
       end
     end
 
@@ -81,7 +82,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_no_family
-      redirect_to new_family_url if current_family
+      redirect_to child_profile_children_url if current_family
     end
 
 end

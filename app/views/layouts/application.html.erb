@@ -17,10 +17,15 @@
         </ul>
       <% else %>
         <ul>
-          <li class="avatar"><img src="/images/img_login.jpg" alt="img_login" /></li>
+          <% if current_user.avatar.size %>
+            <li class="avatar"><%= image_tag current_user.avatar.url(:small) -%></li>
+          <% end %>
           <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
-          <li><span class="border">|</span></li>
-          <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
+          <% if current_family %>
+            <li><span class="border">|</span></li>
+            <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
+          <% end %>
+
           <li><span class="border">|</span></li>
           <li><a href="<%= logout_path -%>">Log Out </a></li>
           <li><span class="border">|</span></li>
