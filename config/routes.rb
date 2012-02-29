@@ -35,8 +35,6 @@ Babyfolio::Application.routes.draw do
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'signup' => "users#new", :as => :signup
   
-  match '/auth/:provider/callback', :to => 'authentications#create'
-  
   resources :families, :only => [:new, :create, :index, :update] do
     collection do
       get :add_friends
