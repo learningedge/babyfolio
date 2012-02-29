@@ -10,18 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228180915) do
-
-  create_table "authentications", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "index"
-    t.string   "create"
-    t.string   "destroy"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+ActiveRecord::Schema.define(:version => 20120229103729) do
 
   create_table "children", :force => true do |t|
     t.string   "first_name",                 :null => false
@@ -31,10 +20,10 @@ ActiveRecord::Schema.define(:version => 20120228180915) do
     t.integer  "family_id",                  :null => false
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
-    t.datetime "profile_image_updated_at"
-    t.string   "profile_image_file_name"
-    t.string   "profile_image_content_type"
     t.integer  "profile_image_file_size"
+    t.datetime "profile_image_updated_at"
+    t.string   "profile_image_content_type"
+    t.string   "profile_image_file_name"
   end
 
   create_table "families", :force => true do |t|
@@ -51,6 +40,16 @@ ActiveRecord::Schema.define(:version => 20120228180915) do
     t.string  "display_name"
     t.string  "token"
     t.boolean "accepted",     :default => false
+  end
+
+  create_table "services", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "uname"
+    t.string   "uemail"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "user_sessions", :force => true do |t|
@@ -83,10 +82,10 @@ ActiveRecord::Schema.define(:version => 20120228180915) do
     t.datetime "updated_at",                             :null => false
     t.date     "current_login_at"
     t.boolean  "email_confirmed",     :default => false
-    t.datetime "avatar_updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "avatar_content_type"
+    t.string   "avatar_file_name"
   end
 
 end

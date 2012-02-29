@@ -3,6 +3,23 @@ Babyfolio::Application.routes.draw do
   get "home/index"
   get "interior" => "home#interior", :as => :interior
 
+    # Omniauth pure
+  match "/signin" => "services#signin"
+  match "/signout" => "services#signout"
+
+  match '/auth/:service/callback' => 'services#create'
+  match '/auth/failure' => 'services#failure'
+
+  resources :services, :only => [:index, :create, :destroy] do
+    collection do
+      get 'signin'
+      get 'signout'
+      get 'signup'
+      post 'newaccount'
+      get 'failure'
+    end
+  end
+
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
   get "confirmation/confirm_email"
