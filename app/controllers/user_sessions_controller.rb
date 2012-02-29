@@ -18,15 +18,6 @@ class UserSessionsController < ApplicationController
         render :action => :new
       end
     end
-
-#    if @user_session.save
-#      @user_session.user.reset_perishable_token!
-#
-#      flash[:notice] = "Login successful!"
-#      redirect_back_or_default account_url(@current_user)
-#    else
-#      render :action => :new
-#    end
   end
 
   def change_family    
@@ -36,6 +27,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     current_user_session.destroy
+    session[:current_family] = nil
     flash[:notice] = "Logout successful!"
     redirect_back_or_default new_user_session_url
   end

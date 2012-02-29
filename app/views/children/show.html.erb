@@ -19,7 +19,7 @@
         <div id="container_book">
           <div id="book_left">
             <div id="child_profile">
-              <img src="/images/img_kids.png" alt="photo" />
+              <%= image_tag @selected_child.profile_image.url(:large) %>              
               <span id="name"><span>Name</span> : <%= @selected_child.first_name -%></span>
               <span id="age"><span>Age</span> : <%= @selected_child.age_text -%></span>
               <span id="count_entries">xx Story Entries</span>

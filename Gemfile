@@ -11,6 +11,7 @@ gem 'json'
 gem 'mysql2'
 gem 'therubyracer'
 gem 'jquery-rails'
+gem 'paperclip'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
