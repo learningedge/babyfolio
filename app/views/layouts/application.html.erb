@@ -17,9 +17,7 @@
         </ul>
       <% else %>
         <ul>
-          <% if current_user.avatar.size %>
-            <li class="avatar"><%= image_tag current_user.avatar.url(:small) -%></li>
-          <% end %>
+          <li class="avatar"><%= image_tag current_user.avatar.url(:small) -%></li>
           <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
           <% if current_family %>
             <li><span class="border">|</span></li>

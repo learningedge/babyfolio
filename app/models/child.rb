@@ -4,7 +4,9 @@ class Child < ActiveRecord::Base
 
   belongs_to :family
 
-  has_attached_file :profile_image, :styles => { :small => "26x26#", :medium => "93x93#", :large => "228x254#" }
+  has_attached_file :profile_image, 
+    :styles => { :small => "40x40#", :medium => "93x93#", :large => "228x254#" },
+    :default_url => '/images/default_images/child_profile_:style.png'
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true

@@ -1,6 +1,25 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+<div class="container settings child-image">
 
-<%= "edit.html" %>
+  <div id="left">
+    <div id="title">Profile's Image</div>
+  </div>
+
+  <div class="user-form update_form">
+    <%#= render "shared/error_messages", :target => @family %>
+    <h2>Upload Image for <%= @child.first_name -%>'s profile</h2>
+    
+    <%= form_for @child,:remote => true, :method => 'put' do |f| -%>
+    <div class="profile-image">
+      <%= image_tag @child.profile_image.url(:large) %>
+    </div>
+    <div>
+      <%= f.file_field :profile_image, :accepted => 'image/png,image/git,image/jpg' %>
+    </div>
+    <% end %>
+    <h2>OR choose one from facebook</h2>
+
+    <h2>OR flicker</h2>
+  </div>
+
+  <div class="clear"></div>
+</div>

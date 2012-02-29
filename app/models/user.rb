@@ -4,8 +4,11 @@ class User < ActiveRecord::Base
   end
   disable_perishable_token_maintenance(true)
 
-  has_attached_file :avatar, :styles => { :small => "26x26#", :medium => "93x93#" }
-
+  has_attached_file :avatar, 
+    :styles => { :small => "26x26#", :medium => "93x93#" },
+    :default_url => '/images/default_images/user_profile_:style.png'
+  
+  has_many :authentications
   has_many :relations
   has_many :families, :through => :relations
 
