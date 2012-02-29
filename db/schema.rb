@@ -12,6 +12,17 @@
 
 ActiveRecord::Schema.define(:version => 20120229103729) do
 
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "index"
+    t.string   "create"
+    t.string   "destroy"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "children", :force => true do |t|
     t.string   "first_name",                 :null => false
     t.string   "second_name"
@@ -21,9 +32,9 @@ ActiveRecord::Schema.define(:version => 20120229103729) do
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
     t.integer  "profile_image_file_size"
+    t.string   "profile_image_file_name"
     t.datetime "profile_image_updated_at"
     t.string   "profile_image_content_type"
-    t.string   "profile_image_file_name"
   end
 
   create_table "families", :force => true do |t|
@@ -83,9 +94,9 @@ ActiveRecord::Schema.define(:version => 20120229103729) do
     t.date     "current_login_at"
     t.boolean  "email_confirmed",     :default => false
     t.integer  "avatar_file_size"
+    t.string   "avatar_file_name"
     t.datetime "avatar_updated_at"
     t.string   "avatar_content_type"
-    t.string   "avatar_file_name"
   end
 
 end
