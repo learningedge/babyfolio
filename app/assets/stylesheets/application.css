@@ -79,9 +79,6 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 /* FACEBOOK AUTHENTICATION */
 
-
-
-
 .authentications {
   margin-bottom: 30px;
 }
@@ -94,6 +91,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
   padding: 5px 10px;
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
+  behavior: url(PIE/PIE.htc);
   position: relative;
   margin-right: 10px;
 }
@@ -113,6 +111,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
   background-color: #777;
   -moz-border-radius: 6px;
   -webkit-border-radius: 6px;
+  behavior: url(PIE/PIE.htc);
 }
 
 .authentication img {
@@ -163,7 +162,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #home #login_box ul li span {font: 18px 'Helvetica_67'; padding: 0 10px}
 #home #slider {height: 373px;width: 1360px;margin: 0 auto 66px;background: url('/images/home_slider.png') no-repeat 0 0;border-top: 7px solid #debd6c;border-bottom: 7px solid #debd6c;}
 #home #slider #welcome_container {margin: 0 auto;width: 1000px}
-#home #slider #welcome_container .container_left {width: 540px;float: left;margin: 190px 0 0 24px;background: url('/images/background_box.png');border-radius: 15px;padding: 5px 24px 8px 30px}
+#home #slider #welcome_container .container_left {width: 540px;float: left;margin: 190px 0 0 24px;background: url('/images/background_box.png');border-radius: 15px;-webkit-border-radius: 15px;-moz-border-radius: 15px;behavior: url(PIE/PIE.htc);padding: 5px 24px 8px 30px;}
 #home #slider #welcome_container .container_left h1 {font:32px 'Helvetica_rd';color: #fff}
 #home #slider #welcome_container .container_left p {font: 18px 'Helvetica_light';color:#fff;margin: 5px 0 2px}
 #home #slider #welcome_container .container_left p span {font:bold 18px 'Helvetica_light';color:#fff}
@@ -180,7 +179,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #home #slider #welcome_container .container_right  #profile_form ul li:last-child input[type="checkbox"] {margin: 0 0 0 16px} 
 #home #slider #welcome_container .container_right  #profile_form ul li label {color:#fff;padding: 0 0 0 14px;}
 #home #slider #welcome_container .container_right  #profile_form a {display: block;text-align: center;width: 245px}
-#home #wrraper {background: #fff;border-radius: 0;width: 1016px;padding: 0 10px 0px}
+#home #wrraper {background: #fff;border-radius: 0;-webkit-border-radius: 0px;-moz-border-radius: 0px;behavior: url(PIE/PIE.htc);width: 1016px;padding: 0 10px 0px}
 #home #wrraper #container_home {position: relative}
 #home #wrraper .shadow_left {background: url('/images/shadow_left.png') repeat-y 0 0;margin-left: -10px;padding-left: 10px}
 #home #wrraper .shadow_right {background: url('/images/shadow_right.png') repeat-y right 0;margin-right: -10px;padding-right: 10px}
@@ -197,7 +196,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #home #wrraper #container_home #moments {width: 993px;padding: 0 12px 15px}
 #home #wrraper #container_home #moments ul {border-top: 1px dotted #555555;padding: 22px 0 0}
 #home #wrraper #container_home #moments ul li {display: inline-block;width: 316px;background: url('/images/moments_bg.png') no-repeat;padding: 0 0 0 12px;}
-#home #wrraper #container_home #moments ul li a {text-decoration: none;display: block;font:11px arial;margin: 0 13px 0 223px;color: #9b7804;background: #f5f2dd;border-radius: 11px;display: inline-block;padding: 4px 10px}
+#home #wrraper #container_home #moments ul li a {text-decoration: none;display: block;font:11px arial;margin: 0 13px 0 223px;color: #9b7804;background: #f5f2dd;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);display: inline-block;padding: 4px 10px}
 #home #wrraper #container_home #moments ul li .icon {width: 222px;height: 100px;padding: 0 93px;text-align: center;margin: 0 0 39px}
 #home #wrraper #container_home #moments ul li .icon h1 {font:27px Helvetica_seven;color:#9b7804}
 #home #wrraper #container_home #moments ul li .icon p {font:14px arial; color:#898989;margin: 10px 0 0;width: 200px}
@@ -209,7 +208,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #top #login_box ul {list-style: none;float: right; padding: 0 14px 0 0}
 #top #login_box ul li {float: left;font: 12px arial;color: #713500;padding: 6px 5px 0}
 #top #login_box ul li.avatar {padding: 0;}
-#top #login_box ul li.avatar img{border: 1px solid #cec9bb}
+#top #login_box ul li.avatar img{border: 1px solid #cec9bb;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);overflow:hidden}
 #top #login_box ul li.family-select {padding:5px 0px 0px;margin:0px;}
 #top #login_box ul li.family-select select{color:#713500;background:#c8ba7b;border:none;font: 12px arial;margin:0px}
 #top #login_box ul li.family-select select option {}
@@ -220,13 +219,13 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #header #logo {width: 1078px;margin: 0 auto; padding: 18px 0 21px}
 
 /* StoreyBook Container */
-#wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;padding: 10px 10px 15px 32px;/*height: 100%*/}
+#wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;-webkit-border-radius: 18px 18px 0 0;-moz-border-radius: 18px 18px 0 0;behavior: url(PIE/PIE.htc);padding: 10px 10px 15px 32px;/*height: 100%*/}
 #wrraper .notice {color:red;padding:10px 0;}
 #wrraper .container {/*height: 100%*/min-height:200px}
 #container_header {margin: 5px 0 0;height: 90px;}
 #wrraper .container #title {display: inline;font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left;min-width:200px;text-align:center}
 #wrraper .container #drop_list {width: 206px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 124px;float: left}
-#wrraper .container #drop_list select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+#wrraper .container #drop_list select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 #wrraper .container #drop_list #setting_kids {margin: 12px 0 0}
 #wrraper .container #drop_list a {font: 14px arial;color: #9b7804;text-decoration: none}
 #wrraper .container #drop_list span {display: block;text-align: center}
@@ -269,7 +268,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #container_left #storybook_moments #moments_list .moment .title {font:bold 14px arial;color:#636363}
 #wrraper .container #container_left #storybook_moments #moments_list .moment p {font:12px arial;color:#898989}
 
-#wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 762px}
+#wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 762px}
 #wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
 #wrraper .container #container_right #most_post {margin: 0 0 0 35px}
 #wrraper .container #container_right #most_post .single_post {margin: 0 0 30px;padding: 0 10px 0 0}
@@ -304,7 +303,7 @@ a:hover {text-decoration:none}
 #ui-datepicker-div table td a{text-decoration:none}
 
 
-.user-form {float:right;background:#e8e3c0;border-radius:11px;width:720px;padding: 20px 20px 20px 50px;font: 14px arial; color:#898989}
+.user-form {float:right;background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);width:720px;padding: 20px 20px 20px 50px;font: 14px arial; color:#898989}
 .user-form h2 {margin-bottom:20px}
 .user-form #errorExplanation {padding-bottom:20px}
 .user-form #errorExplanation h2 {font-size:14px;color:red;font-weight:bold}
@@ -319,7 +318,7 @@ a:hover {text-decoration:none}
 .user-form div.forgot-link {margin: 10px 0px 0px 145px}
 .user-form label {color: #898989; font: 14px arial}
 .user-form input[type=text],
-.user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+.user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 .user-form input[type=submit] {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
 
 /* .settings */
@@ -327,12 +326,12 @@ a:hover {text-decoration:none}
 .settings #change-form a.current{font-weight:bold;text-decoration:none;cursor:default}
 .settings #change-form h2 {font: 30px 'helvetica_seven';color:#555}
 .settings #change-form .change-family {padding-top:20px}
-.settings #change-form select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+.settings #change-form select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 
 /* .confirmation */
 .confirmation-index .titles {padding-bottom:20px}
 .confirmation-index .content {padding:20px 0px}
-.confirmation-welcome .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+.confirmation-welcome .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 
 /* .create-family */
 .create-family .user-form label {width:85px;display:inline-block;text-align:right}
@@ -355,7 +354,7 @@ a:hover {text-decoration:none}
 
 /* relations */
 .relations .row span.label {width: 250px}
-.relations .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;width:204px}
+.relations .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 
 /* forgot-password */
 .forgot-password .user-form {width:560px}
@@ -370,12 +369,17 @@ a:hover {text-decoration:none}
 .family-relations-info .add-friend {text-align:center;width:140px;margin:40px auto}
 .family-relations-info .add-friend a{background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-decoration:none}
 .family-relations-info .user {float:left;width:50%}
-.family-relations-info .user img.avatar {float:left;margin-right:20px}
-.family-relations-info .user .remove {display:inline-block;background: url('/images/delete_btn.png') no-repeat; width:20px;height:20px;text-indent:-9999px}
+.family-relations-info .user img.avatar {float:left;margin-right:20px;border-radius:17px;-webkit-border-radius: 17px;-moz-border-radius: 17px;behavior: url(PIE/PIE.htc);overflow:hidden}
+.family-relations-info .user .remove {display:inline-block;background: url('/images/delete_btn.png') no-repeat; width:20px;height:20px;text-indent:-9999px;}
 .family-relations-info .user .user-info .name {font-weight:bold;font-size:18px;padding-bottom:3px}
 .family-relations-info .user .user-info .name .remove-button {}
 
 /* .my-family-info */
 .my-family-info {}
+.my-family-info .single_child .profile-image {display:inline-block;vertical-align:middle;padding:0px 20px}
+.my-family-info .single_child .profile-image img{border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);}
 .my-family-info .single_child input[type=text] {width:100px}
 .my-family-info .single_child input[type=text].birth_date_input {width:87px}
+
+/* .child-image */
+.child-image .profile-image img{border-radius:15px;-webkit-border-radius: 15px;-moz-border-radius: 15px;behavior: url(PIE/PIE.htc);}
