@@ -20,8 +20,6 @@ Babyfolio::Application.routes.draw do
   
   match '/auth/:provider/callback', :to => 'authentications#create'
   
-  resources :authentications
-
   resources :families, :only => [:new, :create, :index, :update] do
     collection do
       get :add_friends
