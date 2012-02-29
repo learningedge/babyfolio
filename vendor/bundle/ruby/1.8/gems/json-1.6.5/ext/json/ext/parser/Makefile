@@ -4,7 +4,7 @@ SHELL = /bin/sh
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /usr/lib/ruby/1.8/x86_64-linux
+topdir = /usr/lib/ruby/1.8/i686-linux
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
 exec_prefix = $(prefix)
@@ -46,10 +46,10 @@ LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 RUBY_EXTCONF_H = 
 CFLAGS   =  -fPIC -fno-strict-aliasing -g -g -O3  -fPIC $(cflags) -Wall 
 INCFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir)
-DEFS     = 
+DEFS     = -D_FILE_OFFSET_BITS=64
 CPPFLAGS =   $(DEFS) $(cppflags)
 CXXFLAGS = $(CFLAGS) 
-ldflags  = -L.  -rdynamic -Wl,-export-dynamic
+ldflags  = -L. -Wl,-Bsymbolic-functions -rdynamic -Wl,-export-dynamic
 dldflags = 
 archflag = 
 DLDFLAGS = $(ldflags) $(dldflags) $(archflag)
@@ -59,8 +59,8 @@ EXEEXT =
 
 RUBY_INSTALL_NAME = ruby1.8
 RUBY_SO_NAME = ruby1.8
-arch = x86_64-linux
-sitearch = x86_64-linux
+arch = i686-linux
+sitearch = i686-linux
 ruby_version = 1.8
 ruby = /usr/bin/ruby1.8
 RUBY = $(ruby)
@@ -96,8 +96,8 @@ STATIC_LIB =
 
 BINDIR        = $(bindir)
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
-RUBYLIBDIR = /home/queju/babyfolio.qa.codephonic.com/vendor/bundle/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
-RUBYARCHDIR = /home/queju/babyfolio.qa.codephonic.com/vendor/bundle/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
+RUBYLIBDIR = /home/gxx/projects/babyfolio/vendor/bundle/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
+RUBYARCHDIR = /home/gxx/projects/babyfolio/vendor/bundle/ruby/1.8/gems/json-1.6.5/ext/json/ext$(target_prefix)
 
 TARGET_SO     = $(DLLIB)
 CLEANLIBS     = $(TARGET).so $(TARGET).il? $(TARGET).tds $(TARGET).map

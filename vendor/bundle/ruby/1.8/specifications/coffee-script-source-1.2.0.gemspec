@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeremy Ashkenas"]
-  s.date = %q{2011-12-18}
+  s.date = %q{2011-12-19}
   s.description = %q{      CoffeeScript is a little language that compiles into JavaScript.
       Underneath all of those embarrassing braces and semicolons,
       JavaScript has always had a gorgeous object model at its heart.
@@ -18,11 +18,10 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://jashkenas.github.com/coffee-script/}
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{coffee-script-source}
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{The CoffeeScript Compiler}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then

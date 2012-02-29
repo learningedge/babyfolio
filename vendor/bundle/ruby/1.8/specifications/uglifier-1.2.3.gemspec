@@ -12,11 +12,10 @@ Gem::Specification.new do |s|
   s.files = [".document", ".gitmodules", ".rspec", ".travis.yml", "Gemfile", "LICENSE.txt", "README.rdoc", "Rakefile", "VERSION", "build.js", "lib/es5.js", "lib/uglifier.rb", "lib/uglify.js", "spec/spec_helper.rb", "spec/uglifier_spec.rb", "uglifier.gemspec"]
   s.homepage = %q{http://github.com/lautis/uglifier}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{Ruby wrapper for UglifyJS JavaScript compressor}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then

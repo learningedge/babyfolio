@@ -13,12 +13,11 @@ Gem::Specification.new do |s|
   s.homepage = %q{}
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{coffee-rails}
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{Coffee Script adapter for the Rails asset pipeline.}
   s.test_files = ["test/assets_generator_test.rb", "test/assets_test.rb", "test/controller_generator_test.rb", "test/scaffold_generator_test.rb", "test/support/routes.rb", "test/support/site/index.js.coffee", "test/template_handler_test.rb", "test/test_helper.rb"]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then

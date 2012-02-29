@@ -14,12 +14,11 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://tomayko.com/src/rack-cache/}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Rack::Cache", "--main", "Rack::Cache"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{HTTP Caching for Rack}
   s.test_files = ["test/cache_test.rb", "test/cachecontrol_test.rb", "test/context_test.rb", "test/entitystore_test.rb", "test/key_test.rb", "test/metastore_test.rb", "test/options_test.rb", "test/request_test.rb", "test/response_test.rb", "test/storage_test.rb"]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 2
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then

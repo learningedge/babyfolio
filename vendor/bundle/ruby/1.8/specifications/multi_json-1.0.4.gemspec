@@ -14,12 +14,11 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/intridea/multi_json}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{A gem to provide swappable JSON backends.}
   s.test_files = ["spec/helper.rb", "spec/multi_json_spec.rb"]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then

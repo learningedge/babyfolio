@@ -13,9 +13,6 @@ gem 'therubyracer'
 gem 'jquery-rails'
 gem 'paperclip'
 
-gem 'omniauth'
-gem 'omniauth-facebook'
-
 group :test do
 
   gem 'metaclass'

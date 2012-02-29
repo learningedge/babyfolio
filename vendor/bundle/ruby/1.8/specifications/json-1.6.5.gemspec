@@ -16,12 +16,11 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--title", "JSON implemention for Ruby", "--main", "README.rdoc"]
   s.require_paths = ["ext/json/ext", "ext", "lib"]
   s.rubyforge_project = %q{json}
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{JSON Implementation for Ruby}
   s.test_files = ["./tests/test_json_string_matching.rb", "./tests/test_json_fixtures.rb", "./tests/test_json_unicode.rb", "./tests/test_json_addition.rb", "./tests/test_json_generate.rb", "./tests/test_json_encoding.rb", "./tests/test_json.rb"]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then

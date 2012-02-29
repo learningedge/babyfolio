@@ -6,18 +6,17 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sam Stephenson", "Joshua Peek"]
-  s.date = %q{2011-11-19}
+  s.date = %q{2011-11-20}
   s.description = %q{Sprockets is a Rack-based asset packaging system that concatenates and serves JavaScript, CoffeeScript, CSS, LESS, Sass, and SCSS.}
   s.email = ["sstephenson@gmail.com", "josh@joshpeek.com"]
   s.files = ["README.md", "LICENSE", "lib/sprockets/asset.rb", "lib/sprockets/asset_attributes.rb", "lib/sprockets/base.rb", "lib/sprockets/bundled_asset.rb", "lib/sprockets/cache/file_store.rb", "lib/sprockets/caching.rb", "lib/sprockets/charset_normalizer.rb", "lib/sprockets/context.rb", "lib/sprockets/directive_processor.rb", "lib/sprockets/eco_template.rb", "lib/sprockets/ejs_template.rb", "lib/sprockets/engines.rb", "lib/sprockets/environment.rb", "lib/sprockets/errors.rb", "lib/sprockets/index.rb", "lib/sprockets/jst_processor.rb", "lib/sprockets/mime.rb", "lib/sprockets/processed_asset.rb", "lib/sprockets/processing.rb", "lib/sprockets/processor.rb", "lib/sprockets/safety_colons.rb", "lib/sprockets/server.rb", "lib/sprockets/static_asset.rb", "lib/sprockets/trail.rb", "lib/sprockets/utils.rb", "lib/sprockets/version.rb", "lib/sprockets.rb"]
   s.homepage = %q{http://getsprockets.org/}
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{sprockets}
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.5.2}
   s.summary = %q{Rack-based asset packaging system}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
