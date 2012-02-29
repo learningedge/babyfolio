@@ -2,7 +2,7 @@ class FamiliesController < ApplicationController
 
   before_filter :require_user
   before_filter :require_confirmation
-  before_filter :require_my_family, :only => [:add_friends, :create_friend_relations, :create_friends, :relations, :create_relations, :show]
+  before_filter :require_my_family, :only => [:add_friends, :create_friend_relations, :create_friends, :relations, :create_relations, :show, :edit, :update, :family_relations_info]
 
   def index
     @family = current_family

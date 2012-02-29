@@ -38,7 +38,7 @@ Babyfolio::Application.routes.draw do
   resources :children, :only => [:edit, :update] do
     collection do
       get ':child_id' => "children#show", :as => :child_profile
-      get :show
+      get :show, :as => :child_profile
     end
   end
 
