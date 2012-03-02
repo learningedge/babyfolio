@@ -10,6 +10,9 @@ class FamiliesController < ApplicationController
   end
 
   def new
+
+    flash[:registration] = true;
+
     @family = Family.new
     10.times {
       @family.children.build
@@ -19,6 +22,9 @@ class FamiliesController < ApplicationController
   end
 
   def create
+
+    flash[:registration] = flash[:registration]
+
     parents_count = 2;
     @family = Family.new(params['family'])
     @family.relations.first.token = current_user.perishable_token
@@ -93,11 +99,11 @@ class FamiliesController < ApplicationController
   end 
 
   def add_friends
-    
+    flash[:registration] = flash[:registration]
   end
 
   def create_friend_relations
-
+    flash[:registration] = flash[:registration]
     @family = current_family
     @friends = params[:friends]
     user_emails = Array.new
@@ -111,7 +117,7 @@ class FamiliesController < ApplicationController
           user_emails << user_email
         else
           @error = true
-          @flash_note = "Sorry one of the email you wrote is exist in your family";
+          @flash_error = "Sorry one of the email you wrote is exist in your family";
           break
         end
       end
@@ -119,7 +125,7 @@ class FamiliesController < ApplicationController
 
     if user_emails.empty?
       @error = true 
-      @flash_note = "You can't invite no one";
+      @flash_error = "You can't invite no one";
     end
 
     unless @error
@@ -174,20 +180,20 @@ class FamiliesController < ApplicationController
           user.save
           UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user).deliver
         end
-        flash[:notice] = "Congrats you send emails to your friends :D!!"
-        redirect_to add_friends_families_url
+        flash[:notice] = "Thanks fo inviting others. We have successfully sent emails to the other family & friends that you entered."
+        redirect_to child_profile_children_url
       else
-        flash[:notice] = "Invalid emails!"
+        flash[:error] = "Invalid emails!"
         render :action => :add_friends
       end
     else
-      flash[:notice] = @flash_note
+      flash[:error] = @flash_error
       render :action => :add_friends
     end
   end
 
   def create_friends
-
+    flash[:registration] = flash[:registration]
     @family = current_family
     users = Array.new
     tokens = Array.new
@@ -266,7 +272,7 @@ class FamiliesController < ApplicationController
   end
 
   def relations
-
+    flash[:registration] = flash[:registration]
     @select_options = Array.new
 
     @select_options = (Relation::MEMBER_TYPE.select {|key, value| key != :PARENT}).collect {|key, value| [value.capitalize, value]}
@@ -277,6 +283,7 @@ class FamiliesController < ApplicationController
   end
 
   def create_relations
+    flash[:registration] = flash[:registration]
     @relations = Relation.where(['token IN (?)',flash[:tokens]]).all
     @relation_params = params[:relations]
     @relation_params.each do |relation_param|

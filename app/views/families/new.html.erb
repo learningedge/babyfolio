@@ -1,10 +1,32 @@
-<div class="container create-family">
-  <div id="title">Create family</div>
+<div class="container settings create-family">
+  <% if flash[:registration] %>
+    <div id="steps">
+      <table>
+        <tr>
+          <td class="title active">Step 1:<br/>Create family</td>
+          <td class="arrows" ></td>
+          <td class="title">Step 2:<br/>Invite Family Members</td>
+          <td class="arrows" ></td>
+          <td class="title">Step 3:<br/>Add Photos/Videos</td>
+        </tr>
+      </table>
+    </div>
+  <% end %>
+  
+  <div id="left">
+    <div class="title">Step 1: Create family</div>  
+  </div>
   <div class="user-form">
     <%= render "shared/error_messages", :target => @family %>
     <% counter = 0 %>
 
     <%= form_for @family do |f| -%>
+      <h2>
+        Family Name: 
+      </h2>
+      <div class="row">
+        <%= f.text_field :name %>
+      </div>
       <h2>
         Children:
       </h2>
@@ -15,38 +37,46 @@
             <%= child_form.text_field :first_name %>
             <%= child_form.label :birth_date, "Birth Date: "%>
             <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date,  :class => 'birth_date_input' } %>
-            <%= link_to "Add another" , '#', { :class => 'add_child_btn' } unless counter >= (@family.children.length - 1)  %>
+            <%= link_to "Add Photo" , '#', { :class => 'add-child-photo' } -%>
             <% counter += 1 %>
           </div>
         <% end %>
+        <%= link_to "Add Another Child" , '#', { :class => 'add_child_btn' } -%>
       </div>
 
       <h2>
         <br/>
         Parents:
       </h2>
+        <% index = 1 %>
       <div>
         <%= f.fields_for :relations do |relation_form| %>
           <div class="single_parent row">
-            <%= relation_form.hidden_field :member_type %>
-            <%= relation_form.label :display_name, "Name: "%>
+            <%= relation_form.label :display_name, "Parent #{index}: "%>
             <%= relation_form.text_field :display_name, :value => relation_form.object.user.get_user_name %>
             <%= relation_form.fields_for :user do |user_form| %>
               <% if(user_form.object.email == current_user.email) %>
                 <span>(You)</span>
                 <%=  user_form.hidden_field :email %>
+                <span class="select">
+                <%= relation_form.select :member_type, options_for_select(Relation::PARENTS), :selected => Relation::MEMBER_TYPE[:MOTHER] -%>
+
+                </span>
+
               <% else %>
+                <%= relation_form.select :member_type, options_for_select(Relation::PARENTS, :selected => Relation::MEMBER_TYPE[:MOTHER]) -%>
+                <div class="email">
                 <%= user_form.label :email, "Email: "%>
                 <%= user_form.text_field :email %>
+                </div>
               <% end %>
             <% end %>
           </div>
+          <% index += 1 %>
         <% end %>
       </div>
 
-      <div class="row">
-        <%= f.label :name, "Family Name: " %>
-        <%= f.text_field :name %>
+      <div class="row">        
         <%= f.label :zip_code, "Zip Code: " %>
         <%= f.text_field :zip_code %>
       </div>
@@ -61,11 +91,19 @@
 
 
 <script type="text/javascript">
+
   $(function() {
     $('.add_child_btn').click(function() {
-      $(this).parents('.single_child').siblings('.single_child:hidden').first().fadeIn();
-      $(this).fadeOut();
+    
+      var hidden_children = $('.single_child').siblings('.single_child:hidden');
+      hidden_children.first().fadeIn();
+      
+      if(hidden_children.length <= 1) {
+        $(this).fadeOut();
+      }
+      
       return false;
+      
     });
     $('.birth_date_input').datepicker({ changeYear: true, maxDate: '+0'});
   });

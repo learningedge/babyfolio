@@ -66,8 +66,8 @@ time, mark, audio, video {
 
 html {height: 100%}
 
-body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #fff;height: 100%}
-
+body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd; height: 100%}
+#page-wrapper {}
 #clear,
 .clear {clear: both;height: 0px}
 
@@ -140,15 +140,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
   margin-bottom: 10px;
 }
 
-
-
-
-
-
-
-
 /* Home */
-
 
 #home #top {background: #fff;border-bottom: 6px solid #debd6c;border-top: 6px solid #debd6c;height: 117px;width: 100%;min-width: 1360px}
 #home #top div {display: inline-block;}
@@ -220,7 +212,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 /* StoreyBook Container */
 #wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;-webkit-border-radius: 18px 18px 0 0;-moz-border-radius: 18px 18px 0 0;behavior: url(PIE/PIE.htc);padding: 10px 10px 15px 32px;/*height: 100%*/}
-#wrraper .notice {color:greenyellow;padding:10px 0;}
+#wrraper .notice {color:green;padding:10px 0;}
 #wrraper .error-notice {color:red;padding:10px 0;}
 #wrraper .container {/*height: 100%*/min-height:200px}
 #container_header {margin: 5px 0 0;height: 90px;}
@@ -323,7 +315,20 @@ a:hover {text-decoration:none}
 .user-form input[type=submit] {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
 
 /* .settings */
-.settings #change-form {padding-top:20px}
+
+.settings #steps table{width:100%;padding-bottom:20px}
+.settings #steps .title {font: bold 28px "Helvetica_seven";color: #e8e3c0;width:200px;text-align:center}
+.settings #steps .title.active {color:#555;font-size:36px;}
+.settings #steps .arrows {background: url('/images/arrows.png') no-repeat 50% 50%;width:76px;}
+
+.settings #left {float:left;width:200px}
+.settings #left #title,
+.settings #left .title {float:none;display:block}
+.settings #left .title {font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;min-width:200px;text-align:center}
+.settings #left a {display:block}
+
+.settings #change-form {padding-bottom:20px; text-align:right}
+.settings #change-form a{display:inline-block;padding:3px}
 .settings #change-form a.current{font-weight:bold;text-decoration:none;cursor:default}
 .settings #change-form h2 {font: 30px 'helvetica_seven';color:#555}
 .settings #change-form .change-family {padding-top:20px}
@@ -340,13 +345,11 @@ a:hover {text-decoration:none}
 
 /* .family-and-friends */
 .family-and-friends {position:relative}
-.family-and-friends .user-form {width:612px;padding-right:53px}
-.family-and-friends #left {float:left}
 #wrraper .container.family-and-friends #title {float:none;display:block}
 .family-and-friends #left a{display:block}
 .family-and-friends #left a.current {text-decoration:none;font-weight:bold;cursor:default}
-.family-and-friends .first-form {display:none;position:relative;top:0}
-.family-and-friends .second-form {position:relative;top:0}
+.family-and-friends .first-form {position:relative;top:0}
+.family-and-friends .second-form {display:none;position:relative;top:0}
 .family-and-friends textarea {width:100%;}
 .family-and-friends .second-form div.submit {margin-left:0px;}
 .family-and-friends div.submit {float:left;margin-right:20px}
@@ -360,10 +363,6 @@ a:hover {text-decoration:none}
 /* forgot-password */
 .forgot-password .user-form {width:560px}
 
-/* settings */
-.settings #left {float:left}
-.settings #left #title {float:none;display:block}
-.settings #left a {display:block}
 
 /* .family-relations-info */
 .family-relations-info {}
@@ -383,4 +382,10 @@ a:hover {text-decoration:none}
 .my-family-info .single_child input[type=text].birth_date_input {width:87px}
 
 /* .child-image */
-.child-image .profile-image img{border-radius:15px;-webkit-border-radius: 15px;-moz-border-radius: 15                           px;behavior: url(PIE/PIE.htc);}
+.child-image .images-container {padding-bottom:20px}
+.child-image .profile-image {float:left;margin-right:40px}
+
+.child-image .profile-image .image{float:left;border:solid 4px #e8e3c0;padding:10px}
+.child-image .profile-image .image.active {border-color:#898989}
+.child-image .profile-image img{border-radius:15px;-webkit-border-radius: 15px;-moz-border-radius: 15px;behavior: url(PIE/PIE.htc);}
+

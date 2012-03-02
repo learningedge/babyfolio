@@ -8,6 +8,8 @@ class Relation < ActiveRecord::Base
 
   MEMBER_TYPE = {
     :PARENT => 'parent',
+    :MOTHER => 'mother',
+    :FATHER => 'father',
     :GRANDMOTHER => 'grandmother',
     :GRANDFATHER => 'grandfather',
     :AUNT => 'aunt',
@@ -25,6 +27,8 @@ class Relation < ActiveRecord::Base
   
   MEMBER_TYPE_NAME = {
     MEMBER_TYPE[:PARENT] => 'Parent',
+    MEMBER_TYPE[:MOTHER] => 'Mother',
+    MEMBER_TYPE[:FATHER] => 'Father',
     MEMBER_TYPE[:GRANDMOTHER] => 'Grandmother',
     MEMBER_TYPE[:GRANDFATHER] => 'Grandfather',
     MEMBER_TYPE[:AUNT] => 'Aunt',
@@ -39,9 +43,14 @@ class Relation < ActiveRecord::Base
     MEMBER_TYPE[:SISTER] => 'Sister',
     MEMBER_TYPE[:OTHER] => 'Other'    
   }
-  
-  scope :is_parent, where(:member_type => MEMBER_TYPE[:PARENT])
-  scope :is_not_parent, where(['member_type != "parent"'])
+
+  PARENTS = {
+    "Mother" => MEMBER_TYPE[:MOTHER],
+    "Father" => MEMBER_TYPE[:FATHER]
+  }
+
+  scope :is_parent, where(['member_type in (?)', [MEMBER_TYPE[:PARENT],MEMBER_TYPE[:MOTHER],MEMBER_TYPE[:FATHER]]])
+  scope :is_not_parent, where(['member_type not in (?)', [MEMBER_TYPE[:PARENT],MEMBER_TYPE[:MOTHER],MEMBER_TYPE[:FATHER]]])
   scope :accepted, where(:accepted => true)
 
   def get_member_type_name

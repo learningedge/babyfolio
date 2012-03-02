@@ -55,6 +55,17 @@
   </span>
 </div>
 
+<% if @edit %>
+  <div class="password row">
+    <span class="label">
+      <%= form.label :flickr_id, 'Flickr ID' %>
+    </span>
+    <span class="field">
+      <%= form.text_field :flickr_id %>
+    </span>
+  </div>
+<% end %>
+
 <div class="image row">
   <span class="label">
     <%= form.label :avatar, "Profile's image" -%>

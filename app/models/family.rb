@@ -10,6 +10,6 @@ class Family < ActiveRecord::Base
   accepts_nested_attributes_for :children, :allow_destroy => true, :reject_if => proc { |attributes| attributes['first_name'].blank? and attributes['birth_date'].blank?}
   accepts_nested_attributes_for :relations, :allow_destroy => true
 
-  scope :parenting_families, where( :relations => { :member_type => Relation::MEMBER_TYPE[:PARENT] } )
+  scope :parenting_families, where( :relations => { :member_type => [Relation::MEMBER_TYPE[:PARENT], Relation::MEMBER_TYPE[:MOTHER], Relation::MEMBER_TYPE[:FATHER]] } )
   scope :accepted, where( :relations => {:accepted => true})
 end

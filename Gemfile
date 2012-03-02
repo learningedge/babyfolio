@@ -12,6 +12,7 @@ gem 'mysql2'
 gem 'therubyracer'
 gem 'jquery-rails'
 gem 'paperclip'
+gem 'flickraw'
 
 group :test do
 

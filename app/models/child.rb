@@ -1,8 +1,12 @@
+require "open-uri"
+
 class Child < ActiveRecord::Base
 
   include ActionView::Helpers::TextHelper
 
   belongs_to :family
+
+  before_save :download_remote_image
 
   has_attached_file :profile_image, 
     :styles => { :small => "40x40#", :medium => "93x93#", :large => "228x254#" },
@@ -35,5 +39,19 @@ class Child < ActiveRecord::Base
       return "something"
     end
   end
-  
+
+
+private
+
+  def download_remote_image
+      self.profile_image = do_download_remote_image unless self.profile_image_remote_url.blank?
+  end
+
+  def do_download_remote_image
+    io = open(URI.parse(self.profile_image_remote_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+  rescue
+  end
+
 end

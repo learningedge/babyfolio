@@ -9,7 +9,7 @@ class ChildrenControllerTest < ActionController::TestCase
 
   end
 
-  test "should get index" do
+  test "should get show" do
     get :show
 
     child = children(:one)

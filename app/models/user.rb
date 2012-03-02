@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   has_many :relations
   has_many :families, :through => :relations
 
-  #  accepts_nested_attributes_for :relations, :allow_destroy => true, :reject_if => proc { |attributes| attributes['display_name'].blank?}
 
   def is_parent?
     !self.relations.is_parent.empty?

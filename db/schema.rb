@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228180915) do
+ActiveRecord::Schema.define(:version => 20120301155852) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20120228180915) do
     t.string   "profile_image_file_name"
     t.string   "profile_image_content_type"
     t.integer  "profile_image_file_size"
+    t.string   "profile_image_remote_url"
   end
 
   create_table "families", :force => true do |t|
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20120228180915) do
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
+    t.string   "flickr_id"
   end
 
 end
