@@ -81,6 +81,18 @@ class ApplicationController < ActionController::Base
       redirect_to new_family_url unless current_family
     end
 
+    def require_family_with_child
+      unless current_family.children.exists? 
+	family_with_child = current_user.first_family_with_child
+	if family_with_child.blank?
+	  redirect_to edit_families_path
+	  return
+        else
+          session[:current_family] = family_with_child.id
+	end
+      end
+    end
+
     def require_no_family
       redirect_to child_profile_children_url if current_family
     end

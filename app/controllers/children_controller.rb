@@ -2,7 +2,8 @@ class ChildrenController < ApplicationController
 
 #  before_filter :require_user
 #  before_filter :require_confirmation
-#  before_filter :require_family
+before_filter :require_family
+before_filter :require_family_with_child
 
   def show
 

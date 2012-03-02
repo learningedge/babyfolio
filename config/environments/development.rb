@@ -7,7 +7,7 @@ Babyfolio::Application.configure do
     #   require 'openid/store/filesystem'
 
     # providers with id/secret, you need to sign up for their services (see below) and enter the parameters here
-    provider :facebook, '263019473774028', '7c92fcaf00c30a9da772af2de7a2b144'
+    provider :facebook, '263019473774028', '7c92fcaf00c30a9da772af2de7a2b144',{ :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
   end
 
   # In the development environment your application's code is reloaded on

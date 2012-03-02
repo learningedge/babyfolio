@@ -37,5 +37,12 @@ class User < ActiveRecord::Base
       return first_name.capitalize + " " + last_name.capitalize
     end
   end
+
+  def first_family_with_child
+    families.each do |family|
+	return family if family.children.exists?
+    end
+    return nil
+  end
   
 end
