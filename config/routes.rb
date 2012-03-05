@@ -38,6 +38,7 @@ Babyfolio::Application.routes.draw do
   resources :families, :only => [:new, :create, :index, :update] do
     collection do
       get :add_friends
+      get :add_family
       get :add_children
       match :create_friend_relations
       get 'family/relations' => :family_relations_info

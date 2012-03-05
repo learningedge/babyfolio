@@ -34,10 +34,11 @@
         <%= f.fields_for :children do |child_form| %>
           <div class="single_child row" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
             <%= child_form.label :first_name, "First Name: "%>
-            <%= child_form.text_field :first_name %>
+            <%= child_form.text_field :first_name, :class => 'first_name_input' %>
             <%= child_form.label :birth_date, "Birth Date: "%>
             <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date,  :class => 'birth_date_input' } %>
-            <%= link_to "Add Photo" , '#', { :class => 'add-child-photo' } -%>
+            <%= child_form.file_field :profile_image -%>
+            <%#= link_to "Add Photo" , '#', { :class => 'add-child-photo' } -%>
             <% counter += 1 %>
           </div>
         <% end %>

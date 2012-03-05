@@ -52,7 +52,8 @@ class Relation < ActiveRecord::Base
   scope :is_parent, where(['member_type in (?)', [MEMBER_TYPE[:PARENT],MEMBER_TYPE[:MOTHER],MEMBER_TYPE[:FATHER]]])
   scope :is_not_parent, where(['member_type not in (?)', [MEMBER_TYPE[:PARENT],MEMBER_TYPE[:MOTHER],MEMBER_TYPE[:FATHER]]])
   scope :accepted, where(:accepted => true)
-
+  scope :not_accepted, where(:accepted => false)
+  
   def get_member_type_name
     MEMBER_TYPE_NAME[self.member_type]
   end

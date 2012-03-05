@@ -60,7 +60,7 @@ class FamiliesController < ApplicationController
         
         flash[:notice] = 'Family has been successfully created.'
         session[:current_family] = @family.id
-        format.html { redirect_to add_friends_families_path }
+        format.html { redirect_to add_family_families_path }
         format.xml  { render :xml => @family, :status => :created, :location => @family }
         
       else
@@ -97,6 +97,10 @@ class FamiliesController < ApplicationController
       render :action => 'edit'
     end
   end 
+
+  def add_family
+    flash[:registration] = flash[:registration]
+  end
 
   def add_friends
     flash[:registration] = flash[:registration]
@@ -181,7 +185,11 @@ class FamiliesController < ApplicationController
           UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user).deliver
         end
         flash[:notice] = "Thanks fo inviting others. We have successfully sent emails to the other family & friends that you entered."
-        redirect_to child_profile_children_url
+        if params[:page] == "add_family"
+          redirect_to add_friends_families_path
+        else
+          redirect_to child_profile_children_url
+        end        
       else
         flash[:error] = "Invalid emails!"
         render :action => :add_friends
@@ -193,81 +201,81 @@ class FamiliesController < ApplicationController
   end
 
   def create_friends
-    flash[:registration] = flash[:registration]
-    @family = current_family
-    users = Array.new
-    tokens = Array.new
-
-    @emails = params[:emails].split(',')
-    @emails = @emails.collect {|email| email.strip }
-    @emails.delete("")
-    @message = params[:message]
-
-    @error = false
-
-    if @emails.empty?
-      @error = true
-      @flash_notice = "You can't invite no one"
-    end
-
-    unless @error
-
-      exist_users = User.where(['email IN (?)', @emails]).all
-
-      unless @error
-        @emails.each do |email|
-          @user_exist = false
-
-          exist_users.each do |exist_user|
-            if exist_user.email == email
-              @user = exist_user
-              @user_exist = true
-              break
-            end
-          end
-
-          unless @user_exist
-            @user = User.new(:email => email)
-            @user.reset_password
-            @user.reset_perishable_token
-            @user.reset_single_access_token
-          end
-
-          unless @user.valid?
-              @error = true
-              break
-          end
-
-          user_relation = @user.relations.where(:family_id => @family.id).first
-
-          if user_relation.nil?
-            @user.relations.build :member_type => Relation::MEMBER_TYPE[:OTHER], :family_id => @family.id, :token => @user.perishable_token
-          else
-            user_relation.update_attribute(:token, @user.perishable_token)
-          end
-
-          tokens << @user.perishable_token
-          @user.reset_perishable_token
-          users << @user
-
-        end
-        
-      end
-      
-    end
-
-    if @error
-      flash[:notice] = @flash_notice
-      render :action => :add_friends
-    else
-      users.each do |user|
-        user.save
-        UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user, @message).deliver
-      end
-      flash[:notice] = 'Congrats you send emails to your friends :D!!'
-      flash[:tokens] = tokens
-      redirect_to relations_families_path
-    end
+#    flash[:registration] = flash[:registration]
+#    @family = current_family
+#    users = Array.new
+#    tokens = Array.new
+#
+#    @emails = params[:emails].split(',')
+#    @emails = @emails.collect {|email| email.strip }
+#    @emails.delete("")
+#    @message = params[:message]
+#
+#    @error = false
+#
+#    if @emails.empty?
+#      @error = true
+#      @flash_notice = "You can't invite no one"
+#    end
+#
+#    unless @error
+#
+#      exist_users = User.where(['email IN (?)', @emails]).all
+#
+#      unless @error
+#        @emails.each do |email|
+#          @user_exist = false
+#
+#          exist_users.each do |exist_user|
+#            if exist_user.email == email
+#              @user = exist_user
+#              @user_exist = true
+#              break
+#            end
+#          end
+#
+#          unless @user_exist
+#            @user = User.new(:email => email)
+#            @user.reset_password
+#            @user.reset_perishable_token
+#            @user.reset_single_access_token
+#          end
+#
+#          unless @user.valid?
+#              @error = true
+#              break
+#          end
+#
+#          user_relation = @user.relations.where(:family_id => @family.id).first
+#
+#          if user_relation.nil?
+#            @user.relations.build :member_type => Relation::MEMBER_TYPE[:OTHER], :family_id => @family.id, :token => @user.perishable_token
+#          else
+#            user_relation.update_attribute(:token, @user.perishable_token)
+#          end
+#
+#          tokens << @user.perishable_token
+#          @user.reset_perishable_token
+#          users << @user
+#
+#        end
+#
+#      end
+#
+#    end
+#
+#    if @error
+#      flash[:notice] = @flash_notice
+#      render :action => :add_friends
+#    else
+#      users.each do |user|
+#        user.save
+#        UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user, @message).deliver
+#      end
+#      flash[:notice] = 'Congrats you send emails to your friends :D!!'
+#      flash[:tokens] = tokens
+#      redirect_to relations_families_path
+#    end
     
   end
 
@@ -275,7 +283,7 @@ class FamiliesController < ApplicationController
     flash[:registration] = flash[:registration]
     @select_options = Array.new
 
-    @select_options = (Relation::MEMBER_TYPE.select {|key, value| key != :PARENT}).collect {|key, value| [value.capitalize, value]}
+    @select_options = (Relation::MEMBER_TYPE.select {|key, value| key != :PARENT and key != :MOTHER and key!= :FATHER}).collect {|key, value| [value.capitalize, value]}
 
     @relations = Relation.where(['token IN (?)', flash[:tokens]]).includes(:user).all
     flash[:tokens] = flash[:tokens]
@@ -301,6 +309,7 @@ class FamiliesController < ApplicationController
   def family_relations_info
     @parents = my_family.relations.is_parent.accepted
     @rest = my_family.relations.is_not_parent.accepted
+    @pending = my_family.relations.not_accepted
     
   end
 

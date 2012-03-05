@@ -12,6 +12,9 @@
       
     </div>
     <div class="add-friend">
+      <a href="<%= add_family_families_path -%>">Add Family</a>
+    </div>
+    <div class="add-friend">
       <a href="<%= add_friends_families_path -%>">Add Friend</a>
     </div>
   </div>
@@ -48,6 +51,28 @@
         </div>
       <% end %>
     </div>
+
+    <% unless @pending.empty? %>
+
+    <div class="clear"></div>
+    <div class="pending">
+      <h2>Pending invitations</h2>
+      <% @pending.each do |member| %>
+        <div class="row user">
+          <img src="/images/icon1.png" class="avatar" />
+          <div class="user-info">
+            <div class="name"><%= member.user.first_name -%> <%= link_to 'Remove', relation_path(member), :confirm => "Are you sure?", :method => :delete, :class => 'remove' -%></div>
+            <div><%=  member.user.email %></div>
+            <div><%= member.member_type %></div>
+            <div><%= member.user.first_name.to_s + " " + member.user.last_name.to_s -%></div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <% end %>
+    </div>
+
+    <% end %>
+
   </div>
   <div class="clear"></div>
 </div>
