@@ -4,7 +4,10 @@
     <%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
 
       <%= render "shared/error_messages", :target => @user_session %>
-    
+
+      <div>
+        You might as well sign in using you facebook account: <%= link_to "Singin", '/auth/facebook?display=popup', :onclick => "window.open(this.href,'facebook_login','height=300,width=700');return false;" %>
+      </div>
       <div class="email row">
         <span class="label">
           <%= f.label :email %>
@@ -35,7 +38,7 @@
     <% end %>
     <div class="forgot-link">
       <%= link_to 'Forgot Password?', new_forgot_password_url -%> If you can't figure out how to log in, <%= link_to 'click', new_forgot_password_url -%> here to reset your password.
-    </div>
+    </div>    
   </div>
   <div class="clear"></div>
 </div>

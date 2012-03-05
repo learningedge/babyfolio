@@ -20,7 +20,7 @@
         <ul>
           <li class="avatar"><%= image_tag current_user.avatar.url(:small) -%></li>
           <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
-          <% if current_family %>
+          <% if current_family -%>
             <li><span class="border">|</span></li>
             <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
           <% end %>
@@ -44,7 +44,7 @@
 
     <% if flash[:error] %>
       <div class="error-notice">
-        <%= falsh[:error] -%>
+        <%= flash[:error] -%>
       </div>
     <% end %>
 

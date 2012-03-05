@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(:version => 20120301155852) do
     t.boolean "accepted",     :default => false
   end
 
+  create_table "services", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "uname"
+    t.string   "uemail"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "user_sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"

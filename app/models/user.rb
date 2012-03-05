@@ -4,11 +4,12 @@ class User < ActiveRecord::Base
   end
   disable_perishable_token_maintenance(true)
 
+
   has_attached_file :avatar, 
     :styles => { :small => "26x26#", :medium => "93x93#" },
     :default_url => '/images/default_images/user_profile_:style.png'
   
-  has_many :authentications
+  has_many :services
   has_many :relations
   has_many :families, :through => :relations
 
@@ -34,6 +35,13 @@ class User < ActiveRecord::Base
     else 
       return first_name.capitalize + " " + last_name.capitalize
     end
+  end
+
+  def first_family_with_child
+    families.each do |family|
+	return family if family.children.exists?
+    end
+    return nil
   end
   
 end
