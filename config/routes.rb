@@ -21,6 +21,9 @@ Babyfolio::Application.routes.draw do
     end
   end
 
+  get "facebook_albums" => "facebook#albums"
+  get "facebook_album_photos/:album" => "facebook#album_photos", :as => :album_photos
+
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
   get "confirmation/confirm_email"

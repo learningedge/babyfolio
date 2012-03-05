@@ -43,5 +43,13 @@ class User < ActiveRecord::Base
     end
     return nil
   end
+
+  def get_facebook_service
+    services.where(:provider => 'facebook').first
+  end
+
+  def has_facebook_account?
+    @has_facebook ||= services.where(:provider => 'facebook').exists?  
+  end
   
 end
