@@ -2,6 +2,7 @@ Babyfolio::Application.routes.draw do
 
   get "home/index"
   get "interior" => "home#interior", :as => :interior
+  get "video" => "home#video", :as => :video
 
     # Omniauth pure
   match "/signin" => "services#signin"
