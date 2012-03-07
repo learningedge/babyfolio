@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305093257) do
+ActiveRecord::Schema.define(:version => 20120306152406) do
+
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
     t.string   "provider"
@@ -30,10 +31,10 @@ ActiveRecord::Schema.define(:version => 20120305093257) do
     t.integer  "family_id",                  :null => false
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
-    t.datetime "profile_image_updated_at"
-    t.string   "profile_image_file_name"
-    t.string   "profile_image_content_type"
     t.integer  "profile_image_file_size"
+    t.string   "profile_image_file_name"
+    t.datetime "profile_image_updated_at"
+    t.string   "profile_image_content_type"
     t.string   "profile_image_remote_url"
   end
 
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20120305093257) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "token"
+    t.string   "secret"
   end
 
   create_table "user_sessions", :force => true do |t|
@@ -94,10 +96,10 @@ ActiveRecord::Schema.define(:version => 20120305093257) do
     t.datetime "updated_at",                             :null => false
     t.date     "current_login_at"
     t.boolean  "email_confirmed",     :default => false
-    t.datetime "avatar_updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
+    t.string   "avatar_file_name"
+    t.datetime "avatar_updated_at"
+    t.string   "avatar_content_type"
     t.string   "flickr_id"
   end
 

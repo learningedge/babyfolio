@@ -65,7 +65,7 @@ class FamiliesController < ApplicationController
         
       else
         @family.relations.first.user = User.new(:email => current_user.email)
-        @family.relations.build(:user => User.new, :member_type => 'parent') if @family.relations.length == 1
+        @family.relations.build(:user => User.new, :member_type => 'mother') if @family.relations.length == 1
 
         while @family.children.length < 10 do
           @family.children.build Child.new.attributes

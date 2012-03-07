@@ -1,13 +1,28 @@
 Babyfolio::Application.routes.draw do
 
+
+  resources :youtube do
+    new do
+      post :upload
+    end
+
+    collection do
+      get '/connect' => :youtube_connect, :as => :connect
+    end
+  end
+
+  get "media/youtube"
+  match "media/upload_step_one"
+  match "media/upload_step_two"
+
   get "home/index"
   get "interior" => "home#interior", :as => :interior
-  get "video" => "home#video", :as => :video
 
     # Omniauth pure
   match "/signin" => "services#signin"
   match "/signout" => "services#signout"
 
+  match '/auth/you:service/callback' => 'services#create_youtube', :as => :youtube_connect
   match '/auth/:service/callback' => 'services#create'
   match '/auth/failure' => 'services#failure'
 

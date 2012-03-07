@@ -1,0 +1,64 @@
+<% select_type = "checkbox" %>
+<div id="selected_images"></div>
+
+
+<div id="albums_container">
+  <% @albums.each do |album| %>
+   <div class="single_album">
+     <%= link_to album.name,  album_photos_path(:album => album.identifier, :select => select_type), :remote => true, :class => "album_link" %><div class="preloader hidden"></div>
+     <div class="album"></div>
+   </div>
+  <% end %>
+</div>
+
+<%= javascript_tag do %> 
+
+var select_type = "<%= select_type %>";
+$(function() {
+  $(".album_link").bind("ajax:complete", function(et, e){ 
+    $(this).next('div.preloader').fadeOut();
+    $(this).parents('.single_album').find('.album').html(e.responseText); // insert content 
+    $(this).removeAttr('data-remote');
+    $(this).unbind('click');
+    $(this).live('click',function() {return false; });
+  }); 
+});
+
+$('.album_link').click(function() {
+  $(this).next('.preloader').fadeIn();
+});
+
+$('.img_select').live('change', function() {
+   if(select_type != "checkbox") {
+       $("#selected_images .img_details").each(function() {
+         move_back(this);
+       });
+   } else {
+     if(!($(this).is(':checked'))) {
+        move_back($('#selected_images .img_details[parent="' +  $(this).parents('.single_facebook_image').attr('parent') + '"]'));
+        return;
+     } 
+   }
+   add_image($(this).parents('.single_facebook_image').find('.img_details'));   
+});
+
+$('.remove_img').live('click', function() {
+   move_back($(this).parents('.img_details'));
+   $(this).parents('.single_facebook_image').find('input').attr("checked", false);
+   return false;
+});
+
+
+function move_back(item){
+   $(item).find('input[type="hidden"]').remove();
+   $('#albums_container').find('.single_facebook_image[parent="' +  $(item).attr("parent") + '"]').append($(item).addClass("hidden"));
+}
+
+function add_image(item) {
+   var hidden_input = $('<input>', {type: "hidden", value: $(item).find('a.img_value').attr('href'), name: $(item).attr('id'), id: $(item).attr('id') });
+   $(item).append(hidden_input);
+   $('#selected_images').append($(item).removeClass("hidden"));
+}
+
+<% end %>
+

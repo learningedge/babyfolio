@@ -97,6 +97,7 @@ class ApplicationController < ActionController::Base
       redirect_to child_profile_children_url if current_family
     end
 
+
 end
 
 

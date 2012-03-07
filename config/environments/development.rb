@@ -8,6 +8,14 @@ Babyfolio::Application.configure do
 
     # providers with id/secret, you need to sign up for their services (see below) and enter the parameters here
     provider :facebook, '263019473774028', '7c92fcaf00c30a9da772af2de7a2b144',{ :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
+    provider :youtube, '821905120152.apps.googleusercontent.com', 'q9XDXCtGECoa0clbFMeVGuKT'
+
+#    on_failure do |env|
+#      message_key = 'jakistammessage'
+
+#      new_path = "#{env['SCRIPT_NAME']}#{OmniAuth.config.path_prefix}/failure?message=#{message_key}"
+#      [302, {'Location' => new_path, 'Content-Type' => 'text/html', []]
+#    end
   end
 
   # In the development environment your application's code is reloaded on

@@ -11,11 +11,4 @@ class HomeController < ApplicationController
     
   end
 
-  def video
-
-  
-
-    render :index
-    
-  end
 end

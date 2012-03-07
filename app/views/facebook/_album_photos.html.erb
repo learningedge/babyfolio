@@ -1,0 +1,23 @@
+<% @photos.each do |photo| %> 
+  <div class="single_facebook_image" parent="img_details_<%= photo.id %>">
+      <% index = photo.images.index {|img| img.width <= 180} %>
+    <div class="single_facebook_image_pic" style="background-image: url(<%= photo.images[index].source  %>)"></div>
+
+    <div>
+      <label>
+	<%= check_box_tag photo.name, photo.source, false, :class => "img_select" if @select == 'checkbox' %>
+	<%= radio_button_tag photo.name, photo.source, false, :name => 'images', :class => "img_select"  unless @select == 'checkbox' %>
+	Select image
+      </label>
+    </div>
+    <div class="img_details hidden" id="<%= 'photos['+photo.id.to_s+']' -%>" parent="img_details_<%= photo.id %>">
+      <%= image_tag photo.images.last.source %><%= link_to "Remove", '#', :class => "remove_img" %>     
+      <%= link_to "", photo.source, :class => 'hidden img_value' %>
+    </div>
+  </div>
+<% end %>
+
+<div class="clear"></div>
+
+
+

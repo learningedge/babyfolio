@@ -50,10 +50,15 @@ class ServicesController < ApplicationController
             flash[:notice] = 'Your account at ' + @authhash[:provider].capitalize + ' is already connected with this site.'
             auth.update_attribute(:token, @authhash[:token]) unless auth.token == @authhash[:token]
              @redirect_link = child_profile_children_url
-	else 
-            current_user.services.create!(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
-            flash[:notice] = 'Your ' + @authhash[:provider].capitalize + ' account has been added for signing in at this site.'
-            @redirect_link = child_profile_children_url
+	  else 
+            if(current_user.has_facebook_account?) do 
+                flash[:notice] = "You have other " +  @authhash[:provider].capitalize + " connected. Disconnect your previeous account from setting before adding new one".
+                @redirect_link = child_profile_children_url
+            else 
+              current_user.services.create!(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
+              flash[:notice] = 'Your ' + @authhash[:provider].capitalize + ' account has been added for signing in at this site.'
+              @redirect_link = child_profile_children_url
+            end
           end
         else
           if auth
@@ -94,10 +99,62 @@ class ServicesController < ApplicationController
 
   end
 
+  def create_youtube
+    # get the service parameter from the Rails router
+    params[:service] ? service_route = params[:service] : service_route = 'No service recognized (invalid callback)'
+
+    # get the full hash from omniauth
+    render :text => request.env
+
+    omniauth = request.env['omniauth.auth']
+
+    # continue only if hash and parameter exist
+    # routes are defined like this => '/auth/you:service/callback
+
+    if omniauth and params[:service] == 'tube'
+      # map the returned hashes to our variables first - the hashes differs for every service
+
+      # create a new hash
+      @authhash = Hash.new
+
+      omniauth['info']['email'] ? @authhash[:uemail] =  omniauth['info']['email'] : @authhash[:email] = ''
+      omniauth['info']['nickname'] ? @authhash[:uname] =  omniauth['info']['nickname'] : @authhash[:name] = ''
+      omniauth['uid'] ? @authhash[:uid] = omniauth['uid']['$t'].to_s.split('/').last : @authhash[:uid] = ''
+      omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
+      omniauth['credentials']['token'] ? @authhash[:token] = omniauth['credentials']['token'] : @authhash[:token] = ''
+      omniauth['credentials']['secret'] ? @authhash[:secret] = omniauth['credentials']['secret'] : @authhash[:secret] = ''
+
+      @service = Service.find_or_create_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
+      @service.update_attributes :token => @authhash[:token], :uname => @authhash[:uname], :user_id => current_user.id, :secret => @authhash[:secret]
+      @service.save
+      
+      @redirect_link = youtube_index_url
+
+      #render :create
+      
+    else
+      render :text => service_route
+      return
+    end
+
+  end
+
+
+
   def failure
-    flash[:error] = 'Facebook sing in failed. Unable to authenticate user.'
-    @redirect_link = login_url
+    
+    unless request.env['rack.session']['oauth']['youtube'].nil?
+
+      flash[:error] = "Unable to authenticate user. If you are new on the YouTube  try to create the new channel first and then reconnect, in another case try to connect later"
+      @redirect_link = connect_youtube_index_path
+
+    else
+      flash[:error] = 'Unable to authenticate user.'
+      @redirect_link = '/'
+    end
+
     render :action => :create
+
   end
 
 
