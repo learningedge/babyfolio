@@ -17,6 +17,22 @@
           <li><%= link_to "sign up",  signup_path -%></li>
         </ul>
       <% else %>
+
+<% 
+# if( current_user.services.where(:provider => 'facebook').exists?)  
+#  service =   current_user.services.where(:provider => 'facebook').first  
+#  user = FbGraph::User.fetch(service.uid)
+
+ #end
+
+
+
+
+
+
+
+
+%>
         <ul>
           <li class="avatar"><%= image_tag current_user.avatar.url(:small) -%></li>
           <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>

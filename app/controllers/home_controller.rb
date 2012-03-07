@@ -10,4 +10,12 @@ class HomeController < ApplicationController
   def interior
     
   end
+
+  def video
+
+  
+
+    render :index
+    
+  end
 end

@@ -22,6 +22,7 @@ class ServicesController < ApplicationController
         omniauth['info']['first_name'] ? @authhash[:first_name] =  omniauth['info']['first_name'] : @authhash[:first_name] = ''
         omniauth['info']['last_name'] ? @authhash[:last_name] =  omniauth['info']['last_name'] : @authhash[:last_name] = ''
         omniauth['uid'] ?  @authhash[:uid] =  omniauth['uid'].to_s : @authhash[:uid] = ''
+        omniauth['credentials']['token'] ? @authhash[:token] = omniauth['credentials']['token'] : authhash[:token] = ''
         omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
         #    elsif service_route == 'github'
         #      omniauth['user_info']['email'] ? @authhash[:email] =  omniauth['user_info']['email'] : @authhash[:email] = ''
@@ -47,9 +48,10 @@ class ServicesController < ApplicationController
         if current_user
           if auth
             flash[:notice] = 'Your account at ' + @authhash[:provider].capitalize + ' is already connected with this site.'
+            auth.update_attribute(:token, @authhash[:token]) unless auth.token == @authhash[:token]
              @redirect_link = child_profile_children_url
 	else 
-            current_user.services.create!(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email])
+            current_user.services.create!(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
             flash[:notice] = 'Your ' + @authhash[:provider].capitalize + ' account has been added for signing in at this site.'
             @redirect_link = child_profile_children_url
           end
@@ -58,6 +60,7 @@ class ServicesController < ApplicationController
             # signin existing user
             # in the session his user id and the service id used for signing in is stored
             UserSession.create(User.find(auth.user_id))
+            auth.update_attribute(:token, @authhash[:token]) unless auth.token == @authhash[:token]
             flash[:notice] = 'Signed in successfully via ' + @authhash[:provider].capitalize + '.'
             @redirect_link = child_profile_children_url
           else
@@ -69,7 +72,7 @@ class ServicesController < ApplicationController
 	    end
 	    @user.first_name ||= @authhash[:first_name]
             @user.last_name ||= @authhash[:last_name]
-	    @user.services.build(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email])
+	    @user.services.build(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
 	    if @user.save
               # this is a new user; show signup; @authhash is available to the view and stored in the sesssion for creation of a new user
               UserSession.create(@user)

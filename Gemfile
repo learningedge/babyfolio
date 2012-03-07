@@ -7,6 +7,9 @@ gem 'rails', '3.2.1'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-youtube'
+gem 'youtube_it'
+gem 'fb_graph'
 
 gem 'authlogic'
 gem 'execjs'

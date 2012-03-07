@@ -2,6 +2,7 @@ Babyfolio::Application.routes.draw do
 
   get "home/index"
   get "interior" => "home#interior", :as => :interior
+  get "video" => "home#video", :as => :video
 
     # Omniauth pure
   match "/signin" => "services#signin"
@@ -19,6 +20,9 @@ Babyfolio::Application.routes.draw do
       get 'failure'
     end
   end
+
+  get "facebook_albums" => "facebook#albums"
+  get "facebook_album_photos/:album" => "facebook#album_photos", :as => :album_photos
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
