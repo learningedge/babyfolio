@@ -5,7 +5,7 @@
   <div class="user-form">
 
     <div id="youtube-ajax-container">
-    <%= render :partial => 'youtube/multiselect_youtube_videos' %>
+      <%= render :partial => 'youtube/multiselect_youtube_videos' %>
     </div>
     <script type="text/javascript" src="/js/youtube_videos.js"></script>
 
@@ -14,7 +14,17 @@
     <div id="flickr-ajax-container">
       <%= render :partial => 'flickr/select_flickr_photos' %>
     </div>
-    <script type="text/javascript" src="/js/flickr.js"></script>    
+    <script type="text/javascript" src="/js/flickr.js"></script>
+
+
+    <div id="facebook-ajax-container">
+      <%= render :partial => 'facebook/albums' %>
+    </div>
+    <script type="text/javascript" src="/js/facebook_photos.js"></script>
+    
   </div>
+
+
+
   <div class="clear"></div>
 </div>

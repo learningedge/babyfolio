@@ -5,9 +5,7 @@ before_filter :require_user
   def index 
   end
 
-  def albums
-    service = current_user.get_facebook_service
-    @albums = FbGraph::User.fetch(service.uid, :access_token => service.token).albums
+  def albums    
     render :partial => "albums"
   end
 

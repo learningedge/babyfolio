@@ -1,19 +1,27 @@
-<% @multiselect ||= true %>
-<div id="selected_images"></div>
+<% if(current_user.has_facebook_account?) %>
 
-<div id="albums_container" class="<%= @multiselect ? 'multiselect' : ''%>">
-  <% @albums.each do |album| %>
-   <div class="single_album">
-     <%= link_to(album_photos_path(:album => album.identifier), :remote => true, :class => "album_link") do %>
-       <span><%= album.name %></span>
-       <div class="preloader hidden"></div>
-       <div class="albums_featured_image"><%= image_tag album.picture  %></div>
-     <% end %>
-     <div class="album"></div>
-   </div>   
-  <% end %>
-<div class="clear"></div>
-</div>
+  <% @multiselect ||= true %>
+  <% @albums ||= current_user.get_facebook_albums  %>
+
+  <div id="selected_images"></div>
+
+  <div id="albums_container" class="<%= @multiselect ? 'multiselect' : ''%>">
+    <% @albums.each do |album| %>
+      <div class="single_album">
+        <%= link_to(album_photos_path(:album => album.identifier), :remote => true, :class => "album_link") do %>
+          <span><%= album.name %></span>
+          <div class="preloader hidden"></div>
+          <div class="albums_featured_image"><%= image_tag album.picture  %></div>
+        <% end %>
+        <div class="album"></div>
+      </div>
+    <% end %>
+    <div class="clear"></div>
+  </div>
+
+<% else %>
+  <div>You dont have facebook accout connected.<%= link_to "Click here ",  "/auth/facebook/" %> to connect one.</div>
+<% end %>
 
 
 <%= javascript_tag do %> 
