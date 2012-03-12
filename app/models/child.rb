@@ -41,10 +41,10 @@ class Child < ActiveRecord::Base
   end
 
 
-private
+  private
 
   def download_remote_image
-      self.profile_image = do_download_remote_image unless self.profile_image_remote_url.blank?
+    self.profile_image = do_download_remote_image unless self.profile_image_remote_url.blank?
   end
 
   def do_download_remote_image

@@ -5,7 +5,6 @@ class HomeController < ApplicationController
   before_filter :require_confirmation => [:socials]
 
   def index
-    
   end
 
   def interior
