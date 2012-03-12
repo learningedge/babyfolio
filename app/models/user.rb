@@ -44,15 +44,23 @@ class User < ActiveRecord::Base
     return nil
   end
 
-  
+
+# ----------- FACEBOOK -----------
+
   def has_facebook_account?
     @has_facebook ||= services.where(:provider => 'facebook').exists?  
   end
 
+  def get_facebook_service
+    services.where(:provider => 'facebook').first
+  end
+
   def get_facebook_albums
-    service = services.where(:provider => 'facebook').first
+    service = get_facebook_service
     @albums = FbGraph::User.fetch(service.uid, :access_token => service.token).albums
   end
+  
+# -------------------------------
 
   
 end

@@ -15,4 +15,8 @@ class HomeController < ApplicationController
   def socials
   end
 
+  def socials_create
+
+  end
+
 end

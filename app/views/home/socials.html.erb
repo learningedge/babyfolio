@@ -4,6 +4,7 @@
   </div>
   <div class="user-form">
 
+    <%= form_tag "/socials_create" %>
     <div id="youtube-ajax-container">
       <%= render :partial => 'youtube/multiselect_youtube_videos' %>
     </div>
@@ -16,12 +17,15 @@
     </div>
     <script type="text/javascript" src="/js/flickr.js"></script>
 
+    <hr/>
 
     <div id="facebook-ajax-container">
       <%= render :partial => 'facebook/albums' %>
     </div>
     <script type="text/javascript" src="/js/facebook_photos.js"></script>
-    
+
+    <hr/>
+    <% end %>
   </div>
 
 
