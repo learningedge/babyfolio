@@ -4,7 +4,7 @@
     <div class="single_facebook_image_pic" style="background-image: url(<%= photo.images[index].source  %>)"></div>
 
     <%=  photo.inspect %>
-    <div class="img_details hidden" id="<%= 'photos['+photo.id.to_s+']' -%>" parent="img_details_<%= photo.id %>">
+    <div class="img_details hidden" id="<%= photo.identifier %>" name="<%= photo.id -%>" parent="img_details_<%= photo.id %>">
       <%= image_tag photo.images.last.source %><%= link_to "Remove", '#', :class => "remove_img" %>     
       <%= link_to "", photo.source, :class => 'hidden img_value' %>
     </div>
