@@ -1,0 +1,20 @@
+<div class="container settings">
+  <div id="left">
+    <div class="title">TESTING SOCIALS PARTIAL</div>
+  </div>
+  <div class="user-form">
+
+    <div id="youtube-ajax-container">
+    <%= render :partial => 'youtube/multiselect_youtube_videos' %>
+    </div>
+    <script type="text/javascript" src="/js/youtube_videos.js"></script>
+
+    <hr/>
+
+    <div id="flickr-ajax-container">
+      <%= render :partial => 'flickr/select_flickr_photos' %>
+    </div>
+    <script type="text/javascript" src="/js/flickr.js"></script>    
+  </div>
+  <div class="clear"></div>
+</div>

@@ -1,0 +1,61 @@
+<% if flickr_images %>
+
+  <% multiselect_option = true  if multiselect_option.nil? %>
+  <% form_tags_option = false if form_tags_option.nil? %>
+  <% remote_option = false if remote_option.nil? %>
+
+  <div class="flickr <%= multiselect_option ? 'multiselect' : 'singleselect' -%>">
+
+    <h2>My Flickr photos</h2>
+
+    <div class="flickr-grid">
+      <% if form_tags_option %>
+        <%= form_tag url, :remote => remote_option %>
+      <% end %>
+
+      <% flickr_images.each do |image| %>
+      <% info = flickr.photos.getInfo(:photo_id => image.id) %>
+      <span class="image">
+	<div class="checkbox-radiobutton">
+
+	  <% if multiselect_option %>
+	     <%= check_box_tag 'flickr_images[]', FlickRaw.url(info)  -%>
+	  <% else %>
+	     <%= radio_button_tag 'flickr_image', FlickRaw.url(info) -%>
+	  <% end %>
+
+	</div>
+	<div class="thumb">
+	  <%= image_tag FlickRaw.url_s(info) -%>
+	</div>
+	<div class="title">
+
+	  <%= image.title -%>
+
+	</div>
+      </span>
+
+
+      <% end %>
+
+      <% if form_tags_option %>
+        <%= submit_tag 'Submit' %>
+	</form>
+      <% end %>
+  
+  </div>
+
+<% else %>
+
+  <%= flash[:flickr_error] %>  
+
+  <div>
+    <div id="flickr-id">
+      <%= text_field_tag 'flickr_id' %>
+    </div>    
+    <%= link_to 'Flickr connect', '#', :onclick => "
+           $.ajax({url: '#{connect_flickr_index_url}?flickr_id='+$('#flickr-id input').val(),success: function(html){$('#flickr-ajax-container').html(html)}})
+"%>
+  </div>
+  
+<% end %>

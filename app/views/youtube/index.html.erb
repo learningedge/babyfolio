@@ -1,0 +1,21 @@
+<div class="container settings youtube">
+  <div id="left">
+    <div class="title">YOUTUBE account</div>
+    <%= link_to 'Upload Video', new_youtube_path %>
+  </div>
+  <div class="user-form">
+
+
+
+    <div id="youtube-ajax-container">
+    <%= render :partial => 'multiselect_youtube_videos' %>
+    </div>
+
+    <script type="text/javascript" src="/js/youtube_videos.js"></script>
+    
+  </div>
+  <div class="clear"></div>
+</div>
+
+
+

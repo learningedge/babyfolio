@@ -1,0 +1,51 @@
+<% if youtube_user %>
+
+  <% multiselect_option = true if multiselect_option.nil? %>
+  <% submit_button_option = true if submit_button_option.nil? %>
+  <% form_tags_option = false if form_tags_option.nil? %>
+  <% remote_option = false if remote_option.nil? %>
+<div class="youtube <%= multiselect_option ? 'multiselect' : 'singleselect' -%>">
+  <h2>My Youtube videos</h2>
+  
+  <div class="youtube-grid">
+    <% if form_tags_option %>
+      <%= form_tag url, :remote => remote_option %>
+    <% end %>
+
+    <% youtube_user.my_videos.videos.each do |video| %>
+    
+    <span class="video">
+      <div>
+
+	<div class="checkbox-radiobutton">
+
+	  <% if multiselect_option %>
+   	     <%= check_box_tag 'youtube_videos[]', video.unique_id %>
+	  <% else %>
+	     <%= radio_button_tag 'youtube_videos[]', video.unique_id %>
+	  <% end %>
+
+	</div>
+      	<div class="thumb">
+	  <%= image_tag video.thumbnails[0].url %>
+	</div>
+	<div class="title">
+	  <%= video.title %>
+	</div>
+      </div>
+    </span>
+  
+    <% end %>
+
+    <% if form_tags_option %>
+      <%= submit_tag 'Submit' if submit_button_option -%>
+      </form>
+    <% end %>
+  </div>
+
+</div>
+<% else %>
+
+<%= link_to 'Youtube connect', '/auth/youtube?display=popup', :onclick => "window.open(this.href, 'youtube_login', 'height=545,width=1020');return false;" -%>
+
+<% end %>
