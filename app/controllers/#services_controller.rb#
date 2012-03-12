@@ -97,8 +97,7 @@ class ServicesController < ApplicationController
       flash[:error] = 'Error while authenticating via ' + service_route.capitalize + '. The service did not return valid data.'
       @redirect_link = login_url
     end
-    @container = "facebook-ajax-container"
-    @ajax_link = facebook_albums_url
+
   end
 
   def create_youtube
@@ -129,7 +128,9 @@ class ServicesController < ApplicationController
       @service.save
       
       @redirect_link = youtube_index_url
+
       @container = 'youtube-ajax-container'
+
       @ajax_link = ajax_youtube_index_url
 
       render :create

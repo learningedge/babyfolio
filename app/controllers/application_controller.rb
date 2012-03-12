@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   config.filter_parameters :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :current_family, :my_family
+  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images
 
   private
     def current_user_session
@@ -95,6 +95,48 @@ class ApplicationController < ActionController::Base
 
     def require_no_family
       redirect_to child_profile_children_url if current_family
+    end
+
+    def youtube_user
+
+      return @youtube_user if defined?(@youtube_user)
+
+      unless current_user.services.youtube.empty?
+        youtube = current_user.services.youtube.first
+        @youtube_user = YouTubeIt::OAuthClient.new(
+                                                   :consumer_key => '821905120152.apps.googleusercontent.com', 
+                                                   :consumer_secret => 'q9XDXCtGECoa0clbFMeVGuKT', 
+                                                   :client_id => youtube.uid, 
+                                                   :dev_key => "AI39si5CBu2pCYdFlu9nRI5ATwxqvUHm3vlw2MR4qD42DjXRS-UkGhXhai1oT7V4DBt8OJmQn9h6qzfX7OsggfcMf-8luMew4w")
+        @youtube_user.authorize_from_access(youtube.token, youtube.secret)
+
+        return @youtube_user
+      end
+    end
+
+    def flickr_images
+
+      return @flickr_photos if defined?(@flickr_photos)
+
+      FlickRaw.api_key="711439ce527642e0fee2d5fc76f2affe"
+      FlickRaw.shared_secret="d0b79889905ec211"
+    
+      flickr_service  = current_user.services.flickr_service.first
+      unless flickr_service.nil?
+        begin
+          
+          images = flickr.photos.search(:user_id => flickr_service.uid)
+
+        rescue FlickRaw::FailedResponse => e        
+          flash[:flickr_error] = 'Uknown user'
+          return false
+        end
+      else
+        flash[:flickr_error] = 'First connect to Flickr service'
+      end
+      
+      @flickr_photos = images
+
     end
 
 

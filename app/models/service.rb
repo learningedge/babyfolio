@@ -3,4 +3,6 @@ class Service < ActiveRecord::Base
 
 
   scope :youtube, where(:provider => 'youtube')
+  scope :flickr_service, where(:provider => 'flickr')
+
 end

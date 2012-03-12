@@ -70,9 +70,11 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #page-wrapper {}
 #clear,
 .clear {clear: both;height: 0px}
+.hidden { display: none; }
 
 .user-form h2 { font: 30px 'helvetica_seven';color:#555555 }
 
+.preloader { background: url('/images/loader.gif') no-repeat; width: 24px; height: 24px; }
 
 
 
@@ -139,6 +141,14 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
   text-align: center;
   margin-bottom: 10px;
 }
+
+/*  Facebook images */
+
+.single_album {float: left; margin-right: 10px;}
+.single_facebook_image {float: left; margin-right: 10px;}
+.single_facebook_image.is_selected .single_facebook_image_pic { border-color: #fff } 
+.single_facebook_image_pic { background-position: center center; background-repeat: no-repeat; width: 180px; height: 180px; border: 1px solid #000}
+
 
 /* Home */
 
@@ -324,7 +334,7 @@ a:hover {text-decoration:none}
 .settings #left {float:left;width:200px}
 .settings #left #title,
 .settings #left .title {float:none;display:block}
-.settings #left .title {font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;min-width:200px;text-align:center}
+.settings #left .title {font: bold 38px/40px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;min-width:200px;text-align:center}
 .settings #left a {display:block}
 
 .settings #change-form {padding-bottom:20px; text-align:right}
@@ -391,3 +401,18 @@ a:hover {text-decoration:none}
 .child-image .profile-image .image.active {border-color:#898989}
 .child-image .profile-image img{border-radius:15px;-webkit-border-radius: 15px;-moz-border-radius: 15px;behavior: url(PIE/PIE.htc);}
 
+
+
+/* youtube-grid */
+
+.youtube-grid {}
+.youtube-grid .video {display:inline-block;position:relative;width:176px;text-align:center;padding:20px;margin: 2px 0}
+.youtube-grid .video.active {background-color:white}
+.youtube-grid .video .checkbox-radiobutton {position:absolute;display:none}
+
+/* flickt-grid */
+
+.flickr-grid .image {display:inline-block;position:relative;text-align:center;padding:20px;margin: 2px 0}
+.flickr-grid .image img {}
+.flickr-grid .image.active {background-color:white}
+.flickr-grid .image .checkbox-radiobutton {position:absolute;display:none}

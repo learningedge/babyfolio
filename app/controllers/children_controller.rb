@@ -38,10 +38,6 @@ before_filter :require_family_with_child
         @flickr_info = 'nie ma parametru'
       end
       
-#    rescue FlickRaw
-#      
-#    else
-
     end
    
     @child = Child.find(params[:id])

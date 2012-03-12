@@ -1,63 +1,76 @@
-<% select_type = "checkbox" %>
+<% @multiselect ||= true %>
 <div id="selected_images"></div>
 
-
-<div id="albums_container">
+<div id="albums_container" class="<%= @multiselect ? 'multiselect' : ''%>">
   <% @albums.each do |album| %>
    <div class="single_album">
-     <%= link_to album.name,  album_photos_path(:album => album.identifier, :select => select_type), :remote => true, :class => "album_link" %><div class="preloader hidden"></div>
+     <%= link_to(album_photos_path(:album => album.identifier), :remote => true, :class => "album_link") do %>
+       <span><%= album.name %></span>
+       <div class="preloader hidden"></div>
+       <div class="albums_featured_image"><%= image_tag album.picture  %></div>
+     <% end %>
      <div class="album"></div>
-   </div>
+   </div>   
   <% end %>
+<div class="clear"></div>
 </div>
+
 
 <%= javascript_tag do %> 
 
-var select_type = "<%= select_type %>";
+var multiselect = <%= @multiselect %>;
 $(function() {
   $(".album_link").bind("ajax:complete", function(et, e){ 
-    $(this).next('div.preloader').fadeOut();
-    $(this).parents('.single_album').find('.album').html(e.responseText); // insert content 
-    $(this).removeAttr('data-remote');
-    $(this).unbind('click');
-    $(this).live('click',function() {return false; });
+    $(this).find('div.preloader').fadeOut();
+    $(this).addClass('loaded_album').next('.album').html(e.responseText); // insert content 
+    $(this).parents('.single_album').css({width : '100%'});
+    $(this).removeAttr('data-remote').attr('href', "#");
   }); 
 });
 
 $('.album_link').click(function() {
-  $(this).next('.preloader').fadeIn();
+  var album = $(this).parents('.single_album');
+  if($(this).is('.loaded_album')) {
+    $(this).find('.albums_featured_image').toggle();
+    $(this).next('.album').toggle();
+    if($(this).find('.albums_featured_image').is(':visible')) { album.css({width: 'auto'}); } 
+    else  { album.css({width: '100%'}); }     
+  } else {
+    $(this).find('.albums_featured_image').hide();
+    $(this).find('.preloader').fadeIn();
+}
 });
 
-$('.img_select').live('change', function() {
-   if(select_type != "checkbox") {
-       $("#selected_images .img_details").each(function() {
+$('.single_facebook_image').live('click', function() {      
+   if($(this).is('.is_selected')) {
+     move_back($('#selected_images .img_details[parent="' + $(this).attr('parent') + '"]'));
+   } else {
+     if($('#albums_container.multiselect').length < 1) {
+       $('#selected_images .img_details').each(function() {
          move_back(this);
        });
-   } else {
-     if(!($(this).is(':checked'))) {
-        move_back($('#selected_images .img_details[parent="' +  $(this).parents('.single_facebook_image').attr('parent') + '"]'));
-        return;
-     } 
-   }
-   add_image($(this).parents('.single_facebook_image').find('.img_details'));   
+     }
+     add_image($(this).find('.img_details'));
+    }   
 });
 
 $('.remove_img').live('click', function() {
    move_back($(this).parents('.img_details'));
-   $(this).parents('.single_facebook_image').find('input').attr("checked", false);
    return false;
 });
 
 
 function move_back(item){
    $(item).find('input[type="hidden"]').remove();
-   $('#albums_container').find('.single_facebook_image[parent="' +  $(item).attr("parent") + '"]').append($(item).addClass("hidden"));
+   $(item).hide();
+   $('.album .single_facebook_image[parent="' +  $(item).attr("parent") + '"]').append(item).removeClass('is_selected');  
 }
 
 function add_image(item) {
    var hidden_input = $('<input>', {type: "hidden", value: $(item).find('a.img_value').attr('href'), name: $(item).attr('id'), id: $(item).attr('id') });
    $(item).append(hidden_input);
-   $('#selected_images').append($(item).removeClass("hidden"));
+   $(item).parents('.single_facebook_image').addClass('is_selected');
+   $('#selected_images').append($(item).fadeIn());
 }
 
 <% end %>

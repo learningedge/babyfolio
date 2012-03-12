@@ -1,5 +1,14 @@
 Babyfolio::Application.routes.draw do
 
+  get "moments/index"
+
+  get "moments/new"
+
+  get "moments/edit"
+
+  get "moments/create"
+
+  get "moments/destroy"
 
   resources :youtube do
     new do
@@ -8,15 +17,19 @@ Babyfolio::Application.routes.draw do
 
     collection do
       get '/connect' => :youtube_connect, :as => :connect
+      match :youtube_ajax, :as => :ajax
     end
   end
 
-  get "media/youtube"
-  match "media/upload_step_one"
-  match "media/upload_step_two"
+  resources :flickr, :only => [:index] do
+    collection do
+      get :flickr_connect, :as => :connect
+    end
+  end
 
   get "home/index"
   get "interior" => "home#interior", :as => :interior
+  get "socials" => "home#socials", :as => :socials
 
     # Omniauth pure
   match "/signin" => "services#signin"
@@ -36,6 +49,7 @@ Babyfolio::Application.routes.draw do
     end
   end
 
+  get "facebook" => "facebook#index"
   get "facebook_albums" => "facebook#albums"
   get "facebook_album_photos/:album" => "facebook#album_photos", :as => :album_photos
 

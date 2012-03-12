@@ -1,3 +1,5 @@
+<h1>LOADING CONTENT</h1>
+
 <script type="text/javascript">
 
 
@@ -6,8 +8,22 @@ if(window.opener){
 }
 
 function close_popup(){
-  window.close();
-  window.opener.location = "<%= @redirect_link %>"
+  var parent_window = $(window.opener.document).find('#<%= @container %>')
+  if (parent_window.length > 0) {
+
+    $.ajax({
+      url: '<%= @ajax_link %>',
+      success: function(html){            
+          window.close();
+          parent_window.html(html);
+        }
+
+    });
+  } else {
+    window.close();
+    window.opener.location = "<%= @redirect_link %>"
+
+  }
 }
 
 </script>

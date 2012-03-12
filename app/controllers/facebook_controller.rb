@@ -1,6 +1,9 @@
 class FacebookController < ApplicationController
 before_filter :require_facebook_account
 before_filter :require_user
+  
+  def index 
+  end
 
   def albums
     service = current_user.get_facebook_service
