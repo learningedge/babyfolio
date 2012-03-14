@@ -21,7 +21,8 @@
 
 <% else %>
 
-  <div>You dont have facebook account connected.<%= link_to "Click here ",  "/auth/facebook/" %> to connect one.</div>
+<%= link_to 'Facebook connect', '/auth/facebook?display=popup', :onclick => "window.open(this.href, 'facebook_login', 'height=545,width=1020');return false;" -%>
+<div class="notice"><%= flash[:notice] %></div>
   
 <% end %>
 

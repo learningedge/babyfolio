@@ -14,7 +14,7 @@ $(function(){
                               }
       })
 
-      $('.youtube.multiselect .video').live("click",function(){
+      $('.multiselect .youtube .video').live("click",function(){
 
 	  if ($(this).find('input[type=checkbox]').attr('checked')) {
 	      
@@ -30,16 +30,13 @@ $(function(){
 
       });
 
-    $('.youtube.singleselect .video').live("click",function(){
-         if (!$(this).find('input[type=radio]').attr('checked')) {
-	     $('.youtube.singleselect .video input[type=radio]').attr('checked',false);
-	     $('.youtube.singleselect .video').removeClass('active');
+    $('.singleselect .youtube .video').live("click",function(){
 
-	     $(this).find('input[type=radio]').attr('checked', true);
-	     $(this).addClass('active');
-	 }
-	     
-
+	$('.singleselect .youtube .video input[type=checkbox]').attr('checked',false);
+	$('.singleselect .youtube .video').removeClass('active');
+	 
+	$(this).find('input[type=checkbox]').attr('checked', true);
+	$(this).addClass('active');
 
     })
 

@@ -35,37 +35,13 @@
     </div>
     
     <h2>OR choose one from facebook</h2>
-
-    <div class="profile-image">
-
-
-    </div>
     
     <h2>OR flicker</h2>
-    <div class="profile-image">
-
-      <% unless @flickr_images.nil? %>
-
-        <% @flickr_images.each do |flickr_image| %>
-          <% info = flickr.photos.getInfo(:photo_id => flickr_image.id) %>
-
-            <% url = FlickRaw.url(info) %>
-
-            <div class="image flickr-image <%= 'active' if @child.profile_image_remote_url == url -%>" url="<%= url -%>">
-              <%= image_tag FlickRaw.url_s(info) -%>
-            </div>
-
-        <% end %>
-
-      <% else %>
-
-        <%= @flickr_info %>
-
-      <% end %>
-
-
-
+    <div id="flickr-ajax-container" class="singleselect">
+      <%= render :partial => 'flickr/select_flickr_photos' %>
     </div>
+    <script type="text/javascript" src="/js/flickr.js"></script>
+
   </div>
 
   <div class="clear"></div>

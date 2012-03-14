@@ -1,20 +1,35 @@
 class FlickrController < ApplicationController
 
   before_filter :require_user
-  helper_method :flickr_images
 
   def index
+
+#     render :text => current_user.flickr_user.photos.getNotInSet.inspect
+#     render :text => current_user.flickr_user.photosets.getList.inspect
     
   end
 
-  def flickr_connect
-    
-    @service = Service.find_or_create_by_user_id_and_provider(current_user.id,'flickr')
-    @service.update_attribute(:uid, params[:flickr_id])
-    @service.save
-    
-    render :partial => 'select_flickr_photos'
+  def flickr_ajax
+
+    render :partial => 'select_flickr_photos', :locals => { :options => { :sets => true }}
 
   end
+
+  def flickr_sets
+    render :partial => 'sets_grid'
+  end
+
+  def flickr_photos
+
+    if params[:set_id] 
+      photos = current_user.flickr_user.photosets.getPhotos(:photoset_id => params[:set_id]).photo
+    else
+      photos = current_user.flickr_user.photos.getNotInSet
+    end
+
+    render :partial => 'photos_grid', :locals => { :photos => photos }
+  end
+
+  
 
 end

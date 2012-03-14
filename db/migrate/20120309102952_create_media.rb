@@ -3,7 +3,7 @@ class CreateMedia < ActiveRecord::Migration
     create_table :media do |t|
       t.string :media_id
       t.string :type 
-      t.has_attached_field :image
+      t.has_attached_file :image
 
       t.timestamps
     end

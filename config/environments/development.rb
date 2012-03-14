@@ -3,19 +3,11 @@ Babyfolio::Application.configure do
 
   Rails.application.config.middleware.use OmniAuth::Builder do
 
-    # you need a store for OpenID; (if you deploy on heroku you need Filesystem.new('./tmp') instead of Filesystem.new('/tmp'))
-    #   require 'openid/store/filesystem'
+    provider :facebook, Yetting.facebook["key"], Yetting.facebook["secret"], { :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
+    provider :youtube, Yetting.youtube["key"], Yetting.youtube["secret"]
+    provider :flickr, Yetting.flickr["key"], Yetting.flickr["secret"], { :scope => 'read' }
+    provider :vimeo, Yetting.vimeo["key"], Yetting.vimeo["secret"]
 
-    # providers with id/secret, you need to sign up for their services (see below) and enter the parameters here
-    provider :facebook, '263019473774028', '7c92fcaf00c30a9da772af2de7a2b144',{ :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
-    provider :youtube, '821905120152.apps.googleusercontent.com', 'q9XDXCtGECoa0clbFMeVGuKT'
-
-#    on_failure do |env|
-#      message_key = 'jakistammessage'
-
-#      new_path = "#{env['SCRIPT_NAME']}#{OmniAuth.config.path_prefix}/failure?message=#{message_key}"
-#      [302, {'Location' => new_path, 'Content-Type' => 'text/html', []]
-#    end
   end
 
   # In the development environment your application's code is reloaded on

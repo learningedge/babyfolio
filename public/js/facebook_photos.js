@@ -46,8 +46,8 @@ function move_back(item){
     $('.album .single_facebook_image[parent="' +  $(item).attr("parent") + '"]').append(item).removeClass('is_selected');
 }
 function add_image(item) {
-    var hidden_input = $('<input>', {type: "hidden", value: $(item).find('a.img_value').attr('href'), name: 'photos[' + $(item).attr('name') + ']', id: 'photos[' + $(item).attr('name') + ']' });
-    var hidden_input2 = $('<input>', {type: "hidden", value: $(item).attr('id'), name: 'pids[' + $(item).attr('name') + ']', id: 'pids[' + $(item).attr('name') + ']' });
+    var hidden_input = $('<input>', {type: "hidden", value: $(item).find('a.img_value').attr('href'), name: 'facebook_photos[]' });
+    var hidden_input2 = $('<input>', {type: "hidden", value: $(item).attr('id'), name: 'facebook_pids[]' });
     $(item).append(hidden_input).append(hidden_input2);
     $(item).parents('.single_facebook_image').addClass('is_selected');
     $('#selected_images').append($(item).fadeIn());

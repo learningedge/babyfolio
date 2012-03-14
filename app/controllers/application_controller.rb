@@ -114,32 +114,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def flickr_images
-
-      return @flickr_photos if defined?(@flickr_photos)
-
-      FlickRaw.api_key="711439ce527642e0fee2d5fc76f2affe"
-      FlickRaw.shared_secret="d0b79889905ec211"
-    
-      flickr_service  = current_user.services.flickr_service.first
-      unless flickr_service.nil?
-        begin
-          
-          images = flickr.photos.search(:user_id => flickr_service.uid)
-
-        rescue FlickRaw::FailedResponse => e        
-          flash[:flickr_error] = 'Uknown user'
-          return false
-        end
-      else
-        flash[:flickr_error] = 'First connect to Flickr service'
-      end
-      
-      @flickr_photos = images
-
-    end
-
-
 end
 
 
