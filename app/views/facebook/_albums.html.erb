@@ -1,28 +1,30 @@
-<% if(current_user.has_facebook_account?) %>
+<% @albums ||= current_user.get_facebook_albums  %>
 
-  <% @multiselect ||= true %>
-  <% @albums ||= current_user.get_facebook_albums  %>
 
-  <div id="selected_images"></div>
+<div class="sets">
+<div class="header">
+  <h2>Albums</h2>
+  <div class="clear"></div>
+</div>
 
-  <div id="albums_container" class="<%= @multiselect ? 'multiselect' : ''%>">
-    <% @albums.each do |album| %>
-      <div class="single_album">
-        <%= link_to(album_photos_path(:album => album.identifier), :remote => true, :class => "album_link") do %>
-          <span><%= album.name %></span>
-          <div class="preloader hidden"></div>
-          <div class="albums_featured_image"><%= image_tag album.picture  %></div>
-        <% end %>
-        <div class="album"></div>
-      </div>
-    <% end %>
-    <div class="clear"></div>
-  </div>
+<% @albums.each do |album| %>
+<a href="#" onclick="$.get('<%= album_photos_url(:album => album.identifier) %>',function(data){$('#facebook-ajax-grid').html(data);$('#facebook-ajax-container .preloader').stop().fadeOut()});return false;">
+  <span class="image">
+    <div class="thumb" style="background-image: url('<%= album.picture %>')">
+      <span class="count">
+	<%= album.count %>
+      </span>
+    </div>
+    <div class="title">
+      <%= truncate(album.name, :length => 20) %>
+    </div>
+  </span>
+</a>
 
-<% else %>
-
-<%= link_to 'Facebook connect', '/auth/facebook?display=popup', :onclick => "window.open(this.href, 'facebook_login', 'height=545,width=1020');return false;" -%>
-<div class="notice"><%= flash[:notice] %></div>
-  
 <% end %>
+
+</div>
+
+
+
 

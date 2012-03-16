@@ -5,28 +5,31 @@
   <div class="user-form">
 
     <%= form_tag "/socials_create" do %>
-    <div id="youtube-ajax-container" class="multiselect">
-      <%= render :partial => 'youtube/multiselect_youtube_videos' %>
-    </div>
-    <script type="text/javascript" src="/js/youtube_videos.js"></script>
 
+    <div id="youtube-ajax-container" class="multiselect">
+      <%= render :partial => 'youtube/select_youtube_videos' %>
+    </div>
+
+    <div id="vimeo-ajax-container" class="multiselect">
+      <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
+    </div>
+
+
+    <script type="text/javascript" src="/js/youtube_videos.js"></script>
     <hr/>
 
-    <div id="flickr-ajax-container" class="multiselect">
+    <div id="flickr-ajax-container" class="multiselect ajax-container">
       <%= render :partial => 'flickr/select_flickr_photos'-%>
     </div>
     <script type="text/javascript" src="/js/flickr.js"></script>
-    
-
-
     <hr/>
 
-    <div id="facebook-ajax-container">
-      <%= render :partial => 'facebook/albums' %>
+    <div id="facebook-ajax-container" class="multiselect ajax-container">
+      <%= render :partial => 'facebook/select_facebook_photos'-%>
     </div>
     <script type="text/javascript" src="/js/facebook_photos.js"></script>
-
     <hr/>
+
     <%= submit_tag "Submit" %>
     <% end %>
   </div>

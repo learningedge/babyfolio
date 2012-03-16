@@ -24,17 +24,16 @@
 #  user = FbGraph::User.fetch(service.uid)
 
  #end
-
-
-
-
-
-
-
-
 %>
         <ul>
-          <li class="avatar"><%= image_tag current_user.avatar.url(:small) -%></li>
+          <li class="avatar">
+	    <% unless current_user.profile_media.blank? %>
+	      <%= image_tag current_user.profile_media.image(:profile_image_small) -%>
+	    <% else %>
+	      <%= image_tag "/image/default_images/user_profile_image_small.jpg" -%>
+	    <% end %>
+	  </li>
+
           <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
           <% if current_family -%>
             <li><span class="border">|</span></li>
@@ -50,26 +49,36 @@
         </ul>
       <% end %>
     </div>
+    
+    </div>
   </div>
   <div id="header">
     <div id="logo">
       <a href="/"><img src="/images/logo.png" alt="logo" /></a>
+	<div class="info-bar">
+	  
+      <% if flash[:error] %>
+        <div class="error-notice">
+          <img src="/images/icon1.png" alt="baby_icon_error" />
+		  <span><%= flash[:error] -%></span>
+		</div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="notice">
+          <img src="/images/baby_icon_full.png" alt="baby_icon" />
+		  <span><%= flash[:notice] -%></span>
+		</div>
+      <% end %>
+	  <div class="clear"></div>
+	  <script type="text/javascript">
+		$(window).load(function(){
+			$('.info-bar').hide().fadeIn(500).delay(5000).fadeOut(500);
+		})
+	  </script>
     </div>
   </div>
   <div id="wrraper" class="storybook_container">
-
-    <% if flash[:error] %>
-      <div class="error-notice">
-        <%= flash[:error] -%>
-      </div>
-    <% end %>
-
-    <% if flash[:notice] %>
-      <div class="notice">
-        <%= flash[:notice] -%>
-      </div>
-    <% end %>
-
     <%= yield %>
   </div>
 </div>

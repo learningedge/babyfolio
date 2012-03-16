@@ -1,26 +1,22 @@
 Babyfolio::Application.routes.draw do
 
-  get "moments/index"
+resources :moments do 
+    collection do
+      get :import_media
+      post :create_from_media
+    end
+end
 
-  get "moments/new"
 
-  get "moments/edit"
-
-  get "moments/create"
-
-  get "moments/destroy"
-
-  resources :youtube do
+  resources :youtube, :only => [:new] do
     new do
       post :upload
     end
-
     collection do
-      get '/connect' => :youtube_connect, :as => :connect
       match :youtube_ajax, :as => :ajax
     end
   end
-
+  
   resources :flickr, :only => [:index] do
     collection do
       match :flickr_ajax, :as => :ajax
@@ -102,6 +98,8 @@ Babyfolio::Application.routes.draw do
   resource :user, :as => 'account' do
     collection do
       get 'edit' => "users#edit"
+      get 'image' => "users#add_image"
+      put 'upload' => "users#upload_image"
     end
   end
 

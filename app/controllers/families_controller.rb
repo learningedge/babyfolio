@@ -188,7 +188,7 @@ class FamiliesController < ApplicationController
         if params[:page] == "add_family"
           redirect_to add_friends_families_path
         else
-          redirect_to child_profile_children_url
+          redirect_to import_media_moments_path
         end        
       else
         flash[:error] = "Invalid emails!"

@@ -149,6 +149,10 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 .single_facebook_image.is_selected .single_facebook_image_pic { border-color: #fff } 
 .single_facebook_image_pic { background-position: center center; background-repeat: no-repeat; width: 180px; height: 180px; border: 1px solid #000}
 
+#logo .info-bar {background: #F5F2DD; border-radius: 12px 12px 12px 12px;  display: none; float: right;margin:16px 0 0}
+#logo .info-bar .notice, #top .info-bar .error-notice {color: #ab1500; display: inline-block; font: 18px "Helvetica_seven";  padding: 6px 10px;}
+#logo .info-bar img {display: block;    float: left;    height: 28px;    padding: 0 10px 0 0;    width: 28px;}
+#logo .info-bar span {float:left;padding:2px 0 0}
 
 /* Home */
 
@@ -221,11 +225,11 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #header #logo {width: 1078px;margin: 0 auto; padding: 18px 0 21px}
 
 /* StoreyBook Container */
-#wrraper {margin:0 auto; width: 1075px;background: #fff;border-radius: 18px 18px 0 0;-webkit-border-radius: 18px 18px 0 0;-moz-border-radius: 18px 18px 0 0;behavior: url(PIE/PIE.htc);/*height: 100%*/}
+#wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;-webkit-border-radius: 18px 18px 0 0;-moz-border-radius: 18px 18px 0 0;behavior: url(PIE/PIE.htc);padding: 10px 10px 15px 32px;/*height: 100%*/}
 #wrraper .notice {color:green;padding:10px 0;}
 #wrraper .error-notice {color:red;padding:10px 0;}
 #wrraper .container {/*height: 100%*/min-height:200px}
-.storybook_container #container_header {  background: none repeat scroll 0 0 #F5F2DD;    border-radius: 18px 0 0 0;    overflow: hidden;    padding: 13px 0 0 30px;}
+/*.storybook_container #container_header {  background: none repeat scroll 0 0 #F5F2DD;    border-radius: 18px 0 0 0;    overflow: hidden;    padding: 13px 0 0 30px;}*/
 
 #container_header {margin: 5px 0 0;height: 90px;}
 #wrraper .container #title {display: inline;font: 40px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left;min-width:200px;text-align:center}
@@ -234,7 +238,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #drop_list #setting_kids {margin: 12px 0 0}
 #wrraper .container #drop_list a {font: 14px arial;color: #9b7804;text-decoration: none}
 #wrraper .container #drop_list span {display: block;text-align: center}
-#wrraper .container #container_left {float: left;width: 792px;position: relative;top: 0;left: 0;/*height: 100%*/}
+#wrraper .container #container_left {float: left;width: 740px;position: relative;top: 0;left: 0;/*height: 100%*/}
 
 /* Book */
 #wrraper .container #container_left #book_box {position: relative;width: 300px;top: 0;left: 0}
@@ -278,7 +282,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 .storybook_container .container #container_left #footer_bg_profile {background:#fff}
 .storybook_container .container #container_left #footer_bg_profile #footer {width:720px}
 
-#wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 792px}
+#wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 762px}
 #wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
 #wrraper .container #container_right #most_post {margin: 0 0 0 35px}
 #wrraper .container #container_right #most_post .single_post {margin: 0 0 30px;padding: 0 10px 0 0}
@@ -371,9 +375,9 @@ a:hover {text-decoration:none}
 .family-and-friends .second-form {display:none;position:relative;top:0}
 .family-and-friends textarea {width:100%;}
 .family-and-friends .second-form div.submit {margin-left:0px;}
-.family-and-friends div.submit {float:left;margin-right:20px}
-.family-and-friends .skip {float:left}
-.family-and-friends .skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
+div.submit {float:left;margin-right:20px}
+.skip {float:left}
+.skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
 
 /* relations */
 .relations .row span.label {width: 250px}
@@ -421,21 +425,44 @@ a:hover {text-decoration:none}
 
 /* flickr */
 
-#flickr-ajax-container {position:relative}
+#flickr-ajax-container, 
+#facebook-ajax-container {position:relative}
+#facebook-ajax-container .preloader,
 #flickr-ajax-container .preloader {position:absolute;z-index:1;width:100%;height:100%;background: url('/images/loader.gif') 50% 50% no-repeat #E8E3C0;display:none}
 
+.facebook #selected-facebook-photos,
 .flickr #selected-flickr-photos {width:180px;display:inline-block;vertical-align:top}
-.flickr #selected-flickr-photos span.selected-image {position:relative;display:inline-block;cursor:pointer;border:1px solid #9b7804;margin:2px;border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden}
+.facebook #selected-facebook-photos span.selected-image,
+.flickr #selected-flickr-photos span.selected-image {width: 75px; height: 75px;  position:relative; display:inline-block;cursor:pointer;border:1px solid #9b7804;margin:2px;border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center center; background-repeat: no-repeat;background-size: cover;}
+.facebook #selected-facebook-photos span.selected-image .hover, 
 .flickr #selected-flickr-photos span.selected-image .hover{width:75px;height:75px;position:absolute;top:0px;left:0px;background-color:black;color:white;line-height:73px;text-align:center;display:none}
 
+.facebook-grid,
 .flickr-grid {width:520px;display:inline-block;vertical-align:top;font-size:0px;}
+.facebook-grid .header,
 .flickr-grid .header {text-align:left;font-size:14px}
+.facebook-grid .header h2,
 .flickr-grid .header h2{float:left}
+.facebook-grid .header a,
 .flickr-grid .header a{float:right}
+.facebook-grid .sets > a,
 .flickr-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
+.facebook-grid .sets .count ,
 .flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
+.facebook-grid .image,
 .flickr-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
-.flickr-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden}
+.facebook-grid .image .thumb,
+.flickr-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover;}
 
+.facebook-grid .image .checkbox-radiobutton,
 .flickr-grid .image .checkbox-radiobutton {position:absolute;display:none}
 
+/* CHILDREN */
+
+.children #container_left {width:792px !important}
+.children #container_right {margin-left:792px !important} 
+.children #container_header {margin:0;border-radius: 18px 18px 0 0;padding-left:32px}
+.children #container_left #book {left:-94px !important;height: 769px;}
+.children #container_left #footer_bg_profile #footer {width:770px !important}
+.children #top_container { border-radius: 18px 18px 0 0; height: 13px; position:relative;}
+.children #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}

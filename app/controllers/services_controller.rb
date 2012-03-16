@@ -91,7 +91,7 @@ class ServicesController < ApplicationController
       @redirect_link = login_url
     end
     @container = "facebook-ajax-container"
-    @ajax_link = facebook_albums_url
+    @ajax_link = facebook_url
   end
 
   def create_youtube
@@ -100,6 +100,7 @@ class ServicesController < ApplicationController
 
     # get the full hash from omniauth
     omniauth = request.env['omniauth.auth']
+
 
     # continue only if hash and parameter exist
     # routes are defined like this => '/auth/you:service/callback
@@ -136,9 +137,8 @@ class ServicesController < ApplicationController
 
   def create_vimeo
      params[:service] ? service_route = params[:service] : service_route = 'No service recognized (invalid callback)'    
-    omniauth = request.env['omniauth.auth']
-#    render :xml => omniauth
 
+    omniauth = request.env['omniauth.auth']
 
     if omniauth and params[:service] == 'imeo'
       @authhash = Hash.new
@@ -147,18 +147,18 @@ class ServicesController < ApplicationController
       omniauth['info']['name'] ? @authhash[:uname] =  omniauth['info']['name'] : @authhash[:name] = ''
       omniauth['uid'] ? @authhash[:uid] = omniauth['uid'] : @authhash[:uid] = ''
       omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
-      omniauth['credentials']['token'] ? @authhash[:token] = omniauth['credentials']['token'] : @authhash[:token] = ''
-      omniauth['credentials']['secret'] ? @authhash[:secret] = omniauth['credentials']['secret'] : @authhash[:secret] = ''
+      omniauth['extra']['access_token'].token ? @authhash[:token] = omniauth['extra']['access_token'].token : @authhash[:token] = ''
+      omniauth['extra']['access_token'].secret ? @authhash[:secret] = omniauth['extra']['access_token'].secret : @authhash[:secret] = ''
 
       @service = Service.find_or_create_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
       @service.update_attributes :token => @authhash[:token], :uname => @authhash[:uname], :user_id => current_user.id, :secret => @authhash[:secret]
       @service.save
       
-      @redirect_link = vimeo__index_url
+      @redirect_link = vimeo_index_url
       @container = 'vimeo-ajax-container'
-      @ajax_link = ajax_vimeo_index_url
+      @ajax_link = vimeo_index_url
 
-      render :create
+     render :create
       
     else
       render :text => service_route
@@ -209,21 +209,19 @@ class ServicesController < ApplicationController
   end
 
   def failure
-    
-    unless request.env['rack.session']['oauth']['youtube'].nil?
-
+   
+    unless(!request.env['rack.session'].nil? or  !request.env['rack.session']['oauth'].nil? or !request.env['rack.session']['oauth']['youtube'].nil?)
       flash[:error] = "Unable to authenticate user. If you are new on the YouTube  try to create the new channel first and then reconnect, in another case try to connect later"
-      @redirect_link = youtube_index_url
+      @redirect_link = ajax_youtube_index_url
       @container = 'youtube-ajax-container'
       @ajax_link = ajax_youtube_index_url
- 
-    else
+    else 
+      @container = 'facebook-ajax-container'
       flash[:error] = 'Unable to authenticate user.'
-      @redirect_link = '/'
+      @ajax_link = facebook_albums_url
+      @redirect_link = '/login'
     end
-
     render :action => :create
-
   end
 
 

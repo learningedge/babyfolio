@@ -1,10 +1,11 @@
 class FacebookController < ApplicationController
 before_filter :require_user
   
-  def index 
+  def index
+    render :partial => "select_facebook_photos"
   end
 
-  def albums    
+  def albums
     render :partial => "albums"
   end
 

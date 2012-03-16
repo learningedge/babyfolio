@@ -1,16 +1,23 @@
-<% @photos.each do |photo| %> 
-  <div class="single_facebook_image" parent="img_details_<%= photo.id %>">
-     <% index = photo.images.index {|img| img.width <= 180} %>
-    <div class="single_facebook_image_pic" style="background-image: url(<%= photo.images[index].source  %>)"></div>
+<div class="photos">
 
-    <div class="img_details hidden" id="<%= photo.identifier %>" name="<%= photo.id -%>" parent="img_details_<%= photo.id %>">
-      <%= image_tag photo.images.last.source %><%= link_to "Remove", '#', :class => "remove_img" %>     
-      <%= link_to "", photo.source, :class => 'hidden img_value' %>
+<div class="header">
+  <h2>Photos</h2>
+  <a href="#" onclick="$.get('<%= facebook_albums_url %>',function(data){$('#facebook-ajax-grid').html(data);$('#facebook-ajax-container .preloader').stop().fadeOut()});return false;">Back to albums</a>
+  <div class="clear"></div>
+</div>
+
+<% @photos.each do |photo| %>
+  <%# index = photo.images.index {|img| img.width <= 180} %>
+  <span class="image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
+    <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
     </div>
-  </div>
+    <div class="title">
+      <%= truncate(photo.name, :length => 10) %>
+    </div>
+  </span>
+
 <% end %>
 
-<div class="clear"></div>
-
+</div>
 
 

@@ -6,7 +6,7 @@ Babyfolio::Application.configure do
     provider :facebook, Yetting.facebook["key"], Yetting.facebook["secret"], { :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
     provider :youtube, Yetting.youtube["key"], Yetting.youtube["secret"]
     provider :flickr, Yetting.flickr["key"], Yetting.flickr["secret"], { :scope => 'read' }
-    provider :vimeo, Yetting.vimeo["key"], Yetting.vimeo["secret"]
+    provider :vimeo, Yetting.vimeo["key"], Yetting.vimeo["secret"],  {:scope => 'write' }
 
   end
 

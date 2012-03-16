@@ -1,54 +1,57 @@
+$(function(){
 
+    jQuery('.facebook .image').live({
+        mouseover: function(){
+	    
+            $(this).find('.thumb').stop().animate({opacity: 1});
+            $('.facebook .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
+	    
+        },
+        mouseleave: function(){
+ 
+            $('.facebook .image .thumb').stop().animate({opacity: 1});
+	    
+        }
+    })
 
-$(function() {
-    $(".album_link").live("ajax:complete", function(et, e){
-	$(this).find('div.preloader').fadeOut();
-	$(this).addClass('loaded_album').next('.album').html(e.responseText); // insert content
-	$(this).parents('.single_album').css({width : '100%'});
-	$(this).removeAttr('data-remote').attr('href', "#");
+    //show preloader
+
+    $('.facebook .facebook-grid .sets .image').live("click",function(){
+	$('#facebook-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+    })
+    $('.facebook .facebook-grid .photos .header > a').live("click",function(){
+	$('#facebook-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+    })
+
+    //multiselect and slingleselect
+
+    $('.multiselect .facebook .facebook-grid .photos .image').live("click",function(){	
+	if($('#selected-facebook-photos #'+$(this).attr('id')).length == 0) {
+	    element = $('<span class="selected-image" id="'+$(this).attr('id')+'" style="background-image: url('+ $(this).attr('thumb_url') +')"><input type="hidden" name="facebook_photos[]" value="'+$(this).attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')
+	    element.appendTo('#selected-facebook-photos');
+	} 
     });
-});
 
-$('.album_link').live('click',function() {
-    var album = $(this).parents('.single_album');
-    if($(this).is('.loaded_album')) {
-	$(this).find('.albums_featured_image').toggle();
-	$(this).next('.album').toggle();
-	if($(this).find('.albums_featured_image').is(':visible')) { album.css({width: 'auto'}); }
-	else  { album.css({width: '100%'}); }
-    } else {
-	$(this).find('.albums_featured_image').hide();
-	$(this).find('.preloader').fadeIn();
-    }
-});
-$('.single_facebook_image').live('click', function() {
-    if($(this).is('.is_selected')) {
-	move_back($('#selected_images .img_details[parent="' + $(this).attr('parent') + '"]'));
-    } else {
-	if(!$('.multiselect').length > 0) {
-	    $('#selected_images .img_details').each(function() {
-		move_back(this);
-	    });
-	}
-	add_image($(this).find('.img_details'));
-    }
-});
+    $('.singleselect .facebook .facebook-grid .photos .image').live("click",function(){
+	$('#selected-facebook-photos .selected-image').remove();
+	element = $('<span class="selected-image" id="'+$(this).attr('id')+'" style="background-image: url('+ $(this).attr('thumb_url') +')"><input type="hidden" name="facebook_photos[]" value="'+$(this).attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')
+	element.appendTo('#selected-facebook-photos');
+    })
+    
 
-$('.remove_img').live('click', function() {
-    move_back($(this).parents('.img_details'));
-    return false;
-});
+    $('.facebook #selected-facebook-photos .selected-image').live({
+        mouseover: function(){
+            $(this).find('.hover').show().css({opacity:0.5});
+        },
+        mouseleave: function(){
+            $(this).find('.hover').hide();
+        }
+    })
+
+    $('.facebook #selected-facebook-photos .selected-image').live('click',function(){
+        $(this).remove();
+    })
+    
+})
 
 
-function move_back(item){
-    $(item).find('input[type="hidden"]').remove();
-    $(item).hide();
-    $('.album .single_facebook_image[parent="' +  $(item).attr("parent") + '"]').append(item).removeClass('is_selected');
-}
-function add_image(item) {
-    var hidden_input = $('<input>', {type: "hidden", value: $(item).find('a.img_value').attr('href'), name: 'facebook_photos[]' });
-    var hidden_input2 = $('<input>', {type: "hidden", value: $(item).attr('id'), name: 'facebook_pids[]' });
-    $(item).append(hidden_input).append(hidden_input2);
-    $(item).parents('.single_facebook_image').addClass('is_selected');
-    $('#selected_images').append($(item).fadeIn());
-}

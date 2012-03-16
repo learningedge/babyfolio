@@ -1,0 +1,60 @@
+<div class="container settings">
+    <div id="steps">
+      <table>
+        <tr>
+          <td class="title">Step 1:<br/>Create family</td>
+          <td class="arrows" ></td>
+          <td class="title">Step 2:<br/>Invite Family Members</td>
+          <td class="arrows" ></td>
+          <td class="title active">Step 3:<br/>Add Photos/Videos</td>
+        </tr>
+      </table>
+    </div>
+
+
+  <div id="left">
+    <div class="title">Step 3: Add Photos/Videos</div>
+  </div>
+  <div class="user-form">
+
+    <%= form_tag create_from_media_moments_url do %>
+
+    <div id="youtube-ajax-container" class="multiselect">
+      <%= render :partial => 'youtube/select_youtube_videos' %>
+    </div>
+
+    <hr/>
+
+    <div id="vimeo-ajax-container" class="multiselect">
+      <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
+    </div>
+
+    <hr/>
+
+    <div id="flickr-ajax-container" class="multiselect ajax-container">
+      <%= render :partial => 'flickr/select_flickr_photos'-%>
+    </div>
+
+    <hr/>
+
+    <div id="facebook-ajax-container" class="multiselect ajax-container">
+      <%= render :partial => 'facebook/select_facebook_photos'-%>
+    </div>
+
+    <hr/>
+    
+    <div class="submit">
+      <%= submit_tag "Submit" %>
+    </div>
+    <div class="skip">
+      <%= link_to 'Skip', child_profile_children_path %>
+    </div>
+
+    <% end %>
+  </div>
+
+    <script type="text/javascript" src="/js/youtube_videos.js"></script>
+    <script type="text/javascript" src="/js/flickr.js"></script>
+    <script type="text/javascript" src="/js/facebook_photos.js"></script>
+  <div class="clear"></div>
+</div>
