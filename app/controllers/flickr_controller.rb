@@ -1,13 +1,7 @@
 class FlickrController < ApplicationController
 
   before_filter :require_user
-
-  def index
-
-#     render :text => current_user.flickr_user.photos.getNotInSet.inspect
-#     render :text => current_user.flickr_user.photosets.getList.inspect
-    
-  end
+  before_filter :require_confirmation
 
   def flickr_ajax
 
@@ -29,7 +23,5 @@ class FlickrController < ApplicationController
 
     render :partial => 'photos_grid', :locals => { :photos => photos }
   end
-
-  
 
 end

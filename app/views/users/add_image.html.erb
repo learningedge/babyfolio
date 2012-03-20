@@ -1,7 +1,7 @@
 <div class="container settings child-image">
 
   <div id="left">
-    <div id="title">Child's Image</div>
+    <div id="title">Profile's Image</div>
     <div id="change-form">
       <a href="<%= edit_account_path %>">Main Settings</a>
       <a href="<%= edit_families_path %>">My Family Info</a>
@@ -14,26 +14,20 @@
 
   <div class="user-form update_form">
 
-    <%#= render "shared/error_messages", :target => @family %>
-    
-    <h2>Upload Image for <%= @child.first_name -%>'s profile</h2>
+    <h2>Upload Image for <%= @user.first_name -%>'s profile</h2>
     <div class="images-container">
 
       <div class="profile-image" style="width:228px;height:254px;">
-
-	<%= get_image_tag @child, "large" %>
-
+	<%= get_image_tag @user, "large" %>
       </div>
       
-      <%= form_for @child,:html => { :multipart => true } do |f| -%>
+      <%= form_for @user, :url => upload_account_url, :html => { :multipart => true } do |f| -%>
 
         <div class="upload-input">
-          <%= f.file_field :profile_image, :onchange => ''  -%>
+          <%= f.file_field :profile_image -%>
         </div>
-
-        <%= hidden_field_tag :child_profile_image_remote_url -%>
-	<%= hidden_field_tag :child_profile_image_id -%>
-      
+        <%= hidden_field_tag :user_profile_image_remote_url -%>
+	<%= hidden_field_tag :user_profile_image_id -%>
       <% end %>
 
       <div class="clear"></div>
@@ -59,15 +53,15 @@
 </div>
 <script type="text/javascript">
   $('.flickr .photos .image').live("click", function(){    
-    $('#child_profile_image_remote_url').val($(this).attr('url')).attr('name','flickr_photos[]');
-    $('#child_profile_image_id').val($(this).attr('id')).attr('name','flickr_pids[]');
+    $('#user_profile_image_remote_url').val($(this).attr('url')).attr('name','flickr_photos[]');
+    $('#user_profile_image_id').val($(this).attr('id')).attr('name','flickr_pids[]');
     $('.upload-input input').val("");
     $('#selected-facebook-photos span').remove();
   })
 
-  $('.facebook .image').live("click", function(){    
-    $('#child_profile_image_remote_url').val($(this).attr('url')).attr('name','facebook_photos[]');
-    $('#child_profile_image_id').val($(this).attr('id')).attr('name','facebook_pids[]');
+  $('.facebook .photos .image').live("click", function(){    
+    $('#user_profile_image_remote_url').val($(this).attr('url')).attr('name','facebook_photos[]');
+    $('#user_profile_image_id').val($(this).attr('id')).attr('name','facebook_pids[]');
     $('.upload-input input').val("");
     $('#selected-flickr-photos span').remove();
   })
@@ -75,8 +69,8 @@
 
 
   $('form input[type=file]').change(function(){
-    $("#child_profile_image_remote_url").val("").attr('name',"");
-    $("#child_profile_image_id").val("").attr('name',"");
+    $("#user_profile_image_remote_url").val("").attr('name',"");
+    $("#user_profile_image_id").val("").attr('name',"");
     $('#selected-flickr-photos span').remove();
     $('#selected-facebook-photos span').remove();
   })

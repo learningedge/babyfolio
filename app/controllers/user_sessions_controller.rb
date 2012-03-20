@@ -1,8 +1,9 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+#  before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:destroy, :change_family]
 
   def new
+    current_user_session.destroy if current_user?
     @user_session = UserSession.new
   end
 
@@ -27,6 +28,6 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     session[:current_family] = nil
     flash[:notice] = "Logout successful!"
-    redirect_back_or_default new_user_session_url
+    redirect_back_or_default login_path
   end
 end

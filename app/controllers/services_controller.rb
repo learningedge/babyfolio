@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
 
-  layout 'none', :only => [:create]
+  layout 'none'
   
   def create
     # get the service parameter from the Rails router
@@ -92,6 +92,7 @@ class ServicesController < ApplicationController
     end
     @container = "facebook-ajax-container"
     @ajax_link = facebook_url
+    render :partial => 'create'
   end
 
   def create_youtube
@@ -122,11 +123,11 @@ class ServicesController < ApplicationController
       @service.update_attributes :token => @authhash[:token], :uname => @authhash[:uname], :secret => @authhash[:secret]
       @service.save
       
-      @redirect_link = youtube_index_url
+      @redirect_link = '/'
       @container = 'youtube-ajax-container'
       @ajax_link = ajax_youtube_index_url
 
-      render :create
+      render :partial => 'create'
       
     else
       render :text => service_route
@@ -158,7 +159,7 @@ class ServicesController < ApplicationController
       @container = 'vimeo-ajax-container'
       @ajax_link = vimeo_index_url
 
-     render :create
+     render :partial => 'create'
       
     else
       render :text => service_route
@@ -199,7 +200,7 @@ class ServicesController < ApplicationController
      @container = 'flickr-ajax-container'
      @ajax_link = ajax_flickr_index_url
 
-     render :create
+     render :partial => 'create'
       
     else
       render :text => service_route

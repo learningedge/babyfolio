@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
-  before_filter :require_confirmation, :only => [:show, :edit, :update]
+  before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
+  before_filter :require_confirmation, :only => [:show, :edit, :update, :add_image, :upload]
   before_filter :require_family, :only => [:show]
 
   def new
@@ -55,6 +55,27 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+
+  def add_image
+    @user = current_user
+  end
+
+  def upload_image
+    
+    if !params[:flickr_photos].blank?
+      media_element = MediaFlickr.create_media_objects(params[:flickr_photos].first, params[:flickr_pids].first, current_user.id)
+    elsif !params[:facebook_photos].blank?
+      media_element = MediaFacebook.create_media_objects(params[:facebook_photos].first, params[:facebook_pids].first, current_user.id)
+    else
+      media_element = MediaImage.create_media_object(params[:user][:profile_image], current_user.id)
+    end
+
+    @user = current_user
+    @user.profile_media = media_element
+    @user.save
+
+    redirect_to edit_account_url
   end
 
 end

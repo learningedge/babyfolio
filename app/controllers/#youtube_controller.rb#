@@ -27,7 +27,7 @@ class YoutubeController < ApplicationController
 
   def youtube_ajax
 
-    render :partial => 'select_youtube_videos'
+    render :partial => 'http://xfactor.tvn.pl/wideo/1,1,dla-dawida-tatiana-proponuje-royal-albert-hall,116335.htmlselect_youtube_videos'
 
   end
 

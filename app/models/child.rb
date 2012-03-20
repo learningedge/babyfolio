@@ -6,11 +6,12 @@ class Child < ActiveRecord::Base
 
   belongs_to :family
 
-  before_save :download_remote_image
-
   has_attached_file :profile_image, 
     :styles => { :small => "40x40#", :medium => "93x93#", :large => "228x254#" },
     :default_url => '/images/default_images/child_profile_:style.png'
+
+  has_one :attachment, :as => :object
+  has_one :media, :through => :attachment
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true
@@ -38,20 +39,6 @@ class Child < ActiveRecord::Base
     else
       return "something"
     end
-  end
-
-
-  private
-
-  def download_remote_image
-    self.profile_image = do_download_remote_image unless self.profile_image_remote_url.blank?
-  end
-
-  def do_download_remote_image
-    io = open(URI.parse(self.profile_image_remote_url))
-    def io.original_filename; base_uri.path.split('/').last; end
-    io.original_filename.blank? ? nil : io
-  rescue
   end
 
 end

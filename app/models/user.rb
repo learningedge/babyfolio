@@ -4,15 +4,13 @@ class User < ActiveRecord::Base
   end
   disable_perishable_token_maintenance(true)
 
-
-  has_attached_file :avatar, 
-    :styles => { :small => "26x26#", :medium => "93x93#" },
-    :default_url => '/images/default_images/user_profile_:style.png'
-  
   has_many :services
   has_many :relations
   has_many :families, :through => :relations
-
+  has_many :media
+ 
+  has_one :attachment, :as => :object
+  has_one :profile_media, :through => :attachment, :source => :media
 
   def is_parent?
     !self.relations.is_parent.empty?
@@ -44,7 +42,6 @@ class User < ActiveRecord::Base
     return nil
   end
 
-
 # ----------- FACEBOOK -----------
 
   def has_facebook_account?
@@ -62,6 +59,7 @@ class User < ActiveRecord::Base
   end
   
 # ---------- VIMEO --------------
+
   def has_vimeo_account?
     return @has_vimeo if defined?(@has_facebook)
     @has_vimeo = services.where(:provider => 'vimeo').exists?
@@ -70,6 +68,7 @@ class User < ActiveRecord::Base
   def get_vimeo_service
     services.limit(1).find_by_provider('vimeo')
   end
+
   def get_vimeo_videos
     service = get_vimeo_service
     video = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
@@ -116,4 +115,5 @@ class User < ActiveRecord::Base
   end
   
 # ------------------------------
+
 end

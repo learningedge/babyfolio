@@ -27,11 +27,7 @@
 %>
         <ul>
           <li class="avatar">
-	    <% unless current_user.profile_media.blank? %>
-	      <%= image_tag current_user.profile_media.image(:profile_image_small) -%>
-	    <% else %>
-	      <%= image_tag "/image/default_images/user_profile_image_small.jpg" -%>
-	    <% end %>
+	    <%= get_image_tag current_user, "vsmall" -%>
 	  </li>
 
           <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>

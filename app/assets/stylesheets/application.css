@@ -71,12 +71,12 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #clear,
 .clear {clear: both;height: 0px}
 .hidden { display: none; }
+.bold {font-weight: bold;  }
+hr { margin: 15px 0;  }
 
 .user-form h2 { font: 30px 'helvetica_seven';color:#555555 }
 
 .preloader { background: url('/images/loader.gif') no-repeat; width: 24px; height: 24px; }
-
-
 
 
 /* FACEBOOK AUTHENTICATION */
@@ -153,6 +153,15 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #logo .info-bar .notice, #top .info-bar .error-notice {color: #ab1500; display: inline-block; font: 18px "Helvetica_seven";  padding: 6px 10px;}
 #logo .info-bar img {display: block;    float: left;    height: 28px;    padding: 0 10px 0 0;    width: 28px;}
 #logo .info-bar span {float:left;padding:2px 0 0}
+
+
+
+/*   LOGIN  */
+
+#login_left {float: left; width: 43%; padding-right: 55px; border-right: 1px solid #aaa;}
+#login_right {float: left;   width: 40%; padding-left: 55px; text-align: center;}
+div.user-form #login_left div.submit {margin-left: 80px;}
+
 
 /* Home */
 
@@ -326,10 +335,10 @@ a:hover {text-decoration:none}
 .user-form div.field_with_errors {display:inline}
 
 .user-form .row {padding:0px 0px 15px}
-.user-form span.label {display:inline-block; width:143px; text-align:right}
+.user-form span.label {display:inline-block; width:65px; text-align:right; padding-right: 15px;}
 .user-form span.field {display:inline-block}
 .user-form div.submit {margin-left:145px}
-.user-form div.forgot-link {margin: 10px 0px 0px 145px}
+.user-form div.forgot-link {margin: 10px 0px 0px 80px}
 .user-form label {color: #898989; font: 14px arial}
 .user-form input[type=text],
 .user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
@@ -397,6 +406,16 @@ div.submit {float:left;margin-right:20px}
 .family-relations-info .user .user-info .name {font-weight:bold;font-size:18px;padding-bottom:3px}
 .family-relations-info .user .user-info .name .remove-button {}
 
+/* .main-settings */
+
+.main-settings .user-form form{float:left}
+.main-settings .user-form .upload-profile-image {float:right;text-align:right;padding-right:20px}
+.main-settings .user-form .upload-profile-image img {border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);display:block}
+.main-settings .user-form .upload-profile-image a{display:block}
+
+/* .add-profile-imge */
+
+
 /* .my-family-info */
 .my-family-info {}
 .my-family-info .single_child .profile-image {display:inline-block;vertical-align:middle;padding:0px 20px}
@@ -407,6 +426,8 @@ div.submit {float:left;margin-right:20px}
 /* .child-image */
 .child-image .images-container {padding-bottom:20px}
 .child-image .profile-image {float:left;margin-right:40px}
+
+.child-image #left .submit-btn a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
 
 .child-image .profile-image .image{float:left;border:solid 4px #e8e3c0;padding:10px}
 .child-image .profile-image .image.active {border-color:#898989}

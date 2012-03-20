@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "test@babyfolio.com"
+  default :from => "test@babyfolio.qa.codephonic.com"
 
   def confirmation_email(user)
     @user = user

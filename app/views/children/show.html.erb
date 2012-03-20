@@ -1,16 +1,21 @@
   
   <style type="text/css">
-	#container_header {margin:0}
-	#wrraper .container #container_right {top:10px}
-	#wrraper .container #container_right #most_post {position:relative;top:-80px}
-	#wrraper .container #container_left {top:-145px}
-	.storybook_container #container_header {border-radius: 18px 18px 0 0;}
+	#wrraper {width:1075px;padding:0 !important;background:#fff;}
+	/*#container_header {margin:0}
+	.storybook_container #container_header {border-radius: 18px 18px 0 0;padding-left:32px}
 	#wrraper .container #container_left #book {left:-94px;height: 769px;}
-	.storybook_container .container #container_left #footer_bg_profile #footer {width:770px}
-	.storybook_container #top_container {background: none repeat scroll 0 0 #F5F2DD;    border-radius: 18px 18px 0 0;    float: left;    height: 243px;    width: 100%;}
+	.storybook_container .container #container_left #footer_bg_profile #footer {width:770px;}
+	.storybook_container #top_container { border-radius: 18px 18px 0 0;    height: 13px;position:relative;}
+	.storybook_container #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}
+	#wrraper .container #container_left {width:792px}
+	#wrraper .container #container_right {margin-left:792px}*/
   </style>
-  <div class="container">
+  <div class="container  children">
 	<div id="top_container">
+		<div class="top_box_bg"></div>
+	</div>
+    <div id="container_left">
+      
 		<div id="container_header">
         <div id="title"><%= @selected_child.first_name -%>'s Unique Story</div>
         <div id="drop_list">
@@ -25,15 +30,11 @@
         </div>
         <div id="clear"></div>
       </div>
-	</div>
-    <div id="container_left">
-      
-
       <div id="book">
         <div id="container_book">
           <div id="book_left">
             <div id="child_profile">
-              <%= image_tag @selected_child.profile_image.url(:large) %>              
+	      <%= get_image_tag @selected_child, "large" -%>
               <span id="name"><span>Name</span> : <span class="profile_name"><%= @selected_child.first_name -%></span></span>
               <span id="age"><span>Age</span> : <span class="profile_age"><%= @selected_child.age_text -%></span></span>
               <span id="count_entries">xx Story Entries</span>

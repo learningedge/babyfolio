@@ -1,0 +1,40 @@
+require 'open-uri'
+
+class MediaImage < Media
+  before_save :download_remote_image
+
+  def self.create_image_objects(url_collection, id_collection)
+    media = []
+    url_collection.each_with_index do |url, idx|
+        media << MediaImage.create(:image_remote_url => url, :media_id => id_collection[idx])
+    end
+    media
+  end
+
+  protected
+
+   def download_remote_image
+     self.image = do_download_remote_image unless self.image_remote_url.blank?
+   end
+
+   def do_download_remote_image
+     io = open(URI.parse(self.image_remote_url))
+     def 
+       io.original_filename; base_uri.path.split('/').last;
+     end
+     io.original_filename.blank? ? nil : io
+   rescue
+   end
+
+
+end
+
+
+class MediaFacebook < MediaImage
+end
+
+
+
+class MediaFlickr < MediaImage
+end
+

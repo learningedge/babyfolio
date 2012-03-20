@@ -22,10 +22,6 @@
 <% else %>
 
   <%= flash[:flickr_error] %>  
-
-  <div>
-    You dont have flickr account connected. 
-    <%= link_to 'Click here', '/auth/flickr?display=popup', :onclick => "window.open(this.href, 'flickr_login', 'height=545,width=1020');return false;" -%> to connect one.
-  </div>
+  <%= render :partial => 'shared/services_connect', :locals => {:service => 'flickr'} %>
 
 <% end %>

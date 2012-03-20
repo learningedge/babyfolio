@@ -1,4 +1,5 @@
-<div class="container settings">
+<div class="container settings main-settings">
+
   <div id="left">
     <div id="title">Edit Account</div>
     <div id="change-form">
@@ -7,6 +8,7 @@
       <a href="<%= family_relations_families_path %>">Friends & Families</a>
     </div>
   </div>
+
   <div class="user-form">
 
     <%= form_for @user, :url => account_path do |f| %>
@@ -18,7 +20,24 @@
     
     <% end %>
 
+    <div class="upload-profile-image">
+      <%= get_image_tag @user, "large" -%>
+      <%= link_to 'Set profile image', image_account_path -%>
+    </div>
 
+    <div class="clear"></div>
+
+    <div class="social-connections">
+      <hr/>
+      <div class="facebook">
+      </div>
+      <div class="flickr">
+      </div>
+      <div class="youtube">
+      </div>
+      <div class="vimeo">
+      </div>
+    </div>
   </div>
   <div class="clear"></div>
 </div>

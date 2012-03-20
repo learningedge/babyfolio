@@ -48,6 +48,6 @@
 </div>
 <% else %>
 
-You dont have vimeo account connected. <%= link_to 'Click here', '/auth/vimeo?display=popup', :onclick => "window.open(this.href, 'youtube_login', 'height=545,width=1020');return false;" -%> to connect one.
+  <%= render :partial => 'shared/services_connect', :locals => {:service => 'vimeo'} %>
 
 <% end %>
