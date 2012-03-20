@@ -1,5 +1,4 @@
 defaults: &defaults
-
   youtube:
     key: "821905120152.apps.googleusercontent.com"
     secret: "q9XDXCtGECoa0clbFMeVGuKT"
