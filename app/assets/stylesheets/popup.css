@@ -1,0 +1,7 @@
+* {margin: 0; padding: 0;}
+body { background-color: #F5F2DD; height: 100%; width: 100%; ;}
+#popup { height: 100%; width: 100%; }
+#popup td {text-align: center;}
+#popup td div { width: 400px; padding: 20px 0 20px 70px;  display: inline-block; background: url("/images/baby_icon_full.png") no-repeat 40px center #fff; border-radius: 10px; -moz-border-radius: 10px;}
+#popup td h1 { color: #9B7804; display: inline-block;}
+#popup td img {margin-left: 20px;}

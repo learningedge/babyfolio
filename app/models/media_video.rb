@@ -1,0 +1,5 @@
+class MediaVideo < Media
+  
+end
+
+

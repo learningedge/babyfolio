@@ -1,25 +1,52 @@
 Babyfolio::Application.routes.draw do
 
+resources :moments do 
+    collection do
+      get :import_media
+      post :create_from_media
+    end
+end
+
+
+  resources :youtube, :only => [:new] do
+    new do
+      post :upload
+    end
+    collection do
+      match :youtube_ajax, :as => :ajax
+    end
+  end
+  
+  resources :flickr, :only => [:index] do
+    collection do
+      match :flickr_ajax, :as => :ajax
+      match :flickr_sets, :as => :sets
+      match :flickr_photos, :as => :photos
+    end
+  end
+
+  resources :vimeo, :only => [:index, :new] do
+    new do
+      get :vimeo_ajax, :as => :ajax
+      post :upload 
+    end
+  end
+
+
   get "home/index"
   get "interior" => "home#interior", :as => :interior
-  get "video" => "home#video", :as => :video
+  get "socials" => "home#socials", :as => :socials
+  post "socials_create" => "home#socials_create", :as => :socials_create
 
-    # Omniauth pure
-  match "/signin" => "services#signin"
-  match "/signout" => "services#signout"
-
+  match '/auth/you:service/callback' => 'services#create_youtube', :as => :youtube_connect
+  match '/auth/fl:service/callback' => 'services#create_flickr', :as => :flickr_connect
+  match '/auth/v:service/callback' => 'services#create_vimeo', :as => :vimeo_connect
   match '/auth/:service/callback' => 'services#create'
   match '/auth/failure' => 'services#failure'
 
-  resources :services, :only => [:index, :create, :destroy] do
-    collection do
-      get 'signin'
-      get 'signout'
-      get 'signup'
-      post 'newaccount'
-      get 'failure'
-    end
-  end
+  get "facebook" => "facebook#index"
+  get "facebook_albums" => "facebook#albums"
+  get "facebook_album_photos/:album" => "facebook#album_photos", :as => :album_photos
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
@@ -71,6 +98,8 @@ Babyfolio::Application.routes.draw do
   resource :user, :as => 'account' do
     collection do
       get 'edit' => "users#edit"
+      get 'image' => "users#add_image"
+      put 'upload' => "users#upload_image"
     end
   end
 

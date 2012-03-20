@@ -1,0 +1,35 @@
+<% if current_user.youtube_user %>
+
+<div class="youtube">
+  <h2>My Youtube videos</h2>
+  
+  <div class="youtube-grid">
+
+    <% current_user.youtube_user.my_videos.videos.each do |video| %>
+    
+    <span class="video">
+      <div>
+
+	<div class="checkbox-radiobutton">
+
+   	     <%= check_box_tag 'youtube_videos[]', video.unique_id %>
+
+	</div>
+      	<div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+	</div>
+	<div class="title">
+	  <%= truncate(video.title, :length => 20) -%>
+	</div>
+      </div>
+    </span>
+  
+    <% end %>
+
+  </div>
+
+</div>
+<% else %>
+
+  <%= render :partial => 'shared/services_connect', :locals => {:service => 'youtube'} %>
+
+<% end %>

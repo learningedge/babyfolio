@@ -1,0 +1,38 @@
+<h1><%= @title %></h1>
+
+<% if @step_one %>
+
+    <%= form_tag upload_new_youtube_path do %>
+
+    <div>
+    <%= text_field_tag 'youtube[title]' %>
+    </div>
+    <div>
+    <%= text_area_tag  'youtube[description]' %>
+    </div>
+    <div>
+      <%= hidden_field_tag 'youtube[category]', 'People' %>
+      <%= hidden_field_tag 'youtube[keywords][]', 'two' %>
+      <%= hidden_field_tag 'youtube[keywords][]', 'one' %>
+    </div>
+
+    <%= submit_tag "Go to step 2" %>
+
+    <% end %>
+
+
+<% end %>
+<% if @step_two %>
+
+   <%= form_tag @video_upload[:url], :multipart => true do %>
+
+   <%= hidden_field_tag :token, @video_upload[:token] %>
+   <%= file_field_tag :file %>
+   <%= submit_tag "Upload video" %>
+
+   <% end %>
+
+
+<% end %>
+
+

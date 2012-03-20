@@ -45,11 +45,11 @@ LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
 RUBY_EXTCONF_H = 
 CFLAGS   =  -fPIC -fno-strict-aliasing -g -g -O2  -fPIC $(cflags) 
-INCFLAGS = -I. -I/home/queju/babyfolio.qa.codephonic.com/vendor/bundle/ruby/1.8/gems/libv8-3.3.10.4-x86-linux/lib/libv8/v8/include -I$(topdir) -I$(hdrdir) -I$(srcdir)
+INCFLAGS = -I. -I/home/queju/babyfolio.qa.codephonic.com/vendor/bundle/ruby/1.8/gems/libv8-3.3.10.4-x86_64-linux/lib/libv8/v8/include -I$(topdir) -I$(hdrdir) -I$(srcdir)
 DEFS     = 
 CPPFLAGS =   $(DEFS) $(cppflags) -Wall -g -rdynamic
 CXXFLAGS = $(CFLAGS) 
-ldflags  = /home/queju/babyfolio.qa.codephonic.com/vendor/bundle/ruby/1.8/gems/libv8-3.3.10.4-x86-linux/lib/libv8/build/v8/libv8.a -L.  -rdynamic -Wl,-export-dynamic
+ldflags  = /home/queju/babyfolio.qa.codephonic.com/vendor/bundle/ruby/1.8/gems/libv8-3.3.10.4-x86_64-linux/lib/libv8/build/v8/libv8.a -L.  -rdynamic -Wl,-export-dynamic
 dldflags = 
 archflag = 
 DLDFLAGS = $(ldflags) $(dldflags) $(archflag)

@@ -4,6 +4,3 @@ require "pp"
 
 # Initialize the rails application
 Babyfolio::Application.initialize!
-
-
-

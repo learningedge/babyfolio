@@ -3,11 +3,11 @@ Babyfolio::Application.configure do
 
   Rails.application.config.middleware.use OmniAuth::Builder do
 
-    # you need a store for OpenID; (if you deploy on heroku you need Filesystem.new('./tmp') instead of Filesystem.new('/tmp'))
-    #   require 'openid/store/filesystem'
+    provider :facebook, Yetting.facebook["key"], Yetting.facebook["secret"], { :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
+    provider :youtube, Yetting.youtube["key"], Yetting.youtube["secret"]
+    provider :flickr, Yetting.flickr["key"], Yetting.flickr["secret"], { :scope => 'read' }
+    provider :vimeo, Yetting.vimeo["key"], Yetting.vimeo["secret"],  {:scope => 'write' }
 
-    # providers with id/secret, you need to sign up for their services (see below) and enter the parameters here
-    provider :facebook, '263019473774028', '7c92fcaf00c30a9da772af2de7a2b144',{ :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
   end
 
   # In the development environment your application's code is reloaded on
@@ -23,7 +23,7 @@ Babyfolio::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

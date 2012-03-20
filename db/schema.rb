@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301155852) do
+ActiveRecord::Schema.define(:version => 20120316122014) do
+
+  create_table "attachments", :force => true do |t|
+    t.integer  "media_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "object_id"
+    t.string   "object_type"
+  end
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -24,18 +32,13 @@ ActiveRecord::Schema.define(:version => 20120301155852) do
   end
 
   create_table "children", :force => true do |t|
-    t.string   "first_name",                 :null => false
+    t.string   "first_name",  :null => false
     t.string   "second_name"
     t.string   "last_name"
-    t.datetime "birth_date",                 :null => false
-    t.integer  "family_id",                  :null => false
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.datetime "profile_image_updated_at"
-    t.string   "profile_image_file_name"
-    t.string   "profile_image_content_type"
-    t.integer  "profile_image_file_size"
-    t.string   "profile_image_remote_url"
+    t.datetime "birth_date",  :null => false
+    t.integer  "family_id",   :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "families", :force => true do |t|
@@ -43,6 +46,25 @@ ActiveRecord::Schema.define(:version => 20120301155852) do
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
     t.string   "zip_code",   :limit => 10
+  end
+
+  create_table "media", :force => true do |t|
+    t.string   "media_id"
+    t.string   "type"
+    t.datetime "image_updated_at"
+    t.string   "image_content_type"
+    t.string   "image_file_name"
+    t.integer  "image_file_size"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_remote_url"
+    t.integer  "user_id"
+  end
+
+  create_table "moments", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "relations", :force => true do |t|
@@ -62,6 +84,8 @@ ActiveRecord::Schema.define(:version => 20120301155852) do
     t.string   "uemail"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "token"
+    t.string   "secret"
   end
 
   create_table "user_sessions", :force => true do |t|
@@ -94,11 +118,10 @@ ActiveRecord::Schema.define(:version => 20120301155852) do
     t.datetime "updated_at",                             :null => false
     t.date     "current_login_at"
     t.boolean  "email_confirmed",     :default => false
-    t.datetime "avatar_updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
-    t.string   "flickr_id"
+    t.string   "avatar_file_name"
+    t.datetime "avatar_updated_at"
+    t.string   "avatar_content_type"
   end
 
 end

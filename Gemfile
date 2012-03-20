@@ -8,7 +8,11 @@ gem 'rails', '3.2.1'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-youtube'
+gem 'omniauth-flickr'
+gem 'omniauth-vimeo'
+gem 'vimeo'
 gem 'youtube_it'
+gem 'fb_graph'
 
 gem 'authlogic'
 gem 'execjs'
@@ -18,6 +22,8 @@ gem 'therubyracer'
 gem 'jquery-rails'
 gem 'paperclip'
 gem 'flickraw'
+
+gem 'yettings', :git => 'git@github.com:charlotte-ruby/yettings.git', :branch => 'ruby187'
 
 group :test do
 

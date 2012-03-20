@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   config.filter_parameters :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :current_family, :my_family
+  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default
 
   private
     def current_user_session
@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
+    end
+
+    def current_user?
+      defined?(@current_user)
     end
 
     def require_user
@@ -40,6 +44,12 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+
+    def get_return_url_or_default(default)
+      back_url =  session[:return_to] || default
+      session[:return_to] = nil
+      back_url
     end
 
     def require_confirmation
@@ -95,6 +105,23 @@ class ApplicationController < ActionController::Base
 
     def require_no_family
       redirect_to child_profile_children_url if current_family
+    end
+
+    def youtube_user
+
+      return @youtube_user if defined?(@youtube_user)
+
+      unless current_user.services.youtube.empty?
+        youtube = current_user.services.youtube.first
+        @youtube_user = YouTubeIt::OAuthClient.new(
+                                                   :consumer_key => '821905120152.apps.googleusercontent.com', 
+                                                   :consumer_secret => 'q9XDXCtGECoa0clbFMeVGuKT', 
+                                                   :client_id => youtube.uid, 
+                                                   :dev_key => "AI39si5CBu2pCYdFlu9nRI5ATwxqvUHm3vlw2MR4qD42DjXRS-UkGhXhai1oT7V4DBt8OJmQn9h6qzfX7OsggfcMf-8luMew4w")
+        @youtube_user.authorize_from_access(youtube.token, youtube.secret)
+
+        return @youtube_user
+      end
     end
 
 end

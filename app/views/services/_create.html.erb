@@ -1,0 +1,42 @@
+<%= javascript_include_tag "application" %>
+<%= stylesheet_link_tag "popup", :media => 'all' %>
+
+<table id="popup">
+
+  <tr>
+    <td>
+      <div>
+	<h1>Loading content</h1>
+	<%= image_tag "/images/loader1.gif" %>
+      </div>
+    </td>
+  </tr>
+
+</table>
+
+<script type="text/javascript">
+
+
+if(window.opener){
+   close_popup();
+}
+
+function close_popup(){
+  var parent_window = $(window.opener.document).find('#<%= @container %>')
+  if (parent_window.length > 0) {
+
+    $.ajax({
+      url: '<%= @ajax_link %>',
+      success: function(html){            
+          window.close();
+          parent_window.html(html);
+        }
+
+    });
+  } else {
+    window.close();
+    window.opener.location = "<%= get_return_url_or_default @redirect_link %>"
+  }
+}
+
+</script>

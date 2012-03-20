@@ -70,11 +70,13 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #page-wrapper {}
 #clear,
 .clear {clear: both;height: 0px}
+.hidden { display: none; }
+.bold {font-weight: bold;  }
+hr { margin: 15px 0;  }
 
 .user-form h2 { font: 30px 'helvetica_seven';color:#555555 }
 
-
-
+.preloader { background: url('/images/loader.gif') no-repeat; width: 24px; height: 24px; }
 
 
 /* FACEBOOK AUTHENTICATION */
@@ -139,6 +141,27 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
   text-align: center;
   margin-bottom: 10px;
 }
+
+/*  Facebook images */
+
+.single_album {float: left; margin-right: 10px;}
+.single_facebook_image {float: left; margin-right: 10px;}
+.single_facebook_image.is_selected .single_facebook_image_pic { border-color: #fff } 
+.single_facebook_image_pic { background-position: center center; background-repeat: no-repeat; width: 180px; height: 180px; border: 1px solid #000}
+
+#logo .info-bar {background: #F5F2DD; border-radius: 12px 12px 12px 12px;  display: none; float: right;margin:16px 0 0}
+#logo .info-bar .notice, #top .info-bar .error-notice {color: #ab1500; display: inline-block; font: 18px "Helvetica_seven";  padding: 6px 10px;}
+#logo .info-bar img {display: block;    float: left;    height: 28px;    padding: 0 10px 0 0;    width: 28px;}
+#logo .info-bar span {float:left;padding:2px 0 0}
+
+
+
+/*   LOGIN  */
+
+#login_left {float: left; width: 43%; padding-right: 55px; border-right: 1px solid #aaa;}
+#login_right {float: left;   width: 40%; padding-left: 55px; text-align: center;}
+div.user-form #login_left div.submit {margin-left: 80px;}
+
 
 /* Home */
 
@@ -215,9 +238,11 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .notice {color:green;padding:10px 0;}
 #wrraper .error-notice {color:red;padding:10px 0;}
 #wrraper .container {/*height: 100%*/min-height:200px}
+/*.storybook_container #container_header {  background: none repeat scroll 0 0 #F5F2DD;    border-radius: 18px 0 0 0;    overflow: hidden;    padding: 13px 0 0 30px;}*/
+
 #container_header {margin: 5px 0 0;height: 90px;}
-#wrraper .container #title {display: inline;font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left;min-width:200px;text-align:center}
-#wrraper .container #drop_list {width: 206px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 124px;float: left}
+#wrraper .container #title {display: inline;font: 40px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left;min-width:200px;text-align:center}
+#wrraper .container #drop_list {width: 206px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 101px;float: left}
 #wrraper .container #drop_list select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 #wrraper .container #drop_list #setting_kids {margin: 12px 0 0}
 #wrraper .container #drop_list a {font: 14px arial;color: #9b7804;text-decoration: none}
@@ -228,11 +253,13 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #container_left #book_box {position: relative;width: 300px;top: 0;left: 0}
 #wrraper .container #container_left #book {position: relative;left: -126px;top: 25px;z-index: 1}
 #wrraper .container #container_left #book #container_book {background: url('/images/storybook.png') no-repeat;width: 907px;height: 781px;padding: 68px 0 0 72px}
-#wrraper .container #container_left #book #container_book #book_left {float: left;width: 300px;padding: 24px 0 0}
+#wrraper .container #container_left #book #container_book #book_left {float: left;width: 300px;padding: 22px 0 0}
 #wrraper .container #container_left #book #container_book #book_left img {border: 10px solid #D5D2BE}
 #wrraper .container #container_left #book #container_book #book_left span {display: inline-block;width: 203px;color:#636363;font: 24px 'Helvetica_57';padding: 0 0 0 25px}
-#wrraper .container #container_left #book #container_book #book_left #name {padding-top: 20px}
-#wrraper .container #container_left #book #container_book #book_left #count_entries {padding: 15px 0 0 47px;color:#448ccb}
+#wrraper .container #container_left #book #container_book #book_left #name {padding-top: 18px}
+#wrraper .container #container_left #book #container_book #book_left #name .profile_name {width:117px;padding:0 0 0 13px}
+#wrraper .container #container_left #book #container_book #book_left #age .profile_age {width:117px;padding:0 0 0 13px}
+#wrraper .container #container_left #book #container_book #book_left #count_entries {padding: 7px 0 0 47px;color:#448ccb}
 #wrraper .container #container_left #book #container_book #book_left #family_list {margin: 56px 0 0;padding: 0 0 0 24px}
 #wrraper .container #container_left #book #container_book #book_left #family_list ul {list-style:none; padding: 19px 0 15px 24px}
 #wrraper .container #container_left #book #container_book #book_left #family_list ul li {background: url('/images/family_dot.png') no-repeat 0 2px; padding: 0 0 2px 25px}
@@ -252,7 +279,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 
 /* StoryBook */
 #wrraper .container #container_left #storybook_moments {background: #fff;padding: 25px 0 0;position: relative}
-#wrraper .container #container_left #storybook_moments h1 {background: #f5f2dd;color: #9b7804;font: 30px 'Helvetiva_seven';position: relative;z-index: 2;margin: 0 0 30px}
+#wrraper .container #container_left #storybook_moments h1 {background: #f5f2dd;color: #9b7804;font: 30px 'Helvetiva_seven';position: relative;z-index: 2;margin: 0 11px 30px;padding:0 10px}
 #wrraper .container #container_left #storybook_moments .shadow {position: absolute;top: 50px;z-index: 1;left: 12px}
 #wrraper .container #container_left #storybook_moments a {float: left;padding: 0 30px 0}
 #wrraper .container #container_left #storybook_moments .text {color:#464646;height: 52px;font:14px arial;margin: 0 0 0 20px;display: inline-block}
@@ -260,6 +287,9 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #wrraper .container #container_left #storybook_moments #moments_list h3 {font:18px 'helvetica_seven';color:#9b7804}
 #wrraper .container #container_left #storybook_moments #moments_list .moment .title {font:bold 14px arial;color:#636363}
 #wrraper .container #container_left #storybook_moments #moments_list .moment p {font:12px arial;color:#898989}
+.storybook_container {padding-bottom:0 !important}
+.storybook_container .container #container_left #footer_bg_profile {background:#fff}
+.storybook_container .container #container_left #footer_bg_profile #footer {width:720px}
 
 #wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 762px}
 #wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
@@ -305,10 +335,10 @@ a:hover {text-decoration:none}
 .user-form div.field_with_errors {display:inline}
 
 .user-form .row {padding:0px 0px 15px}
-.user-form span.label {display:inline-block; width:143px; text-align:right}
+.user-form span.label {display:inline-block; width:65px; text-align:right; padding-right: 15px;}
 .user-form span.field {display:inline-block}
 .user-form div.submit {margin-left:145px}
-.user-form div.forgot-link {margin: 10px 0px 0px 145px}
+.user-form div.forgot-link {margin: 10px 0px 0px 80px}
 .user-form label {color: #898989; font: 14px arial}
 .user-form input[type=text],
 .user-form input[type=password] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
@@ -324,7 +354,7 @@ a:hover {text-decoration:none}
 .settings #left {float:left;width:200px}
 .settings #left #title,
 .settings #left .title {float:none;display:block}
-.settings #left .title {font: bold 38px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;min-width:200px;text-align:center}
+.settings #left .title {font: bold 38px/40px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;min-width:200px;text-align:center}
 .settings #left a {display:block}
 
 .settings #change-form {padding-bottom:20px; text-align:right}
@@ -354,9 +384,9 @@ a:hover {text-decoration:none}
 .family-and-friends .second-form {display:none;position:relative;top:0}
 .family-and-friends textarea {width:100%;}
 .family-and-friends .second-form div.submit {margin-left:0px;}
-.family-and-friends div.submit {float:left;margin-right:20px}
-.family-and-friends .skip {float:left}
-.family-and-friends .skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
+div.submit {float:left;margin-right:20px}
+.skip {float:left}
+.skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
 
 /* relations */
 .relations .row span.label {width: 250px}
@@ -376,6 +406,16 @@ a:hover {text-decoration:none}
 .family-relations-info .user .user-info .name {font-weight:bold;font-size:18px;padding-bottom:3px}
 .family-relations-info .user .user-info .name .remove-button {}
 
+/* .main-settings */
+
+.main-settings .user-form form{float:left}
+.main-settings .user-form .upload-profile-image {float:right;text-align:right;padding-right:20px}
+.main-settings .user-form .upload-profile-image img {border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);display:block}
+.main-settings .user-form .upload-profile-image a{display:block}
+
+/* .add-profile-imge */
+
+
 /* .my-family-info */
 .my-family-info {}
 .my-family-info .single_child .profile-image {display:inline-block;vertical-align:middle;padding:0px 20px}
@@ -387,7 +427,63 @@ a:hover {text-decoration:none}
 .child-image .images-container {padding-bottom:20px}
 .child-image .profile-image {float:left;margin-right:40px}
 
+.child-image #left .submit-btn a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
+
 .child-image .profile-image .image{float:left;border:solid 4px #e8e3c0;padding:10px}
 .child-image .profile-image .image.active {border-color:#898989}
 .child-image .profile-image img{border-radius:15px;-webkit-border-radius: 15px;-moz-border-radius: 15px;behavior: url(PIE/PIE.htc);}
 
+
+
+/* youtube-grid */
+
+.youtube-grid {text-align:center;font-size:0px;}
+.youtube-grid .video {display:inline-block;position:relative;text-align:center;padding:2px;margin:2px;border-radius:3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;behavior: url(PIE/PIE.htc);width:122px;vertical-align:top;font-size:14px;letter-spacing:auto}
+.youtube-grid .video.active {background-color:#9b7804}
+.youtube-grid .video.active .title{color:white}
+.youtube-grid .video .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:120px;height:90px;overflow:hidden}
+.youtube-grid .video .checkbox-radiobutton {position:absolute;display:none}
+
+/* flickr */
+
+#flickr-ajax-container, 
+#facebook-ajax-container {position:relative}
+#facebook-ajax-container .preloader,
+#flickr-ajax-container .preloader {position:absolute;z-index:1;width:100%;height:100%;background: url('/images/loader.gif') 50% 50% no-repeat #E8E3C0;display:none}
+
+.facebook #selected-facebook-photos,
+.flickr #selected-flickr-photos {width:180px;display:inline-block;vertical-align:top}
+.facebook #selected-facebook-photos span.selected-image,
+.flickr #selected-flickr-photos span.selected-image {width: 75px; height: 75px;  position:relative; display:inline-block;cursor:pointer;border:1px solid #9b7804;margin:2px;border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center center; background-repeat: no-repeat;background-size: cover;}
+.facebook #selected-facebook-photos span.selected-image .hover, 
+.flickr #selected-flickr-photos span.selected-image .hover{width:75px;height:75px;position:absolute;top:0px;left:0px;background-color:black;color:white;line-height:73px;text-align:center;display:none}
+
+.facebook-grid,
+.flickr-grid {width:520px;display:inline-block;vertical-align:top;font-size:0px;}
+.facebook-grid .header,
+.flickr-grid .header {text-align:left;font-size:14px}
+.facebook-grid .header h2,
+.flickr-grid .header h2{float:left}
+.facebook-grid .header a,
+.flickr-grid .header a{float:right}
+.facebook-grid .sets > a,
+.flickr-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
+.facebook-grid .sets .count ,
+.flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
+.facebook-grid .image,
+.flickr-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
+.facebook-grid .image .thumb,
+.flickr-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover;}
+
+.facebook-grid .image .checkbox-radiobutton,
+.flickr-grid .image .checkbox-radiobutton {position:absolute;display:none}
+
+/* CHILDREN */
+
+.children #container_left {width:792px !important}
+.children #container_right {margin-left:792px !important} 
+.children #container_header {margin:0;border-radius: 18px 18px 0 0;padding-left:32px}
+.children #container_left #book {left:-94px !important;height: 769px;}
+.children #container_left #footer_bg_profile #footer {width:770px !important}
+.children #top_container { border-radius: 18px 18px 0 0; height: 13px; position:relative;}
+.children #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}

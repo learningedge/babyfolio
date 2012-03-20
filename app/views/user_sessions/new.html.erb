@@ -1,13 +1,11 @@
 <div class="container">
   <div id="title">Login</div>
   <div class="user-form">
+    <div id="login_left">
     <%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
 
       <%= render "shared/error_messages", :target => @user_session %>
 
-      <div>
-        You might as well sign in using you facebook account: <%= link_to "Singin", '/auth/facebook?display=popup', :onclick => "window.open(this.href,'facebook_login','height=300,width=700');return false;" %>
-      </div>
       <div class="email row">
         <span class="label">
           <%= f.label :email %>
@@ -26,19 +24,35 @@
       </div>
       <div class="remember_me row">
         <span class="label">
-          <%= f.label :remember_me %>
         </span>
         <span class="field">
           <%= f.check_box :remember_me %>
         </span>
+        <span>
+          <%= f.label :remember_me %>
+        </span>
+
       </div>
       <div class="submit">
           <%= f.submit "Login" %>
       </div>
     <% end %>
+    <div class="clear"></div>
     <div class="forgot-link">
-      <%= link_to 'Forgot Password?', new_forgot_password_url -%> If you can't figure out how to log in, <%= link_to 'click', new_forgot_password_url -%> here to reset your password.
+      Forgot password or can't log in? <%= link_to 'Click here', new_forgot_password_url -%>.
     </div>    
+   </div>
+   <div id="login_right">
+     Sign in with your facebook account 
+     <div id="fblogin_img">
+       <%= link_to '/auth/facebook?display=popup', :onclick => "window.open(this.href,'facebook_login','height=300,width=700');return false;" do %>
+         <%= image_tag "/images/fblogin.png" %>
+       <% end %>
+     </div>
+   </div>
+
   </div>
   <div class="clear"></div>
+
+
 </div>

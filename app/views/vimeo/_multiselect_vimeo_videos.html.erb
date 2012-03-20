@@ -1,0 +1,53 @@
+<% if current_user.has_vimeo_account? %>
+
+  <% multiselect_option = true if multiselect_option.nil? %>
+  <% submit_button_option = true if submit_button_option.nil? %>
+  <% form_tags_option = false if form_tags_option.nil? %>
+  <% remote_option = false if remote_option.nil? %>
+
+<div class="youtube <%= multiselect_option ? 'multiselect' : 'singleselect' -%>">
+  <h2>My Vimeo videos</h2>
+  
+  <div class="youtube-grid">
+
+    <% if form_tags_option %>
+      <%= form_tag url, :remote => remote_option %>
+    <% end %>
+
+    <% current_user.get_vimeo_videos.each do |video| %>
+    
+    <span class="video">
+      <div>
+
+	<div class="checkbox-radiobutton">
+
+	  <% if multiselect_option %>
+   	     <%= check_box_tag 'vimeo_videos[]', video.id %>
+	  <% else %>
+	     <%= radio_button_tag 'vimeo_videos[]', video.id %>
+	  <% end %>
+
+	</div>
+      	<div class="thumb">
+	  <%= image_tag video["thumbnails"]["thumbnail"][1]["_content"] %>
+	</div>
+	<div class="title">
+	  <%= video["title"] %>
+	</div>
+      </div>
+    </span>
+  
+    <% end %>
+
+    <% if form_tags_option %>
+      <%= submit_tag 'Submit' if submit_button_option -%>
+      </form>
+    <% end %>
+  </div>
+
+</div>
+<% else %>
+
+  <%= render :partial => 'shared/services_connect', :locals => {:service => 'vimeo'} %>
+
+<% end %>

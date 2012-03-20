@@ -4,20 +4,21 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {
-  id: 1,
-  first_name: Albert,
-  last_name: Einstein,
-  birth_date: 09/02/2010,
+one: 
+  id: 1
+  first_name: Albert
+  last_name: Einstein
+  birth_date: <%= Date.today %>
   family_id: 1
-}
+
+
 # column: value
 #
 two: {
   id: 2,
   first_name: Kamil,
   last_name: K,
-  birth_date: 13/10/2011,
+  birth_date: <%= Date.today %>,
   family_id: 1
 }
 
@@ -25,7 +26,7 @@ three: {
   id: 3,
   first_name: Adam,
   last_name: Sztaba,
-  birth_date: 2/2/2008,
+  birth_date: <%= Date.today %>,
   family_id: 1
 }
 #  column: value

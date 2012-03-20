@@ -65,7 +65,7 @@ class FamiliesController < ApplicationController
         
       else
         @family.relations.first.user = User.new(:email => current_user.email)
-        @family.relations.build(:user => User.new, :member_type => 'parent') if @family.relations.length == 1
+        @family.relations.build(:user => User.new, :member_type => 'mother') if @family.relations.length == 1
 
         while @family.children.length < 10 do
           @family.children.build Child.new.attributes
@@ -188,7 +188,7 @@ class FamiliesController < ApplicationController
         if params[:page] == "add_family"
           redirect_to add_friends_families_path
         else
-          redirect_to child_profile_children_url
+          redirect_to import_media_moments_path
         end        
       else
         flash[:error] = "Invalid emails!"

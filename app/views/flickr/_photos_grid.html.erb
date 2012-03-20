@@ -1,0 +1,20 @@
+<div class="photos">
+
+<div class="header">
+  <h2>Photos</h2>
+  <a href="#" onclick="$.get('<%= sets_flickr_index_url %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut()});return false;">Back to sets</a>
+  <div class="clear"></div>
+</div>
+
+<% photos.each do |photo| %>
+
+  <span class="image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>">
+    <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat 0% 0%">
+    </div>
+    <div class="title">
+      <%= truncate(photo.title, :length => 10) %>
+    </div>
+  </span>
+
+<% end %>
+</div>
