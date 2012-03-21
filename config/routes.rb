@@ -43,10 +43,11 @@ end
   match '/auth/v:service/callback' => 'services#create_vimeo', :as => :vimeo_connect
   match '/auth/:service/callback' => 'services#create'
   match '/auth/failure' => 'services#failure'
+  get 'service/disconnect' => 'services#disconnect', :as => :disconnect
 
   get "facebook" => "facebook#index"
   get "facebook_albums" => "facebook#albums"
-  get "facebook_album_photos/:album" => "facebook#album_photos", :as => :album_photos
+  get "facebook_album_photos/:album" => "facebook#album_photos", :as => :album_photos  
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"

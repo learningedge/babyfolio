@@ -22,6 +22,7 @@
 <% else %>
 
   <%= flash[:flickr_error] %>  
+
   <%= render :partial => 'shared/services_connect', :locals => {:service => 'flickr'} %>
 
 <% end %>

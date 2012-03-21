@@ -223,7 +223,14 @@ class ServicesController < ApplicationController
       @redirect_link = '/login'
     end
     render :action => :create
+
   end
 
+  def disconnect
+    
+    Service.where(:user_id => current_user.id, :provider => params[:provider]).destroy_all
+    render :partial => 'shared/connections_info'
+    
+  end
 
 end

@@ -2,8 +2,8 @@ module ApplicationHelper
 
   def get_image_tag object, style
     if object.kind_of? User
-      unless current_user.profile_media.blank?
-        image_tag current_user.profile_media.image(style)
+      unless object.profile_media.blank?
+        image_tag object.profile_media.image(style)
       else
         image_tag "/images/default_images/user_profile_#{style}.png"
       end
