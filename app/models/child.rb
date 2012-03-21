@@ -4,14 +4,19 @@ class Child < ActiveRecord::Base
 
   include ActionView::Helpers::TextHelper
 
+  attr_accessor :profile_image
+
   belongs_to :family
 
-  has_attached_file :profile_image, 
-    :styles => { :small => "40x40#", :medium => "93x93#", :large => "228x254#" },
-    :default_url => '/images/default_images/child_profile_:style.png'
+#  has_attached_file :profile_image,
+#    :styles => { :small => "40x40#", :medium => "93x93#", :large => "228x254#" },
+#    :default_url => '/images/default_images/child_profile_:style.png'
 
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment
+
+#accepts_nested_attributes_for :attachment, :allow_destroy => true
+# accepts_nested_attributes_for :media, :allow_destroy => true
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true

@@ -33,11 +33,13 @@
             <%= child_form.text_field :first_name, :class => 'first_name_input' %>
             <%= child_form.label :birth_date, "Birth Date: "%>
             <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date,  :class => 'birth_date_input' } %>
-	    <%= child_form.media do |media_form| -%>
-	      
-	       <%= media_form.file_field :image -%>
 
-	    <% end %>
+            <%= child_form.file_field :profile_image %>
+
+            <%#= child_form.fields_for :media do |media_form| %>
+              <%#= media_form.file_field :image %>
+            <%# end %>
+            
             <% counter += 1 %>
           </div>
         <% end %>

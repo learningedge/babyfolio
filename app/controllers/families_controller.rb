@@ -49,13 +49,18 @@ class FamiliesController < ApplicationController
       second_parent.accepted = 0
       second_parent.user.reset_perishable_token
     end   
-    
+
+#    creating media object for children profile image
+
+    @family.children.each do |child|
+      child.media = MediaImage.create_media_object(child.profile_image, child.id)
+    end
+
     respond_to do |format|
       if @family.save        
         if parents_count == 2
           second_relation = @family.relations.fetch(1)
           UserMailer.invite_user(second_relation , current_user).deliver
-
         end
         
         flash[:notice] = 'Family has been successfully created.'

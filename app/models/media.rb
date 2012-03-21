@@ -1,6 +1,7 @@
 class Media < ActiveRecord::Base
 
   belongs_to :user
+  has_many :attachments
   
   has_attached_file :image, :styles => { 
 
