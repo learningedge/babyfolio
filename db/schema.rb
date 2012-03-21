@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316122014) do
+ActiveRecord::Schema.define(:version => 20120321085555) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "media_id"
@@ -18,17 +18,6 @@ ActiveRecord::Schema.define(:version => 20120316122014) do
     t.datetime "updated_at",  :null => false
     t.integer  "object_id"
     t.string   "object_type"
-  end
-
-  create_table "authentications", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "index"
-    t.string   "create"
-    t.string   "destroy"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "children", :force => true do |t|

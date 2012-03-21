@@ -21,15 +21,11 @@
     <% counter = 0 %>
 
     <%= form_for @family do |f| -%>
-      <h2>
-        Family Name: 
-      </h2>
+      <h2>Family Name:</h2>
       <div class="row">
         <%= f.text_field :name %>
       </div>
-      <h2>
-        Children:
-      </h2>
+      <h2>Children:</h2>
       <div>
         <%= f.fields_for :children do |child_form| %>
           <div class="single_child row" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
@@ -37,8 +33,11 @@
             <%= child_form.text_field :first_name, :class => 'first_name_input' %>
             <%= child_form.label :birth_date, "Birth Date: "%>
             <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date,  :class => 'birth_date_input' } %>
-            <%= child_form.file_field :profile_image -%>
-            <%#= link_to "Add Photo" , '#', { :class => 'add-child-photo' } -%>
+	    <%= child_form.media do |media_form| -%>
+	      
+	       <%= media_form.file_field :image -%>
+
+	    <% end %>
             <% counter += 1 %>
           </div>
         <% end %>
