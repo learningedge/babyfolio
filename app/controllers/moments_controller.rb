@@ -7,10 +7,11 @@ class MomentsController < ApplicationController
   def import_media
     
     @family_children = my_family.children
-    @family_children_select = @family_children.collect { |child| [child.first_name.capitalize, child.id]}
     params[:child_id] ||= @family_children.first.id
     @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
-    
+
+    next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)
+    next_child.nil? ? @next_child_name = "Save & Finish" : @next_child_name = "Go to #{next_child.first_name.capitalize}"
 
   end
 
@@ -36,9 +37,19 @@ class MomentsController < ApplicationController
         moments << mom
       end
      end
-   
-#    render :xml => moments
-    redirect_to :back
+
+     @family_children = my_family.children
+     @selected_child = @family_children.at((@family_children.index { |child_item| child_item.id.to_s == params[:child_id].to_s })+1)
+     if @selected_child.nil?
+      redirect_to child_profile_children_path
+     else
+
+      next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)
+      next_child.nil? ? @next_child_name = "Save & Finish" : @next_child_name = "Go to #{next_child.first_name.capitalize}"
+      
+      render :action => :import_media
+     end
+     
   end
 
   def index
