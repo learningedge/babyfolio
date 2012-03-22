@@ -19,8 +19,12 @@ class VimeoController < ApplicationController
     upload.upload(params[:file].tempfile);
 
     @container = 'vimeo-ajax-container'
-    @ajax_link = ajax_new_index_url
+    @ajax_link = vimeo_index_url
     render :partial => "shared/upload_video"
+  end
+
+  def upload_video
+
   end
 
 

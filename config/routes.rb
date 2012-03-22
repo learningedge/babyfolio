@@ -30,6 +30,7 @@ end
     new do
       get :vimeo_ajax, :as => :ajax
       post :upload 
+      get :upload_video
     end
   end
 
@@ -70,6 +71,8 @@ end
       get :add_friends
       get :add_family
       get :add_children
+      get :add_parent 
+      post :create_parent
       match :create_friend_relations
       get 'family/relations' => :family_relations_info
       get :edit
