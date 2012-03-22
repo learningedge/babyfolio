@@ -362,7 +362,8 @@ div.user-form #login_left div.submit {margin-left: 80px;}
 .settings #change-form a{display:inline-block;padding:3px}
 .settings #change-form a.current{font-weight:bold;text-decoration:none;cursor:default}
 .settings #change-form h2 {font: 30px 'helvetica_seven';color:#555}
-.settings #change-form .change-family {padding-top:20px}
+.settings #change-form .change-family,
+.settings #change-form .change-child {padding-top:20px}
 .settings #change-form select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
 
 /* .confirmation */
