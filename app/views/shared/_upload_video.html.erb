@@ -1,0 +1,17 @@
+<%= javascript_include_tag 'jquery' -%>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+      var parent_window = $('#<%= @container %>', parent.document)
+      $.ajax({
+        url: '<%= @ajax_link %>',
+        success: function(html){
+          window.close();
+          parent_window.html(html);
+        }
+
+      });
+      $(".", parent.document).css({backgroundColor: '#fff'});
+    })
+
+</script>

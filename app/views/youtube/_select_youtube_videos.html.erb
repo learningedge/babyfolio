@@ -26,6 +26,9 @@
     <% end %>
 
   </div>
+</div>
+<div class="upload">
+  <iframe src="<%= new_youtube_url -%>"></iframe>
 
 </div>
 <% else %>
@@ -33,3 +36,4 @@
   <%= render :partial => 'shared/services_connect', :locals => {:service => 'youtube'} %>
 
 <% end %>
+

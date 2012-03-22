@@ -11,6 +11,7 @@ end
   resources :youtube, :only => [:new] do
     new do
       post :upload
+      get :upload_video
     end
     collection do
       match :youtube_ajax, :as => :ajax
