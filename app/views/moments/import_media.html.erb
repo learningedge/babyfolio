@@ -14,9 +14,17 @@
 
   <div id="left">
     <div class="title">Step 3: Add Photos/Videos</div>
+    <div id="change-form">
+      <div class="change-child">
+        <h2>Select Child</h2>
+        <%= form_tag import_media_moments_path,  :id => "select-child-form" do %>
+           <%= select_tag "child_id", options_for_select (@family_children_select, @selected_child.id), :onchange => "$('#select-child-form').submit()" -%>
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="user-form">
-
+    <h2>Add media for <%= @selected_child.first_name -%> </h2>
     <%= form_tag create_from_media_moments_url do %>
 
     <div id="youtube-ajax-container" class="multiselect">
@@ -42,12 +50,12 @@
     </div>
 
     <hr/>
-    
+    <%= hidden_field_tag "child_id", @selected_child.id %>
     <div class="submit">
-      <%= submit_tag "Submit" %>
+      <%= submit_tag "Add Media" %>
     </div>
     <div class="skip">
-      <%= link_to 'Skip', child_profile_children_path %>
+      <%= link_to 'Finish', child_profile_children_path %>
     </div>
 
     <% end %>

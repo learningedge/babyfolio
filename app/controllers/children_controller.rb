@@ -35,9 +35,7 @@ class ChildrenController < ApplicationController
     elsif !params[:facebook_photos].blank?
       media_element = MediaFacebook.create_media_objects(params[:facebook_photos].first, params[:facebook_pids].first, current_user.id)
     else
-
       media_element = MediaImage.create_media_object(params[:child][:profile_image], current_user.id)
-
     end
 
 

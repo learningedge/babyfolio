@@ -14,6 +14,7 @@ class Child < ActiveRecord::Base
 
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment
+  has_many :moments
 
 #accepts_nested_attributes_for :attachment, :allow_destroy => true
 # accepts_nested_attributes_for :media, :allow_destroy => true
@@ -24,6 +25,10 @@ class Child < ActiveRecord::Base
 
   def formated_birth_date
     birth_date.strftime("%m/%d/%Y") unless birth_date.nil?
+  end
+
+  def media_ids_fom_moments
+    
   end
 
   def age_text

@@ -2,7 +2,7 @@ Babyfolio::Application.routes.draw do
 
 resources :moments do 
     collection do
-      get :import_media
+      match :import_media
       post :create_from_media
     end
 end
