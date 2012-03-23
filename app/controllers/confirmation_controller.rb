@@ -15,10 +15,15 @@ class ConfirmationController < ApplicationController
   def confirm_email
     @token = params[:token]
     @user = User.find_by_perishable_token @token
-    @user.email_confirmed = 1
-    @user.save
-    @user.reset_perishable_token!
-    redirect_to new_family_url
+    if @user.nil?
+      flash[:error] = "We can't find the user, try resend email"
+      redirect_to confirmation_path
+    else
+      @user.email_confirmed = 1
+      @user.save
+      @user.reset_perishable_token!
+      redirect_to new_family_url
+    end
   end
 
 #  def accept_invitation
@@ -45,6 +50,7 @@ class ConfirmationController < ApplicationController
     @token = params[:token]
     @relation = Relation.find_by_token(@token, :include => [:user])
     UserSession.create(@relation.user)
+    session[:curent_family] = @relation.family_id
     rescue NoMethodError
       flash[:notice] = "Ooooooooops, there's something wrong with your invitation."
       redirect_to login_url
@@ -58,7 +64,7 @@ class ConfirmationController < ApplicationController
       flash[:notice] = "Your settings has been sucessfully updated."
       @relation.user.update_attribute :email_confirmed, 1
       @relation.update_attribute :accepted, 1
-      redirect_to home_index_path
+      redirect_to child_profile_children_url
     else
       render :accept_invitation
     end

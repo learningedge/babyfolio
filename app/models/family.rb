@@ -12,4 +12,17 @@ class Family < ActiveRecord::Base
 
   scope :parenting_families, where( :relations => { :member_type => [Relation::MEMBER_TYPE[:PARENT], Relation::MEMBER_TYPE[:MOTHER], Relation::MEMBER_TYPE[:FATHER]] } )
   scope :accepted, where( :relations => {:accepted => true})
+  
+
+  def parents
+    relations.includes(:user).where(:member_type => [Relation::MEMBER_TYPE[:PARENT], Relation::MEMBER_TYPE[:FATHER], Relation::MEMBER_TYPE[:MOTHER]]).all
+  end
+
+  def is_user_parent? user_id
+    relation = relations.find_by_user_id(user_id)
+    parents.include?(relation)
+  end
+
+  STEPS = ["Create Family", "Invite Family Members", "Invite Friends", "Add Photos/Videos"]
+
 end

@@ -1,18 +1,8 @@
-<div class="container settings create-family">
-  <% if flash[:registration] %>
-    <div id="steps">
-      <table>
-        <tr>
-          <td class="title active">Step 1:<br/>Create family</td>
-          <td class="arrows" ></td>
-          <td class="title">Step 2:<br/>Invite Family Members</td>
-          <td class="arrows" ></td>
-          <td class="title">Step 3:<br/>Add Photos/Videos</td>
-        </tr>
-      </table>
-    </div>
+<div class="container settings create-family"> 
+  <% if family_registration? %>
+    <%= render "shared/registration_steps", :current_step => 0 %>
   <% end %>
-  
+
   <div id="left">
     <div class="title">Step 1: Create family</div>  
   </div>
@@ -23,7 +13,7 @@
     <%= form_for @family do |f| -%>
       <h2>Family Name:</h2>
       <div class="row">
-        <%= f.text_field :name %>
+        <%= f.text_field :name, :value => current_user.last_name %>
       </div>
       <h2>Children:</h2>
       <div>

@@ -14,10 +14,11 @@
 
     <div class="row">
       <span class="label">
-        <%= f.label :member_type %>
+        <%= f.label "Assigned relation" %>
       </span>
       <span class="field">
-        <%= f.collection_select(:member_type , (Relation::MEMBER_TYPE.select { |key, val| key != :PARENT }).collect {|key, value| [value.capitalize, value]}, :last, :first) %>
+	<%= f.label @relation.member_type, :class => "bold" %>
+        <%#= f.collection_select(:member_type , (Relation::MEMBER_TYPE.select { |key, val| key != :PARENT }).collect {|key, value| [value.capitalize, value]}, :last, :first) %>
       </span>
     </div>
       

@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
   before_filter :require_user, :only => [:destroy, :change_family]
 
   def new
-    current_user_session.destroy if current_user?
+#    current_user_session.destroy if current_user?
     @user_session = UserSession.new
   end
 
@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
       @user_session.user.reset_perishable_token!
 
       flash[:notice] = "Login successful!"
-      redirect_back_or_default account_url(@current_user)
+      redirect_back_or_default child_profile_children_url
     else
       render :action => :new
     end
