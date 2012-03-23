@@ -1,21 +1,42 @@
+<style type="text/css">
+
+  div.column {float:left;padding-right:60px}
+  .file-error {color:red; font:14px arial;display:none}
+  .error label {color:red}
+  .error input[type=text] {border-color:red}
+  label {width:100px;text-align:right;display:inline-block;font: 14px arial;}
+  input[type=text] {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
+  textarea {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
+  input[type=submit],
+  .preview-btn  {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven';text-align:center; cursor: pointer;display:block;text-decoration:none}
+  
+</style>
 
 <% if @step_one %>
 
     <%= form_tag upload_new_youtube_path do %>
 
-    <div>
-    <%= text_field_tag 'youtube[title]' %>
-    </div>
-    <div>
-    <%= text_area_tag  'youtube[description]' %>
-    </div>
-    <div>
-      <%= hidden_field_tag 'youtube[category]', 'People' %>
-      <%= hidden_field_tag 'youtube[keywords][]', 'two' %>
-      <%= hidden_field_tag 'youtube[keywords][]', 'one' %>
+    <div class="column">
+
+      <div <%= @error.nil? ? '' : "class='error'" -%>>
+        <%= label_tag 'youtube[title]', 'Title (required)' -%>
+        <%= text_field_tag 'youtube[title]' %>
+      </div>
+
+      <div>
+        <%= label_tag 'youtube[description]', 'Description' -%>
+        <%= text_area_tag  'youtube[description]' %>
+      </div>
+      
     </div>
 
-    <%= submit_tag "Go to step 2" %>
+    <div class="column">
+        <%= submit_tag "Next" %>
+    </div>
+
+    <%= hidden_field_tag 'youtube[category]', 'People' %>
+    <%= hidden_field_tag 'youtube[keywords][]', 'two' %>
+    <%= hidden_field_tag 'youtube[keywords][]', 'one' %>
 
     <% end %>
 
@@ -26,12 +47,26 @@
    <%= form_tag @video_upload[:url], :multipart => true do %>
 
    <%= hidden_field_tag :token, @video_upload[:token] %>
-   <%= file_field_tag :file %>
-   <%= submit_tag "Upload video" %>
+   <div class="column">
+     <%= file_field_tag :file %>
+     <div class="file-error">Field can't be blank</div>
+   </div>
+
+   <div class="column">
+     <%= submit_tag "Upload video", :class => 'upload-submit' %> 
+     <%= link_to "Preview", new_youtube_url , :class => 'preview-btn' %>
+   </div>
 
    <% end %>
 
-
 <% end %>
-
+<%= javascript_include_tag 'jquery' -%>
+<script type="text/javascript">
+  $('.upload-submit').click(function(){
+    if ($('input[type=file]').val() == '') {      
+      $('.file-error').show();
+      return false
+    }
+  })
+</script>
 

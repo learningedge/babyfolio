@@ -33,6 +33,7 @@ function close_popup(){
         }
 
     });
+
   } else {
     window.close();
     window.opener.location = "<%= get_return_url_or_default @redirect_link %>"

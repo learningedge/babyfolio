@@ -440,12 +440,20 @@ div.submit {float:left;margin-right:20px}
 
 /* youtube-grid */
 
-.youtube-grid {text-align:center;font-size:0px;}
-.youtube-grid .video {display:inline-block;position:relative;text-align:center;padding:2px;margin:2px;border-radius:3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;behavior: url(PIE/PIE.htc);width:122px;vertical-align:top;font-size:14px;letter-spacing:auto}
-.youtube-grid .video.active {background-color:#9b7804}
-.youtube-grid .video.active .title{color:white}
-.youtube-grid .video .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:120px;height:90px;overflow:hidden}
-.youtube-grid .video .checkbox-radiobutton {position:absolute;display:none}
+.youtube .header, .vimeo .header {margin-bottom:20px}
+.youtube .header h2, .vimeo .header h2 {display:inline}
+.youtube .header a, .vimeo .header a {font-size:16px;padding-left:30px}
+.youtube .header a.close-btn, .vimeo .header a.close-btn {display:none}
+.youtube .upload, .vimeo .upload {left:0;text-align:center;top:0px;width:100%;height:100%;display:none;background-color:#e8e3c0}
+
+.youtube .upload iframe, .vimeo .upload .iframe {}
+
+.youtube-grid, .vimeo-grid {text-align:center;font-size:0px;position:relative}
+.youtube-grid .video, .vimeo-grid .video  {display:inline-block;position:relative;text-align:center;padding:2px;margin:2px;border-radius:3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;behavior: url(PIE/PIE.htc);width:122px;vertical-align:top;font-size:14px;letter-spacing:auto}
+.youtube-grid .video.active, .vimeo-grid .video.active {background-color:#9b7804}
+.youtube-grid .video.active .title, .vimeo-grid .video.active .title{color:white}
+.youtube-grid .video .thumb, .vimeo-grid .video .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:120px;height:90px;overflow:hidden}
+.youtube-grid .video .checkbox-radiobutton, .vimeo-grid .video .checkbox-radiobutton {position:absolute;display:none}
 
 /* flickr */
 

@@ -1,7 +1,16 @@
 <% if current_user.youtube_user %>
 
 <div class="youtube">
-  <h2>My Youtube videos</h2>
+  <div class="header">
+    <h2>My Youtube videos</h2>
+    <a href="#" class="upload-link">Upload video</a>
+    <a href="#" class="close-btn">Close</a>
+  </div>
+
+  <div class="clear"></div>
+  <div class="upload">
+    <iframe src="<%= new_youtube_url -%>" width="720px" height="200px" scrolling="no"></iframe>
+  </div>
   
   <div class="youtube-grid">
 
@@ -23,13 +32,8 @@
       </div>
     </span>
   
-    <% end %>
-
+    <% end %>    
   </div>
-</div>
-<div class="upload">
-  <iframe src="<%= new_youtube_url -%>"></iframe>
-
 </div>
 <% else %>
 

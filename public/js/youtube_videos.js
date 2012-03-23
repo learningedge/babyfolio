@@ -40,4 +40,20 @@ $(function(){
 
     })
 
+    $('.youtube .header a.upload-link').live('click',function(){
+
+      $(this).parents('.youtube').find('.upload').css({height: 0}).show().animate({height: 200});      
+      $(this).hide();
+      $(this).parents('.youtube').find('.header .close-btn').show();
+      return false;
+
+    })
+
+    $('.close-btn').live('click',function(){
+        $(this).parents('.youtube').find('.upload').stop().animate({height: 0}, function(){$(this).hide(); })
+        $(this).hide();
+        $(this).parents('.youtube').find('.header .upload-link').show();
+        return false;
+    })
+
 })

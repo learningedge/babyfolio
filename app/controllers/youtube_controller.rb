@@ -13,14 +13,17 @@ class YoutubeController < ApplicationController
   end
 
   def upload
+    @error = true if params[:youtube][:title].blank?
 
-    @step_two = true
-    @title = 'Upload video step 2'
-
-    @video_upload = current_user.youtube_user.upload_token params[:youtube], upload_video_new_youtube_url
+    unless @error
+      @step_two = true
+      @video_upload = current_user.youtube_user.upload_token params[:youtube], upload_video_new_youtube_url
+      
+    else
+      @step_one = true
+    end
 
     render :new, :layout => false
-
   end
 
   def upload_video
