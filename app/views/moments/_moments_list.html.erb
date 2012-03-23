@@ -1,0 +1,32 @@
+<% unless moments.blank? %>
+<h2>Moments in your life</h2>
+<div class="all-moments">
+  <div class="preloader"></div>
+  <% @moments = moments.paginate(:page => params[:page]) %>
+  <ul>
+    <% @moments.each do |moment|  %>
+      <li class="moment">
+        <a href="#">
+          <div class="thumb">
+            <%= get_moment_thumb moment.media.first, :moment_thumb %>
+          </div>
+          <div class="description">
+            <div class="row">
+              <span class="col1">Title</span>:<span class="col2"><%= moment.title.blank? ? "..." : moment.title -%></span>
+            </div>
+
+            <div class="row">
+              <span class="col1">Type</span>:<span class="col2"><%= moment.media.first.media_type -%></span>
+            </div>
+          </div>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+  <div class="clear"></div>
+</div>
+  <%= will_paginate @moments, :page_links => false %>
+
+<% else %>
+
+<% end %>

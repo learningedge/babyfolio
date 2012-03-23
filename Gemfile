@@ -13,6 +13,7 @@ gem 'omniauth-vimeo'
 gem 'vimeo'
 gem 'youtube_it'
 gem 'fb_graph'
+gem 'will_paginate'
 
 gem 'authlogic'
 gem 'execjs'
@@ -23,8 +24,6 @@ gem 'jquery-rails'
 gem 'paperclip'
 gem 'flickraw'
 gem 'yettings', :git => "git@github.com:charlotte-ruby/yettings.git", :branch =>"ruby187"
-
-gem 'yettings', :git => 'git@github.com:charlotte-ruby/yettings.git', :branch => 'ruby187'
 
 group :test do
 

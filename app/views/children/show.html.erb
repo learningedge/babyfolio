@@ -1,15 +1,7 @@
   
   <style type="text/css">
 	#wrraper {width:1075px;padding:0 !important;background:#fff;}
-	/*#container_header {margin:0}
-	.storybook_container #container_header {border-radius: 18px 18px 0 0;padding-left:32px}
-	#wrraper .container #container_left #book {left:-94px;height: 769px;}
-	.storybook_container .container #container_left #footer_bg_profile #footer {width:770px;}
-	.storybook_container #top_container { border-radius: 18px 18px 0 0;    height: 13px;position:relative;}
-	.storybook_container #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}
-	#wrraper .container #container_left {width:792px}
-	#wrraper .container #container_right {margin-left:792px}*/
-  </style>
+	</style>
   <div class="container  children">
 	<div id="top_container">
 		<div class="top_box_bg"></div>
@@ -56,41 +48,61 @@
             </div>
           </div>
           <div id="book_right">
-            <ul>
-              <li>
-                <div class="icon1">
-                  <h2>Getting to know you</h2>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                  </ul>
-                  <a href="#">see more</a>
-                </div>
-              </li>
-              <li>
-                <div class="icon2">
-                  <h2>Places you went & Things you did</h2>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                  </ul>
-                  <a href="#">see more</a>
-                </div>
-              </li>
-              <li>
-                <div class="icon3">
-                  <h2>People in your life</h2>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>
-                  </ul>
-                  <a href="#">see more</a>
-                </div>
-              </li>
-            </ul>
+            <div id="moments-ajax-container">
+              <%= render :partial => "moments/moments_list", :locals => { :moments => @selected_child.moments} %>
+            </div>
+            <script type="text/javascript">
+              $('#moments-ajax-container .pagination a.next_page, #moments-ajax-container .pagination a.previous_page').live('click',function(){
+                $.ajax({
+                  url: $(this).attr('href'),
+                  success: function(html){
+                      $("#moments-ajax-container").fadeOut(300,function(){
+                        $(this).html($(html).find("#moments-ajax-container")).fadeIn();
+                      })
+                    }
+                });
+                $('#moments-ajax-container .all-moments .preloader').show();
+                $('#moments-ajax-container .all-moments').animate({opacity: 0.5});
+                return false;
+              })
+            </script>
+
+
+            <%#*<ul>%>
+              <%#*<li>%>
+                <%#*<div class="icon1">%>
+                  <%#*<h2>Getting to know you</h2>%>
+                  <%#*<ul>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                  <%#*</ul>%>
+                  <%#*<a href="#">see more</a>%>
+                <%#*</div>%>
+              <%#*</li>%>
+              <%#*<li>%>
+                <%#*<div class="icon2">%>
+                  <%#*<h2>Places you went & Things you did</h2>%>
+                  <%#*<ul>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                  <%#*</ul>%>
+                  <%#*<a href="#">see more</a>%>
+                <%#*</div>%>
+              <%#*</li>%>
+              <%#*<li>%>
+                <%#*<div class="icon3">%>
+                  <%#*<h2>People in your life</h2>%>
+                  <%#*<ul>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                    <%#*<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li>%>
+                  <%#*</ul>%>
+                  <%#*<a href="#">see more</a>%>
+                <%#*</div>%>
+              <%#*</li>%>
+            <%#*</ul>%>
           </div>
           <div id="clear"></div>
         </div>

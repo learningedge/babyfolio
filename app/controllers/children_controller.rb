@@ -6,11 +6,13 @@ class ChildrenController < ApplicationController
   before_filter :require_family_with_child
 
   def show
+
     @user = current_user
     @families = @user.families
-    @selected_family = current_family
+    @selected_family = current_family    
     @children = @selected_family.children
     @selected_child ||= params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
+    
   end
 
   def edit
@@ -26,7 +28,6 @@ class ChildrenController < ApplicationController
     else
       media_element = MediaImage.create_media_object(params[:child][:profile_image], current_user.id)
     end
-
 
     pp media_element.class
 

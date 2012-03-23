@@ -179,6 +179,7 @@ GEM
       json (>= 1.1.9)
       multipart-post (>= 1.0.1)
       oauth (>= 0.4.3)
+    will_paginate (3.0.3)
     youtube_it (2.1.4)
       builder
       faraday (~> 0.7.3)
@@ -212,5 +213,6 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   vimeo
+  will_paginate
   yettings!
   youtube_it

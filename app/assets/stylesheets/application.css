@@ -260,7 +260,7 @@ hr { margin: 15px 0;  }
 #wrraper .container #container_left #book #container_book #book_left #family_list span {font: 20px 'Helvetica_57';width: 200px}
 #wrraper .container #container_left #book #container_book #book_left span span{width: 53px;display: inline-block;padding: 0}
 #wrraper .container #container_left #book #container_book #book_left #family_list a {font: 14px arial;color:#5674b9;text-decoration: none;padding: 0 0 0 27px}
-#wrraper .container #container_left #book #container_book #book_right {float: left;width: 415px;margin: 0 0 0 26px}
+#wrraper .container #container_left #book #container_book #book_right {float: left;width: 450px;margin: 0 0 0 26px}
 #wrraper .container #container_left #book #container_book #book_right ul {list-style: none}
 #wrraper .container #container_left #book #container_book #book_right ul li div  {padding: 0 0 0 110px;margin: 0 0 25px}
 #wrraper .container #container_left #book #container_book #book_right ul li div h2 {font: 36px 'Helvetica_seven';color:#9b7804;padding: 0 0 10px}
@@ -270,6 +270,25 @@ hr { margin: 15px 0;  }
 #wrraper .container #container_left #book #container_book #book_right .icon1,#home #container_home #moments .icon1 {background: url('/images/icon1.png') no-repeat;}
 #wrraper .container #container_left #book #container_book #book_right .icon2,#home #container_home #moments .icon2 {background: url('/images/icon2.png') no-repeat;}
 #wrraper .container #container_left #book #container_book #book_right .icon3,#home #container_home #moments .icon3 {background: url('/images/icon3.png') no-repeat;}
+
+#wrraper .container #container_left #book #container_book #book_right h2 {font: 36px 'Helvetica_seven';color:#9b7804;padding: 0 0 10px}
+#wrraper .container #container_left #book #container_book #book_right .all-moments {position:relative}
+#wrraper .container #container_left #book #container_book #book_right .all-moments > ul {padding-left:30px}
+#wrraper .container #container_left #book #container_book #book_right .all-moments .preloader {background-position:50% 50%;width:100%;height:100%;position:absolute;display:none}
+#wrraper .container #container_left #book #container_book #book_right .all-moments div {margin:0px;padding:0px}
+#wrraper .container #container_left #book #container_book #book_right .pagination .next_page {position:absolute;top:50%;right:-116px;width:35px;height:35px;background:url('/images/right_arrow.png');text-indent:-9999999px}
+#wrraper .container #container_left #book #container_book #book_right .pagination .previous_page {position:absolute;top:50%;left:0px;width:35px;height:35px;background:url('/images/left_arrow.png');text-indent:-999999px}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment {float:left;width:50%;height:200px}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a{text-decoration:none}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a:hover .thumb img{border-color:white}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb {width:140px;height:110px;text-align:center}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb img{border: 10px solid #d5d2be}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description {font: 16px 'Helvetica_57'; color:#636363}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .row {}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .col1 {display:inline-block;width:50px}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .col2 {display:inline-block;padding-left:10px}
+
+
 
 /* StoryBook */
 #wrraper .container #container_left #storybook_moments {background: #fff;padding: 25px 0 0;position: relative}
@@ -499,3 +518,4 @@ div.submit {float:left;margin-right:20px}
 .children #container_left #footer_bg_profile #footer {width:770px !important}
 .children #top_container { border-radius: 18px 18px 0 0; height: 13px; position:relative;}
 .children #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}
+
