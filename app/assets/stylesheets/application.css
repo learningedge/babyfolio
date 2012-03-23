@@ -71,7 +71,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 #clear,
 .clear {clear: both;height: 0px}
 .hidden { display: none; }
-.bold {font-weight: bold;  }
+.bold {font-weight: bold !important;  }
 hr { margin: 15px 0;  }
 
 .user-form h2 { font: 30px 'helvetica_seven';color:#555555 }
@@ -150,9 +150,9 @@ hr { margin: 15px 0;  }
 .single_facebook_image_pic { background-position: center center; background-repeat: no-repeat; width: 180px; height: 180px; border: 1px solid #000}
 
 #logo .info-bar {background: #F5F2DD; border-radius: 12px 12px 12px 12px;  display: none; float: right;margin:16px 0 0}
-#logo .info-bar .notice, #top .info-bar .error-notice {color: #ab1500; display: inline-block; font: 18px "Helvetica_seven";  padding: 6px 10px;}
+#logo .info-bar .notice, #logo .info-bar .error-notice {color: #ab1500; display: inline-block; font: 18px "Helvetica_seven";  padding: 6px 10px;}
 #logo .info-bar img {display: block;    float: left;    height: 28px;    padding: 0 10px 0 0;    width: 28px;}
-#logo .info-bar span {float:left;padding:2px 0 0}
+#logo .info-bar span {float:left;padding:2px 0 0; max-width:700px}
 
 
 
@@ -403,7 +403,8 @@ div.submit {float:left;margin-right:20px}
 .family-relations-info .add-friend {text-align:center;width:140px;margin:40px auto}
 .family-relations-info .add-friend a{background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-decoration:none}
 .family-relations-info .user {float:left;width:50%}
-.family-relations-info .user img.avatar {float:left;margin-right:20px;border-radius:17px;-webkit-border-radius: 17px;-moz-border-radius: 17px;behavior: url(PIE/PIE.htc);overflow:hidden}
+.family-relations-info .user .avatar {float:left;margin-right:20px}
+.family-relations-info .user .avatar img {border-radius:17px;-webkit-border-radius: 17px;-moz-border-radius: 17px;behavior: url(PIE/PIE.htc);overflow:hidden}
 .family-relations-info .user .remove {display:inline-block;background: url('/images/delete_btn.png') no-repeat; width:20px;height:20px;text-indent:-9999px;}
 .family-relations-info .user .user-info .name {font-weight:bold;font-size:18px;padding-bottom:3px}
 .family-relations-info .user .user-info .name .remove-button {}

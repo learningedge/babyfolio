@@ -30,7 +30,6 @@ end
     new do
       get :vimeo_ajax, :as => :ajax
       post :upload 
-      get :upload_video
     end
   end
 

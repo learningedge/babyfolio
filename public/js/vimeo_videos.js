@@ -42,7 +42,7 @@ $(function(){
 
     $('.vimeo .header a.upload-link').live('click',function(){
 
-      $(this).parents('.vimeo').find('.upload').css({height: 0}).show().animate({height: 200});
+      $(this).parents('.vimeo').find('.upload').css({height: 0}).show().animate({height: 80});
       $(this).hide();
       $(this).parents('.vimeo').find('.header .close-btn').show();
       return false;

@@ -6,8 +6,18 @@
   <% remote_option = false if remote_option.nil? %>
 
 <div class="vimeo <%= multiselect_option ? 'multiselect' : 'singleselect' -%>">
-  <h2>My Vimeo videos</h2>
-  
+  <div class="header">
+    <h2>My Vimeo videos</h2>
+    <a href="#" class="upload-link">Upload video</a>
+    <a href="#" class="close-btn">Close</a>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="upload">
+    <iframe src="<%= new_vimeo_url -%>" width="720px" height="200px" scrolling="no"></iframe>
+  </div>
+
   <div class="vimeo-grid">
 
     <% if form_tags_option %>
@@ -46,7 +56,7 @@
   </div>
 
 </div>
-<iframe src="<%= new_vimeo_url -%>"></iframe>
+
 <% else %>
 
   <%= render :partial => 'shared/services_connect', :locals => {:service => 'vimeo'} %>
