@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 # ---------- VIMEO --------------
 
   def has_vimeo_account?
-    return @has_vimeo if defined?(@has_facebook)
+    return @has_vimeo if defined?(@has_vimeo)
     @has_vimeo = services.where(:provider => 'vimeo').exists?
   end 
 

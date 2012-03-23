@@ -14,16 +14,24 @@ class VimeoController < ApplicationController
   end
 
   def upload
-    @error = true if params[:file].blank?
+    @error = "First select file to upload" if params[:file].blank?
 
     unless @error
-      service = current_user.get_vimeo_service
-      upload = Vimeo::Advanced::Upload.new(Yetting.vimeo["key"], Yetting.vimeo["secret"],:token => service.token, :secret => service.secret);
-      upload.upload(params[:file].tempfile);
+      begin
 
-      @container = 'vimeo-ajax-container'
-      @ajax_link = vimeo_index_url
-      render :partial => "shared/upload_video"
+        service = current_user.get_vimeo_service
+        upload = Vimeo::Advanced::Upload.new(Yetting.vimeo["key"], Yetting.vimeo["secret"],:token => service.token, :secret => service.secret);
+        upload.upload(params[:file].tempfile);
+        
+      rescue StandardError => e
+          @error = e.message
+          render :new, :layout => false
+      else
+        @container = 'vimeo-ajax-container'
+        @ajax_link = vimeo_index_url
+        render :partial => "shared/upload_video"
+      end
+      
     else
       render :new, :layout => false
     end
