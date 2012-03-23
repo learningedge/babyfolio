@@ -1,16 +1,6 @@
 <div class="container settings family-and-friends">
-  <% if flash[:registration] %>
-    <div id="steps">
-      <table>
-        <tr>
-          <td class="title">Step 1:<br/>Create family</td>
-          <td class="arrows" ></td>
-          <td class="title active">Step 2:<br/>Invite Family Members</td>
-          <td class="arrows" ></td>
-          <td class="title">Step 3:<br/>Add Photos/Videos</td>
-        </tr>
-      </table>
-    </div>
+  <% if family_registration? %>
+    <%= render "shared/registration_steps", :current_step => 2 %>
   <% end %>
 
   <div id="left">
@@ -19,7 +9,6 @@
       
   <div class="user-form">    
     <div id="family-members" class="first-form form">
-
 
       <%= form_tag create_friend_relations_families_path do %>
         <%= hidden_field_tag 'page', 'add_friends' %>
@@ -47,7 +36,7 @@
             <%= submit_tag 'Submit' -%>
           </div>
           <div class="skip">
-            <%= link_to 'Skip', import_media_moments_path %>
+            <%= link_to 'Skip', family_registration? ? import_media_moments_path : family_relations_families_url %>
           </div>
         </div>
       <% end %>

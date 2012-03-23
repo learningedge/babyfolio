@@ -18,15 +18,9 @@ class User < ActiveRecord::Base
     !self.relations.is_parent.empty?
   end
 
-  def main_family    
-    unless self.families.parenting_families.empty?
-      return self.families.parenting_families.first
-    else
-      return self.families.first
-    end
-    unless self.families.empty?
-      return self.families.first
-    end
+  def main_family       
+    return self.families.parenting_families.first unless self.families.parenting_families.empty?
+    return self.families.first unless self.families.empty?
   end
   
   def get_user_name
@@ -38,10 +32,14 @@ class User < ActiveRecord::Base
   end
 
   def first_family_with_child
-    families.each do |family|
+    families.accepted.each do |family|
 	return family if family.children.exists?
     end
     return nil
+  end
+
+  def add_object_error(str)
+    errors[:base] << str
   end
 
 # ----------- FACEBOOK -----------

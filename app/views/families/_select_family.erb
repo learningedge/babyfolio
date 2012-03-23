@@ -1,5 +1,17 @@
-<%  @families_for_select = current_user.families.parenting_families.collect { |fam| [fam.name, fam.id] } %>
+<% parenting_families ||= false %>
+<% if parenting_families %>
+   <% @families_for_select = current_user.families.accepted.parenting_families.collect { |fam| [fam.name, fam.id] } %>
+<% else %>
+   <% @families_for_select = current_user.families.accepted.collect { |fam| [fam.name, fam.id] } %>
+<% end %>
 
-<%= form_tag change_family_to_edit_families_path, :class => "select_family_form" do %>
-  <%= select_tag :id, options_for_select(@families_for_select, my_family.id), :onchange => "$(this).parents('form').submit();" unless @families_for_select.length <= 1 %>
+
+<% if @families_for_select.length > 1 %>					     
+  <div class="change-family">
+    <h2>Change family</h2>
+
+    <%= form_tag change_family_to_edit_families_path, :class => "select_family_form" do %>
+      <%= select_tag :id, options_for_select(@families_for_select, current_family.id), :onchange => "$(this).parents('form').submit();" %>
+    <% end %>
+  </div>
 <% end %>

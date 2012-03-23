@@ -3,9 +3,9 @@ class MomentsController < ApplicationController
   before_filter :require_user
   before_filter :require_my_family
   before_filter :require_family_with_child
+  skip_before_filter :clear_family_registration, :only => [:import_media]
 
   def import_media
-    
     @family_children = my_family.children
     params[:child_id] ||= @family_children.first.id
     @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first

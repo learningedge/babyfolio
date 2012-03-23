@@ -1,0 +1,10 @@
+<div id="steps">
+  <table>
+    <tr>
+      <% Family::STEPS.each_with_index do |step, idx| %>
+        <td class="title <%= current_step == idx ? 'active' : '' %>">Step <%= idx+1 -%>:<br/><%= step %></td>
+        <td class="arrows" ></td>      
+      <% end %>
+    </tr>
+  </table>
+</div>

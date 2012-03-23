@@ -1,0 +1,41 @@
+  <div class="container settings family-relations-info">
+    <div id="left">
+      <div id="title">Edit Account</div>
+      <div id="change-form">
+	<a href="<%= edit_account_path %>">Main Settings</a>
+	<a href="<%= edit_families_path %>">My Family Info</a>
+	<a href="<%= family_relations_families_path %>" class="current">Friends & Families</a>
+	
+      </div>
+    </div>
+
+    <div class="user-form">
+      <h2>Add new parent</h2>
+      <%= render "shared/error_messages", :target => @user, :summary => "Seems like there were some errors while adding new parent to your family:" %>
+      <%= form_tag create_parent_families_url  do -%>
+      
+                <div>
+                  <span class="label"><%= label_tag "Email: "%></span>
+                  <span class="field"><%= text_field_tag "user[email]", @user.email %></span>
+                </div>
+		<div>
+		  <span class="label"><%= label_tag "display_name", "Display name:" %></span>
+		  <span class="field"><%= text_field_tag "display_name", @r_display_name %></span>
+		</div>
+		<div>
+		  <span class="label"><%= label_tag "member_type", "Relation:" %></span>
+		  <span class="field">
+		    <%= select_tag "member_type", options_for_select(Relation::PARENTS, :selected => @r_member_type) -%>
+		  </span>
+		</div>
+		
+		<div class="submit">
+		  <%= submit_tag "Add parent" %>
+		</div>
+      <% end %>
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+

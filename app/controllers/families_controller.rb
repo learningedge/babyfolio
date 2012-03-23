@@ -2,16 +2,16 @@ class FamiliesController < ApplicationController
 
   before_filter :require_user
   before_filter :require_confirmation
-  before_filter :require_my_family, :only => [:add_friends, :create_friend_relations, :create_friends, :relations, :create_relations, :show, :edit, :update, :family_relations_info]
+  before_filter :require_my_family, :only => [:add_friends, :create_friend_relations, :create_friends, :relations, :create_relations, :show, :edit, :update]
+  skip_before_filter :clear_family_registration, :only => [:create, :add_family, :add_friends, :create_friend_relations, :relations, :create_relations]
+  before_filter :require_parent, :only => [:add_family, :add_friends, :create_friend_relations, :relations, :create_relations, :update, :edit, :add_parent, :create_parent]
 
   def index
     @family = current_family
-    #    render :text => @family.relations.length
   end
 
   def new
-
-    flash[:registration] = true;
+    session[:is_registration] = true;
 
     @family = Family.new
     10.times {
@@ -23,8 +23,6 @@ class FamiliesController < ApplicationController
 
   def create
 
-    flash[:registration] = flash[:registration]
-
     parents_count = 2;
     @family = Family.new(params['family'])
     @family.relations.first.token = current_user.perishable_token
@@ -33,7 +31,7 @@ class FamiliesController < ApplicationController
     @family.relations.first.user = current_user    
     @family.relations.first.user.reset_perishable_token
     @family.relations.first.user.reset_single_access_token
-    second_parent = @family.relations.fetch(1)
+   second_parent = @family.relations.fetch(1)
     if second_parent.user.email.empty?
       @family.relations.delete_at(1)
       parents_count -= 1
@@ -104,15 +102,12 @@ class FamiliesController < ApplicationController
   end 
 
   def add_family
-    flash[:registration] = flash[:registration]
   end
 
   def add_friends
-    flash[:registration] = flash[:registration]
   end
 
   def create_friend_relations
-    flash[:registration] = flash[:registration]
     @family = current_family
     @friends = params[:friends]
     user_emails = Array.new
@@ -190,11 +185,15 @@ class FamiliesController < ApplicationController
           UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user).deliver
         end
         flash[:notice] = "Thanks fo inviting others. We have successfully sent emails to the other family & friends that you entered."
-        if params[:page] == "add_family"
-          redirect_to add_friends_families_path
+        if family_registration?
+          if params[:page] == "add_family"
+            redirect_to add_friends_families_path
+          else
+            redirect_to import_media_moments_path
+          end
         else
-          redirect_to import_media_moments_path
-        end        
+          redirect_to family_relations_families_url
+        end
       else
         flash[:error] = "Invalid emails!"
         render :action => :add_friends
@@ -285,7 +284,6 @@ class FamiliesController < ApplicationController
   end
 
   def relations
-    flash[:registration] = flash[:registration]
     @select_options = Array.new
 
     @select_options = (Relation::MEMBER_TYPE.select {|key, value| key != :PARENT and key != :MOTHER and key!= :FATHER}).collect {|key, value| [value.capitalize, value]}
@@ -296,7 +294,6 @@ class FamiliesController < ApplicationController
   end
 
   def create_relations
-    flash[:registration] = flash[:registration]
     @relations = Relation.where(['token IN (?)',flash[:tokens]]).all
     @relation_params = params[:relations]
     @relation_params.each do |relation_param|
@@ -312,10 +309,48 @@ class FamiliesController < ApplicationController
   end
 
   def family_relations_info
-    @parents = my_family.relations.is_parent.accepted
-    @rest = my_family.relations.is_not_parent.accepted
-    @pending = my_family.relations.not_accepted
-    
+    @parents = current_family.relations.is_parent.accepted
+    @rest = current_family.relations.is_not_parent.accepted
+    @pending = current_family.relations.not_accepted    
+  end
+
+  def add_parent
+    @user = User.new
+    @r_member_type = Relation::MEMBER_TYPE[:MOTHER]
+  end
+
+  def create_parent
+    @user = User.find_by_email(params[:user][:email])
+    @r_display_name = params[:display_name]
+    @r_member_type = params[:member_type]
+    if @user
+      if @user == current_user
+        @user.add_object_error "Can't add yourself as parent again."    
+      else
+        relation = current_family.relations.find_by_user_id @user.id        
+        @user.add_object_error "User of given email is already a #{Relation::MEMBER_TYPE_NAME[relation.member_type]} in your family. Remove him/her from family relations and add again as parent." if relation
+      end
+    else 
+      @user = User.new(:email => params[:user][:email], :first_name => @r_display_name)
+      @user.reset_password
+      @user.reset_perishable_token
+      @user.reset_single_access_token
+    end
+
+    if @user.errors.size < 1
+      relation = @user.relations.build(:member_type => @r_member_type, :display_name => @r_display_name, :accepted => 0)
+      relation.family = current_family
+      relation.token = @user.perishable_token
+      @user.reset_perishable_token        
+      
+      if @user.save
+        UserMailer.invite_user(relation , current_user).deliver
+        flash[:notice] = "Parent successfuly added"
+        redirect_to family_relations_families_url     
+      end
+    else      
+      render :add_parent
+    end      
   end
 
 end

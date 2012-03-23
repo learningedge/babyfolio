@@ -7,11 +7,8 @@
       <a href="#" class="current">My Family Info</a>
       <a href="<%= family_relations_families_path %>">Friends & Families</a>
 
-      <div class="change-family">
-        <h2>Change family</h2>
-        <%= render :partial => 'select_family' %>
-      </div>
-      
+      <%= render 'select_family', :parenting_families => true %>
+   
     </div>
   </div>
   
