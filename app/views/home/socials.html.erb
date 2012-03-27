@@ -6,11 +6,15 @@
 
     <script type="text/javascript">
       $(function() {
-        var uploader = new qq.FileUploader({
-            // pass the dom node (ex. $(selector)[0] for jQuery users)
+        var uploader = new qq.FileUploader({            
             element: document.getElementById('file-uploader'),
-            // path to server-side upload script
-            action: '<%= upload_image_url %>'
+            //debug: true,
+            action: '<%= upload_image_path %>',
+
+            onComplete: function(id, fileName, responseJSON){
+              console.log(responseJSON);
+            }
+
         });
       });
     </script>
