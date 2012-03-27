@@ -1,4 +1,4 @@
-# MySQL.  Versions 4.1 and 5.0 are recommended.
+	# MySQL.  Versions 4.1 and 5.0 are recommended.
 # 
 # Install the MYSQL driver
 #   gem install mysql2
@@ -12,11 +12,13 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: babyfolio_development
+  database: babyfolio_dev
   pool: 5
-  username: root
-  password:
-  socket: /var/run/mysqld/mysqld.sock
+  username: queju
+  password: qu3ju2i
+  # JRuby doesn't support socket:
+  host: mysql.codephonic.com
+  #socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,16 +29,20 @@ test:
   reconnect: false
   database: babyfolio_test
   pool: 5
-  username: root
-  password:
-  socket: /var/run/mysqld/mysqld.sock
+  username: queju
+  password: qu3ju2i
+  # JRuby doesn't support socket:
+  host: mysql.codephonic.com
+  #socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: babyfolio_production
+  database: babyfolio_dev
   pool: 5
-  username: root
-  password:
-  socket: /var/run/mysqld/mysqld.sock
+  username: queju
+  password: qu3ju2i
+  # JRuby doesn't support socket:
+  host: mysql.codephonic.com
+  #socket: /var/run/mysqld/mysqld.sock

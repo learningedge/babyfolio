@@ -15,7 +15,6 @@ class HomeController < ApplicationController
   end
 
   def upload_image
-#    file = Tempfile.new(params[:qqfile])
 
   ext = '.' + params[:qqfile].split('.').last
   fname = params[:qqfile].split(ext).first
