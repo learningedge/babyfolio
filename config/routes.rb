@@ -34,10 +34,13 @@ end
   end
 
 
+  match "upload_image" => "uploaded_images#update", :as => :upload_image
+  get "upload_image/index" => "uploaded_images#index", :as => :upload_image_index
+
   get "home/index"
   get "interior" => "home#interior", :as => :interior
   get "socials" => "home#socials", :as => :socials
-  match "upload_image" => "home#upload_image", :as => :upload_image
+#  match "upload_image" => "home#upload_image", :as => :upload_image
   post "socials_create" => "home#socials_create", :as => :socials_create
 
   match '/auth/you:service/callback' => 'services#create_youtube', :as => :youtube_connect
