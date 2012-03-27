@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end 
 
   def get_vimeo_service
-    services.limit(1).find_by_provider('vimeo')
+    self.services.limit(1).find_by_provider('vimeo')
   end
 
   def get_vimeo_videos
@@ -97,11 +97,15 @@ class User < ActiveRecord::Base
 
 # ----------YOUTUBE -------------
 
+  def get_youtube_service
+    self.services.youtube.first
+  end
+
   def youtube_user
     return @youtube_user if defined?(@youtube_user)
 
-    unless self.services.youtube.empty?
-      youtube = self.services.youtube.first
+    unless self.get_youtube_service.blank?
+      youtube = get_youtube_service
       @youtube_user = YouTubeIt::OAuthClient.new(
                                                  :consumer_key => Yetting.youtube["key"], 
                                                  :consumer_secret => Yetting.youtube["secret"], 

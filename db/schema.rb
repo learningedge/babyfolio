@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(:version => 20120322102930) do
   create_table "media", :force => true do |t|
     t.string   "media_id"
     t.string   "type"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.string   "image_file_name"
     t.datetime "image_updated_at"
+    t.string   "image_content_type"
+    t.string   "image_file_name"
+    t.integer  "image_file_size"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "image_remote_url"
@@ -108,10 +108,10 @@ ActiveRecord::Schema.define(:version => 20120322102930) do
     t.datetime "updated_at",                             :null => false
     t.date     "current_login_at"
     t.boolean  "email_confirmed",     :default => false
-    t.datetime "avatar_updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
+    t.string   "avatar_file_name"
+    t.datetime "avatar_updated_at"
+    t.string   "avatar_content_type"
   end
 
 end

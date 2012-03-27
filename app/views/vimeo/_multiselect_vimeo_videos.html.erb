@@ -25,16 +25,16 @@
     <% end %>
 
     <% current_user.get_vimeo_videos.each do |video| %>
-    
+
     <span class="video">
       <div>
 
 	<div class="checkbox-radiobutton">
 
 	  <% if multiselect_option %>
-   	     <%= check_box_tag 'vimeo_videos[]', video.id %>
+   	     <%= check_box_tag 'vimeo_videos[]', video["id"] %>
 	  <% else %>
-	     <%= radio_button_tag 'vimeo_videos[]', video.id %>
+	     <%= radio_button_tag 'vimeo_videos[]', video["id"] %>
 	  <% end %>
 
 	</div>

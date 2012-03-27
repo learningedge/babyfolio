@@ -282,7 +282,7 @@ hr { margin: 15px 0;  }
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a{text-decoration:none}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a:hover .thumb img{border-color:white}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb {width:140px;height:110px;text-align:center}
-#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb img{border: 10px solid #d5d2be}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb img{border: 10px solid #d5d2be;max-width:120px;max-height:90px}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description {font: 16px 'Helvetica_57'; color:#636363}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .row {}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .col1 {display:inline-block;width:50px}
@@ -341,7 +341,7 @@ a:hover {text-decoration:none}
 /*   LOGIN  */
 
 #login_left {float: left; width: 43%; padding-right: 55px; border-right: 1px solid #aaa;}
-#login_right {float: left;   width: 40%; padding-left: 55px; text-align: center;}
+#login_right {float: left;   width: 40%; padding-left: 30px; text-align: center;}
 div.user-form #login_left div.submit {margin-left: 80px;}
 #fblogin_link { margin-top: 20px; }
 #or { position: absolute; top: 50%; left: 409px; background-color: #E8E3C0; padding: 5px 0;  } 

@@ -13,7 +13,6 @@ class ServicesController < ApplicationController
     if omniauth and params[:service]
 
       # map the returned hashes to our variables first - the hashes differs for every service
-
       # create a new hash
       @authhash = Hash.new
 
@@ -42,7 +41,7 @@ class ServicesController < ApplicationController
               auth.update_attribute(:token, @authhash[:token]) unless auth.token == @authhash[:token]
               @redirect_link = child_profile_children_url
             else 
-              flash[:notice] = 'Facebook account is already in use by another user.'
+              flash[:notice] = 'Current Facebook user is bound to another babyfolio account. Disconnect Facebook from that account before connecting it it here or simply pick another one.'
             end
 	  else 
             if current_user.has_facebook_account?  

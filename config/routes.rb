@@ -37,6 +37,7 @@ end
   get "home/index"
   get "interior" => "home#interior", :as => :interior
   get "socials" => "home#socials", :as => :socials
+  post "upload_image" => "home#upload_image", :as => :upload_image   #TMP
   post "socials_create" => "home#socials_create", :as => :socials_create
 
   match '/auth/you:service/callback' => 'services#create_youtube', :as => :youtube_connect

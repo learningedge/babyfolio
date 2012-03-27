@@ -14,6 +14,10 @@ class HomeController < ApplicationController
   def socials
   end
 
+  def upload_image
+    render :text => Date.now
+  end
+
   def socials_create
     media =  MediaFacebook.create_image_objects(params[:facebook_photos].to_a, params[:facebook_pids].to_a)
      render :xml  => media

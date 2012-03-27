@@ -28,5 +28,5 @@
   <%= will_paginate @moments, :page_links => false %>
 
 <% else %>
-
+<h2>Sorry, but <%= @selected_child.first_name %> hasn't any moments.</h2>
 <% end %>

@@ -1,4 +1,4 @@
-<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "jquery" %>
 <%= stylesheet_link_tag "popup", :media => 'all' %>
 
 <table id="popup">
@@ -16,7 +16,6 @@
 
 <script type="text/javascript">
 
-
 if(window.opener){
    close_popup();
 }
@@ -30,6 +29,12 @@ function close_popup(){
       success: function(html){            
           window.close();
           parent_window.html(html);
+          
+          var div = document.createElement('div');
+          $(div).html('<%= flash[:notice] %>').addClass('ajax_notice', 'hidden');
+
+          parent_window.append(div);
+          $(div).fadeIn();
         }
 
     });
