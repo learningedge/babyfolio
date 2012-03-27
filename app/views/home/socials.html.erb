@@ -4,6 +4,19 @@
   </div>
   <div class="user-form">
 
+    <script type="text/javascript">
+      $(function() {
+        var uploader = new qq.FileUploader({
+            // pass the dom node (ex. $(selector)[0] for jQuery users)
+            element: document.getElementById('file-uploader'),
+            // path to server-side upload script
+            action: '<%= upload_image_url %>'
+        });
+      });
+    </script>
+
+    <div id="file-uploader"></div>
+
 
     <%= form_tag upload_image_url, :target => "upload_frame", :multipart => true do %>
       <div>File: <%= file_field_tag :file %></div>

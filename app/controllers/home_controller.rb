@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   end
 
   def upload_image
-    render :text => Date.now
+    render :text => "now"
   end
 
   def socials_create
