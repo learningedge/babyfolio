@@ -4,10 +4,10 @@
   </div>
   <div class="user-form">
 
+    <div id="uploaded-images-ajax-container" class="multiselect">
+      <%= render :partial => 'uploaded_images/select_uploaded_images' %>
+    </div>
     
-    <%= render :partial => 'uploaded_images/select_uploaded_images' %>
-
-
 
     <%= form_tag "/socials_create" do %>
 

@@ -19,34 +19,41 @@
     <h2>Add media for <%= @selected_child.first_name -%> </h2>
     <%= form_tag create_from_media_moments_url do %>
 
-    <div id="youtube-ajax-container" class="multiselect">
-      <%= render :partial => 'youtube/select_youtube_videos' %>
-    </div>
+      <div id="uploaded-images-ajax-container" class="multiselect">
+        <%= render :partial => 'uploaded_images/select_uploaded_images' %>
+      </div>
 
-    <hr/>
+      <hr/>
 
-    <div id="vimeo-ajax-container" class="multiselect">
-      <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
-    </div>
+      <div id="flickr-ajax-container" class="multiselect ajax-container">
+        <%= render :partial => 'flickr/select_flickr_photos'-%>
+      </div>
 
-    <hr/>
+      <hr/>
 
-    <div id="flickr-ajax-container" class="multiselect ajax-container">
-      <%= render :partial => 'flickr/select_flickr_photos'-%>
-    </div>
+      <div id="facebook-ajax-container" class="multiselect ajax-container">
+        <%= render :partial => 'facebook/select_facebook_photos'-%>
+      </div>
 
-    <hr/>
+      <hr/>
 
-    <div id="facebook-ajax-container" class="multiselect ajax-container">
-      <%= render :partial => 'facebook/select_facebook_photos'-%>
-    </div>
+      <div id="youtube-ajax-container" class="multiselect">
+        <%= render :partial => 'youtube/select_youtube_videos' %>
+      </div>
 
-    <hr/>
-    <%= hidden_field_tag "child_id", @selected_child.id %>
+      <hr/>
 
-    <div class="submit">
-      <%= submit_tag @next_child_name -%>
-    </div> 
+      <div id="vimeo-ajax-container" class="multiselect">
+        <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
+      </div>
+
+      <hr/>
+      <%= hidden_field_tag "child_id", @selected_child.id %>
+
+      <div class="submit">
+        <%= submit_tag @next_child_name -%>
+      </div>
+
     <% end %>
   </div>
 
@@ -54,5 +61,6 @@
     <script type="text/javascript" src="/js/vimeo_videos.js"></script>
     <script type="text/javascript" src="/js/flickr.js"></script>
     <script type="text/javascript" src="/js/facebook_photos.js"></script>
+    
   <div class="clear"></div>
 </div>

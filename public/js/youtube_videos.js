@@ -32,11 +32,11 @@ $(function(){
 
     $('.singleselect .youtube .video').live("click",function(){
 
-	$('.singleselect .youtube .video input[type=checkbox]').attr('checked',false);
-	$('.singleselect .youtube .video').removeClass('active');
-	 
-	$(this).find('input[type=checkbox]').attr('checked', true);
-	$(this).addClass('active');
+      $('.singleselect .youtube .video input[type=checkbox]').attr('checked',false);
+      $('.singleselect .youtube .video').removeClass('active');
+
+      $(this).find('input[type=checkbox]').attr('checked', true);
+      $(this).addClass('active');
 
     })
 

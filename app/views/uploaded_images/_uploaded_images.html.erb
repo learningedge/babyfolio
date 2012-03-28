@@ -1,5 +1,25 @@
-<% images.each do |image| %>
+<div class="photos">
 
-  <%= image_tag image.image(:moment_thumb) %>
+  
 
-<% end %>
+    <div class="header">
+        <h2>Photos</h2>
+    </div>
+
+    <% if images.blank? -%>
+      <div>You don't have any uploaded photos</div>
+    <% end %>
+      
+    <% images.each do |photo| %>
+      <span class="image" id="<%=  photo.id %>" thumb_url="<%= photo.image(:moment_thumb) -%>" >
+        <div class="thumb" style="background-image: url('<%= photo.image(:moment_thumb) -%>')">
+        </div>
+      </span>
+
+    <% end %>
+
+  
+
+</div>
+
+

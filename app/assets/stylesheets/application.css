@@ -475,39 +475,44 @@ div.submit {float:left;margin-right:20px}
 .youtube-grid .video .thumb, .vimeo-grid .video .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:120px;height:90px;overflow:hidden}
 .youtube-grid .video .checkbox-radiobutton, .vimeo-grid .video .checkbox-radiobutton {position:absolute;display:none}
 
-/* flickr */
+/* flickr facebook uploaded-images */
 
 #flickr-ajax-container, 
-#facebook-ajax-container {position:relative}
+#facebook-ajax-container,
+#uploaded-images-ajax-container {position:relative}
 #facebook-ajax-container .preloader,
 #flickr-ajax-container .preloader {position:absolute;z-index:1;width:100%;height:100%;background: url('/images/loader.gif') 50% 50% no-repeat #E8E3C0;display:none}
 
 .facebook #selected-facebook-photos,
-.flickr #selected-flickr-photos {width:180px;display:inline-block;vertical-align:top}
+.flickr #selected-flickr-photos,
+.uploaded-images #selected-uploaded-images-photos {width:180px;display:inline-block;vertical-align:top}
 .facebook #selected-facebook-photos span.selected-image,
-.flickr #selected-flickr-photos span.selected-image {width: 75px; height: 75px;  position:relative; display:inline-block;cursor:pointer;border:1px solid #9b7804;margin:2px;border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center center; background-repeat: no-repeat;background-size: cover;}
+.flickr #selected-flickr-photos span.selected-image,
+.uploaded-images #selected-uploaded-images-photos span.selected-image {width: 75px; height: 75px;  position:relative; display:inline-block;cursor:pointer;border:1px solid #9b7804;margin:2px;border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center center; background-repeat: no-repeat;background-size: cover;}
 .facebook #selected-facebook-photos span.selected-image .hover, 
-.flickr #selected-flickr-photos span.selected-image .hover{width:75px;height:75px;position:absolute;top:0px;left:0px;background-color:black;color:white;line-height:73px;text-align:center;display:none}
+.flickr #selected-flickr-photos span.selected-image .hover,
+.uploaded-images #selected-uploaded-images-photos span.selected-image .hover {width:75px;height:75px;position:absolute;top:0px;left:0px;background-color:black;color:white;line-height:73px;text-align:center;display:none}
 
-.facebook-grid,
-.flickr-grid {width:520px;display:inline-block;vertical-align:top;font-size:0px;}
-.facebook-grid .header,
-.flickr-grid .header {text-align:left;font-size:14px}
-.facebook-grid .header h2,
-.flickr-grid .header h2{float:left}
-.facebook-grid .header a,
-.flickr-grid .header a{float:right}
-.facebook-grid .sets > a,
-.flickr-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
-.facebook-grid .sets .count ,
-.flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
-.facebook-grid .image,
-.flickr-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
-.facebook-grid .image .thumb,
-.flickr-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover;}
+.facebook-grid, .flickr-grid, .uploaded-images-grid {width:520px;display:inline-block;vertical-align:top;font-size:0px;}
+.facebook-grid .header, .flickr-grid .header, .uploaded-images .header {text-align:left;font-size:14px}
+.facebook-grid .header h2, .flickr-grid .header h2 {float:left}
+.uploaded-images .main-header h2 {float:left;padding-right:30px}
 
-.facebook-grid .image .checkbox-radiobutton,
-.flickr-grid .image .checkbox-radiobutton {position:absolute;display:none}
+.uploaded-images .main-header > a {font-size:16px;line-height:41px}
+.uploaded-images .main-header > a.close-btn {display:none}
+.uploaded-images #file-uploader {display:none}
+.uploaded-images .qq-upload-button {display:block;background: url('/images/button.png'); width:140px;height:53px;padding:0px;font: 16px/53px 'helvetica_seven';float:left;}
+.uploaded-images .qq-upload-list {float:left;margin:0;overflow:hidden;height:100px;padding-left:45px}
+.uploaded-images .qq-upload-list li span.qq-upload-failed-text {display:none}
+
+
+.facebook-grid .header a, .flickr-grid .header a, .uploaded-images-grid .header a {float:right}
+.facebook-grid .sets > a, .flickr-grid .sets > a, .uploaded-images-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
+.facebook-grid .sets .count , .flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
+.facebook-grid .image, .flickr-grid .image, .uploaded-images-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
+.facebook-grid .image .thumb, .flickr-grid .image .thumb, .uploaded-images-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover;}
+
+.facebook-grid .image .checkbox-radiobutton, .flickr-grid .image .checkbox-radiobutton, .uploaded-images-grid .image .checkbox-radiobutton {position:absolute;display:none}
 
 /* CHILDREN */
 

@@ -1,9 +1,10 @@
 class UploadedImagesController < ApplicationController
 
   def index
-    images = Media.where(:user_id => current_user.id, :type => 'MediaImage')
 
-    render :partial => 'uploaded_images/uploaded_images', :locals => { :images => images}
+    @one_image = Media.find(params[:id])
+
+    render :index, :layout => false
   end
 
   def update
@@ -17,9 +18,9 @@ class UploadedImagesController < ApplicationController
     tempfile << request.body.read
     tempfile.rewind
 
-    MediaImage.create_media_object(tempfile, current_user.id)
+    media = MediaImage.create_media_object(tempfile, current_user.id)
 
-    render :text => "image uploaded"
+    render :text => "{\"media_id\":\"#{media.id}\"}"
     
   end
 
