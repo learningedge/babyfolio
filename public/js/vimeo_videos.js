@@ -40,19 +40,19 @@ $(function(){
 
     })
 
-    $('.vimeo .header a.upload-link').live('click',function(){
+    $('.vimeo-container .header a.upload-link').live('click',function(){
 
-      $(this).parents('.vimeo').find('.upload').css({height: 0}).show().animate({height: 80});
+      $(this).parents('.vimeo-container').find('.upload').css({height: 0}).show().animate({height: 80});
       $(this).hide();
-      $(this).parents('.vimeo').find('.header .close-btn').show();
+      $(this).parents('.vimeo-container').find('.header .close-btn').show();
       return false;
 
     })
 
-    $('.close-btn').live('click',function(){
-        $(this).parents('.vimeo').find('.upload').stop().animate({height: 0}, function(){$(this).hide(); })
+    $('.vimeo-container .header .close-btn').live('click',function(){
+        $(this).parents('.vimeo-container').find('.upload').stop().animate({height: 0}, function(){$(this).hide(); })
         $(this).hide();
-        $(this).parents('.vimeo').find('.header .upload-link').show();
+        $(this).parents('.vimeo-container').find('.header .upload-link').show();
         return false;
     })
 

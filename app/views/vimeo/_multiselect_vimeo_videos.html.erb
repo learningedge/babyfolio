@@ -1,64 +1,70 @@
-<% if current_user.has_vimeo_account? %>
+<div class="vimeo-container">
+  <div class="header">
+    <h2>Vimeo</h2>
+    <% if current_user.has_vimeo_account? %>
+      <a href="#" class="upload-link">Upload video</a>
+      <a href="#" class="close-btn">Close</a>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+  <% if current_user.has_vimeo_account? %>
+  
+  <div class="upload">
+    <iframe src="<%= new_vimeo_url -%>" width="720px" height="200px" scrolling="no"></iframe>
+  </div>
 
   <% multiselect_option = true if multiselect_option.nil? %>
   <% submit_button_option = true if submit_button_option.nil? %>
   <% form_tags_option = false if form_tags_option.nil? %>
   <% remote_option = false if remote_option.nil? %>
 
-<div class="vimeo <%= multiselect_option ? 'multiselect' : 'singleselect' -%>">
-  <div class="header">
-    <h2>My Vimeo videos</h2>
-    <a href="#" class="upload-link">Upload video</a>
-    <a href="#" class="close-btn">Close</a>
+  <div class="vimeo <%= multiselect_option ? 'multiselect' : 'singleselect' -%>">
+
+    <div class="vimeo-grid">
+
+      <% if form_tags_option %>
+        <%= form_tag url, :remote => remote_option %>
+      <% end %>
+
+      <% current_user.get_vimeo_videos.each do |video| %>
+
+      <span class="video">
+        <div>
+
+    <div class="checkbox-radiobutton">
+
+      <% if multiselect_option %>
+           <%= check_box_tag 'vimeo_videos[]', video["id"] %>
+      <% else %>
+         <%= radio_button_tag 'vimeo_videos[]', video["id"] %>
+      <% end %>
+
+    </div>
+          <div class="thumb">
+      <%= image_tag video["thumbnails"]["thumbnail"][1]["_content"] %>
+    </div>
+    <div class="title">
+      <%= video["title"] %>
+    </div>
+        </div>
+      </span>
+
+      <% end %>
+
+      <% if form_tags_option %>
+        <%= submit_tag 'Submit' if submit_button_option -%>
+        </form>
+      <% end %>
+    </div>
+
   </div>
 
-  <div class="clear"></div>
+  <% else %>
 
-  <div class="upload">
-    <iframe src="<%= new_vimeo_url -%>" width="720px" height="200px" scrolling="no"></iframe>
-  </div>
+    <%= render :partial => 'shared/services_connect', :locals => {:service => 'vimeo'} %>
 
-  <div class="vimeo-grid">
-
-    <% if form_tags_option %>
-      <%= form_tag url, :remote => remote_option %>
-    <% end %>
-
-    <% current_user.get_vimeo_videos.each do |video| %>
-
-    <span class="video">
-      <div>
-
-	<div class="checkbox-radiobutton">
-
-	  <% if multiselect_option %>
-   	     <%= check_box_tag 'vimeo_videos[]', video["id"] %>
-	  <% else %>
-	     <%= radio_button_tag 'vimeo_videos[]', video["id"] %>
-	  <% end %>
-
-	</div>
-      	<div class="thumb">
-	  <%= image_tag video["thumbnails"]["thumbnail"][1]["_content"] %>
-	</div>
-	<div class="title">
-	  <%= video["title"] %>
-	</div>
-      </div>
-    </span>
-  
-    <% end %>
-
-    <% if form_tags_option %>
-      <%= submit_tag 'Submit' if submit_button_option -%>
-      </form>
-    <% end %>
-  </div>
-
+  <% end %>
 </div>
 
-<% else %>
-
-  <%= render :partial => 'shared/services_connect', :locals => {:service => 'vimeo'} %>
-
-<% end %>

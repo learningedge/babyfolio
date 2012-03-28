@@ -1,14 +1,15 @@
 
 <div class="uploaded-images-container">
-  <div class="uploaded-images">
     <div class="main-header">
-      <h2>My Uploaded Images</h2>
+      <h2>Uploaded Photos</h2>
       <a href="#" class="upload-link">Upload image</a>
       <a href="#" class="close-btn">Close</a>
       <div class="clear"></div>
     </div>
     <div id="file-uploader"></div>
     <div class="clear"></div>
+  
+  <div class="uploaded-images">
 
     <span id="selected-uploaded-images-photos">
       <h2>Selected</h2>
@@ -104,19 +105,19 @@
 
     //upload images
 
-    $('.uploaded-images .main-header a.upload-link').click(function(){
+    $('.main-header a.upload-link').click(function(){
 
-      $(this).parents('.uploaded-images').find('#file-uploader').css({height: 0}).show().animate({height: 100});
+      $(this).parents('.uploaded-images-container').find('#file-uploader').css({height: 0}).show().animate({height: 100});
       $(this).hide();
-      $(this).parents('.uploaded-images').find('.main-header .close-btn').show();
+      $(this).parents('.uploaded-images-container').find('.main-header .close-btn').show();
       return false;
 
     })
 
-    $('.uploaded-images .main-header .close-btn').click(function(){
-        $(this).parents('.uploaded-images').find('#file-uploader').stop().animate({height: 0}, function(){$(this).hide(); })
+    $('.uploaded-images-container .main-header .close-btn').click(function(){
+        $(this).parents('.uploaded-images-container').find('#file-uploader').stop().animate({height: 0}, function(){$(this).hide(); })
         $(this).hide();
-        $(this).parents('.uploaded-images').find('.main-header .upload-link').show();
+        $(this).parents('.uploaded-images-container').find('.main-header .upload-link').show();
         return false;
     })
 

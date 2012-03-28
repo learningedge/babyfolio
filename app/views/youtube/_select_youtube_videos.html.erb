@@ -1,43 +1,51 @@
-<% if current_user.youtube_user %>
-
-<div class="youtube">
+<div class="youtube-container">
+  
   <div class="header">
-    <h2>My Youtube videos</h2>
+    <h2>Youtube</h2>
+    <% if current_user.youtube_user %>
     <a href="#" class="upload-link">Upload video</a>
     <a href="#" class="close-btn">Close</a>
+    <% end %>
   </div>
 
   <div class="clear"></div>
+
+  <% if current_user.youtube_user %>
   <div class="upload">
     <iframe src="<%= new_youtube_url -%>" width="720px" height="200px" scrolling="no"></iframe>
   </div>
-  
-  <div class="youtube-grid">
 
-    <% current_user.youtube_user.my_videos.videos.each do |video| %>
-    
-    <span class="video">
-      <div>
+  <div class="youtube">
 
-	<div class="checkbox-radiobutton">
+    <div class="youtube-grid">
 
-   	     <%= check_box_tag 'youtube_videos[]', video.unique_id %>
+      <% current_user.youtube_user.my_videos.videos.each do |video| %>
 
-	</div>
-      	<div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
-	</div>
-	<div class="title">
-	  <%= truncate(video.title, :length => 20) -%>
-	</div>
-      </div>
-    </span>
-  
-    <% end %>    
+      <span class="video">
+        <div>
+
+    <div class="checkbox-radiobutton">
+
+           <%= check_box_tag 'youtube_videos[]', video.unique_id %>
+
+    </div>
+          <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+    </div>
+    <div class="title">
+      <%= truncate(video.title, :length => 20) -%>
+    </div>
+        </div>
+      </span>
+
+      <% end %>
+    </div>
   </div>
+  <% else %>
+
+    <%= render :partial => 'shared/services_connect', :locals => {:service => 'youtube'} %>
+
+  <% end %>
+  
 </div>
-<% else %>
 
-  <%= render :partial => 'shared/services_connect', :locals => {:service => 'youtube'} %>
-
-<% end %>
 

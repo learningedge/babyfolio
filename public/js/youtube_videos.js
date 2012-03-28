@@ -40,19 +40,19 @@ $(function(){
 
     })
 
-    $('.youtube .header a.upload-link').live('click',function(){
+    $('.youtube-container .header a.upload-link').live('click',function(){
 
-      $(this).parents('.youtube').find('.upload').css({height: 0}).show().animate({height: 200});      
+      $(this).parents('.youtube-container').find('.upload').css({height: 0}).show().animate({height: 200});
       $(this).hide();
-      $(this).parents('.youtube').find('.header .close-btn').show();
+      $(this).parents('.youtube-container').find('.header .close-btn').show();
       return false;
 
     })
 
     $('.close-btn').live('click',function(){
-        $(this).parents('.youtube').find('.upload').stop().animate({height: 0}, function(){$(this).hide(); })
+        $(this).parents('.youtube-container').find('.upload').stop().animate({height: 0}, function(){$(this).hide(); })
         $(this).hide();
-        $(this).parents('.youtube').find('.header .upload-link').show();
+        $(this).parents('.youtube-container').find('.header .upload-link').show();
         return false;
     })
 

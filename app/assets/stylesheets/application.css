@@ -347,7 +347,7 @@ div.user-form #login_left div.submit {margin-left: 80px;}
 #or { position: absolute; top: 50%; left: 409px; background-color: #E8E3C0; padding: 5px 0;  } 
 
 .user-form {float:right;position: relative;background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);width:720px;padding: 30px 20px 30px 50px;font: 14px arial; color:#898989}
-.user-form h2 {margin-bottom:20px}
+/*.user-form h2 {margin-bottom:20px}*/
 .user-form #errorExplanation {padding-bottom:20px}
 .user-form #errorExplanation h2 {font-size:14px;color:red;font-weight:bold}
 .user-form #errorExplanation ul {padding-left:20px; list-style:none}
@@ -461,13 +461,13 @@ div.submit {float:left;margin-right:20px}
 
 /* youtube-grid */
 
-.youtube .header, .vimeo .header {margin-bottom:20px}
-.youtube .header h2, .vimeo .header h2 {display:inline}
-.youtube .header a, .vimeo .header a {font-size:16px;padding-left:30px}
-.youtube .header a.close-btn, .vimeo .header a.close-btn {display:none}
-.youtube .upload, .vimeo .upload {left:0;text-align:center;top:0px;width:100%;height:100%;display:none;background-color:#e8e3c0}
+.youtube-container .header, .vimeo-container .header {margin-bottom:20px}
+.youtube-container .header h2, .vimeo-container .header h2 {display:inline}
+.youtube-container .header a, .vimeo-container .header a {font-size:16px;padding-left:30px}
+.youtube-container .header a.close-btn, .vimeo-container .header a.close-btn {display:none}
+.youtube-container .upload, .vimeo-container .upload {left:0;text-align:center;top:0px;width:100%;height:100%;display:none;background-color:#e8e3c0}
 
-.youtube .upload iframe, .vimeo .upload .iframe {}
+.youtube-container .upload iframe, .vimeo-container .upload .iframe {}
 
 .youtube-grid, .vimeo-grid {text-align:center;font-size:0px;position:relative}
 .youtube-grid .video, .vimeo-grid .video  {display:inline-block;position:relative;text-align:center;padding:2px;margin:2px;border-radius:3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;behavior: url(PIE/PIE.htc);width:122px;vertical-align:top;font-size:14px;letter-spacing:auto}
@@ -484,6 +484,8 @@ div.submit {float:left;margin-right:20px}
 #facebook-ajax-container .preloader,
 #flickr-ajax-container .preloader {position:absolute;z-index:1;width:100%;height:100%;background: url('/images/loader.gif') 50% 50% no-repeat #E8E3C0;display:none}
 
+.flickr h2, .facebook h2, .uploaded-images h2, .youtube h2, .vimeo h2 {color:#9b7804;font:20px/22px arial;margin-bottom:0px}
+
 .facebook #selected-facebook-photos,
 .flickr #selected-flickr-photos,
 .uploaded-images #selected-uploaded-images-photos {width:180px;display:inline-block;vertical-align:top}
@@ -497,14 +499,14 @@ div.submit {float:left;margin-right:20px}
 .facebook-grid, .flickr-grid, .uploaded-images-grid {width:520px;display:inline-block;vertical-align:top;font-size:0px;}
 .facebook-grid .header, .flickr-grid .header, .uploaded-images .header {text-align:left;font-size:14px}
 .facebook-grid .header h2, .flickr-grid .header h2 {float:left}
-.uploaded-images .main-header h2 {float:left;padding-right:30px}
 
-.uploaded-images .main-header > a {font-size:16px;line-height:41px}
-.uploaded-images .main-header > a.close-btn {display:none}
-.uploaded-images #file-uploader {display:none}
-.uploaded-images .qq-upload-button {display:block;background: url('/images/button.png'); width:140px;height:53px;padding:0px;font: 16px/53px 'helvetica_seven';float:left;}
-.uploaded-images .qq-upload-list {float:left;margin:0;overflow:hidden;height:100px;padding-left:45px}
-.uploaded-images .qq-upload-list li span.qq-upload-failed-text {display:none}
+.uploaded-images-container .main-header h2 {float:left;padding-right:30px}
+.uploaded-images-container .main-header > a {font-size:16px;line-height:41px}
+.uploaded-images-container .main-header > a.close-btn {display:none}
+.uploaded-images-container #file-uploader {display:none}
+.uploaded-images-container .qq-upload-button {display:block;background: url('/images/button.png'); width:140px;height:53px;padding:0px;font: 16px/53px 'helvetica_seven';float:left;}
+.uploaded-images-container .qq-upload-list {float:left;margin:0;overflow:hidden;height:100px;padding-left:45px}
+.uploaded-images-container .qq-upload-list li span.qq-upload-failed-text {display:none}
 
 
 .facebook-grid .header a, .flickr-grid .header a, .uploaded-images-grid .header a {float:right}

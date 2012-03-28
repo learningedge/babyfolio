@@ -5,7 +5,7 @@
 
 
   <div id="left">
-    <div class="title">Step 3: Add Photos/Videos</div>
+    <div class="title">Step 3: Add Photos/Videos for <%= @selected_child.first_name -%></div>
     <div id="change-form">
       <%#*<div class="change-child">%>
         <%#*<h2>Select Child</h2>%>
@@ -16,7 +16,6 @@
     </div>
   </div>
   <div class="user-form">
-    <h2>Add media for <%= @selected_child.first_name -%> </h2>
     <%= form_tag create_from_media_moments_url do %>
 
       <div id="uploaded-images-ajax-container" class="multiselect">
@@ -47,7 +46,6 @@
         <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
       </div>
 
-      <hr/>
       <%= hidden_field_tag "child_id", @selected_child.id %>
 
       <div class="submit">
