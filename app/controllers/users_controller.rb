@@ -67,8 +67,8 @@ class UsersController < ApplicationController
       media_element = MediaFlickr.create_media_objects(params[:flickr_photos].first, params[:flickr_pids].first, current_user.id)
     elsif !params[:facebook_photos].blank?
       media_element = MediaFacebook.create_media_objects(params[:facebook_photos].first, params[:facebook_pids].first, current_user.id)
-    else
-      media_element = MediaImage.create_media_object(params[:user][:profile_image], current_user.id)
+    elsif !params[:uploaded_images_pids].blank?
+      media_element = Media.find(params[:uploaded_images_pids].first)
     end
 
     @user = current_user

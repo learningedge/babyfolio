@@ -7,41 +7,39 @@
       <a href="<%= edit_families_path %>">My Family Info</a>
       <a href="<%= family_relations_families_path %>">Friends & Families</a>
     </div>
+    <div class="profile-image" style="width:228px;height:254px;">
+      <%= get_image_tag @user, "large" %>
+    </div>
     <div class="submit-btn">
-      <%= link_to "Update Image", '#', :onclick => "$('.user-form form').submit();" -%>
+      <%= form_for @user, :url => upload_account_url, :html => { :multipart => true } do |f| -%>
+        <%= hidden_field_tag :user_profile_image_remote_url -%>
+        <%= hidden_field_tag :user_profile_image_id -%>
+        <%= submit_tag "Update Image" -%>
+        
+      <% end %>
     </div>
   </div>
 
   <div class="user-form update_form">
 
-    <h2>Upload Image for <%= @user.first_name -%>'s profile</h2>
-    <div class="images-container">
-
-      <div class="profile-image" style="width:228px;height:254px;">
-	<%= get_image_tag @user, "large" %>
-      </div>
-      
-      <%= form_for @user, :url => upload_account_url, :html => { :multipart => true } do |f| -%>
-
-        <div class="upload-input">
-          <%= f.file_field :profile_image -%>
-        </div>
-        <%= hidden_field_tag :user_profile_image_remote_url -%>
-	<%= hidden_field_tag :user_profile_image_id -%>
-      <% end %>
-
-      <div class="clear"></div>
-      
+    <div id="uploaded-images-ajax-container" class="singleselect">
+      <%= render :partial => 'uploaded_images/select_uploaded_images' %>
     </div>
+
+    <hr/>
     
     <h2>OR choose one from facebook</h2>
+
 
     <div id="facebook-ajax-container" class="singleselect ajax-container">
       <%= render :partial => 'facebook/select_facebook_photos'-%>
     </div>
     <script type="text/javascript" src="/js/facebook_photos.js"></script>
+
+    <hr/>
     
-    <h2>OR flicker</h2>
+    <h2>OR flickr</h2>
+    
     <div id="flickr-ajax-container" class="singleselect">
       <%= render :partial => 'flickr/select_flickr_photos' %>
     </div>
@@ -52,25 +50,24 @@
   <div class="clear"></div>
 </div>
 <script type="text/javascript">
-  $('.flickr .photos .image').live("click", function(){    
+
+  $('.flickr .photos .image').live("click", function(){
     $('#user_profile_image_remote_url').val($(this).attr('url')).attr('name','flickr_photos[]');
     $('#user_profile_image_id').val($(this).attr('id')).attr('name','flickr_pids[]');
-    $('.upload-input input').val("");
     $('#selected-facebook-photos span').remove();
+    $('#selected-uploaded-images-photos span').remove();
   })
 
-  $('.facebook .photos .image').live("click", function(){    
+  $('.facebook .image').live("click", function(){
     $('#user_profile_image_remote_url').val($(this).attr('url')).attr('name','facebook_photos[]');
     $('#user_profile_image_id').val($(this).attr('id')).attr('name','facebook_pids[]');
-    $('.upload-input input').val("");
     $('#selected-flickr-photos span').remove();
+    $('#selected-uploaded-images-photos span').remove();
   })
 
-
-
-  $('form input[type=file]').change(function(){
-    $("#user_profile_image_remote_url").val("").attr('name',"");
-    $("#user_profile_image_id").val("").attr('name',"");
+  $('.uploaded-images .image').live("click", function(){
+    $('#user_profile_image_remote_url').val('').attr('name','uploaded_images_photos[]');
+    $('#user_profile_image_id').val($(this).attr('id')).attr('name','uploaded_images_pids[]');
     $('#selected-flickr-photos span').remove();
     $('#selected-facebook-photos span').remove();
   })

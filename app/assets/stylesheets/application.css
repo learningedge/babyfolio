@@ -448,9 +448,10 @@ div.submit {float:left;margin-right:20px}
 
 /* .child-image */
 .child-image .images-container {padding-bottom:20px}
-.child-image .profile-image {float:left;margin-right:40px}
+.child-image .profile-image {}
 
-.child-image #left .submit-btn a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
+.child-image #left .submit-btn {float:right;margin-top:20px}
+.child-image #left .submit-btn input[type=submit]{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
 
 .child-image .profile-image .image{float:left;border:solid 4px #e8e3c0;padding:10px}
 .child-image .profile-image .image.active {border-color:#898989}
