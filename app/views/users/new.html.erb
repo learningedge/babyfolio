@@ -3,6 +3,19 @@
   <div class="user-form">
     <%= form_for @user, :url => account_path(@user) do |f| -%>
       <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+      <div>
+	<%= label_tag "accept_terms" do %>
+   	   <%= check_box_tag "accept_terms", true, @accept_terms %>
+   	   Agree to the terms of service. You agree that and that and that and the text can be as long as you like. Whatever terms of service have to be aggred to prior to further usage of Babyfolio application.
+	<% end %><br/><br/>
+      </div>
+      <div>
+	<%= label_tag "newsletter" do %>
+   	   <%= check_box_tag "newsletter", true, @newsletter %>
+   	   Singup to our newsletter.
+	<% end %><br/><br/>
+      </div>
+
       <div class="submit">
         <%= f.submit "Register" %>
       </div>

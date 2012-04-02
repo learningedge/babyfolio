@@ -513,7 +513,7 @@ div.submit {float:left;margin-right:20px}
 .facebook-grid .sets > a, .flickr-grid .sets > a, .uploaded-images-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
 .facebook-grid .sets .count , .flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
 .facebook-grid .image, .flickr-grid .image, .uploaded-images-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
-.facebook-grid .image .thumb, .flickr-grid .image .thumb, .uploaded-images-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover;}
+.facebook-grid .image .thumb, .flickr-grid .image .thumb, .uploaded-images-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
 
 .facebook-grid .image .checkbox-radiobutton, .flickr-grid .image .checkbox-radiobutton, .uploaded-images-grid .image .checkbox-radiobutton {position:absolute;display:none}
 

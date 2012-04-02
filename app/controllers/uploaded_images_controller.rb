@@ -8,7 +8,6 @@ class UploadedImagesController < ApplicationController
   end
 
   def update
-
     ext = '.' + params[:qqfile].split('.').last
     fname = params[:qqfile].split(ext).first
 
@@ -20,8 +19,7 @@ class UploadedImagesController < ApplicationController
 
     media = MediaImage.create_media_object(tempfile, current_user.id)
 
-    render :text => "{\"media_id\":\"#{media.id}\"}"
-    
+    render :text => "{\"media_id\":\"#{media.id}\"}"    
   end
 
   

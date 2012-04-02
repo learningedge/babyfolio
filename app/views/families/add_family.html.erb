@@ -19,6 +19,9 @@
       <%= form_tag create_friend_relations_families_path do %>
         <%= hidden_field_tag 'page', 'add_family' %>
         <div class="relations">
+	  <div class="relation_row">
+	    Please enter the email of the family members you would like to invite to participate in the <%= current_family.name.capitalize %> Family SmarterFolio.<br/><br/>
+	  </div>
           <div class="relation row">
             <span class="label">
               <%= label_tag 'grandfuther', 'Grandfather' -%>
@@ -148,9 +151,13 @@
       $($(this).attr('href')).show();
       return false;
     })
+    
+
   })
+
+
 
 
 </script>
 
-
+<script type="text/javascript" src="/js/remove_placeholders.js"></script>

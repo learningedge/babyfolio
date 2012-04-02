@@ -7,27 +7,36 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @accept_terms = false
+    @newsletter = false
   end
 
   def create
     @user = User.new(params[:user])
     @user.reset_perishable_token
     @user.reset_single_access_token
+    @accept_terms = params[:accept_terms] || false
+    @newsletter = params[:newsletter] || false
     
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
     # the User has not yet been activated
-    if @user.save
+    if @user.valid?
+      unless params[:accept_terms]
+        @user.add_object_error('You need to accept terms of service before proceeding')
+        flash[:notice] = "There was a problem creating your account."
+        render :action => :new
+      else 
+        @user.save
+        UserMailer.confirmation_email(@user).deliver
 
-      UserMailer.confirmation_email(@user).deliver
-
-      flash[:notice] = "Your account has been created."
-      redirect_to confirmation_url
+        flash[:notice] = "Your account has been created."
+        redirect_to confirmation_url
+      end
     else
       flash[:notice] = "There was a problem creating your account."
       render :action => :new
     end
-    
   end
 
   def show
@@ -51,7 +60,7 @@ class UsersController < ApplicationController
     @user = current_user # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
-      redirect_to account_url
+      redirect_to child_profile_children_url
     else
       render :action => :edit
     end

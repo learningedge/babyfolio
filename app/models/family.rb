@@ -23,6 +23,6 @@ class Family < ActiveRecord::Base
     parents.include?(relation)
   end
 
-  STEPS = ["Create Family", "Invite Family Members", "Invite Friends", "Add Photos/Videos"]
+  STEPS = ["Create Family", "Invite Family and Friends", "Add Photos/Videos"]
 
 end
