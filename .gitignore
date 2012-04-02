@@ -17,3 +17,6 @@ public/.htaccess
 /log/*.log
 /tmp
 /config/database.yml
+
+# Ignore folder with images
+/public/system/images/*
