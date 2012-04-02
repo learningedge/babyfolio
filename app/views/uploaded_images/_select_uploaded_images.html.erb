@@ -38,16 +38,17 @@
         action: '<%= upload_image_path %>',
         onComplete: function(id, fileName, responseJSON){
 
-            $('.qq-upload-file').each(function(){if ( $(this).text() == fileName) {$(this).parents('li').fadeOut(2000);} });
-            $.ajax({
-              url: '<%= upload_image_index_url -%>'+'?id='+responseJSON.media_id,
-              success: function(data){
-                var data_value = $(data);
-                data_value.css({opacity:0});
-                $('#uploaded-images-ajax-grid .photos').append(data_value);
-                data_value.animate({opacity:1});
-              }
-            })
+          $('.qq-upload-file').each(function(){if ( $(this).text() == fileName) {$(this).parents('li').fadeOut(2000);} });
+
+          $.ajax({
+            url: '<%= upload_image_index_url -%>'+'?id='+responseJSON.media_id,
+            success: function(data){
+              var data_value = $(data);
+              data_value.css({opacity:0});
+              $('#uploaded-images-ajax-grid .photos').append(data_value);
+              data_value.animate({opacity:1});
+            }
+          })
           
         },
         
