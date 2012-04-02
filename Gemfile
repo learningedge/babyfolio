@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'paperclip'
 gem 'flickraw'
 gem 'yettings', :git => "git@github.com:charlotte-ruby/yettings.git", :branch =>"ruby187"
+gem 'roo'
 
 group :test do
 

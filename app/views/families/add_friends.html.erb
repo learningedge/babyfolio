@@ -1,6 +1,6 @@
 <div class="container settings family-and-friends">
   <% if family_registration? %>
-    <%= render "shared/registration_steps", :current_step => 2 %>
+    <%= render "shared/registration_steps", :current_step => 1 %>
   <% end %>
 
   <div id="left">
@@ -36,7 +36,7 @@
             <%= submit_tag 'Submit' -%>
           </div>
           <div class="skip">
-            <%= link_to 'Skip', family_registration? ? import_media_moments_path : family_relations_families_url %>
+            <%= link_to 'Skip', family_registration? ? import_media_moments_url : family_relations_families_url %>
           </div>
         </div>
       <% end %>
@@ -79,3 +79,4 @@
   
 </script>
 
+<script type="text/javascript" src="/js/remove_placeholders.js"></script>
