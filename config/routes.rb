@@ -33,6 +33,10 @@ end
     end
   end
 
+  resources :questions do
+    get :index
+  end
+
 
   match "upload_image" => "uploaded_images#update", :as => :upload_image
   get "upload_image/index" => "uploaded_images#index", :as => :upload_image_index

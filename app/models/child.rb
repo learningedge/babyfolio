@@ -31,6 +31,16 @@ class Child < ActiveRecord::Base
     
   end
 
+  def months_old
+    date = self.birth_date.to_date 
+    mnths = 0;
+    while date < Date.today
+      date + 1.month;
+      mnths += 1
+    end
+    return mnths
+  end
+
   def age_text
     distance_in_days = (Date.today - self.birth_date.to_date).to_i
     case distance_in_days
