@@ -12,6 +12,15 @@ class HomeController < ApplicationController
   end
 
   def socials
+    file = Excel.new("ProfileQs.xls")
+    file.default_sheet = file.sheets.at(1)
+    @array = Array.new
+    2.upto(file.last_row) do |line|
+      type   = file.cell(line,'C')
+      desc   = file.cell(line,'F')
+      number = file.cell(line,'J')
+      @array << { :type => type, :desc => desc, :number => number }
+    end
   end
 
   def upload_image
