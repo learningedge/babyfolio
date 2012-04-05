@@ -3,7 +3,7 @@ require "open-uri"
 class Child < ActiveRecord::Base
 
   include ActionView::Helpers::TextHelper
-
+ 
   attr_accessor :profile_image
 
   belongs_to :family
@@ -15,12 +15,32 @@ class Child < ActiveRecord::Base
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment
   has_many :moments
+  has_many :answers
+  has_many :questions, :through => :answers
 
 #accepts_nested_attributes_for :attachment, :allow_destroy => true
 # accepts_nested_attributes_for :media, :allow_destroy => true
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true
+
+  GENDERS = {
+    'Male' => 'male',
+    'Female' => 'female'
+  }
+
+  FORMS = {
+    /(#)+he\/she#/ => ['he', 'she'],
+    /(#)+He\/She(#)+/ => ['He', 'She'],
+    /(#)+his\/her(#)+/ => ['his', 'her'],
+    /(#)+His\/Her(#)+/ => ['His', 'Her'],
+    /(#)+him\/her(#)+/ => ['him', 'her'],
+    /(#)+Him\/Her(#)+/ => ['Him', 'Her'],
+    /(#)+his\/hers(#)+/ => ['his', 'hers'],
+    /(#)+His\/Hers(#)+/ => ['His', 'Hers'],
+    /(#)+himself\/herself(#)+/ => ['himself', 'herself'],
+    /(#)+Himself\/Herself(#)+/ => ['Himself', 'Herself']
+  }
 
 
   def formated_birth_date
@@ -32,14 +52,25 @@ class Child < ActiveRecord::Base
   end
 
   def months_old
-    date = self.birth_date.to_date 
     mnths = 0;
-    while date < Date.today
-      date + 1.month;
+    while (self.birth_date + mnths.months) < Date.today do
       mnths += 1
     end
     return mnths
   end
+
+  def replace_question_forms(question_text)
+      FORMS.each do |key, val|
+        question_text = question_text.gsub(key, val[gender_index])
+      end
+      question_text      
+  end
+
+  def gender_index
+    @index ||= (gender == 'male' ? 0 : 1);
+  end
+
+
 
   def age_text
     distance_in_days = (Date.today - self.birth_date.to_date).to_i

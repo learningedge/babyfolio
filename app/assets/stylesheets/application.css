@@ -527,3 +527,16 @@ div.submit {float:left;margin-right:20px}
 .children #top_container { border-radius: 18px 18px 0 0; height: 13px; position:relative;}
 .children #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}
 
+/* QUESTIONAIRE */
+
+.single_question_category { margin-bottom: 30px; }
+.question_category_title { font-weight: bold; font-size: 18px; margin: 20px 0 10px; }
+.single_question { width: 500px; }
+.question_answers { margin: 10px 0 30px }
+.question_text { font-style: italic; font-weight: bold; line-height: 18px; }
+.user-form label.question_radio_label { font-size: 13px; margin-right: 15px; }
+/*#qustionaire .age {position: relative}*/
+#questionaire.user-form { padding-right: 40px; width: 700px;}
+#questionaire h2 { margin-bottom: 20px; }
+#questionaire .submit { margin-left: 0 }
+#wrraper .container #left.left_question {width: 100px; float: left;}

@@ -1,0 +1,77 @@
+<div class="container">
+  <div id="left" class="left_question">
+    <div id="title">Children Questionaire</div>
+  </div>
+
+  <div id="questionaire" class="user-form">
+    <h2>Questions for <%= @child.first_name %></h2>
+
+    <%= form_tag complete_questionnaire_url, :class => "questions_form" do %>
+      <% @categories_with_questions.each do |cat|  %>
+        <div class="single_question_category">
+          <div class="question_category_title"><%= cat[:category] %></div>
+
+          <% questions_by_age = cat[:questions].group_by{|qu| qu.age} %>
+          <% questions_age = questions_by_age.collect{|ky, vl| ky}.first %>
+
+          <% questions_by_age.sort_by{|key,val| key}.each do |k,v|  %>
+            <div class="age<%= " hidden" if k != questions_age -%> age_<%= %>">
+              
+              <% v.each do |q| %>                
+                <div class="single_question" >
+                  <%= hidden_field_tag "question_ids[]", q.id %>
+                  <span class="question_text">[<%= q.age %>] <%= @child.replace_question_forms(q.text) %></span>
+
+                  <div class="question_answers">
+                    <% Question.answers_in_order.each do |key, value| %>
+                      <label class="question_radio_label"><%= radio_button_tag 'question_answers[' + q.id.to_s + ']', key, false, :class => "answer_radio"  %> <%= value[:val] %></label>
+                    <% end %>
+                  </div>
+
+                </div>
+              <% end %>
+
+
+            </div>
+          <% end %>
+
+
+        </div>
+      <% end %>
+
+      <%= hidden_field_tag 'next_child', @next_child if @next_child %>
+      <%= hidden_field_tag 'current_child', @current_child %>
+      <div class="submit">
+        <%= submit_tag (@next_child != nil ? "Next child" : "Submit answers")  %>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.answer_radio').change(function() {      
+      if( beyond_always_selected_for_age( $(this).parents('.age'))  ) {
+        if($(this).parents('.age').next('.age').length > 0) {
+            $(this).parents('.age').next('.age').slideDown().removeClass('hidden');
+        }
+      }
+    });
+
+    $('.questions_form').submit(function() {
+      $(this).find('.age:hidden').remove();
+    });
+  });
+
+  function beyond_always_selected_for_age(age) {
+    var is_beyond = false;
+    var questions = $(age).find('.single_question');
+    if ($(age).find('.answer_radio[value="always_or_beyond"]:checked').length == questions.length){
+        is_beyond = true;
+    }    
+    return is_beyond;
+  }
+
+</script>

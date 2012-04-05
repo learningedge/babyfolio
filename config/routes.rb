@@ -33,11 +33,9 @@ end
     end
   end
 
-  resources :questions do
-    get :index
-  end
-
-
+  get "questions" => "questions#index"  
+  post "complete_questionnaire" => "questions#complete_questionnaire"
+  
   match "upload_image" => "uploaded_images#update", :as => :upload_image
   get "upload_image/index" => "uploaded_images#index", :as => :upload_image_index
 
