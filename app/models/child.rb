@@ -15,7 +15,8 @@ class Child < ActiveRecord::Base
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment
   has_many :moments
-  has_many :answers
+  has_many :scores
+  has_many :answers, :through => :scores
   has_many :questions, :through => :answers
 
 #accepts_nested_attributes_for :attachment, :allow_destroy => true
@@ -63,13 +64,12 @@ class Child < ActiveRecord::Base
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
       end
-      question_text      
+      return question_text
   end
 
   def gender_index
     @index ||= (gender == 'male' ? 0 : 1);
   end
-
 
 
   def age_text

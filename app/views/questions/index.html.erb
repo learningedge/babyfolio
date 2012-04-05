@@ -19,7 +19,7 @@
               
               <% v.each do |q| %>                
                 <div class="single_question" >
-                  <%= hidden_field_tag "question_ids[]", q.id %>
+                  <%#= hidden_field_tag "question_ids[]", q.id %>
                   <span class="question_text">[<%= q.age %>] <%= @child.replace_question_forms(q.text) %></span>
 
                   <div class="question_answers">
@@ -42,7 +42,7 @@
       <%= hidden_field_tag 'next_child', @next_child if @next_child %>
       <%= hidden_field_tag 'current_child', @current_child %>
       <div class="submit">
-        <%= submit_tag (@next_child != nil ? "Next child" : "Submit answers")  %>
+        <%= submit_tag (@next_child != nil ? "Submit & go next" : "Submit answers")  %>
       </div>
     <% end %>
 
