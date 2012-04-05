@@ -5,6 +5,45 @@ class MomentsController < ApplicationController
   before_filter :require_family_with_child
   skip_before_filter :clear_family_registration, :only => [:import_media]
 
+
+  def index
+
+  end
+
+  def new
+    
+    @moment = Moment.new
+    @child = Child.find(params[:child_id]);
+    
+  end
+
+  def create
+    
+  end
+  
+
+  def change_provider
+    
+    render :partial => "facebook/select_facebook_photos" if params[:provider] == 'facebook'
+    render :partial => "flickr/select_flickr_photos" if params[:provider] == "flickr"
+    render :partial => "uploaded_images/select_uploaded_images" if params[:provider] == 'uploaded-images'
+    render :partial => "youtube/select_youtube_videos" if params[:provider] == 'youtube'
+    render :partial => "vimeo/multiselect_vimeo_videos" if params[:provider] == 'vimeo'
+    
+  end
+
+  def edit
+    
+  end
+
+  def create
+    
+  end
+
+  def destroy
+    
+  end
+
   def import_media
     @family_children = my_family.children
     params[:child_id] ||= @family_children.first.id
@@ -54,21 +93,7 @@ class MomentsController < ApplicationController
      
   end
 
-  def index
-  end
 
-  def new
-  end
 
-  def edit
-  end
-
-  def create
-  end
-
-  def destroy
-  end
-
-  private 
 
 end

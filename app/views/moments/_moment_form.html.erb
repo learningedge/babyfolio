@@ -1,0 +1,173 @@
+<div class="container settings edit-moment">
+
+  <%= form_for @moment do |f| %>
+
+    <div id="left">
+
+      <div id="selected-media">
+        <h2 class="no-media">Selected</h2>
+      </div>
+
+    </div>
+
+    <div class="user-form">
+      <div id="top-socials-navigation">
+        <a href="#" class="provider active" provider="uploaded-images">Uploaded Photos</a>
+        <a href="#" class="provider" provider="facebook">Facebook</a>
+        <a href="#" class="provider" provider="flickr">Flickr</a>
+        <a href="#" class="provider" provider="vimeo">Vimeo</a>
+        <a href="#" class="provider" provider="youtube">Youtube</a>
+      </div>
+
+      <div class="media-form-container">
+        <div class="media-form">
+
+          <script type="text/javascript">
+
+            function addSelectedImage(object){
+
+              if ($('#selected-media #'+ object.attr('id')).length == 0) {
+
+                if (object.hasClass('facebook-image')){var input = '<input type="hidden" name="facebook_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+object.attr('id')+'"/>'; var type = 'image';}
+                else if (object.hasClass('flickr-image')){var input = '<input type="hidden" name="flickr_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+object.attr('id')+'"/>';var type = 'image';}
+                else if (object.hasClass('vimeo-video')){var input = '<input type="hidden" name="vimeo_videos[]" value="'+object.attr('id')+'" />'; var type = 'video';}
+                else if (object.hasClass('youtube-video')){var input = '<input type="hidden" name="youtube_videos[]" value="'+ object.attr('id') +'" />'; var type = 'video';}
+                else {var input = '<input type="hidden" name="uploaded_images_pids[]" value="'+object.attr("id")+'"/>';var type = 'image';}
+
+                var clone = object.clone();
+                clone.append(input);
+                clone.attr("type",type);
+                $('#selected-media').append(clone);
+
+              }
+
+            }
+
+            $('#selected-media > *').live('click',function(){
+              $(this).remove();
+            })
+
+          </script>
+
+          <div class="preloader media-form-preloader"></div>
+
+          <div class="provider-container multiselect" id="uploaded-images-ajax-container" class="">
+            <%= render :partial => 'uploaded_images/select_uploaded_images' %>
+          </div>
+
+          <div class="provider-container multiselect" id="facebook-ajax-container"></div>
+          <div class="provider-container multiselect" id="flickr-ajax-container"></div>
+          <div class="provider-container multiselect" id="vimeo-ajax-container"></div>
+          <div class="provider-container multiselect" id="youtube-ajax-container"></div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="options">
+      
+      <div class="title">
+        <%= f.label :title -%>
+        <%= f.text_field :title -%>
+      </div>
+      
+      <div class="date">
+        <%= f.label :date -%>
+        <%= f.text_field :date -%>
+      </div>
+      
+    </div>
+
+    <%# categories section %>    
+    <script type="text/javascript">
+      function checkAll(){$('.categories .category input[type="checkbox"]').attr("checked",true);};
+    </script>
+    <div class="categories">
+
+      <div class="check-all">
+        <a href="#" onclick="checkAll();return false;">Check All</a>
+      </div>
+
+      <div class="category">
+        <%= label_tag :category_one, "A Striking Development" -%>
+        <%= check_box_tag :category_one -%>
+      </div>
+      
+      <div class="category">
+        <%= label_tag :category_two, "A Place, Thing or Situation of Interest" -%>
+        <%= check_box_tag :category_two -%>
+      </div>
+
+      <div class="category">
+        <%= label_tag :category_three, "Peaple/Relationships" -%>
+        <%= check_box_tag :category_three -%>
+      </div>
+    </div>
+    
+    
+
+
+
+    
+    <%= f.submit "Submit" -%>
+    
+  <% end %>
+
+  <script type="text/javascript">
+
+    $(function(){
+
+      $('#top-socials-navigation a.provider').click(function(){
+
+        if ($(this).hasClass('provider')){
+
+            $('#top-socials-navigation .provider').not(this).removeClass('active');
+            $(this).addClass('active');
+
+            provider = $(this).attr('provider');
+
+            if ($(".media-form #"+provider+"-ajax-container *").length > 0) {
+
+                $(".provider-container").not("#"+provider+"-ajax-container").hide();
+                $("#"+provider+"-ajax-container").show();
+
+            } else {
+
+                $('.provider').animate({opacity:0.2});
+                $('.provider').removeClass('provider');
+
+                $('.media-form .media-form-preloader').css({opacity:0}).show().animate({opacity:0.8});
+                $.post("<%= change_provider_new_moment_path -%>",{provider: provider},function(data){
+
+                  $('.media-form .preloader').stop().fadeOut();
+                  console.log($(".media-form #"+ provider +"-ajax-container"));
+                  $(".media-form #"+ provider +"-ajax-container").html(data);
+                  $(".provider-container").not("#"+provider+"-ajax-container").hide();
+                  $("#"+provider+"-ajax-container").show();
+                  $("#top-socials-navigation a").addClass('provider');
+                  $('.provider').animate({opacity:1});
+
+                });
+
+            }
+
+        }
+
+      });
+
+    });
+
+  </script>
+
+  <script type="text/javascript" src="/js/facebook_photos.js"></script>
+  <script type="text/javascript" src="/js/flickr.js"></script>
+  <script type="text/javascript" src="/js/vimeo_videos.js"></script>
+  <script type="text/javascript" src="/js/youtube_videos.js"></script>
+  
+  
+  
+</div>
+

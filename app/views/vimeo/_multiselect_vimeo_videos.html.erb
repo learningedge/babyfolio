@@ -30,7 +30,7 @@
 
       <% current_user.get_vimeo_videos.each do |video| %>
 
-      <span class="video">
+      <span class="video vimeo-video" id="<%= video["id"] -%>">
         <div>
 
     <div class="checkbox-radiobutton">
