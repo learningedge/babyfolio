@@ -16,19 +16,28 @@ $(function(){
 
       $('.multiselect .youtube .video').live("click",function(){
 
-	  if ($(this).find('input[type=checkbox]').attr('checked')) {
-	      
-              $(this).find('input[type=checkbox]').attr('checked',false)
-              $(this).removeClass('active');
+      if(typeof addSelectedImage == 'function'){
 
-	  } else {
+        addSelectedImage($(this));
+
+      } else {
+
+        if ($(this).find('input[type=checkbox]').attr('checked')) {
+
+                  $(this).find('input[type=checkbox]').attr('checked',false)
+                  $(this).removeClass('active');
+
+        } else {
+
+                  $(this).find('input[type=checkbox]').attr('checked',true);
+                  $(this).addClass('active');
+
+        }
+      }
+
       
-              $(this).find('input[type=checkbox]').attr('checked',true);
-              $(this).addClass('active');
 
-	  }
-
-      });
+    });
 
     $('.singleselect .youtube .video').live("click",function(){
 

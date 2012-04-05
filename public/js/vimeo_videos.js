@@ -16,17 +16,24 @@ $(function(){
 
       $('.multiselect .vimeo .video').live("click",function(){
 
-	  if ($(this).find('input[type=checkbox]').attr('checked')) {
-	      
-              $(this).find('input[type=checkbox]').attr('checked',false)
-              $(this).removeClass('active');
+      if(typeof addSelectedImage == 'function'){
+        addSelectedImage($(this));
+      } else {
 
-	  } else {
-      
-              $(this).find('input[type=checkbox]').attr('checked',true);
-              $(this).addClass('active');
+        if ($(this).find('input[type=checkbox]').attr('checked')) {
 
-	  }
+                  $(this).find('input[type=checkbox]').attr('checked',false)
+                  $(this).removeClass('active');
+
+        } else {
+
+                  $(this).find('input[type=checkbox]').attr('checked',true);
+                  $(this).addClass('active');
+
+        }
+
+      }
+
 
       });
 

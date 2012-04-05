@@ -5,6 +5,7 @@ class UploadedImagesController < ApplicationController
     @one_image = Media.find(params[:id])
 
     render :index, :layout => false
+    
   end
 
   def update

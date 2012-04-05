@@ -1,12 +1,16 @@
 Babyfolio::Application.routes.draw do
 
-resources :moments do 
-    collection do
-      match :import_media
-      post :create_from_media
-    end
-end
-
+  resources :moments, :except => [:new] do    
+      new do
+        get ':child_id' => "moments#new", :as => :child
+        post :change_provider
+      end
+      
+      collection do
+        match :import_media
+        post :create_from_media        
+      end
+  end
 
   resources :youtube, :only => [:new] do
     new do

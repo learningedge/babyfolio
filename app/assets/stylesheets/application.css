@@ -540,3 +540,38 @@ div.submit {float:left;margin-right:20px}
 #questionaire h2 { margin-bottom: 20px; }
 #questionaire .submit { margin-left: 0 }
 #wrraper .container #left.left_question {width: 100px; float: left;}
+
+/******************* MOMENTS *********************/
+
+.edit-moment {}
+.edit-moment .user-form{width: 790px;padding:0;overflow:hidden}
+.edit-moment .user-form #top-socials-navigation {background-color:#c8ba7b;height:30px;line-height:30px;text-align:right}
+.edit-moment .user-form #top-socials-navigation a {display:inline-block;padding:0 10px;color:#713500;text-decoration:none}
+.edit-moment .user-form #top-socials-navigation a:hover,
+.edit-moment .user-form #top-socials-navigation a.active {background-color:#e8e3c0;color:#555555}
+
+.edit-moment #selected-media {background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);text-align:center}
+.edit-moment #selected-media h2 {font: 30px 'helvetica_seven';color:#555555}
+.edit-moment #selected-media span {display:inline-block;margin:4px;position:relative}
+.edit-moment #selected-media span .thumb{border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
+.edit-moment #selected-media span.image .thumb {width:75px;height:75px;}
+.edit-moment #selected-media span.video .thumb {width:120px;height:90px}
+.edit-moment #selected-media span.image .remove,
+.edit-moment #selected-media span.video .remove {position:absolute;display:none}
+.edit-moment #selected-media span.image:hover .remove{display:block}
+.edit-moment #selected-media span.video:hover .remove{display:block}
+.edit-moment #selected-media span.video .checkbox-radiobutton {display:none}
+.edit-moment #selected-media span .title{display:none}
+.edit-moment .media-form-container {padding: 8px 20px 30px 50px}
+.edit-moment .media-form-container .media-form {position:relative}
+.edit-moment .media-form-container .media-form .preloader {width:100%;height:100%;background-position:50% 50%;z-index:100;position:absolute;background-color:#e8e3c0;display:none}
+.edit-moment .media-form-container .media-form #facebook-ajax-container,
+.edit-moment .media-form-container .media-form #flickr-ajax-container,
+.edit-moment .media-form-container .media-form #youtube-ajax-container,
+.edit-moment .media-form-container .media-form #vimeo-ajax-container {display:none}
+.edit-moment .media-form-container .media-form #uploaded-images-ajax-container #selected-uploaded-images-photos,
+.edit-moment .media-form-container .media-form #facebook-ajax-container #selected-facebook-photos,
+.edit-moment .media-form-container .media-form #flickr-ajax-container #selected-flickr-photos {display:none}
+.edit-moment .media-form-container .media-form #uploaded-images-ajax-container .uploaded-images-grid,
+.edit-moment .media-form-container .media-form #facebook-ajax-container .facebook-grid,
+.edit-moment .media-form-container .media-form #flickr-ajax-container .flickr-grid {width:700px}

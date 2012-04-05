@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322102930) do
+ActiveRecord::Schema.define(:version => 20120405090613) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "media_id"
@@ -40,14 +40,27 @@ ActiveRecord::Schema.define(:version => 20120322102930) do
   create_table "media", :force => true do |t|
     t.string   "media_id"
     t.string   "type"
-    t.datetime "image_updated_at"
     t.string   "image_content_type"
-    t.string   "image_file_name"
     t.integer  "image_file_size"
+    t.string   "image_file_name"
+    t.datetime "image_updated_at"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "image_remote_url"
     t.integer  "user_id"
+  end
+
+  create_table "moment_tags", :force => true do |t|
+    t.string   "name"
+    t.string   "require_level_afinity"
+    t.string   "value_type"
+    t.string   "value_range"
+    t.string   "parent_question"
+    t.string   "child_question"
+    t.string   "statement"
+    t.integer  "category_tag_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "moments", :force => true do |t|
@@ -55,6 +68,15 @@ ActiveRecord::Schema.define(:version => 20120322102930) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "child_id"
+    t.date     "date"
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "category"
+    t.text     "text"
+    t.integer  "age"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "relations", :force => true do |t|
@@ -108,10 +130,10 @@ ActiveRecord::Schema.define(:version => 20120322102930) do
     t.datetime "updated_at",                             :null => false
     t.date     "current_login_at"
     t.boolean  "email_confirmed",     :default => false
-    t.integer  "avatar_file_size"
-    t.string   "avatar_file_name"
     t.datetime "avatar_updated_at"
+    t.string   "avatar_file_name"
     t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
   end
 
 end

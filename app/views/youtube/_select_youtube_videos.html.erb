@@ -21,7 +21,7 @@
 
       <% current_user.youtube_user.my_videos.videos.each do |video| %>
 
-      <span class="video">
+      <span class="video youtube-video" id="<%= video.unique_id -%>">
         <div>
 
     <div class="checkbox-radiobutton">
