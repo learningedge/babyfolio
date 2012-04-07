@@ -1,6 +1,6 @@
 class ConfirmationController < ApplicationController
 
-  before_filter :require_user, :only => [:index, :re_send_email, :confirm_email]
+  before_filter :require_user, :only => [:index, :re_send_email]
 
   def index
     @user = current_user
@@ -16,12 +16,14 @@ class ConfirmationController < ApplicationController
     @token = params[:token]
     @user = User.find_by_perishable_token @token
     if @user.nil?
-      flash[:error] = "We can't find the user, try resend email"
+      flash[:error] = "We can't find the user, try resending email"
       redirect_to confirmation_path
     else
       @user.email_confirmed = 1
       @user.save
+      UserSession.create(@user)
       @user.reset_perishable_token!
+      flash[:notice] = "Email successfuly confirmed."
       redirect_to new_family_url
     end
   end
@@ -52,7 +54,7 @@ class ConfirmationController < ApplicationController
     UserSession.create(@relation.user)
     session[:curent_family] = @relation.family_id
     rescue NoMethodError
-      flash[:notice] = "Ooooooooops, there's something wrong with your invitation."
+      flash[:notice] = "Ooooooooops, there is something wrong with your invitation."
       redirect_to login_url
   end
 

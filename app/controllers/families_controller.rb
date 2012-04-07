@@ -11,6 +11,7 @@ class FamiliesController < ApplicationController
   end
 
   def new
+    session[:is_registration] = true
     @family = Family.new
     10.times {
       @family.children.build
@@ -20,7 +21,7 @@ class FamiliesController < ApplicationController
   end
 
   def create
-    session[:is_registration] = true;
+    session[:is_registration] = true
 
     parents_count = 2;
     @family = Family.new(params['family'])
