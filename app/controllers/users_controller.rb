@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @accept_terms = false
-    @newsletter = false
   end
 
   def create
@@ -16,7 +15,6 @@ class UsersController < ApplicationController
     @user.reset_perishable_token
     @user.reset_single_access_token
     @accept_terms = params[:accept_terms] || false
-    @newsletter = params[:newsletter] || false
     
     # Saving without session maintenance to skip
     # auto-login which can't happen here because

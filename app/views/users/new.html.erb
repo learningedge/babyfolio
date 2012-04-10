@@ -10,8 +10,8 @@
 	<% end %><br/><br/>
       </div>
       <div>
-	<%= label_tag "newsletter" do %>
-   	   <%= check_box_tag "newsletter", true, @newsletter %>
+	<%= f.label :newsletter do %>
+   	   <%= f.check_box :newsletter %>
    	   Singup to our newsletter.
 	<% end %><br/><br/>
       </div>
