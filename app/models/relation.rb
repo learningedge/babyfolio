@@ -57,4 +57,10 @@ class Relation < ActiveRecord::Base
   def get_member_type_name
     MEMBER_TYPE_NAME[self.member_type]
   end
+
+
+  def add_object_error(str)
+    errors[:base] << str
+  end
+
 end

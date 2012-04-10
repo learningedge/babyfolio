@@ -3,84 +3,98 @@
 
   <% unless @relation.accepted %>
 
-  <div class="user-form">
+    <div class="user-form">
 
-    <h2>Please fill up below form in order to confirm your account.</h2>
-    <%= render "shared/error_messages", :target => @relation %>
+      <h2>Please fill up below form in order to confirm your account.</h2>
+      <%= render "shared/error_messages", :target => @relation %>
 
-  <%= form_for @relation, :url => confirmation_update_user_path, :method => :put do |f| %>
-    <%= f.hidden_field :token %>
-    <% if f.object.member_type != Relation::MEMBER_TYPE[:PARENT]  %>
+      <%= form_for @relation, :url => confirmation_update_user_path, :method => :put do |f| %>
+        <%= f.hidden_field :token %>
+        <% if f.object.member_type != Relation::MEMBER_TYPE[:PARENT]  %>
 
-    <div class="row">
-      <span class="label">
-        <%= f.label "Assigned relation" %>
-      </span>
-      <span class="field">
-	<%= f.label @relation.member_type, :class => "bold" %>
-        <%#= f.collection_select(:member_type , (Relation::MEMBER_TYPE.select { |key, val| key != :PARENT }).collect {|key, value| [value.capitalize, value]}, :last, :first) %>
-      </span>
-    </div>
-      
-    <% else %>
-      <%= f.hidden_field :member_type %>
-    <% end %>
-    <div class="row">
-      <span class="label">
-        <%= f.label :display_name %>
-      </span>
-      <span class="field">
-        <%= f.text_field :display_name %>
-      </span>
-    </div>
-    
-    <% unless f.object.user.email_confirmed  %>
-      <%= f.fields_for :user do |usr| %>
-        <%= usr.hidden_field :email %>
+          <div class="row">
+            <span class="label">
+              <%= f.label "Assigned relation" %>
+            </span>
+            <span class="field">
+              <%= f.label @relation.member_type, :class => "bold" %>
+      <%#= f.collection_select(:member_type , (Relation::MEMBER_TYPE.select { |key, val| key != :PARENT }).collect {|key, value| [value.capitalize, value]}, :last, :first) %>
+            </span>
+          </div>
+
+        <% else %>
+          <%= f.hidden_field :member_type %>
+        <% end %>
         <div class="row">
           <span class="label">
-            <%= usr.label :first_name %>
+            <%= f.label :display_name %>
           </span>
           <span class="field">
-            <%= usr.text_field :first_name, :value => @relation.user.email.split('@').first %>
+            <%= f.text_field :display_name %>
           </span>
         </div>
-        <div class="row">
-          <span class="label">
-            <%= usr.label :last_name %>
-          </span>
-          <span class="field">
-            <%= usr.text_field :last_name %>
-          </span>
+
+        <% unless f.object.user.email_confirmed  %>
+          <%= f.fields_for :user do |usr| %>
+            <%= usr.hidden_field :email %>
+            <div class="row">
+              <span class="label">
+                <%= usr.label :first_name %>
+              </span>
+              <span class="field">
+                <%= usr.text_field :first_name, :value => @relation.user.email.split('@').first %>
+              </span>
+            </div>
+            <div class="row">
+              <span class="label">
+                <%= usr.label :last_name %>
+              </span>
+              <span class="field">
+                <%= usr.text_field :last_name %>
+              </span>
+            </div>
+            <div class="row">
+              <span class="label">
+                <%= usr.label :password %>
+              </span>
+              <span class="field">
+                <%= usr.password_field :password %>
+              </span>
+            </div>
+            <div class="row">
+              <span class="label">
+                <%= usr.label :password_confirmation %>
+              </span>
+              <span class="field">
+                <%= usr.password_field :password_confirmation %>
+              </span>
+            </div>
+
+            <div>
+              <%= label_tag "accept_terms" do %>
+                <%= check_box_tag "accept_terms", true, @accept_terms %>
+                     Agree to the terms of service. You agree that and that and that and the text can be as long as you like. Whatever terms of service have to be aggred to prior to further usage of Babyfolio application.
+              <% end %><br/><br/>
+            </div>
+            <div>
+              <%= usr.label :newsletter do %>
+                <%= usr.check_box :newsletter %>
+                     Singup to our newsletter.
+              <% end %><br/><br/>
+            </div>
+
+          <% end %>
+        <% end %>
+        <div class="submit">
+          <%= f.submit "Submit" %>
         </div>
-        <div class="row">
-          <span class="label">
-            <%= usr.label :password %>
-          </span>
-          <span class="field">
-            <%= usr.password_field :password %>
-          </span>
-        </div>
-        <div class="row">
-          <span class="label">
-            <%= usr.label :password_confirmation %>
-          </span>
-          <span class="field">
-            <%= usr.password_field :password_confirmation %>
-          </span>
-        </div>
+
       <% end %>
-    <% end %>
-    <div class="submit">
-      <%= f.submit "Submit" %>
     </div>
-    
-  <% end %>
-  </div>
 
-<%  else %>
-  <h2>You have already accepted invitation.</h2>
-<% end %>
+  <%  else %>
+    <h2>You have already accepted invitation.</h2>
+  <% end %>
   <div class="clear"></div>
 </div>
 

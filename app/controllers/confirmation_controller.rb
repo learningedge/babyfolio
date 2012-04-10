@@ -51,6 +51,7 @@ class ConfirmationController < ApplicationController
   def accept_invitation
     @token = params[:token]
     @relation = Relation.find_by_token(@token, :include => [:user])
+    @accept_terms = false
     UserSession.create(@relation.user)
     session[:curent_family] = @relation.family_id
     rescue NoMethodError
@@ -60,16 +61,30 @@ class ConfirmationController < ApplicationController
 
   def update_user    
     @relation = Relation.find_by_token(params[:relation][:token])
-    @relation.assign_attributes(params[:relation])    
-    
-    if @relation.save
-      flash[:notice] = "Your settings has been sucessfully updated."
-      @relation.user.update_attribute :email_confirmed, 1
-      @relation.update_attribute :accepted, 1
-      redirect_to child_profile_children_url
+    @relation.assign_attributes(params[:relation])
+    @accept_terms = params[:accept_terms] || false
+
+     if @relation.valid?
+      unless params[:accept_terms]
+        @relation.add_object_error('You need to accept terms of service before proceeding')
+        flash[:notice] = "There was a problem with creating your account."
+        render :accept_invitation
+      else
+        @relation.save
+        flash[:notice] = "Your settings has been sucessfully updated."
+        @relation.user.update_attribute :email_confirmed, 1
+        @relation.update_attribute :accepted, 1
+        redirect_to child_profile_children_url
+      end
     else
-      render :accept_invitation
+        flash[:notice] = "There was a problem with creating your account."
+        render :accept_invitation
     end
+
+
+
+
+        
   end
   
 end
