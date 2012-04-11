@@ -51,7 +51,6 @@ class MomentsController < ApplicationController
 
     next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)
     next_child.nil? ? @next_child_name = "Save & Finish" : @next_child_name = "Go to #{next_child.first_name.capitalize}"
-
   end
 
   def create_from_media

@@ -9,6 +9,7 @@
   textarea {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);width:204px}
   input[type=submit],
   .preview-btn  {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven';text-align:center; cursor: pointer;display:block;text-decoration:none}
+  .title_row {margin-top: 5px;  }
   
 </style>
 
@@ -16,6 +17,10 @@
   <div class="column">
     <%= label_tag :file, "Select video: " -%>
     <%= file_field_tag :file %>
+    <div class="title_row">
+      <%= label_tag :title, "Video title: " -%>
+      <%= text_field_tag :title -%>
+    </div>
     <% if @error %>
       <div class="file-error"><%=  @error -%></div>
     <% end %>
