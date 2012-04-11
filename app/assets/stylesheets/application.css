@@ -184,10 +184,14 @@ hr { margin: 15px 0;  }
 #home #slider #welcome_container .container_right  #profile_form ul {list-style: none;}
 #home #slider #welcome_container .container_right  #profile_form ul li {display: inline;}
 #home #slider #welcome_container .container_right  #profile_form ul li input[type="text"] {width: 63px;border: none;font: 14px arial;padding:  2px 0 2px 10px}
-#home #slider #welcome_container .container_right  #profile_form ul li input[type="checkbox"] {margin: 19px 0 0 40px;}
+#home #slider #welcome_container .container_right  #profile_form ul li#gender_li {display: block; width: 200px; margin-left: 35px; margin-top: 10px;}
+#home #slider #welcome_container .container_right  #profile_form ul li#gender_li label {width: 50%;}
 #home #slider #welcome_container .container_right  #profile_form ul li:last-child input[type="checkbox"] {margin: 0 0 0 16px} 
 #home #slider #welcome_container .container_right  #profile_form ul li label {color:#fff;padding: 0 0 0 14px;}
 #home #slider #welcome_container .container_right  #profile_form a {display: block;text-align: center;width: 245px}
+#home #slider #welcome_container .container_right  #profile_form .submit { margin: 0 20px; display: inline-block; float: none; width:189px;height:80px;}
+#home #slider #welcome_container .container_right  #profile_form .submit input[type=submit] {background: url('/images/start_btn.png'); width:189px;height:80px;border:none;color:transparent; font: 16px/18px 'helvetica_seven'; cursor: pointer}
+
 #home #wrraper {background: #fff;border-radius: 0;-webkit-border-radius: 0px;-moz-border-radius: 0px;behavior: url(PIE/PIE.htc);width: 1016px;padding: 0 10px 0px}
 #home #wrraper #container_home {position: relative}
 #home #wrraper .shadow_left {background: url('/images/shadow_left.png') repeat-y 0 0;margin-left: -10px;padding-left: 10px}
@@ -392,6 +396,8 @@ div.user-form #login_left div.submit {margin-left: 80px;}
 
 /* .create-family */
 .create-family .user-form label {width:85px;display:inline-block;text-align:right}
+.create-family .user-form .child_file_filed { margin-top: 5px; }
+
 .create-family .user-form .single_child input.first_name_input {width:150px}
 .create-family .user-form .single_child input.birth_date_input {width:100px}
 .create-family .user-form div.submit {margin-left:89px}

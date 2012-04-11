@@ -9,7 +9,7 @@ class ForgotPasswordsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     if @user
-      flash[:notice] = "Pleace check your email with proceed."
+      flash[:notice] = "Check your email for further instructions for your password reset."
       @user.reset_perishable_token!
       UserMailer.forgot_password(@user).deliver
       redirect_to new_forgot_password_url

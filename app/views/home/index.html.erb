@@ -15,14 +15,14 @@
     </div>
   </div>
   <div id="login_box">
-      <ul>
-        <li><a href="#">About Us</a><span>|</span></li>
-        <li><a href="#">Take a Tour</a><span>|</span></li>
-        <li><a href="<%= signup_path %>">Sign Up</a><span>|</span></li>
-        <li><a href="<%= login_path %>">Sign In</a></li>
-      </ul>
-   </div>
-  
+    <ul>
+      <li><a href="#">About Us</a><span>|</span></li>
+      <li><a href="#">Take a Tour</a><span>|</span></li>
+      <li><a href="<%= signup_path %>">Sign Up</a><span>|</span></li>
+      <li><a href="<%= login_path %>">Sign In</a></li>
+    </ul>
+  </div>
+
   <div id="slider">
     <div id="welcome_container">
       <div class="container_left">
@@ -37,25 +37,40 @@
       <div class="container_right">
         <div id="profile_logo"></div>
         <div id="profile_form">
-          <p>
-            Find out about your child's Striking 
-            development in language,</br> 
-            logic and more!
-          </p>
-          <p>
-            Give us 5 minutes and we'll give you </br> insights into your child's
-            unique story.</br>
-            <a href="#">Find Out More</a>
-          </p>
-          <h3>Enter your Child's Birth Date:</h3>
-          <ul>
-            <li><input type="text" placeholder="Date"/></li>
-            <li><input type="text" placeholder="Month"/></li>
-            <li><input type="text" placeholder="Year"/></li>
-            <li><input type="checkbox" name="male"/><label for="male">Male</label></li>
-            <li><input type="checkbox" name="gemale"/><label for="female">Female</label></li>
-          </ul>
-          <a href="#"><img src="/images/start_btn.png" alt="start_profile" /></a>
+          <%= form_tag signup_url do %>
+            <p>
+              Find out about your child's Striking
+              development in language,</br>
+              logic and more!
+            </p>
+            <p>
+              Give us 5 minutes and we'll give you </br> insights into your child's
+              unique story.</br>
+              <a href="#">Find Out More</a>
+            </p>
+            <h3>Enter your Child's Birth Date:</h3>
+            <ul>
+              <li><input type="text" placeholder="Day" id="birth_day" name="birth_day"/></li>
+              <li><input type="text" placeholder="Month" id="birth_month" name="birth_month"/></li>
+              <li><input type="text" placeholder="Year" id="birth_year" name="birth_year"/></li>
+              <li id="gender_li">
+                <label for="male"><input type="radio" name="gender" value="male" id="male"/> Male</label>
+                <label for="female"><input type="radio" name="gender" value="female" id="female"/> Female</label>
+              </li>
+            </ul>
+
+            <script type="text/javascript">
+              $(function() {
+                $('#birth_day').jStepper({minValue:1, maxValue:31, minLength: 1,allowDecimals: false, disableAutocomplete: true});
+                $('#birth_month').jStepper({minValue:1, maxValue:12, minLength: 1, allowDecimals: false,  disableAutocomplete: true});
+                $('#birth_year').jStepper({minLength: 4, minValue:1, maxValue: (new Date).getFullYear(), allowDecimals: false,});
+              });
+            </script>
+
+            <div class="submit">
+              <%= submit_tag " " %>              
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -111,35 +126,35 @@
   </div>
   <div id="footer">
     <div class="footer_container">
-    <div id="footer_left">
-      <div id="copyright">
-        Copyright &copy; 2011. Baby folio. All rights reserved.
+      <div id="footer_left">
+        <div id="copyright">
+          Copyright &copy; 2011. Baby folio. All rights reserved.
+        </div>
+        <div id="footer_link">
+          <ul>
+            <li><a href="#">Home<span>|</span></a></li>
+            <li><a href="#">Blog<span>|</span></a></li>
+            <li><a href="#">About Us<span>|</span></a></li>
+            <li><a href="#">Contact Us<span>|</span></a></li>
+            <li><a href="#">Privacy<span>|</span></a></li>
+            <li><a href="#">Site Map<span>|</span></a></li>
+            <li><a href="#">Resources<span>|</span></a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
       </div>
-      <div id="footer_link">
-        <ul>
-          <li><a href="#">Home<span>|</span></a></li>
-          <li><a href="#">Blog<span>|</span></a></li>
-          <li><a href="#">About Us<span>|</span></a></li>
-          <li><a href="#">Contact Us<span>|</span></a></li>
-          <li><a href="#">Privacy<span>|</span></a></li>
-          <li><a href="#">Site Map<span>|</span></a></li>
-          <li><a href="#">Resources<span>|</span></a></li>
-          <li><a href="#">Help</a></li>
-        </ul>
+      <div id="footer_right">
+        <div id="social_links">
+          <span>Follow us on</span>
+          <ul>
+            <li><a href="#"><img src="/images/twitter.png" alt="" /></a></li>
+            <li><a href="#"><img src="/images/facebook.png" alt="" /></a></li>
+            <li><a href="#"><img src="/images/sweetbook.png" alt="" /></a></li>
+            <li><a href="#"><img src="/images/rss.png" alt="" /></a></li>
+          </ul>
+        </div>
       </div>
+      <div id="clear"></div>
     </div>
-    <div id="footer_right">
-      <div id="social_links">
-        <span>Follow us on</span>
-        <ul>
-          <li><a href="#"><img src="/images/twitter.png" alt="" /></a></li>
-          <li><a href="#"><img src="/images/facebook.png" alt="" /></a></li>
-          <li><a href="#"><img src="/images/sweetbook.png" alt="" /></a></li>
-          <li><a href="#"><img src="/images/rss.png" alt="" /></a></li>
-        </ul>
-      </div>
-    </div>
-    <div id="clear"></div>
   </div>
- </div>
 </div>
