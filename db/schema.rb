@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411130643) do
+ActiveRecord::Schema.define(:version => 20120412085031) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -65,13 +65,11 @@ ActiveRecord::Schema.define(:version => 20120411130643) do
     t.string   "value_type"
     t.string   "value_range"
     t.string   "parent_question"
-    t.string   "child_question"
-    t.string   "statement"
-    t.integer  "category_tag_id"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
     t.integer  "moment_tag_id"
     t.integer  "level"
+    t.string   "level_hierarchy"
   end
 
   create_table "moments", :force => true do |t|
@@ -155,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20120411130643) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.boolean  "newsletter",          :default => false
+    t.text     "child_info"
   end
 
 end
