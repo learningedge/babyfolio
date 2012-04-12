@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base    
 
+  serialize :child_info
+
   acts_as_authentic do |t|
     t.ignore_blank_passwords = true;
   end

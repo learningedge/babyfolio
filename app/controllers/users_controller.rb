@@ -6,7 +6,16 @@ class UsersController < ApplicationController
   before_filter :require_family, :only => [:show]
 
   def new
-    @user = User.new
+    @user = User.new    
+    y = params[:birth_year].to_i
+    m = params[:birth_month].to_i
+    d = params[:birth_day].to_i
+    if d && m && y
+      date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d)
+      session[:child_birth_date] = date
+    end
+    session[:child_gender] = params[:gender]
+    
     @accept_terms = false
   end
 
@@ -24,7 +33,13 @@ class UsersController < ApplicationController
         @user.add_object_error('You need to accept terms of service before proceeding')
         flash[:notice] = "There was a problem creating your account."
         render :action => :new
-      else 
+      else
+        if session[:child_birth_date].present? && session[:child_gender].present?
+          @user.child_info = {:gender => session[:child_gender], :birth_date => session[:child_birth_date] }
+          session[:child_birth_date] = nil
+          session[:child_gender] = nil
+        end
+        
         @user.save
         UserMailer.confirmation_email(@user).deliver
 

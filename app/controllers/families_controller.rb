@@ -16,6 +16,10 @@ class FamiliesController < ApplicationController
     10.times {
       @family.children.build
     }
+    if current_user.child_info
+      @family.children.first.birth_date = current_user.child_info[:birth_date]
+      @family.children.first.gender = current_user.child_info[:gender]
+    end
     @family.relations.build :user => User.new(:email => current_user.email), :member_type => 'parent'
     @family.relations.build :user => User.new, :member_type => 'parent'
   end
@@ -60,7 +64,8 @@ class FamiliesController < ApplicationController
           second_relation = @family.relations.fetch(1)
           UserMailer.invite_user(second_relation , current_user).deliver
         end
-        
+
+        current_user.update_attribute(:child_info, nil)
         flash[:notice] = 'Family has been successfully created.'
         session[:current_family] = @family.id
         format.html { redirect_to add_family_families_path }
