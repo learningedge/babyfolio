@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405113850) do
+ActiveRecord::Schema.define(:version => 20120411130643) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20120405113850) do
     t.datetime "updated_at",  :null => false
     t.integer  "score_id"
   end
-
 
   create_table "attachments", :force => true do |t|
     t.integer  "media_id"
@@ -62,15 +61,17 @@ ActiveRecord::Schema.define(:version => 20120405113850) do
 
   create_table "moment_tags", :force => true do |t|
     t.string   "name"
-    t.string   "require_level_afinity"
+    t.string   "require_level_affinity"
     t.string   "value_type"
     t.string   "value_range"
     t.string   "parent_question"
     t.string   "child_question"
     t.string   "statement"
     t.integer  "category_tag_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "moment_tag_id"
+    t.integer  "level"
   end
 
   create_table "moments", :force => true do |t|
@@ -79,14 +80,6 @@ ActiveRecord::Schema.define(:version => 20120405113850) do
     t.datetime "updated_at", :null => false
     t.integer  "child_id"
     t.date     "date"
-  end
-
-  create_table "questions", :force => true do |t|
-    t.string   "category"
-    t.text     "text"
-    t.integer  "age"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -161,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120405113850) do
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
+    t.boolean  "newsletter",          :default => false
   end
 
 end

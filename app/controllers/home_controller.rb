@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
 
   def socials
-#    @questions = Question.update_from_file('public/ProfileQs.xls')
+
   end
 
   def upload_image
