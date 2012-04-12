@@ -556,8 +556,8 @@ div.submit {float:left;margin-right:20px}
 .edit-moment .user-form #top-socials-navigation a:hover,
 .edit-moment .user-form #top-socials-navigation a.active {background-color:#e8e3c0;color:#555555}
 
-.edit-moment #selected-media {background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);text-align:center}
-.edit-moment #selected-media h2 {font: 30px 'helvetica_seven';color:#555555}
+.edit-moment #selected-media {background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(PIE/PIE.htc);text-align:center; margin-bottom: 3px;}
+.edit-moment #selected-media h2 {font: 24px 'helvetica_seven';color:#555555}
 .edit-moment #selected-media span {display:inline-block;margin:4px;position:relative}
 .edit-moment #selected-media span .thumb{border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
 .edit-moment #selected-media span.image .thumb {width:75px;height:75px;}
@@ -581,3 +581,25 @@ div.submit {float:left;margin-right:20px}
 .edit-moment .media-form-container .media-form #uploaded-images-ajax-container .uploaded-images-grid,
 .edit-moment .media-form-container .media-form #facebook-ajax-container .facebook-grid,
 .edit-moment .media-form-container .media-form #flickr-ajax-container .flickr-grid {width:700px}
+
+
+
+/* NEW MOMENTS */
+
+#new_moment_form { margin: 15px 0; }
+#new_moment_form input[type="text"] {  width:204px; }
+#new_moment_form textarea { width:513px; height: 100px; resize: vertical;}
+#new_moment_form input[type="text"],
+#new_moment_form textarea {font: 14px arial;color: #898989;padding: 7px 7px 7px 11px; border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);}
+#new_moment_form label {display:inline-block; width:65px; text-align:right; padding-right: 15px; color: #898989; font: 14px arial}
+#new_moment_form .title_property {float: left; margin-bottom: 20px; text-align: center; }
+#new_moment_form .description td { vertical-align: middle;  }
+
+#new_moment_form .options { float: left; margin-bottom: 20px; }
+#new_moment_form .categories { float: left; margin-left: 25px; }
+#new_moment_form .categories label { width: 250px; text-align: left; }
+#new_moment_form .categories #mom_tags_header { font: 18px arial; font-weight: bold; color: #898989; margin-bottom: 8px; }
+#new_moment_form .categories .category label{ margin: 5px; }
+#new_moment_form .categories .check-all { margin-bottom: 5px; }
+#new_moment_form .submit_wrapper { padding-left: 20px; margin-top: 15px; }
+#new_moment_form .new_moment_submit {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}

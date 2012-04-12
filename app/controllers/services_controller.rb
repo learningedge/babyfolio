@@ -150,7 +150,7 @@ class ServicesController < ApplicationController
       omniauth['extra']['access_token'].token ? @authhash[:token] = omniauth['extra']['access_token'].token : @authhash[:token] = ''
       omniauth['extra']['access_token'].secret ? @authhash[:secret] = omniauth['extra']['access_token'].secret : @authhash[:secret] = ''
 
-      @service = Service.find_or_create_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
+      @service = Service.find_or_create_by_provider_and_uid_and_user_id(@authhash[:provider], @authhash[:uid], current_user.id)
       @service.update_attributes :token => @authhash[:token], :uname => @authhash[:uname], :user_id => current_user.id, :secret => @authhash[:secret]
       @service.save
       

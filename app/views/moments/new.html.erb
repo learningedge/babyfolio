@@ -1,5 +1,7 @@
-<div>
+<div id="new_moment_wrapper">
+  <h1>Create new moment for <%= @child.first_name %></h1>
 
-  <%= render :partial => 'moment_form', :locals => {:child => @child} -%>
-  
+  <div id="new_moment_form">
+    <%= render :partial => 'moment_form', :locals => {:child => @child} -%>
+  </div>
 </div>

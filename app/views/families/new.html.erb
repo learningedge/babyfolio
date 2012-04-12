@@ -22,7 +22,7 @@
             <%= child_form.label :first_name, "First Name: "%>
             <%= child_form.text_field :first_name, :class => 'first_name_input' %>
             <%= child_form.label :birth_date, "Birth Date: "%>
-            <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date,  :class => 'birth_date_input' } %>
+            <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date, :readonly => true, :class => 'birth_date_input' } %>
             <%= child_form.label :gender, "Gender: "%>            
             <%= child_form.select :gender, options_for_select(Child::GENDERS, child_form.object.gender) %>
             <div class="child_file_filed">

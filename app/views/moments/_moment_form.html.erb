@@ -1,6 +1,67 @@
 <div class="container settings edit-moment">
 
+
   <%= form_for @moment do |f| %>
+    <%= hidden_field_tag 'cid', @child.id %>
+    <div class="options">
+
+      <div class="title_property">
+        <%= f.label :title -%>
+        <%= f.text_field :title -%>
+      </div>
+
+      <div class="date">
+        <%= f.label :date -%>
+        <%= f.text_field :date, :readonly => true, :class => 'moment_date_input' -%>
+      </div>
+
+      <div class="clear"></div>
+
+      <table class="description">
+        <tr>
+          <td>
+            <%= f.label :description -%>
+          </td>
+          <td>
+            <%= f.text_area :description -%>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  <%# categories section %>
+    <script type="text/javascript">
+      function checkAll(){$('.categories .category input[type="checkbox"]').attr("checked",true);};
+    </script>
+    <div class="categories">
+      <div id="mom_tags_header">Tag your moment:</div>      
+
+      <div class="category">
+        <%= label_tag :category_one do -%>
+          <%= check_box_tag :category_one -%> <span>A Striking Development</span>
+        <% end %>
+      </div>
+
+      <div class="category">
+        <%= label_tag :category_two do  -%>
+          <%= check_box_tag :category_two -%> <span>A Place, Thing or Situation of Interest</span>
+        <% end  %>
+      </div>
+
+      <div class="category">
+        <%= label_tag :category_three do -%>
+          <%= check_box_tag :category_three -%> <span>Peaple/Relationships</span>
+        <% end  %>
+      </div>
+
+      <div class="check-all">
+        <a href="#" onclick="checkAll();return false;">Select All</a>
+      </div>
+    </div>
+
+    <div class="clear"></div>
+
 
     <div id="left">
 
@@ -26,25 +87,25 @@
 
             function addSelectedImage(object){
 
-              if ($('#selected-media #'+ object.attr('id')).length == 0) {
+            if ($('#selected-media #'+ object.attr('id')).length == 0) {
 
-                if (object.hasClass('facebook-image')){var input = '<input type="hidden" name="facebook_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+object.attr('id')+'"/>'; var type = 'image';}
-                else if (object.hasClass('flickr-image')){var input = '<input type="hidden" name="flickr_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+object.attr('id')+'"/>';var type = 'image';}
-                else if (object.hasClass('vimeo-video')){var input = '<input type="hidden" name="vimeo_videos[]" value="'+object.attr('id')+'" />'; var type = 'video';}
-                else if (object.hasClass('youtube-video')){var input = '<input type="hidden" name="youtube_videos[]" value="'+ object.attr('id') +'" />'; var type = 'video';}
-                else {var input = '<input type="hidden" name="uploaded_images_pids[]" value="'+object.attr("id")+'"/>';var type = 'image';}
+            if (object.hasClass('facebook-image')){var input = '<input type="hidden" name="facebook_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+object.attr('id')+'"/>'; var type = 'image';}
+            else if (object.hasClass('flickr-image')){var input = '<input type="hidden" name="flickr_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+object.attr('id')+'"/>';var type = 'image';}
+            else if (object.hasClass('vimeo-video')){var input = '<input type="hidden" name="vimeo_videos[]" value="'+object.attr('id')+'" />'; var type = 'video';}
+            else if (object.hasClass('youtube-video')){var input = '<input type="hidden" name="youtube_videos[]" value="'+ object.attr('id') +'" />'; var type = 'video';}
+            else {var input = '<input type="hidden" name="uploaded_images_pids[]" value="'+object.attr("id")+'"/>';var type = 'image';}
 
-                var clone = object.clone();
-                clone.append(input);
-                clone.attr("type",type);
-                $('#selected-media').append(clone);
+            var clone = object.clone();
+            clone.append(input);
+            clone.attr("type",type);
+            $('#selected-media').append(clone);
 
-              }
+            }
 
             }
 
             $('#selected-media > *').live('click',function(){
-              $(this).remove();
+            $(this).remove();
             })
 
           </script>
@@ -67,96 +128,52 @@
 
     <div class="clear"></div>
 
-    <div class="options">
-      
-      <div class="title">
-        <%= f.label :title -%>
-        <%= f.text_field :title -%>
-      </div>
-      
-      <div class="date">
-        <%= f.label :date -%>
-        <%= f.text_field :date -%>
-      </div>
-      
-    </div>
+    <div class="submit_wrapper"><%= f.submit "Create moment", :class => "new_moment_submit" -%></div>
 
-    <%# categories section %>    
-    <script type="text/javascript">
-      function checkAll(){$('.categories .category input[type="checkbox"]').attr("checked",true);};
-    </script>
-    <div class="categories">
-
-      <div class="check-all">
-        <a href="#" onclick="checkAll();return false;">Check All</a>
-      </div>
-
-      <div class="category">
-        <%= label_tag :category_one, "A Striking Development" -%>
-        <%= check_box_tag :category_one -%>
-      </div>
-      
-      <div class="category">
-        <%= label_tag :category_two, "A Place, Thing or Situation of Interest" -%>
-        <%= check_box_tag :category_two -%>
-      </div>
-
-      <div class="category">
-        <%= label_tag :category_three, "Peaple/Relationships" -%>
-        <%= check_box_tag :category_three -%>
-      </div>
-    </div>
-    
-    
-
-
-
-    
-    <%= f.submit "Submit" -%>
-    
   <% end %>
 
   <script type="text/javascript">
 
     $(function(){
 
-      $('#top-socials-navigation a.provider').click(function(){
+    $('.moment_date_input').datepicker({ changeYear: true, maxDate: '+0'});
+    $('#top-socials-navigation a.provider').click(function(){
 
-        if ($(this).hasClass('provider')){
+    if ($(this).hasClass('provider')){
 
-            $('#top-socials-navigation .provider').not(this).removeClass('active');
-            $(this).addClass('active');
+    $('#top-socials-navigation .provider').not(this).removeClass('active');
+    $(this).addClass('active');
 
-            provider = $(this).attr('provider');
+    provider = $(this).attr('provider');
 
-            if ($(".media-form #"+provider+"-ajax-container *").length > 0) {
+    if ($(".media-form #"+provider+"-ajax-container *").length > 0) {
 
-                $(".provider-container").not("#"+provider+"-ajax-container").hide();
-                $("#"+provider+"-ajax-container").show();
+    $(".provider-container").not("#"+provider+"-ajax-container").hide();
+    $("#"+provider+"-ajax-container").show();
 
-            } else {
+    } else {
 
-                $('.provider').animate({opacity:0.2});
-                $('.provider').removeClass('provider');
+    $('.provider').animate({opacity:0.2});
+    $('.provider').removeClass('provider');
 
-                $('.media-form .media-form-preloader').css({opacity:0}).show().animate({opacity:0.8});
-                $.post("<%= change_provider_new_moment_path -%>",{provider: provider},function(data){
+    $('.media-form .media-form-preloader').css({opacity:0}).show().animate({opacity:0.8});
+    $.post("<%= change_provider_new_moment_path -%>",{provider: provider},function(data){
 
-                  $('.media-form .preloader').stop().fadeOut();
-                  console.log($(".media-form #"+ provider +"-ajax-container"));
-                  $(".media-form #"+ provider +"-ajax-container").html(data);
-                  $(".provider-container").not("#"+provider+"-ajax-container").hide();
-                  $("#"+provider+"-ajax-container").show();
-                  $("#top-socials-navigation a").addClass('provider');
-                  $('.provider').animate({opacity:1});
+    $('.media-form .preloader').stop().fadeOut();
+    console.log($(".media-form #"+ provider +"-ajax-container"));
+    $(".media-form #"+ provider +"-ajax-container").html(data);
+    $(".provider-container").not("#"+provider+"-ajax-container").hide();
+    $("#"+provider+"-ajax-container").show();
+    $("#top-socials-navigation a").addClass('provider');
+    $('.provider').animate({opacity:1});
 
-                });
+    });
 
-            }
+    }
 
-        }
+    }
 
-      });
+    });
 
     });
 
@@ -166,8 +183,8 @@
   <script type="text/javascript" src="/js/flickr.js"></script>
   <script type="text/javascript" src="/js/vimeo_videos.js"></script>
   <script type="text/javascript" src="/js/youtube_videos.js"></script>
-  
-  
-  
+
+
+
 </div>
 

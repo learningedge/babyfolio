@@ -6,6 +6,28 @@
 
 .htaccess
 public/.htaccess
+db/schema.rb
+Gemfile.lock
+/vendor
+
+
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+/.bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
+
+
 *~
 # Ignore bundler config
 /.bundle
