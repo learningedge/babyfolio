@@ -31,7 +31,7 @@ class Question < ActiveRecord::Base
     return @all_categories
   end
 
-  def self.get_questions_for_age age   
+  def self.get_questions_for_age age    
     hash = Hash.new
     get_all_categories.each do |category|
       hash[category] = for_age_and_category(age, category).all
