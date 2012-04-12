@@ -597,7 +597,7 @@ div.submit {float:left;margin-right:20px}
 
 #new_moment_form .options { float: left; margin-bottom: 20px; }
 #new_moment_form .categories { float: left; margin-left: 25px; }
-#new_moment_form .categories label { width: 250px; text-align: left; }
+#new_moment_form .categories label { width: 350px; text-align: left; }
 #new_moment_form .categories #mom_tags_header { font: 18px arial; font-weight: bold; color: #898989; margin-bottom: 8px; }
 #new_moment_form .categories .category label{ margin: 5px; }
 #new_moment_form .categories .check-all { margin-bottom: 5px; }

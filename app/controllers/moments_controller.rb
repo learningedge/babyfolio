@@ -31,7 +31,7 @@ class MomentsController < ApplicationController
       end    
       moment.save
       flash[:notice] = "Moment has been successfuly created."
-      redired_to child_profile_children_url
+      redirect_to child_profile_children_url
     else
       flash[:error] = "Can't create moments for children from someone else's family"
     end   

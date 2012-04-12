@@ -37,23 +37,14 @@
     <div class="categories">
       <div id="mom_tags_header">Tag your moment:</div>      
 
+      <% MomentTag.find_all_by_level(nil).each do |mt|  %>
       <div class="category">
-        <%= label_tag :category_one do -%>
-          <%= check_box_tag :category_one -%> <span>A Striking Development</span>
+        <%= label_tag mt.id do -%>
+          <%= check_box_tag mt.id -%> <span><%= mt.name %> </span>
         <% end %>
       </div>
 
-      <div class="category">
-        <%= label_tag :category_two do  -%>
-          <%= check_box_tag :category_two -%> <span>A Place, Thing or Situation of Interest</span>
-        <% end  %>
-      </div>
-
-      <div class="category">
-        <%= label_tag :category_three do -%>
-          <%= check_box_tag :category_three -%> <span>Peaple/Relationships</span>
-        <% end  %>
-      </div>
+      <% end %>      
 
       <div class="check-all">
         <a href="#" onclick="checkAll();return false;">Select All</a>
