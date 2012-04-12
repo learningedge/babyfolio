@@ -4,11 +4,13 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    You recently registered at Babyfolio using this email address. To confirm that this is your email address, click the link below:
-    <%=  @url %>
+    You recently registered at Babyfolio using this email address. To confirm that this is your email address, <a href="<%= @url %>">click here</a> or copy/paste below link:<br/><br/>
     <div>
-      <%= @user.email -%>
+      <%= @url %>
     </div>
+    <br/>
+    <br/>
+    <br/>
     Thanks! Babyfolio
   </body>
 </html>
