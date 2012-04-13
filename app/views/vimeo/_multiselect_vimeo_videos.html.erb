@@ -46,7 +46,8 @@
       <%= image_tag video["thumbnails"]["thumbnail"][1]["_content"] %>
     </div>
     <div class="title">
-      <%= video["title"] %>
+      <span class="media_title_text hidden"><%= video["title"] %></span>
+      <%= truncate(video["title"], :length => 20) -%>
     </div>
         </div>
       </span>

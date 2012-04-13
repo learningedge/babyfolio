@@ -17,14 +17,14 @@
           <% questions_by_age.sort_by{|key,val| key}.each do |k,v|  %>
             <div class="age<%= " hidden" if k != questions_age -%> age_<%= %>">
               
-              <% v.each do |q| %>                
-                <div class="single_question" >
-                  <%#= hidden_field_tag "question_ids[]", q.id %>
+              <% v.each do |q| %>               
+                <div class="single_question <%=  'questions_error' if @answers && @answers[q.id.to_s].blank? %>">
+                  <%= hidden_field_tag "question_ids[]", q.id %>
                   <span class="question_text">[<%= q.age %>] <%= @child.replace_question_forms(q.text) %></span>
-
+                  
                   <div class="question_answers">
-                    <% Question.answers_in_order.each do |key, value| %>
-                      <label class="question_radio_label"><%= radio_button_tag 'question_answers[' + q.id.to_s + ']', key, false, :class => "answer_radio"  %> <%= value[:val] %></label>
+                    <% Question.answers_in_order.each do |key, value| %>                    
+                      <label class="question_radio_label"><%= radio_button_tag 'question_answers[' + q.id.to_s + ']', key,  @answers ? @answers[q.id.to_s] == key : false , :class => "answer_radio"  %> <%= value[:val] %></label>
                     <% end %>
                   </div>
 
@@ -52,6 +52,14 @@
 
 <script type="text/javascript">
   $(function() {
+   $('.age').each(function() {
+      if( beyond_always_selected_for_age($(this)) ) {
+        if($(this).next('.age').length > 0) {
+            $(this).next('.age').show().removeClass('hidden');
+        }
+      }
+   });
+  
     $('.answer_radio').change(function() {      
       if( beyond_always_selected_for_age( $(this).parents('.age'))  ) {
         if($(this).parents('.age').next('.age').length > 0) {
@@ -63,7 +71,7 @@
     $('.questions_form').submit(function() {
       $(this).find('.age:hidden').remove();
     });
-  });
+  }); 
 
   function beyond_always_selected_for_age(age) {
     var is_beyond = false;

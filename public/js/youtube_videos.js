@@ -25,11 +25,13 @@ $(function(){
         if ($(this).find('input[type=checkbox]').attr('checked')) {
 
                   $(this).find('input[type=checkbox]').attr('checked',false)
+                  $(this).find('input[type=hidden]').remove();
                   $(this).removeClass('active');
 
         } else {
 
                   $(this).find('input[type=checkbox]').attr('checked',true);
+                  $(this).append('<input type="hidden" name="media_titles[]" value="'+ $(this).find('.media_title_text').html()+'"/>')
                   $(this).addClass('active');
 
         }
@@ -42,9 +44,11 @@ $(function(){
     $('.singleselect .youtube .video').live("click",function(){
 
       $('.singleselect .youtube .video input[type=checkbox]').attr('checked',false);
+      $('.singleselect .youtube .video input[type=hidden]').remove();
       $('.singleselect .youtube .video').removeClass('active');
 
       $(this).find('input[type=checkbox]').attr('checked', true);
+      $(this).append('<input type="hidden" name="media_titles[]" value="'+ $(this).find('.media_title_text').html()+'"/>')
       $(this).addClass('active');
 
     })

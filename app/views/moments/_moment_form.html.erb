@@ -31,9 +31,7 @@
     </div>
 
   <%# categories section %>
-    <script type="text/javascript">
-      function checkAll(){$('.categories .category input[type="checkbox"]').attr("checked",true);};
-    </script>
+
     <div class="categories">
       <div id="mom_tags_header">Tag your moment:</div>      
 
@@ -46,6 +44,9 @@
 
       <% end %>      
 
+      <script type="text/javascript">
+        function checkAll(){$('.categories .category input[type="checkbox"]').attr("checked",true);};
+      </script>
       <div class="check-all">
         <a href="#" onclick="checkAll();return false;">Select All</a>
       </div>
@@ -80,12 +81,13 @@
 
             if ($('#selected-media #'+ object.attr('id')).length == 0) {
 
-            if (object.hasClass('facebook-image')){var input = '<input type="hidden" name="facebook_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+object.attr('id')+'"/>'; var type = 'image';}
-            else if (object.hasClass('flickr-image')){var input = '<input type="hidden" name="flickr_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+object.attr('id')+'"/>';var type = 'image';}
-            else if (object.hasClass('vimeo-video')){var input = '<input type="hidden" name="vimeo_videos[]" value="'+object.attr('id')+'" />'; var type = 'video';}
-            else if (object.hasClass('youtube-video')){var input = '<input type="hidden" name="youtube_videos[]" value="'+ object.attr('id') +'" />'; var type = 'video';}
+            if (object.hasClass('facebook-image')){ var input = '<input type="hidden" name="facebook_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="facebook_pids[]" value="'+object.attr('id')+'"/><input type="hidden" name="media_titles[]" value="'+object.find('.media_title_text').html()+'"/>'; var type = 'image';}
+            else if (object.hasClass('flickr-image')){var input = '<input type="hidden" name="flickr_photos[]" value="'+object.attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+object.attr('id')+'"/><input type="hidden" name="media_titles[]" value="'+object.find('.media_title_text').html()+'"/>';var type = 'image';}
+            else if (object.hasClass('vimeo-video')){var input = '<input type="hidden" name="vimeo_videos[]" value="'+object.attr('id')+'" /><input type="hidden" name="media_titles[]" value="'+object.find('.media_title_text').html()+'"/>'; var type = 'video';}
+            else if (object.hasClass('youtube-video')){var input = '<input type="hidden" name="youtube_videos[]" value="'+ object.attr('id') +'" /><input type="hidden" name="media_titles[]" value="'+object.find('.media_title_text').html()+'"/>'; var type = 'video';}
             else {var input = '<input type="hidden" name="uploaded_images_pids[]" value="'+object.attr("id")+'"/>';var type = 'image';}
 
+            
             var clone = object.clone();
             clone.append(input);
             clone.attr("type",type);

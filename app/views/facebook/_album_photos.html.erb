@@ -12,6 +12,7 @@
     <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
     </div>
     <div class="title">
+      <span class="media_title_text hidden"><%= photo.name %></span>
       <%= truncate(photo.name, :length => 10) %>
     </div>
   </span>
