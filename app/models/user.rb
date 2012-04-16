@@ -78,7 +78,12 @@ class User < ActiveRecord::Base
     video = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
     video.get_all(service.uid, {:full_response => 1 })['videos']['video']    
   end
-   
+
+  def vimeo_client
+    service = get_vimeo_service
+    return @vimeo_client if defined?(@vimeo_client)
+    @vimeo_client = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
+  end
 
 # ---------- FLICKR -------------
   def flickr_user

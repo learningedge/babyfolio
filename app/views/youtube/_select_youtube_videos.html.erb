@@ -29,7 +29,7 @@
            <%= check_box_tag 'youtube_videos[]', video.unique_id %>
 
     </div>
-          <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+    <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
     </div>
     <div class="title">
       <%= truncate(video.title, :length => 20) -%>

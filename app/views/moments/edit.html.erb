@@ -1,2 +1,7 @@
-<h1>Moments#edit</h1>
-<p>Find me in app/views/moments/edit.html.erb</p>
+<div id="new_moment_wrapper">
+  <h1>Edit the moment for <%= @moment.child.first_name %></h1>
+
+  <div id="new_moment_form">
+    <%= render :partial => 'moment_form' -%>
+  </div>
+</div>

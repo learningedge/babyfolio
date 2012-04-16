@@ -8,7 +8,9 @@
       <li class="moment">
         <a href="#">
           <div class="thumb">
-            <%= get_moment_thumb moment.media.first, :moment_thumb %>
+            <% unless moment.media.blank?  %>
+              <%= get_moment_thumb moment.media.first, :moment_thumb %>
+            <% end %>
           </div>
           <div class="description">
             <div class="row">
@@ -16,7 +18,7 @@
             </div>
 
             <div class="row">
-              <span class="col1">Type</span>:<span class="col2"><%= moment.media.first.media_type -%></span>
+              <span class="col1">Type</span>:<span class="col2"><%= moment.media.first.media_type unless moment.media.blank? -%></span>
             </div>
           </div>
         </a>

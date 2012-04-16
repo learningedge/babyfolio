@@ -6,13 +6,14 @@ class MomentsController < ApplicationController
   skip_before_filter :clear_family_registration, :only => [:import_media]
 
 
-  def index
-
+  def index  
   end
 
   def new    
     @moment = Moment.new
-    @child = Child.find(params[:child_id]);    
+    @child = Child.find(params[:child_id])
+    @moment.child = @child
+    @moment_tags = MomentTag.find_all_by_level(nil)    
   end
 
   def create
@@ -28,15 +29,53 @@ class MomentsController < ApplicationController
       moment.child_id = params[:cid]
       media.each do |m|
         moment.attachments.build({ :media => m})
-      end    
-      moment.save
-      flash[:notice] = "Moment has been successfuly created."
+      end
+
+      unless params[:moment_tag_ids].blank?
+
+#        moment_tag_ids = params[:moment_tag_ids].collect{ |moment_tag_id| moment_tag_id.to_i}
+        moment_tags = MomentTag.find(params[:moment_tag_ids])
+        moment_tags.each {|moment_tag| moment.moment_tags << moment_tag}
+        
+      end
+
+
+      if moment.save
+        flash[:notice] = "Moment has been successfuly created."
+        if params[:operation_type] == "tag_it"          
+          redirect_to tag_moments_url :moment_id => moment.id
+        else          
+          redirect_to edit_moment_path :id => moment.id
+        end
+        
+      else
+        
+        @moment = Moment.new
+        @child = Child.find(params[:cid])
+        @moment_tags = MomentTag.find_all_by_level(nil)        
+        render :action => :new        
+      end
+    else      
+      flash[:error] = "Can't create moments for children from someone else's family"      
       redirect_to child_profile_children_url
-    else
-      flash[:error] = "Can't create moments for children from someone else's family"
     end   
   end
-  
+
+  def edit
+    @moment = Moment.find(params[:id])
+    @moment_tags = MomentTag.find_all_by_level(nil)
+  end
+
+  def update
+    
+  end
+
+  def destroy
+  end
+
+  def tag_moment
+    @moment = Moment.find(params[:moment_id])
+  end
 
   def change_provider
     
@@ -45,12 +84,6 @@ class MomentsController < ApplicationController
     render :partial => "uploaded_images/select_uploaded_images" if params[:provider] == 'uploaded-images'
     render :partial => "youtube/select_youtube_videos" if params[:provider] == 'youtube'
     render :partial => "vimeo/multiselect_vimeo_videos" if params[:provider] == 'vimeo'    
-  end
-
-  def edit    
-  end
-
-  def destroy    
   end
 
   def import_media

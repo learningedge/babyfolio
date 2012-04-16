@@ -2,7 +2,7 @@
 
 
   <%= form_for @moment do |f| %>
-    <%= hidden_field_tag 'cid', @child.id %>
+    <%= hidden_field_tag 'cid', @moment.child.id %>
     <div class="options">
 
       <div class="title_property">
@@ -37,11 +37,9 @@
     <div class="categories">
       <div id="mom_tags_header">Tag your moment:</div>      
 
-      <% MomentTag.find_all_by_level(nil).each do |mt|  %>
+      <% @moment_tags.each do |mt|  %>
       <div class="category">
-        <%= label_tag mt.id do -%>
-          <%= check_box_tag mt.id -%> <span><%= mt.name %> </span>
-        <% end %>
+        <label><%= check_box_tag "moment_tag_ids[]", mt.id -%> <span><%= mt.name %> </span></label>
       </div>
 
       <% end %>      
@@ -58,6 +56,10 @@
 
       <div id="selected-media">
         <h2 class="no-media">Selected</h2>
+        <% @moment.media.each do |media_item| %>
+          <%= render :partial => "shared/selected_media", :locals => {:media_item => media_item} %>
+
+        <% end %>
       </div>
 
     </div>
@@ -119,7 +121,11 @@
 
     <div class="clear"></div>
 
-    <div class="submit_wrapper"><%= f.submit "Create moment", :class => "new_moment_submit" -%></div>
+    <div class="submit_wrapper"><%= f.submit "Save moment", :class => "new_moment_submit" -%></div>
+    <%= hidden_field_tag :operation_type, "" -%>
+    <div class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></div>
+    <div class="submit_wrapper"><%#= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[type=hidden]').value('deepen_it');$('form').submit();return false;" -%></div>
+
 
   <% end %>
 
@@ -163,7 +169,7 @@
     }
 
     }
-
+    return false;
     });
 
     });

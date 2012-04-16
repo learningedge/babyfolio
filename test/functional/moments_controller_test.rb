@@ -1,29 +1,32 @@
 require 'test_helper'
 
 class MomentsControllerTest < ActionController::TestCase
+  
+  def setup
+    
+    login_user        
+
+    @main_moment_tags = MomentTag.where(:moment_tag_id => nil)
+
+  end
+
   test "should get index" do
+
     get :index
-    assert_response :success
+    
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
+  test "should post create" do
+    
+    assert_difference("Moment.count") do
+      assert_difference("MomentTagsMoments.count", 2) do
+        post :create, :moment => {:title => "Testing title"}, :cid => 3, :operation_type => "tag_it", :moment_tag_ids => [@main_moment_tags[0].id, @main_moment_tags[1].id]
 
-  test "should get edit" do
-    get :edit
-    assert_response :success
-  end
-
-  test "should get create" do
-    get :create
-    assert_response :success
-  end
-
-  test "should get destroy" do
-    get :destroy
-    assert_response :success
-  end
+        
+        assert_response :redirect
+      end
+    end
+    
+  end  
 
 end
