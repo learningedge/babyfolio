@@ -8,7 +8,7 @@
 
 <% @photos.each do |photo| %>
   <%# index = photo.images.index {|img| img.width <= 180} %>
-  <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
+      <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
     <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
     </div>
     <div class="title">

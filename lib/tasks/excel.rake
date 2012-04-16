@@ -483,12 +483,12 @@ namespace :excel do
 #    @parent_name = "Engineering, Technology, and Application of Science"
 
 
-    @moment_tags = MomentTag.where(:name => @parent_name)
+    @moment_tags = MomentTag.where(["moment_tag_id IS NULL"])
 
     pp "************************************"
 
     @moment_tags.each do |moment_tag|
-      pp moment_tag.id.to_s + ":::" + moment_tag.require_level_affinity.to_s + ":::" + moment_tag.name.to_s + ":::" + moment_tag.parent_tag.name + ":::" + moment_tag.parent_question.to_s + ":::" + moment_tag.level_hierarchy.to_s + ":::" + moment_tag.level.to_s
+      pp moment_tag.id.to_s + ":::" + moment_tag.require_level_affinity.to_s + ":::" + moment_tag.name.to_s + ":::" + moment_tag.parent_question.to_s + ":::" + moment_tag.level_hierarchy.to_s + ":::" + moment_tag.level.to_s
     end
 
     pp "************************************"

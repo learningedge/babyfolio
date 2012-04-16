@@ -11,8 +11,14 @@
 <% elsif media_item.kind_of? MediaFacebook %>
 
 <% photo = media_item.user.get_facebook_photo media_item.media_id -%>
-<% photo.inspect %>
-<span>facebook</span>
+
+  <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
+    <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
+    </div>
+    <input type="hidden" name="facebook_photos[]" value="<%= photo.source %>"/>
+    <input type="hidden" name="facebook_pids[]" value="<%= photo.identifier %>"/>
+  </span>
+
 
 <% elsif media_item.kind_of? MediaImage %>
 <span class="image" id="<%=  media_item.id %>">

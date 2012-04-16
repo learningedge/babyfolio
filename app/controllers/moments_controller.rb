@@ -5,12 +5,8 @@ class MomentsController < ApplicationController
   before_filter :require_family_with_child
   skip_before_filter :clear_family_registration, :only => [:import_media]
 
-<<<<<<< HEAD
-
-  def index  
-=======
   def index
->>>>>>> e53c429a277a0c072cc6e12d19c8969dd479e9cf
+
   end
 
   def new    
