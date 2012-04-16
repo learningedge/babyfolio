@@ -1,4 +1,5 @@
 <% if media_item.kind_of? MediaFlickr %>
+
 <% photo = media_item.user.flickr_user.photos.getInfo(:photo_id => media_item.media_id) %>
   <span class="image flickr-image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>">
     <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat 0% 0%">
@@ -6,8 +7,13 @@
     <input type="hidden" name="flickr_photos[]" value="<%= FlickRaw.url_b(photo) -%>"></input>
     <input type="hidden" name="flickr_pids[]" value="<%= media_item.media_id -%>"></input>
   </span>
+
 <% elsif media_item.kind_of? MediaFacebook %>
+
+<% photo = media_item.user.get_facebook_photo media_item.media_id -%>
+<% photo.inspect %>
 <span>facebook</span>
+
 <% elsif media_item.kind_of? MediaImage %>
 <span class="image" id="<%=  media_item.id %>">
    <div class="thumb" style="background-image: url('<%= media_item.image(:moment_thumb) -%>')"></div>
@@ -23,7 +29,7 @@
     <span class="video vimeo-video" id="<%= media_item.media_id -%>" type="video">
       <div>
         <div class="checkbox-radiobutton">
-               <%= check_box_tag 'vimeo_videos[]', video["id"], true %>
+          <%= check_box_tag 'vimeo_videos[]', video["id"], true %>
         </div>
         <div class="thumb">
           <%= image_tag video["thumbnails"]["thumbnail"][1]["_content"] %>
@@ -42,26 +48,30 @@
 
 <% elsif media_item.kind_of? MediaYoutube %>
 
-<% begin %>
-<% video = media_item.user.youtube_user.my_video(media_item.media_id) %>
-<span class="video youtube-video" id="<%= video.unique_id -%>">
-   <div>
-      <div class="checkbox-radiobutton">
-             <%= check_box_tag 'youtube_videos[]', video.unique_id, true %>
-      </div>
-      <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
-      </div>      
-    </div>
-</span>
+  <% begin %>
 
-<% rescue %>
-<span class="video youtube-video">
-  <div>
-    <div class="thumb">
-      Youtube connection lost
+  <% video = media_item.user.youtube_user.my_video(media_item.media_id) %>
+
+  <span class="video youtube-video" id="<%= video.unique_id -%>">
+     <div>
+        <div class="checkbox-radiobutton">
+          <%= check_box_tag 'youtube_videos[]', video.unique_id, true %>
+        </div>
+        <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+        </div>
+      </div>
+  </span>
+
+  <% rescue %>
+
+  <span class="video youtube-video">
+    <div>
+      <div class="thumb">
+        Youtube connection lost
+      </div>
     </div>
-  </div>
-</span>
-<% end %>
+  </span>
+
+  <% end %>
 
 <% end %>

@@ -2,24 +2,25 @@
 
 
 <div class="sets">
-<div class="header">
-  <h2>Albums</h2>
-  <div class="clear"></div>
-</div>
+  <div class="header">
+    <h2>Albums</h2>
+    <div class="clear"></div>
+  </div>
 
 <% @albums.each do |album| %>
-<a href="#" onclick="$.get('<%= album_photos_url(:album => album.identifier) %>',function(data){$('#facebook-ajax-grid').html(data);$('#facebook-ajax-container .preloader').stop().fadeOut()});return false;">
-  <span class="image">
-    <div class="thumb" style="background-image: url('<%= album.picture %>')">
-      <span class="count">
-	<%= album.count %>
-      </span>
-    </div>
-    <div class="title">
-      <%= truncate(album.name, :length => 20) %>
-    </div>
-  </span>
-</a>
+  
+  <a href="#" onclick="$.get('<%= album_photos_url(:album => album.identifier) %>',function(data){$('#facebook-ajax-grid').html(data);$('#facebook-ajax-container .preloader').stop().fadeOut()});return false;">
+    <span class="image">
+      <div class="thumb" style="background-image: url('<%= album.picture %>')">
+        <span class="count">
+    <%= album.count %>
+        </span>
+      </div>
+      <div class="title">
+        <%= truncate(album.name, :length => 20) %>
+      </div>
+    </span>
+  </a>
 
 <% end %>
 
