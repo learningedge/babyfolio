@@ -12,6 +12,7 @@
     <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat 0% 0%">
     </div>
     <div class="title">
+      <span class="media_title_text hidden"><%= photo.title %></span>
       <%= truncate(photo.title, :length => 10) %>
     </div>
   </span>

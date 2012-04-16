@@ -5,8 +5,12 @@ class MomentsController < ApplicationController
   before_filter :require_family_with_child
   skip_before_filter :clear_family_registration, :only => [:import_media]
 
+<<<<<<< HEAD
 
   def index  
+=======
+  def index
+>>>>>>> e53c429a277a0c072cc6e12d19c8969dd479e9cf
   end
 
   def new    
@@ -98,23 +102,24 @@ class MomentsController < ApplicationController
   def create_from_media
     
     media = []
-    media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
-    media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
+    titles = params[:media_titles]
+    media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?    
+    media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?    
     media += MediaFlickr.create_media_objects(params[:flickr_photos], params[:flickr_pids], current_user.id)  unless  params[:flickr_pids].blank?
     media += MediaYoutube.create_media_objects(params[:youtube_videos], current_user.id)  unless  params[:youtube_videos].blank?
     media += MediaVimeo.create_media_objects(params[:vimeo_videos], current_user.id)  unless  params[:vimeo_videos].blank?
      
-
     moments = []
 
     child = Child.find(params[:child_id])
     media_ids = (child.moments.collect { |moment_item| moment_item.media.collect { |media_item| media_item.id } }).flatten
      
-    media.each do |m|
+    media.each_with_index do |m, idx|
       unless media_ids.include?(m.id)
         mom = Moment.new
         mom.media << m
         mom.child = child
+        mom.title = titles[idx]
         mom.save
         moments << mom
       end

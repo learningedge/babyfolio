@@ -538,6 +538,7 @@ div.submit {float:left;margin-right:20px}
 .single_question_category { margin-bottom: 30px; }
 .question_category_title { font-weight: bold; font-size: 18px; margin: 20px 0 10px; }
 .single_question { width: 500px; }
+.single_question.questions_error .question_text, .single_question.questions_error .question_radio_label { color: #AB1500}
 .question_answers { margin: 10px 0 30px }
 .question_text { font-style: italic; font-weight: bold; line-height: 18px; }
 .user-form label.question_radio_label { font-size: 13px; margin-right: 15px; }

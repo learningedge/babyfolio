@@ -32,6 +32,7 @@
     <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
     </div>
     <div class="title">
+      <span class="media_title_text hidden"><%= video.title %></span>
       <%= truncate(video.title, :length => 20) -%>
     </div>
         </div>

@@ -511,9 +511,11 @@ namespace :excel do
     file.default_sheet = file.sheets.at(1)    
     2.upto(file.last_row) do |line|
       cat = file.cell(line,'C')
+      mid = file.cell(line,'D')
       desc  = file.cell(line,'F')
       age = file.cell(line,'J')
-      Question.create(:text => desc, :category => cat, :age => age)
+      
+      Question.create(:text => desc, :category => cat, :age => age, :mid => mid)
     end
     
   end
