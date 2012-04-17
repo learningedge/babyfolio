@@ -24,7 +24,7 @@ class ServicesController < ApplicationController
         omniauth['uid'] ?  @authhash[:uid] =  omniauth['uid'].to_s : @authhash[:uid] = ''
         omniauth['credentials']['token'] ? @authhash[:token] = omniauth['credentials']['token'] : authhash[:token] = ''
         omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
-     else
+      else
         # debug to output the hash that has been returned when adding new services
         render :text => omniauth.to_yaml
         return
@@ -40,17 +40,22 @@ class ServicesController < ApplicationController
               flash[:notice] = 'Your account at ' + @authhash[:provider].capitalize + ' is already connected with this site.'
               auth.update_attribute(:token, @authhash[:token]) unless auth.token == @authhash[:token]
               @redirect_link = child_profile_children_url
-            else 
-              flash[:notice] = 'Current Facebook user is bound to another babyfolio account. Disconnect Facebook from that account before connecting it it here or simply pick another one.'
+            else
+              if session[:is_login]
+                clear_session
+                redirect_to :action => :create, :locals => params
+              else
+                flash[:notice] = 'Current Facebook user is bound to another babyfolio account. Disconnect Facebook from that account before connecting it it here or simply pick another one.'
+              end
             end
-	  else 
+          else
             if current_user.has_facebook_account?  
-                flash[:notice] = "You have other " +  @authhash[:provider].capitalize + " connected. Disconnect your previeous account from setting before adding new one."
-                @redirect_link = child_profile_children_url
+              flash[:notice] = "You have other " +  @authhash[:provider].capitalize + " connected. Disconnect your previeous account from setting before adding new one."
+              @redirect_link = child_profile_children_url
             else 
               current_user.services.create!(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
               flash[:notice] = 'Your ' + @authhash[:provider].capitalize + ' account has been added.'
-             @redirect_link = child_profile_children_url
+              @redirect_link = child_profile_children_url
             end
           end
         else
@@ -65,20 +70,20 @@ class ServicesController < ApplicationController
             @user = User.find_by_email(@authhash[:email])
             unless @user
             	@user = User.new(:email => @authhash[:email], :email_confirmed => 1)			
-	    	@user.reset_password
+              @user.reset_password
             	@user.reset_perishable_token
-	    end
-	    @user.first_name ||= @authhash[:first_name]
+            end
+            @user.first_name ||= @authhash[:first_name]
             @user.last_name ||= @authhash[:last_name]
-	    @user.services.build(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
-	    if @user.save
+            @user.services.build(:provider => @authhash[:provider], :uid => @authhash[:uid], :uname => @authhash[:name], :uemail => @authhash[:email], :token => @authhash[:token])
+            if @user.save
               # this is a new user; show signup; @authhash is available to the view and stored in the sesssion for creation of a new user
               UserSession.create(@user)
               @redirect_link = child_profile_children_url
             else 	    
               flash[:error] = 'There were some problems siging in with your facebook accout.'
               @redirect_link = login_url
-	    end
+            end
           end
         end
       else
@@ -136,7 +141,7 @@ class ServicesController < ApplicationController
   end
 
   def create_vimeo
-     params[:service] ? service_route = params[:service] : service_route = 'No service recognized (invalid callback)'    
+    params[:service] ? service_route = params[:service] : service_route = 'No service recognized (invalid callback)'
 
     omniauth = request.env['omniauth.auth']
 
@@ -158,7 +163,7 @@ class ServicesController < ApplicationController
       @container = 'vimeo-ajax-container'
       @ajax_link = vimeo_index_url
 
-     render :partial => 'create'
+      render :partial => 'create'
       
     else
       render :text => service_route
@@ -184,22 +189,22 @@ class ServicesController < ApplicationController
       # create a new hash
       @authhash = Hash.new
 
-     omniauth['info']['email'] ? @authhash[:uemail] =  omniauth['info']['email'] : @authhash[:email] = ''
-     omniauth['info']['name'] ? @authhash[:uname] =  omniauth['info']['name'] : @authhash[:name] = ''
-     omniauth['uid'] ? @authhash[:uid] = omniauth['uid'] : @authhash[:uid] = ''
-     omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
-     omniauth['credentials']['token'] ? @authhash[:token] = omniauth['credentials']['token'] : @authhash[:token] = ''
-     omniauth['credentials']['secret'] ? @authhash[:secret] = omniauth['credentials']['secret'] : @authhash[:secret] = ''
+      omniauth['info']['email'] ? @authhash[:uemail] =  omniauth['info']['email'] : @authhash[:email] = ''
+      omniauth['info']['name'] ? @authhash[:uname] =  omniauth['info']['name'] : @authhash[:name] = ''
+      omniauth['uid'] ? @authhash[:uid] = omniauth['uid'] : @authhash[:uid] = ''
+      omniauth['provider'] ? @authhash[:provider] = omniauth['provider'] : @authhash[:provider] = ''
+      omniauth['credentials']['token'] ? @authhash[:token] = omniauth['credentials']['token'] : @authhash[:token] = ''
+      omniauth['credentials']['secret'] ? @authhash[:secret] = omniauth['credentials']['secret'] : @authhash[:secret] = ''
 
-     @service = Service.find_or_create_by_provider_and_uid_and_user_id(@authhash[:provider], @authhash[:uid], current_user.id)
-     @service.update_attributes :token => @authhash[:token], :uname => @authhash[:uname], :secret => @authhash[:secret]
-     @service.save
+      @service = Service.find_or_create_by_provider_and_uid_and_user_id(@authhash[:provider], @authhash[:uid], current_user.id)
+      @service.update_attributes :token => @authhash[:token], :uname => @authhash[:uname], :secret => @authhash[:secret]
+      @service.save
       
-     @redirect_link = flickr_index_url
-     @container = 'flickr-ajax-container'
-     @ajax_link = ajax_flickr_index_url
+      @redirect_link = flickr_index_url
+      @container = 'flickr-ajax-container'
+      @ajax_link = ajax_flickr_index_url
 
-     render :partial => 'create'
+      render :partial => 'create'
       
     else
       render :text => service_route

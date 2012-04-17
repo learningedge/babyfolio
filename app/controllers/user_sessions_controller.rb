@@ -6,12 +6,14 @@ class UserSessionsController < ApplicationController
   def new
 #    current_user_session.destroy if current_user?
     @user_session = UserSession.new
+    session[:is_login] = true
   end
 
-  def create
+  def create    
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       @user_session.user.reset_perishable_token!
+      session[:is_login] = nil
 
       flash[:notice] = "Login successful!"
       redirect_back_or_default child_profile_children_url
