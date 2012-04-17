@@ -1,11 +1,2 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  child_id: 1
-  question_id: 1
-  answer: MyString
-
-two:
-  child_id: 1
-  question_id: 1
-  answer: MyString

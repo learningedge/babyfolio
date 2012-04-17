@@ -483,12 +483,12 @@ namespace :excel do
 #    @parent_name = "Engineering, Technology, and Application of Science"
 
 
-    @moment_tags = MomentTag.where(:name => @parent_name)
+    @moment_tags = MomentTag.where(["moment_tag_id IS NULL"])
 
     pp "************************************"
 
     @moment_tags.each do |moment_tag|
-      pp moment_tag.id.to_s + ":::" + moment_tag.require_level_affinity.to_s + ":::" + moment_tag.name.to_s + ":::" + moment_tag.parent_tag.name + ":::" + moment_tag.parent_question.to_s + ":::" + moment_tag.level_hierarchy.to_s + ":::" + moment_tag.level.to_s
+      pp moment_tag.id.to_s + ":::" + moment_tag.require_level_affinity.to_s + ":::" + moment_tag.name.to_s + ":::" + moment_tag.parent_question.to_s + ":::" + moment_tag.level_hierarchy.to_s + ":::" + moment_tag.level.to_s
     end
 
     pp "************************************"
@@ -530,6 +530,23 @@ namespace :excel do
 
     print "## DONE!!!\n"
   end
-  
+
+  desc 'Create YAML test fixtures from data in an existing database. Defaults to development database. Set RAILS_ENV to development.'
+
+  task :generate_fixtures => :environment do
+    sql = "SELECT * FROM %s"
+    tables = ["questions", "moment_tags"]
+    ActiveRecord::Base.establish_connection
+    tables.each do |table_name|
+      i = "000"
+      File.open("#{Rails.root}/test/fixtures/#{table_name}.yml", 'w') do |file|
+        data = ActiveRecord::Base.connection.select_all(sql % table_name)
+        file.write data.inject({}) {|hash, record|
+          hash["#{table_name}_#{i.succ!}"] = record
+          hash
+        }.to_yaml
+      end
+    end
+  end
 
 end

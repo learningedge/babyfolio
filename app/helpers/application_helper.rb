@@ -24,9 +24,8 @@ module ApplicationHelper
       
     elsif object.kind_of? MediaVimeo
       
-       service = object.user.get_vimeo_service
        begin
-         image_tag vimeo_video_client(service).get_thumbnail_urls(object.media_id)["thumbnails"]["thumbnail"][1]["_content"];
+         image_tag object.user.vimeo_client.get_thumbnail_urls(object.media_id)["thumbnails"]["thumbnail"][1]["_content"];
        rescue
          return "<span class='error-text'>The video doesn't seem to exist</span>".html_safe
        end
@@ -45,14 +44,14 @@ module ApplicationHelper
 
   
 
-  def youtube_client service
-    return @client if defined?(@client)
-    @client = YouTubeIt::Client.new(:dev_key => Yetting.youtube["dev_key"])
-  end
+#  def youtube_client
+#    return @client if defined?(@client)
+#    @client = YouTubeIt::Client.new(:dev_key => Yetting.youtube["dev_key"])
+#  end
 
-  def vimeo_video_client service
-    return @vimeo_client if defined?(@vimeo_client)
-    @vimeo_client = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
-  end
+#  def vimeo_video_client service
+#    return @vimeo_client if defined?(@vimeo_client)
+#    @vimeo_client = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
+#  end
 
 end

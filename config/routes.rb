@@ -3,12 +3,14 @@ Babyfolio::Application.routes.draw do
   resources :moments, :except => [:new] do    
       new do
         get ':child_id' => "moments#new", :as => :child
+        
         post :change_provider
       end
       
       collection do
         match :import_media
-        post :create_from_media        
+        post :create_from_media
+        get '/:moment_id/tag_it' => "moments#tag_moment", :as => :tag
       end
   end
 

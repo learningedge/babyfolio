@@ -26,13 +26,13 @@ $(function(){
     //multiselect and slingleselect
 
     $('.multiselect .flickr .flickr-grid .photos .image').live("click",function(){	
-	if($('#selected-flickr-photos #'+$(this).attr('id')).length == 0) {
-	    element = $('<span class="selected-image" id="'+$(this).attr('id')+'"><img src="'+$(this).attr('thumb_url')+'"/><input type="hidden" name="flickr_photos[]" value="'+$(this).attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+$(this).attr('id')+'"/><input type="hidden" name="media_titles[]" value="'+ $(this).find('.media_title_text').html()+'"/><div class="hover">Remove</div></span>')
-	    element.appendTo('#selected-flickr-photos');
-	}
-
-      if(typeof addSelectedImage == 'function'){
+	    if(typeof addSelectedImage == 'function'){
         addSelectedImage($(this));
+      } else {
+        if($('#selected-flickr-photos #'+$(this).attr('id')).length == 0) {
+          element = $('<span class="selected-image" id="'+$(this).attr('id')+'"><img src="'+$(this).attr('thumb_url')+'"/><input type="hidden" name="flickr_photos[]" value="'+$(this).attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')
+          element.appendTo('#selected-flickr-photos');
+        }
       }
 
     });

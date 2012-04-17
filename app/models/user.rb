@@ -61,7 +61,13 @@ class User < ActiveRecord::Base
     service = get_facebook_service
     @albums = FbGraph::User.fetch(service.uid, :access_token => service.token).albums
   end
-  
+
+  def get_facebook_photo id
+    service = get_facebook_service
+    @facebook_photo = FbGraph::Photo.fetch(id, :access_token => service.token)
+#    @facebook_photo = FbGraph::User.fetch(service.uid, :access_token => service.token).photos(id)
+  end
+
 # ---------- VIMEO --------------
 
   def has_vimeo_account?
@@ -78,7 +84,12 @@ class User < ActiveRecord::Base
     video = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
     video.get_all(service.uid, {:full_response => 1 })['videos']['video']    
   end
-   
+
+  def vimeo_client
+    service = get_vimeo_service
+    return @vimeo_client if defined?(@vimeo_client)
+    @vimeo_client = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
+  end
 
 # ---------- FLICKR -------------
   def flickr_user

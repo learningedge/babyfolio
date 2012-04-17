@@ -1,11 +1,1723 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  string: 
-  text: 
-  int: 
-
-two:
-  string: 
-  text: 
-  int: 
+--- 
+questions_226: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can figure out how heavy different things are based on their size and then adjust the way #he/she# grasps them. For example, #his/her# arms drops the same amount no matter if #he/she# is grasping light or heavy things."
+  id: 964
+  age: 15
+questions_038: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child often asserts #himself/herself#. For example, #he/she# refuses to do many of the things I ask #him/her# to do and #he/she# seems to want to have #his/her# own way much of the time."
+  id: 776
+  age: 27
+questions_065: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby sits alone, but #he/she# leans forward a lot and sometimes uses #his/her# hands for support. "
+  id: 803
+  age: 6
+questions_091: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child likes to manipulate things, like tearing things into smaller pieces or putting things together by making a clump or by threading. For example, #he/she# will break off lots of little pieces of clay and then put all the small pieces of clay back together into a big clump. #He/She# likes to thread beads on a string."
+  id: 829
+  age: 21
+questions_119: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby can see many colors, especially contrasting colors, like the red, blue, and yellow polka dots on #his/her# crib bumper."
+  id: 857
+  age: 3
+questions_145: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child sometimes draws a picture of a circle with a tail, sort of like a tadpole. "
+  id: 883
+  age: 33
+questions_172: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child seems to understand sentences of several words, such as Do you want a cookie?" or "Where is your bellybutton?" "
+  id: 910
+  age: 12
+questions_227: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child sorts things and puts the different groups in different places. For instance, I noticed #him/her# putting all the plastic animals in a pile on one side of #him/her# and all the toy cars in a pile on the other side of #him/her#."
+  id: 965
+  age: 18
+questions_039: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child has special relationships with certain people. For instance, #he/she# has a tradition with #his/her# grandfather. Only grandpa can make Sunday morning French toast."
+  id: 777
+  age: 27
+questions_066: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby grasps with #his/her# whole hand, using #his/her# thumb separately to hold things like someone wearing a mitten. #He/She# has difficulty letting go of things #he/she# is holding."
+  id: 804
+  age: 6
+questions_092: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child runs with a short stride, bending and swinging #his/her# arms a little and getting #his/her# feet off the ground."
+  id: 830
+  age: 24
+questions_146: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can retrace #his/her# steps in the opposite direction #he/she# goes. ##He/She## can direct us from the children's room at the library to where we check out #his/her# books."
+  id: 884
+  age: 33
+questions_173: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child uses one word sentences that pack a lot of meaning. For example, he'll say Dog!\" to tell me #he/she# wants to cross the street to pet a dog.\""
+  id: 911
+  age: 15
+questions_228: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child groups things together in collections. ##He/She## calls the trucks, blocks, and farm animals toys, but the dolls are dolls, not  toys."
+  id: 966
+  age: 21
+questions_067: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby is trying to crawl. #He/She# often pushes up on #his/her# hands and knees and rocks back and forth. Sometimes, #he/she# uses #his/her# arms to pull #himself/herself# along the floor and #his/her# toes or knees to push."
+  id: 805
+  age: 6
+questions_093: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child jumps with both feet.
+  id: 831
+  age: 24
+questions_147: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child makes many different shapes out of playdough. ##He/She## rolls the playdough into balls or long snakes and sometimes pats the playdough into a pancake, adding spots #he/she# says are the eyes, nose, and mouth. My child also shapes the playdough so that it can stand up and tells me which parts are the legs and arms."
+  id: 885
+  age: 36
+questions_174: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "When #he/she# says \"Want!\" I scramble to figure out what exactly it is that #he/she# wants."
+  id: 912
+  age: 10
+questions_229: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child finds similarities in the way different things work, so that if #he/she# can't find the exact thing #he/she# needs, #he/she# finds another thing to do the same job. For example, #he/she# knows that if #he/she# can't find #his/her# red wagon to hold all of #his/her# toys, #he/she# can use #his/her# toy shopping cart. ##He/She## knows that they both hold things even though they don't look exactly the same."
+  id: 967
+  age: 21
+questions_094: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child and other kids my child's age imitate each other doing a series of made-up actions with their toys. For example, if another child figures out what to do with something, like putting a finger in a tube and banging it on a block on the table, my child will likely do the same things in the same order.
+  id: 832
+  age: 24
+questions_148: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child has a definite idea of what is the top and bottom of something. When #he/she# gives me #his/her# drawing to look at, #he/she# tells me how to hold it if #he/she# thinks I'm holding it the wrong way. "
+  id: 886
+  age: 36
+questions_175: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child's gestures have gotten quite numerous and sophisticated. ##He/She## may shrug her shoulders to say, \"I don't know\",  put a cup to her lips to tell me #he/she# wants a drink, or pull on my pant leg to get me to go somewhere."
+  id: 913
+  age: 12
+questions_068: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby crawls.
+  id: 806
+  age: 7
+questions_095: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can balance on one foot, but sometimes #he/she# has trouble finding the center of #his/her# body and so #he/she# might wobble every now and then. It's a skill #he/she# seems to be developing."
+  id: 833
+  age: 27
+questions_149: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can tell what things look like from where I am. If I pretend I don't know where #he/she# is when we play hide-n-seek, #he/she# says things like, Look around the chair!\" or \"Look under the table!\"\""
+  id: 887
+  age: 42
+questions_176: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child tend to over use some words and under use others.  For instance, #he/she# stretches words to cover new things that #he/she# doesn't yet have a word for, such as using \"doggie\" to refer to a cow.  But at other times #he/she# uses words very narrowly such as using \"car\" to refer only to our red car and not any other."
+  id: 914
+  age: 15
+questions_069: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby stands for a short time when I support #him/her# or #he/she# holds on to something. #He/She# seems to lean a lot on me or whatever is supporting #him/her#."
+  id: 807
+  age: 7
+questions_096: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can walk upstairs by #himself/herself#, with each foot stopping on each step."
+  id: 834
+  age: 27
+questions_177: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child's behavior shows that #he/she# clearly understands common phrases. For instance, #he/she# sits in the right chair when I say, \"Go sit in your chair\" and when I say \"That's not a toy\" #he/she# either puts it down, runs away or whines at me."
+  id: 915
+  age: 12
+questions_097: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can figure out how #he/she# needs to hold something before #he/she# tries to lift it. For example, #he/she# will adjust #his/her# grasp as I hand #him/her# a hammer so that #his/her# hand fits firmly in the place that will help #him/her# balance it well."
+  id: 835
+  age: 27
+questions_098: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child throws a ball by extending #his/her# forearm and keeping #his/her# upper arm horizontal and still. #He/She# stands stationary when throwing, not moving forward, and #he/she# usually aims at a target, like a person who is trying to catch the ball."
+  id: 836
+  age: 30
+questions_178: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child understands my gestures. For instance, #he/she# turns her head in the right direction when I point."
+  id: 916
+  age: 15
+questions_099: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child uses #his/her# motor skills and hand-finger coordination to help care for #himself/herself#. ##He/She## can unbutton #his/her# buttons if they are large and undress #himself/herself#. If I set up things for #him/her#, like a stepping stool and low hooks, my child can help put #his/her# clothes away and clean #himself/herself# in the bathroom."
+  id: 837
+  age: 30
+questions_179: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is experiencing a little explosion in her vocabulary. ##He/She## seems to be learning several new words every day! "
+  id: 917
+  age: 18
+questions_100: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child catches a ball by holding #his/her# arms out straight in front of #him/her#, with #his/her# palms up. When the ball lands in #his/her# arms, #he/she# bends #his/her# elbows and tries to trap the ball against #his/her# chest. Sometimes, #he/she# turns #his/her# head to the side and leans back."
+  id: 838
+  age: 33
+questions_020: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child knows that #he/she# can share #his/her# emotions with me. For example, #he/she# notices when we're both laughing. When something is funny to #him/her#, #he/she# looks to see if I think it's funny, too."
+  id: 758
+  age: 9
+questions_101: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child hits a moving ball by using an overhand strike. Sometimes, #he/she# swings early, right when the thrower lets the ball go."
+  id: 839
+  age: 36
+questions_021: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child has developed ways to cope with problem situations. For example, if #he/she# is frightened of a stranger, #he/she# hides behind my legs."
+  id: 759
+  age: 9
+questions_102: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child has good control over #his/her# thumb so #he/she# can do lots of things, like hold scissors to snip a piece of paper, hold a pen to scribble, hold a fork with #his/her# fingers rather than in #his/her# fist, and put on #his/her# shoes."
+  id: 840
+  age: 36
+questions_210: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems to understand that hidden objects are still there even if #he/she# can't see them. For example, when I hide a small toy in my hand,  #he/she# focuses on my hand. It's like #he/she# is just waiting for me to open up my hand so #he/she# can get the toy back."
+  id: 948
+  age: 4
+questions_022: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child frequently looks to me when #he/she# is unsure of something, and #he/she# is influenced by my reactions. For example, if a new toy seems scary, my child looks at me and, if I smile, #he/she# goes over to it and slowly explores it, looking back at me every now and then."
+  id: 760
+  age: 10
+questions_103: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child uses #his/her# fine motor skills to paint and draw. ##He/She## draws up and down scribbles and round scribbles."
+  id: 841
+  age: 30
+questions_130: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can focus #his/her# attention even when there are distractions around #him/her#. ##He/She## continues to look at and play with toys even when I am making a lot of noise nearby in the kitchen or #his/her# sister is acting out an action-packed drama with friends in the same room."
+  id: 868
+  age: 10
+questions_023: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child gets distressed when #he/she# sees others in distress. For example, #he/she# gets upset when I am upset."
+  id: 761
+  age: 10
+questions_104: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child can hop about three times on one foot.
+  id: 842
+  age: 42
+questions_131: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can figure out new ways of getting to where #he/she# wants to go. ##He/She## will go around a group of people in order to get to me."
+  id: 869
+  age: 12
+questions_211: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby makes connections between what makes what happen. For example,  when the door begins to open, #he/she# looks toward the upper part of the door, as if to see who's there. ##He/She## seems to understand the connection between the door opening and someone coming in."
+  id: 949
+  age: 4
+questions_050: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby moves in ways that seem automatic, like a reflex. For example, when I gently stroke #his/her# cheek, #he/she# turns toward my finger and tries to suck on it."
+  id: 788
+  age: 0
+questions_105: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child throws a ball by facing the target, keeping #his/her# feet in one place, and extending #his/her# forearm, turning #his/her# body before and after throwing."
+  id: 843
+  age: 42
+questions_132: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can remember what size things are. ##He/She## would be able to tell if I took a big chunk of #his/her# cake from #his/her# plate because #he/she# can remember what size it was before!"
+  id: 870
+  age: 12
+questions_212: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby adjusts #his/her# behavior to fit with my way of doing things.  ##He/She## seems to know that it takes me about a minute to get to where #he/she# is sleeping, and #he/she# will hold off  about that long when #he/she# wakes up from a nap before crying."
+  id: 950
+  age: 4
+questions_024: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child will explore if I am nearby. When we're at the playground, my child may wander far from me, but every now and then #he/she# comes over to sort of check in with me."
+  id: 762
+  age: 12
+questions_051: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to like when I help #him/her# control #his/her# body movements. If #he/she# is fussy and #his/her# arms are flailing around, #he/she# appears to become more content when I swaddle #him/her# snugly in a blanket."
+  id: 789
+  age: 0
+questions_240: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child uses words like know\" and \"think\" and seems to understand what it means to know and to think. If #he/she# can see in #his/her# toy box but I can't #he/she# knows I won't know what is in there."
+  id: 978
+  age: 36
+questions_133: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child scribbles on paper if I give #him/her# some crayons. ##He/She## makes different kinds of scribbles, usually overlapping each other but with no particular pattern."
+  id: 871
+  age: 15
+questions_213: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems to notice changes in the amounts of things. For example, if two toys are in front of #him/her# and I take one away, #he/she# looks surprised as #he/she# notices the empty space where the second toy was,  and then at the toy #he/she# has left."
+  id: 951
+  age: 5
+questions_025: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child shares #his/her# emotions with me. ##He/She## gets very excited at the toy store and wants to show me everything. If I'm not looking, #he/she# calls for me impatiently. It seems like half of #his/her# excitement is just knowing I'm looking with #him/her#."
+  id: 763
+  age: 12
+questions_052: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby has some control over #his/her# neck muscles. #He/She# can turn #his/her# head and hold #his/her# chin up. But, I need to provide neck support when I lift #him/her#."
+  id: 790
+  age: 1
+questions_106: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child holds a pencil similar to the way I do, with the pencil between the thumb and index finger, supported by the middle finger.
+  id: 844
+  age: 42
+questions_241: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child has figured out a way to measure amounts to share. #He/She# shares by counting out equal numbers of things for each person, but #he/she# doesn't consider if each of the things is the same size. For example, #he/she# will break up a big mound of playdoh and give #himself/herself# three big clumps. Then, running out of playdoh, #he/she# gives me three small clumps and says, We have the same!\"\""
+  id: 979
+  age: 36
+questions_160: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby is beginning to play with sounds, seeing what #he/she# can do with her mouth. It's not cooing but it doesn't have the repetitious quality of babbling yet either."
+  id: 898
+  age: 4
+questions_214: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby can match small amounts of things. For example, if #he/she# hears two voices, but sees just one person, like when #he/she# is in the stroller and can't see the person pushing, #he/she# becomes wide-eyed and seems curious about what #he/she# hears."
+  id: 952
+  age: 6
+questions_026: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child doesn't play with other kids, but #he/she# often plays near other kids and with the same kind of things."
+  id: 764
+  age: 12
+questions_053: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby often kicks #his/her# legs like a frog, especially when #he/she# is excited."
+  id: 791
+  age: 1
+questions_107: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child runs in a mature way with good speed.
+  id: 845
+  age: 48
+questions_242: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows that things don't just happen, that something causes things to happen. For example, if my hair is dry when I leave the room and then I come back with wet hair, #he/she# wants to know what made my hair wet.  ##He/She## doesn't believe me if I say that it just got that way."
+  id: 980
+  age: 42
+questions_161: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby is beginning to babble, using recognizable, repeatable sounds like da da and ba ba!
+  id: 899
+  age: 5
+questions_215: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems interested in figuring out how things happen. For example, #he/she# accidentally discovered that kicking the mobile made it rotate,  and then #he/she# began kicking it more, as if trying to make it rotate again."
+  id: 953
+  age: 6
+questions_027: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child loves when someone imitates what #he/she# is doing."
+  id: 765
+  age: 12
+questions_054: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby's shoulder muscles have developed so that #he/she# can push #his/her# chest up off the floor with #his/her# arms."
+  id: 792
+  age: 2
+questions_080: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child claps #his/her# hands."
+  id: 818
+  age: 10
+questions_108: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child can do a one-footed skip, but without rhythm.
+  id: 846
+  age: 48
+questions_134: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to prefer shapes rather than colors. For example, when I give #him/her# some colored shapes, #he/she# tends to sort them by color-all the blue shapes together, all the reds together, etc. "
+  id: 872
+  age: 15
+questions_243: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can put some things into categories. For example, #he/she# calls the pigeons at the park and the seagulls at the beach birds.  Sometimes #he/she# puts things into categories just because they go together as a theme like grouping together trucks and dirt because the trucks carry the dirt."
+  id: 981
+  age: 42
+questions_162: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby responds to sounds I make for him by widening his eyes, cooing, smiling, etc.
+  id: 900
+  age: 3
+questions_216: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby can solve problems. When a toy is out of reach, #he/she# often uses another toy to help get it."
+  id: 954
+  age: 7
+questions_028: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to be concerned with social rules. For example, #he/she# will go near something #he/she# isn't supposed to touch and hold #his/her# hand over it, saying, No no no.\"  ##He/She## is also concerned when things aren't where they should be or when things are broken."
+  id: 766
+  age: 15
+questions_055: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to have some set movements of #his/her# body. If I hold #his/her# so that #he/she# is tilted to the side, front, or back, #he/she# will try to keep #his/her# head upright. If I place #him/her# on her tummy with #his/her# head turned to the side, #he/she# tends to turn #his/her# body to be in the same direction as #his/her# head."
+  id: 793
+  age: 2
+questions_081: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to be able to predict the movement of things. If two things are about to collide, #he/she# might move if it seems like one of the things might bounce off and hit #him/her#."
+  id: 819
+  age: 10
+questions_109: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child uses #his/her# fine motor skills to draw shapes and simple figures."
+  id: 847
+  age: 48
+questions_135: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "Usually my child pays attention to the television if I turn it on, but it's not uncommon for #him/her# to wander off and play with toys, rather than focusing on the program for a long time."
+  id: 873
+  age: 18
+questions_217: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems to notice if things are equal or not. For example, #he/she# looks back and forth between #his/her# snack bowl that has one cracker and #his/her# sibling's snack bowl that has two crackers. It's like #he/she# knows they don't have the same amount of crackers."
+  id: 955
+  age: 7
+questions_029: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child sometimes plays with other kids but often plays by #himself/herself#. If #he/she# plays with another child, #he/she# often copies what another child is doing or watches as other children copy #him/her#."
+  id: 767
+  age: 15
+questions_056: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby can roll #his/her# body over in one direction."
+  id: 794
+  age: 3
+questions_082: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can walk on #his/her# own. Sometimes, #he/she# falls if #he/she# loses #his/her# balance."
+  id: 820
+  age: 12
+questions_136: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can judge the size of objects, no matter if they are placed nearby or far away. For example, #he/she# knows exactly which is the big Pooh bear #his/her# aunt gave #him/her#, even if it is farther away and appears smaller than #his/her# brother's small Pooh bear."
+  id: 874
+  age: 18
+questions_163: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby uses objects to communicate with me. For instance, #he/she# holds things up for me to see and then looks to see if I'm looking at them."
+  id: 901
+  age: 6
+questions_244: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows and can count the numbers one to ten, but after that,  #he/she# has a little difficulty and may say, \"ten one\" instead of eleven."
+  id: 982
+  age: 42
+questions_190: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can hand me the larger of two objects if I say, Give me the big one. ##He/She## also understand tall/short and long/short. ##He/She## struggles with other, less concrete comparisons however, such as old/young or deep/shallow."
+  id: 928
+  age: 30
+questions_218: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby understands that hidden things can be found. For example, when I hide a toy under #his/her# blanket, #he/she# often searches around the blanket."
+  id: 956
+  age: 8
+questions_083: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child grasps things with #his/her# thumb and one finger. #He/She# can bring #his/her# finger and thumb together at the same time, like #he/she# is trapping something between them to pick it up."
+  id: 821
+  age: 12
+questions_137: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to be scribbling drawings of things that move. ##He/She##  makes the sound of a car when #he/she# draws long lines."
+  id: 875
+  age: 21
+questions_164: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby is using gestures and crying to let me know when #he/she# is frustrated or afraid of new people, objects or events. For example, #he/she# may hold her arms up to let me know #he/she# wants to be picked up."
+  id: 902
+  age: 6
+questions_245: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can make inferences and understands that if a=b and b=c, then a=c. For example, #he/she# told me that #he/she# would be able to do the monkey bars when #he/she# is six. ##He/She## explained that if #his/her# sister is six and someone who is six can do the monkey bars, then #he/she# will be able to do the monkey bars when #he/she# is six."
+  id: 983
+  age: 48
+questions_219: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can copy what #he/she# saw someone else do the day before. For instance, yesterday #he/she# saw me make #his/her# teddy bear dance on the table, leap in the air, and then give another bear a hug. Today, #he/she# did the same thing."
+  id: 957
+  age: 9
+questions_057: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby grasps things that I put in #his/her# hand. ##He/She## uses #his/her# whole hand, not just a few fingers, to pick up small things. And, #he/she# doesn't use #his/her# thumb the way I do, like when I grasp something with my fingers on one side and my thumb on the opposite side. Once #he/she# has grasped something I put in #his/her# hand, #he/she# seems to have trouble letting go."
+  id: 795
+  age: 3
+questions_084: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can deliberately let go of something #he/she# is holding."
+  id: 822
+  age: 12
+questions_138: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can find things that #he/she# wants.  ##He/She## can figure out where I put the toys #he/she# isn't allowed to play with."
+  id: 876
+  age: 21
+questions_165: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to love to string sounds together and repeat them over and over. For instance, #he/she# may say, abi, abi or adibaba in a playful and even melodic way. "
+  id: 903
+  age: 8
+questions_191: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child notices whether or not I understand her and will repeat herself if I don't.
+  id: 929
+  age: 33
+questions_246: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows that #he/she# can count a bunch of things in any order and still come out with the same amount. For example, #he/she# may count a bunch of M&Ms starting at the bottom. Then, if I ask #him/her# to count again, #he/she# may start at the top because #he/she# knows #he/she# will get the same amount either way."
+  id: 984
+  age: 48
+questions_058: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby reaches out to swipe at things, but often misses.
+  id: 796
+  age: 3
+questions_085: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can walk up steps if I help. ##He/She## usually uses both feet on each step and it seems harder for #him/her# to go down the stairs than up."
+  id: 823
+  age: 15
+questions_139: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is drawing a lot of designs, like curvy lines, zig-zags, and looping lines. ##He/She## seems to draw designs in particular places on the paper."
+  id: 877
+  age: 24
+questions_166: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to understand some simple words. For instance, #he/she# may respond to my \"No\" by stopping what #he/she# is doing and looking at me or #he/she# may smile in recognition when I say the cat's name."
+  id: 904
+  age: 7
+questions_192: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child knows the difference between mine and yours ##He/She## is able to tell me and her playmates which things belong to her (even temporary possessions, as when #he/she# is playing with a toy at daycare) and which things belong to others. "
+  id: 930
+  age: 30
+questions_059: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby pays a lot of attention to things that move, like mobiles and people and even her own hands.
+  id: 797
+  age: 3
+questions_086: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child throws things. #He/She# often practices throwing things when sitting in #his/her# highchair."
+  id: 824
+  age: 15
+questions_193: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child asks me to repeat myself or clarify what I said when #he/she# doesn't understand me. Her requests for clarity range from a simple Huh? Or What? to more complex statements like, What do you want me to do?\"  \""
+  id: 931
+  age: 36
+questions_087: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child stacks things, like #his/her# set of blocks."
+  id: 825
+  age: 15
+questions_167: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child has begun to use gestures to communicate with me. For example, #he/she# will push an unwanted bowl away or hold a toy up as if to show it to me. "
+  id: 905
+  age: 9
+questions_194: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is using silly language, especially with her playmates. ##He/She## seems to be testing the limits of absurdity by referring to unlikely events such as \"Mommy got stuck in the bathtub\" or poetic nonsense that includes outrageous names like Birdy Head."
+  id: 932
+  age: 42
+questions_088: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child moves fast, almost like #he/she# is running, but it\x12s more like rapid walking steps."
+  id: 826
+  age: 18
+questions_168: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to be using her own made-up words. For example, #he/she# says abab and points to the dog every time #he/she# enters the room."
+  id: 906
+  age: 9
+questions_195: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can adopt different voices. For instance, #he/she# uses the high-pitched tone of motherese when talking to a baby, and changes the tone and loudness of her voice when pretending to be a daddy. "
+  id: 933
+  age: 42
+questions_089: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can step down when #he/she# is on something low to the ground."
+  id: 827
+  age: 18
+questions_169: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child's babbling sounds expressive because it goes up and down in pitch. For example, a sentence may go up at the end to make it sound like a question for me: Aba bibaba?"
+  id: 907
+  age: 10
+questions_196: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can read or at least identify common words #he/she# sees around the house, like the name of the toothpaste on the toothpaste tube or the title of a well-loved book."
+  id: 934
+  age: 42
+questions_197: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is using polite terms and phrases. ##He/She## has been saying please and thank you for months, but now #he/she# is using more sophisticated polite forms such as, May I please have some candy?\" instead of just \"Candy please?\""
+  id: 935
+  age: 48
+questions_198: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child uses if-then sentences. For example, #he/she# says, If it doesn't rain then we'll go to the park \".\""
+  id: 936
+  age: 48
+questions_199: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child understands hints about polite behavior. When I say, \"Those are Grandpa's favorites\" #he/she# understands that I want her to give her grandfather some of her candy."
+  id: 937
+  age: 48
+questions_010: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby is uncomfortable around strangers. ##He/She## looks very carefully at new people. ##He/She## especially doesn't like if a stranger looks straight at #him/her# for a long time or for more than half a minute. ##He/She## will become upset and then cry."
+  id: 748
+  age: 5
+questions_011: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "Once my baby becomes familiar with people, #he/she# remembers them and seems to recognize their face. After meeting my friends just a few times, #he/she# seems much more comfortable with them."
+  id: 749
+  age: 5
+questions_012: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby pays attention for a long time, so we can play lots of games together and interact by exchanging eye contact, smiles, and laughter. When I smile, #he/she# smiles back. When #he/she# laughs, I can't help but laugh also. We have such a good time together."
+  id: 750
+  age: 7
+questions_120: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby pays a lot of attention to things that move, like mobiles and people and even her own hands.
+  id: 858
+  age: 3
+questions_200: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child understands if-then sentences. For example, #he/she# understands me when I say, We'll buy that toy if we find it in the store. "
+  id: 938
+  age: 48
+questions_013: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby has learned behaviors of specific people. ##He/She## likes to play peekaboo with me more than with anyone else and So big!\" is a game #he/she# always plays with #his/her# aunt.\""
+  id: 751
+  age: 6
+questions_040: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child likes to play in a very social, pretend kind of way often involving routines from our everyday life. ##He/She## especially likes when #he/she# plays the parent and I am the baby. ##He/She## tells me to say, \"goo goo ga ga\"  while #he/she# pats me on the back and says, \"There there baby\"."
+  id: 778
+  age: 30
+questions_121: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby can tell how far away things are. ##He/She## seems to reach for the dog's tail just about where it is."
+  id: 859
+  age: 4
+questions_201: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is sometimes confused when I use the passive voice. That is, #he/she# understands the sentence, The truck hit the car, but is confused by, The car was hit by the truck."
+  id: 939
+  age: 48
+questions_014: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby seems curious when other kids are upset. If other babies cry, my baby will look interested and might even reach out and touch them.
+  id: 752
+  age: 6
+questions_041: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child often questions the rules I make. ##He/She## will ask me why #he/she# has to do things, like go to bed when it's still light out. If I don't give in, #he/she# might try to make a deal with me like, I'll stay up only for five more minutes  or pout and threaten me by saying something like, \"You're not my friend!\""
+  id: 779
+  age: 30
+questions_122: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby is very interested in new faces. ##He/She## stares intently when #he/she# sees a new face."
+  id: 860
+  age: 5
+questions_202: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems interested in the things around #him/her#. ##He/She## sleeps a lot, but with each passing day #he/she# is more wide-eyed and attentive."
+  id: 940
+  age: 0
+questions_230: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can match things one to one. If I ask #him/her# to help set the table by giving everyone a napkin, #he/she# puts one napkin on each person's plate."
+  id: 968
+  age: 24
+questions_015: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to have a specific attachment to me and favors me over other people. For example, #he/she# stops crying only when I pick #him/her# up and smiles and squeals with more excitement when I lean over to pick her up than when others do."
+  id: 753
+  age: 7
+questions_042: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is learning what is in my mind, like what I know and what I don't know. ##He/She## makes me guess what's in #his/her# hand until I figure it out. ##He/She## knows I don't know what it is because #he/she# hasn't shown me yet."
+  id: 780
+  age: 33
+questions_203: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems to notice certain things around #him/her#. For example,  although there are many things in the room, #he/she# mostly pays attention to things with interesting shapes or complex patterns."
+  id: 941
+  age: 0
+questions_231: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can keep track of the things #he/she# has tried to do while solving a problem. For example, #he/she# won't try to pull on the door handle again and again if it didn't work to open the door the first time. ##He/She## tries something new, like twisting the handle."
+  id: 969
+  age: 24
+questions_016: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby is afraid of strangers. #He/she# cries if a stranger comes close, especially if the stranger moves in quickly, if my baby can't see me, or if I look worried."
+  id: 754
+  age: 7
+questions_043: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is developing friendships. ##He/She## mentions one or two kids over and over when I ask who #he/she# plays with at preschool. ##He/She## likes to do a lot of the things those kids like to do, like pretend to be Batman and Robin. ##He/She## doesn't seem to spend a lot of time with kids who do other things that don't interest #him/her# as much."
+  id: 781
+  age: 33
+questions_123: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby will reach for a toy even when it is partially covered up by a blanket.
+  id: 861
+  age: 4
+questions_150: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child makes things with building blocks. ##He/She## sometimes makes bridges by connecting two tall blocks with a block across the top. ##He/She## also uses blocks to make a fence for #his/her# toy farm animals or a garage to hold #his/her# cars."
+  id: 888
+  age: 42
+questions_204: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems to anticipate patterns, like the way I'm going to respond to #him/her#. For example, #he/she# stops crying just before I pick #him/her# up, like #he/she# expects that to happen."
+  id: 942
+  age: 1
+questions_232: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows about the order of things, especially things we do every day. For example, #he/she# gets upset if I suggest that we read a bedtime story before brushing teeth and getting into pajamas. We always read a book last, right before lights out."
+  id: 970
+  age: 27
+questions_017: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby looks at me when #he/she# is unsure about something, such as a new person or crawling up more than a few stairs."
+  id: 755
+  age: 7
+questions_044: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child can be caring when someone is upset, especially someone he knows well like a friend or someone in our family.
+  id: 782
+  age: 36
+questions_070: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby crawls efficiently. #He/She# is pretty quick and #his/her# movements are well coordinated."
+  id: 808
+  age: 8
+questions_124: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby can tell that one thing is farther away than another thing by noticing how one overlaps the other. ##He/She## reaches around one toy to get another toy."
+  id: 862
+  age: 6
+questions_151: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child makes drawings that show things normally hidden. When drawing a picture of a person wearing clothes, my child will draw the body first and then the clothes so that you can still see the stomach and arms and legs underneath.
+  id: 889
+  age: 48
+questions_205: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby notices changes in patterns.  For example, #he/she# stops smiling after watching my finger swing playfully from side to side; but when I begin swinging it up and down, #he/she# once again widens #his/her# eyes and smiles."
+  id: 943
+  age: 1
+questions_018: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby imitates me. If I do something, like tap on #his/her# cup with a plastic fork, #he/she# might pick up the fork and tap on the cup just like I did."
+  id: 756
+  age: 8
+questions_045: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to know and can reason about whether #he/she# did something by accident or meant to do it. For example, if #he/she# spills juice by accident, #he/she# says, \"sorry--didn't mean it!\" right away. But if #he/she# does something like pinch another child in anger  #he/she# does not say \"sorry\" right away and tries to explain why #he/she# did it when I ask #him/her# about it."
+  id: 783
+  age: 36
+questions_071: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby grasps things using #his/her# fingers together in opposition to #his/her# thumb, like in a scissors motion."
+  id: 809
+  age: 8
+questions_125: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby can judge the size of things, whether they are placed nearby or faraway. For example, #he/she# doesn't seem to have renewed interest in something if I move it farther away from #him/her#. It's like #he/she# knows it's the same thing no matter where it is."
+  id: 863
+  age: 7
+questions_152: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child seems to have a mental picture of the layout of a room. When I vacuum, moving some of the small furniture out of the room, my child is able to put many of the pieces back where they belong.
+  id: 890
+  age: 48
+questions_206: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby seems to know what's going to happen next in certain familiar situations. For example, #he/she# opens #his/her# mouth as I bring a nipple or pacifier closer to #his/her# face."
+  id: 944
+  age: 2
+questions_233: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child asks why things happen. For example, #he/she# often asks why #his/her# baby brother cries."
+  id: 971
+  age: 27
+questions_019: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby doesn't like to be separated from me. ##He/She## cries when I leave the room."
+  id: 757
+  age: 8
+questions_072: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby pulls #himself/herself# to a standing position, usually by getting on #his/her# knees and then pushing up with #his/her# legs as #he/she# pulls down with #his/her# arms. Once #he/she# is up, #he/she# seems to have trouble getting back down. #He/She# may even cry until I come to help #him/her# sit down."
+  id: 810
+  age: 8
+questions_126: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to be developing a fear of heights. ##He/She## holds on tight when I carry #him/her#."
+  id: 864
+  age: 7
+questions_153: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby cries and fusses, and I respond by trying to figure out what #he/she# needs  food, a clean diaper, a hug, etc. "
+  id: 891
+  age: 0
+questions_207: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby likes to make things happen. ##He/She## repeatedly kicks at the mobile above #his/her# crib, cooing and smiling when #he/she# makes the pieces move."
+  id: 945
+  age: 2
+questions_234: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows the order of the first few counting words. #He/She# always says, \"One two three go!\" in that order when #he/she# is ready to jump off the bottom step."
+  id: 972
+  age: 30
+questions_046: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child pretend plays in a way that involves a lot of negotiation of the roles and the action. For example, #he/she# will tell #his/her# friend that they have to put out a fire, so #he/she# will get the water hose and #his/her# friend should try to save the people in the building. They may change the plan if one of them wants to do something in a different way."
+  id: 784
+  age: 42
+questions_073: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby uses #his/her# thumb and a finger to pick things up, like a Cheerio from #his/her# plate. First, #he/she# uses #his/her# index finger to touch the Cheerio, and then #he/she# uses #his/her# thumb to complete the grasp. #He/She# lets go of things in a awkward way."
+  id: 811
+  age: 8
+questions_127: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby loves to look for objects I've hidden and #he/she# will continue to look in the same hiding place that I've used over and over again even when I move #his/her# toy to a new hiding place."
+  id: 865
+  age: 8
+questions_154: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby makes cooing sounds (ah and oo) and some laughing sounds (ge ge or yeh yeh) when I talk to or touch her. "
+  id: 892
+  age: 2
+questions_180: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child is creating her first two word sentences, such as No more" and "Kitty gone!""
+  id: 918
+  age: 18
+questions_208: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby knows that something is whole even if #he/she# only sees part of it. ##He/She## grabs for #his/her# pacifier even when it is partially covered by #his/her# blanket."
+  id: 946
+  age: 3
+questions_235: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows what something really is even when it is different from what it looks like on the outside. If #he/she# drops some food on the floor, #he/she# understands that it is dirty even though it may look clean."
+  id: 973
+  age: 30
+questions_047: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child knows that #he/she# can mislead me and make me believe something that isn't true. ##He/She## will sometimes tell me something is so when it really isn't, so #he/she# can get what #he/she# wants. For example, #he/she# will tell me that grandma said #he/she# could have ice cream, when really grandma said no such thing."
+  id: 785
+  age: 42
+questions_074: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby loves to bounce when #he/she# is in a bouncy chair."
+  id: 812
+  age: 8
+questions_128: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to know if something moving toward him/her# is human or not. For example  #he/she# will act differently depending on who is approaching #him/her#. If #he/she# is crying and a person comes closer  #he/she# will calm down  but if a dog or cat comes closer #he/she# will keep crying."
+  id: 866
+  age: 9
+questions_155: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby's attention seems to be drawn to my voice and the voices of other people who take care of her more than to the voices of strangers. "
+  id: 893
+  age: 0
+questions_181: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to have conversations with himself on occasion. For instance, #he/she# may talk briefly to himself before falling asleep, or #he/she# remind himself not to do things like touch the hot stove by saying, \"Hot hot no touch hot\" as #he/she# stands in front of it."
+  id: 919
+  age: 21
+questions_209: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My baby can remember what #he/she# does to make things happen and #he/she# may do it again to make the same thing happen again. For example,  when #he/she# sticks out #his/her# tongue, I tickle #his/her# tummy, and then #he/she# giggles and sticks out #his/her# tongue again."
+  id: 947
+  age: 3
+questions_236: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child corrects #himself/herself# when #he/she# makes a mistake while solving a problem. For instance, #he/she# might start off putting the nesting cups together correctly, but then if #he/she# picks one that doesn't fit, #he/she# won't just dump the cups. ##He/She## will take the cup that was too small or too big out and try a different cup."
+  id: 974
+  age: 30
+questions_048: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to know and can reason about whether others did something by accident or meant to do it. For example, if I forget to buy #his/her# favorite cereal, #he/she# doesn't get mad at me if I say it was an accident. But, if I tell #him/her# that I meant not to get it because I thought it was bad for #him/her#, my child gets very angry."
+  id: 786
+  age: 48
+questions_075: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is cruising. ##He/She## pulls #himself/herself# up on the furniture or a person who is nearby and moves around, balancing on whatever is supporting #him/her#."
+  id: 813
+  age: 9
+questions_129: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to know that the things around #him/her# stay in the same place even when #he/she# moves and is faced in a different direction. ##He/She## immediately finds the pictures on the refrigerator no matter where I face #his/her# highchair."
+  id: 867
+  age: 10
+questions_182: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child is into naming things, and often asks, What dat?""
+  id: 920
+  age: 21
+questions_237: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "For very small amounts, my child knows how many things there are in a group by counting each one and using the last number as the total amount. For example, when I ask #him/her# how many apples we have, #he/she# counts, \"one two three. Three apples!\""
+  id: 975
+  age: 33
+questions_049: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child sometimes shares things with #his/her# friends. ##He/She## often shares #his/her# snacks, but #he/she# doesn't like to share #his/her# toys as much."
+  id: 787
+  age: 48
+questions_076: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is creeping. ##He/She## moves with #his/her# trunk off the ground, using #his/her# hands and feet. I notice that #he/she# alternates moving #his/her# right arm together with #his/her left leg and then #his/her# left arm together with #his/her# right leg."
+  id: 814
+  age: 9
+questions_156: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby holds my gaze and smiles when I look at her. "
+  id: 894
+  age: 2
+questions_183: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is very interested in getting the right word for each object. ##He/She## seldom uses the wrong word to name things  that is, #he/she# doesn't use doggie for cats, cows and horses as well as dogs anymore."
+  id: 921
+  age: 21
+questions_238: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows that something can be a model that represents something else. If we are doing a puzzle, #he/she# knows that the picture on the box is a small model of the puzzle, so #he/she# can use it to see where certain pieces go."
+  id: 976
+  age: 33
+questions_077: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child bangs things together, like the lids of two pots if I leave them out for #him/her# to explore. ##He/She## makes quite a racket!"
+  id: 815
+  age: 9
+questions_157: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to prefer being spoken to in a high-pitched baby talk voice rather than my regular voice. I can tell because #he/she# looks at me, smiles and wiggles more when I use baby talk. "
+  id: 895
+  age: 4
+questions_184: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is learning the rules of grammar. I can tell because #he/she# is making grammatical errors with words #he/she# used to use correctly. For instance, #he/she# says goed instead of went, runned instead of ran and feets instead of feet."
+  id: 922
+  age: 24
+questions_239: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows that things can be counted even if they are not all alike. #He/She# counts everything #he/she# sees, no matter if the things go together like all the crayons that spilled on the floor, or if the things are just around #him/her#, like the crayons, books, stickers, and socks that are on #his/her# desk."
+  id: 977
+  age: 36
+questions_078: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to know some things about how people move and uses this to know if something moving toward #him/her# is human or not. For example, #he/she# will act differently depending on who is approaching #him/her#. If #he/she# is crying and a person comes closer, #he/she# will calm down, but if a dog or cat comes closer, #he/she# will keep crying."
+  id: 816
+  age: 9
+questions_158: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby makes a lot of different kinds of sounds, including cries, whimpers, and squeaks. "
+  id: 896
+  age: 3
+questions_185: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can figure out the meaning of words by listening to how they are used. For instance, when I said, You can pet the gerbil, #he/she# knew I meant the little animal in front of her even though #he/she# had never heard the word gerbil before."
+  id: 923
+  age: 24
+questions_159: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to delight in making eye-contact with me. ##He/She## enjoys it when we look into each other's eyes and smile and coo back and forth at each other, as if we are having a conversation."
+  id: 897
+  age: 2
+questions_186: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is amused when I misname something. ##He/She## laughs if I call her Pumpkinhead or point to the cat and say Daddy."
+  id: 924
+  age: 24
+questions_187: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child asks a lot of questions that begin with who, what, when, where, how and especially why?!?.
+  id: 925
+  age: 27
+questions_079: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is learning to walk. ##His/Her## steps are awkward and #he/she# hesitates a lot. Usually, #his/her# knees are turned a little outwards and #his/her# arms are not in synchrony with #his/her# feet."
+  id: 817
+  age: 10
+questions_188: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child can hold a conversation with one person by taking turns at talking, but still has a hard time negotiating a conversation with or entering a conversation between two or more people.
+  id: 926
+  age: 27
+questions_189: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: Instead of saying things like, Daddy no go, my child is using the more advanced form of negative sentences, such as, Daddy, don't go.
+  id: 927
+  age: 30
+questions_001: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby cries and I respond by trying to figure out what #he/she# needs- food, warmth, a clean diaper, a hug, etc."
+  id: 739
+  age: 0
+questions_002: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby smiles sometimes when #he/she# is sleeping. #His/Her# mouth turns up a little at the corners, but #his/her# eyes don't crinkle like mine do when I smile. Still, #he/she# looks like #he/she# is sleeping comfortably."
+  id: 740
+  age: 0
+questions_110: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child has good hand-finger coordination and can button almost any button.
+  id: 848
+  age: 48
+questions_003: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby and I seem to influence each other. When #he/she# stops sucking, it makes me want to jiggle the nipple. When I jiggle, #he/she# starts sucking again. We usually fit well like that with each other."
+  id: 741
+  age: 1
+questions_030: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child gets extremely upset when I leave, kicking, screaming, and crying so much that I feel terrible and dread having to leave even for a short time.
+  id: 768
+  age: 15
+questions_111: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to see things when I hold them close to #his/her# face, about 8 or so inches away. ##He/She## follows a toy or my hand as I move it slowly in front of #him/her#."
+  id: 849
+  age: 0
+questions_004: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby cries sometimes when #he/she# hears other babies crying."
+  id: 742
+  age: 1
+questions_031: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child seems to be testing me. ##He/She## will attempt do something I've told #him/her# not to do, the whole time looking at me with a sneaky grin."
+  id: 769
+  age: 18
+questions_005: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby smiles at familiar faces and things, like the faces of family members or her mobile.
+  id: 743
+  age: 2
+questions_032: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child recognizes that #he/she# is a separate individual and #he/she# does things that show me he/she# has this sense of self. For example, when we play hide-n-seek, #he/she# knows that #he/she# needs to hide #his/her# whole body so that I cannot see #him/her#."
+  id: 770
+  age: 18
+questions_112: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby's eye movements are jerky.
+  id: 850
+  age: 0
+questions_220: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child expects certain things to cause other things. For example,  #he/she# knows that if #he/she# pushes the red firetruck #he/she# will hear the siren. When the batteries were low and the siren didn't work,  #he/she# seemed surprised."
+  id: 958
+  age: 9
+questions_006: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby likes to play games with me when we are close. ##He/She## makes sounds after I make sounds. I usually try to figure out when my baby wants to play like this and when #he/she# needs to take a break and have some quiet time."
+  id: 744
+  age: 3
+questions_033: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child often ignores other children when they are upset, but #he/she# will occasionally reach out and give a gentle pat on the back when a playmate is crying."
+  id: 771
+  age: 18
+questions_113: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to prefer to look at things with patterns. ##He/She## will stare at my shirt with the bold black and white design much longer than my solid-colored shirts."
+  id: 851
+  age: 0
+questions_140: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can figure out the layout of a new area just by looking around for a little while. When we go to a friend's home for the first time, #he/she# adjusts quickly and seems to find #his/her# way around easily after we've gotten the tour."
+  id: 878
+  age: 24
+questions_221: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows a little about what things should weigh and expects bigger things to be heavy.  For instance, when I handed #him/her# a large, very light beach ball, #he/she# lost #his/her# balance a little and seemed surprised, as if it were much lighter than #he/she# thought it would be"
+  id: 959
+  age: 10
+questions_007: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby prefers to look at my familiar face more than at unfamiliar faces.
+  id: 745
+  age: 3
+questions_034: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child plays interactively with other children. For example, #he/she# will run and chase another child, who then runs and chases my child back."
+  id: 772
+  age: 21
+questions_060: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby can sit up with my support.
+  id: 798
+  age: 4
+questions_114: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby's eye movements are fairly smooth and controlled, not jerky.
+  id: 852
+  age: 1
+questions_141: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child labels #his/her# scribbles after #he/she# draws them on paper. ##He/She## will draw a shape and then call it the sun."
+  id: 879
+  age: 27
+questions_008: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby smiles at me more than at other people. We have a very special relationship.
+  id: 746
+  age: 4
+questions_061: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby can reach toward something #he/she# is looking at. Sometimes, #he/she# even touches what #he/she# was looking at!"
+  id: 799
+  age: 4
+questions_115: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby tends to look mostly at the outside of my face along my hairline, but #he/she# is attracted to the movement of my mouth when I speak."
+  id: 853
+  age: 1
+questions_142: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child makes towers and rows with #his/her# building blocks."
+  id: 880
+  age: 27
+questions_222: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child can make a plan that involves doing two or three things in order to solve a problem. For instance, in order to get a toy that is just out of reach, #he/she# will move something that is in the way, pull on a blanket that the toy is on and pull the toy to #him/her#."
+  id: 960
+  age: 10
+questions_223: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child knows that some objects are just like other ones.  For instance if I put out a spoon and a knife and ask #him/her# to find one \"just like it\" #he/she# picks up a fork."
+  id: 961
+  age: 12
+questions_009: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems interested in #himself/herself# as a separate person. ##He/She## looks curiously at #his/her# reflection in the mirror, although it doesn't seem like #he/she# knows the image is of #him/her#."
+  id: 747
+  age: 4
+questions_035: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is learning what is and is not acceptable. ##He/She## uses the words good\" and \"bad\" and will ask me if #he/she# has done something bad.\""
+  id: 773
+  age: 21
+questions_062: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby visually directs the way #he/she# reaches. ##He/She## can touch or grasp things #he/she# reaches out for, not just things I place in #his/her# hand. ##He/She## grasps and lifts things by pushing them with #his/her# fingers against #his/her# palm although #his/her# grasp is still a bit unsteady."
+  id: 800
+  age: 4
+questions_116: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My baby seems to pay particular attention to the edges of things, like where the light and dark meet at the edges of the window or my hairline.
+  id: 854
+  age: 2
+questions_143: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is experimenting with colors. ##He/She## tries out different colors and mixes some colors together when #he/she# paints."
+  id: 881
+  age: 30
+questions_224: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child uses complex strategies to solve a problem when simple ones don't work. For instance, in order to get a balloon that floated to the ceiling, #he/she# reached up, climbed on a chair and still couldn't get it, then used a toy to hit it down."
+  id: 962
+  age: 12
+questions_036: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child sometimes makes excuses when #he/she# does something #he/she#'s not supposed to do. ##He/She## will deny it by saying, Not me!\" or blame another person.\""
+  id: 774
+  age: 24
+questions_063: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby tries to stand when I hold #him/her# under #his/her# arms and #his/her# feet touch the floor. ##He/She## tries to straighten #his/her# legs, tensing #his/her# leg muscles."
+  id: 801
+  age: 5
+questions_117: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby focuses on my eyes when my face is close to #his/hers#. I can't help but gaze into my baby's eyes in response."
+  id: 855
+  age: 2
+questions_144: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is beginning to make marks on paper that #he/she# says is writing."
+  id: 882
+  age: 30
+questions_170: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is using a great variety of gestures as #he/she# speaks. For instance, #he/she# may point a finger to indicate things #he/she# wants or notices, blow to show something is too hot, wave while saying bye-bye, etc."
+  id: 908
+  age: 12
+questions_225: 
+  created_at: 2012-04-13 11:13:58 Z
+  category: Logic
+  updated_at: 2012-04-13 11:13:58 Z
+  text: "My child seems to notice when one group of things is less or more than another group of things, but only when the amounts #he/she# compares are very small.  For instance, when I gave #him/her# a plate with one cookie and an older child two cookies, #he/she# looked at the plate with two,  looked at me, and then reached out toward the plate with two cookies while looking at me."
+  id: 963
+  age: 15
+questions_037: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Social
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child can talk about #his/her# feelings. ##He/She## can also figure out how I'm feeling. If I'm looking angry, #he/she# may come over to me and ask, Mommy mad?\"\""
+  id: 775
+  age: 24
+questions_064: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby uses #his/her# whole hand to grasp things, lifting things by pushing them with #his/her# fingers against #his/her# palm."
+  id: 802
+  age: 5
+questions_090: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Physical
+  updated_at: 2012-04-13 11:13:57 Z
+  text: My child can kick a ball by nudging the ball with one foot and making a pushing kicking movement with the other foot.
+  id: 828
+  age: 21
+questions_118: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Visual
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My baby seems to pay a lot of attention to the details of my face. ##He/She## looks at my eyes, mouth, and nose."
+  id: 856
+  age: 3
+questions_171: 
+  created_at: 2012-04-13 11:13:57 Z
+  category: Language
+  updated_at: 2012-04-13 11:13:57 Z
+  text: "My child is using her first words! ##He/She## says simple words like ball, hot, no and me."
+  id: 909
+  age: 10
