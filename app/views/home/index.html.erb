@@ -2,11 +2,67 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 %>
+
+<% if current_user %>
+  <div id="page-wrapper">
+    <div id="top">
+      <div id="login_box">
+
+        <ul>
+          <li class="avatar">
+            <%= get_image_tag current_user, "vsmall" -%>
+          </li>
+
+          <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
+          <% if current_family -%>
+            <li><span class="border">|</span></li>
+            <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
+          <% end %>
+
+          <li><span class="border">|</span></li>
+          <li><a href="<%= logout_path -%>">Log Out </a></li>
+          <li><span class="border">|</span></li>
+          <li><a href="<%= edit_account_path -%>">Setting </a></li>
+          <li><span class="border">|</span></li>
+          <li><a href="#">Tour</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+<% end %>
+
 <div id="home">
+
   <div id="top">
     <div id="right">
       <img src="/images/home_right.jpg" alt="right_logo" />
     </div>
+    <div class="info-bar">
+
+      <% if flash[:error] %>
+        <div class="error-notice">
+          <img src="/images/icon1.png" alt="baby_icon_error" />
+          <span><%= flash[:error] -%></span>
+        </div>
+      <% end %>
+
+      <% if flash[:notice] %>
+        <div class="notice">
+          <img src="/images/baby_icon_full.png" alt="baby_icon" />
+          <span><%= flash[:notice] -%></span>
+        </div>
+      <% end %>
+      <div class="clear"></div>
+      <script type="text/javascript">
+		$(window).load(function(){
+			$('.info-bar').hide().fadeIn(500).delay(5000).fadeOut(500);
+		})
+      </script>
+    </div>
+
+
     <div id="left">
       <img src="/images/home_left.jpg" alt="left_logo" />
     </div>
@@ -61,14 +117,14 @@
 
             <script type="text/javascript">
               $(function() {
-                $('#birth_day').jStepper({minValue:1, maxValue:31, minLength: 1,allowDecimals: false, disableAutocomplete: true});
-                $('#birth_month').jStepper({minValue:1, maxValue:12, minLength: 1, allowDecimals: false,  disableAutocomplete: true});
-                $('#birth_year').jStepper({minLength: 4, minValue:1, maxValue: (new Date).getFullYear(), allowDecimals: false,});
+              $('#birth_day').jStepper({minValue:1, maxValue:31, minLength: 1,allowDecimals: false, disableAutocomplete: true});
+              $('#birth_month').jStepper({minValue:1, maxValue:12, minLength: 1, allowDecimals: false,  disableAutocomplete: true});
+              $('#birth_year').jStepper({minLength: 4, minValue:1, maxValue: (new Date).getFullYear(), allowDecimals: false,});
               });
             </script>
 
             <div class="submit">
-              <%= submit_tag " " %>              
+              <%= submit_tag " " %>
             </div>
           <% end %>
         </div>
