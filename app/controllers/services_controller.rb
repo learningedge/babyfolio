@@ -43,7 +43,10 @@ class ServicesController < ApplicationController
             else
               if session[:is_login]
                 clear_session
-                redirect_to :action => :create, :locals => params
+                UserSession.create(User.find(auth.user_id))
+                auth.update_attribute(:token, @authhash[:token]) unless auth.token == @authhash[:token]
+                flash[:notice] = 'Signed in successfully via ' + @authhash[:provider].capitalize + '.'
+                @redirect_link = child_profile_children_url
               else
                 flash[:notice] = 'Current Facebook user is bound to another babyfolio account. Disconnect Facebook from that account before connecting it it here or simply pick another one.'
               end
