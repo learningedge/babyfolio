@@ -163,7 +163,7 @@ hr { margin: 15px 0;  }
 #home #top div {display: inline-block;}
 #home #top #left {float: left;;min-width: 120px;width: 15%}
 #home #top #right {float: right;min-width: 250px;width: 10%}
-#home #top #center {width:993px;padding: 20px 0 0;float: left;min-width: 500px;width: 30%}
+#home #top #center {padding: 20px 0 0;float: left;min-width: 310px;}
 #home #login_box {display: block;width: 993px;clear: both;height: 40px;margin: 0 auto;padding: 18px 0 0}
 #home #login_box ul {float: right;list-style: none}
 #home #login_box ul li {float: left;color: #fff}
@@ -214,6 +214,13 @@ hr { margin: 15px 0;  }
 #home #wrraper #container_home #moments ul li .icon h1 {font:27px Helvetica_seven;color:#9b7804}
 #home #wrraper #container_home #moments ul li .icon p {font:14px arial; color:#898989;margin: 10px 0 0;width: 200px}
 #home .footer_container {width: 1020px; margin:0 auto}
+
+
+#home .info-bar {background: #F5F2DD; border-radius: 12px 12px 12px 12px;  display: none; float: right; margin-right: 60px; margin-top: 35px;}
+#home .info-bar .notice, #home .info-bar .error-notice {color: #ab1500; display: inline-block; font: 18px "Helvetica_seven";  padding: 6px 10px;}
+#home .info-bar img {display: block; float: left; height: 28px; padding: 0 10px 0 0; width: 28px;}
+#home .info-bar span {float:left;padding:2px 0 0; max-width:450px}
+
 
 /* TOP Profile*/
 #top {background: #c8ba7b;height: 36px}

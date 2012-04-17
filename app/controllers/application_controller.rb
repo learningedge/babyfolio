@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
       if current_user
         store_location
         flash[:notice] = "You must be logged out to access this page"
-        redirect_to child_profile_children_url
+        redirect_to home_index_url
         return false
       end
     end
