@@ -1,6 +1,7 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+#  before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:destroy, :change_family]
+  before_filter :clear_session, :only => [:create]
 
   def new
 #    current_user_session.destroy if current_user?

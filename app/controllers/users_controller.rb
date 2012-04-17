@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   
-  before_filter :require_no_user, :only => [:new, :create]
+  #before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
   before_filter :require_confirmation, :only => [:show, :edit, :update, :add_image, :upload]
   before_filter :require_family, :only => [:show]
+  before_filter :clear_session, :only => [:create]
+
 
   def new
     @user = User.new    
