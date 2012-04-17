@@ -65,7 +65,6 @@ class User < ActiveRecord::Base
   def get_facebook_photo id
     service = get_facebook_service
     @facebook_photo = FbGraph::Photo.fetch(id, :access_token => service.token)
-#    @facebook_photo = FbGraph::User.fetch(service.uid, :access_token => service.token).photos(id)
   end
 
 # ---------- VIMEO --------------
