@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?
 
   private
+    def clear_session
+      if current_user_session
+        current_user_session.destroy
+        reset_session        
+      end
+    end
+
     def clear_family_registration
       session[:is_registration] = nil
     end
