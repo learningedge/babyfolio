@@ -1,0 +1,9 @@
+<% unless prev_element_same %>
+<h3 class="title"><%= moment_tag.name %></h3>
+<% end %>
+<% unless moment_tag.parent_question.blank? %>
+<div class="label <%= 'checked' if @moment.moment_tags.include?(moment_tag)-%>">
+  <div class="description"><span class="check-image"></span><%= check_box_tag "moment_tag_ids[]", moment_tag.id, (true if @moment.moment_tags.include?(moment_tag)), :class => ((@moment.moment_tags & moment_tag.children_tags).blank? ? '' : 'disabled') -%><%= moment_tag.parent_question -%></div>
+</div>
+<% end %>
+

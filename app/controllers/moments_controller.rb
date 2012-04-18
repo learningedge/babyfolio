@@ -10,9 +10,8 @@ class MomentsController < ApplicationController
   end
 
   def new    
-    @moment = Moment.new
-    @child = Child.find(params[:child_id])
-    @moment.child = @child
+    @moment = Moment.new    
+    @moment.child = Child.find(params[:child_id])
     @moment_tags = MomentTag.find_all_by_level(nil)    
   end
 
@@ -33,27 +32,25 @@ class MomentsController < ApplicationController
 
       unless params[:moment_tag_ids].blank?
 
-#        moment_tag_ids = params[:moment_tag_ids].collect{ |moment_tag_id| moment_tag_id.to_i}
         moment_tags = MomentTag.find(params[:moment_tag_ids])
         moment_tags.each {|moment_tag| moment.moment_tags << moment_tag}
         
       end
 
-
       if moment.save
         flash[:notice] = "Moment has been successfuly created."
         if params[:operation_type] == "tag_it"          
-          redirect_to tag_moments_url :moment_id => moment.id
+          redirect_to tag_moments_url :id => moment.id
         else          
           redirect_to edit_moment_path :id => moment.id
         end
         
       else
         
-        @moment = Moment.new
-        @child = Child.find(params[:cid])
+        @moment = moment
         @moment_tags = MomentTag.find_all_by_level(nil)        
-        render :action => :new        
+        render :action => :new
+        
       end
     else      
       flash[:error] = "Can't create moments for children from someone else's family"      
@@ -67,14 +64,77 @@ class MomentsController < ApplicationController
   end
 
   def update
+
+    media = []
+    media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
+    media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
+    media += MediaFlickr.create_media_objects(params[:flickr_photos], params[:flickr_pids], current_user.id)  unless  params[:flickr_pids].blank?
+    media += MediaYoutube.create_media_objects(params[:youtube_videos], current_user.id)  unless  params[:youtube_videos].blank?
+    media += MediaVimeo.create_media_objects(params[:vimeo_videos], current_user.id)  unless  params[:vimeo_videos].blank?
+
+    moment = Moment.find(params[:id])
+    moment.media = media
+
+    moment_tags = Array.new
+    moment_tags = MomentTag.find(params[:moment_tag_ids]) unless params[:moment_tag_ids].blank?
+
+    moment_tags_to_destroy = moment.moment_tags.main_level - moment_tags
+    moment_tags_to_add = moment_tags - moment.moment_tags.main_level
+
+    moment.moment_tags = moment.moment_tags - moment_tags_to_destroy
+    moment.moment_tags = moment.moment_tags + moment_tags_to_add
     
+    if moment.update_attributes(params[:moment])
+      flash[:notice] = "Moment has been successfuly updated."
+      if params[:operation_type] == "tag_it"
+        redirect_to tag_moments_url :id => moment.id
+      else
+        redirect_to edit_moment_path :id => moment.id
+      end
+    else
+
+      @moment = moment
+      @moment_tags = MomentTag.find_all_by_level(nil)
+      render :action => :edit
+      
+    end    
   end
 
   def destroy
   end
 
   def tag_moment
-    @moment = Moment.find(params[:moment_id])
+    
+    @moment = Moment.find(params[:id])
+    @main_moment_tags = @moment.moment_tags.main_level
+
+  end
+  
+  def update_moment_tags
+    moment = Moment.find(params[:id])
+    
+    moment_tags = Array.new
+    unless params[:moment_tag_ids].blank?
+      moment_tags = MomentTag.find(params[:moment_tag_ids])
+      moment_tags_ids = Array.new
+      moment_tags.each do |moment_tag|
+        hierarchy = moment_tag.level_hierarchy
+        hierarchy = hierarchy.split(">>")
+        moment_tags_ids += hierarchy
+        moment_tags_ids = moment_tags_ids.push(moment_tag.id.to_s)
+      end
+      moment_tags_ids = moment_tags_ids.uniq
+      moment_tags = MomentTag.find(moment_tags_ids)
+    end
+    moment_tags_to_destroy = moment.moment_tags.not_main_level - moment_tags
+    moment_tags_to_add = moment_tags - moment.moment_tags.not_main_level
+    moment.moment_tags = moment.moment_tags - moment_tags_to_destroy
+    moment.moment_tags = moment.moment_tags + moment_tags_to_add
+    moment.save
+
+    
+    flash[:notice] = "Moment Tags have been successfuly updated."
+    redirect_to tag_moments_url :id => moment.id
   end
 
   def change_provider
@@ -83,7 +143,8 @@ class MomentsController < ApplicationController
     render :partial => "flickr/select_flickr_photos" if params[:provider] == "flickr"
     render :partial => "uploaded_images/select_uploaded_images" if params[:provider] == 'uploaded-images'
     render :partial => "youtube/select_youtube_videos" if params[:provider] == 'youtube'
-    render :partial => "vimeo/multiselect_vimeo_videos" if params[:provider] == 'vimeo'    
+    render :partial => "vimeo/multiselect_vimeo_videos" if params[:provider] == 'vimeo'
+    
   end
 
   def import_media

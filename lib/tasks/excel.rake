@@ -11,7 +11,7 @@ namespace :excel do
     print "LearnerTagsSpreadsheet: Competenses/Abilities..................................\n"
 
     @main_category = MomentTag.create(:name => "A Striking Developments (Reveals Insight into who your child is)")
-    @category_one_level0 = MomentTag.create(:name => "", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
+    @category_one_level0 = MomentTag.create(:name => "Competenses/Abilities", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
 
     file = Excel.new(@file_path)
     file.default_sheet = file.sheets.at(1)
@@ -24,7 +24,10 @@ namespace :excel do
       name.strip! unless name.blank?
       
       require_level_affinity  = file.cell(line,'B')
-      require_level_affinity.downcase.strip! unless require_level_affinity.blank?
+      unless require_level_affinity.blank?
+        require_level_affinity = require_level_affinity.downcase
+        require_level_affinity.strip!
+      end
       
       value_type = file.cell(line,'C')
       value_range = file.cell(line,'D')
@@ -48,7 +51,7 @@ namespace :excel do
            (!levels[1].blank? and !levels[2].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?)           
-          ) and require_level_affinity != "level"
+          ) and require_level_affinity == "affinity"
 
         pp levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect
         
@@ -129,16 +132,16 @@ namespace :excel do
       levels.each {|level| level.strip! unless level.blank?}
 
       moment_tags = Array.new
-      moment_tags[0] = @category_one_level0
+      moment_tags[0] = @category_two_level0
 
-      level_hierarchy = @main_category.id.to_s + ">>" + @category_one_level0.id.to_s
+      level_hierarchy = @main_category.id.to_s + ">>" + @category_two_level0.id.to_s
 
       if ( !levels[1].blank? or
            (!levels[1].blank? and !levels[2].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank?)
-       ) and require_level_affinity != "level"
+       ) and require_level_affinity == "affinity"
 
         pp require_level_affinity + " :::: " + levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect + " -> " + levels[5].inspect
 
@@ -230,7 +233,7 @@ namespace :excel do
            (!levels[1].blank? and !levels[2].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?)           
-       ) and require_level_affinity != "level"
+       ) and require_level_affinity == "affinity"
 
         pp require_level_affinity + " :::: " + levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect
 
@@ -329,7 +332,7 @@ namespace :excel do
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank? and !levels[6].blank?) or
            (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank? and !levels[6].blank? and !levels[7].blank?)
-       ) and require_level_affinity != "level"
+       ) and require_level_affinity == "affinity"
 
         pp require_level_affinity.inspect + " :::: " + levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect + " -> " + levels[5].inspect + " -> " + levels[6].inspect + " -> " + levels[7].inspect
 
@@ -379,7 +382,7 @@ namespace :excel do
 
     print "DONE\n"
     
-    print "LearnerTagsSpreadsheet: Real World Interest areas......................................\n"
+    print "LearnerTagsSpreadsheet: People/Relationships......................................\n"
 
     file = Excel.new(@file_path)
     file.default_sheet = file.sheets.at(5)
@@ -417,7 +420,7 @@ namespace :excel do
 
       if ( !levels[1].blank? or
            (!levels[1].blank? and !levels[2].blank?)           
-       ) and require_level_affinity != "level"
+       ) #and require_level_affinity == "affinity"
 
         pp require_level_affinity.inspect + " :::: " + levels[1].inspect + " -> " + levels[2].inspect
 

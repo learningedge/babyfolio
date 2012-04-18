@@ -1,6 +1,91 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+<div id="tag_moment" class="container">
+  <div id="left" class="left_question">
+    <div id="title">Tag the moment "<%= @moment.title -%>"</div>
+    <div class="link">
+      <%= link_to "Edit moment" , edit_moment_path(:id => @moment.id) -%>
+    </div>
+  </div>
+  <div id="questionaire" class="user-form">
+    <%= form_for @moment, :url => update_tag_moments_path do |f|%>
+    
+    <ul class="main-level">
+      <% @main_moment_tags.each do |main_moment_tag| %>
+        <li><h2><%= main_moment_tag.name -%></h2>        
+          <%= moment_tags_list(main_moment_tag).html_safe -%>
+        </li>
+      <% end %>
+    </ul>
+    <%= hidden_field_tag :id, @moment.id -%>
+    <%= f.submit "Save Tags" -%>
+    <% end %>
+    
+  </div>
+  <div class="clear"></div>
+</div>
 
-<%= "tag_moment.html" %>
+<script type="text/javascript">
+
+  function show_levels(start_level,max_level) {
+    for (level = start_level; level <= max_level; level++) {
+      $('.level-'+level+':visible > li > div > .moment-tag.static').each(function(){
+        $(this).parent().parent().find('> ul').show()
+      })
+    }
+  }
+
+  function hide_levels(element) {
+    element.find('ul').hide();
+  }
+
+  function elements_checked (elements) {
+    var checked = false
+    elements.each(function(){
+      if ($(this).attr('checked')) {        
+        checked = true;        
+      }
+    })
+    return checked;
+  }
+
+  $(function(){
+  
+    $('.level-0 input[type=checkbox]:checked').parents('ul').show();
+    $('.level-0 input[type=checkbox]:checked').parents('li').find('> ul').show();
+    show_levels(0,7);    
+
+    $('.moment-tag').not('.static').find('.label').click(function(){
+      if (!$(this).find('input').hasClass('disabled')) {
+        var ul_element = $(this).parent().parent().parent().find('> ul');
+        var level = ul_element.attr('level');
+        
+        if ($(this).find('input').attr('checked')){
+        
+          $(this).find('input').attr('checked', false);
+          $(this).removeClass('checked');
+          if(!elements_checked($($(this).parents('li')[1]).find('> ul > li > div > .moment-tag input'))) {
+            $($(this).parents('li')[1]).find('> div > .moment-tag input').removeClass('disabled');
+          }
+          
+        }else{
+        
+          $(this).find('input').attr('checked', true)
+          $(this).addClass('checked');
+          $(this).parents('li').find('> div > .moment-tag input').not($(this).parents('li').first().find('> div > .moment-tag input')).addClass('disabled');
+          
+        }
+
+        if (!elements_checked($(this).parent().find('input'))) {          
+          ul_element.stop().animate({opacity:0}, function(){$(this).hide()});
+          hide_levels(ul_element);
+        } else {
+          if(!ul_element.is(':visible')) {
+            ul_element.css({opacity:0}).show();
+          }
+          ul_element.stop().animate({opacity:1});
+          show_levels(ul_element.attr('level'),7);
+        }
+      }
+      
+    })
+  })
+</script>

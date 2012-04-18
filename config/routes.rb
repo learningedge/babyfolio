@@ -1,6 +1,6 @@
 Babyfolio::Application.routes.draw do
 
-  resources :moments, :except => [:new] do    
+  resources :moments, :except => [:new, :index] do
       new do
         get ':child_id' => "moments#new", :as => :child
         
@@ -10,7 +10,8 @@ Babyfolio::Application.routes.draw do
       collection do
         match :import_media
         post :create_from_media
-        get '/:moment_id/tag_it' => "moments#tag_moment", :as => :tag
+        put '/tag_it/update' => "moments#update_moment_tags", :as => :update_tag
+        get '/tag_it/:id' => "moments#tag_moment", :as => :tag        
       end
   end
 

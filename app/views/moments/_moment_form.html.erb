@@ -5,7 +5,7 @@
     <%= hidden_field_tag 'cid', @moment.child.id %>
     <div class="options">
 
-      <div class="title_property">
+      <div class="title_property <%= "error" if @moment.errors.any?  %>">
         <%= f.label :title -%>
         <%= f.text_field :title -%>
       </div>
@@ -37,13 +37,28 @@
 
       <% @moment_tags.each do |mt|  %>
       <div class="category">
-        <label><%= check_box_tag "moment_tag_ids[]", mt.id -%> <span><%= mt.name %> </span></label>
-      </div>
-
+        <div class="label <%= 'checked' if @moment.moment_tags.main_level.include?(mt) %>"><span class="check-image"></span><%= check_box_tag "moment_tag_ids[]", mt.id, (true if @moment.moment_tags.main_level.include?(mt)), :class => ((mt.children_tags & @moment.moment_tags).blank? ? '': 'disabled') -%> <span><%= mt.name %> </span></div>
+      </div>      
       <% end %>      
 
       <script type="text/javascript">
-        function checkAll(){$('.categories .category input[type="checkbox"]').attr("checked",true);};
+        function checkAll(){
+          $('.categories .category input[type="checkbox"]').attr("checked",true);
+          $('.categories .category .label').addClass('checked');
+        };
+        $(function(){
+          $('.categories .category .label').click(function(){
+            if (!$(this).find('input').hasClass('disabled')) {
+              if ($(this).find('input').attr('checked')) {
+                $(this).removeClass('checked');
+                $(this).find('input').attr('checked',false)
+              } else {
+                $(this).addClass('checked');
+                $(this).find('input').attr('checked',true)
+              }
+            }
+          })
+        })
       </script>
       <div class="check-all">
         <a href="#" onclick="checkAll();return false;">Select All</a>

@@ -601,13 +601,46 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form textarea {font: 14px arial;color: #898989;padding: 7px 7px 7px 11px; border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(PIE/PIE.htc);}
 #new_moment_form label {display:inline-block; width:65px; text-align:right; padding-right: 15px; color: #898989; font: 14px arial}
 #new_moment_form .title_property {float: left; margin-bottom: 20px; text-align: center; }
-#new_moment_form .description td { vertical-align: middle;  }
+#new_moment_form .title_property.error div{display:inline}
+#new_moment_form .description td { vertical-align: middle;}
+
+#new_moment_form .field_with_errors label {color:red}
+#new_moment_form .field_with_errors input {border-color:red}
 
 #new_moment_form .options { float: left; margin-bottom: 20px; }
 #new_moment_form .categories { float: left; margin-left: 25px; }
-#new_moment_form .categories label { width: 350px; text-align: left; }
+#new_moment_form .categories .label { width: 350px; text-align: left; color: #898989; font: 14px arial;cursor:pointer}
+#new_moment_form .categories .label input{display:none}
+#new_moment_form .categories .label .check-image {background: url("/images/checked.png") 0% -20px no-repeat;height:22px;width:20px;display:inline-block}
+#new_moment_form .categories .label.checked .check-image {background-position:50% 50%}
+
 #new_moment_form .categories #mom_tags_header { font: 18px arial; font-weight: bold; color: #898989; margin-bottom: 8px; }
-#new_moment_form .categories .category label{ margin: 5px; }
+#new_moment_form .categories .category .label{ margin: 5px; }
 #new_moment_form .categories .check-all { margin-bottom: 5px; }
 #new_moment_form .submit_wrapper { padding-left: 20px; margin-top: 15px; }
+#new_moment_form a.new_moment_submit {display:block;text-align:center;line-height:53px;text-decoration:none}
 #new_moment_form .new_moment_submit {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
+
+/* TAG MOMENT */
+#tag_moment .main-level ul {padding:5px 5px}
+#tag_moment .main-level li {padding:5px 0px 2px}
+#tag_moment .main-level li {list-style: none}
+#tag_moment .static input {display:none}
+#tag_moment .level-0 ul {display:none}
+#tag_moment .main-level h3 {font-size:16px;color:#555}
+#tag_moment .main-level .description {font-style:italic;cursor:pointer}
+#tag_moment .main-level .check-image {background: url("/images/checked.png") 0% -20px no-repeat;height:22px;width:20px;display:inline-block}
+#tag_moment .main-level .label.checked .check-image {background-position:50% 50%}
+#tag_moment .main-level .label:hover .description {text-decoration:underline}
+#tag_moment .main-level input[type=checkbox]{display:none}
+
+
+#tag_moment .level-0 {background-color:#F5F2DD}
+#tag_moment .level-1 {background-color:#E8E3C0}
+#tag_moment .level-2 {background-color:#F5F2DD}
+#tag_moment .level-3 {background-color:#E8E3C0}
+#tag_moment .level-4 {background-color:#F5F2DD}
+#tag_moment .level-5 {background-color:#E8E3C0}
+#tag_moment .level-6 {background-color:#F5F2DD}
+#tag_moment .level-7 {background-color:#E8E3C0}
+#tag_moment .level-8 {background-color:#F5F2DD}
