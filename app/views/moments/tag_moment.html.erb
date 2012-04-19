@@ -26,11 +26,11 @@
 <script type="text/javascript">
 
   function show_levels(start_level,max_level) {
-    for (level = start_level; level <= max_level; level++) {
-      $('.level-'+level+':visible > li > div > .moment-tag.static').each(function(){
-        $(this).parent().parent().find('> ul').show()
-      })
-    }
+    <%#*for (level = start_level; level <= max_level; level++) {%>
+      <%#*$('.level-'+level+':visible > li > div > .moment-tag.static').each(function(){%>
+        <%#*$(this).parent().parent().find('> ul').show()%>
+      <%#*})%>
+    <%#*}%>
   }
 
   function hide_levels(element) {
@@ -53,28 +53,32 @@
     $('.level-0 input[type=checkbox]:checked').parents('li').find('> ul').show();
     show_levels(0,7);    
 
-    $('.moment-tag').not('.static').find('.label').click(function(){
-      if (!$(this).find('input').hasClass('disabled')) {
-        var ul_element = $(this).parent().parent().parent().find('> ul');
+    <%#*$('.moment-tag').not('.static').find('.label').click(function(){%>
+    $('.moment-tag').find('.label').click(function(){
+      if (!$(this).hasClass('disabled')) {
+        var ul_element = $($($(this).parents("li")[0]).find('ul')[0]);
+
+
         var level = ul_element.attr('level');
-        
+
+        console.log(level);
         if ($(this).find('input').attr('checked')){
         
           $(this).find('input').attr('checked', false);
           $(this).removeClass('checked');
           if(!elements_checked($($(this).parents('li')[1]).find('> ul > li > div > .moment-tag input'))) {
-            $($(this).parents('li')[1]).find('> div > .moment-tag input').removeClass('disabled');
+            $($(this).parents('li')[1]).find('> div > .moment-tag .label').removeClass('disabled');
           }
           
         }else{
         
           $(this).find('input').attr('checked', true)
           $(this).addClass('checked');
-          $(this).parents('li').find('> div > .moment-tag input').not($(this).parents('li').first().find('> div > .moment-tag input')).addClass('disabled');
+          $(this).parents('li').find('> div > .moment-tag .label').not($(this).parents('li').first().find('> div > .moment-tag .label')).addClass('disabled');
           
         }
 
-        if (!elements_checked($(this).parent().find('input'))) {          
+        if (!elements_checked($(this).parent().find('input'))) {
           ul_element.stop().animate({opacity:0}, function(){$(this).hide()});
           hide_levels(ul_element);
         } else {

@@ -33,11 +33,20 @@
   <%# categories section %>
 
     <div class="categories">
-      <div id="mom_tags_header">Tag your moment:</div>      
+      <div id="mom_tags_header">This moment is primarily about:</div>
 
       <% @moment_tags.each do |mt|  %>
       <div class="category">
-        <div class="label <%= 'checked' if @moment.moment_tags.main_level.include?(mt) %>"><span class="check-image"></span><%= check_box_tag "moment_tag_ids[]", mt.id, (true if @moment.moment_tags.main_level.include?(mt)), :class => ((mt.children_tags & @moment.moment_tags).blank? ? '': 'disabled') -%> <span><%= mt.name %> </span></div>
+        <div class="label 
+                    <%= 'checked' if @moment.moment_tags.main_level.include?(mt) -%>
+                    <%= 'disabled' unless (mt.children_tags & @moment.moment_tags).blank?  -%>
+        ">
+
+            <span class="check-image"></span>
+            <%= check_box_tag "moment_tag_ids[]", mt.id, (true if @moment.moment_tags.main_level.include?(mt)) -%>
+            <span class="moment-tag-name"><%= mt.name %> </span>
+            
+        </div>
       </div>      
       <% end %>      
 
@@ -46,9 +55,10 @@
           $('.categories .category input[type="checkbox"]').attr("checked",true);
           $('.categories .category .label').addClass('checked');
         };
+        
         $(function(){
           $('.categories .category .label').click(function(){
-            if (!$(this).find('input').hasClass('disabled')) {
+            if (!$(this).hasClass('disabled')) {
               if ($(this).find('input').attr('checked')) {
                 $(this).removeClass('checked');
                 $(this).find('input').attr('checked',false)
@@ -141,7 +151,7 @@
     <div class="submit_wrapper"><%= f.submit "Save moment", :class => "new_moment_submit" -%></div>
     <%= hidden_field_tag :operation_type, "" -%>
     <div class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></div>
-    <div class="submit_wrapper"><%#= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[type=hidden]').value('deepen_it');$('form').submit();return false;" -%></div>
+    <div class="submit_wrapper"><%= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attry('value','deepen_it');$('form').submit();return false;" -%></div>
 
 
   <% end %>

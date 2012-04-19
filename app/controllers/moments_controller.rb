@@ -93,9 +93,9 @@ class MomentsController < ApplicationController
       end
     else
 
-      @moment = moment
-      @moment_tags = MomentTag.find_all_by_level(nil)
-      render :action => :edit
+    @moment = moment
+    @moment_tags = MomentTag.find_all_by_level(nil)
+    render :action => :edit
       
     end    
   end
@@ -106,7 +106,7 @@ class MomentsController < ApplicationController
   def tag_moment
     
     @moment = Moment.find(params[:id])
-    @main_moment_tags = @moment.moment_tags.main_level
+    @main_moment_tags = MomentTag.main_level
 
   end
   

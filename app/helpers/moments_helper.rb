@@ -23,7 +23,7 @@ def moment_tags_list moment_tag_element, level=0
         tmp_moment_tags_list = moment_tags_list moment_tag, (moment_tag.level.to_i + 1)
       end
       
-      return_string += render :partial => 'moment_tag', :locals => {:moment_tag => moment_tag, :prev_element_same => prev_element_same}      
+      return_string += render :partial => 'moment_tag', :locals => {:moment_tag => moment_tag, :prev_element_same => prev_element_same, :next_element_same => next_element_same}
 
       unless next_element_same
         return_string += "</div></div>"
