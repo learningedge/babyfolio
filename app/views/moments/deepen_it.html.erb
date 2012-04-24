@@ -13,10 +13,12 @@
       <%= f.fields_for :relation_moment_tags do |relation_moment_tag_form| -%>
         <% if relation_moment_tag_form.object.is_last_in_hierarchy %>
           <li class="element">
+            
             <h3 class="title"><%= relation_moment_tag_form.object.moment_tag.name  %></h3>
             <div class="text-field">
               <%= relation_moment_tag_form.text_field :description %>
             </div>
+            
           </li>
         <% end %>
       <% end %>      

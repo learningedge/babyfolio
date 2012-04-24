@@ -9,31 +9,20 @@
 
 <% elsif media_item.kind_of? MediaFacebook %>
 
-<% if media_item.user.has_facebook_account? %>
-
-   <% photo = media_item.user.get_facebook_photo media_item.media_id -%>
-
-  <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
-    <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
+  <span class="image facebook-image" id="<%= media_item.media_id%>">
+    <div class="thumb" style="background-image: url('<%= media_item.image.url(:medium) %>')">
     </div>
-    <input type="hidden" name="facebook_photos[]" value="<%= photo.source %>"/>
-    <input type="hidden" name="facebook_pids[]" value="<%= photo.identifier %>"/>
+    <input type="hidden" name="facebook_photos[]" value=""/>
+    <input type="hidden" name="facebook_pids[]" value="<%= media_item.media_id %>"/>
   </span>
-
-<% else %>
-  <span class="image facebook-image">
-    <div class="thumb">
-      Facebook connection lost
-    </div>
-  </span>
-<% end %>
-
 
 <% elsif media_item.kind_of? MediaImage %>
-<span class="image" id="<%=  media_item.id %>">
-   <div class="thumb" style="background-image: url('<%= media_item.image(:moment_thumb) -%>')"></div>
-   <input type="hidden" value="<%= media_item.id %>" name="uploaded_images_pids[]"/>
-</span>
+
+  <span class="image" id="<%=  media_item.id %>">
+     <div class="thumb" style="background-image: url('<%= media_item.image(:moment_thumb) -%>')"></div>
+     <input type="hidden" value="<%= media_item.id %>" name="uploaded_images_pids[]"/>
+  </span>
+
 <% elsif media_item.kind_of? MediaVimeo %>
 
 <% begin %>
