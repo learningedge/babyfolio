@@ -11,7 +11,9 @@ Babyfolio::Application.routes.draw do
         match :import_media
         post :create_from_media
         put '/tag_it/update' => "moments#update_moment_tags", :as => :update_tag
-        get '/tag_it/:id' => "moments#tag_moment", :as => :tag        
+        get '/tag_it/:id' => "moments#tag_moment", :as => :tag
+        put '/deepen_it/update' => "moments#update_deepen_it", :as => :update_deepen
+        get '/deepen_it/:id' => "moments#deepen_it", :as => :deepen        
       end
   end
 

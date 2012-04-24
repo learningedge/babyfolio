@@ -41,7 +41,7 @@ class MomentsController < ApplicationController
         flash[:notice] = "Moment has been successfuly created."
         if params[:operation_type] == "tag_it"          
           redirect_to tag_moments_url :id => moment.id
-        else          
+        elsif perams[:operation_type] == "deepen_it"
           redirect_to edit_moment_path :id => moment.id
         end
         
@@ -88,6 +88,8 @@ class MomentsController < ApplicationController
       flash[:notice] = "Moment has been successfuly updated."
       if params[:operation_type] == "tag_it"
         redirect_to tag_moments_url :id => moment.id
+      elsif params[:operation_type] == "deepen_it"
+        redirect_to deepen_moments_url :id => moment.id
       else
         redirect_to edit_moment_path :id => moment.id
       end
@@ -109,7 +111,7 @@ class MomentsController < ApplicationController
     @main_moment_tags = MomentTag.main_level
 
   end
-  
+
   def update_moment_tags
     moment = Moment.find(params[:id])
     
@@ -134,7 +136,35 @@ class MomentsController < ApplicationController
 
     
     flash[:notice] = "Moment Tags have been successfuly updated."
-    redirect_to tag_moments_url :id => moment.id
+    if params[:operation_type] == "deepen_it"
+      redirect_to deepen_moments_url :id => moment.id
+    else
+      redirect_to tag_moments_url :id => moment.id
+    end
+  end
+
+  def deepen_it
+    @moment = Moment.find(params[:id])
+  end
+
+  def update_deepen_it
+    moment = Moment.find(params[:id])
+    
+    if moment.update_attributes(params[:moment])
+      
+      flash[:notice] = "Moment have been successfuly updated."
+      if params[:operation_type] == "tag_it"
+        redirect_to tag_moments_url :id => moment.id
+      else
+        redirect_to deepen_moments_url :id => moment.id
+      end
+    
+    else
+
+      flash[:error] = "Something goes wrong. Try one more time"
+      redurect_to deepen_moments_url :id => moment.id
+
+    end
   end
 
   def change_provider

@@ -1,0 +1,30 @@
+<div id="deepen-it" class="container">
+  <div id="left" class="left_question">
+    <div id="title">Deepen it! Fill in some details about the moment.</div>
+    <div class="link">
+      <div class="submit_btn"><%= link_to "Save", "#", :onclick => "$('form').submit();return false;" -%></div>
+      <div class="submit_btn"><%= link_to "Tag it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></div>
+      <div class="submit_btn"><%= link_to "Back to Edit" , edit_moment_path(:id => @moment.id) -%></div>      
+    </div>
+  </div>
+  <div id="questionaire" class="user-form">
+    <%= form_for @moment, :url => update_deepen_moments_path do |f|%>
+    <ul class="fields">
+      <%= f.fields_for :relation_moment_tags do |relation_moment_tag_form| -%>
+        <% if relation_moment_tag_form.object.is_last_in_hierarchy %>
+          <li class="element">
+            <h3 class="title"><%= relation_moment_tag_form.object.moment_tag.name  %></h3>
+            <div class="text-field">
+              <%= relation_moment_tag_form.text_field :description %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>      
+    </ul>
+    <%= hidden_field_tag :id, @moment.id -%>
+    <%= hidden_field_tag :operation_type, "" -%>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>
+

@@ -1,5 +1,5 @@
 <% unless prev_element_same %>
-  <div class="label
+  <div class="<%= 'label' if !next_element_same-%>
               <%= 'checked' if @moment.moment_tags.include?(moment_tag)-%>
               <%= 'disabled' unless (@moment.moment_tags & moment_tag.children_tags).blank? %>
   ">
@@ -15,7 +15,7 @@
 <% end %>
 <% unless moment_tag.parent_question.blank? %>
 
-  <div class="label
+  <div class="<%= 'label' if next_element_same or prev_element_same  -%>
               <%= 'checked' if @moment.moment_tags.include?(moment_tag)-%>
               <%= 'disabled' unless (@moment.moment_tags & moment_tag.children_tags).blank? %>
   ">

@@ -644,3 +644,9 @@ div.submit {float:left;margin-right:20px}
 
 #tag_moment .main-level .label:hover .description {text-decoration:underline}
 #tag_moment .main-level input[type=checkbox]{display:none}
+
+/* DEEPEN IT */
+
+#deepen-it {}
+#deepen-it .fields {list-style:none}
+#deepen_it .fields .element {}

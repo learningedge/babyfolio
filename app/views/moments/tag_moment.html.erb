@@ -2,7 +2,9 @@
   <div id="left" class="left_question">
     <div id="title">Tag the moment "<%= @moment.title -%>"</div>
     <div class="link">
-      <%= link_to "Edit moment" , edit_moment_path(:id => @moment.id) -%>
+      <div class="submit_btn"><%= link_to "Save" , "#", :onclick => "$('form').submit();return false" -%></div>
+      <div class="submit_btn"><%= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></div>
+      <div class="submit_btn"><%= link_to "Back to Edit" , edit_moment_path(:id => @moment.id) -%></div>
     </div>
   </div>
   <div id="questionaire" class="user-form">
@@ -16,7 +18,7 @@
       <% end %>
     </ul>
     <%= hidden_field_tag :id, @moment.id -%>
-    <%= f.submit "Save Tags" -%>
+    <%= hidden_field_tag :operation_type, "" -%>
     <% end %>
     
   </div>

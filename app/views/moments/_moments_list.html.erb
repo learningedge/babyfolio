@@ -20,6 +20,9 @@
             <div class="row">
               <span class="col1">Type</span>:<span class="col2"><%= moment.media.first.media_type unless moment.media.blank? -%></span>
             </div>
+            <div class="row">
+              <span class="coll"><%= link_to "Edit", edit_moment_path(:id => moment.id) -%></span>
+            </div>
           </div>
         </a>
       </li>
