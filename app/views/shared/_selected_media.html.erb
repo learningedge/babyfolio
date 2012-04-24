@@ -1,16 +1,17 @@
 <% if media_item.kind_of? MediaFlickr %>
 
-<% photo = media_item.user.flickr_user.photos.getInfo(:photo_id => media_item.media_id) %>
-  <span class="image flickr-image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>">
-    <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat 0% 0%">
+  <span class="image flickr-image" id="<%= media_item.media_id %>">
+    <div class="thumb" style="background: url('<%= media_item.image.url(:medium) %>') no-repeat 0% 0%">
     </div>
-    <input type="hidden" name="flickr_photos[]" value="<%= FlickRaw.url_b(photo) -%>"></input>
+    <input type="hidden" name="flickr_photos[]" value=""></input>
     <input type="hidden" name="flickr_pids[]" value="<%= media_item.media_id -%>"></input>
   </span>
 
 <% elsif media_item.kind_of? MediaFacebook %>
 
-<% photo = media_item.user.get_facebook_photo media_item.media_id -%>
+<% if media_item.user.has_facebook_account? %>
+
+   <% photo = media_item.user.get_facebook_photo media_item.media_id -%>
 
   <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
     <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
@@ -18,6 +19,14 @@
     <input type="hidden" name="facebook_photos[]" value="<%= photo.source %>"/>
     <input type="hidden" name="facebook_pids[]" value="<%= photo.identifier %>"/>
   </span>
+
+<% else %>
+  <span class="image facebook-image">
+    <div class="thumb">
+      Facebook connection lost
+    </div>
+  </span>
+<% end %>
 
 
 <% elsif media_item.kind_of? MediaImage %>

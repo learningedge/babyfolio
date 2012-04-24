@@ -568,8 +568,8 @@ div.submit {float:left;margin-right:20px}
 .edit-moment #selected-media h2 {font: 24px 'helvetica_seven';color:#555555}
 .edit-moment #selected-media span {display:inline-block;margin:4px;position:relative}
 .edit-moment #selected-media span .thumb{border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
-.edit-moment #selected-media span.image .thumb {width:75px;height:75px;}
-.edit-moment #selected-media span.video .thumb {width:120px;height:90px}
+.edit-moment #selected-media span.image .thumb {width:75px;height:75px;font-size:11px}
+.edit-moment #selected-media span.video .thumb {width:120px;height:90px;font-size:11px}
 .edit-moment #selected-media span.image .remove,
 .edit-moment #selected-media span.video .remove {position:absolute;display:none}
 .edit-moment #selected-media span.image:hover .remove{display:block}
