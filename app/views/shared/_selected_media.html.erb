@@ -25,57 +25,49 @@
 
 <% elsif media_item.kind_of? MediaVimeo %>
 
-<% begin %>
-
-    <% client = media_item.user.vimeo_client %>
-    <% video = client.get_info(media_item.media_id) %>
-    <% video = video["video"][0] %>
+  <% video = media_item.vimeo_object %>  
+  <% unless video.nil? %>
     <span class="video vimeo-video" id="<%= media_item.media_id -%>" type="video">
       <div>
         <div class="checkbox-radiobutton">
           <%= check_box_tag 'vimeo_videos[]', video["id"], true %>
         </div>
         <div class="thumb">
-          <%= image_tag video["thumbnails"]["thumbnail"][1]["_content"] %>
+          <%= image_tag (video["thumbnail_medium"].nil? ? video["thumbnails"]["thumbnail"][1]["_content"] : video["thumbnail_medium"] ) -%>
         </div>
       </div>
-    </span>        
-<% rescue %>
-<span class="video youtube-video">
-  <div>
-    <div class="thumb">
-      Vimeo connection lost
-    </div>
-  </div>
-</span>
-<%  end %>
+    </span>
+  <% else %>
+    <span class="video youtube-video error">
+      <div>
+        <div class="thumb">
+          The video was not found.
+        </div>
+      </div>
+    </span>
+  <% end %>
 
 <% elsif media_item.kind_of? MediaYoutube %>
 
-  <% begin %>
-
-  <% video = media_item.user.youtube_user.my_video(media_item.media_id) %>
-
-  <span class="video youtube-video" id="<%= video.unique_id -%>">
-     <div>
-        <div class="checkbox-radiobutton">
-          <%= check_box_tag 'youtube_videos[]', video.unique_id, true %>
+  <% video = media_item.youtube_object %>
+  <% unless video.nil? %>
+    <span class="video youtube-video" id="<%= media_item.media_id -%>">
+       <div>
+          <div class="checkbox-radiobutton">
+            <%= check_box_tag 'youtube_videos[]', media_item.media_id, true %>
+          </div>
+          <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+          </div>
         </div>
-        <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+    </span>
+  <% else %>
+    <span class="video youtube-video error">
+      <div>
+        <div class="thumb">
+          The video was not found.
         </div>
       </div>
-  </span>
-
-  <% rescue %>
-
-  <span class="video youtube-video">
-    <div>
-      <div class="thumb">
-        Youtube connection lost
-      </div>
-    </div>
-  </span>
-
+    </span>
   <% end %>
 
 <% end %>

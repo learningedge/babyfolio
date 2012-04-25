@@ -24,22 +24,24 @@ module ApplicationHelper
       
     elsif object.kind_of? MediaVimeo
       
-       begin
-         image_tag object.user.vimeo_client.get_thumbnail_urls(object.media_id)["thumbnails"]["thumbnail"][1]["_content"];
-       rescue
-         return "<span class='error-text'>The video doesn't seem to exist</span>".html_safe
+       video = object.vimeo_object
+       if video
+         image_tag (video["thumbnail_medium"].nil? ? video["thumbnails"]["thumbnail"][1]["_content"] : video["thumbnail_medium"])
+       else
+         "<span class='error-text'>The video was not found</span>".html_safe
        end
 
     elsif object.kind_of? MediaYoutube
       
-      begin
-        video = object.user.youtube_user.my_video(object.media_id)
+      video = object.youtube_object
+      if video
         image_tag video.thumbnails[0].url
-      rescue
-        return "<span class='error-text'>The video doesn't seem to exist</span>".html_safe
+      else
+        "<span class='error-text'>The video was not found</span>".html_safe
       end
 
     end
+    
   end
 
   

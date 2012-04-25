@@ -152,6 +152,7 @@
     <%= hidden_field_tag :operation_type, "" -%>
     <div class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></div>
     <div class="submit_wrapper"><%= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></div>
+    <div class="clear"></div>
   <% end %>
 
   <script type="text/javascript">

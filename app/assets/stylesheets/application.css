@@ -291,9 +291,11 @@ hr { margin: 15px 0;  }
 #wrraper .container #container_left #book #container_book #book_right .pagination .previous_page {position:absolute;top:50%;left:0px;width:35px;height:35px;background:url('/images/left_arrow.png');text-indent:-999999px}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment {float:left;width:50%;height:200px}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a{text-decoration:none}
-#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a:hover .thumb img{border-color:white}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a:hover .thumb img,
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment a:hover .thumb span {border-color:white}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb {width:140px;height:110px;text-align:center}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb img{border: 10px solid #d5d2be;max-width:120px;max-height:90px}
+#wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .thumb span.error-text{border: 10px solid #d5d2be;width:120px;height:50px;display:block;background-color:#c8ba7b;color:black;padding:20px 0px}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description {font: 16px 'Helvetica_57'; color:#636363}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .row {}
 #wrraper .container #container_left #book #container_book #book_right .all-moments li.moment .description .col1 {display:inline-block;width:50px}
@@ -568,8 +570,9 @@ div.submit {float:left;margin-right:20px}
 .edit-moment #selected-media h2 {font: 24px 'helvetica_seven';color:#555555}
 .edit-moment #selected-media span {display:inline-block;margin:4px;position:relative}
 .edit-moment #selected-media span .thumb{border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
-.edit-moment #selected-media span.image .thumb {width:75px;height:75px;font-size:11px}
-.edit-moment #selected-media span.video .thumb {width:120px;height:90px;font-size:11px}
+.edit-moment #selected-media span.image .thumb {width:75px;height:75px;}
+.edit-moment #selected-media span.video .thumb {width:120px;height:90px;}
+.edit-moment #selected-media span.video.error .thumb {height:50px;background-color:#c8ba7b;color:black;padding:20px 0px}
 .edit-moment #selected-media span.image .remove,
 .edit-moment #selected-media span.video .remove {position:absolute;display:none}
 .edit-moment #selected-media span.image:hover .remove{display:block}
@@ -623,7 +626,7 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form .categories #mom_tags_header { font: 18px arial; font-weight: bold; color: #898989; margin-bottom: 8px; }
 #new_moment_form .categories .category .label{ margin: 5px; }
 #new_moment_form .categories .check-all { margin-bottom: 5px; }
-#new_moment_form .submit_wrapper { padding-left: 20px; margin-top: 15px; }
+#new_moment_form .submit_wrapper { padding-left: 20px; margin-top: 15px; float:left}
 #new_moment_form a.new_moment_submit {display:block;text-align:center;line-height:53px;text-decoration:none}
 #new_moment_form .new_moment_submit {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
 
@@ -645,8 +648,16 @@ div.submit {float:left;margin-right:20px}
 #tag_moment .main-level .label:hover .description {text-decoration:underline}
 #tag_moment .main-level input[type=checkbox]{display:none}
 
+#tag_moment #left {width:100px;float:left}
+#tag_moment #left #title {float:none;display:block}
+#tag_moment #left .link .submit_btn {margin-top:20px}
+#tag_moment #left .link .submit_btn a {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;display:block;text-decoration:none;text-align:center}
 /* DEEPEN IT */
 
 #deepen-it {}
 #deepen-it .fields {list-style:none}
-#deepen_it .fields .element {}
+#deepen-it .fields .element {}
+#deepen-it #left {width:100px;float:left}
+#deepen-it #left #title {float:none;display:block}
+#deepen-it #left .link .submit_btn {margin-top:20px}
+#deepen-it #left .link .submit_btn a {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;display:block;text-decoration:none;text-align:center}
