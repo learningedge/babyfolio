@@ -9,6 +9,7 @@
   </div>
   <div id="questionaire" class="user-form">
     <%= form_for @moment, :url => update_deepen_moments_path do |f|%>
+    <% is_empty = true %>
     <ul class="fields">      
       <%= f.fields_for :relation_moment_tags do |relation_moment_tag_form| -%>
         <% if relation_moment_tag_form.object.is_last_in_hierarchy %>
@@ -20,13 +21,13 @@
             </div>
             
           </li>
-          <% is_not_empty = true %>
+          <% is_empty = false %>
         <% end %>        
       <% end %>      
     </ul>
-    <% unless is_not_empty  %>
+    <% if is_empty %>
     <h2>
-      You havn't tagged your moment. <%= link_to "Clck here", tag_moments_path :id => @moment.id -%> to go to the tag it page.
+      You havn't tagged your moment. <%= link_to "Click here", tag_moments_path(:id => @moment.id) -%> to go to the tag it page.
     </h2>
     <% end %>
     <%= hidden_field_tag :id, @moment.id -%>
