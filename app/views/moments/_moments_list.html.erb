@@ -6,7 +6,7 @@
   <ul>
     <% @moments.each do |moment|  %>
       <li class="moment">
-        <a href="#">
+        <a href="<%=  edit_moment_path(:id => moment.id) -%>">
           <div class="thumb">
             <% unless moment.media.blank?  %>
               <%= get_moment_thumb moment.media.first, :moment_thumb %>
@@ -14,15 +14,12 @@
           </div>
           <div class="description">
             <div class="row">
-              <span class="col1">Title</span>:<span class="col2"><%= moment.title.blank? ? "..." : moment.title -%></span>
+              <span class="col1">Title</span>:<span class="col2"><%= moment.title.blank? ? "..." : truncate(moment.title, :length => 15) -%></span>
             </div>
 
             <div class="row">
               <span class="col1">Type</span>:<span class="col2"><%= moment.media.first.media_type unless moment.media.blank? -%></span>
-            </div>
-            <div class="row">
-              <span class="coll"><%= link_to "Edit", edit_moment_path(:id => moment.id) -%></span>
-            </div>
+            </div>            
           </div>
         </a>
       </li>
