@@ -8,75 +8,118 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-  <div id="page-wrapper">
-  <div id="top">
-    <div id="login_box">
-      <% unless current_user %>
-        <ul>
-          <li><%= link_to "login", login_path -%></li>
-          <li><%= link_to "sign up",  signup_path -%></li>
-        </ul>
-      <% else %>
+  <div class="wrapper_container">
 
-<% 
-# if( current_user.services.where(:provider => 'facebook').exists?)  
-#  service =   current_user.services.where(:provider => 'facebook').first  
-#  user = FbGraph::User.fetch(service.uid)
+      <div id="page-wrapper">
+      <div id="top">
+        <div id="login_box">
+          <% unless current_user %>
+            <ul>
+              <li><%= link_to "login", login_path -%></li>
+              <li><%= link_to "sign up",  signup_path -%></li>
+            </ul>
+          <% else %>
 
- #end
-%>
-        <ul>
-          <li class="avatar">
-	    <%= get_image_tag current_user, "vsmall" -%>
-	  </li>
+    <%
+    # if( current_user.services.where(:provider => 'facebook').exists?)
+    #  service =   current_user.services.where(:provider => 'facebook').first
+    #  user = FbGraph::User.fetch(service.uid)
 
-          <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
-          <% if current_family -%>
-            <li><span class="border">|</span></li>
-            <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
+     #end
+    %>
+            <ul>
+              <li class="avatar">
+          <%= get_image_tag current_user, "vsmall" -%>
+        </li>
+
+              <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>
+              <% if current_family -%>
+                <li><span class="border">|</span></li>
+                <li class="family-select"><%= render :partial => "shared/user_families_select" %></li>
+              <% end %>
+
+              <li><span class="border">|</span></li>
+              <li><a href="<%= logout_path -%>">Log Out </a></li>
+              <li><span class="border">|</span></li>
+              <li><a href="<%= edit_account_path -%>">Setting </a></li>
+              <li><span class="border">|</span></li>
+              <li><a href="#">Tour</a></li>
+            </ul>
+          <% end %>
+        </div>
+
+        </div>
+      </div>
+      <div id="header">
+        <div id="logo">
+          <a href="/"><img src="/images/logo.png" alt="logo" /></a>
+      <div class="info-bar">
+
+          <% if flash[:error] %>
+            <div class="error-notice">
+              <img src="/images/icon1.png" alt="baby_icon_error" />
+          <span><%= flash[:error] -%></span>
+        </div>
           <% end %>
 
-          <li><span class="border">|</span></li>
-          <li><a href="<%= logout_path -%>">Log Out </a></li>
-          <li><span class="border">|</span></li>
-          <li><a href="<%= edit_account_path -%>">Setting </a></li>
-          <li><span class="border">|</span></li>
-          <li><a href="#">Tour</a></li>
-        </ul>
-      <% end %>
-    </div>
-    
-    </div>
-  </div>
-  <div id="header">
-    <div id="logo">
-      <a href="/"><img src="/images/logo.png" alt="logo" /></a>
-	<div class="info-bar">
-	  
-      <% if flash[:error] %>
-        <div class="error-notice">
-          <img src="/images/icon1.png" alt="baby_icon_error" />
-		  <span><%= flash[:error] -%></span>
-		</div>
-      <% end %>
+          <% if flash[:notice] %>
+            <div class="notice">
+              <img src="/images/baby_icon_full.png" alt="baby_icon" />
+          <span><%= flash[:notice] -%></span>
+        </div>
+          <% end %>
+        <div class="clear"></div>
+        <script type="text/javascript">
+        $(window).load(function(){
+          $('.info-bar').hide().fadeIn(500).delay(5000).fadeOut(500);
+        })
+        </script>
+        </div>
+      </div>
+      <div id="wrraper" class="storybook_container">
+        <%= yield %>
 
-      <% if flash[:notice] %>
-        <div class="notice">
-          <img src="/images/baby_icon_full.png" alt="baby_icon" />
-		  <span><%= flash[:notice] -%></span>
-		</div>
-      <% end %>
-	  <div class="clear"></div>
-	  <script type="text/javascript">
-		$(window).load(function(){
-			$('.info-bar').hide().fadeIn(500).delay(5000).fadeOut(500);
-		})
-	  </script>
+
+      </div>
     </div>
+    <% if params[:action] != "show" and params[:controller] != "children"  %>
+      <div id="extra_footer_space"></div>
+    <% end %>
   </div>
-  <div id="wrraper" class="storybook_container">
-    <%= yield %>
-  </div>
-</div>
+  <% if params[:action] != "show" and params[:controller] != "children"  %>
+    <div id="footer_bg_profile" class="global">
+      <div id="footer">
+        <div id="footer_left">
+          <div id="copyright">
+            Copyright &copy; 2011. Baby folio. All rights reserved.
+          </div>
+          <div id="footer_link">
+            <ul>
+              <li><a href="/">Home<span>|</span></a></li>
+              <li><a href="#">Blog<span>|</span></a></li>
+              <li><a href="#">About Us<span>|</span></a></li>
+              <li><a href="#">Contact Us<span>|</span></a></li>
+              <li><a href="#">Privacy<span>|</span></a></li>
+              <li><a href="#">Site Map<span>|</span></a></li>
+              <li><a href="#">Resources<span>|</span></a></li>
+              <li><a href="#">Help</a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="footer_right">
+          <div id="social_links">
+            <span>Follow us on</span>
+            <ul>
+              <li><a href="#"><img src="/images/twitter.png" alt="" /></a></li>
+              <li><a href="#"><img src="/images/facebook.png" alt="" /></a></li>
+              <li><a href="#"><img src="/images/sweetbook.png" alt="" /></a></li>
+              <li><a href="#"><img src="/images/rss.png" alt="" /></a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="clear"></div>
+      </div>
+    </div>
+  <% end %>
 </body>
 </html>

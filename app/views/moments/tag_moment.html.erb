@@ -1,6 +1,6 @@
 <div id="tag_moment" class="container">
   <div id="left" >
-    <div id="title">Tag the moment "<%= @moment.title -%>"</div>
+    <div id="title">Tag it</div>
     <div class="link">
       <div class="submit_btn"><%= link_to "Save" , "#", :onclick => "$('form').submit();return false" -%></div>
       <div class="submit_btn"><%= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></div>
@@ -8,11 +8,12 @@
     </div>
   </div>
   <div id="questionaire" class="user-form">
+    <h2>Tag the moment "<%= @moment.title -%>"</h2>
     <%= form_for @moment, :url => update_tag_moments_path do |f|%>
     
     <ul class="main-level">
       <% @main_moment_tags.each do |main_moment_tag| %>
-        <li><h2><%= main_moment_tag.name -%></h2>        
+        <li><h2><%= main_moment_tag.name -%></h2>
           <%= moment_tags_list(main_moment_tag).html_safe -%>
         </li>
       <% end %>
