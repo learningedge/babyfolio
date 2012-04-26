@@ -3,7 +3,7 @@
   <span class="image flickr-image" id="<%= media_item.media_id %>">
     <div class="thumb" style="background: url('<%= media_item.image.url(:medium) %>') no-repeat 0% 0%">
     </div>
-    <input type="hidden" name="flickr_photos[]" value=""></input>
+    <input type="hidden" name="flickr_photos[]" value="<%= media_item.image_remote_url %>"></input>
     <input type="hidden" name="flickr_pids[]" value="<%= media_item.media_id -%>"></input>
   </span>
 
@@ -12,7 +12,7 @@
   <span class="image facebook-image" id="<%= media_item.media_id%>">
     <div class="thumb" style="background-image: url('<%= media_item.image.url(:medium) %>')">
     </div>
-    <input type="hidden" name="facebook_photos[]" value=""/>
+    <input type="hidden" name="facebook_photos[]" value="<%= media_item.image_remote_url %>"/>
     <input type="hidden" name="facebook_pids[]" value="<%= media_item.media_id %>"/>
   </span>
 

@@ -41,7 +41,7 @@ class MomentsController < ApplicationController
         flash[:notice] = "Moment has been successfuly created."
         if params[:operation_type] == "tag_it"          
           redirect_to tag_moments_url :id => moment.id
-        elsif perams[:operation_type] == "deepen_it"
+        elsif params[:operation_type] == "deepen_it"
           redirect_to edit_moment_path :id => moment.id
         end
         
