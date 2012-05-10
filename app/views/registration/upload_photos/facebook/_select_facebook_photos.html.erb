@@ -2,7 +2,8 @@
 </div>
 <h2>Facebook</h2>
 <% if current_user.has_facebook_account? %>
-  
+  <%= form_tag registration_add_photos_import_media_url, :remote => true do -%>
+  <%= hidden_field_tag "child_id", @selected_child.id %>
   <div class="facebook">
 
     <span id="facebook-ajax-grid"  class="facebook-grid">
@@ -14,7 +15,7 @@
     <div class="clear"></div>
 
   </div>
-
+  <% end %>
 <% else %>
 
   <%= flash[:facebook_error] %>  

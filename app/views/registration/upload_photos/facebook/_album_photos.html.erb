@@ -2,15 +2,17 @@
 
 <div class="header">
   <h2>Photos</h2>
-  <a href="#" onclick="">Back to albums</a>
   <div class="clear"></div>
 </div>
-
+<div>
 <% @photos.each do |photo| %>
   <%# index = photo.images.index {|img| img.width <= 180} %>
-      <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
+      <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>" onclick="select_facebook_photo(this);">
     <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
     </div>
+    <%= check_box_tag "facebook_photos[]", photo.source -%>
+    <%= check_box_tag "facebook_pids[]", photo.identifier -%>
+    <%= check_box_tag "media_titles[]", photo.name -%>
     <div class="title">
       <span class="media_title_text hidden"><%= photo.name %></span>
       <%= truncate(photo.name, :length => 10) %>
@@ -18,6 +20,11 @@
   </span>
 
 <% end %>
+</div>
+<div>
+    <%= submit_tag "Import Images" -%>
+    <a href="#" onclick="go_to_facebook_albums();">Go back</a>
+  </div>
 
 </div>
 

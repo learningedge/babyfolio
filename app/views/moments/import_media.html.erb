@@ -55,7 +55,7 @@
 
       /************* flickr *************************/
 
-      jQuery('.flickr .image, .facebook .image').live({
+      jQuery('.flickr .image').live({
         mouseover: function(){
             $(this).find('.thumb').stop().animate({opacity: 1});
             $('.flickr .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
@@ -65,12 +65,30 @@
         }
       })
 
+      jQuery('.facebook .image').live({
+        mouseover: function(){
+            $(this).find('.thumb').stop().animate({opacity: 1});
+            $('.facebook .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
+        },
+        mouseleave: function(){
+            $('.facebook .image .thumb').stop().animate({opacity: 1});
+        }
+      })
+
       $('#flickr-ajax-container form').live("ajax:before",function(){
         flickr_loader_start();
       }).live("ajax:success",function(){
         alert("zaimportowano");
         flickr_loader_stop();
         go_to_flickr_sets();
+      })
+
+      $('#facebook-ajax-container form').live("ajax:before",function(){
+        facebook_loader_start();
+      }).live("ajax:success",function(){
+        alert("zaimportowano");
+        facebook_loader_stop();
+        go_to_facebook_albums();
       })
 
       /************* facebook ***********************/
@@ -127,7 +145,7 @@
       $('#facebook-ajax-container .preloader').stop().fadeOut()
     }
 
-    facebook go_to_facebook_photos(album_id){
+    function go_to_facebook_photos(album_id){
       facebook_loader_start();
       $.post('<%= registration_add_photos_facebook_photos_url %>',{album:album_id},function(data){
         $('#facebook-ajax-grid').html(data);
@@ -136,13 +154,23 @@
       return false;
     }
 
-    facebook go_to_facebook_albums(){
+    function go_to_facebook_albums(){
       facebook_loader_start();
       $.post('<%= registration_add_photos_facebook_albums_url -%>',function(data){
         $('#facebook-ajax-grid').html(data);
         facebook_loader_stop();
       });
       return false;
+    }
+
+    function select_facebook_photo(object){
+      if($(object).find("input").attr("checked")){
+        $(object).find("input").attr("checked",false);
+        $(object).removeClass('selected');
+      } else {
+        $(object).addClass('selected');
+        $(object).find("input").attr("checked",true);
+      }
     }
   </script>    
     
