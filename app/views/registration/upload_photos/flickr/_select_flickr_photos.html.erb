@@ -1,0 +1,26 @@
+<div class="preloader">
+</div>
+<h2>Flickr</h2>
+<% if current_user.flickr_user %>
+  <%= form_tag registration_add_photos_import_media_url, :remote => true do -%>
+    <%= hidden_field_tag "child_id", @selected_child.id %>
+    <div class="flickr">
+
+      <span id="flickr-ajax-grid"  class="flickr-grid">
+
+        <%= render :partial => 'registration/upload_photos/flickr/sets_grid' %>
+
+      </span>
+
+      <div class="clear"></div>
+
+    </div>
+  <% end %>
+
+<% else %>
+
+  <%= flash[:flickr_error] %>
+
+  <%= render :partial => 'shared/services_connect', :locals => {:service => 'flickr'} %>
+
+<% end %>

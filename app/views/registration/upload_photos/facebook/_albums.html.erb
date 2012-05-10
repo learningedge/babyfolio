@@ -1,0 +1,31 @@
+<% @albums ||= current_user.get_facebook_albums  %>
+
+
+<div class="sets">
+  <div class="header">
+    <h2>Albums</h2>
+    <div class="clear"></div>
+  </div>
+
+<% @albums.each do |album| %>
+  
+  <a href="#" onclick="go_to_facebook_photos('<%= album.identifier -%>');">
+    <span class="image">
+      <div class="thumb" style="background-image: url('<%= album.picture %>')">
+        <span class="count">
+    <%= album.count %>
+        </span>
+      </div>
+      <div class="title">
+        <%= truncate(album.name, :length => 20) %>
+      </div>
+    </span>
+  </a>
+
+<% end %>
+
+</div>
+
+
+
+

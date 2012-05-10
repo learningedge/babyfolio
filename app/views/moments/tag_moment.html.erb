@@ -1,11 +1,6 @@
 <div id="tag_moment" class="container">
   <div id="left" >
-    <div id="title">Tag it</div>
-    <div class="link">
-      <div class="submit_btn"><%= link_to "Save" , "#", :onclick => "$('form').submit();return false" -%></div>
-      <div class="submit_btn"><%= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></div>
-      <div class="submit_btn"><%= link_to "Back to Edit" , edit_moment_path(:id => @moment.id) -%></div>
-    </div>
+    <div id="title">Tag it</div>    
   </div>
   <div id="questionaire" class="user-form">
     <h2>Tag the moment "<%= @moment.title -%>"</h2>
@@ -20,10 +15,15 @@
     </ul>
     <%= hidden_field_tag :id, @moment.id -%>
     <%= hidden_field_tag :operation_type, "" -%>
-    <% end %>
-    
+    <% end %>    
   </div>
   <div class="clear"></div>
+  <div class="submit-container">
+    <span class="submit-btn"><%= link_to "Save" , "#", :onclick => "$('form').submit();return false" -%></span>
+    <span class="submit-btn"><%= link_to "Deepen it", "#", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></span>
+    <span class="submit-btn"><%= link_to "Connect it", "#", :onclick => "$('input[name=operation_type]').attr('value','connect_it');$('form').submit();return false;" -%></span>
+    <span class="submit-btn"><%= link_to "Back to Edit" , edit_moment_path(:id => @moment.id) -%></span>
+  </div>
 </div>
 
 <script type="text/javascript">

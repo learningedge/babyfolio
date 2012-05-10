@@ -1,0 +1,22 @@
+<div id="connect-it" class="container">
+  <div id="left">
+    <div id="title">Connect it!</div>    
+  </div>
+  <div id="questionaire" class="user-form">
+    <h2>Look for "Story Patterns" between this moment and others</h2>
+    <%= form_for @moment, :url => update_connect_moments_path do |f|%>    
+
+    <%= @all_moments.inspect %>
+
+    <%= hidden_field_tag :id, @moment.id -%>
+    <%= hidden_field_tag :operation_type, "" -%>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  <div class="submit-container">
+    <span class="submit-btn"><%= link_to "Save", "#", :onclick => "$('form').submit();return false;" -%></span>
+    <span class="submit-btn"><%= link_to "Tag it", "#", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></span>
+    <span class="submit-btn"><%= link_to "Deepen it", "#", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" %></span>
+    <span class="submit-btn"><%= link_to "Back to Edit" , edit_moment_path(:id => @moment.id) -%></span>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+
+<div class="sets">
+<div class="header">
+  <h2>Sets</h2>
+  <div class="clear"></div>
+</div>
+
+<% photos_not_in_set = current_user.flickr_user.photos.getNotInSet %>
+<% sets = current_user.flickr_user.photosets.getList %>
+
+<% unless photos_not_in_set.length == 0 %>
+
+<% not_in_set =  true %>
+     
+<% end %>
+
+<% if not_in_set %>
+
+<% photos_count = photos_not_in_set.length %>
+<% photo_not_in_set = photos_not_in_set.first %>
+
+<a href="#" onclick='go_to_flickr_photos("")'>
+  <span class="image">
+    <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo_not_in_set) %>') 0% 0%">
+      <span class="count">
+	<%= photos_count %>
+      </span>
+    </div>
+    <div class="title">
+      <%= 'Not In Set' %>
+    </div>
+  </span>
+</a>
+<% end %>
+
+<% sets.each do |set| %>
+
+<a href="#" onclick="go_to_flickr_photos('<%= set.id %>');">
+  <span class="image">
+    <% info = current_user.flickr_user.photos.getInfo(:photo_id => set.primary) %>
+    <div class="thumb" style="background: url('<%= FlickRaw.url_s(info) %>') 0% 0%">
+      <span class="count">
+	<%= set.photos %>
+      </span>
+    </div>
+    <div class="title">
+      <%= truncate(set.title, :length => 20) %>
+    </div>
+  </span>
+</a>
+
+<% end %>
+
+</div>

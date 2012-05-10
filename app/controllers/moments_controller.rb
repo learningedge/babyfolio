@@ -42,6 +42,10 @@ class MomentsController < ApplicationController
         if params[:operation_type] == "tag_it"          
           redirect_to tag_moments_url :id => moment.id
         elsif params[:operation_type] == "deepen_it"
+          redirect_to deepen_moments_path :id => moment.id
+        elsif params[:operation_type] == "connect_it"
+          redirect_to connect_moments_url :id => moment.id
+        else
           redirect_to edit_moment_path :id => moment.id
         end
         
@@ -90,6 +94,8 @@ class MomentsController < ApplicationController
         redirect_to tag_moments_url :id => moment.id
       elsif params[:operation_type] == "deepen_it"
         redirect_to deepen_moments_url :id => moment.id
+      elsif params[:operation_type] == "connect_it"
+        redirect_to connect_moments_url :id => moment.id
       else
         redirect_to edit_moment_path :id => moment.id
       end
@@ -138,6 +144,8 @@ class MomentsController < ApplicationController
     flash[:notice] = "Moment Tags have been successfuly updated."
     if params[:operation_type] == "deepen_it"
       redirect_to deepen_moments_url :id => moment.id
+    elsif params[:operation_type] == "connect_it"
+      redirect_to connect_moments_url :id => moment.id
     else
       redirect_to tag_moments_url :id => moment.id
     end
@@ -155,6 +163,8 @@ class MomentsController < ApplicationController
       flash[:notice] = "Moment have been successfuly updated."
       if params[:operation_type] == "tag_it"
         redirect_to tag_moments_url :id => moment.id
+      elsif params[:operation_type] == "connect_it"
+        redirect_to connect_moments_url :id => moment.id
       else
         redirect_to deepen_moments_url :id => moment.id
       end
@@ -164,6 +174,23 @@ class MomentsController < ApplicationController
       flash[:error] = "Something goes wrong. Try one more time"
       redurect_to deepen_moments_url :id => moment.id
 
+    end
+  end
+
+  def connect_it
+    @moment = Moment.find(params[:id])    
+    @all_moments = current_user.moments.ids
+  end
+
+  def update_connect_it
+    moment = Moment.find(params[:id])
+
+    if params[:operation_type] == "tag_it"
+      redirect_to tag_moments_url :id => moment.id
+    elsif params[:operation_type] == "deepen_it"
+      redirect_to deepen_moments_url :id => moment.id
+    else
+      redirect_to connect_moments_url :id => moment.id
     end
   end
 

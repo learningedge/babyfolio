@@ -1,5 +1,18 @@
 Babyfolio::Application.routes.draw do
 
+  namespace :registration do
+
+    post '/add-photos/flickr/photos' => "add_photos#flickr_photos", :as => :add_photos_flickr_photos
+    post '/add-photos/flickr/sets' => "add_photos#flickr_sets", :as => :add_photos_flickr_sets
+
+    post '/add-photos/facebook/photos' => "add_photos#facebook_photos", :as => :add_photos_facebook_photos
+    post '/add-photos/facebook/sets' => "add_photos#facebook_albums", :as => :add_photos_facebook_albums
+
+    post '/add-photos/import-media' => "add_photos#import_media", :as => :add_photos_import_media
+
+  end
+
+
   resources :moments, :except => [:new, :index] do
       new do
         post :change_provider
@@ -12,7 +25,9 @@ Babyfolio::Application.routes.draw do
         put '/tag_it/update' => "moments#update_moment_tags", :as => :update_tag
         get '/tag_it/:id' => "moments#tag_moment", :as => :tag
         put '/deepen_it/update' => "moments#update_deepen_it", :as => :update_deepen
-        get '/deepen_it/:id' => "moments#deepen_it", :as => :deepen        
+        get '/deepen_it/:id' => "moments#deepen_it", :as => :deepen
+        put '/connect_it/update' => "moments#update_connect_it", :as => :update_connect
+        get '/connect_it/:id' => "moments#connect_it", :as => :connect
       end
   end
 

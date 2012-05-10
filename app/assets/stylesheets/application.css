@@ -518,7 +518,7 @@ div.submit {float:left;margin-right:20px}
 .flickr #selected-flickr-photos span.selected-image .hover,
 .uploaded-images #selected-uploaded-images-photos span.selected-image .hover {width:75px;height:75px;position:absolute;top:0px;left:0px;background-color:black;color:white;line-height:73px;text-align:center;display:none}
 
-.facebook-grid, .flickr-grid, .uploaded-images-grid {width:520px;display:inline-block;vertical-align:top;font-size:0px;}
+.facebook-grid, .flickr-grid, .uploaded-images-grid {width:520px;display:inline-block;vertical-align:top;}
 .facebook-grid .header, .flickr-grid .header, .uploaded-images .header {text-align:left;font-size:14px}
 .facebook-grid .header h2, .flickr-grid .header h2 {float:left}
 
@@ -535,8 +535,8 @@ div.submit {float:left;margin-right:20px}
 .facebook-grid .sets > a, .flickr-grid .sets > a, .uploaded-images-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
 .facebook-grid .sets .count , .flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
 .facebook-grid .image, .flickr-grid .image, .uploaded-images-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
+.facebook-grid .image.selcted, .flickr-grid .image.selected, .uploaded-images-grid .image.selected {background-color:#9b7804}
 .facebook-grid .image .thumb, .flickr-grid .image .thumb, .uploaded-images-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
-
 .facebook-grid .image .checkbox-radiobutton, .flickr-grid .image .checkbox-radiobutton, .uploaded-images-grid .image .checkbox-radiobutton {position:absolute;display:none}
 
 /* CHILDREN */
@@ -673,3 +673,26 @@ div.submit {float:left;margin-right:20px}
 
 #deepen-it #left .link .submit_btn {margin-top:20px}
 #deepen-it #left .link .submit_btn a {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;display:block;text-decoration:none;text-align:center}
+
+/* CONNECT IT */
+
+#connect-it {}
+#connect-it .fields {list-style:none}
+#connect-it .fields .element {}
+#connect-it #left {width:100px;float:left}
+#connect-it #left #title {float:none;display:block}
+
+#connect-it #left .link .submit_btn {margin-top:20px}
+#connect-it #left .link .submit_btn a {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;display:block;text-decoration:none;text-align:center}
+
+/* TAG IT, CONNECT IT DEEPEN IT */
+
+#tag_moment .submit-container,
+#deepen-it .submit-container,
+#connect-it .submit-container {text-align:center}
+#tag_moment .submit-btn,
+#deepen-it .submit-btn,
+#connect-it .submit-btn { padding-left: 20px; margin-top: 15px; display:inline-block}
+#tag_moment .submit-container .submit-btn a,
+#deepen-it .submit-container .submit-btn a,
+#connect-it .submit-container .submit-btn a {display:block;text-align:center;text-decoration:none;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer}

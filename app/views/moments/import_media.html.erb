@@ -5,34 +5,36 @@
 
 
   <div id="left">
-    <div class="title">Step 3: Add Photos/Videos for <%= @selected_child.first_name -%></div>
-    <div id="change-form">
-      <%#*<div class="change-child">%>
-        <%#*<h2>Select Child</h2>%>
-        <%#= form_tag import_media_moments_path,  :id => "select-child-form" do %>
-           <%#= select_tag "child_id", options_for_select (@family_children_select, @selected_child.id), :onchange => "$('#select-child-form').submit()" -%>
-        <%# end %>
-      <%#*</div>%>
+    <div class="title"><%# Step 3: Add Photos/Videos for %>Part A: Add Photos for <%= @selected_child.first_name -%></div>
+    <div id="change-form">      
     </div>
   </div>
+
   <div class="user-form">
-    <%= form_tag create_from_media_moments_url do %>
+
+    
+
+    
+
+      <div class="socials-container">
+        <div id="facebook-ajax-container" class="multiselect ajax-container">
+          <%= render :partial => 'registration/upload_photos/facebook/select_facebook_photos'-%>
+        </div>
+
+        <hr/>
+
+        <div id="flickr-ajax-container" class="multiselect ajax-container">
+          <%= render :partial => 'registration/upload_photos/flickr/select_flickr_photos'-%>
+        </div>
+
+      </div>
+
+      <hr/>
 
       <div id="uploaded-images-ajax-container" class="multiselect">
         <%= render :partial => 'uploaded_images/select_uploaded_images' %>
       </div>
 
-      <hr/>
-
-      <div id="flickr-ajax-container" class="multiselect ajax-container">
-        <%= render :partial => 'flickr/select_flickr_photos'-%>
-      </div>
-
-      <hr/>
-
-      <div id="facebook-ajax-container" class="multiselect ajax-container">
-        <%= render :partial => 'facebook/select_facebook_photos'-%>
-      </div>
 
       <hr/>
 
@@ -46,19 +48,103 @@
         <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
       </div>
 
-      <%= hidden_field_tag "child_id", @selected_child.id %>
-
-      <div class="submit">
-        <%= submit_tag @next_child_name -%>
-      </div>
-
-    <% end %>
   </div>
+  
+  <script type="text/javascript">
+    jQuery(function($){
 
-    <script type="text/javascript" src="/js/youtube_videos.js"></script>
-    <script type="text/javascript" src="/js/vimeo_videos.js"></script>
-    <script type="text/javascript" src="/js/flickr.js"></script>
-    <script type="text/javascript" src="/js/facebook_photos.js"></script>
+      /************* flickr *************************/
+
+      jQuery('.flickr .image, .facebook .image').live({
+        mouseover: function(){
+            $(this).find('.thumb').stop().animate({opacity: 1});
+            $('.flickr .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
+        },
+        mouseleave: function(){
+            $('.flickr .image .thumb').stop().animate({opacity: 1});
+        }
+      })
+
+      $('#flickr-ajax-container form').live("ajax:before",function(){
+        flickr_loader_start();
+      }).live("ajax:success",function(){
+        alert("zaimportowano");
+        flickr_loader_stop();
+        go_to_flickr_sets();
+      })
+
+      /************* facebook ***********************/
+
+      
+
+    })
+
+    /*************** ONCLICK FUNCTIONS **************/
+
+    /*************** flickr *************************/
+
+    function flickr_loader_start(){
+      $('#flickr-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+    }
+    function flickr_loader_stop(){
+      $('#flickr-ajax-container .preloader').stop().fadeOut();
+    }
+    function go_to_flickr_photos(set_id){
+      flickr_loader_start();
+      $.post('<%= registration_add_photos_flickr_photos_url %>',{set_id:set_id},function(data){
+        $('#flickr-ajax-grid').html(data);
+        flickr_loader_stop();
+      });
+      return false;
+    }
+
+    function go_to_flickr_sets(){
+      flickr_loader_start()
+      $.post('<%= registration_add_photos_flickr_sets_url -%>',function(data){
+        $('#flickr-ajax-grid').html(data);
+        flickr_loader_stop();
+      });
+      return false;
+    }
+
+    function select_flickr_photo(object){      
+      if($(object).find("input").attr("checked")){
+        $(object).find("input").attr("checked",false);
+        $(object).removeClass('selected');
+      } else {
+        $(object).addClass('selected');
+        $(object).find("input").attr("checked",true);
+      }      
+    }
+    
+    /*************** facebook ***********************/
+    
+    function facebook_loader_start(){
+      $('#facebook-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+    }
+
+    function facebook_loader_stop(){
+      $('#facebook-ajax-container .preloader').stop().fadeOut()
+    }
+
+    facebook go_to_facebook_photos(album_id){
+      facebook_loader_start();
+      $.post('<%= registration_add_photos_facebook_photos_url %>',{album:album_id},function(data){
+        $('#facebook-ajax-grid').html(data);
+        facebook_loader_stop();
+      });
+      return false;
+    }
+
+    facebook go_to_facebook_albums(){
+      facebook_loader_start();
+      $.post('<%= registration_add_photos_facebook_albums_url -%>',function(data){
+        $('#facebook-ajax-grid').html(data);
+        facebook_loader_stop();
+      });
+      return false;
+    }
+  </script>    
     
   <div class="clear"></div>
 </div>
