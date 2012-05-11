@@ -7,7 +7,7 @@
   <div>
     <% photos.each do |photo| %>
 
-      <span class="image flickr-image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>" onclick="select_flickr_photo(this);">
+      <span class="image flickr-image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>" onclick="select_flickr_photo(this);return false;">
         <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat 0% 0%">
         </div>
         <%= check_box_tag "flickr_photos[]", FlickRaw.url_b(photo) -%>
@@ -21,9 +21,12 @@
 
     <% end %>
   </div>
+  <div class="visiblity">    
+    <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
+  </div>
   <div>
     <%= submit_tag "Import Images" -%>
-    <a href="#" onclick="go_to_flickr_sets();">Go back</a>
+    <a href="#" onclick="go_to_flickr_sets();return false;">Go back</a>
   </div>
 
   

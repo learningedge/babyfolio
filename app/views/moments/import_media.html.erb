@@ -38,16 +38,6 @@
 
       <hr/>
 
-      <div id="youtube-ajax-container" class="multiselect">
-        <%= render :partial => 'youtube/select_youtube_videos' %>
-      </div>
-
-      <hr/>
-
-      <div id="vimeo-ajax-container" class="multiselect">
-        <%= render :partial => 'vimeo/multiselect_vimeo_videos' %>
-      </div>
-
   </div>
   
   <script type="text/javascript">
@@ -81,7 +71,9 @@
         alert("zaimportowano");
         flickr_loader_stop();
         go_to_flickr_sets();
-      })
+      })      
+
+      /************* facebook ***********************/
 
       $('#facebook-ajax-container form').live("ajax:before",function(){
         facebook_loader_start();
@@ -90,10 +82,6 @@
         facebook_loader_stop();
         go_to_facebook_albums();
       })
-
-      /************* facebook ***********************/
-
-      
 
     })
 
@@ -104,6 +92,7 @@
     function flickr_loader_start(){
       $('#flickr-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
     }
+    
     function flickr_loader_stop(){
       $('#flickr-ajax-container .preloader').stop().fadeOut();
     }

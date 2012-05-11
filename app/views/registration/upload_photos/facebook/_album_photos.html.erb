@@ -21,9 +21,12 @@
 
 <% end %>
 </div>
+<div class="visiblity">
+  <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
+</div>
 <div>
     <%= submit_tag "Import Images" -%>
-    <a href="#" onclick="go_to_facebook_albums();">Go back</a>
+    <a href="#" onclick="go_to_facebook_albums();return false;">Go back</a>
   </div>
 
 </div>

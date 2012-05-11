@@ -9,7 +9,7 @@
 
 <% @albums.each do |album| %>
   
-  <a href="#" onclick="go_to_facebook_photos('<%= album.identifier -%>');">
+  <a href="#" onclick="go_to_facebook_photos('<%= album.identifier -%>');return false;">
     <span class="image">
       <div class="thumb" style="background-image: url('<%= album.picture %>')">
         <span class="count">

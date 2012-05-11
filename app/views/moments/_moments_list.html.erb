@@ -16,10 +16,12 @@
             <div class="row">
               <span class="col1">Title</span>:<span class="col2"><%= moment.title.blank? ? "..." : truncate(moment.title, :length => 15) -%></span>
             </div>
-
             <div class="row">
               <span class="col1">Type</span>:<span class="col2"><%= moment.media.first.media_type unless moment.media.blank? -%></span>
-            </div>            
+            </div>
+            <div class="row">
+              <%= moment.visibility %>
+            </div>
           </div>
         </a>
       </li>

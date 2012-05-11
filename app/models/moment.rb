@@ -15,5 +15,10 @@ class Moment < ActiveRecord::Base
 
   scope :ids, select(:id)
 
+  VISIBILITY = {
+    "Public" => "public",
+    "Family & Friends only" => "family_and_friends_only",
+    "Me only" => "me_only"
+  }
 
 end
