@@ -206,11 +206,16 @@ class MomentsController < ApplicationController
 
   def import_media
     @family_children = my_family.children
-    params[:child_id] ||= @family_children.first.id
     @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
 
-    next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)
-    next_child.nil? ? @next_child_name = "Save & Finish" : @next_child_name = "Go to #{next_child.first_name.capitalize}"
+    flash[:registration] = flash[:registration]
+  end
+
+  def import_videos
+    @family_children = my_family.children
+    @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
+    @next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)    
+    flash[:registration] = flash[:registration]
   end
 
   def create_from_media

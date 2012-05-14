@@ -35,8 +35,9 @@
       </li>
     </ul>
 
-    <div class="buttons">
-      
+    <div class="buttons-container">
+      <%= link_to "Add Videos",import_videos_moments_path(:child_id => @selected_child.id), :class => "submit-button" -%>
+      <%= link_to "Skip",import_videos_moments_path(:child_id => @selected_child.id), :class => "submit-button" -%>
     </div>
   </div>
   

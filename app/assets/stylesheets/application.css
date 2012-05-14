@@ -552,8 +552,8 @@ div.submit {float:left;margin-right:20px}
 .registration-process .user-form .socials-container .ajax-container .flickr-grid,
 .registration-process .user-form .socials-container .ajax-container .facebook-grid,
 .registration-process .user-form .socials-container .ajax-container .uploaded-images-grid {width:100%}
-.registration-process .user-form .socials-container .ajax-container .image {width:100px;border:1px solid #e8e3c0;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);}
-.registration-process .user-form .socials-container .ajax-container .image .thumb {margin:5px auto 0px}
+.registration-process .user-form .socials-container .ajax-container .image {padding:5px 0;width:100px;border:1px solid #e8e3c0;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(PIE/PIE.htc);}
+.registration-process .user-form .socials-container .ajax-container .image .thumb {margin:0px auto 0px}
 .registration-process .user-form .socials-container .ajax-container .image input{display:none}
 .registration-process .user-form .socials-container .ajax-container .image.selected {background-color:#9b7304;border-color:#9b7804}
 .registration-process .user-form .socials-container .ajax-container .image.selected .title {color:white}

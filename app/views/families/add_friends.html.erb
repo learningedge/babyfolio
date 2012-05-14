@@ -36,7 +36,7 @@
             <%= submit_tag 'Submit' -%>
           </div>
           <div class="skip">
-            <%= link_to 'Skip', family_registration? ? import_media_moments_url : family_relations_families_url %>
+            <%= link_to 'Skip', family_registration? ? import_media_moments_url(:child_id => current_family.children.first.id) : family_relations_families_url %>
           </div>
         </div>
       <% end %>

@@ -194,7 +194,7 @@ class FamiliesController < ApplicationController
           if params[:page] == "add_family"
             redirect_to add_friends_families_path
           else
-            redirect_to import_media_moments_path
+            redirect_to import_media_moments_path(:child_id => @family.children.first.id)
           end
         else
           redirect_to family_relations_families_url

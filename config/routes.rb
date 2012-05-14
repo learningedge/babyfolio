@@ -23,7 +23,8 @@ Babyfolio::Application.routes.draw do
       end
       
       collection do
-        match 'import-images' => "moments#import_media", :as => :import_media
+        match 'import-images/:child_id' => "moments#import_media", :as => :import_media
+        get 'import-videos/:child_id' => "moments#import_videos", :as => :import_videos
         post :create_from_media
         put '/tag_it/update' => "moments#update_moment_tags", :as => :update_tag
         get '/tag_it/:id' => "moments#tag_moment", :as => :tag
