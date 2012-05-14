@@ -1,6 +1,7 @@
+<div class="imported-message">Flickr images imported.</div>
 <div class="preloader">
 </div>
-<h2>Flickr</h2>
+<span class="logo">From Flickr</span>
 <% if current_user.flickr_user %>
   <%= form_tag registration_add_photos_import_media_url, :remote => true do -%>
     <%= hidden_field_tag "child_id", @selected_child.id %>

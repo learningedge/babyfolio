@@ -1,9 +1,4 @@
-
 <div class="sets">
-<div class="header">
-  <h2>Sets</h2>
-  <div class="clear"></div>
-</div>
 
 <% photos_not_in_set = current_user.flickr_user.photos.getNotInSet %>
 <% sets = current_user.flickr_user.photosets.getList %>

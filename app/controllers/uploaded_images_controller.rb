@@ -3,8 +3,9 @@ class UploadedImagesController < ApplicationController
   def index
 
     @one_image = Media.find(params[:id])
-
-    render :index, :layout => false
+    respond_to do |format|
+      format.html { render :index, :layout => false }
+    end
     
   end
 
@@ -22,8 +23,9 @@ class UploadedImagesController < ApplicationController
     end
 
     media = MediaImage.create_media_object(tempfile, current_user.id)
-
-    render :text => "{\"media_id\":\"#{media.id}\"}"    
+    respond_to do |format|
+      format.text { render :text => "{\"media_id\":\"#{media.id}\"}" }
+    end
   end
 
   

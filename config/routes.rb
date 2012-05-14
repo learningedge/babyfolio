@@ -9,6 +9,9 @@ Babyfolio::Application.routes.draw do
     post '/add-photos/facebook/sets' => "add_photos#facebook_albums", :as => :add_photos_facebook_albums
 
     post '/add-photos/import-media' => "add_photos#import_media", :as => :add_photos_import_media
+    
+    post '/add-photos/photo' => "add_photos#photo", :as => :add_photos_photo
+    post '/add-photos/create-photos' => "add_photos#create_photo", :as => :add_photos_create_photo
 
   end
 
@@ -20,7 +23,7 @@ Babyfolio::Application.routes.draw do
       end
       
       collection do
-        match :import_media
+        match 'import-images' => "moments#import_media", :as => :import_media
         post :create_from_media
         put '/tag_it/update' => "moments#update_moment_tags", :as => :update_tag
         get '/tag_it/:id' => "moments#tag_moment", :as => :tag

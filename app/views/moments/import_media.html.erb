@@ -1,43 +1,43 @@
-<div class="container settings">
+<div class="container settings registration-process">
   <% if flash[:registration] %>
     <%= render "shared/registration_steps", :current_step => 2 %>
   <% end %>
 
-
   <div id="left">
-    <div class="title"><%# Step 3: Add Photos/Videos for %>Part A: Add Photos for <%= @selected_child.first_name -%></div>
-    <div id="change-form">      
-    </div>
+    <div class="title">Part A: Add Photos for <%= @selected_child.first_name -%></div>
   </div>
 
   <div class="user-form">
 
-    
+    <h1>Add Photos:</h1>
 
-    
+    <ul class="add-photos">
+      <li>
+        <h2>1. Import your photos from another site:</h2>
+        <ul class="socials-container">
+          <li id="facebook-ajax-container" class="ajax-container registration">
+            <%= render :partial => 'registration/upload_photos/facebook/select_facebook_photos'-%>
+          </li>
 
-      <div class="socials-container">
-        <div id="facebook-ajax-container" class="multiselect ajax-container">
-          <%= render :partial => 'registration/upload_photos/facebook/select_facebook_photos'-%>
-        </div>
+          <li id="flickr-ajax-container" class="ajax-container registration">
+            <%= render :partial => 'registration/upload_photos/flickr/select_flickr_photos'-%>
+          </li>
 
-        <hr/>
+        </ul>
+      </li>
+      <li>
+        <h2>2. Select photos from your computer harddrive:</h2>
+        <ul class="socials-container">
+          <li id="uploaded-images-ajax-container" class="ajax-container multiselect">
+            <%= render :partial => 'registration/upload_photos/uploaded_images/select_uploaded_images' %>
+          </li>
+        </ul>
+      </li>
+    </ul>
 
-        <div id="flickr-ajax-container" class="multiselect ajax-container">
-          <%= render :partial => 'registration/upload_photos/flickr/select_flickr_photos'-%>
-        </div>
-
-      </div>
-
-      <hr/>
-
-      <div id="uploaded-images-ajax-container" class="multiselect">
-        <%= render :partial => 'uploaded_images/select_uploaded_images' %>
-      </div>
-
-
-      <hr/>
-
+    <div class="buttons">
+      
+    </div>
   </div>
   
   <script type="text/javascript">
@@ -55,6 +55,24 @@
         }
       })
 
+      $('#flickr-ajax-container form').live("ajax:before",function(){
+        flickr_loader_start();
+      }).live("ajax:success",function(){        
+        flickr_loader_stop();
+        go_to_flickr_sets();
+        imported_message('#flickr-ajax-container','Flickr images imported');
+      })      
+
+      /************* facebook ***********************/
+
+      $('#facebook-ajax-container form').live("ajax:before",function(){
+        facebook_loader_start();
+      }).live("ajax:success",function(){
+        facebook_loader_stop();
+        go_to_facebook_albums();
+        imported_message($('#facebook-ajax-container'));
+      })
+
       jQuery('.facebook .image').live({
         mouseover: function(){
             $(this).find('.thumb').stop().animate({opacity: 1});
@@ -65,22 +83,13 @@
         }
       })
 
-      $('#flickr-ajax-container form').live("ajax:before",function(){
-        flickr_loader_start();
-      }).live("ajax:success",function(){
-        alert("zaimportowano");
-        flickr_loader_stop();
-        go_to_flickr_sets();
-      })      
+      /************* uploded images *****************/
 
-      /************* facebook ***********************/
-
-      $('#facebook-ajax-container form').live("ajax:before",function(){
-        facebook_loader_start();
-      }).live("ajax:success",function(){
-        alert("zaimportowano");
-        facebook_loader_stop();
-        go_to_facebook_albums();
+      $('#uploaded-images-ajax-container form').live("ajax:before",function(){        
+        uploaded_images_loader_start();
+      }).live("ajax:success",function(){        
+        uploaded_images_loader_stop();
+        imported_message($('#uploaded-images-ajax-container'));
       })
 
     })
@@ -96,6 +105,7 @@
     function flickr_loader_stop(){
       $('#flickr-ajax-container .preloader').stop().fadeOut();
     }
+    
     function go_to_flickr_photos(set_id){
       flickr_loader_start();
       $.post('<%= registration_add_photos_flickr_photos_url %>',{set_id:set_id},function(data){
@@ -161,6 +171,29 @@
         $(object).find("input").attr("checked",true);
       }
     }
+
+    /*************** uploaded images *****************/
+
+    function uploaded_images_loader_start(){
+      $('#uploaded-images-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+    }
+
+    function uploaded_images_loader_stop(){
+      $('#uploaded-images-ajax-container .preloader').stop().fadeOut();
+    }
+
+    function remove_element(object){
+      $(object).remove();
+    }
+
+    function imported_message(container){
+      var object = $(container).find('.imported-message');
+      object.fadeIn();
+      setTimeout(function(){
+        object.fadeOut();
+      },4000);
+    }
+
   </script>    
     
   <div class="clear"></div>

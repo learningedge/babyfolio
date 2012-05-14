@@ -45,6 +45,38 @@ class Registration::AddPhotosController < ApplicationController
   # upload photos actions
   ##################
 
+  def photo
+
+    one_image = Media.find(params[:id])
+    respond_to do |format|
+      format.html { render :partial => 'registration/upload_photos/uploaded_images/uploaded_image', :locals => {:photo => one_image} }
+    end
+    
+  end
+
+  def create_photo
+    
+    if params[:qqfile].kind_of? String
+      ext = '.' + params[:qqfile].split('.').last
+      fname = params[:qqfile].split(ext).first
+      tempfile = Tempfile.new([fname, ext])
+      tempfile.binmode
+      tempfile << request.body.read
+      tempfile.rewind
+    else
+      tempfile = params[:qqfile].tempfile
+    end
+
+    media = MediaImage.create_media_object(tempfile, current_user.id)
+    respond_to do |format|
+      format.text { render :text => "{\"media_id\":\"#{media.id}\"}" }
+    end
+  end
+
+  ##################
+  # global import media (images) action
+  ##################
+
   def import_media
   media = []
     titles = params[:media_titles]
@@ -64,7 +96,7 @@ class Registration::AddPhotosController < ApplicationController
         mom = Moment.new
         mom.media << m
         mom.child = child
-        mom.title = titles[idx]
+        mom.title = titles[idx] unless titles.nil?
         params[:visiblity] ||= "public"
         mom.visibility = params[:visiblity]
         mom.save

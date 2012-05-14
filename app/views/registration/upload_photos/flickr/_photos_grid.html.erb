@@ -1,12 +1,7 @@
 <div class="photos">
-
-  <div class="header">
-    <h2>Photos</h2>
-    <div class="clear"></div>
-  </div>
   <div>
     <% photos.each do |photo| %>
-
+    
       <span class="image flickr-image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>" onclick="select_flickr_photo(this);return false;">
         <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat 0% 0%">
         </div>
@@ -24,9 +19,9 @@
   <div class="visiblity">    
     <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
   </div>
-  <div>
+  <div class="buttons-container">
     <%= submit_tag "Import Images" -%>
-    <a href="#" onclick="go_to_flickr_sets();return false;">Go back</a>
+    <a class="submit-button" href="#" onclick="go_to_flickr_sets();return false;">Go back</a>
   </div>
 
   

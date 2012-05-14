@@ -206,8 +206,10 @@ class ServicesController < ApplicationController
       @redirect_link = flickr_index_url
       @container = 'flickr-ajax-container'
       @ajax_link = ajax_flickr_index_url
-
-      render :partial => 'create'
+      
+      respond_to do |format|
+        format.html { render :partial => 'create' }
+      end
       
     else
       render :text => service_route

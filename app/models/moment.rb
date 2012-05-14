@@ -2,7 +2,7 @@ class Moment < ActiveRecord::Base
 
   self.per_page = 6
 
-  validates :title, :presence => true
+#  validates :title, :presence => true
   
   has_many :attachments, :as => :object
   has_many :media, :through => :attachments

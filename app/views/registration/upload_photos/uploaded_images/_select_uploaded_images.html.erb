@@ -1,0 +1,63 @@
+<div class="imported-message">Images imported.</div>
+<div class="preloader"></div>
+<div class="uploaded-images-container">  
+  <div id="file-registration-uploader"></div>
+  <div class="clear"></div>
+  <%= form_tag registration_add_photos_import_media_url, :remote => true do -%>
+    <%= hidden_field_tag "child_id", @selected_child.id %>
+    <div class="uploaded-images">
+
+      <span id="uploaded-images-ajax-grid"  class="uploaded-images-grid">
+
+        <div class="photos"></div>
+
+      </span>
+
+      <div class="clear"></div>
+      
+    </div>
+    <div class="visiblity">
+      <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
+    </div>
+    <div class="buttons-container">
+      <%= submit_tag "Import Images" -%>      
+    </div>
+  <% end %>
+  
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var global_count = -1;
+    var uploader = new qq.FileUploader({
+        element: document.getElementById('file-registration-uploader'),
+        action: '<%= registration_add_photos_create_photo_path -%>',
+        onComplete: function(id, fileName, responseJSON){
+
+          $('.qq-upload-file').each(function(){if ( $(this).text() == fileName) {$(this).parents('li').eq(0).fadeOut(2000);} });
+
+          $.ajax({
+            type: 'POST',
+            data: {id:responseJSON.media_id},
+            url: '<%= registration_add_photos_photo_path -%>',
+            success: function(data){
+            
+              var data_value = $(data);
+              data_value.css({opacity:0});
+              $('#uploaded-images-ajax-grid .photos').append(data_value);
+              data_value.animate({opacity:1});
+              
+            }
+          })
+          
+        },
+        
+        onCancel: function(id,fileName){
+
+          global_count = global_count + 1;
+        }
+
+    });
+
+  });
+</script>

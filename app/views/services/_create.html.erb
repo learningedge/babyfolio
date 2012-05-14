@@ -24,8 +24,13 @@ function close_popup(){
   var parent_window = $(window.opener.document).find('#<%= @container %>')
   if (parent_window.length > 0) {
 
+    var params = "";
+    if (parent_window.hasClass('registration')) {
+      params = '?registration=true';
+    } 
+
     $.ajax({
-      url: '<%= @ajax_link %>',
+      url: '<%= @ajax_link -%>'+params ,
       success: function(html){            
           window.close();
           parent_window.html(html);
