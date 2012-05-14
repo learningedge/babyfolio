@@ -1,9 +1,5 @@
 <div class="photos">
 
-<div class="header">
-  <h2>Photos</h2>
-  <div class="clear"></div>
-</div>
 <div>
 <% @photos.each do |photo| %>
   <%# index = photo.images.index {|img| img.width <= 180} %>
@@ -24,7 +20,7 @@
 <div class="visiblity">
   <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
 </div>
-<div>
+<div class="buttons-container">
     <%= submit_tag "Import Images" -%>
     <a href="#" onclick="go_to_facebook_albums();return false;">Go back</a>
   </div>
