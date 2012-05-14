@@ -1,5 +1,5 @@
 <div class="container settings registration-process">
-  <% if flash[:registration] %>
+  <% if family_registration? %>
     <%= render "shared/registration_steps", :current_step => 2 %>
   <% end %>
 

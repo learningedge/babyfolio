@@ -107,9 +107,11 @@ class FamiliesController < ApplicationController
   end 
 
   def add_family
+    
   end
 
   def add_friends
+    
   end
 
   def create_friend_relations

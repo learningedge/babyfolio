@@ -3,7 +3,7 @@ class MomentsController < ApplicationController
   before_filter :require_user
   before_filter :require_my_family
   before_filter :require_family_with_child
-  skip_before_filter :clear_family_registration, :only => [:import_media]
+  skip_before_filter :clear_family_registration, :only => [:import_media, :import_videos]
 
   def index
 
@@ -208,14 +208,14 @@ class MomentsController < ApplicationController
     @family_children = my_family.children
     @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
 
-    flash[:registration] = flash[:registration]
+    
   end
 
   def import_videos
     @family_children = my_family.children
     @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
     @next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)    
-    flash[:registration] = flash[:registration]
+    
   end
 
   def create_from_media
