@@ -6,11 +6,21 @@ class VimeoController < ApplicationController
     if(current_user.has_vimeo_account?) 
       @vids = current_user.get_vimeo_videos
     end
-    render :partial => "multiselect_vimeo_videos"
+    if params[:registration]
+      respond_to do |format|
+        format.html { render :partial => "registration/upload_videos/vimeo/select_vimeo_videos" }
+      end
+    else
+      respond_to do |format|
+        format.html { render :partial => "multiselect_vimeo_videos" }
+      end
+    end
  end
 
   def new
-    render :new, :layout => false
+    respond_to do |format|
+      format.html { render :new, :layout => false }
+    end
   end
 
   def upload
@@ -27,15 +37,21 @@ class VimeoController < ApplicationController
         end
       rescue StandardError => e
           @error = e.message
-          render :new, :layout => false
+          respond_to do |format|
+            format.html { render :new, :layout => false }
+          end
       else
         @container = 'vimeo-ajax-container'
         @ajax_link = vimeo_index_url
-        render :partial => "shared/upload_video"
+        respond_to do |format|
+          format.html { render :partial => "shared/upload_video" }
+        end        
       end
       
     else
-     render :new, :layout => false
+      respond_to do |format|
+        format.html { render :new, :layout => false }
+      end
     end
   end
 

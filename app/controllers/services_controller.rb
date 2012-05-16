@@ -165,12 +165,15 @@ class ServicesController < ApplicationController
       @redirect_link = vimeo_index_url
       @container = 'vimeo-ajax-container'
       @ajax_link = vimeo_index_url
-
-      render :partial => 'create'
+      
+      respond_to do |format|
+        format.html { render :partial => 'create' }
+      end
       
     else
+
       render :text => service_route
-      return
+      return      
     end
 
   end

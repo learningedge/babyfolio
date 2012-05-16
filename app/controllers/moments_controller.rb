@@ -9,14 +9,18 @@ class MomentsController < ApplicationController
 
   end
 
-  def new    
-    @moment = Moment.new    
-    @moment.child = Child.find(params[:child_id])
-    @moment_tags = MomentTag.find_all_by_level(nil)    
+  def new
+    if current_user.can_edit_child? params[:child_id]
+      @moment = Moment.new
+      @moment.child = Child.find(params[:child_id])
+      @moment_tags = MomentTag.find_all_by_level(nil)
+    else
+      redirect_to errors_permission_path
+    end
   end
 
   def create
-    if current_user.own_children.exists?(params[:cid])
+    if current_user.can_edit_child?(params[:cid])
       media = []
       media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
       media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
@@ -58,54 +62,63 @@ class MomentsController < ApplicationController
       end
     else      
       flash[:error] = "Can't create moments for children from someone else's family"      
-      redirect_to child_profile_children_url
+      redirect_to errors_permission_path
     end   
   end
 
   def edit
     @moment = Moment.find(params[:id])
     @moment_tags = MomentTag.find_all_by_level(nil)
+    unless current_user.can_edit_child? @moment.child.id
+      redirect_to errors_permission_path
+    end
   end
 
   def update
-
-    media = []
-    media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
-    media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
-    media += MediaFlickr.create_media_objects(params[:flickr_photos], params[:flickr_pids], current_user.id)  unless  params[:flickr_pids].blank?
-    media += MediaYoutube.create_media_objects(params[:youtube_videos], current_user.id)  unless  params[:youtube_videos].blank?
-    media += MediaVimeo.create_media_objects(params[:vimeo_videos], current_user.id)  unless  params[:vimeo_videos].blank?
-
     moment = Moment.find(params[:id])
-    moment.media = media
 
-    moment_tags = Array.new
-    moment_tags = MomentTag.find(params[:moment_tag_ids]) unless params[:moment_tag_ids].blank?
+    if current_user.can_edit_child? moment.child.id
 
-    moment_tags_to_destroy = moment.moment_tags.main_level - moment_tags
-    moment_tags_to_add = moment_tags - moment.moment_tags.main_level
+      media = []
+      media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
+      media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
+      media += MediaFlickr.create_media_objects(params[:flickr_photos], params[:flickr_pids], current_user.id)  unless  params[:flickr_pids].blank?
+      media += MediaYoutube.create_media_objects(params[:youtube_videos], current_user.id)  unless  params[:youtube_videos].blank?
+      media += MediaVimeo.create_media_objects(params[:vimeo_videos], current_user.id)  unless  params[:vimeo_videos].blank?
 
-    moment.moment_tags = moment.moment_tags - moment_tags_to_destroy
-    moment.moment_tags = moment.moment_tags + moment_tags_to_add
-    
-    if moment.update_attributes(params[:moment])
-      flash[:notice] = "Moment has been successfuly updated."
-      if params[:operation_type] == "tag_it"
-        redirect_to tag_moments_url :id => moment.id
-      elsif params[:operation_type] == "deepen_it"
-        redirect_to deepen_moments_url :id => moment.id
-      elsif params[:operation_type] == "connect_it"
-        redirect_to connect_moments_url :id => moment.id
+
+      moment.media = media
+
+      moment_tags = Array.new
+      moment_tags = MomentTag.find(params[:moment_tag_ids]) unless params[:moment_tag_ids].blank?
+
+      moment_tags_to_destroy = moment.moment_tags.main_level - moment_tags
+      moment_tags_to_add = moment_tags - moment.moment_tags.main_level
+
+      moment.moment_tags = moment.moment_tags - moment_tags_to_destroy
+      moment.moment_tags = moment.moment_tags + moment_tags_to_add
+
+      if moment.update_attributes(params[:moment])
+        flash[:notice] = "Moment has been successfuly updated."
+        if params[:operation_type] == "tag_it"
+          redirect_to tag_moments_url :id => moment.id
+        elsif params[:operation_type] == "deepen_it"
+          redirect_to deepen_moments_url :id => moment.id
+        elsif params[:operation_type] == "connect_it"
+          redirect_to connect_moments_url :id => moment.id
+        else
+          redirect_to edit_moment_path :id => moment.id
+        end
       else
-        redirect_to edit_moment_path :id => moment.id
+
+      @moment = moment
+      @moment_tags = MomentTag.find_all_by_level(nil)
+      render :action => :edit
+
       end
     else
-
-    @moment = moment
-    @moment_tags = MomentTag.find_all_by_level(nil)
-    render :action => :edit
-      
-    end    
+      redirect_to errors_permission_path
+    end
   end
 
   def destroy
@@ -114,8 +127,12 @@ class MomentsController < ApplicationController
   def tag_moment
     
     @moment = Moment.find(params[:id])
-    @main_moment_tags = MomentTag.main_level
 
+    if current_user.can_edit_child? @moment.child.id
+      @main_moment_tags = MomentTag.main_level
+    else
+      redirect_to errors_permission_path
+    end
   end
 
   def update_moment_tags
@@ -153,6 +170,9 @@ class MomentsController < ApplicationController
 
   def deepen_it
     @moment = Moment.find(params[:id])
+    unless current_user.can_edit_child? @moment.child.id
+      redirect_to errors_permission_path
+    end
   end
 
   def update_deepen_it
@@ -178,8 +198,12 @@ class MomentsController < ApplicationController
   end
 
   def connect_it
-    @moment = Moment.find(params[:id])    
-    @all_moments = current_user.moments.ids
+    @moment = Moment.find(params[:id])
+    if current_user.can_edit_child? @moment.child.id
+      @all_moments = current_user.moments.ids
+    else
+      redirect_to errors_permission_path
+    end
   end
 
   def update_connect_it
@@ -205,16 +229,30 @@ class MomentsController < ApplicationController
   end
 
   def import_media
-    @family_children = my_family.children
-    @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
 
+    if current_user.can_edit_child? params[:child_id]
+      family_children = my_family.children
+      @selected_child = (family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
+      @next_child = family_children.at((family_children.index { |child_item| child_item.id == @selected_child.id })+1)
+    else
+      redirect_to errors_permission_path
+    end
     
   end
 
   def import_videos
-    @family_children = my_family.children
-    @selected_child = (@family_children.select { |child| child.id.to_s == params[:child_id].to_s }).first
-    @next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)    
+
+    if current_user.can_edit_child? params[:child_id]
+      
+      @family_children = my_family.children
+      @selected_child = Child.find(params[:child_id])
+      @next_child = @family_children.at((@family_children.index { |child_item| child_item.id == @selected_child.id })+1)
+      
+    else
+      
+      redirect_to errors_permission_path
+      
+    end
     
   end
 

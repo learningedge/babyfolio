@@ -1,5 +1,8 @@
 class Registration::AddPhotosController < ApplicationController
 
+  before_filter :require_user
+  before_filter :require_confirmation
+
   ##################
   # flickr actions
   ##################

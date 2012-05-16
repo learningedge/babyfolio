@@ -15,11 +15,11 @@
       <li>
         <h2>1. Import your photos from another site:</h2>
         <ul class="socials-container">
-          <li id="facebook-ajax-container" class="ajax-container registration">
+          <li id="facebook-ajax-container" class="ajax-container registration" child_id="<%= @selected_child.id -%>">
             <%= render :partial => 'registration/upload_photos/facebook/select_facebook_photos'-%>
           </li>
 
-          <li id="flickr-ajax-container" class="ajax-container registration">
+          <li id="flickr-ajax-container" class="ajax-container registration" child_id="<%= @selected_child.id -%>">
             <%= render :partial => 'registration/upload_photos/flickr/select_flickr_photos'-%>
           </li>
 
@@ -35,7 +35,7 @@
       </li>
     </ul>
 
-    <div class="buttons-container">
+    <div class="main-buttons-container">
       <%= link_to "Add Videos",import_videos_moments_path(:child_id => @selected_child.id), :class => "submit-button" -%>
       <%= link_to "Skip",import_videos_moments_path(:child_id => @selected_child.id), :class => "submit-button" -%>
     </div>
@@ -58,6 +58,7 @@
 
       $('#flickr-ajax-container form').live("ajax:before",function(){
         flickr_loader_start();
+        $(this).find('input[type=hidden]').attr('value',$(this).parents('#flickr-ajax-container').attr("child_id"));
       }).live("ajax:success",function(){        
         flickr_loader_stop();
         go_to_flickr_sets();
@@ -68,6 +69,7 @@
 
       $('#facebook-ajax-container form').live("ajax:before",function(){
         facebook_loader_start();
+        $(this).find('input[type=hidden]').attr('value',$(this).parents('#facebook-ajax-container').attr("child_id"));
       }).live("ajax:success",function(){
         facebook_loader_stop();
         go_to_facebook_albums();

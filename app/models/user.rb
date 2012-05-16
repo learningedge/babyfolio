@@ -47,6 +47,17 @@ class User < ActiveRecord::Base
     errors[:base] << str
   end
 
+
+  def can_see_child? child_id
+
+  end
+
+  def can_edit_child? child_id
+    child_id = child_id.to_i
+    child_ids = (self.families.parenting_families.collect { |family| family.children.collect {|child| child.id } }).flatten
+    child_ids.include?(child_id)
+  end
+
 # ----------- FACEBOOK -----------
 
   def has_facebook_account?

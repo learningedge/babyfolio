@@ -9,15 +9,124 @@
 
   <div class="user-form">
 
-    <h1>Add Photos:</h1>
-    <div class="buttons-container">
+    <h1>Add Videos:</h1>
+
+    <ul class="add-videos">
+      <li>
+        <h2>1. Import your videos from another site (or upload):</h2>
+        <ul class="socials-container">
+          <li id="youtube-ajax-container" class="ajax-container registration" child_id="<%=  @selected_child.id -%>">
+            <%= render :partial => 'registration/upload_videos/youtube/select_youtube_videos'-%>
+          </li>
+          <li id="vimeo-ajax-container" class="ajax-container registration" child_id="<%=  @selected_child.id -%>">
+            <%= render :partial => 'registration/upload_videos/vimeo/select_vimeo_videos' -%>
+          </li>
+        </ul>
+      </li>      
+    </ul>
+
+    <div class="main-buttons-container">
       <% unless @next_child.nil? %>
-        <%= link_to "Add Images", import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
+        <%= link_to "Next Step", import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
         <%= link_to "Skip", import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
       <% else %>
         <%= link_to "Finish", child_profile_children_path, :class => "submit-button" -%>
       <% end %>
     </div>
   </div>
-
+  <div class="clear"></div>
 </div>
+<script type="text/javascript">
+  jQuery(function($){
+
+    $('#youtube-ajax-container form')
+      .live("ajax:before",function(){
+        youtube_loader_start();
+        $(this).find('input[type=hidden].child-id').attr('value',$('#youtube-ajax-container').attr("child_id"));
+      })
+      .live("ajax:success",function(data){
+        imported_message($('#youtube-ajax-container'));
+        youtube_loader_stop();
+      })
+
+    $('#vimeo-ajax-container form.select-videos')
+      .live("ajax:before",function(){
+        vimeo_loader_start();
+        $(this).find('input[type=hidden].child-id').attr('value',$('#vimeo-ajax-container').attr("child_id"));
+      })
+      .live("ajax:success",function(data){
+        imported_message($('#vimeo-ajax-container'));
+        vimeo_loader_stop();
+      })
+
+    $('#vimeo-ajax-container form.vimeo-upload-form')
+      .live("ajax:before",function(){
+        console.log("before");
+        vimeo_loader_start();        
+      })
+
+  });
+
+  /***************** youtube functions *************/
+
+  function select_youtube_video(object){
+    if ( $(object).hasClass("active") ) {
+      $(object).removeClass("active");
+      $(object).find('input').attr("checked",false);
+    } else {
+      $(object).addClass("active");
+      $(object).find('input').attr("checked",true);
+    }
+  }
+
+  function youtube_loader_start(){
+    $('#youtube-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+  }
+
+  function youtube_loader_stop(){
+    $('#youtube-ajax-container .preloader').stop().fadeOut();
+  }
+
+  /***************** vimeo functions **************/
+
+  function select_vimeo_video(object){
+    if ( $(object).hasClass("active") ) {
+      $(object).removeClass("active");
+      $(object).find('input').attr("checked",false);
+    } else {
+      $(object).addClass("active");
+      $(object).find('input').attr("checked",true);
+    }
+  }
+
+  function go_to_vimeo_upload(){
+    $.ajax({
+      type: 'POST',
+      url: '<%= registration_add_videos_new_vimeo_path -%>',
+      beforeSend: function(){
+        vimeo_loader_start();        
+      },
+      success: function(data){
+        $('#vimeo-ajax-container .vimeo').html(data);
+        vimeo_loader_stop();
+      }
+    })    
+  }
+
+  function vimeo_loader_start(){
+    $('#vimeo-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+  }
+
+  function vimeo_loader_stop(){
+    $('#vimeo-ajax-container .preloader').stop().fadeOut();
+  }
+
+  function imported_message(container){
+    var object = $(container).find('.imported-message');
+    object.fadeIn();
+    setTimeout(function(){
+      object.fadeOut();
+    },4000);
+  }
+
+</script>

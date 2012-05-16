@@ -1,30 +1,30 @@
 <div class="photos">
-
-<div>
-<% @photos.each do |photo| %>
-  <%# index = photo.images.index {|img| img.width <= 180} %>
-      <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>" onclick="select_facebook_photo(this);">
-    <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
-    </div>
-    <%= check_box_tag "facebook_photos[]", photo.source -%>
-    <%= check_box_tag "facebook_pids[]", photo.identifier -%>
-    <%= check_box_tag "media_titles[]", photo.name -%>
-    <div class="title">
-      <span class="media_title_text hidden"><%= photo.name %></span>
-      <%= truncate(photo.name, :length => 10) %>
-    </div>
-  </span>
-
-<% end %>
-</div>
-<div class="visiblity">
-  <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
-</div>
-<div class="buttons-container">
-    <%= submit_tag "Import Images" -%>
-    <a class="submit-button" href="#" onclick="go_to_facebook_albums();return false;">Go back</a>
+  
+  <div class="buttons-container">
+    <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
+    <%= submit_tag "Import Images", :class => 'registration-submit-button' -%>
+    <a class="registration-submit-button" href="#" onclick="go_to_facebook_albums();return false;">Go back</a>
   </div>
 
-</div>
+  <div class="right-photos-container">
+  <% @photos.each do |photo| %>
+    <%# index = photo.images.index {|img| img.width <= 180} %>
+        <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>" onclick="select_facebook_photo(this);">
+      <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
+      </div>
+      <%= check_box_tag "facebook_photos[]", photo.source -%>
+      <%= check_box_tag "facebook_pids[]", photo.identifier -%>
+      <%= check_box_tag "media_titles[]", photo.name -%>
+      <div class="title">
+        <span class="media_title_text hidden"><%= photo.name %></span>
+        <%= truncate(photo.name, :length => 10) %>
+      </div>
+    </span>
 
+  <% end %>
+  </div>
+
+  <div class="clear"></div>
+
+</div>
 

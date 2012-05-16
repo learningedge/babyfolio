@@ -1,0 +1,49 @@
+<div class="imported-message">Youtube videos imported</div>
+<div class="preloader"></div>
+
+<div class="youtube-container">  
+  <div class="header">
+    <span class="logo">From YouTube</span>
+  </div>
+
+  <% if current_user.youtube_user %>  
+  <div class="youtube">
+
+    <%= form_tag registration_add_videos_import_media_url, :remote => true do -%>
+      <%= hidden_field_tag :child_id -%>
+
+      <div class="buttons-container">        
+        <%= select_tag :visibility, options_for_select(Moment::VISIBILITY) %>
+        <%= submit_tag "Import Videos", :class => 'registration-submit-button' -%>
+      </div>
+
+      <div class="youtube-grid">
+
+        <% current_user.youtube_user.my_videos.videos.each do |video| %>
+
+        <span class="video youtube-video" id="<%= video.unique_id -%>" onclick="select_youtube_video(this);return false;">
+          <div>
+            <div class="checkbox-radiobutton">
+              <%= check_box_tag 'youtube_videos[]', video.unique_id %>
+            </div>
+            <div class="thumb" style="background: url('<%= video.thumbnails[0].url %>') 0% 0%">
+            </div>
+            <div class="title">
+              <span class="media_title_text hidden"><%= video.title %></span>
+              <%= truncate(video.title, :length => 20) -%>
+            </div>
+          </div>
+        </span>
+        <% end %>
+      </div>      
+    <% end %>
+  </div>
+  <div class="clear"></div>
+  
+  <% else %>
+    <%= render :partial => 'shared/services_connect', :locals => {:service => 'youtube'} %>
+  <% end %>
+  
+</div>
+
+

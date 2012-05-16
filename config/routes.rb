@@ -4,14 +4,20 @@ Babyfolio::Application.routes.draw do
 
     post '/add-photos/flickr/photos' => "add_photos#flickr_photos", :as => :add_photos_flickr_photos
     post '/add-photos/flickr/sets' => "add_photos#flickr_sets", :as => :add_photos_flickr_sets
-
     post '/add-photos/facebook/photos' => "add_photos#facebook_photos", :as => :add_photos_facebook_photos
     post '/add-photos/facebook/sets' => "add_photos#facebook_albums", :as => :add_photos_facebook_albums
-
-    post '/add-photos/import-media' => "add_photos#import_media", :as => :add_photos_import_media
-    
     post '/add-photos/photo' => "add_photos#photo", :as => :add_photos_photo
     post '/add-photos/create-photos' => "add_photos#create_photo", :as => :add_photos_create_photo
+    post '/add-photos/import-media' => "add_photos#import_media", :as => :add_photos_import_media
+    
+    post '/add-videos/new-vimeo-video' => "add_videos#new_vimeo", :as => :add_videos_new_vimeo
+    post '/add-videos/upload-vimeo-video' => "add_videos#upload_vimeo", :as => :add_videos_upload_vimeo
+    post '/add-videos/new-youtube-video-step-1' => "add_videos#new_youtube_step_1", :as => :add_videos_new_youtube_step_1
+    post '/add-videos/new-youtube-video-step-2' => "add_videos#new_youtube_step_2", :as => :add_videos_new_youtube_step_2
+    post '/add-videos/upload-youtube-video' => "add_videos#upload_youtube", :as => :add_videos_upload_youtube
+    post '/add-videos/import-media' => "add_videos#import_media", :as => :add_videos_import_media
+
+
 
   end
 
@@ -59,6 +65,8 @@ Babyfolio::Application.routes.draw do
       post :upload 
     end
   end
+
+  get "/errors/permission" => "errors#permission", :as => :errors_permission
 
   get "questions" => "questions#index"  
   post "complete_questionnaire" => "questions#complete_questionnaire"

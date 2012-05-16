@@ -1,0 +1,29 @@
+<%= form_tag registration_add_videos_import_media_url, :class => "select-videos", :remote => true do -%>
+  <%= hidden_field_tag :child_id, '', :class => "child-id" -%>
+  <div class="buttons-container">
+    <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
+    <%= submit_tag 'Save Video', :class => 'registration-submit-button' -%>
+    <a class="registration-submit-button" href="#" onclick="go_to_vimeo_upload();return false;">Upload new video</a>
+  </div>
+  <div class="vimeo-grid">
+    <span class="video vimeo-video" id="<%= @vimeo_video["id"] -%>">
+      <div>
+        <div class="checkbox-radiobutton">
+           <%= hidden_field_tag 'vimeo_videos[]', @vimeo_video["id"] %>
+           <%= hidden_field_tag 'media_titles[]', video["title"] %>
+        </div>
+        <div class="thumb">
+          <%= image_tag @vimeo_video["thumbnails"]["thumbnail"][1]["_content"] %>
+        </div>
+        <div class="title">
+          <span class="media_title_text hidden"><%= @vimeo_video["title"] %></span>
+          <%= truncate(@vimeo_video["title"], :length => 20) -%> <%= "(processing)" if @vimeo_video["is_transcoding"] == "1" -%>
+        </div>
+      </div>
+    </span>
+  </div>
+  <div class="clear"></div>
+<% end %>
+
+
+

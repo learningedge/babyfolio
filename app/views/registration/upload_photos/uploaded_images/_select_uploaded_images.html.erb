@@ -5,23 +5,24 @@
   <div class="clear"></div>
   <%= form_tag registration_add_photos_import_media_url, :remote => true do -%>
     <%= hidden_field_tag "child_id", @selected_child.id %>
-    <div class="uploaded-images">
+    
+    <div class="buttons-container">
+      <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
+      <%= submit_tag "Import Images", :class => "registration-submit-button" -%>
+    </div>
+
+    <div class="uploaded-images right-photos-container">
 
       <span id="uploaded-images-ajax-grid"  class="uploaded-images-grid">
 
         <div class="photos"></div>
 
       </span>
+  
+    </div>
 
-      <div class="clear"></div>
-      
-    </div>
-    <div class="visiblity">
-      <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
-    </div>
-    <div class="buttons-container">
-      <%= submit_tag "Import Images" -%>      
-    </div>
+    <div class="clear"></div>
+    
   <% end %>
   
 </div>
