@@ -10,7 +10,7 @@
       <div>
         <div class="checkbox-radiobutton">
            <%= hidden_field_tag 'vimeo_videos[]', @vimeo_video["id"] %>
-           <%= hidden_field_tag 'media_titles[]', video["title"] %>
+           <%= hidden_field_tag 'media_titles[]', @vimeo_video["title"] %>
         </div>
         <div class="thumb">
           <%= image_tag @vimeo_video["thumbnails"]["thumbnail"][1]["_content"] %>
