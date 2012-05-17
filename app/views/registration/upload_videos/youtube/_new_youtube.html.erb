@@ -1,0 +1,54 @@
+<div class="upload-youtube-container">
+  <% if @step_one %>
+
+      <%= form_tag registration_add_videos_upload_youtube_path, :remote => true do %>
+
+      <div class="column buttons-cotnainer">
+          <%= submit_tag "Next", :class => "registration-submit-button" %>
+      </div>
+
+      <div class="column">
+
+        <div class="row <%= @error.nil? ? '' : "error" -%>">
+          <%= label_tag 'youtube[title]', 'Title (required)' -%>
+          <%= text_field_tag 'youtube[title]' %>
+        </div>
+
+        <div class="row">
+          <%= label_tag 'youtube[description]', 'Description' -%>
+          <%= text_area_tag  'youtube[description]' %>
+        </div>
+
+      </div>
+
+      <%= hidden_field_tag 'youtube[category]', 'People' %>
+      <%= hidden_field_tag 'youtube[keywords][]', 'two' %>
+      <%= hidden_field_tag 'youtube[keywords][]', 'one' %>
+
+      <% end %>
+
+
+  <% end %>
+  <% if @step_two %>
+
+     <%= form_tag @video_upload[:url], :multipart => true, :remote => true, :class => "youtube-upload-file-form" do %>
+
+     <%= hidden_field_tag :token, @video_upload[:token] %>
+
+     <div class="column buttons-container">
+       <%= submit_tag "Upload video", :class => 'upload-submit registration-submit-button' -%>
+       <%= link_to "Back", "" , :class => 'preview-btn registration-submit-button', :onclick => "go_to_youtube_upload();return false;" -%>
+     </div>
+
+     <div class="column">
+       <div class="row">
+         <%= file_field_tag :file %>
+         <div class="file-error">Field can't be blank</div>
+       </div>
+     </div>
+
+     <% end %>
+
+  <% end %>
+</div>
+

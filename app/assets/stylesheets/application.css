@@ -581,12 +581,17 @@ div.submit {float:left;margin-right:20px}
 .registration-process .main-buttons-container {text-align:center;padding:30px 0px 10px}
 
 .registration-process .user-form .upload-vimeo-container {}
-.registration-process .user-form .upload-vimeo-container .column{float:left}
+.registration-process .user-form .upload-vimeo-container .column,
+.registration-process .user-form .upload-youtube-container .column {float:left}
 
-
-.registration-process .user-form .upload-vimeo-container .column .row{padding: 0px 0px 0px 30px}
-.registration-process .user-form .upload-vimeo-container .column .row label{display:inline-block;text-align:right;width:100px}
-.registration-process .user-form .upload-vimeo-container .column .row input[type=text]{border: 1px solid #dbd4af;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);color:#898989;font:14px arial}
+.registration-process .user-form .upload-vimeo-container .column .row,
+.registration-process .user-form .upload-youtube-container .column .row{padding: 0px 0px 0px 30px}
+.registration-process .user-form .upload-vimeo-container .column .row label,
+.registration-process .user-form .upload-youtube-container .column .row label{display:inline-block;text-align:right;width:100px}
+.registration-process .user-form .upload-vimeo-container .column .row input[type=text],
+.registration-process .user-form .upload-youtube-container .column .row input[type=text],
+.registration-process .user-form .upload-youtube-container .column .row textarea{border: 1px solid #dbd4af;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);color:#898989;font:14px arial}
+.registration-process .user-form .upload-youtube-container .column .row.error input[type=text] {border-color: red}
 
 
 

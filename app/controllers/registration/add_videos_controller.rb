@@ -7,16 +7,33 @@ class Registration::AddVideosController < ApplicationController
   # youube actions
   ##################
 
-  def new_youtube_step_1
-
-  end
-
-  def new_youtube_step_2
-
+  def new_youtube
+    @step_one = true
+    @title = 'Upload video step 1'
+    respond_to do |format|
+      format.html { render :partial => 'registration/upload_videos/youtube/new_youtube' }
+    end
   end
 
   def upload_youtube
+    @error = true if params[:youtube][:title].blank?
+
+    unless @error
+      @step_two = true
+      @video_upload = current_user.youtube_user.upload_token params[:youtube], registration_add_videos_upload_file_youtube_url
+    else
+      @step_one = true
+    end
     
+    respond_to do |format|
+      format.html { render :partial => 'registration/upload_videos/youtube/new_youtube' }
+    end
+  end
+
+  def upload_file_youtube
+    respond_to do |format|
+      format.text { render :text => "czy bedzie blad?" }
+    end
   end
 
 

@@ -4,7 +4,6 @@ class YoutubeController < ApplicationController
   before_filter :require_confirmation
 
   def new
-
     @step_one = true
     @title = 'Upload video step 1'
     respond_to do |format|
@@ -34,8 +33,7 @@ class YoutubeController < ApplicationController
     
     respond_to do |format|
       format.html { render :partial => "shared/upload_video" }
-    end
-    
+    end    
   end
 
   def youtube_ajax
