@@ -3,20 +3,27 @@ class Registration::AddVideosController < ApplicationController
   before_filter :require_user
   before_filter :require_confirmation
 
+
   ##################
   # youube actions
   ##################
+
+  def iframe_upload
+    respond_to do |format|
+      format.html { render 'registration/upload_videos/youtube/iframe_upload', :layout => false }
+    end
+  end
 
   def new_youtube
     @step_one = true
     @title = 'Upload video step 1'
     respond_to do |format|
-      format.html { render :partial => 'registration/upload_videos/youtube/new_youtube' }
+      format.html { render 'registration/upload_videos/youtube/new_youtube', :layout => "none" }
     end
   end
 
   def upload_youtube
-    @error = true if params[:youtube][:title].blank?
+    @error = true if params[:youtube].nil? or params[:youtube][:title].blank?
 
     unless @error
       @step_two = true
@@ -26,13 +33,16 @@ class Registration::AddVideosController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { render :partial => 'registration/upload_videos/youtube/new_youtube' }
+      format.html { render 'registration/upload_videos/youtube/new_youtube', :layout => "none" }
     end
   end
 
   def upload_file_youtube
-    respond_to do |format|
-      format.text { render :text => "czy bedzie blad?" }
+    if params[:error].nil?
+      respond_to do |format|
+        @video = current_user.youtube_user.my_video(params[:id])
+        format.html { render 'registration/upload_videos/youtube/upload_file_youtube', :layout => "none" }
+      end
     end
   end
 

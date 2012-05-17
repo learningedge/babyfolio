@@ -33,7 +33,8 @@ class YoutubeController < ApplicationController
     
     respond_to do |format|
       format.html { render :partial => "shared/upload_video" }
-    end    
+    end
+    
   end
 
   def youtube_ajax

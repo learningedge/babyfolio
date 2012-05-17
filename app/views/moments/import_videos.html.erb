@@ -44,14 +44,8 @@
         youtube_loader_start();
         $(this).find('input[type=hidden].child-id').attr('value',$('#youtube-ajax-container').attr("child_id"));
       })
-      .live("ajax:success",function(xhr,data){
-        if (!$(this).hasClass('youtube-upload-file-form')){
-          if ($(this).hasClass('select-videos')) {
-            imported_message($('#youtube-ajax-container'));
-          } else {
-            $('#youtube-ajax-container .youtube').html(data);
-          }          
-        }
+      .live("ajax:success",function(xhr,data){                  
+        imported_message($('#youtube-ajax-container'));
         youtube_loader_stop();
       })
 
@@ -93,13 +87,13 @@
   function go_to_youtube_upload(){
     $.ajax({
       type: 'POST',
-      url: '<%= registration_add_videos_new_youtube_path -%>',
+      url: '<%= registration_add_videos_iframe_upload_path -%>',      
       beforeSend: function(){
         youtube_loader_start();
       },
       success: function(data){
         $('#youtube-ajax-container .youtube').html(data);
-        youtube_loader_stop();
+        <%#*youtube_loader_stop();%>
       }
     })
   }

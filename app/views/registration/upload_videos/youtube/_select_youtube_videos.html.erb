@@ -21,8 +21,8 @@
       <div class="youtube-grid">
 
         <% current_user.youtube_user.my_videos.videos.each do |video| %>
-
-        <span class="video youtube-video" id="<%= video.unique_id -%>" onclick="select_youtube_video(this);return false;">
+        
+        <span class="video youtube-video" id="<%= video.unique_id -%>" onclick="select_youtube_video(this);return false;">          
           <div>
             <div class="checkbox-radiobutton">
               <%= check_box_tag 'youtube_videos[]', video.unique_id %>
