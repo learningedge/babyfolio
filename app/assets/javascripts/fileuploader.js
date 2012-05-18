@@ -1053,7 +1053,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
      * Returns json object received by iframe from server.
      */
     _getIframeContentJSON: function(iframe){
-        // iframe.contentWindow.document - for IE<7
+        // iframe.contentWindow.document - for IE<7        
         var doc = iframe.contentDocument ? iframe.contentDocument: iframe.contentWindow.document,
             response;
         
@@ -1064,8 +1064,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
             response = eval("(" + doc.body.innerHTML + ")");
         } catch(err){
             response = {};
-        }        
-
+        }                        
         return response;
     },
     /**

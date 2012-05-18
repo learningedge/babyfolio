@@ -1,9 +1,9 @@
 <style type="text/css">
   .upload-youtube-container {font: 14px arial;color:#898989}
-  .buttons-container {float:left;width:150px}
-  .column {float:left}
+  .buttons-container {width:100%;text-align:center}
+  .column {}
   input[type=submit].registration-submit-button,
-  .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border:none;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;behavior: url(/PIE/PIE.htc);height:auto;text-decoration:none;text-align:center;margin-top:20px;padding:5px 0px;display:block;width:100%;cursor:pointer}
+  .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border:none;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;behavior: url(/PIE/PIE.htc);height:auto;text-decoration:none;text-align:center;margin-top:20px;padding:5px 0px;width:150px;cursor:pointer}
   .row {padding:0px 0px 0px 30px}
   .column .row,
   .column .row{padding: 0px 0px 0px 30px}
@@ -11,17 +11,14 @@
   .column .row label{display:inline-block;text-align:right;width:100px}
   .column .row input[type=text],
   .column .row input[type=text],
-  .column .row textarea{border: 1px solid #dbd4af;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);color:#898989;font:14px arial;width:204px;padding:7px 0 7px 11px;}
+  .column .row textarea{border: 1px solid #dbd4af;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);color:#898989;font:14px arial;width:400px;padding:7px 0 7px 11px;}
   .column .row.error input[type=text] {border-color: red}
+  .file-error {display:none}
 </style>
 <div class="upload-youtube-container">
   <% if @step_one %>
 
       <%= form_tag registration_add_videos_upload_youtube_path do %>
-
-      <div class="buttons-container">
-          <%= submit_tag "Next", :class => "registration-submit-button" %>
-      </div>
 
       <div class="column">
 
@@ -37,6 +34,10 @@
 
       </div>
 
+      <div class="buttons-container">
+          <%= submit_tag "Next", :class => "registration-submit-button" %>
+      </div>
+
       <%= hidden_field_tag 'youtube[category]', 'People' %>
       <%= hidden_field_tag 'youtube[keywords][]', 'two' %>
       <%= hidden_field_tag 'youtube[keywords][]', 'one' %>
@@ -50,16 +51,16 @@
 
      <%= hidden_field_tag :token, @video_upload[:token] %>
 
-     <div class="column buttons-container">
-       <%= link_to "Upload video","#", :class => 'registration-submit-button upload-file' -%>
-       <%= link_to "Back", :back , :class => 'registration-submit-button' -%>
-     </div>
-
      <div class="column">
        <div class="row">
          <%= file_field_tag :file %>
          <div class="file-error">Field can't be blank</div>
        </div>
+     </div>
+
+     <div class="column buttons-container">
+       <span><%= link_to "Upload video","#", :class => 'registration-submit-button upload-file' -%></span>
+       <span><%= link_to "Back", :back , :class => 'registration-submit-button' -%></span>       
      </div>
 
      <% end %>
@@ -71,7 +72,7 @@
     youtube_loader_stop();
     $('a.registration-submit-button.upload-file').click(function(){
       if( $('input[type=file]').val() == "" ) {
-        $('.file-error').css({color: 'red'});
+        $('.file-error').show().css({color: 'red'});
       } else {
         $('form').submit();
         youtube_loader_start();

@@ -1,11 +1,7 @@
+<div>
+  Select photos:
+</div>
 <div class="photos">
-  
-  <div class="buttons-container">
-    <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
-    <%= submit_tag "Import Images", :class => 'registration-submit-button' -%>
-    <a class="registration-submit-button" href="#" onclick="go_to_facebook_albums();return false;">Go back</a>
-  </div>
-
   <div class="right-photos-container">
   <% @photos.each do |photo| %>
     <%# index = photo.images.index {|img| img.width <= 180} %>
@@ -23,8 +19,16 @@
 
   <% end %>
   </div>
+  <div class="visibility">
+    <span>Privacy level: <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%></span>
+    
+  </div>
+  <div class="buttons-container">
+    <span><%= submit_tag "Import selected photos", :class => 'registration-submit-button' -%></span>
+    <span><a class="registration-submit-button" href="#" onclick="go_to_facebook_albums();return false;">Go back to galleries</a></span>
+  </div>
 
-  <div class="clear"></div>
+  
 
 </div>
 

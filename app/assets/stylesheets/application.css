@@ -536,17 +536,18 @@ div.submit {float:left;margin-right:20px}
 .facebook-grid .sets > a, .flickr-grid .sets > a, .uploaded-images-grid .sets > a {display:inline-block;vertical-align:top;text-decoration:none}
 .facebook-grid .sets .count , .flickr-grid .sets .count {background-color:#9b7804;color:white;padding:2px;}
 .facebook-grid .image, .flickr-grid .image, .uploaded-images-grid .image {display:inline-block;text-align:center;vertical-align:middle;position:relative;width:78px;vertical-align:top;font-size:14px;margin:2px}
-.facebook-grid .image .thumb, .flickr-grid .image .thumb, .uploaded-images-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);width:75px;height:75px;overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
+.facebook-grid .image .thumb, .flickr-grid .image .thumb, .uploaded-images-grid .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;/*behavior: url(/PIE/PIE.htc)*/;width:75px;height:75px;overflow:hidden; background-position: center; /*background-size: cover*/; background-repeat: no-repeat;}
 .facebook-grid .image .checkbox-radiobutton, .flickr-grid .image .checkbox-radiobutton, .uploaded-images-grid .image .checkbox-radiobutton {position:absolute;display:none}
 
 /* flickr facebook uploaded-images in registration process */
 
 .registration-process .user-form input[type=submit].registration-submit-button,
 .registration-process .user-form .uploaded-images-container .qq-upload-button,
-.registration-process .user-form .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;behavior: url(/PIE/PIE.htc);height:auto;text-decoration:none;text-align:center;margin-top:20px;padding:5px 0px}
-.registration-process .user-form select {font: 11px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(/PIE/PIE.htc);}
+.registration-process .user-form .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;/*behavior: url(/PIE/PIE.htc)*/;height:auto;text-decoration:none;text-align:center;margin-top:20px;padding:5px 0px;width:150px}
+.registration-process .user-form select {font: 11px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;/*behavior: url(/PIE/PIE.htc)*/;}
 
 .registration-process {}
+.registration-process iframe {background-color: #e8e3c0;border:none}
 .registration-process ul {list-style:none}
 .registration-process ul.add-photos > li {padding-top:20px}
 .registration-process .user-form .socials-container{margin-left:30px}
@@ -560,17 +561,17 @@ div.submit {float:left;margin-right:20px}
 .registration-process .user-form .socials-container .ajax-container .flickr-grid,
 .registration-process .user-form .socials-container .ajax-container .facebook-grid,
 .registration-process .user-form .socials-container .ajax-container .uploaded-images-grid {width:100%}
-.registration-process .user-form .socials-container .ajax-container .right-photos-container {width:530px;float:right}
+.registration-process .user-form .socials-container .ajax-container .right-photos-container {width:100%}
 .registration-process .user-form .socials-container .ajax-container .youtube-grid,
-.registration-process .user-form .socials-container .ajax-container .vimeo-grid {width:530px;float:right}
+.registration-process .user-form .socials-container .ajax-container .vimeo-grid {width:100%}
 .registration-process .user-form .socials-container .ajax-container .image {padding:5px 0;width:100px;border:1px solid #e8e3c0;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);}
 .registration-process .user-form .socials-container .ajax-container .image .thumb {margin:0px auto 0px}
 .registration-process .user-form .socials-container .ajax-container .image input{display:none}
 .registration-process .user-form .socials-container .ajax-container .image.selected {background-color:#9b7304;border-color:#9b7804}
 .registration-process .user-form .socials-container .ajax-container .image.selected .title {color:white}
-.registration-process .user-form .socials-container .ajax-container .visiblity{}
-.registration-process .user-form .socials-container .ajax-container .buttons-container {float:left;width:150px}
-.registration-process .user-form .socials-container .ajax-container .buttons-container > * {display:block;width:100%}
+.registration-process .user-form .socials-container .ajax-container .visibility {text-align:right}
+.registration-process .user-form .socials-container .ajax-container .buttons-container {text-align:center}
+.registration-process .user-form .socials-container .ajax-container .buttons-container > span {display:inline-block}
 
 
 .registration-process .user-form .socials-container .ajax-container .qq-upload-list {height:53px}
@@ -592,6 +593,8 @@ div.submit {float:left;margin-right:20px}
 .registration-process .user-form .upload-youtube-container .column .row input[type=text],
 .registration-process .user-form .upload-youtube-container .column .row textarea{border: 1px solid #dbd4af;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);color:#898989;font:14px arial}
 .registration-process .user-form .upload-youtube-container .column .row.error input[type=text] {border-color: red}
+.registration-process .user-form .upload-vimeo-container .column .file-error{width:500px}
+
 
 
 

@@ -27,7 +27,7 @@
 
     <div class="main-buttons-container">
       <% unless @next_child.nil? %>
-        <%= link_to "Next Step", import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
+        <%= link_to "Next Child", import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
         <%= link_to "Skip", import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
       <% else %>
         <%= link_to "Finish", child_profile_children_path, :class => "submit-button" -%>
@@ -141,7 +141,7 @@
   }
 
   function imported_message(container){
-    var object = $(container).find('.imported-message');
+    var object = $(container).find('.imported-message');    
     object.fadeIn();
     setTimeout(function(){
       object.fadeOut();

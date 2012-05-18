@@ -72,7 +72,9 @@ class Registration::AddPhotosController < ApplicationController
 
     media = MediaImage.create_media_object(tempfile, current_user.id)
     respond_to do |format|
-      format.text { render :text => "{\"media_id\":\"#{media.id}\"}" }
+
+#      format.text { render :text => tempfile.inspect }
+      format.json { render :json => "{\"media_id\":\"#{media.id}\"}" }
     end
   end
 
@@ -81,33 +83,45 @@ class Registration::AddPhotosController < ApplicationController
   ##################
 
   def import_media
-  media = []
-    titles = params[:media_titles]
-    media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
-    media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
-    media += MediaFlickr.create_media_objects(params[:flickr_photos], params[:flickr_pids], current_user.id)  unless  params[:flickr_pids].blank?
-#    media += MediaYoutube.create_media_objects(params[:youtube_videos], current_user.id)  unless  params[:youtube_videos].blank?
-#    media += MediaVimeo.create_media_objects(params[:vimeo_videos], current_user.id)  unless  params[:vimeo_videos].blank?
 
-    moments = []
+    if current_user.can_edit_child? params[:child_id]
+      media = []
+      titles = params[:media_titles]
+      media += Media.find(params[:uploaded_images_pids]) unless params[:uploaded_images_pids].blank?
+      media += MediaFacebook.create_media_objects(params[:facebook_photos], params[:facebook_pids], current_user.id)  unless  params[:facebook_photos].blank?
+      media += MediaFlickr.create_media_objects(params[:flickr_photos], params[:flickr_pids], current_user.id)  unless  params[:flickr_pids].blank?  
 
-    child = Child.find(params[:child_id])
-    media_ids = (child.moments.collect { |moment_item| moment_item.media.collect { |media_item| media_item.id } }).flatten
+      moments = []
 
-    media.each_with_index do |m, idx|
-      unless media_ids.include?(m.id)
-        mom = Moment.new
-        mom.media << m
-        mom.child = child
-        mom.title = titles[idx] unless titles.nil?
-        params[:visiblity] ||= "public"
-        mom.visibility = params[:visiblity]
-        mom.save
-        moments << mom
+      child = Child.find(params[:child_id])
+      media_ids = (child.moments.collect { |moment_item| moment_item.media.collect { |media_item| media_item.id } }).flatten
+
+      @media_index = 0;            
+      media.each_with_index do |m, idx|
+        @media_index += 1
+        unless media_ids.include?(m.id)          
+          mom = Moment.new
+          mom.media << m
+          mom.child = child
+          mom.title = titles[idx] unless titles.nil?
+          params[:visiblity] ||= "public"
+          mom.visibility = params[:visiblity]
+          mom.save
+          moments << mom
+        end
+      end      
+      if @media_index > 0
+          @import_message = " images uploaded successfully."
+      else
+          @import_message = "First select images."
       end
-    end
-    respond_to do |format|
-      format.text { render :text => 'Images Imported' }
+      respond_to do |format|
+        format.js { render '/registration/upload_photos/import_message' }
+      end
+    else
+      respond_to do |format|
+        format.js { render '/errors/permission' }
+      end
     end
   end
 
