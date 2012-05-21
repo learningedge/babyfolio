@@ -6,7 +6,7 @@ class FamiliesController < ApplicationController
   skip_before_filter :clear_family_registration, :only => [:create, :add_family, :add_friends, :create_friend_relations, :relations, :create_relations]
   before_filter :require_parent, :only => [:add_family, :add_friends, :create_friend_relations, :relations, :create_relations, :update, :edit, :add_parent, :create_parent]
 
-  def index
+  def index    
     @family = current_family
   end
 
