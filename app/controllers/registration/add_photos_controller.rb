@@ -72,9 +72,7 @@ class Registration::AddPhotosController < ApplicationController
 
     media = MediaImage.create_media_object(tempfile, current_user.id)
     respond_to do |format|
-
-#      format.text { render :text => tempfile.inspect }
-      format.json { render :json => "{\"media_id\":\"#{media.id}\"}" }
+      format.html { render :text => "{\"media_id\":\"#{media.id}\"}" }
     end
   end
 
