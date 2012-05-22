@@ -48,8 +48,8 @@ class User < ActiveRecord::Base
   end
 
 
-  def can_see_child? child_id
-
+  def can_view_child? child_id
+    return true
   end
 
   def can_edit_child? child_id

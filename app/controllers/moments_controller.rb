@@ -51,7 +51,7 @@ class MomentsController < ApplicationController
           elsif params[:operation_type] == "connect_it"
             redirect_to connect_moments_url :id => moment.id
           else
-            redirect_to edit_moment_path :id => moment.id
+            redirect_to child_profile_children_path :child_id => moment.child.id
           end
         else 
           redirect_to new_account_url
@@ -59,9 +59,9 @@ class MomentsController < ApplicationController
         
       else
         
-        @moment = moment
-        @moment_tags = MomentTag.find_all_by_level(nil)        
-        render :action => :new
+      @moment = moment
+      @moment_tags = MomentTag.find_all_by_level(nil)
+      render :action => :new
         
       end
     else      
@@ -90,7 +90,6 @@ class MomentsController < ApplicationController
       media += MediaYoutube.create_media_objects(params[:youtube_videos], current_user.id)  unless  params[:youtube_videos].blank?
       media += MediaVimeo.create_media_objects(params[:vimeo_videos], current_user.id)  unless  params[:vimeo_videos].blank?
 
-
       moment.media = media
 
       moment_tags = Array.new
@@ -105,13 +104,13 @@ class MomentsController < ApplicationController
       if moment.update_attributes(params[:moment])
         flash[:notice] = "Moment has been successfuly updated."
         if params[:operation_type] == "tag_it"
-          redirect_to tag_moments_url :id => moment.id
+          redirect_to tag_moments_path :id => moment.id
         elsif params[:operation_type] == "deepen_it"
-          redirect_to deepen_moments_url :id => moment.id
+          redirect_to deepen_moments_path :id => moment.id
         elsif params[:operation_type] == "connect_it"
-          redirect_to connect_moments_url :id => moment.id
+          redirect_to connect_moments_path :id => moment.id
         else
-          redirect_to edit_moment_path :id => moment.id
+          redirect_to child_profile_children_url :child_id => moment.child.id
         end
       else
 
