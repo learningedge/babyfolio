@@ -3,8 +3,24 @@
     <div id="title">Children Questionaire</div>
   </div>
 
+  <style type="text/css">
+      #questionaire #slider_wrapper { width: 100%; text-align: center; }
+      #questionaire #child_images_slider { position: relative; background-color: #F5F2DD; border: 1px solid; -moz-border-radius: 8px; -webkit-border-radius: 8px; display: inline-block; }
+      #questionaire #child_images_slider img {display: block; padding: 25px 25px; position: absolute; left: 0; top: 0; opacity: 0;}
+      #questionaire #child_images_slider img:first-child { position: relative; opacity: 1;}
+  </style>
+
   <div id="questionaire" class="user-form">
     <h2>Questions for <%= @child.first_name %></h2>
+
+    <div id="slider_wrapper">
+      <span id="child_images_slider">
+          <% @all_images.each do |m| %>
+            <%= image_tag m.image.url(:large) %>
+          <% end %>
+
+      </span>
+    </div>
 
     <%= form_tag complete_questionnaire_url, :class => "questions_form" do %>
       <% @categories_with_questions.each do |cat|  %>
@@ -51,7 +67,12 @@
 </div>
 
 <script type="text/javascript">
-  $(function() {
+  $(function() {    
+    $('#child_images_slider img').first().addClass('visible');
+    
+
+    scroll_images();
+    
    $('.age').each(function() {
       if( beyond_always_selected_for_age($(this)) ) {
         if($(this).next('.age').length > 0) {
@@ -82,4 +103,20 @@
     return is_beyond;
   }
 
+
+  function scroll_images() {
+    setTimeout(function() {
+      var vis = $('#child_images_slider .visible');
+      var next = $(vis).next();
+      if(next.length == 0) {
+          next = $('#child_images_slider img').first();
+        }
+      $(vis).animate({opacity: 0}, 1000).removeClass('visible');
+      $(next).animate({opacity: 1}, 1000).addClass('visible');
+     
+      scroll_images();      
+    }, 3500);
+    
+    
+  }
 </script>

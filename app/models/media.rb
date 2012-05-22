@@ -11,7 +11,8 @@ class Media < ActiveRecord::Base
     :small => "40x40#",
     :medium => "93x93#",
     :moment_thumb => "120x90#",
-    :large => "228x254#"
+    :large => "228x254#",
+    :larger => "500x254#"
   }
 
   def media_type

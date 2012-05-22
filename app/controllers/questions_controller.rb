@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
     @current_child = 0
     @next_child = 1 if my_family.children.size > 1
     @categories_with_questions = Question.get_questions_for_age(@child.months_old)
+    @all_images = @child.moments.collect{ |mom| mom.media }.flatten    
   end
 
   def complete_questionnaire    
