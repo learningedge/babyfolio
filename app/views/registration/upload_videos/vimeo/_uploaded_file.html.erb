@@ -1,10 +1,5 @@
 <%= form_tag registration_add_videos_import_media_url, :class => "select-videos", :remote => true do -%>
   <%= hidden_field_tag :child_id, '', :class => "child-id" -%>
-  <div class="buttons-container">
-    <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%>
-    <%= submit_tag 'Save Video', :class => 'registration-submit-button' -%>
-    <a class="registration-submit-button" href="#" onclick="go_to_vimeo_upload();return false;">Upload new video</a>
-  </div>
   <div class="vimeo-grid">
     <span class="video vimeo-video" id="<%= @vimeo_video["id"] -%>">
       <div>
@@ -21,6 +16,13 @@
         </div>
       </div>
     </span>
+  </div>
+  <div class="visibility">
+    <span>Privacy level: <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%></span>
+  </div> 
+  <div class="buttons-container">
+    <span><%= submit_tag 'Save changes', :class => 'registration-submit-button' -%></span>
+    <span><a class="registration-submit-button" href="#" onclick="go_to_vimeo_upload();return false;">Upload next video</a></span>
   </div>
   <div class="clear"></div>
 <% end %>

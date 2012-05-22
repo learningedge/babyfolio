@@ -10,20 +10,44 @@
 
 
 
-Attachment.delete_all
-Child.delete_all
-Family.delete_all
-Media.delete_all
-Moment.delete_all
-Relation.delete_all
-Service.delete_all
-User.delete_all
+#Attachment.delete_all
+#Child.delete_all
+#Family.delete_all
+#Media.delete_all
+#Moment.delete_all
+#Relation.delete_all
+#Service.delete_all
+#User.delete_all
+
+@admin = User.where(:email => 'admin@codephonic.com');
+#puts @admin.inspect
+#puts @admin.first.families.parenting_families.inspect
+
+@admin.each do |admin|
+
+admin.families.parenting_families.each do |family|
+  puts family.inspect
+  family.children.each do |child|
+    child.moments.destroy_all
+    child.destroy
+  end
+  family.destroy
+end
+
+admin.moments.destroy_all
+admin.services.destroy_all
+admin.destroy
+
+end
+
 
 @user = User.new(:email => 'admin@codephonic.com', :password => 'admin', :password_confirmation => 'admin', :email_confirmed => 1)
 @user.reset_perishable_token
 @user.save
 
-Rake::Task['excel:all'].invoke
+
+
+#Rake::Task['excel:all'].invoke
 
 
 

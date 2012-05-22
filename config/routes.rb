@@ -10,8 +10,9 @@ Babyfolio::Application.routes.draw do
     post '/add-photos/create-photos' => "add_photos#create_photo", :as => :add_photos_create_photo
     post '/add-photos/import-media' => "add_photos#import_media", :as => :add_photos_import_media
     
-    post '/add-videos/new-vimeo-video' => "add_videos#new_vimeo", :as => :add_videos_new_vimeo
+    match '/add-videos/new-vimeo-video' => "add_videos#new_vimeo", :as => :add_videos_new_vimeo
     post '/add-videos/upload-vimeo-video' => "add_videos#upload_vimeo", :as => :add_videos_upload_vimeo
+    post '/add-videos/iframe-upload' => "add_videos#iframe_upload", :as => :add_videos_iframe_upload
     match '/add-videos/new-youtube' => "add_videos#new_youtube", :as => :add_videos_new_youtube
     match '/add-videos/upload-youtube-video' => "add_videos#upload_youtube", :as => :add_videos_upload_youtube
     match '/add-videos/upload-file-youtube-video' => "add_videos#upload_file_youtube", :as => :add_videos_upload_file_youtube

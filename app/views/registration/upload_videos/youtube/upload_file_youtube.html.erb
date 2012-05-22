@@ -1,0 +1,82 @@
+<style type="text/css">
+  .upload-youtube-container {font: 14px arial;color:#898989}
+  .buttons-container {width:100%;text-align:center}
+  .buttons-container > span {display:inline-block;vertical-align:middle;margin-top:5px}
+  .youtube-grid {text-align:center;}
+  .visibility {text-align:right;padding-right:30px}
+  input[type=submit].registration-submit-button,
+  .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border:none;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;behavior: url(/PIE/PIE.htc);height:auto;text-decoration:none;text-align:center;padding:5px 0px;display:block;width:150px;cursor:pointer}
+  select {font: 11px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(/PIE/PIE.htc);width:auto}
+  .row {padding:0px 0px 0px 30px}
+  .column .row, .column .row{padding: 0px 0px 0px 30px}
+  .column .row label, .column .row label{display:inline-block;text-align:right;width:100px}
+  .column .row input[type=text], .column .row input[type=text], .column .row textarea{border: 1px solid #dbd4af;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);color:#898989;font:14px arial;width:204px;padding:7px 0 7px 11px;}
+  .column .row.error input[type=text] {border-color: red}
+
+  .youtube-grid .video {display:inline-block;margin:2px;padding:2px;position:relative;text-align:center;vertical-align:top;width:122px}
+  .youtube-grid .video .thumb{border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);width:120px;height:90px;overflow:hidden}
+
+</style>
+<div class="upload-youtube-container">
+  <%= form_tag registration_add_videos_import_media_url, :remote => true, :class => 'select-videos' do -%>
+    <%= hidden_field_tag :child_id,'', :class => "child-id" -%>
+    <%= hidden_field_tag 'youtube_videos[]', @video.unique_id %>
+
+
+    <div class="youtube-grid">
+      <span class="video youtube-video" id="<%= @video.unique_id -%>" >
+        <div>                  
+          <div class="thumb" style="background: url('<%= @video.thumbnails[0].url %>') 0% 0%">
+          </div>
+          <div class="title">            
+            <%= truncate(@video.title, :length => 20) -%>
+          </div>
+        </div>
+      </span>  
+    </div>
+    <div class="visibility">
+      <span>Privacy level: <%= select_tag :visibility, options_for_select(Moment::VISIBILITY) %></span>
+    </div>
+    <div class="clear"></div>
+    <div class="buttons-container">
+      <span><%= submit_tag "Save Changes", :class => 'registration-submit-button' -%></span>
+      <span><%= link_to "Upload next video", registration_add_videos_new_vimeo_path, :class => "registration-submit-button" -%></span>
+    </div>
+  <% end %>  
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    youtube_loader_stop();
+    $('form.select-videos').bind("ajax:before",function(){
+      
+      youtube_loader_start();
+      $(this).find('input[type=hidden].child-id').attr('value',$(parent.window.document).find('#youtube-ajax-container').attr("child_id"));
+
+    }).bind("ajax:success",function(){
+      
+      imported_message('#youtube-ajax-container');
+      youtube_loader_stop();
+    })
+    
+  })
+
+  function youtube_loader_start(){
+    $(parent.window.document).find('#youtube-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+  }
+
+  function youtube_loader_stop(){
+    $(parent.window.document).find('#youtube-ajax-container .preloader').stop().fadeOut();
+  }
+
+  function imported_message(container){    
+    var object = $(parent.window.document).find(container).find('.imported-message');
+    console.log($(parent.window.document).find(container).find('.imported-message'));
+    object.fadeIn();
+    setTimeout(function(){
+      object.fadeOut();
+    },4000);
+  }
+
+</script>

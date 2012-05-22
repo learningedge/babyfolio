@@ -3,20 +3,27 @@ class Registration::AddVideosController < ApplicationController
   before_filter :require_user
   before_filter :require_confirmation
 
+
   ##################
   # youube actions
   ##################
+
+  def iframe_upload
+    respond_to do |format|
+      format.html { render 'registration/upload_videos/youtube/iframe_upload', :layout => false }
+    end
+  end
 
   def new_youtube
     @step_one = true
     @title = 'Upload video step 1'
     respond_to do |format|
-      format.html { render :partial => 'registration/upload_videos/youtube/new_youtube' }
+      format.html { render 'registration/upload_videos/youtube/new_youtube', :layout => "none" }
     end
   end
 
   def upload_youtube
-    @error = true if params[:youtube][:title].blank?
+    @error = true if params[:youtube].nil? or params[:youtube][:title].blank?
 
     unless @error
       @step_two = true
@@ -26,13 +33,16 @@ class Registration::AddVideosController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { render :partial => 'registration/upload_videos/youtube/new_youtube' }
+      format.html { render 'registration/upload_videos/youtube/new_youtube', :layout => "none" }
     end
   end
 
   def upload_file_youtube
-    respond_to do |format|
-      format.text { render :text => "czy bedzie blad?" }
+    if params[:error].nil?
+      respond_to do |format|
+        @video = current_user.youtube_user.my_video(params[:id])
+        format.html { render 'registration/upload_videos/youtube/upload_file_youtube', :layout => "none" }
+      end
     end
   end
 
@@ -42,7 +52,7 @@ class Registration::AddVideosController < ApplicationController
   # vimeo actions
   ##################
 
-  def new_vimeo
+  def new_vimeo    
     respond_to do |format|
       format.html { render :partial => '/registration/upload_videos/vimeo/new_vimeo' }
     end
@@ -52,9 +62,9 @@ class Registration::AddVideosController < ApplicationController
     @error = "First select file to upload" if params[:file].blank?
 
     unless @error
-      begin
-        service = current_user.get_vimeo_service
-        upload = Vimeo::Advanced::Upload.new(Yetting.vimeo["key"], Yetting.vimeo["secret"],:token => service.token, :secret => service.secret);
+      begin        
+        service = current_user.get_vimeo_service      
+        upload = Vimeo::Advanced::Upload.new(Yetting.vimeo["key"], Yetting.vimeo["secret"],:token => service.token, :secret => service.secret);      
         vid_id = upload.upload(params[:file].tempfile);
         video = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"],:token => service.token, :secret => service.secret);
         if params[:title].present?
@@ -98,8 +108,10 @@ class Registration::AddVideosController < ApplicationController
 
       media_ids = (child.moments.collect { |moment_item| moment_item.media.collect { |media_item| media_item.id } }).flatten
 
+      @media_index = 0
       media.each_with_index do |m, idx|
-        unless media_ids.include?(m.id)
+        @media_index += 1
+        unless media_ids.include?(m.id)          
           mom = Moment.new
           mom.media << m
           mom.child = child
@@ -109,13 +121,18 @@ class Registration::AddVideosController < ApplicationController
           mom.save
           moments << mom
         end
+      end      
+      if @media_index > 0
+        @import_message = " videos uploaded successfully."
+      else
+        @import_message = "First select videos."
       end
       respond_to do |format|
-        format.text { render :text => 'Images Imported' }
-      end      
+        format.js { render '/registration/upload_videos/import_message' }
+      end
     else
       respond_to do |format|
-        format.text { render :text => "Sorry, you have no permission to add moments for this child"}
+        format.text { render :text => "Sorry, you have no permission to add moments for this child."}
       end
     end
 

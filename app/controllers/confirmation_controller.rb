@@ -17,6 +17,8 @@ class ConfirmationController < ApplicationController
     @user = User.find_by_perishable_token @token
     if @user.nil?
       flash[:error] = "We can't find the user, try resending email"
+      current_user_session.destroy if current_user_session
+      reset_session
       redirect_to confirmation_path
     else
       @user.email_confirmed = 1

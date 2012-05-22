@@ -37,7 +37,11 @@
 
     <div class="main-buttons-container">
       <%= link_to "Add Videos",import_videos_moments_path(:child_id => @selected_child.id), :class => "submit-button" -%>
-      <%= link_to "Skip",import_videos_moments_path(:child_id => @selected_child.id), :class => "submit-button" -%>
+      <% unless @next_child.nil? %>
+        <%= link_to "Skip",import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
+      <% else %>
+        <%= link_to "Finish", child_profile_children_path, :class => "submit-button" -%>
+      <% end %>
     </div>
   </div>
   
@@ -62,7 +66,7 @@
       }).live("ajax:success",function(){        
         flickr_loader_stop();
         go_to_flickr_sets();
-        imported_message('#flickr-ajax-container','Flickr images imported');
+        imported_message('#flickr-ajax-container');
       })      
 
       /************* facebook ***********************/
@@ -190,7 +194,7 @@
     }
 
     function imported_message(container){
-      var object = $(container).find('.imported-message');
+      var object = $(container).find('.imported-message');      
       object.fadeIn();
       setTimeout(function(){
         object.fadeOut();

@@ -43,6 +43,7 @@ Babyfolio::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.log_level = :debug
 
   Paperclip.options[:command_path] = "/usr/bin/"
 end
