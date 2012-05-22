@@ -685,15 +685,16 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form input[type="text"],
 #new_moment_form textarea {font: 14px arial;color: #898989;padding: 7px 7px 7px 11px; border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(/PIE/PIE.htc);}
 #new_moment_form label {display:inline-block; width:65px; text-align:right; padding-right: 15px; color: #898989; font: 14px arial}
-#new_moment_form .title_property {float: left; margin-bottom: 20px; text-align: center; }
-#new_moment_form .date {float: left; margin-bottom: 20px; text-align: center; }
-#new_moment_form .privacy {float: left; margin-bottom: 20px; text-align: center; }
+#new_moment_form .title_property {margin-bottom: 20px;}
+#new_moment_form .title_property input {width: 930px}
+#new_moment_form .date {margin-bottom: 20px; }
+#new_moment_form .date input {width:80px}
+#new_moment_form .privacy {margin: 10px 0px; text-align:right }
 #new_moment_form .privacy label {width: 124px}
-
 #new_moment_form .title_property.error div{display:inline}
 #new_moment_form .description { vertical-align: middle;}
 #new_moment_form .description label{ line-height:115px; vertical-align:top}
-#new_moment_form .description textarea {width:796px;height:115px}
+#new_moment_form .description textarea {width:930px;height:115px}
 
 #new_moment_form .field_with_errors label {color:red}
 #new_moment_form .field_with_errors input {border-color:red}

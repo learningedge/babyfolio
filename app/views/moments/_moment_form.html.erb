@@ -10,16 +10,10 @@
         <%= f.label :title -%>
         <%= f.text_field :title -%>
       </div>
-
       <div class="date">
         <%= f.label :date -%>
         <%= f.text_field :date, :readonly => true, :class => 'moment_date_input' -%>
       </div>
-      <div class="privacy">
-        <%= f.label :visibility, "Privacy level: " -%>
-        <%= f.select :visibility, options_for_select(Moment::VISIBILITY, @moment.visibility), {}, { :class => "select-layout" } -%>
-      </div>
-
       <div class="clear"></div>
 
       <div class="description">
@@ -154,7 +148,10 @@
     <div class="more-button">
       <a href="#" class="button-layout-3">More detail about the moment</a>
     </div>    
-
+    <div class="privacy">
+        <%= f.label :visibility, "Privacy level" -%>
+        <%= f.select :visibility, options_for_select(Moment::VISIBILITY, @moment.visibility), {}, { :class => "select-layout" } -%>
+    </div>
     <div class="submit-container">
       
       <span class="submit_wrapper"><%= f.submit "Save moment", :class => "new_moment_submit" -%></span>
