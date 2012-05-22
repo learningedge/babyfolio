@@ -158,10 +158,11 @@
     <div class="submit-container">
       
       <span class="submit_wrapper"><%= f.submit "Save moment", :class => "new_moment_submit" -%></span>
-      <span class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;"-%></span>
-      <span class="submit_wrapper"><%= link_to "Deepen it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></span>
-      <span class="submit_wrapper"><%= link_to "Connect it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','connect_it');$('form').submit();return false;" -%></span>
-      
+      <% unless current_user.is_temporary %>
+        <span class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></span>
+        <span class="submit_wrapper"><%= link_to "Deepen it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></span>
+        <span class="submit_wrapper"><%= link_to "Connect it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','connect_it');$('form').submit();return false;" -%></span>
+      <% end %>
     </div>
     <div class="clear"></div>
   <% end %>

@@ -43,14 +43,18 @@ class MomentsController < ApplicationController
 
       if moment.save
         flash[:notice] = "Moment has been successfuly created."
-        if params[:operation_type] == "tag_it"          
-          redirect_to tag_moments_url :id => moment.id
-        elsif params[:operation_type] == "deepen_it"
-          redirect_to deepen_moments_path :id => moment.id
-        elsif params[:operation_type] == "connect_it"
-          redirect_to connect_moments_url :id => moment.id
-        else
-          redirect_to edit_moment_path :id => moment.id
+        unless current_user.is_temporary
+          if params[:operation_type] == "tag_it"
+            redirect_to tag_moments_url :id => moment.id
+          elsif params[:operation_type] == "deepen_it"
+            redirect_to deepen_moments_path :id => moment.id
+          elsif params[:operation_type] == "connect_it"
+            redirect_to connect_moments_url :id => moment.id
+          else
+            redirect_to edit_moment_path :id => moment.id
+          end
+        else 
+          redirect_to new_account_url
         end
         
       else
