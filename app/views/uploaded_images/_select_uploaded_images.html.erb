@@ -37,57 +37,41 @@
         element: document.getElementById('file-uploader'),
         action: '<%= upload_image_path %>',
         onComplete: function(id, fileName, responseJSON){
-
           $('.qq-upload-file').each(function(){if ( $(this).text() == fileName) {$(this).parents('li').fadeOut(2000);} });
-
           $.ajax({
             url: '<%= upload_image_index_url -%>'+'?id='+responseJSON.media_id,
             success: function(data){
-            
               var data_value = $(data);
               data_value.css({opacity:0});
               $('#uploaded-images-ajax-grid .photos').append(data_value);
-              data_value.animate({opacity:1});
-              
+              data_value.animate({opacity:1});              
             }
-          })
-          
-        },
-        
+          })          
+        },        
         onCancel: function(id,fileName){
-
           global_count = global_count + 1;
         }
-
     });
 
     //multiselect functionality
-
     $('.multiselect .uploaded-images .uploaded-images-grid .photos .image').live("click",function(){
       if($('#selected-uploaded-images-photos #'+$(this).attr('id')).length == 0) {
         element = $('<span class="selected-image" id="'+$(this).attr('id')+'" style="background-image: url('+ $(this).attr('thumb_url') +')"><input type="hidden" name="uploaded_images_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')
         element.appendTo('#selected-uploaded-images-photos');
       }
-
       if(typeof addSelectedImage == 'function'){
         addSelectedImage($(this));
-      }
-      
+      }      
     });
 
     //singleselect functionality
-
     $('.singleselect .uploaded-images .uploaded-images-grid .photos .image').live("click",function(){
       $('#selected-uploaded-images-photos .selected-image').remove();
       element = $('<span class="selected-image" id="'+$(this).attr('id')+'" style="background-image: url('+ $(this).attr('thumb_url') +')"><input type="hidden" name="uploaded_images_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')
       element.appendTo('#selected-uploaded-images-photos');
-
-      
-      
     })
 
     //selected images functionality
-
     $('.uploaded-images #selected-uploaded-images-photos .selected-image').live({
         mouseover: function(){
             $(this).find('.hover').show().css({opacity:0.5});
@@ -97,7 +81,7 @@
         }
     })
     $('.uploaded-images #selected-uploaded-images-photos .selected-image').live('click',function(){
-        $(this).remove();
+        $(this).remove();        
     })
 
     //upload images
