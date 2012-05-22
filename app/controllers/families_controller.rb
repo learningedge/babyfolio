@@ -14,33 +14,52 @@ class FamiliesController < ApplicationController
     session[:is_registration] = true
     @family = Family.new
     10.times {
-      @family.children.build
+      @family.children.build      
     }
-    if current_user.child_info
-      @family.children.first.birth_date = current_user.child_info[:birth_date]
-      @family.children.first.gender = current_user.child_info[:gender]
-    end
     @family.relations.build :user => User.new(:email => current_user.email), :member_type => 'parent'
+    if current_user.is_temporary
+      @family = current_user.families.first
+      while @family.children.length < 10 do
+        @family.children.build Child.new.attributes
+      end
+      session[:is_registration] = nil
+    end
+
+#    if current_user.child_info
+#      @family.children.first.birth_date = current_user.child_info[:birth_date]
+#      @family.children.first.gender = current_user.child_info[:gender]
+#    end       
+
     @family.relations.build :user => User.new, :member_type => 'parent'
+
   end
 
   def create
     session[:is_registration] = true
 
     parents_count = 2;
-    @family = Family.new(params['family'])
-    @family.relations.first.token = current_user.perishable_token
-    @family.relations.first.accepted = 1
-    current_user.reset_perishable_token
-    @family.relations.first.user = current_user    
-    @family.relations.first.user.reset_perishable_token
-    @family.relations.first.user.reset_single_access_token
-   second_parent = @family.relations.fetch(1)
-    if second_parent.user.email.empty?
+    unless current_user.is_temporary
+      @family = Family.new(params['family'])
+      @family.relations.first.token = current_user.perishable_token
+      @family.relations.first.accepted = 1      
+      @family.relations.first.user = current_user
+      current_user.reset_perishable_token
+    else
+      @family = current_user.families.first
+      @family.update_attributes(params['family'])
+      session[:is_registration] = nil
+    end
+
+    
+   #second_parent = @family.relations.fetch(1)
+   if params['family']['relations_attributes']['1']['user_attributes']['email'].blank?
+    #if second_parent.user.email.empty?
       @family.relations.delete_at(1)
       parents_count -= 1
     else
+      second_parent = @family.relations.fetch(1)
       unless User.where(:email => second_parent.user.email).exists?
+        second_parent.user = User.new({:email =>  second_parent.user.email})
         second_parent.user.reset_password
         second_parent.user.reset_perishable_token
         second_parent.user.reset_single_access_token
@@ -65,10 +84,17 @@ class FamiliesController < ApplicationController
           UserMailer.invite_user(second_relation , current_user).deliver
         end
 
-        current_user.update_attribute(:child_info, nil)
+        #current_user.update_attribute(:child_info, nil)
         flash[:notice] = 'Family has been successfully created.'
         session[:current_family] = @family.id
-        format.html { redirect_to add_family_families_path }
+        format.html {
+          if current_user.is_temporary
+            current_user.update_attribute(:is_temporary, false)
+            redirect_to child_profile_children_url
+          else
+            redirect_to add_family_families_path
+          end
+        }
         format.xml  { render :xml => @family, :status => :created, :location => @family }
         
       else

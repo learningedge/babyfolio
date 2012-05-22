@@ -145,6 +145,7 @@ Babyfolio::Application.routes.draw do
       get 'edit' => "users#edit"
       get 'image' => "users#add_image"
       put 'upload' => "users#upload_image"
+      post 'create_temp_user' => "users#create_temp_user"
     end
   end
 

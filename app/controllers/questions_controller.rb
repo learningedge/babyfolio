@@ -45,6 +45,10 @@ class QuestionsController < ApplicationController
       @categories_with_questions = Question.get_questions_for_age(@child.months_old)
       render :action => :index
     end
+
+    if current_user.is_temporary
+      redirect_to new_account_url
+    end
         
   end
 end

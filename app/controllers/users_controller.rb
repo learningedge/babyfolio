@@ -4,43 +4,54 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
   before_filter :require_confirmation, :only => [:show, :edit, :update, :add_image, :upload]
   before_filter :require_family, :only => [:show]
-  before_filter :clear_session, :only => [:create]
+  #before_filter :clear_session, :only => [:create]
 
 
   def new
-    @user = User.new    
-    y = params[:birth_year].to_i
-    m = params[:birth_month].to_i
-    d = params[:birth_day].to_i
-    if d && m && y
-      date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d)
-      session[:child_birth_date] = date
+    
+    if current_user && current_user.is_temporary
+      @user = current_user
+      @user.email_confirmed = false      
+      @user.save
+      @user.email = ''
+    else
+      @user = User.new
     end
-    session[:child_gender] = params[:gender]
+#    y = params[:birth_year].to_i
+#    m = params[:birth_month].to_i
+#    d = params[:birth_day].to_i
+#    if d && m && y
+#      date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d)
+#      session[:child_birth_date] = date
+#    end
+#    session[:child_gender] = params[:gender]
     
     @accept_terms = false
   end
 
   def create
-    @user = User.new(params[:user])
+    if current_user && current_user.is_temporary
+      @user = current_user
+      @user.update_attributes(params[:user])      
+    else
+      @user = User.new(params[:user])      
+      @user.reset_single_access_token
+    end
+
     @user.reset_perishable_token
-    @user.reset_single_access_token
     @accept_terms = params[:accept_terms] || false
     
-    # Saving without session maintenance to skip
-    # auto-login which can't happen here because
-    # the User has not yet been activated
     if @user.valid?
       unless params[:accept_terms]
         @user.add_object_error('You need to accept terms of service before proceeding')
         flash[:notice] = "There was a problem creating your account."
         render :action => :new
       else
-        if session[:child_birth_date].present? && session[:child_gender].present?
-          @user.child_info = {:gender => session[:child_gender], :birth_date => session[:child_birth_date] }
-          session[:child_birth_date] = nil
-          session[:child_gender] = nil
-        end
+#        if session[:child_birth_date].present? && session[:child_gender].present?
+#          @user.child_info = {:gender => session[:child_gender], :birth_date => session[:child_birth_date] }
+#          session[:child_birth_date] = nil
+#          session[:child_gender] = nil
+#        end
         
         @user.save
         UserMailer.confirmation_email(@user).deliver
@@ -101,5 +112,62 @@ class UsersController < ApplicationController
 
     redirect_to edit_account_url
   end
+
+  def create_temp_user
+    y = params[:birth_year].to_i
+    m = params[:birth_month].to_i
+    d = params[:birth_day].to_i
+    date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d) if d && m && y
+    gender = params[:gender] || Child::GENDERS['Male']
+    ft = params[:form_type]
+
+
+    unless current_user            
+        if date || ft.present?
+          timeStamp =  DateTime.now.to_f.to_s
+          new_user = User.new({
+                  :first_name => 'Temporary',
+                  :last_name => 'User',
+                  :email => timeStamp + '@babyfolio.com',
+                  :email_confirmed => true,
+                  :password => timeStamp,
+                  :password_confirmation => timeStamp,
+                  :is_temporary => true
+          })
+
+          new_user.reset_perishable_token
+          if new_user.save
+            family = Family.create({:name => 'FamilyName', :zip_code => 'none' })
+            child = family.children.build({:first_name => 'Child One', :last_name => family.name, :birth_date => date || DateTime.now , :gender => gender  })
+            family.save
+            
+            new_user.relations.build({ :family => family, :member_type => Relation::MEMBER_TYPE[:PARENT], :accepted => true, :display_name => "TheParent", :token => timeStamp })
+            if new_user.save
+              UserSession.new(new_user)
+            else
+              flash[:notice] = "There were some errors creating temporary account."
+            end
+        else
+          flash[:notice] = "There were some errors creating temporary account."
+        end               
+      end
+    else
+      if ft.blank?
+        flash[:notice] = "You have your profile already."
+      else
+        child = my_family.children.first
+      end
+      
+    end
+
+    unless ft.blank?
+        redirect_to child_new_moment_url(:child_id => child.id )
+      else
+        redirect_to questions_url
+      end
+
+  end
+
+
 
 end

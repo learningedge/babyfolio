@@ -1,16 +1,16 @@
 <div class="container settings create-family"> 
-  <% if family_registration? %>
+  <% if family_registration?  %>
     <%= render "shared/registration_steps", :current_step => 0 %>
   <% end %>
 
   <div id="left">
-    <div class="title">Step 1: Create Family</div>  
+    <div class="title"><%=  "Step 1:" if family_registration? %> Create Family</div>
   </div>
   <div class="user-form">
     <%= render "shared/error_messages", :target => @family %>
     <% counter = 0 %>
 
-    <%= form_for @family do |f| -%>
+    <%= form_for @family, :url => families_url, :method => :post do |f| -%>
       <h2>Family Name:</h2>
       <div class="row">
         <%= f.text_field :name, :value => current_user.last_name %>

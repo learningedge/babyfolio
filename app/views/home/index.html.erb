@@ -93,7 +93,7 @@
       <div class="container_right">
         <div id="profile_logo"></div>
         <div id="profile_form">
-          <%= form_tag signup_url do %>
+          <%= form_tag create_temp_user_account_url do%>
             <p>
               Find out about your child's Striking
               development in language,</br>
@@ -141,7 +141,11 @@
               <h1>Start your multimedia BabyFolio.</h1>
               <h3>Your First Question:</h3>
               <p>What is your baby's avorite plaything now & how does she or he play with it? </p>
-              <a href="#"><img src="/images/capture_story.png" alt="capture_story" /></a>
+              <%#*<a href="#"><img src="/images/capture_story.png" alt="capture_story" /></a>%>
+              <%= form_tag create_temp_user_account_url do  %>
+                <%= hidden_field_tag 'form_type', 'moment' %>
+                <%= submit_tag "" %>
+              <% end %>
             </div>
             <div id="social_panel">
               <p>Use the Moments you have </br>already uploaded to:</p>
@@ -214,3 +218,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag "jquery.jstepper.min.js"  -%>

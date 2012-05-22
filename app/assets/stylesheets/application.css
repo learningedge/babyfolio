@@ -199,11 +199,13 @@ hr { margin: 15px 0;  }
 #home #wrraper #container_home #container_start_multi .start_multi h1{font:30px Helvetica_Inserat;color:#636363}
 #home #wrraper #container_home #container_start_multi .start_multi h3{font:20px Helvetica_67;color:#9b7804;margin: 4px 0 6px}
 #home #wrraper #container_home #container_start_multi .start_multi p{font:20px Helvetica_67;color:#636363;margin: 0 29px 27px;width: 446px}
+#home #wrraper #container_home #container_start_multi .start_multi form input[type="submit"]{width: 250px; height: 66px; border: none; background: url('/images/capture_story.png') no-repeat left top; cursor: pointer;}
 #home #wrraper #container_home #container_start_multi {margin:0 0 38px;text-align: center;background: url('/images/img_start.png') no-repeat 10px -24px #fff;height: 287px;position: relative;top: 0;left: 0;z-index: 2}
 #home #wrraper #container_home .start_multi {float: right;width: 500px;margin: 14px 34px 0 0}
 #home #wrraper #container_home #social_panel {background: url('/images/home_social_panel.png') no-repeat;height: 64px;width: 533px;position: absolute;bottom: -22px;right: -23px;padding: 5px 0 0}
 #home #wrraper #container_home #social_panel p {font:12px arial;color:#636363;width: 150px;text-align: right;margin: 0 14px 0 265px;float: left;padding: 5px 0 0}
 #home #wrraper #container_home #social_panel  img {display:block;float:left;margin: 0 7px 0 0}
+
 #home #wrraper #container_home .shadow {left: 16px;position: absolute;top: 255px}
 #home #wrraper #container_home h2 {font: 24px 'Helvetica_seven';color:#555555;margin: 0 0 20px;padding: 0 21px}
 #home #wrraper #container_home #moments {width: 993px;padding: 0 12px 15px}
