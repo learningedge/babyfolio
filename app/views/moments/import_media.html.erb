@@ -50,15 +50,15 @@
 
       /************* flickr *************************/
 
-      jQuery('.flickr .image').live({
-        mouseover: function(){
-            $(this).find('.thumb').stop().animate({opacity: 1});
-            $('.flickr .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
-        },
-        mouseleave: function(){
-            $('.flickr .image .thumb').stop().animate({opacity: 1});
-        }
-      })
+      <%#*jQuery('.flickr .image').live({%>
+        <%#*mouseover: function(){%>
+            <%#*$(this).find('.thumb').stop().animate({opacity: 1});%>
+            <%#*$('.flickr .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});%>
+        <%#*},%>
+        <%#*mouseleave: function(){%>
+            <%#*$('.flickr .image .thumb').stop().animate({opacity: 1});%>
+        <%#*}%>
+      <%#*})%>
 
       $('#flickr-ajax-container form').live("ajax:before",function(){
         flickr_loader_start();
@@ -80,15 +80,15 @@
         imported_message($('#facebook-ajax-container'));
       })
 
-      jQuery('.facebook .image').live({
-        mouseover: function(){
-            $(this).find('.thumb').stop().animate({opacity: 1});
-            $('.facebook .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
-        },
-        mouseleave: function(){
-            $('.facebook .image .thumb').stop().animate({opacity: 1});
-        }
-      })
+      <%#*jQuery('.facebook .image').live({%>
+        <%#*mouseover: function(){%>
+            <%#*$(this).find('.thumb').stop().animate({opacity: 1});%>
+            <%#*$('.facebook .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});%>
+        <%#*},%>
+        <%#*mouseleave: function(){%>
+            <%#*$('.facebook .image .thumb').stop().animate({opacity: 1});%>
+        <%#*}%>
+      <%#*})%>
 
       /************* uploded images *****************/
 

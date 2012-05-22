@@ -15,66 +15,22 @@
         <%= f.label :date -%>
         <%= f.text_field :date, :readonly => true, :class => 'moment_date_input' -%>
       </div>
+      <div class="privacy">
+        <%= f.label :visibility, "Privacy level: " -%>
+        <%= f.select :visibility, options_for_select(Moment::VISIBILITY, @moment.visibility), {}, { :class => "select-layout" } -%>
+      </div>
 
       <div class="clear"></div>
 
-      <table class="description">
-        <tr>
-          <td>
-            <%= f.label :description -%>
-          </td>
-          <td>
-            <%= f.text_area :description -%>
-          </td>
-        </tr>
-      </table>
+      <div class="description">
+        <%= f.label :description -%>
+        <%= f.text_area :description -%>
+      </div>
 
     </div>
 
   <%# categories section %>
 
-    <div class="categories">
-      <div id="mom_tags_header">This moment is primarily about:</div>
-
-      <% @moment_tags.each do |mt|  %>
-      <div class="category">
-        <div class="label 
-                    <%= 'checked' if @moment.moment_tags.main_level.include?(mt) -%>
-                    <%= 'disabled' unless (mt.children_tags & @moment.moment_tags).blank?  -%>
-        ">
-
-            <span class="check-image"></span>
-            <%= check_box_tag "moment_tag_ids[]", mt.id, (true if @moment.moment_tags.main_level.include?(mt)) -%>
-            <span class="moment-tag-name"><%= mt.name %> </span>
-            
-        </div>
-      </div>      
-      <% end %>      
-
-      <script type="text/javascript">
-        function checkAll(){
-          $('.categories .category input[type="checkbox"]').attr("checked",true);
-          $('.categories .category .label').addClass('checked');
-        };
-        
-        $(function(){
-          $('.categories .category .label').click(function(){
-            if (!$(this).hasClass('disabled')) {
-              if ($(this).find('input').attr('checked')) {
-                $(this).removeClass('checked');
-                $(this).find('input').attr('checked',false)
-              } else {
-                $(this).addClass('checked');
-                $(this).find('input').attr('checked',true)
-              }
-            }
-          })
-        })
-      </script>
-      <div class="check-all">
-        <a href="#" onclick="checkAll();return false;">Select All</a>
-      </div>
-    </div>
 
     <div class="clear"></div>
 
@@ -85,7 +41,6 @@
         <h2 class="no-media">Selected</h2>
         <% @moment.media.each do |media_item| %>
           <%= render :partial => "shared/selected_media", :locals => {:media_item => media_item} %>
-
         <% end %>
       </div>
 
@@ -149,12 +104,63 @@
 
     <div class="clear"></div>
     <%= hidden_field_tag :operation_type, "" -%>
+    
+    <div class="categories">
+      <div id="mom_tags_header">This moment is primarily about:</div>
+
+      <% @moment_tags.each do |mt|  %>
+      <div class="category">
+        <div class="label
+                    <%= 'checked' if @moment.moment_tags.main_level.include?(mt) -%>
+                    <%= 'disabled' unless (mt.children_tags & @moment.moment_tags).blank?  -%>
+        ">
+
+            <span class="check-image"></span>
+            <%= check_box_tag "moment_tag_ids[]", mt.id, (true if @moment.moment_tags.main_level.include?(mt)) -%>
+            <span class="moment-tag-name"><%= mt.name %> </span>
+
+        </div>
+      </div>
+      <% end %>
+
+      <script type="text/javascript">
+        function checkAll(){
+          $('.categories .category input[type="checkbox"]').attr("checked",true);
+          $('.categories .category .label').addClass('checked');
+        };
+
+        $(function(){
+          $('.categories .category .label').click(function(){
+            if (!$(this).hasClass('disabled')) {
+              if ($(this).find('input').attr('checked')) {
+
+                $(this).removeClass('checked');
+                $(this).find('input').attr('checked',false)
+
+              } else {
+
+                $(this).addClass('checked');
+                $(this).find('input').attr('checked',true)
+                
+              }
+            }
+          })
+        })
+      </script>
+      <div class="check-all">
+        <a href="#" onclick="checkAll();return false;" class="button-layout-3">Select All</a>
+      </div>
+    </div>
+    <div class="more-button">
+      <a href="#" class="button-layout-3">More detail about the moment</a>
+    </div>    
+
     <div class="submit-container">
       
       <span class="submit_wrapper"><%= f.submit "Save moment", :class => "new_moment_submit" -%></span>
-      <span class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;" -%></span>
-      <span class="submit_wrapper"><%= link_to "Deepen it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></span>
-      <span class="submit_wrapper"><%= link_to "Connect it", "#", :class => "new_moment_submit", :onclick => "$('input[name=operation_type]').attr('value','connect_it');$('form').submit();return false;" -%></span>
+      <span class="submit_wrapper"><%= link_to "Tag it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','tag_it');$('form').submit();return false;"-%></span>
+      <span class="submit_wrapper"><%= link_to "Deepen it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','deepen_it');$('form').submit();return false;" -%></span>
+      <span class="submit_wrapper"><%= link_to "Connect it", "#", :class => "new_moment_submit hidden", :onclick => "$('input[name=operation_type]').attr('value','connect_it');$('form').submit();return false;" -%></span>
       
     </div>
     <div class="clear"></div>
@@ -163,6 +169,26 @@
   <script type="text/javascript">
 
     $(function(){
+
+    $('.categories').data("height",$('.categories').height());
+    $('.categories').css({height: 0,paddingTop:0,paddingBottom:0});
+    $('.submit_wrapper .hidden').hide();
+    $('.more-button a').click(function(){      
+      if ($(this).data("visible")) {        
+        $('.categories').stop().animate({height: 0, paddingTop: 0, paddingBottom: 0});
+        $(this).data("visible", false);
+        $(this).css({backgroundPosition: "100% -20px"}).text("More detail about the moment");
+        $('.submit_wrapper .hidden').fadeOut();
+        //
+      } else {
+        $(this).data("visible", true);
+        $('.categories').show().stop().animate({height: $('.categories').data("height"), paddingTop: 25, paddingBottom: 25});
+        $(this).css({backgroundPosition: "100% 0px"}).text("Less detail about the moment");;
+        $('.submit_wrapper .hidden').fadeIn();
+        //
+      }
+      return false;
+    })
 
     $('.moment_date_input').datepicker({ changeYear: true, maxDate: '+0'});
     $('#top-socials-navigation a.provider').click(function(){
@@ -204,7 +230,6 @@
     });
 
     });
-
   </script>
 
   <script type="text/javascript" src="/js/facebook_photos.js"></script>

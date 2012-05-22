@@ -61,20 +61,6 @@
 
     });
 
-    //photos hover
-
-    jQuery('.uploaded-images .image').live({
-
-        mouseover: function(){
-            $(this).find('.thumb').stop().animate({opacity: 1});
-            $('.uploaded-images .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
-        },
-
-        mouseleave: function(){
-            $('.uploaded-images .image .thumb').stop().animate({opacity: 1});
-        }
-    })
-
     //multiselect functionality
 
     $('.multiselect .uploaded-images .uploaded-images-grid .photos .image').live("click",function(){

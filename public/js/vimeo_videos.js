@@ -1,19 +1,5 @@
 $(function(){
 
-      jQuery('.vimeo .video').live({
-        mouseover: function(){
-      
-                              $(this).find('.thumb').stop().animate({opacity: 1});
-                              $('.vimeo .video .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
-
-                             },
-        mouseleave: function(){
- 
-                              $('.vimeo .video .thumb').stop().animate({opacity: 1});
-
-                              }
-      })
-
       $('.multiselect .vimeo .video').live("click",function(){
 
       if(typeof addSelectedImage == 'function'){

@@ -1,19 +1,4 @@
 $(function(){
-
-    jQuery('.flickr .image').live({
-        mouseover: function(){
-	    
-            $(this).find('.thumb').stop().animate({opacity: 1});
-            $('.flickr .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
-	    
-        },
-        mouseleave: function(){
- 
-            $('.flickr .image .thumb').stop().animate({opacity: 1});
-	    
-        }
-    })
-
     //show preloader
 
     $('.flickr .flickr-grid .sets .image').live("click",function(){

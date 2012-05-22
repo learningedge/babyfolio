@@ -1,19 +1,4 @@
 $(function(){
-
-    jQuery('.facebook .image').live({
-        mouseover: function(){
-	    
-            $(this).find('.thumb').stop().animate({opacity: 1});
-            $('.facebook .image .thumb').not($(this).find('.thumb')).stop().animate({opacity: 0.5});
-	    
-        },
-        mouseleave: function(){
- 
-            $('.facebook .image .thumb').stop().animate({opacity: 1});
-	    
-        }
-    })
-
     //show preloader
 
     $('.facebook .facebook-grid .sets .image').live("click",function(){
