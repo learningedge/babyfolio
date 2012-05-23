@@ -3,10 +3,11 @@ class QuestionsController < ApplicationController
   before_filter :require_family_with_child
 
   def index
+    @level = params[:level]
     @child = my_family.children.first
     @current_child = 0
     @next_child = 1 if my_family.children.size > 1
-    @categories_with_questions = Question.get_questions_for_age(@child.months_old)
+    @categories_with_questions = Question.get_questions_for_age(@child.months_old, @level)
     @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
   end
 
@@ -40,10 +41,11 @@ class QuestionsController < ApplicationController
 
     if params[:next_child]
       params[:next_child] = params[:next_child].to_i
+      @level = params[:level]
       @child = my_family.children.at(params[:next_child])
       @current_child = params[:next_child]
       @next_child = params[:next_child] + 1 if params[:next_child] < (my_family.children.length() -1)
-      @categories_with_questions = Question.get_questions_for_age(@child.months_old)
+      @categories_with_questions = Question.get_questions_for_age(@child.months_old, @level)
       render :action => :index
     end
 

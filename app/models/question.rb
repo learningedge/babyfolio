@@ -2,8 +2,15 @@ require 'roo'
 class Question < ActiveRecord::Base
 
   scope :category_ages, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(3) }
+
+  scope :category_ages_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(1) }
+  scope :category_ages_2_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(3) }
+  scope :category_ages_above, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(4) }
+  
   scope :question_categories, select('distinct category') 
   scope :for_age_and_category, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages(months, cat).map{|q| q.age}), cat])}
+  scope :for_age_and_category_basic, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages_below(months, cat).map{|q| q.age}), cat])}
+  scope :for_age_and_category_advanced, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages_2_below(months, cat).map{|q| q.age} + category_ages_above(months, cat).map{|q| q.age}), cat])}
   
   ANSWERS = {
     'not_yet' => { :val => 'Not Yet', :order => 0, :score => 0},
@@ -31,10 +38,16 @@ class Question < ActiveRecord::Base
     return @all_categories
   end
 
-  def self.get_questions_for_age age    
+  def self.get_questions_for_age age, level = nil
     hash = Hash.new
     get_all_categories.each do |category|
-      hash[category] = for_age_and_category(age, category).all
+      if level == "advanced"
+        hash[category] = for_age_and_category_advanced(age, category).all
+      elsif level == "basic"
+        hash[category] = for_age_and_category_basic(age, category).all
+      else
+        hash[category] = for_age_and_category(age, category).all
+      end
     end
     new_array = Array.new
     CATEGORIES.each do |c|

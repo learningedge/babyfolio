@@ -67,9 +67,10 @@ Babyfolio::Application.routes.draw do
     end
   end
 
-  get "/errors/permission" => "errors#permission", :as => :errors_permission
+  get "/errors/permission" => "errors#permission", :as => :errors_permission  
 
-  get "questions" => "questions#index"  
+
+  get "questions(/:level)" => "questions#index"
   post "complete_questionnaire" => "questions#complete_questionnaire"
   
   match "upload_image" => "uploaded_images#update", :as => :upload_image

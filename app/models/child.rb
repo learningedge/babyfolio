@@ -57,7 +57,7 @@ class Child < ActiveRecord::Base
     while (self.birth_date + mnths.months) < Date.today do
       mnths += 1
     end
-    return mnths
+    return mnths > 0 ? mnths-1 : 0
   end
 
   def replace_question_forms(question_text)

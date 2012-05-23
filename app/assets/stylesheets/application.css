@@ -264,7 +264,7 @@ hr { margin: 15px 0;  }
 /* Book */
 #wrraper .container #container_left #book_box {position: relative;width: 300px;top: 0;left: 0}
 #wrraper .container #container_left #book {position: relative;left: -126px;top: 25px;z-index: 1}
-#wrraper .container #container_left #book #container_book {background: url('/images/storybook.png') no-repeat;width: 907px;height: 781px;padding: 68px 0 0 72px}
+#wrraper .container #container_left #book #container_book {background: url('/images/storybook.png') no-repeat;width: 907px;height: 736px;padding: 68px 0 0 72px}
 #wrraper .container #container_left #book #container_book #book_left {float: left;width: 300px;padding: 22px 0 0}
 #wrraper .container #container_left #book #container_book #book_left img {border: 10px solid #D5D2BE}
 #wrraper .container #container_left #book #container_book #book_left span {display: inline-block;width: 203px;color:#636363;font: 24px 'Helvetica_57';padding: 0 0 0 25px}
