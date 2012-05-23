@@ -46,6 +46,7 @@ class QuestionsController < ApplicationController
       @current_child = params[:next_child]
       @next_child = params[:next_child] + 1 if params[:next_child] < (my_family.children.length() -1)
       @categories_with_questions = Question.get_questions_for_age(@child.months_old, @level)
+      @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
       render :action => :index
     end
 
