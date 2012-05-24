@@ -16,7 +16,8 @@
               <%= (raw "</ul></li><li class='limit-container' ><ul>") if index % limit == 0 -%>
               <li class="related-moment">
                 <div class="checkbox <%= "checked" if @moment.is_connected_with? moment.id  -%>"><%= check_box_tag "related_moment[]", moment.id, (true if @moment.is_connected_with? moment.id) -%></div>
-                <div class="title"><%= moment.title %></div>
+                <div class="date"><%= moment.date -%></div>
+                <div class="title"><%= moment.title -%></div>
                 <div class="clear"></div>
               </li>
               <% index += 1 %>

@@ -18,10 +18,10 @@ class Moment < ActiveRecord::Base
 
   def is_connected_with? moment_id
     @connected_moment_children ||= self.connected_moment_children.ids.collect { |moment| moment.id }
-    @connected_moment_parents ||= self.connected_moment_parents.ids.collect { |moment| moment.id }
     return true if @connected_moment_children.include?(moment_id)
+    @connected_moment_parents ||= self.connected_moment_parents.ids.collect { |moment| moment.id }
     return true if @connected_moment_parents.include?(moment_id)
-    return false
+    false
   end
 
   scope :ids, select("moments.id")
