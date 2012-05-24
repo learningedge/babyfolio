@@ -8,20 +8,13 @@ class UsersController < ApplicationController
   def new
     
     if current_user && current_user.is_temporary
-      @user = current_user    
-      @user.save
+      @user = current_user            
       @user.email = ''
+      @user.first_name = ''
+      @user.last_name = ''
     else
       @user = User.new
     end
-#    y = params[:birth_year].to_i
-#    m = params[:birth_month].to_i
-#    d = params[:birth_day].to_i
-#    if d && m && y
-#      date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d)
-#      session[:child_birth_date] = date
-#    end
-#    session[:child_gender] = params[:gender]
     
     @accept_terms = false
   end
@@ -29,7 +22,8 @@ class UsersController < ApplicationController
   def create
     if current_user && current_user.is_temporary
       @user = current_user
-      @user.update_attributes(params[:user])      
+      @user.update_attributes(params[:user])
+      
     else
       @user = User.new(params[:user])      
       @user.reset_single_access_token

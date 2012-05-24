@@ -21,7 +21,7 @@
           <% else %>
             <ul>
               <% if !current_user.email_confirmed %>
-                <li><%=  link_to "Email not confirmed. (Click here to confirm)", confirmation_url %></li>
+                <li><%=  link_to "Email not confirmed. (Click here to confirm)", confirmation_url, :class => "italic" %></li>
               <% end %>
 
               <li class="avatar"><%= get_image_tag current_user, "vsmall" -%></li>
