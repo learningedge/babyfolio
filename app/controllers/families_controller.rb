@@ -1,7 +1,6 @@
 class FamiliesController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_confirmation
   before_filter :require_my_family, :only => [:add_friends, :create_friend_relations, :create_friends, :relations, :create_relations, :show, :edit, :update]
   skip_before_filter :clear_family_registration, :only => [:create, :add_family, :add_friends, :create_friend_relations, :relations, :create_relations]
   before_filter :require_parent, :only => [:add_family, :add_friends, :create_friend_relations, :relations, :create_relations, :update, :edit, :add_parent, :create_parent]

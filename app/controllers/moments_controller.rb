@@ -3,7 +3,7 @@ class MomentsController < ApplicationController
   before_filter :require_user
   before_filter :require_my_family
   before_filter :require_family_with_child
-  skip_before_filter :clear_family_registration, :only => [:import_media, :import_videos]
+  skip_before_filter :clear_family_registration, :only => [:import_media, :import_videos]  
 
   def index
 

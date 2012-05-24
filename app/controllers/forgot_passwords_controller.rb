@@ -1,5 +1,6 @@
 class ForgotPasswordsController < ApplicationController
 
+  skip_before_filter :clear_family_registration
   before_filter :require_no_user
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 

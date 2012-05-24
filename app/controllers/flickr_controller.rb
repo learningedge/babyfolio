@@ -1,7 +1,6 @@
 class FlickrController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_confirmation
 
   def flickr_ajax
     if params[:registration]

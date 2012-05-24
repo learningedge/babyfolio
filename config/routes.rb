@@ -69,18 +69,13 @@ Babyfolio::Application.routes.draw do
 
   get "/errors/permission" => "errors#permission", :as => :errors_permission  
 
-
-  get "questions(/:level)" => "questions#index"
+  get "questions(/:level)" => "questions#index", :as => :questions
   post "complete_questionnaire" => "questions#complete_questionnaire"
   
   match "upload_image" => "uploaded_images#update", :as => :upload_image
   get "upload_image/index" => "uploaded_images#index", :as => :upload_image_index
 
-  get "home/index"
-  get "interior" => "home#interior", :as => :interior
-  get "socials" => "home#socials", :as => :socials
-#  match "upload_image" => "home#upload_image", :as => :upload_image
-  post "socials_create" => "home#socials_create", :as => :socials_create
+  get "home/index"    
 
   match '/auth/you:service/callback' => 'services#create_youtube', :as => :youtube_connect
   match '/auth/fl:service/callback' => 'services#create_flickr', :as => :flickr_connect
