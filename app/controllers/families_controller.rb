@@ -77,7 +77,8 @@ class FamiliesController < ApplicationController
     end
 
     respond_to do |format|
-      if @family.save        
+      if @family.save
+        current_user.update_attribute(:is_temporary, false) if current_user.families.first.children.first.scores.empty?
         if parents_count == 2
           second_relation = @family.relations.fetch(1)
           UserMailer.invite_user(second_relation , current_user).deliver
@@ -85,7 +86,7 @@ class FamiliesController < ApplicationController
 
         #current_user.update_attribute(:child_info, nil)
         flash[:notice] = 'Family has been successfully created.'
-        session[:current_family] = @family.id
+        session[:current_family] = @family.id        
         format.html {
           if current_user.is_temporary
             current_user.update_attribute(:is_temporary, false)

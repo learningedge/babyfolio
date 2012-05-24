@@ -8,10 +8,10 @@ class UsersController < ApplicationController
   def new
     
     if current_user && current_user.is_temporary
-      @user = current_user
-      @user.is_temporary = false if @user.families.first.children.first.scores.empty?
-      @user.save
+      @user = current_user            
       @user.email = ''
+      @user.first_name = ''
+      @user.last_name = ''
     else
       @user = User.new
     end
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   def create
     if current_user && current_user.is_temporary
       @user = current_user
-      @user.update_attributes(params[:user])      
+      @user.update_attributes(params[:user])
+      
     else
       @user = User.new(params[:user])      
       @user.reset_single_access_token
