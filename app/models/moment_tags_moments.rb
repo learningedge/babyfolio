@@ -3,6 +3,7 @@ class MomentTagsMoments< ActiveRecord::Base
   belongs_to :moment
   belongs_to :moment_tag
 
+  scope :moment_tag_ids, select(:moment_tag_id)
 
   def is_last_in_hierarchy
     moment_tags = self.moment.moment_tags

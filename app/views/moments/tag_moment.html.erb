@@ -56,15 +56,13 @@
     $('.level-0 input[type=checkbox]:checked').parents('li').find('> ul').show();
     show_levels(0,7);    
 
-    <%#*$('.moment-tag').not('.static').find('.label').click(function(){%>
     $('.moment-tag').find('.label').click(function(){
       if (!$(this).hasClass('disabled')) {
         var ul_element = $($($(this).parents("li")[0]).find('ul')[0]);
 
 
         var level = ul_element.attr('level');
-
-        console.log(level);
+        
         if ($(this).find('input').attr('checked')){
         
           $(this).find('input').attr('checked', false);

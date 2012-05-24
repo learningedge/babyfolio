@@ -774,6 +774,23 @@ div.submit {float:left;margin-right:20px}
 #connect-it #left .link .submit_btn {margin-top:20px}
 #connect-it #left .link .submit_btn a {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;display:block;text-decoration:none;text-align:center}
 
+#connect-it .related-moments {list-style:none}
+#connect-it .related-moments .limit-container{display:none}
+#connect-it .related-moments .limit-container.first {display:block}
+#connect-it .related-moments .limit-container ul {list-style:none}
+#connect-it .related-moments .related-moment {cursor:pointer;padding: 5px 0px;line-height:20px}
+#connect-it .related-moments .related-moment .checkbox {float:left;background: url('/images/checkbox.png') -60px 0px no-repeat;height:20px;width:20px}
+#connect-it .related-moments .related-moment .checkbox.checked {background-position: -40px 0px}
+#connect-it .related-moments .related-moment .checkbox input[type=checkbox]{display:none}
+#connect-it .related-moments .related-moment .date {float:left;width:100px;text-align:center}
+#connect-it .related-moments .related-moment .title {float:left}
+#connect-it .related-moments .related-moment:hover .title {text-decoration:underline}
+#connect-it .more-button {text-align:right;height:24px}
+
+
+
+
+
 /* TAG IT, CONNECT IT DEEPEN IT */
 
 #tag_moment .submit-container,

@@ -25,6 +25,9 @@ class Child < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :birth_date, :presence => true
 
+
+  scope :ids, select(:id)
+
   GENDERS = {
     'Male' => 'male',
     'Female' => 'female'
