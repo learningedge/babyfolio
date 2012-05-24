@@ -22,9 +22,10 @@
             <%= child_form.label :first_name, "First Name: "%>
             <%= child_form.text_field :first_name, :class => 'first_name_input' %>
             <%= child_form.label :birth_date, "Birth Date: "%>
-            <%= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date, :readonly => true, :class => 'birth_date_input' } %>
+            <%= child_form.date_select :birth_date, {:default => child_form.object.formated_birth_date}, :class => "select-layout" -%>
+            <%#= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date, :readonly => true, :class => 'birth_date_input' } %>
             <%= child_form.label :gender, "Gender: "%>            
-            <%= child_form.select :gender, options_for_select(Child::GENDERS, child_form.object.gender) %>
+            <%= child_form.select :gender, options_for_select(Child::GENDERS, child_form.object.gender),{}, :class => "select-layout" %>
             <div class="child_file_filed">
               <%= child_form.label :profile_image, "Child image: " %>
               <%= child_form.file_field :profile_image %>
@@ -55,12 +56,12 @@
                 <span>(You)</span>
                 <%=  user_form.hidden_field :email %>
                 <span class="select">
-                <%= relation_form.select :member_type, options_for_select(Relation::PARENTS), :selected => Relation::MEMBER_TYPE[:MOTHER] -%>
+                <%= relation_form.select :member_type, options_for_select(Relation::PARENTS), {:selected => Relation::MEMBER_TYPE[:MOTHER]}, {:class => "select-layout" } -%>                
 
                 </span>
 
               <% else %>
-                <%= relation_form.select :member_type, options_for_select(Relation::PARENTS, :selected => Relation::MEMBER_TYPE[:MOTHER]) -%>
+                <%= relation_form.select :member_type, options_for_select(Relation::PARENTS, :selected => Relation::MEMBER_TYPE[:MOTHER]), {}, {:class => "select-layout" } -%>
                 <div class="email">
                 <%= user_form.label :email, "Email: "%>
                 <%= user_form.text_field :email %>

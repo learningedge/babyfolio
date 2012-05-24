@@ -4,7 +4,7 @@ class Relation < ActiveRecord::Base
 
   validates :token, :uniqueness => true, :presence => true
 
-  accepts_nested_attributes_for :user, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['email'].blank?}
+  accepts_nested_attributes_for :user, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['email'].blank? }
 
   MEMBER_TYPE = {
     :PARENT => 'parent',

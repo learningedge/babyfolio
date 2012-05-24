@@ -33,7 +33,7 @@ class FamiliesController < ApplicationController
 
   end
 
-  def create
+  def create    
     session[:is_registration] = true
 
     parents_count = 2;
@@ -51,7 +51,7 @@ class FamiliesController < ApplicationController
 
     
    #second_parent = @family.relations.fetch(1)
-   if params['family']['relations_attributes']['1']['user_attributes']['email'].blank?
+    if params['family']['relations_attributes']['1']['user_attributes']['email'].blank?
     #if second_parent.user.email.empty?
       @family.relations.delete_at(1)
       parents_count -= 1
@@ -68,7 +68,7 @@ class FamiliesController < ApplicationController
       second_parent.token = second_parent.user.perishable_token
       second_parent.accepted = 0
       second_parent.user.reset_perishable_token
-    end   
+    end
 
 #    creating media object for children profile image
 
