@@ -8,20 +8,13 @@ class UsersController < ApplicationController
   def new
     
     if current_user && current_user.is_temporary
-      @user = current_user    
+      @user = current_user
+      @user.is_temporary = false if @user.families.first.children.first.scores.empty?
       @user.save
       @user.email = ''
     else
       @user = User.new
     end
-#    y = params[:birth_year].to_i
-#    m = params[:birth_month].to_i
-#    d = params[:birth_day].to_i
-#    if d && m && y
-#      date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d)
-#      session[:child_birth_date] = date
-#    end
-#    session[:child_gender] = params[:gender]
     
     @accept_terms = false
   end
