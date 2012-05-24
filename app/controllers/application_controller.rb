@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :clear_family_registration
+  before_filter :require_confirmation
 
   config.filter_parameters :password, :password_confirmation
   helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?
@@ -70,7 +71,7 @@ class ApplicationController < ActionController::Base
 
     def require_confirmation
       @current_user = current_user
-      unless @current_user.email_confirmed
+      if !@current_user.email_confirmed && @current_user.created_at < (DateTime.now - 7.days)
         redirect_to confirmation_url
       end
     end

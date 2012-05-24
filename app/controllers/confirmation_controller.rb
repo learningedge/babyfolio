@@ -1,9 +1,12 @@
 class ConfirmationController < ApplicationController
 
+  skip_before_filter :require_confirmation
   before_filter :require_user, :only => [:index, :re_send_email]
+  before_filter :require_no_confirmation, :only => [:index, :re_send_email]
 
   def index
     @user = current_user
+    UserMailer.confirmation_email(@user).deliver
   end
 
   def re_send_email
@@ -26,7 +29,15 @@ class ConfirmationController < ApplicationController
       UserSession.create(@user)
       @user.reset_perishable_token!
       flash[:notice] = "Email successfuly confirmed."
-      redirect_to new_family_url
+      if my_family 
+        unless @user.is_temporary
+          redirect_to child_profile_children_url
+        else
+          redirect_to new_family_url
+        end
+      else
+        redirect_to new_family_url
+      end
     end
   end
 
@@ -88,5 +99,14 @@ class ConfirmationController < ApplicationController
 
         
   end
-  
+
+  private
+
+  def require_no_confirmation
+    if current_user.email_confirmed
+      redirect_to child_profile_children_url
+      flash[:notice] = "Your email is confirmed already."
+    end
+  end
+
 end

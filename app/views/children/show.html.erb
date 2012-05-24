@@ -73,7 +73,7 @@
       <div id="storybook_moments">
         <h1>Build upon #first#'s storybook</h1>
         <div class="shadow"><img src="/images/shadow.png" alt="" /></div>
-        <div><span style="float:left; padding-left: 30px;">Questionaires: </span><a href="/questions/basic">Basic</a> <a href="/questions">Normal</a> <a href="/questions/advanced">Advanced</a><br /><br /></div>
+        <div><span style="float:left; padding-left: 30px;">Questionaires: </span><a href="<%= questions_url(:level => 'basic') %>">Basic</a> <a href="<%= questions_url %>">Normal</a> <a href="<%= questions_url(:level => 'advanced') %>">Advanced</a><br /><br /></div>
         <!-- <a href="<%#= questions_url %>" style="background: url(/images/button.png) repeat scroll 0 0 transparent; font: 16px/53px 'helvetica_seven'; color: #fff; height: 53px; width: 110px; margin-left: 30px; padding: 0 15px; float: none; display: block; text-decoration: none;">Fill Questionaires</a> -->
         
         <a href="<%= child_new_moment_path(:child_id => @selected_child.id) -%>"><img src="/images/add_moment.png" alt="" /></a>

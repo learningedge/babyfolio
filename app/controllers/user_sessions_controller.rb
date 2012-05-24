@@ -1,13 +1,11 @@
 class UserSessionsController < ApplicationController
-#  before_filter :require_no_user, :only => [:new, :create]
+
   before_filter :require_user, :only => [:destroy, :change_family]
   before_filter :clear_session, :only => [:create]
+  skip_before_filter :require_confirmation
 
   def new
-#    current_user_session.destroy if current_user?
     @user_session = UserSession.new
-
-#    UserSession.create(User.find(56))
 
     session[:is_login] = true
   end

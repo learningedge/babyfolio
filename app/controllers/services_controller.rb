@@ -1,5 +1,7 @@
 class ServicesController < ApplicationController
 
+  skip_before_filter :require_confirmation
+  
   layout 'none'
   
   def create

@@ -72,6 +72,7 @@ body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f
 .clear {clear: both;height: 0px}
 .hidden { display: none; }
 .bold {font-weight: bold !important;  }
+.italic { font-style: italic; }
 hr { margin: 15px 0;  }
 
 .user-form h2 { font: 30px 'helvetica_seven';color:#555555 }
@@ -246,7 +247,7 @@ hr { margin: 15px 0;  }
 #header #logo {width: 1078px;margin: 0 auto; padding: 18px 0 21px}
 
 /* StoreyBook Container */
-#wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px 18px 0 0;-webkit-border-radius: 18px 18px 0 0;-moz-border-radius: 18px 18px 0 0;behavior: url(/PIE/PIE.htc);padding: 10px 10px 15px 32px;/*height: 100%*/}
+#wrraper {margin:0 auto; width: 1035px;background: #f5f2dd;border-radius: 18px;-webkit-border-radius: 18px;-moz-border-radius: 18px;behavior: url(/PIE/PIE.htc);padding: 30px 10px 40px 32px;/*height: 100%*/}
 #wrraper .notice {color:green;padding:10px 0;}
 #wrraper .error-notice {color:red;padding:10px 0;}
 #wrraper .container {/*height: 100%*/min-height:200px}

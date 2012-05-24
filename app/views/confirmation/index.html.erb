@@ -1,26 +1,26 @@
 <div class="container settings confirmation-index">
 
-  <div id="steps">
-    <table>
-      <tr>
-        <td class="title active">Email Confirmation</td>
-        <td class="arrows" ></td>
-        <td class="title">Step 1:<br/>Create family</td>
-        <td class="arrows" ></td>
-        <td class="title">Step 2:<br/>Invite Family and Friends</td>
-        <td class="arrows" ></td>
-        <td class="title">Step 3:<br/>Add Photos/Videos</td>
-      </tr>
-    </table>
-  </div>
+  <%#*<div id="steps">%>
+    <%#*<table>%>
+      <%#*<tr>%>
+        <%#*<td class="title active">Email Confirmation</td>%>
+        <%#*<td class="arrows" ></td>%>
+        <%#*<td class="title">Step 1:<br/>Create family</td>%>
+        <%#*<td class="arrows" ></td>%>
+        <%#*<td class="title">Step 2:<br/>Invite Family and Friends</td>%>
+        <%#*<td class="arrows" ></td>%>
+        <%#*<td class="title">Step 3:<br/>Add Photos/Videos</td>%>
+      <%#*</tr>%>
+    <%#*</table>%>
+  <%#*</div>%>
 
   <div class="titles">
     <h1>Thanks for signing up! </h1>
-    <h1>We just sent a confirmation email to <%=  @user.email %></h1>
+    <h1>We've just sent a confirmation email to <%=  @user.email %></h1>
   </div>
   <div class="content">
     <p>Please check your email and click the link to finish your sign-up.</p>
 
-    <p>If you don't receive your confirmation email within a few minutes, <%= link_to 'click here to re-send it', confirmation_resend_url %></p>
+    <p>If you don't receive your confirmation email within a few minutes, <%= link_to 'click here to re-send it', confirmation_resend_url %>.</p>
   </div>
 </div>

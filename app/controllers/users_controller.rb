@@ -1,17 +1,14 @@
 class UsersController < ApplicationController
-  
-  #before_filter :require_no_user, :only => [:new, :create]
+    
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
-  before_filter :require_confirmation, :only => [:show, :edit, :update, :add_image, :upload]
-  before_filter :require_family, :only => [:show]
-  #before_filter :clear_session, :only => [:create]
+  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]  
+  before_filter :require_family, :only => [:show]  
 
 
   def new
     
     if current_user && current_user.is_temporary
-      @user = current_user
-      @user.email_confirmed = false      
+      @user = current_user    
       @user.save
       @user.email = ''
     else
@@ -54,10 +51,12 @@ class UsersController < ApplicationController
 #        end
         
         @user.save
+        @user.update_attribute(:email_confirmed, false)
         UserMailer.confirmation_email(@user).deliver
 
-        flash[:notice] = "Your account has been created."
-        redirect_to confirmation_url
+        flash[:notice] = "Your account has been created. Confirmation email has been sent."
+        redirect_to new_family_url
+        #redirect_to confirmation_url
       end
     else
       flash[:notice] = "There was a problem creating your account."
