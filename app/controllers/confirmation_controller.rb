@@ -93,11 +93,7 @@ class ConfirmationController < ApplicationController
         flash[:notice] = "There was a problem with creating your account."
         render :accept_invitation
     end
-
-
-
-
-        
+     
   end
 
   private
