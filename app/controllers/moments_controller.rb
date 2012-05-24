@@ -202,8 +202,28 @@ class MomentsController < ApplicationController
 
   def connect_it
     @moment = Moment.find(params[:id])
-    if current_user.can_edit_child? @moment.child.id
-      @all_moments = current_user.moments.ids
+    if current_user.can_edit_child? @moment.child_id
+      
+      all_child_moments_ids = Moment.ids.where(:child_id => @moment.child_id)
+      all_child_moments_ids = Moment.ids.where(:child_id => @moment.child_id)
+      all_child_moments_ids = ((all_child_moments_ids.select { |moment_id| moment_id.id != @moment.id}).collect { |moment| moment.id}).join(", ")
+      current_moment_tag_ids = ((MomentTagsMoments.moment_tag_ids.where(:moment_id => @moment.id)).collect { |moment_tag| moment_tag.moment_tag_id }).join(", ")
+      
+      #bulding_query
+      unless all_child_moments_ids.blank?
+        query = "SELECT * FROM moments LEFT JOIN ( SELECT moment_id, moment_tag_id, count(*) as count FROM moment_tags_moments WHERE moment_id IN (#{all_child_moments_ids}) "
+        unless current_moment_tag_ids.blank?
+          query += "AND moment_tag_id IN (#{current_moment_tag_ids}) "
+        end
+        query += "GROUP BY moment_id ORDER BY count DESC ) AS moment_tags_count ON (moment_tags_count.moment_id = id) WHERE id NOT IN (#{@moment.id}) ORDER BY count DESC LIMIT 40"
+        count_moment_ids = Moment.find_by_sql(query)
+      else
+        count_moment_ids = false;
+      end
+      
+
+      @moments = count_moment_ids
+
     else
       redirect_to errors_permission_path
     end
@@ -211,6 +231,12 @@ class MomentsController < ApplicationController
 
   def update_connect_it
     moment = Moment.find(params[:id])
+
+    params[:related_moment].blank? ? connected_moments = [] : connected_moments = Moment.find(params[:related_moment])
+
+    moment.connected_moment_children = connected_moments
+
+    logger.info "VALUES: " + moment.connected_moment_children.inspect
 
     if params[:operation_type] == "tag_it"
       redirect_to tag_moments_url :id => moment.id
