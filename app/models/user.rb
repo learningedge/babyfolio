@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base    
 
-  #serialize :child_info
+  self.per_page = 5
 
   acts_as_authentic do |t|
     t.ignore_blank_passwords = true;

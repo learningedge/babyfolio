@@ -1,5 +1,12 @@
 Babyfolio::Application.routes.draw do
 
+  namespace :admin do
+    root :to => "dashboard#index"
+    get "/" => "dashboard#index", :as => :dashboard_index
+    resources :users, :only => [:index, :edit, :update]
+    resources :families, :only => [:index, :edit, :update]
+  end
+
   namespace :registration do
 
     post '/add-photos/flickr/photos' => "add_photos#flickr_photos", :as => :add_photos_flickr_photos

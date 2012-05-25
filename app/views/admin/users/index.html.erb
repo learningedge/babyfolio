@@ -1,0 +1,75 @@
+<div id="all_products" class="float-none">
+  <h1>All Users</h1>
+  <%#= link_to 'Export Customers To CSV', '#', :class => 'btn', :onclick => "jQuery('.date_form').show();jQuery(this).hide();return false;" %><br />
+
+
+  <%#*<div class="date_form" style="display:none;">%>
+
+    <%# form_tag export_csv_dump_csv_path do |form| -%>
+    <%#*<div class="start_date">%>
+      <%#= label_tag :start_date %>
+      <%#= text_field_tag :start_date, Date.today - 5.days -%>
+    <%#*</div>%>
+    <%#*<div class="end_date">%>
+      <%#= label_tag :end_date %>
+      <%#= text_field_tag :end_date, Date.today -%>
+    <%#*</div>%>
+      <%#*<div class="submit">%>
+        <%#= submit_tag 'Export Users', :class => 'btn' %>
+      <%#*</div>%>
+    <%# end -%>
+
+    <%#*<script type="text/javascript">%>
+      <%#*$('#start_date').datepicker({ dateFormat: 'mm/dd/yy' });%>
+      <%#*$('#end_date').datepicker({ dateFormat: 'mm/dd/yy' });%>
+    <%#*</script>%>
+
+  <%#*</div>%>
+
+  <div class="pagination">
+    <i><%= @users.count -%> Users</i> <%= will_paginate @users, :container => false, :previous_label => '', :next_label => '', :separator => " | " -%>
+  </div>
+
+  <table class="products">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= sort_link 'FIRST NAME', 'users.first_name'  -%></th>
+        <th><%= sort_link 'LAST NAME', 'users.last_name' -%></th>
+        <th><%= sort_link 'EMAIL', 'users.email' -%></th>        
+        <th><%= sort_link 'CREATED DATE', 'users.created_at' -%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= get_image_tag user, "small" %>
+          </td>
+          <td><a href="<%= edit_admin_user_path(user) -%>"><%= user.first_name -%></a></td>
+          <td><a href="<%= edit_admin_user_path(user) -%>"><%= user.last_name -%></a></td>
+          <td><a href="<%= edit_admin_user_path(user) -%>"><%= user.email -%></a></td>
+          <td><%#= user.billing_address.state if user.billing_address -%></td>
+          <td><%= user.created_at.to_date -%></td>
+          <td>
+              <div class="action">
+                <span>Action</span>
+                <div>
+                  <ul>
+                    <li>Action</li>
+                    <li><%= link_to 'Edit', edit_admin_user_path(user) %></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+        </tr>
+      <% end %>
+
+
+    </tbody>
+  </table>
+
+</div>
+
+
+

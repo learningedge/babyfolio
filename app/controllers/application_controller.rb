@@ -36,6 +36,10 @@ class ApplicationController < ActionController::Base
       defined?(@current_user)
     end
 
+    def require_admin
+      true if require_user and current_user.is_admin
+    end
+
     def require_user
       unless current_user
         store_location

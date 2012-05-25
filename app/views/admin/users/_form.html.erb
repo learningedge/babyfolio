@@ -1,0 +1,63 @@
+<p class="hint">(<b class="red">*</b> - Required Fields.)</p>
+<h2>BASICS</h2>
+
+<%= form_for([:admin, @user]) do |f| %>
+  <fieldset class="basics">
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this admin_blog from being saved:</h2>
+
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <%= f.label :email %>
+      <%= f.text_field :email, :size => 30 %>
+      <span class="red">*</span>
+    </div>
+
+    <div class="row">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, :size => 30 %>
+    </div>
+
+    <div class="row">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :size => 30 %>
+    </div>
+
+    <div class="row">
+      <%= f.label :password %>
+      <%= f.password_field :password, :size => 30 %>
+      <span class="red">*</span>
+    </div>
+
+    <div class="row">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, :size => 30 %>
+      <span class="red">*</span>
+    </div>
+  </fieldset>
+
+
+  <h2>YOUR FAMILIES</h2>
+  <% @user.families.each do |family| -%>    
+    <fieldset class="options">
+      <div class="row">
+        <%= link_to family.name, edit_admin_family_path (family.id) -%>
+      </div>
+    </fieldset>
+  <% end %>
+
+
+
+
+  <%= link_to 'Back', admin_users_path, :class => 'btn gray' %><br />
+  <input type="submit" value="Update User" />
+<% end %>
+

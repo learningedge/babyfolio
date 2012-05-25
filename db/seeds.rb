@@ -41,7 +41,7 @@ admin.destroy
 end
 
 
-@user = User.new(:email => 'admin@codephonic.com', :password => 'admin', :password_confirmation => 'admin', :email_confirmed => 1)
+@user = User.new(:email => 'admin@codephonic.com', :password => 'admin', :password_confirmation => 'admin', :email_confirmed => 1, :is_admin => true)
 @user.reset_perishable_token
 @user.save
 
