@@ -5,13 +5,14 @@ class Admin::UsersController < Admin::ApplicationController
     conditions = Array.new
 
     if params[:search_term]
-      conditions << "(users.first_name like ? or users.last_name like ? or users.email like ?)"
+      conditions << "users.first_name like ? or users.last_name like ? or users.email like ?"
       conditions << "%#{params[:search_term]}%"
       conditions << "%#{params[:search_term]}%"
       conditions << "%#{params[:search_term]}%"
       @title = "Search results for \"#{params[:search_term]}\""
     end
-
+    conditions[0] += " and users.is_temporary = ?"
+    conditions << false
     params[:sort] ||= "users.email"
 
     if params[:see_all]
