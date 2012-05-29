@@ -32,6 +32,9 @@
           <span class="field">
             <%= f.text_field :display_name %>
           </span>
+          <span>
+            <%= hidden_field_tag "accept_terms", true -%>
+          </span>
         </div>
 
         <% unless f.object.user.email_confirmed  %>

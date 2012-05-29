@@ -26,25 +26,44 @@
       <%= f.text_field :zip_code, :size => 30 %>
     </div>
   </fieldset>
+  <h2>CHILDREN</h2>
+  <fieldset class="options">
+    <table class="list-container">
+      <% @family.children.each do |child| %>
+        <tr>
+          <td><%= get_image_tag child, "small" -%></td>
+          <td><%= child.first_name %></td>
+          <td><%= child.birth_date.to_date %></td>
+          <td><%= moment_count child.moments -%></td>
+        </tr>          
+      <% end %>
+    </table>
+  </fieldset>
 
-  <% @family.children.each do |child| %>
-    <h2>CHILDREN</h2>
-    <fieldset class="options">
-      <div class="row">
-        <div><%= child.first_name %></div>
-        <div><%= child.birth_date.to_date %></div>
-      </div>
-    </fieldset>
 
+  <h2><%= (@family.name + "'s parents").upcase -%></h2>
+  <fieldset class="options">
+    <ul class="list-container">
+      <% @parents.each do |parent| -%>
+        <li>
+          <div><%= link_to parent.email, edit_admin_user_path(parent.id) %></div>
+        </li>
+      <% end %>
+    </ul>
+  </fieldset>
+
+  <% unless @rest_users.blank? %>
+  <h2><%= (@family.name + "'s family & friends").upcase -%></h2>
+  <fieldset class="options">
+    <ul class="list-container">
+      <% @rest_users.each do |user| -%>
+        <li>
+          <div><%= link_to user.email, edit_admin_user_path(user.id) %> <%= "(pending)" if @family.pending? user.id -%></div>
+        </li>
+      <% end %>
+    </ul>
+  </fieldset>
   <% end %>
-
-  <h2><%= (@family.name + "'s family friends").upcase -%></h2>
-  <% @family.users.each do |user| -%>    
-    <fieldset class="options">      
-      
-    </fieldset>
-  <% end %>
-
 
 
 

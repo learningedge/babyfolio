@@ -36,7 +36,6 @@
             <div class="name"><%= parent.user.first_name -%></div>
             <div><%=  parent.user.email %></div>
             <div><%= parent.member_type %></div>
-            <div><%#= parent.user.first_name + " " + parent.user.last_name -%></div>            
           </div>
           <div class="clear"></div>
         </div>
@@ -54,7 +53,7 @@
             <div class="name"><%= member.user.first_name -%> <%= link_to 'Remove', relation_path(member), :confirm => "Are you sure?", :method => :delete, :class => 'remove' if user_is_parent? -%></div>
             <div><%=  member.user.email %></div>
             <div><%= member.member_type %></div>
-            <div><%= member.user.first_name + " " + member.user.last_name -%></div>
+            <div><%= member.user.first_name -%> <%= member.user.last_name -%></div>
           </div>
           <div class="clear"></div>
         </div>

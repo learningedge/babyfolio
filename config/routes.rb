@@ -3,6 +3,7 @@ Babyfolio::Application.routes.draw do
   namespace :admin do
     root :to => "dashboard#index"
     get "/" => "dashboard#index", :as => :dashboard_index
+    post "/search" => "dashboard#search", :as => :search
     resources :users, :only => [:index, :edit, :update]
     resources :families, :only => [:index, :edit, :update]
   end
@@ -24,8 +25,6 @@ Babyfolio::Application.routes.draw do
     match '/add-videos/upload-youtube-video' => "add_videos#upload_youtube", :as => :add_videos_upload_youtube
     match '/add-videos/upload-file-youtube-video' => "add_videos#upload_file_youtube", :as => :add_videos_upload_file_youtube
     post '/add-videos/import-media' => "add_videos#import_media", :as => :add_videos_import_media
-
-
 
   end
 

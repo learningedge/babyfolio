@@ -237,6 +237,9 @@ span#http{float:left;line-height:26px}
 #new_product span.red.left {float:left}
 
 #new_product .options{padding:30px 10px;}
+#new_product .options .list-container {width:100%}
+#new_product .options .list-container td {padding:5px}
+#new_product .options .list-container > li {padding:5px}
 #new_product .options .row{margin:0 0 0 130px;height:50px;}
 #new_product .options .item{float:left;margin-right:10px;width:450px;background:#BABABA;height:30px;font-size:12px;padding:8px 10px;border-radius:10px;-moz-border-radius:10px;behavior:url(stylesheets/border-radius.htc);}
 #new_product .options .item label{margin:0;text-align:left;line-height:30px;}

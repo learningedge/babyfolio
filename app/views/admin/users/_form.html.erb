@@ -44,13 +44,28 @@
     </div>
   </fieldset>
 
-
-  <h2>YOUR FAMILIES</h2>
-  <% @user.families.each do |family| -%>    
+  <% unless @parenting_families.blank? %>
+    <h2>FAMILIES WHERE <%= @user.email -%> IS PARENT</h2>
     <fieldset class="options">
-      <div class="row">
-        <%= link_to family.name, edit_admin_family_path (family.id) -%>
-      </div>
+      <ul class="list-container">
+        <% @parenting_families.each do |family| -%>
+            <li>
+              <%= link_to raw("<b>#{family.name}'s</b> family and children: #{(family.children.collect {|child| child.first_name}).join(', ')}"), edit_admin_family_path (family.id) -%>
+            </li>
+        <% end %>
+      </ul>
+    </fieldset>
+  <% end %>
+  <% unless @friend_families.blank? %>
+    <h2>FRIEND FAMILIES</h2>
+    <fieldset class="options">
+      <ul class="list-container">
+        <% @friend_families.each do |family| -%>
+            <li>
+              <%= link_to raw("<b>#{family.name}'s</b> family and children: #{(family.children.collect {|child| child.first_name}).join(', ')}"), edit_admin_family_path (family.id) -%>
+            </li>
+        <% end %>
+      </ul>
     </fieldset>
   <% end %>
 

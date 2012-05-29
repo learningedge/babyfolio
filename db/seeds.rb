@@ -10,19 +10,16 @@
 
 
 
-#Attachment.delete_all
-#Child.delete_all
-#Family.delete_all
-#Media.delete_all
-#Moment.delete_all
-#Relation.delete_all
-#Service.delete_all
-#User.delete_all
+Attachment.delete_all
+Child.delete_all
+Family.delete_all
+Media.delete_all
+Moment.delete_all
+Relation.delete_all
+Service.delete_all
+User.delete_all
 
 @admin = User.where(:email => 'admin@codephonic.com');
-#puts @admin.inspect
-#puts @admin.first.families.parenting_families.inspect
-
 @admin.each do |admin|
 
 admin.families.parenting_families.each do |family|
@@ -47,7 +44,7 @@ end
 
 
 
-#Rake::Task['excel:all'].invoke
+Rake::Task['excel:all'].invoke
 
 
 
