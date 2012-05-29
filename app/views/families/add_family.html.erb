@@ -82,11 +82,9 @@
             <%= hidden_field_tag 'friends[6][member_type]', Relation::MEMBER_TYPE[:GODFATHER] -%>
             <a href="#" class="another" onclick="add_after(this);return false;" >Add Another</a>
           </div>
-          <div class="submit">
-            <%= submit_tag 'Submit' -%>
-          </div>
-          <div class="skip">
-            <%= link_to 'Skip', family_registration? ? add_friends_families_path : family_relations_families_url %>
+          <div class="submit-buttons">
+            <%= submit_tag 'Submit' -%>          
+            <%= link_to 'Skip', family_registration? ? add_friends_families_path : family_relations_families_url, :class => "submit-button" %>
           </div>
         </div>
       <% end %>
