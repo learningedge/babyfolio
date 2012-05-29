@@ -10,7 +10,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-youtube'
 gem 'omniauth-flickr'
 gem 'omniauth-vimeo'
-gem 'vimeo', :git => "https://github.com/matthooks/vimeo.git"
+gem 'vimeo'
 gem 'youtube_it'
 gem 'fb_graph'
 gem 'will_paginate'

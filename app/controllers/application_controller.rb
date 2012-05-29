@@ -74,8 +74,7 @@ class ApplicationController < ActionController::Base
     end
 
     def require_confirmation
-      @current_user = current_user
-      if !@current_user.email_confirmed && @current_user.created_at < (DateTime.now - 7.days)
+      if current_user and !current_user.email_confirmed and current_user.created_at < (DateTime.now - 7.days)
         redirect_to confirmation_url
       end
     end
