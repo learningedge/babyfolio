@@ -8,7 +8,7 @@ module ApplicationHelper
         image_tag "/images/default_images/user_profile_#{style}.png"
       end
     elsif object.kind_of? Child
-      unless object.media.image_file_size.blank?        
+      if !object.media.blank? and !object.media.image_file_size.blank?
         image_tag object.media.image(style)
       else        
         image_tag "/images/default_images/child_profile_#{style}.png"
