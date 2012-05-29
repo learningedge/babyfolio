@@ -7,6 +7,8 @@ class MomentTag < ActiveRecord::Base
   has_many :moments, :through => :relation_moments
 
 
+  scope :names, select(:name)
+
   scope :main_level, where(:moment_tag_id => nil).order(:id)
   scope :not_main_level, where(["moment_tags.moment_tag_id IS NOT NULL"]).order(:id)
   scope :level_0, where(:level => 0)

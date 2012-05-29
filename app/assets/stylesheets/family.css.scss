@@ -2,8 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.single_child { display: none; }
+.single_child { display: none;padding:0px 0px 30px }
 .single_child:first-child { display: block; }
+.single_child .left-column {float:left}
+.single_child .right-column {float:right;}
+.single_child .right-column row {padding: 0px 20px 0px}
+.single_child .row {}
+.single_child .row label {width:100px;text-align:right;display:inline-block;vertical-align:middle}
+
+
 .single_child input[type="checkbox"] { display: none }
 .user-form.update_form div.submit { margin: 0 }
 .user-form.update_form .select_family_form { display: inline }

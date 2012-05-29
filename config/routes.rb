@@ -131,7 +131,7 @@ Babyfolio::Application.routes.draw do
     collection do
       get ':child_id' => "children#show", :as => :child_profile
       get :show, :as => :child_profile
-
+      get '/:id/info' => "children#info", :as => :info
     end
   end
 

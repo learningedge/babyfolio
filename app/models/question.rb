@@ -1,6 +1,8 @@
 require 'roo'
 class Question < ActiveRecord::Base
 
+  has_many :answers
+
   scope :category_ages, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(3) }
 
   scope :category_ages_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(1) }

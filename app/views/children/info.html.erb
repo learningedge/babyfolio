@@ -1,0 +1,61 @@
+<div class="container settings child-info">
+
+  <div id="left">
+    <div id="title">Info about <%= @child.first_name -%> profile.</div>    
+  </div>
+
+  <div class="user-form update_form">
+    <div class="basics">
+      <h2>BASIC</h2>
+      <div >Name: <%= @child.first_name -%></div>
+      <div >Born: <%= @child.birth_date.to_date -%></div>
+      <div >Gander: <%= @child.gender.titleize -%></div>
+    </div>
+    <div class="moments">
+      <% unless @child.moments.blank? %>
+        <h2><%= @child.first_name.blank? ? "Child" : @child.first_name -%> has <%= @child.moments.count -%> moments:</h2>
+        <% @child.moments.each_with_index do |moment, index| -%>
+          <div class="moment">
+            <div class="title"><%= index+1 %>. <%= moment.title -%></div>
+            <ul class="tags">
+              <% last_element_name = nil %>
+              <% moment.moment_tags.each do |moment_tag| %>
+                <% unless last_element_name == moment_tag.name %>
+                  <li class="level-<%= moment_tag.level -%>">
+                    <%= moment_tag.name %>
+                  </li>
+                <% end %>
+                <% last_element_name = moment_tag.name %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% else %>
+        <h2><%= @child.first_name.blank? ? "Child" : @child.first_name -%> hasn't moments.</h2>
+      <% end %>
+    </div>
+    <div class="questionaire">
+      <% unless @child.answers.blank? %>
+      <h2>Questionaire</h2>
+        <ul class="questions">
+        <% @child.answers.each_with_index do |answer, index| -%>
+
+          <li class="question">
+            <span class="index"><%= index+1 -%>. </span><%= answer.question.text %> <span class="answer">(<%= answer.value.titleize -%>)</span>
+          </li>
+
+        <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+</div>
+
+
+<script type="text/javascript">
+</script>
+
+
+

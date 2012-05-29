@@ -476,6 +476,28 @@ div.submit {float:left;margin-right:20px}
 .my-family-info .single_child input[type=text] {width:100px}
 .my-family-info .single_child input[type=text].birth_date_input {width:87px}
 
+/* .child-info */
+
+.child-info {}
+.child-info .moment {padding:10px 0px}
+.child-info .moment .title{font-weight:bold}
+.child-info ul {list-style:none}
+.child-info .moment .level- {padding-left:15px}
+.child-info .moment .level-0 {padding-left:30px}
+.child-info .moment .level-1 {padding-left:45px}
+.child-info .moment .level-2 {padding-left:60px}
+.child-info .moment .level-3 {padding-left:75px}
+.child-info .moment .level-4 {padding-left:90px}
+.child-info .moment .level-5 {padding-left:105px}
+.child-info .moment .level-6 {padding-left:120px}
+.child-info .moment .level-7 {padding-left:135px}
+
+.child-info .questionaire {}
+.child-info .questionaire .questions {}
+.child-info .questionaire .questions .question {padding: 6px 0px}
+.child-info .questionaire .questions .question .answer {font-weight:bold}
+
+
 /* .child-image */
 .child-image .images-container {padding-bottom:20px}
 .child-image .profile-image {}

@@ -70,6 +70,10 @@
 
 <script type="text/javascript">
 
+$(function(){
+  $('#user_session_email').focus();
+})
+
 function open_popup_login(href) {
   var left = (screen.width - <%= popup_settings["width"] %>)/2;
   var top = (screen.height - <%= popup_settings["height"] %>)/2;
