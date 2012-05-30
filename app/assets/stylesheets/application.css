@@ -558,9 +558,11 @@ div.submit {float:left;margin-right:20px}
 .uploaded-images-container .main-header h2 {float:left;padding-right:30px}
 .uploaded-images-container .main-header > a {font-size:16px;line-height:41px}
 .uploaded-images-container .main-header > a.close-btn {display:none}
-.uploaded-images-container #file-uploader {display:none}
+.uploaded-images-container #file-uploader.hidden {display:none}
 .uploaded-images-container .qq-upload-button {display:block;background: url('/images/button.png'); width:140px;height:53px;padding:0px;font: 16px/53px 'helvetica_seven';float:left;}
+.uploaded-images-container.is-edit-moment .qq-upload-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;behavior: url(/PIE/PIE.htc);height:auto;text-decoration:none;text-align:center;padding:5px 20px;margin-top:30px}
 .uploaded-images-container .qq-upload-list {float:left;margin:0;overflow:hidden;height:100px;padding-left:45px}
+.uploaded-images-container.is-edit-moment .qq-upload-list {overflow-y:auto;width:310px}
 .uploaded-images-container .qq-upload-list li span.qq-upload-failed-text {display:none}
 
 
@@ -632,12 +634,6 @@ div.submit {float:left;margin-right:20px}
 .registration-process .user-form .upload-youtube-container .column .row.error input[type=text] {border-color: red}
 .registration-process .user-form .upload-vimeo-container .column .file-error{width:500px}
 
-
-
-
-
-
-
 /* CHILDREN */
 
 .children #container_left {width:792px !important}
@@ -672,14 +668,20 @@ div.submit {float:left;margin-right:20px}
 /******************* MOMENTS *********************/
 
 .edit-moment {}
-.edit-moment .user-form{width: 790px;padding:0;overflow:hidden}
-.edit-moment .user-form #top-socials-navigation {background-color:#c8ba7b;height:30px;line-height:30px;text-align:right}
-.edit-moment .user-form #top-socials-navigation a {display:inline-block;padding:0 10px;color:#713500;text-decoration:none}
+.edit-moment .left {float:left;width:450px}
+.edit-moment .right {float:right;width:580px}
+.edit-moment .user-form {width:540px;padding:5px 20px;overflow:hidden}
+.edit-moment .user-form #top-socials-navigation {}
+.edit-moment .user-form #top-socials-navigation a {display:inline-block;padding:0px 33px 0px 0px;height:30px;line-height:30px}
 .edit-moment .user-form #top-socials-navigation a:hover,
-.edit-moment .user-form #top-socials-navigation a.active {background-color:#e8e3c0;color:#555555}
+.edit-moment .user-form #top-socials-navigation a.active {font-weight:bold}
+.edit-moment .user-form #top-socials-navigation a[provider=facebook] {background: url(/images/facebook_ico_30x30.png) no-repeat 100% 50%}
+.edit-moment .user-form #top-socials-navigation a[provider=flickr] {background: url(/images/flickr_ico_30x30.png) no-repeat 100% 50%}
+.edit-moment .user-form #top-socials-navigation a[provider=vimeo] {background: url(/images/vimeo_ico_30x30.png) no-repeat 100% 50%}
+.edit-moment .user-form #top-socials-navigation a[provider=youtube] {background: url(/images/youtube_ico_30x30.png) no-repeat 100% 50%}
 
-.edit-moment #selected-media {background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);text-align:center; margin-bottom: 3px;}
-.edit-moment #selected-media h2 {font: 24px 'helvetica_seven';color:#555555}
+.edit-moment #selected-media {background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);margin-bottom: 3px;}
+.edit-moment #selected-media span.no-media {font: 24px 'helvetica_seven';color:#555555;padding:24px 5px 24px 20px;display:inline-block;vertical-align:top}
 .edit-moment #selected-media span {display:inline-block;margin:4px;position:relative}
 .edit-moment #selected-media span .thumb{border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
 .edit-moment #selected-media span.image .thumb {width:75px;height:75px;}
@@ -691,7 +693,8 @@ div.submit {float:left;margin-right:20px}
 .edit-moment #selected-media span.video:hover .remove{display:block}
 .edit-moment #selected-media span.video .checkbox-radiobutton {display:none}
 .edit-moment #selected-media span .title{display:none}
-.edit-moment .media-form-container {padding: 8px 20px 30px 50px}
+
+/*.edit-moment .media-form-container {padding: 8px 20px 30px 50px}*/
 .edit-moment .media-form-container .media-form {position:relative}
 .edit-moment .media-form-container .media-form .preloader {width:100%;height:100%;background-position:50% 50%;z-index:100;position:absolute;background-color:#e8e3c0;display:none}
 .edit-moment .media-form-container .media-form #facebook-ajax-container,
@@ -716,7 +719,7 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form textarea {font: 14px arial;color: #898989;padding: 7px 7px 7px 11px; border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(/PIE/PIE.htc);}
 #new_moment_form label {display:inline-block; width:65px; text-align:right; padding-right: 15px; color: #898989; font: 14px arial}
 #new_moment_form .title_property {margin-bottom: 20px;}
-#new_moment_form .title_property input {width: 930px}
+#new_moment_form .title_property input {width: 330px}
 #new_moment_form .date {margin-bottom: 20px; }
 #new_moment_form .date input {width:80px}
 #new_moment_form .privacy {margin: 10px 0px; text-align:right }
@@ -724,12 +727,12 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form .title_property.error div{display:inline}
 #new_moment_form .description { vertical-align: middle;}
 #new_moment_form .description label{ line-height:115px; vertical-align:top}
-#new_moment_form .description textarea {width:930px;height:115px}
+#new_moment_form .description textarea {width:330px;height:115px}
 
 #new_moment_form .field_with_errors label {color:red}
 #new_moment_form .field_with_errors input {border-color:red}
 
-#new_moment_form .options { margin-bottom: 20px; }
+/*#new_moment_form .options { margin-bottom: 20px; }*/
 #new_moment_form .categories { padding: 25px; display:none; overflow:hidden}
 #new_moment_form .categories .label { width: 350px; text-align: left; color: #898989; font: 14px arial;cursor:pointer}
 #new_moment_form .categories .label input{display:none}
