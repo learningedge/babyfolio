@@ -2,7 +2,6 @@
 <div class="preloader"></div>
 <div class="uploaded-images-container">  
   <div id="file-registration-uploader"></div>
-  <div class="clear"></div>
   <%= form_tag registration_add_photos_import_media_url, :remote => true do -%>
     <%= hidden_field_tag "child_id", @selected_child.id %>
     
@@ -21,8 +20,6 @@
     <div class="buttons-container">
       <span><%= submit_tag "Add uploaded images", :class => "registration-submit-button" -%></span>
     </div>
-
-    <div class="clear"></div>
     
   <% end %>
   

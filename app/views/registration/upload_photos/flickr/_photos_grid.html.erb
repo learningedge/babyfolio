@@ -3,8 +3,7 @@
 </div>
 <div class="photos">
   <div class="right-photos-container">
-    <% photos.each do |photo| %>
-    
+    <% photos.each do |photo| %>    
       <span class="image flickr-image" id="<%= photo.id %>" url="<%= FlickRaw.url_b(photo) %>" thumb_url="<%= FlickRaw.url_s(photo) %>" onclick="select_flickr_photo(this);return false;">
         <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo) %>') no-repeat">
         </div>
@@ -18,7 +17,6 @@
       </span>
 
     <% end %>
-    <div class="clear"></div>
   </div>
   <div class="visibility">
     <span>Privacy level: <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%></span>

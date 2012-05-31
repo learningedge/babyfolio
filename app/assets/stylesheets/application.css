@@ -602,7 +602,7 @@ div.submit {float:left;margin-right:20px}
 .registration-process .user-form .socials-container .ajax-container .vimeo-grid {width:100%}
 
 .registration-process .user-form .socials-container .ajax-container .sets > a {display:inline-block;vertical-align:top}
-.registration-process .user-form .socials-container .ajax-container .image {padding:5px 0;width:100px;border:1px solid #e8e3c0;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);display:inline-block;vertical-align:top}
+.registration-process .user-form .socials-container .ajax-container .image {padding:5px 0;width:100px;border:1px solid #e8e3c0;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;behavior: url(/PIE/PIE.htc);display:inline-block;vertical-align:top;position:relative}
 .registration-process .user-form .socials-container .ajax-container .image:hover .thumb {border-color:white}
 .registration-process .user-form .socials-container .ajax-container .image .thumb {margin:0px auto 0px}
 .registration-process .user-form .socials-container .ajax-container .image input{display:none}

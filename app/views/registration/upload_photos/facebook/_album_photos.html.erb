@@ -18,7 +18,6 @@
     </span>
 
   <% end %>
-  <div class="clear"></div>
   </div>
   <div class="visibility">
     <span>Privacy level: <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%></span>
@@ -28,8 +27,5 @@
     <span><%= submit_tag "Import selected photos", :class => 'registration-submit-button' -%></span>
     <span><a class="registration-submit-button" href="#" onclick="go_to_facebook_albums();return false;">Go back to galleries</a></span>
   </div>
-
-  
-
 </div>
 
