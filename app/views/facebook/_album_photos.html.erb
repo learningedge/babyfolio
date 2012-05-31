@@ -1,9 +1,7 @@
 <div class="photos">
 
 <div class="header">
-  <h2>Photos</h2>
-  <a href="#" onclick="$.get('<%= facebook_albums_url %>',function(data){$('#facebook-ajax-grid').html(data);$('#facebook-ajax-container .preloader').stop().fadeOut()});return false;">Back to albums</a>
-  <div class="clear"></div>
+  <h2>Photos <a href="#" onclick="$.get('<%= facebook_albums_url %>',function(data){$('#facebook-ajax-grid').html(data);$('#facebook-ajax-container .preloader').stop().fadeOut()});return false;">Back to albums</a></h2>  
 </div>
 
 <% @photos.each do |photo| %>
@@ -18,7 +16,6 @@
   </span>
 
 <% end %>
-<div class="clear"></div>
 
 </div>
 

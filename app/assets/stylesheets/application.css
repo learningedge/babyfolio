@@ -757,7 +757,7 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form .categories .category .label{ margin: 5px; }
 #new_moment_form .categories .check-all { margin-bottom: 5px; }
 #new_moment_form .submit-container {text-align:center}
-#new_moment_form .submit_wrapper { margin-top: 15px; display:inline-block}
+#new_moment_form .submit_wrapper { margin-top: 15px; display:inline-block;vertical-align:middle}
 #new_moment_form a.new_moment_submit {display:block;text-align:center;line-height:53px;text-decoration:none;}
 #new_moment_form .new_moment_submit {background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/18px 'helvetica_seven'; cursor: pointer}
 
