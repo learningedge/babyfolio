@@ -26,9 +26,9 @@
     </div><%# .left %>
     <div class="right">
       <div class="media-button-container">
-        <span class="header">Add Photo/Video file: </span>
+        <div class="header">Add Photo/Video file: </div>
         <span class="image">
-          <%= get_moment_thumb f.object.media.first, :large %>
+          <%= get_moment_thumb f.object.media.first, :moment_thumb %>
         </span>
       </div><%# .media-button-container%>
       <div class="media-container">
@@ -78,8 +78,8 @@
             </div><%# .media-form %>
           </div><%# .media-form-container %>
           <div id="top-socials-navigation">
-            <div>Import from another site:</div>
-            <%#*<div><a href="#" class="provider active" provider="uploaded-images" onclick="click_provider(this);return false;">Uploaded Photos</a></div>%>
+            <div class="title">Import from another site:</div>
+            <div><a href="#" class="provider active" provider="uploaded-images" onclick="back_to_uploaded(this);return false;"><< Back</a></div>
             <div><a href="#" class="provider is_edit_moment" provider="facebook" onclick="click_provider(this);return false;">From Facebook</a></div>
             <div><a href="#" class="provider is_edit_moment" provider="flickr" onclick="click_provider(this);return false;">From Flickr</a></div>
             <div><a href="#" class="provider is_edit_moment" provider="vimeo" onclick="click_provider(this);return false;">From Vimeo</a></div>
@@ -243,7 +243,9 @@
         $(object).addClass('active');
 
         provider = $(object).attr('provider');
-
+        $('.edit-moment .user-form #top-socials-navigation a').hide();
+        $('.edit-moment .user-form #top-socials-navigation a[provider=uploaded-images]').show();
+        $('.edit-moment .user-form #top-socials-navigation .title').hide();
         if ($(".media-form #"+provider+"-ajax-container *").length > 0) {
 
           $(".provider-container").not("#"+provider+"-ajax-container").hide();
@@ -267,6 +269,17 @@
           });
         }
       }
+    }
+
+    function back_to_uploaded(object) {
+      $('.edit-moment .user-form #top-socials-navigation a').show();
+      $('.edit-moment .user-form #top-socials-navigation .title').show();
+      $(object).hide();
+      $('#top-socials-navigation .provider').not(object).removeClass('active');
+      $(object).addClass('active');
+      provider = $(object).attr('provider');
+      $(".provider-container").not("#"+provider+"-ajax-container").hide();
+      $("#"+provider+"-ajax-container").show();
     }
   </script><%# script %>  
 

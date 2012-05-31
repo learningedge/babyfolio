@@ -7,10 +7,8 @@
     <% @moments.each do |moment|  %>
       <li class="moment">
         <a href="<%=  edit_moment_path(:id => moment.id) -%>">
-          <div class="thumb">
-            <% unless moment.media.blank?  %>
-              <%= get_moment_thumb moment.media.first, :moment_thumb %>
-            <% end %>
+          <div class="thumb">            
+              <%= get_moment_thumb moment.media.first, :moment_thumb %>           
           </div>
           <div class="description">
             <div class="row">
