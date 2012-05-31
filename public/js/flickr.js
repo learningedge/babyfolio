@@ -2,10 +2,10 @@ $(function(){
     //show preloader
 
     $('.flickr .flickr-grid .sets .image').live("click",function(){
-	$('#flickr-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+      $('#flickr-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
     })
     $('.flickr .flickr-grid .photos .header > a').live("click",function(){
-	$('#flickr-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+      $('#flickr-ajax-container .preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
     })
 
     //multiselect and slingleselect
@@ -19,13 +19,12 @@ $(function(){
           element.appendTo('#selected-flickr-photos');
         }
       }
-
     });
 
     $('.singleselect .flickr .flickr-grid .photos .image').live("click",function(){
-	$('#selected-flickr-photos .selected-image').remove();
-	element = $('<span class="selected-image" id="'+$(this).attr('id')+'"><img src="'+$(this).attr('thumb_url')+'"/><input type="hidden" name="flickr_photos[]" value="'+$(this).attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+$(this).attr('id')+'"/><input type="hidden" name="media_titles[]" value="'+ $(this).find('.media_title_text').html()+'"/><div class="hover">Remove</div></span>')
-	element.appendTo('#selected-flickr-photos');
+      $('#selected-flickr-photos .selected-image').remove();
+      element = $('<span class="selected-image" id="'+$(this).attr('id')+'"><img src="'+$(this).attr('thumb_url')+'"/><input type="hidden" name="flickr_photos[]" value="'+$(this).attr('url')+'"/><input type="hidden" name="flickr_pids[]" value="'+$(this).attr('id')+'"/><input type="hidden" name="media_titles[]" value="'+ $(this).find('.media_title_text').html()+'"/><div class="hover">Remove</div></span>')
+      element.appendTo('#selected-flickr-photos');
     })
     
 

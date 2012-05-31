@@ -8,11 +8,9 @@
     <% end %>
   </div>
 
-  <div class="clear"></div>
-
   <% if current_user.youtube_user %>
   <div class="upload">
-    <iframe src="<%= new_youtube_url -%>" width="720px" height="200px" scrolling="no"></iframe>
+    <iframe src="<%= new_youtube_url -%>" width="720px" height="150px" scrolling="no" frameborder="0"></iframe>
   </div>
 
   <div class="youtube">

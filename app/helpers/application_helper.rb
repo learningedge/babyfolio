@@ -40,6 +40,8 @@ module ApplicationHelper
         "<span class='error-text'>The video was not found</span>".html_safe
       end
 
+    else
+      image_tag "/images/default_images/child_profile_#{style}.png"
     end
     
   end

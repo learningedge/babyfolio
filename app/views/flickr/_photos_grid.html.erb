@@ -1,9 +1,7 @@
 <div class="photos">
 
 <div class="header">
-  <h2>Photos</h2>
-  <a href="#" onclick="$.get('<%= sets_flickr_index_url %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut()});return false;">Back to sets</a>
-  <div class="clear"></div>
+  <h2>Photos <a href="#" onclick="$.get('<%= sets_flickr_index_url %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut()});return false;">Back to sets</a></h2>  
 </div>
 
 <% photos.each do |photo| %>

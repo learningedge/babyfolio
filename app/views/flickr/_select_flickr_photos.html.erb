@@ -3,17 +3,16 @@
 <% if current_user.flickr_user %>  
   <div class="flickr">
 
-    <span id="selected-flickr-photos">
+    <div id="selected-flickr-photos">
       <h2>Selected</h2>
-    </span>
+    </div>
 
-    <span id="flickr-ajax-grid"  class="flickr-grid">
+    <div id="flickr-ajax-grid"  class="flickr-grid">
 
 	  <%= render :partial => 'flickr/sets_grid' %>
 
-    </span>
-
-    <div class="clear"></div>
+    </div>
+    
 
   </div>
 

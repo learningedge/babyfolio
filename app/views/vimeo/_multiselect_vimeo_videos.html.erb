@@ -5,14 +5,13 @@
       <a href="#" class="upload-link">Upload video</a>
       <a href="#" class="close-btn">Close</a>
     <% end %>
+    
   </div>
-
-  <div class="clear"></div>
 
   <% if current_user.has_vimeo_account? %>
   
   <div class="upload">
-    <iframe src="<%= new_vimeo_url -%>" width="720px" height="200px" scrolling="no"></iframe>
+    <iframe src="<%= new_vimeo_url -%>" width="720px" height="200px" scrolling="no" frameborder="0"></iframe>
   </div>
 
   <% multiselect_option = true if multiselect_option.nil? %>
