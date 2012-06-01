@@ -523,6 +523,80 @@ namespace :excel do
     
   end
 
+  desc "Migratinog milestones from excel file = 'Milestones_Sample'"
+  task :milestones => :environment do
+    pp "------ migrating milestones ------ "
+    pp "LearnerTagsSpreadsheet: Competenses/Abilities.................................."
+
+    Milestone.delete_all
+    file = Excel.new('public/Milestones_Sample.xls')
+    file.default_sheet = file.sheets.at(0)
+    2.upto(file.last_row) do |line|
+      mid = file.cell(line, 'A')
+      unless mid.blank?
+        title = file.cell(line, 'B')
+        research_background = file.cell(line, 'C')
+        research_references = file.cell(line, 'D')
+        observation_title = file.cell(line, 'E')
+        observation_desc = file.cell(line, 'F')
+        observation_what_it_means = file.cell(line, 'G')
+        other_occurances = file.cell(line, 'H')
+        parent_as_partner = file.cell(line, 'I')
+        activity_1_title = file.cell(line, 'J')
+        activity_1_subtitle = file.cell(line, 'K')
+        activity_1_set_up = file.cell(line, 'L')
+        activity_1_response = file.cell(line, 'M')
+        activity_1_modification = file.cell(line, 'N')
+        activity_1_later_developments = file.cell(line,'O')
+        activity_1_learning_benefits = file.cell(line,'P')
+        activity_2_title = file.cell(line,'Q')
+        activity_2_subtitle = file.cell(line,'R')
+        activity_2_situation = file.cell(line,'S')
+        activity_2_response = file.cell(line,'T')
+        activity_2_modification = file.cell(line,'U')
+        activity_2_later_developments = file.cell(line,'V')
+        activity_2_learning_benefits = file.cell(line,'W')
+
+#        pp "mid: #{mid}: "
+#        pp "title: #{title}"
+#        pp "research_background: #{research_background}"
+#        pp "research_references: #{research_references}"
+#        pp "observation_title: #{observation_title}"
+#        pp "observation_desc: #{observation_desc}"
+#        pp "observation_what_it_means: #{observation_what_it_means}"
+#        pp "other_occurances: #{other_occurances}"
+
+        Milestone.create(
+          :mid => mid,
+          :title => title,
+          :research_background => research_background,
+          :research_references => research_references,
+          :observation_title => observation_title,
+          :observation_desc => observation_desc,
+          :observation_what_it_means => observation_what_it_means,
+          :other_occurances => other_occurances,
+          :parent_as_partner => parent_as_partner,
+          :activity_1_title => activity_1_title,
+          :activity_1_subtitle => activity_1_subtitle,
+          :activity_1_set_up => activity_1_set_up,
+          :activity_1_response => activity_1_response,
+          :activity_1_modification => activity_1_modification,
+          :activity_1_later_developments => activity_1_later_developments,
+          :activity_1_learning_benefits => activity_1_learning_benefits,
+          :activity_2_title => activity_2_title,
+          :activity_2_subtitle => activity_2_subtitle,
+          :activity_2_situation => activity_2_situation,
+          :activity_2_response => activity_2_response,
+          :activity_2_modification => activity_2_modification,
+          :activity_2_later_developments => activity_2_later_developments,
+          :activity_2_learning_benefits => activity_2_learning_benefits
+        )
+      end
+    end
+
+    pp "------ DONE ------"
+  end
+
   desc "Migrating the all excell documents to database"
   task :all do
 
