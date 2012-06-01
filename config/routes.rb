@@ -32,7 +32,8 @@ Babyfolio::Application.routes.draw do
   resources :moments, :except => [:new, :index] do
       new do
         post :change_provider
-        get ':child_id' => "moments#new", :as => :child                
+        get ':child_id' => "moments#new", :as => :child
+        get ':child_id/milestone/:milestone_id' => "moments#new", :as => :child_milestone
       end
       
       collection do

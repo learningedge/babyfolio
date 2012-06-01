@@ -129,8 +129,26 @@
     </div>
 
     <div id="container_right">
+      <div class="milestone-popup">
+        <div class="button">
+          <%= link_to "Tell us more (what you have seen with #{@selected_child.first_name})", child_milestone_new_moment_path(:child_id => @selected_child.id, :milestone_id => Milestone.first.id), :class => "button-layout-3"%>
+        </div>
+      </div>
+      <%= javascript_include_tag 'jqModal' -%>      
       <div class="logo"></div>
+      <script type="text/javascript">
+        $(function(){
+          $('.popup').jqm();
+          $('#container_right .logo').click(function(){
+            $('.popup').append($('.milestone-popup'));
+            $('.popup').css({left: ($(window).width()/2-$('.popup').width()/2),top: ($(window).height()/2-$('.popup').height()/2+$(window).scrollTop())})
+            $('.popup').jqmShow();
+            return false;            
+          })
+        })
+      </script>
       <div id="most_post">
+        
         <div class="single_post">
           <h1>Getting to Know You Tools</h1>
           <p>

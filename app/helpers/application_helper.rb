@@ -46,6 +46,13 @@ module ApplicationHelper
     
   end
 
+  def smart_truncate(s, opts = {})
+    opts = {:words => 12 }.merge(opts)    
+    a = s.split(/\s/)
+    n = opts[:words] - 1
+    a[0..n].join(' ') + (a.size > n ? '...' : '')
+  end
+
   
 
 #  def youtube_client

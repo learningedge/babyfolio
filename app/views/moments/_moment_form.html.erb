@@ -1,9 +1,6 @@
-<div class="container settings edit-moment">
-
-
+<div class="container settings edit-moment">  
   <%= form_for @moment do |f| %>
-    <%= hidden_field_tag 'cid', @moment.child.id %>
-    <%#= f.hidden_field :user_id, current_user.id %>
+    <%= hidden_field_tag 'cid', @moment.child.id %>    
     <div class="left">
       <div class="options">
 
@@ -12,10 +9,41 @@
           <%= f.text_field :title -%>
         </div>
         <div class="date">
-          <%= f.label :date -%>
+          <%= f.label :date, "Date of moment" -%>
           <%= f.date_select :date,{}, {:class => "select-layout"} -%>          
-        </div>        
-        <div class="clear"></div>
+        </div>                
+        <% if @milestone %>
+          <div class="milestone">
+            <div class="lw-title"><%= @milestone.title -%></div>
+            <div class="observation-title"><%= @milestone.observation_title -%></div>
+            <div class="observation-desc"><%= smart_truncate @milestone.observation_desc, :words => 10  -%><a href="#" class="read-more">(read more)</a></div>
+            <div class="milestone-popup">
+              <div class="description"><%= @milestone.observation_desc -%></div>
+              <div class="button">
+                <a href="#" class="button-layout-3">Copy and paste into moment description</a>
+              </div>
+            </div>
+          </div>
+          <%= javascript_include_tag 'jqModal' -%>
+          <script type="text/javascript">
+            $(function(){
+              $('.popup').jqm();
+              $('.milestone .read-more').click(function(){
+                $('.popup').append($('.milestone-popup'));
+                $('.popup').css({left: ($(window).width()/2-$('.popup').width()/2),top: ($(window).height()/2-$('.popup').height()/2+$(window).scrollTop())})
+                $('.popup').jqmShow();
+                return false;
+              })
+              $('.milestone-popup .button a').click(function(){
+                $('textarea#moment_description').val($('.popup .milestone-popup .description').text());
+                $('.popup').jqmHide();
+                return false;
+              })
+            })
+          </script>
+
+        <% end %>
+
 
         <div class="description">
           <%= f.label :description -%>

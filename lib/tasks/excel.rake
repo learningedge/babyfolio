@@ -526,7 +526,6 @@ namespace :excel do
   desc "Migratinog milestones from excel file = 'Milestones_Sample'"
   task :milestones => :environment do
     pp "------ migrating milestones ------ "
-    pp "LearnerTagsSpreadsheet: Competenses/Abilities.................................."
 
     Milestone.delete_all
     file = Excel.new('public/Milestones_Sample.xls')
@@ -557,40 +556,33 @@ namespace :excel do
         activity_2_later_developments = file.cell(line,'V')
         activity_2_learning_benefits = file.cell(line,'W')
 
-#        pp "mid: #{mid}: "
-#        pp "title: #{title}"
-#        pp "research_background: #{research_background}"
-#        pp "research_references: #{research_references}"
-#        pp "observation_title: #{observation_title}"
-#        pp "observation_desc: #{observation_desc}"
-#        pp "observation_what_it_means: #{observation_what_it_means}"
-#        pp "other_occurances: #{other_occurances}"
+        pp "#{mid}: #{title}"
 
-        Milestone.create(
-          :mid => mid,
-          :title => title,
-          :research_background => research_background,
-          :research_references => research_references,
-          :observation_title => observation_title,
-          :observation_desc => observation_desc,
-          :observation_what_it_means => observation_what_it_means,
-          :other_occurances => other_occurances,
-          :parent_as_partner => parent_as_partner,
-          :activity_1_title => activity_1_title,
-          :activity_1_subtitle => activity_1_subtitle,
-          :activity_1_set_up => activity_1_set_up,
-          :activity_1_response => activity_1_response,
-          :activity_1_modification => activity_1_modification,
-          :activity_1_later_developments => activity_1_later_developments,
-          :activity_1_learning_benefits => activity_1_learning_benefits,
-          :activity_2_title => activity_2_title,
-          :activity_2_subtitle => activity_2_subtitle,
-          :activity_2_situation => activity_2_situation,
-          :activity_2_response => activity_2_response,
-          :activity_2_modification => activity_2_modification,
-          :activity_2_later_developments => activity_2_later_developments,
-          :activity_2_learning_benefits => activity_2_learning_benefits
-        )
+        milestone = Milestone.create(
+                      :mid => mid,
+                      :title => title,
+                      :research_background => research_background,
+                      :research_references => research_references,
+                      :observation_title => observation_title,
+                      :observation_desc => observation_desc,
+                      :observation_what_it_means => observation_what_it_means,
+                      :other_occurances => other_occurances,
+                      :parent_as_partner => parent_as_partner,
+                      :activity_1_title => activity_1_title,
+                      :activity_1_subtitle => activity_1_subtitle,
+                      :activity_1_set_up => activity_1_set_up,
+                      :activity_1_response => activity_1_response,
+                      :activity_1_modification => activity_1_modification,
+                      :activity_1_later_developments => activity_1_later_developments,
+                      :activity_1_learning_benefits => activity_1_learning_benefits,
+                      :activity_2_title => activity_2_title,
+                      :activity_2_subtitle => activity_2_subtitle,
+                      :activity_2_situation => activity_2_situation,
+                      :activity_2_response => activity_2_response,
+                      :activity_2_modification => activity_2_modification,
+                      :activity_2_later_developments => activity_2_later_developments,
+                      :activity_2_learning_benefits => activity_2_learning_benefits
+                    )          
       end
     end
 

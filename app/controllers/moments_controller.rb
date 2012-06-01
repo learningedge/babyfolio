@@ -11,6 +11,11 @@ class MomentsController < ApplicationController
 
   def new
     if current_user.can_edit_child? params[:child_id]
+
+      if params[:milestone_id]
+        @milestone = Milestone.find(params[:milestone_id])
+      end
+
       @moment = Moment.new
       @moment.child = Child.find(params[:child_id])
       @moment_tags = MomentTag.find_all_by_level(nil)

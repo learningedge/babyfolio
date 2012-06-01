@@ -67,6 +67,11 @@ time, mark, audio, video {
 html {height: 100%}
 
 body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd; height: 100%}
+body .popup {display:none;position:absolute;}
+body .popup .milestone-popup {width:300px;padding:30px;background-color:#f5f2dd;border:1px solid black;border-radius:18px;-moz-border-radius: 18px;-webkit-border-radius: 18px;behavior: url(/PIE/PIE.htc)}
+body .popup .milestone-popup .description {font: 14px arial;color:#898989}
+body .popup .milestone-popup .button {text-align:center;padding:20px 0 0}
+
 #page-wrapper {}
 #clear,
 .clear {clear: both;height: 0px}
@@ -326,6 +331,7 @@ hr { margin: 15px 0;  }
 .storybook_container .container #container_left #footer_bg_profile #footer {width:720px}
 
 #wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 762px}
+#wrraper .container #container_right .milestone-popup {display:none}
 #wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
 #wrraper .container #container_right #most_post {margin: 0 0 0 35px}
 #wrraper .container #container_right #most_post .single_post {margin: 0 0 30px;padding: 0 10px 0 0}
@@ -729,6 +735,9 @@ div.submit {float:left;margin-right:20px}
 #new_moment_form .title_property input {width: 330px}
 #new_moment_form .date {margin-bottom: 20px; }
 #new_moment_form .date input {width:80px}
+#new_moment_form .milestone {margin:0px 0px 20px 85px}
+#new_moment_form .milestone .milestone-popup {display:none}
+#new_moment_form .milestone > div{padding:5px 0px;color:#9b7804;font-size: 14px; line-height:16px}
 #new_moment_form .privacy {margin: 10px 0px; text-align:right }
 #new_moment_form .privacy label {width: 124px}
 #new_moment_form .title_property.error div{display:inline}
