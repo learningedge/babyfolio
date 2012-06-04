@@ -2,6 +2,7 @@ require 'roo'
 class Question < ActiveRecord::Base
 
   has_many :answers
+  belongs_to :milestone, :foreign_key => :mid
 
   scope :category_ages, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(3) }
 
