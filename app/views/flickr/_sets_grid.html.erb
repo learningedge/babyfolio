@@ -16,7 +16,7 @@
 
 <% photos_count = photos_not_in_set.length %>
 <% photo_not_in_set = photos_not_in_set.first %>
-  <a href="#" onclick="$.get('<%= photos_flickr_index_url %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut()});return false;">
+  <a href="#" onclick="$.get('<%= photos_flickr_index_url %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut();$('#top-socials-navigation .provider[provider=uploaded-images]').hide()});return false;">
     <span class="image">
       <div class="thumb" style="background: url('<%= FlickRaw.url_s(photo_not_in_set) %>') 0% 0%">
         <span class="count">
@@ -32,7 +32,7 @@
 
   <% sets.each do |set| %>
 
-  <a href="#" onclick="$.get('<%= photos_flickr_index_url %>?set_id=<%= set.id %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut()});return false;">
+  <a href="#" onclick="$.get('<%= photos_flickr_index_url %>?set_id=<%= set.id %>',function(data){$('#flickr-ajax-grid').html(data);$('#flickr-ajax-container .preloader').stop().fadeOut();$('#top-socials-navigation .provider[provider=uploaded-images]').hide()});return false;">
     <span class="image">
       <% info = current_user.flickr_user.photos.getInfo(:photo_id => set.primary) %>
       <div class="thumb" style="background: url('<%= FlickRaw.url_s(info) %>') 0% 0%">

@@ -5,6 +5,7 @@ class MomentTag < ActiveRecord::Base
 
   has_many :relation_moments, :class_name => "MomentTagsMoments"
   has_many :moments, :through => :relation_moments
+  has_and_belongs_to_many :milestones
 
 
   scope :names, select(:name)

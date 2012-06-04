@@ -228,9 +228,14 @@
     })
     
     /* flickr, facebook, vimeo */
-      
-      $('.flickr .flickr-grid .photos .header h2 > a, .flickr .flickr-grid .sets .image, .facebook .facebook-grid .photos .header > a, .facebook .facebook-grid .sets .image').live("click",function(){
+
+      $('.flickr .flickr-grid .photos .back-button, .facebook .facebook-grid .photos .back-button').live("click",function(){
+        $(this).parents('.provider-container').find('.preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});        
+      })
+
+      $('.flickr .flickr-grid .sets .image, .facebook .facebook-grid .sets .image').live("click",function(){
         $(this).parents('.provider-container').find('.preloader').stop().show().css({opacity: 0}).animate({opacity: 0.8});
+        
       })
       $('.multiselect .flickr .flickr-grid .photos .image, .multiselect .facebook .facebook-grid .photos .image, .multiselect .vimeo .video, .multiselect .youtube .video').live("click",function(){
           addSelectedImage($(this));
