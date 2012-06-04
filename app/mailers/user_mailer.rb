@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
 
   def forgot_password(user)
     @user = user
-
+    
     @url = edit_forgot_password_url
     @url += "?token=" + @user.perishable_token
 
@@ -27,6 +27,17 @@ class UserMailer < ActionMailer::Base
     @url = confirmation_accept_invitation_url
     @url += "?token=" + relation.token
     mail(:to => @user.email, :subject => "Join family at Babyfolio")
+  end
+
+  def email_new_moment user, moment
+    unless moment.visibility == Moment::VISIBILITY["Me only"]
+      @user = user
+      @moment = moment
+      logger.info("Zobaczmy objekt child: #{@moment.child.inspect}")
+      logger.info("Zobaczmy objekt user: #{@user.inspect}")
+      friends = (@moment.child.family.users - [@user]).collect {|friend| friend.email}
+      mail(:to => friends, :subcject => "Email to Village" )
+    end
   end
 
 end

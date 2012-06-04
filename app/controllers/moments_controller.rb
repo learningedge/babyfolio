@@ -19,6 +19,7 @@ class MomentsController < ApplicationController
       @moment = Moment.new
       @moment.child = Child.find(params[:child_id])
       @moment_tags = MomentTag.find_all_by_level(nil)
+
     else
       redirect_to errors_permission_path
     end
@@ -48,7 +49,9 @@ class MomentsController < ApplicationController
 
       if moment.save
         flash[:notice] = "Moment has been successfuly created."
+
         unless current_user.is_temporary
+          UserMailer.email_new_moment(current_user, moment).deliver
           if params[:operation_type] == "tag_it"
             redirect_to tag_moments_url :id => moment.id
           elsif params[:operation_type] == "deepen_it"
