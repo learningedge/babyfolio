@@ -15,10 +15,6 @@
     <div class="clear"></div>
   
   <div class="uploaded-images">
-
-    <span id="selected-uploaded-images-photos">
-      <h2>Selected</h2>
-    </span>
     <% unless is_edit_moment %>
       <span id="uploaded-images-ajax-grid"  class="uploaded-images-grid">
 
@@ -74,12 +70,12 @@
       }      
     });
 
-    //singleselect functionality
-    $('.singleselect .uploaded-images .uploaded-images-grid .photos .image').live("click",function(){
-      $('#selected-uploaded-images-photos .selected-image').remove();
-      element = $('<span class="selected-image" id="'+$(this).attr('id')+'" style="background-image: url('+ $(this).attr('thumb_url') +')"><input type="hidden" name="uploaded_images_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')
-      element.appendTo('#selected-uploaded-images-photos');
-    })
+    <%#*//singleselect functionality%>
+    <%#*$('.singleselect .uploaded-images .uploaded-images-grid .photos .image').live("click",function(){%>
+      <%#*//$('#selected-image > *').remove();%>
+      <%#*//element = $('<span class="selected-image" id="'+$(this).attr('id')+'" style="background-image: url('+ $(this).attr('thumb_url') +')"><input type="hidden" name="uploaded_images_pids[]" value="'+$(this).attr('id')+'"/><div class="hover">Remove</div></span>')%>
+      <%#*//element.appendTo('#selected-image');%>
+    <%#*})%>
 
     //selected images functionality
     $('.uploaded-images #selected-uploaded-images-photos .selected-image').live({

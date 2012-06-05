@@ -7,9 +7,11 @@
       <a href="<%= edit_families_path %>">My Family Info</a>
       <a href="<%= family_relations_families_path %>">Friends & Families</a>
     </div>
-    
-    <div class="profile-image" style="width:228px;height:254px;">
-      <%= get_image_tag @child, "large" %>
+
+    <div id="selected-image">
+      <span class="image">
+        <div class="thumb" style="background-image: url(<%= get_image_url @child, "large" -%>)"></div>
+      </span>
     </div>
 
     <div class="submit-btn">
@@ -41,7 +43,7 @@
 
     <hr/>
 
-    <h2>OR flicker</h2>
+    <h2>OR flickr</h2>
     <div id="flickr-ajax-container" class="singleselect">
       <%= render :partial => 'flickr/select_flickr_photos' %>
     </div>
@@ -53,25 +55,29 @@
 </div>
 <script type="text/javascript">
 
+  $('.singleselect .uploaded-images .uploaded-images-grid .photos .image, .flickr .photos .image').live("click", function(){
+    $('#selected-image > *').remove();
+    var clone = $(this).clone();
+    console.log(clone.find(".thumb"));
+    clone.find(".thumb").css({backgroundImage: "url("+$(this).attr("large_url")+")"});
+    clone.find(".title").remove();
+    $('#selected-image').append(clone);
+    $('html,body').animate({scrollTop: $('#selected-image').offset().top});
+  })
+
   $('.flickr .photos .image').live("click", function(){    
     $('#child_profile_image_remote_url').val($(this).attr('url')).attr('name','flickr_photos[]');
-    $('#child_profile_image_id').val($(this).attr('id')).attr('name','flickr_pids[]');    
-    $('#selected-facebook-photos span').remove();
-    $('#selected-uploaded-images-photos span').remove();
+    $('#child_profile_image_id').val($(this).attr('id')).attr('name','flickr_pids[]');        
   })
 
   $('.facebook .image').live("click", function(){    
     $('#child_profile_image_remote_url').val($(this).attr('url')).attr('name','facebook_photos[]');
-    $('#child_profile_image_id').val($(this).attr('id')).attr('name','facebook_pids[]');    
-    $('#selected-flickr-photos span').remove();
-    $('#selected-uploaded-images-photos span').remove();
+    $('#child_profile_image_id').val($(this).attr('id')).attr('name','facebook_pids[]');        
   })
 
   $('.uploaded-images .image').live("click", function(){
     $('#child_profile_image_remote_url').val('').attr('name','uploaded_images_photos[]');
-    $('#child_profile_image_id').val($(this).attr('id')).attr('name','uploaded_images_pids[]');    
-    $('#selected-flickr-photos span').remove();
-    $('#selected-facebook-photos span').remove();
+    $('#child_profile_image_id').val($(this).attr('id')).attr('name','uploaded_images_pids[]');        
   })
 
 </script>

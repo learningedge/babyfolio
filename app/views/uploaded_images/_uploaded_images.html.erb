@@ -1,7 +1,4 @@
 <div class="photos">
-
-  
-
     <div class="header">
         <h2>Photos</h2>
     </div>
@@ -11,7 +8,7 @@
     <% end %>
       
     <% images.each do |photo| %>
-      <span class="image" id="<%=  photo.id %>" thumb_url="<%= photo.image(:moment_thumb) -%>" >
+      <span class="image" id="<%=  photo.id %>" thumb_url="<%= photo.image(:moment_thumb) -%>" large_url="<%= photo.image(:large) -%>" >
         <div class="thumb" style="background-image: url('<%= photo.image(:moment_thumb) -%>')">
         </div>
       </span>

@@ -1,17 +1,22 @@
 module ApplicationHelper
 
   def get_image_tag object, style
+    image_tag get_image_url(object, style)
+  end
+
+
+  def get_image_url object, style
     if object.kind_of? User
       unless object.profile_media.blank?
-        image_tag object.profile_media.image(style)
+        object.profile_media.image(style)
       else
-        image_tag "/images/default_images/user_profile_#{style}.png"
+        "/images/default_images/user_profile_#{style}.png"
       end
     elsif object.kind_of? Child
       if !object.media.blank? and !object.media.image_file_size.blank?
-        image_tag object.media.image(style)
-      else        
-        image_tag "/images/default_images/child_profile_#{style}.png"
+        object.media.image(style)
+      else
+        "/images/default_images/child_profile_#{style}.png"
       end
     end
   end

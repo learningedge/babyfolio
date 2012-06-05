@@ -538,6 +538,7 @@ div.submit {float:left;margin-right:20px}
 
 /* flickr facebook uploaded-images */
 
+
 #flickr-ajax-container, 
 #facebook-ajax-container,
 #uploaded-images-ajax-container {position:relative}
@@ -581,6 +582,9 @@ div.submit {float:left;margin-right:20px}
 .facebook-grid .image .checkbox-radiobutton, .flickr-grid .image .checkbox-radiobutton, .uploaded-images-grid .image .checkbox-radiobutton {position:absolute;display:none}
 .facebook-grid .back-button, .flickr-grid .back-button {padding:10px 0px}
 
+#selected-image .image {display:inline-block;text-align:center;position:relative;width:228px;vertical-align:top;font-size:14px;margin:2px}
+#selected-image .image .thumb {border:1px solid #9b7804;border-radius:4px;-moz-border-radius: 4px;-webkit-border-radius: 4px;/*behavior: url(/PIE/PIE.htc)*/;width:228px;height:254px;overflow:hidden; background-position: center; background-size: cover; background-repeat: no-repeat;}
+#selected-image .image .checkbox-radiobutton {position:absolute;display:none}
 /* flickr facebook uploaded-images in registration process */
 
 .registration-process .user-form input[type=submit].registration-submit-button,
