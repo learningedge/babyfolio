@@ -2,6 +2,10 @@
   <div id="title">Register</div>
   <div class="user-form">
     <%= form_for @user, :url => account_path(@user), :method => :post do |f| -%>
+      <div class="header">
+        <h2>Create a SmarterFolio account</h2>
+        <div>or <%= link_to "log in here!", login_path -%></div>
+      </div>
       <div id="login_left">
 	<h4>Have a Facebook account?</h4>
 	<div id="fblogin_link">
@@ -9,31 +13,55 @@
 	  CONNECT >>
 	  <% end %>
 	</div>
-	<span class="note">We will never post to Facebook without your permission.</span>
+	<div class="note">We will never post to Facebook without your permission.</div>
       </div>
       <div id="login_right">
-	<%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+        <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+        <div class="conditions">
+          <%= label_tag "accept_terms" do %>
+               <%= check_box_tag "accept_terms", true, @accept_terms %>
+               Agree to the terms of service. You agree that and that and that and the text can be as long as you like. Whatever terms of service have to be aggred to prior to further usage of Babyfolio application.
+          <% end %><br/><br/>
+        </div>
+        <div class="conditions">
+          <%= f.label :newsletter do %>
+               <%= f.check_box :newsletter %>
+               Singup to our newsletter.
+          <% end %><br/><br/>
+        </div>
+
+        <div class="submit">
+          <%= f.submit "Register" %>
+        </div>
       </div>
       <div class="clear"></div>
-      <div>
-	<%= label_tag "accept_terms" do %>
-   	   <%= check_box_tag "accept_terms", true, @accept_terms %>
-   	   Agree to the terms of service. You agree that and that and that and the text can be as long as you like. Whatever terms of service have to be aggred to prior to further usage of Babyfolio application.
-	<% end %><br/><br/>
-      </div>
-
-      <div>
-	<%= f.label :newsletter do %>
-   	   <%= f.check_box :newsletter %>
-   	   Singup to our newsletter.
-	<% end %><br/><br/>
-      </div>
-
-      <div class="submit">
-        <%= f.submit "Register" %>
-      </div>
     <% end %>
   </div>
   <div class="clear"></div>
   
 </div>
+
+<%
+   popup_settings = {
+     "height" => 545,
+     "width" => 1020,
+     "status" => 0,
+     "toolbar" => 0
+   }
+
+   settings = popup_settings.collect{|key,value|  key + '=' + value.to_s}.join(',')
+%>
+
+
+<script type="text/javascript">
+
+function open_popup_login(href) {
+  var left = (screen.width - <%= popup_settings["width"] %>)/2;
+  var top = (screen.height - <%= popup_settings["height"] %>)/2;
+  var text = "facebook_login";
+  var settings = "<%= settings -%>, top=" + top + ",left=" + left;
+
+  window.open(href, text, settings);
+}
+
+</script>
