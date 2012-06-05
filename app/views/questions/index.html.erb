@@ -20,7 +20,7 @@
     
     <%= form_tag @form_link, :class => "questions_form" do %>
       <%= hidden_field_tag "child", @child.id %>
-      <%= hidden_field_tag @is_initial %>
+      <%= hidden_field_tag "is_initial", @is_initial %>
       <% @categories_with_questions.each do |cat|  %>
         <div class="single_question_category">
           <div class="question_category_title"><%= cat[:category] %></div>
