@@ -17,8 +17,10 @@
       </div>
     <% end %>
 
-    <%= form_tag complete_questionnaire_url, :class => "questions_form" do %>
-      <%= hidden_field_tag "level", @level %>
+    
+    <%= form_tag @form_link, :class => "questions_form" do %>
+      <%= hidden_field_tag "child", @child.id %>
+      <%= hidden_field_tag @is_initial %>
       <% @categories_with_questions.each do |cat|  %>
         <div class="single_question_category">
           <div class="question_category_title"><%= cat[:category] %></div>
@@ -30,7 +32,9 @@
           <% questions_by_age.sort_by{|key,val| key}.each do |k,v|  %>
             <div class="age">
               
-              <% v.each do |q| %>               
+              <% v.each do |q| %>
+                <%#= @answerss.inspect %>
+                <%#= @answers.inspect %>
                 <div class="single_question <%=  'questions_error' if @answers && @answers[q.id.to_s].blank? %>">
                   <%= hidden_field_tag "question_ids[]", q.id %>
                   <span class="question_text">[<%= q.age %>] <%= @child.replace_question_forms(q.text) %></span>
@@ -51,9 +55,7 @@
 
         </div>
       <% end %>
-
-      <%= hidden_field_tag 'next_child', @next_child if @next_child %>
-      <%= hidden_field_tag 'current_child', @current_child %>
+      
       <div class="submit">
         <%= submit_tag (@next_child != nil ? "Submit & go next" : "Submit answers")  %>
       </div>
@@ -71,89 +73,89 @@
     $('#child_images_slider img').first().css({opacity: 1});  // IE Fix    
     scroll_images();    
     
-    if('advanced' == level) {
-      $('.single_question_category').each(function() {        
-        $(this).find('.age').first().addClass('hidden');
-        $(this).find('.age').last().addClass('hidden');
-        $(this).find('.age').last().prev().addClass('hidden');
-        if(m_old == 0) { $(this).find('.age').first().removeClass('hidden'); }
-      });
-    } else if(level == "") {
-      $('.single_question_category').each(function() {
-        $(this).find('.age').last().addClass('hidden');
-        $(this).find('.age').last().prev().addClass('hidden');
-      });
-    }
+    <%#*if('advanced' == level) {%>
+      <%#*$('.single_question_category').each(function() {%>
+        <%#*$(this).find('.age').first().addClass('hidden');%>
+        <%#*$(this).find('.age').last().addClass('hidden');%>
+        <%#*$(this).find('.age').last().prev().addClass('hidden');%>
+        <%#*if(m_old == 0) { $(this).find('.age').first().removeClass('hidden'); }%>
+      <%#*});%>
+    <%#*} else if(level == "") {%>
+      <%#*$('.single_question_category').each(function() {%>
+        <%#*$(this).find('.age').last().addClass('hidden');%>
+        <%#*$(this).find('.age').last().prev().addClass('hidden');%>
+      <%#*});%>
+    <%#*}%>
     
-    $('.age').each(function() {
-      if( beyond_always_selected_for_age($(this)) ) {
-        if($(this).next('.age').length > 0) {
-            $(this).next('.age').show().removeClass('hidden');
-        }
-      }
-   });
+    <%#*$('.age').each(function() {%>
+      <%#*if( beyond_always_selected_for_age($(this)) ) {%>
+        <%#*if($(this).next('.age').length > 0) {%>
+            <%#*$(this).next('.age').show().removeClass('hidden');%>
+        <%#*}%>
+      <%#*}%>
+   <%#*});%>
   
-    $('.answer_radio').change(function() {      
-      if( show_above( $(this).parents('.age'))  ) {
-        if($(this).parents('.age').next('.age').length > 0) {
-            $(this).parents('.age').next('.age').slideDown().removeClass('hidden');
-        }
-      }      
-      if(show_below($(this).parents('.single_question_category'))) {        
-        $(this).parents('.single_question_category').find('.age:visible').first().prev().slideDown();
-      }      
-    });
+    <%#*$('.answer_radio').change(function() {%>
+      <%#*if( show_above( $(this).parents('.age'))  ) {%>
+        <%#*if($(this).parents('.age').next('.age').length > 0) {%>
+            <%#*$(this).parents('.age').next('.age').slideDown().removeClass('hidden');%>
+        <%#*}%>
+      <%#*}%>
+      <%#*if(show_below($(this).parents('.single_question_category'))) {%>
+        <%#*$(this).parents('.single_question_category').find('.age:visible').first().prev().slideDown();%>
+      <%#*}%>
+    <%#*});%>
 
-    $('.questions_form').submit(function() {
-      $(this).find('.age:hidden').remove();
-    });
+    <%#*$('.questions_form').submit(function() {%>
+      <%#*$(this).find('.age:hidden').remove();%>
+    <%#*});%>
   }); 
 
-  function beyond_always_selected_for_age(age) {
-    var is_beyond = false;
-    var questions = $(age).find('.single_question');
-    if ($(age).find('.answer_radio[value="always_or_beyond"]:checked').length == questions.length){
-        is_beyond = true;
-    }    
-    return is_beyond;
-  }
+  <%#*function beyond_always_selected_for_age(age) {%>
+    <%#*var is_beyond = false;%>
+    <%#*var questions = $(age).find('.single_question');%>
+    <%#*if ($(age).find('.answer_radio[value="always_or_beyond"]:checked').length == questions.length){%>
+        <%#*is_beyond = true;%>
+    <%#*}%>
+    <%#*return is_beyond;%>
+  <%#*}%>
 
-  function show_below(ages_parent) {
-    var result = false;
-    if(calculate_age_score($(ages_parent).find('.age:visible').first()) == 0) {      
-      result = true;
-    }    
-    return result;
-  }  
+  <%#*function show_below(ages_parent) {%>
+    <%#*var result = false;%>
+    <%#*if(calculate_age_score($(ages_parent).find('.age:visible').first()) == 0) {%>
+      <%#*result = true;%>
+    <%#*}%>
+    <%#*return result;%>
+  <%#*}%>
 
-  function show_above(age) {
-   var result = false;
-   if('always' == level) {
-      if(calculate_age_score($(age)) >= 1.0) {
-        result = true;
-      }
-   } else {
-      result = beyond_always_selected_for_age(age);
-   }
-   return result;
-  }
+  <%#*function show_above(age) {%>
+   <%#*var result = false;%>
+   <%#*if('always' == level) {%>
+      <%#*if(calculate_age_score($(age)) >= 1.0) {%>
+        <%#*result = true;%>
+      <%#*}%>
+   <%#*} else {%>
+      <%#*result = beyond_always_selected_for_age(age);%>
+   <%#*}%>
+   <%#*return result;%>
+  <%#*}%>
 
-  function calculate_age_score(age) {
-    if($(age).find('.answer_radio:checked').length == $(age).find('.single_question').length) {
-      var value = 0.0;
-      var count = 0.0;
-      $(age).find('.answer_radio:checked').each(function() {
-        count += 1.0;
-        var tmp_val =  $(this).val();
-        if(tmp_val == "emerging") { value += 1.0; }
-        if(tmp_val == "Frequent") { value += 2.0; }
-        if(tmp_val == "always_or_beyond") { value += 3.0; }
-      });
-      return value/count;
-    }else {
-      return -1.0;
-    }
-  }
+  <%#*function calculate_age_score(age) {%>
+    <%#*if($(age).find('.answer_radio:checked').length == $(age).find('.single_question').length) {%>
+      <%#*var value = 0.0;%>
+      <%#*var count = 0.0;%>
+      <%#*$(age).find('.answer_radio:checked').each(function() {%>
+        <%#*count += 1.0;%>
+        <%#*var tmp_val =  $(this).val();%>
+        <%#*if(tmp_val == "emerging") { value += 1.0; }%>
+        <%#*if(tmp_val == "Frequent") { value += 2.0; }%>
+        <%#*if(tmp_val == "always_or_beyond") { value += 3.0; }%>
+      <%#*});%>
+      <%#*return value/count;%>
+    <%#*}else {%>
+      <%#*return -1.0;%>
+    <%#*}%>
+  <%#*}%>
 
   function scroll_images(vis) {
     setTimeout(function() {      

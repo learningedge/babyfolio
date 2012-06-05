@@ -4,16 +4,15 @@ class Question < ActiveRecord::Base
   has_many :answers
   belongs_to :milestone, :foreign_key => :mid
 
-  scope :category_ages, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(3) }
-
-  scope :category_ages_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(1) }
-  scope :category_ages_2_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(3) }
-  scope :category_ages_above, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(4) }
+  scope :category_ages, lambda { |age, cat, dir, count, order| select('distinct age').where(['age ' + dir + ' ? and category= ?', age, cat]).order('age ' + order).limit(count) }
+#  scope :category_ages_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(1) }
+#  scope :category_ages_2_below, lambda { |age, cat| select('distinct age').where(['age < ? and category= ?', age, cat]).order('age DESC').limit(3) }
+#  scope :category_ages_above, lambda { |age, cat| select('distinct age').where(['age >= ? and category= ?', age, cat]).order('age ASC').limit(4) }
   
   scope :question_categories, select('distinct category') 
-  scope :for_age_and_category, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages(months, cat).map{|q| q.age}), cat])}
-  scope :for_age_and_category_basic, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages_below(months, cat).map{|q| q.age}), cat])}
-  scope :for_age_and_category_advanced, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages_2_below(months, cat).map{|q| q.age} + category_ages_above(months, cat).map{|q| q.age}), cat])}
+  scope :for_age_and_category, lambda { |months, cat, dir, count, order| where(["age in (?) AND category =?", (category_ages(months, cat, dir, count, order).map{|q| q.age}), cat])}
+#  scope :for_age_and_category_basic, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages_below(months, cat).map{|q| q.age}), cat])}
+#  scope :for_age_and_category_advanced, lambda { |months, cat| where(["age in (?) AND category =?", (category_ages_2_below(months, cat).map{|q| q.age} + category_ages_above(months, cat).map{|q| q.age}), cat])}
   
   ANSWERS = {
     'not_yet' => { :val => 'Not Yet', :order => 0, :score => 0},
@@ -41,17 +40,7 @@ class Question < ActiveRecord::Base
     return @all_categories
   end
 
-  def self.get_questions_for_age age, level = nil
-    hash = Hash.new
-    get_all_categories.each do |category|
-      if level == "advanced"
-        hash[category] = for_age_and_category_advanced(age, category).all
-      elsif level == "basic"
-        hash[category] = for_age_and_category_basic(age, category).all
-      else
-        hash[category] = for_age_and_category(age, category).all
-      end
-    end
+  def self.order_categories hash
     new_array = Array.new
     CATEGORIES.each do |c|
       if hash[c]
@@ -60,5 +49,33 @@ class Question < ActiveRecord::Base
     end
     new_array
   end
+
+  def self.get_questions_for_age age, dir = '<=', how_many = 1, order = 'DESC', categories = nil
+    hash = Hash.new
+    categories = get_all_categories unless categories
+    categories.each do |category|
+        hash[category] = for_age_and_category(age, category, dir, how_many, order).all
+    end
+    return order_categories(hash)
+  end
+
+  def self.get_questions_for_age_range age, below, above, categories = nil
+    hash = Hash.new
+    categories = get_all_categories unless categories
+    categories.each do |category|
+        hash[category] = for_age_and_category(age, category, '<=', below + 1, 'DESC').all
+        hash[category] += for_age_and_category(age, category, '>', above, 'ASC').all
+    end
+    return order_categories(hash)
+  end
+
+#  def self.get_questions_below_age age, how_many = 1 , categories = nil
+#    hash = Hash.new
+#    categories = get_all_categories unless categories
+#    categories.each do |category|
+#        hash[category] = for_age_and_category(age, category, '<', how_many).all
+#    end
+#    return order_categories(hash)
+#  end
   
 end

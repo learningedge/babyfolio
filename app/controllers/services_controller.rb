@@ -75,7 +75,7 @@ class ServicesController < ApplicationController
             @user = User.find_by_email(@authhash[:email])
             unless @user
             	@user = User.new(:email => @authhash[:email], :email_confirmed => 1)			
-	    	@user.reset_password
+              @user.reset_password
             	@user.reset_perishable_token
 	    end
 	    @user.first_name ||= @authhash[:first_name]
