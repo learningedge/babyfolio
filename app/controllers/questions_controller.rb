@@ -3,13 +3,16 @@ class QuestionsController < ApplicationController
   before_filter :require_family_with_child
 
   def index
-
+    flash[:no_alert] = true
     @is_initial = true
     @child = current_user.own_children.includes(:answers).find(params[:child])
-#    @answers = Hash.new
-#    @answerss = @child.answers.map{|a| {a.id.to_s => a.value}}.flatten.each { |i|
-#      @answers[i.key] = i.value
-#    }
+    @answers = Hash.new
+    @child.answers.each do |a|
+      @answers[a.question_id.to_s] = a.value
+    end
+
+
+#    render :text => @answers.inspect
     if params[:level] == 'basic'
       @form_link = complete_questionnaire_basic_url
       @categories_with_questions = Question.get_questions_for_age(@child.months_old, '<', 1, 'DESC')
@@ -20,11 +23,12 @@ class QuestionsController < ApplicationController
       @form_link = complete_questionnaire_url
       @categories_with_questions = Question.get_questions_for_age(@child.months_old)
     end
-    
-    @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq    
+
+    @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
   end
 
   def complete_questionnaire
+    flash[:no_alert] = nil
     scores = []
     child_id = params[:child].to_i
     @categories_with_questions = []
@@ -59,13 +63,15 @@ class QuestionsController < ApplicationController
               @categories_with_questions_single = Question.get_questions_for_age(c.age , '>', 2, 'ASC', c.category)
               @categories_with_questions += @categories_with_questions_single;
             end
+            @is_initial = false
           end
         end
         flash[:notice] = "Questionnaire successfuly submitted."
 
       else  #   RELOAD QUESTIONS WITH ANSWERS IF ALL OF THE QUESTIONS HAVENT BEEN ANSWERED
         @answers = params[:question_answers]
-        @categories_with_questions  = Question.find(params[:question_ids]).group_by{|q| q.category}.map{ | k,v | { :category => k, :questions => v} }
+        @is_initial = params[:is_initial]
+        @categories_with_questions  = Question.order_categories(Question.find(params[:question_ids]).group_by{|q| q.category})
         flash[:notice] = "You need to answer all questions before proceeding."
       end
 
@@ -74,8 +80,7 @@ class QuestionsController < ApplicationController
     end
 
 #    IF THERE ARE ANY QUESTIONS TO DISPLAY COLLECT ALL NECESSARY INFORMATION AND DISPLAY INDEX VIEW
-    if @categories_with_questions.length > 0
-      @is_initial = false
+    if @categories_with_questions.length > 0      
       @child = current_user.own_children.includes(:answers).find(child_id)
       @level = params[:level]
       @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
