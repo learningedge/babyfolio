@@ -379,6 +379,10 @@ div.user-form #login_left div.submit {margin-left: 80px;}
 #fblogin_link { margin-top: 20px; }
 #or { position: absolute; top: 50%; left: 409px; background-color: #E8E3C0; padding: 5px 0;  } 
 
+#new_user #login_left {width:200px}
+#new_user #login_right {width:420px}
+
+
 .user-form {float:right;position: relative;background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);width:720px;padding: 30px 20px 30px 50px;font: 14px arial; color:#898989}
 /*.user-form h2 {margin-bottom:20px}*/
 .user-form #errorExplanation {padding-bottom:20px}

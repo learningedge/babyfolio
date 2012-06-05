@@ -2,13 +2,26 @@
   <div id="title">Register</div>
   <div class="user-form">
     <%= form_for @user, :url => account_path(@user), :method => :post do |f| -%>
-      <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+      <div id="login_left">
+	<h4>Have a Facebook account?</h4>
+	<div id="fblogin_link">
+	  <%= link_to '/auth/facebook?display=popup', :onclick => "open_popup_login(this.href); return false;" do %>
+	  CONNECT >>
+	  <% end %>
+	</div>
+	<span class="note">We will never post to Facebook without your permission.</span>
+      </div>
+      <div id="login_right">
+	<%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+      </div>
+      <div class="clear"></div>
       <div>
 	<%= label_tag "accept_terms" do %>
    	   <%= check_box_tag "accept_terms", true, @accept_terms %>
    	   Agree to the terms of service. You agree that and that and that and the text can be as long as you like. Whatever terms of service have to be aggred to prior to further usage of Babyfolio application.
 	<% end %><br/><br/>
       </div>
+
       <div>
 	<%= f.label :newsletter do %>
    	   <%= f.check_box :newsletter %>

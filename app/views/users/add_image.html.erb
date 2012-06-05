@@ -53,7 +53,7 @@
 </div>
 <script type="text/javascript">
 
-  $('.singleselect .uploaded-images .uploaded-images-grid .photos .image, .flickr .photos .image').live("click", function(){
+  $('.singleselect .uploaded-images .uploaded-images-grid .photos .image, .flickr .photos .image, .facebook .photos .image').live("click", function(){
     $('#selected-image > *').remove();
     var clone = $(this).clone();
     console.log(clone.find(".thumb"));
@@ -68,7 +68,7 @@
     $('#user_profile_image_id').val($(this).attr('id')).attr('name','flickr_pids[]');        
   })
 
-  $('.facebook .image').live("click", function(){
+  $('.facebook .photos .image').live("click", function(){
     $('#user_profile_image_remote_url').val($(this).attr('url')).attr('name','facebook_photos[]');
     $('#user_profile_image_id').val($(this).attr('id')).attr('name','facebook_pids[]');    
   })

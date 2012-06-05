@@ -5,6 +5,9 @@
 
   <div class="facebook">
 
+
+
+
     <span id="facebook-ajax-grid"  class="facebook-grid">
 
 	  <%= render :partial => 'facebook/albums' %>

@@ -6,7 +6,8 @@
 
 <% @photos.each do |photo| %>
   <%# index = photo.images.index {|img| img.width <= 180} %>
-      <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>">
+      <% logger.info("FACEBOOK: #{photo.images.inspect}") %>
+      <span class="image facebook-image" id="<%= photo.identifier %>" url="<%= photo.source %>" thumb_url="<%= photo.images[-2].source %>" large_url="<%=  photo.images[3].source -%>">
     <div class="thumb" style="background-image: url('<%= photo.images[-2].source %>')">
     </div>
     <div class="title">
