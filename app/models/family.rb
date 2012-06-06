@@ -13,7 +13,7 @@ class Family < ActiveRecord::Base
 
   scope :parenting_families, where( :relations => { :member_type => [Relation::MEMBER_TYPE[:PARENT], Relation::MEMBER_TYPE[:MOTHER], Relation::MEMBER_TYPE[:FATHER]] } )
   scope :accepted, where( :relations => {:accepted => true})
-  
+  scope :ids, select("families.id")
 
   def parents
     relations.includes(:user).where(:member_type => [Relation::MEMBER_TYPE[:PARENT], Relation::MEMBER_TYPE[:FATHER], Relation::MEMBER_TYPE[:MOTHER]]).all

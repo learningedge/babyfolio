@@ -36,6 +36,7 @@ class MomentsController < ApplicationController
 
       moment = Moment.new(params[:moment])
       moment.child_id = params[:cid]
+      moment.user_id = current_user.id
       media.each do |m|
         moment.attachments.build({ :media => m})
       end
@@ -51,7 +52,9 @@ class MomentsController < ApplicationController
         flash[:notice] = "Moment has been successfuly created."
 
         unless current_user.is_temporary
-          UserMailer.email_new_moment(current_user, moment).deliver
+          unless moment.visibility == Moment::VISIBILITY["Me only"]
+            UserMailer.email_new_moment(current_user, moment).deliver
+          end
           if params[:operation_type] == "tag_it"
             redirect_to tag_moments_url :id => moment.id
           elsif params[:operation_type] == "deepen_it"
@@ -81,6 +84,7 @@ class MomentsController < ApplicationController
   def edit
     @moment = Moment.find(params[:id])
     @moment_tags = MomentTag.find_all_by_level(nil)
+    logger.info("INFO #{@moment.can_be_viewed? current_user}");
     unless current_user.can_edit_child? @moment.child.id
       redirect_to errors_permission_path
     end
@@ -133,6 +137,9 @@ class MomentsController < ApplicationController
   end
 
   def destroy
+    @moment = Moment.find(params[:id])
+    @moment.update_attribute(:visibility, Moment::ARCHIVED)
+    redirect_to child_profile_children_path(:child_id => @moment.child.id)
   end
 
   def tag_moment
@@ -211,8 +218,10 @@ class MomentsController < ApplicationController
   def connect_it
     @moment = Moment.find(params[:id])
     if current_user.can_edit_child? @moment.child_id
-      
-      all_child_moments_ids = Moment.ids.where(:child_id => @moment.child_id)
+
+      logger.info("INFO: #{Moment::ARCHIVED}")
+
+#      all_child_moments_ids = Moment.ids.where(["moments.child_id = ? and moments.visibility NOT IN (?)",@moment.child_id, Moment::ARCHIVED])
       all_child_moments_ids = Moment.ids.where(:child_id => @moment.child_id)
       all_child_moments_ids = ((all_child_moments_ids.select { |moment_id| moment_id.id != @moment.id}).collect { |moment| moment.id}).join(", ")
       current_moment_tag_ids = ((MomentTagsMoments.moment_tag_ids.where(:moment_id => @moment.id)).collect { |moment_tag| moment_tag.moment_tag_id }).join(", ")
@@ -223,7 +232,7 @@ class MomentsController < ApplicationController
         unless current_moment_tag_ids.blank?
           query += "AND moment_tag_id IN (#{current_moment_tag_ids}) "
         end
-        query += "GROUP BY moment_id ORDER BY count DESC ) AS moment_tags_count ON (moment_tags_count.moment_id = id) WHERE id NOT IN (#{@moment.id}) ORDER BY count DESC LIMIT 40"
+        query += "GROUP BY moment_id ORDER BY count DESC ) AS moment_tags_count ON (moment_tags_count.moment_id = id) WHERE id NOT IN ('#{@moment.id}') AND moments.visibility NOT IN ('#{Moment::ARCHIVED}') AND moments.child_id = #{@moment.child_id} ORDER BY count DESC LIMIT 40"
         count_moment_ids = Moment.find_by_sql(query)
       else
         count_moment_ids = false;
