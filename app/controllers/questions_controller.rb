@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_filter :require_family_with_child
 
   def index
-    flash[:no_alert] = true
+    flash[:no_alert] = true  # DONT MARK QUESTIONS AS BEING REQUIRED TO ANSWER AT THE FIRST QUESTIONAIRE DISPLAY
     @is_initial = true
     @child = current_user.own_children.includes(:answers).find(params[:child])
     @answers = Hash.new
@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
           scores << score
         end        
 
-#        SELECT MAX SCORED CATEGORY AND LOAD 2 MORE LEVELS IF INITIAL FORM IS SUBMITTED 
+#        SELECT MAX SCORED CATEGORY AND LOAD 2 MORE LEVELS AFTER INITIAL FORM IS SUBMITTED
         if params[:is_initial] == "true"
           max_score = scores.map{|sc| sc.value}.max
           categories = scores.select{ |s| s.value == max_score }
@@ -80,8 +80,14 @@ class QuestionsController < ApplicationController
     end
 
 #    IF THERE ARE ANY QUESTIONS TO DISPLAY COLLECT ALL NECESSARY INFORMATION AND DISPLAY INDEX VIEW
-    if @categories_with_questions.length > 0      
+    if @categories_with_questions.length > 0
       @child = current_user.own_children.includes(:answers).find(child_id)
+      if @answers.blank?
+        @answers = Hash.new
+          @child.answers.each do |a|
+            @answers[a.question_id.to_s] = a.value
+          end
+      end
       @level = params[:level]
       @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
       render :index
