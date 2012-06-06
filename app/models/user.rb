@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_one :attachment, :as => :object
   has_one :profile_media, :through => :attachment, :source => :media
 
+  scope :ids, select("users.id")
   def is_parent?
     !self.relations.is_parent.empty?
   end
