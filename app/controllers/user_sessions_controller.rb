@@ -30,10 +30,10 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    Log.create_log(current_user.id, ["User logout successful!"])
     current_user_session.destroy
     reset_session
-    flash[:notice] = "Logout successful!"
-    Log.create_log(current_user.id, ["User logout successful!"])
+    flash[:notice] = "Logout successful!"    
     redirect_back_or_default login_path
     
   end
