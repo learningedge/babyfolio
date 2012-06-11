@@ -51,6 +51,14 @@ class MomentsController < ApplicationController
       if moment.save
         flash[:notice] = "Moment has been successfuly created."
 
+        log_description = Array.new
+        log_description << "MOMENT ##{moment.id} CREATED:"
+        log_description << "Child: #{moment.child.first_name}"
+        log_description << "Title: #{moment.title}"
+        log_description << "Tags: #{(moment.moment_tags.collect {|moment_tag| moment_tag.name}).join(', ')}" unless moment.moment_tags.blank?
+
+        Log.create_log current_user.id, log_description
+        
         unless current_user.is_temporary
           unless moment.visibility == Moment::VISIBILITY["Me only"]
             UserMailer.email_new_moment(current_user, moment).deliver
@@ -115,6 +123,14 @@ class MomentsController < ApplicationController
 
       if moment.update_attributes(params[:moment])
         flash[:notice] = "Moment has been successfuly updated."
+        
+        log_description = Array.new
+        log_description << "MOMENT ##{moment.id} UPDATED:"
+        log_description << "Title: #{moment.title}"
+        log_description << "Tags: #{(moment.moment_tags.collect {|moment_tag| moment_tag.name}).join(', ')}" unless moment.moment_tags.blank?
+
+        Log.create_log current_user.id, log_description
+
         if params[:operation_type] == "tag_it"
           redirect_to tag_moments_path :id => moment.id
         elsif params[:operation_type] == "deepen_it"
@@ -139,6 +155,12 @@ class MomentsController < ApplicationController
   def destroy
     @moment = Moment.find(params[:id])
     @moment.update_attribute(:visibility, Moment::ARCHIVED)
+    log_description = Array.new
+    log_description << "MOMENT ##{@moment.id} ARCHIVED:"
+    log_description << "Title: #{@moment.title}"
+    
+    Log.create_log current_user.id, log_description
+
     redirect_to child_profile_children_path(:child_id => @moment.child.id)
   end
 
@@ -174,7 +196,13 @@ class MomentsController < ApplicationController
     moment.moment_tags = moment.moment_tags - moment_tags_to_destroy
     moment.moment_tags = moment.moment_tags + moment_tags_to_add
     moment.save
+    
+    log_description = Array.new
+    log_description << "MOMENT ##{moment.id} TAGGED:"
+    log_description << "Title: #{moment.title}"
+    log_description << "Tags: #{(moment.moment_tags.collect {|moment_tag| moment_tag.name}).join('; ')}" unless moment.moment_tags.blank?
 
+    Log.create_log current_user.id, log_description
     
     flash[:notice] = "Moment Tags have been successfuly updated."
     if params[:operation_type] == "deepen_it"
@@ -197,7 +225,7 @@ class MomentsController < ApplicationController
     moment = Moment.find(params[:id])
     
     if moment.update_attributes(params[:moment])
-      
+
       flash[:notice] = "Moment have been successfuly updated."
       if params[:operation_type] == "tag_it"
         redirect_to tag_moments_url :id => moment.id
@@ -219,9 +247,7 @@ class MomentsController < ApplicationController
     @moment = Moment.find(params[:id])
     if current_user.can_edit_child? @moment.child_id
 
-      logger.info("INFO: #{Moment::ARCHIVED}")
 
-#      all_child_moments_ids = Moment.ids.where(["moments.child_id = ? and moments.visibility NOT IN (?)",@moment.child_id, Moment::ARCHIVED])
       all_child_moments_ids = Moment.ids.where(:child_id => @moment.child_id)
       all_child_moments_ids = ((all_child_moments_ids.select { |moment_id| moment_id.id != @moment.id}).collect { |moment| moment.id}).join(", ")
       current_moment_tag_ids = ((MomentTagsMoments.moment_tag_ids.where(:moment_id => @moment.id)).collect { |moment_tag| moment_tag.moment_tag_id }).join(", ")
@@ -250,10 +276,26 @@ class MomentsController < ApplicationController
     moment = Moment.find(params[:id])
 
     params[:related_moment].blank? ? connected_moments = [] : connected_moments = Moment.find(params[:related_moment])
-
+    connected_moment_children_difference = moment.connected_moment_children - connected_moments
     moment.connected_moment_children = connected_moments
+    connected_moments.each do |connected_moment|
+      connected_moment.connected_moment_children << moment
+    end
 
-    logger.info "VALUES: " + moment.connected_moment_children.inspect
+    connected_moment_children_difference.each do |difference_moment|
+      difference_moment.connected_moment_children = difference_moment.connected_moment_children - difference_moment.connected_moment_children.where(["moment_connections.connected_child_id = ?", moment.id])
+    end
+
+    log_description = Array.new
+    log_description << "MOMENT ##{moment.id} CONNECTED:"
+    log_description << "Title: #{moment.title}"
+    moment.connected_moment_children.each do |connected_moment|
+      log_description << "Connected: #{connected_moment.title}"
+    end
+    connected_moment_children_difference.each do |difference_moment|
+      log_description << "Disconneted: #{difference_moment.title}"
+    end
+    Log.create_log current_user.id, log_description
 
     if params[:operation_type] == "tag_it"
       redirect_to tag_moments_url :id => moment.id
@@ -341,8 +383,5 @@ class MomentsController < ApplicationController
     end
      
   end
-
-
-
 
 end
