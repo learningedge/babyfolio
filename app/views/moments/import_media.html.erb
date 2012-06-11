@@ -40,7 +40,8 @@
       <% unless @next_child.nil? %>
         <%= link_to "Skip",import_media_moments_path(:child_id => @next_child.id), :class => "submit-button" -%>
       <% else %>
-        <%= link_to "Finish", child_profile_children_path, :class => "submit-button" -%>
+        <%= link_to "Finish", questions_url({:child => current_user.own_children.first.id }), :class => "submit-button" -%>
+        <%#= link_to "Finish", child_profile_children_path, :class => "submit-button" -%>
       <% end %>
     </div>
   </div>

@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base    
-
   self.per_page = 5
 
   acts_as_authentic do |t|

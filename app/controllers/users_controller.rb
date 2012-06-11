@@ -146,18 +146,16 @@ class UsersController < ApplicationController
       end
     else
       if ft.blank?
-        flash[:notice] = "You have your profile already."
-      else
-        child = my_family.children.first
+        flash[:notice] = "You have your profile already."              
       end
-      
+      child = current_user.own_children.first
     end
 
     unless ft.blank?
-        redirect_to child_new_moment_url(:child_id => child.id )
-      else
-        redirect_to questions_url
-      end
+      redirect_to child_new_moment_url(:child_id => child.id )
+    else
+      redirect_to questions_url(:child => child.id, :level => 'basic' )
+    end
 
   end
 
