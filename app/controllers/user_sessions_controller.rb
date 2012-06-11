@@ -17,6 +17,7 @@ class UserSessionsController < ApplicationController
       session[:is_login] = nil
 
       flash[:notice] = "Login successful!"
+      Log.create_log(@user_session.user.id, ["User login successful!"])
       redirect_back_or_default child_profile_children_url
     else
       render :action => :new
@@ -29,9 +30,10 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    Log.create_log(current_user.id, ["User logout successful!"])
     current_user_session.destroy
     reset_session
-    flash[:notice] = "Logout successful!"
+    flash[:notice] = "Logout successful!"    
     redirect_back_or_default login_path
     
   end

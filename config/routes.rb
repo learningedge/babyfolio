@@ -4,7 +4,11 @@ Babyfolio::Application.routes.draw do
     root :to => "dashboard#index"
     get "/" => "dashboard#index", :as => :dashboard_index
     post "/search" => "dashboard#search", :as => :search
-    resources :users, :only => [:index, :edit, :update]
+    resources :users, :only => [:index, :edit, :update] do
+      collection do
+        get '/:user_id/logs' => "users#logs", :as => :logs
+      end
+    end
     resources :families, :only => [:index, :edit, :update]
   end
 

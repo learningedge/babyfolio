@@ -1,8 +1,7 @@
-<% unless moments.blank? %>
+<% unless @moments.blank? %>
 <h2>Moments in your life</h2>
 <div class="all-moments">
-  <div class="preloader"></div>
-  <% @moments = moments.paginate(:page => params[:page]) %>
+  <div class="preloader"></div>  
   <ul>
     <% @moments.each do |moment|  %>
       <li class="moment">
@@ -28,7 +27,6 @@
   <div class="clear"></div>
 </div>
   <%= will_paginate @moments, :page_links => false %>
-
 <% else %>
 <h2>Sorry, but <%= @selected_child.first_name %> hasn't any moments.</h2>
 <% end %>

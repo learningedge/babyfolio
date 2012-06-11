@@ -104,6 +104,12 @@ class Registration::AddPhotosController < ApplicationController
           params[:visiblity] ||= "public"
           mom.visibility = params[:visiblity]
           mom.save
+
+          log_description = Array.new
+          log_description << "MOMENT ##{mom.id} CREATED IN REGISTRATION PROCESS:"
+          log_description << "Title: #{moment.title}"          
+          Log.create_log current_user.id, log_description
+
           moments << mom
         end
       end      

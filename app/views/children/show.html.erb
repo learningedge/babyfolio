@@ -49,7 +49,7 @@
           </div>
           <div id="book_right">
             <div id="moments-ajax-container">
-              <%= render :partial => "moments/moments_list", :locals => { :moments => @selected_child.moments} %>
+              <%= render :partial => "moments/moments_list" -%>
             </div>
             <script type="text/javascript">
               $('#moments-ajax-container .pagination a.next_page, #moments-ajax-container .pagination a.previous_page').live('click',function(){

@@ -9,14 +9,16 @@ class User < ActiveRecord::Base
 
   has_many :services
   has_many :relations
-  has_many :moments
+  has_many :moments, :conditions => ["moments.visibility NOT IN (?)", Moment::ARCHIVED]
   has_many :families, :through => :relations
   has_many :own_families, :through => :relations, :source => :family, :conditions => ['relations.member_type in(?)' , ['mother', 'father', 'parent']]
-  has_many :own_children, :through => :own_families, :source => :children  
+  has_many :own_children, :through => :own_families, :source => :children
+  has_many :logs
   
   has_one :attachment, :as => :object
   has_one :profile_media, :through => :attachment, :source => :media
 
+  scope :ids, select("users.id")
   def is_parent?
     !self.relations.is_parent.empty?
   end

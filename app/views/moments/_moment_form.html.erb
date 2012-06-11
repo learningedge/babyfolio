@@ -1,4 +1,4 @@
-<div class="container settings edit-moment">  
+<div class="container settings edit-moment">
   <%= form_for @moment do |f| %>
     <%= hidden_field_tag 'cid', @moment.child.id %>    
     <div class="left">
@@ -177,6 +177,11 @@
       <div class="check-all">
         <a href="#" onclick="checkAll();return false;" class="button-layout-3">Select All</a>
       </div><%# .check-all %>
+      <% unless f.object.id.blank?%>
+        <div class="destroy">
+          <%=  link_to "Destroy the moment", moment_path(:id => f.object.id), :method => :delete, :confirm => "Are you sure you want to delete this moment?" -%>
+        </div>
+      <% end %>
     </div><%# .categories %>
     <div class="more-button">
       <a href="#" class="button-layout-3">More detail about the moment</a>

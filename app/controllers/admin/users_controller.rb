@@ -43,4 +43,16 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
 
+  def logs
+    user = User.find(params[:user_id])
+    @title = "Logs for #{user.email}"
+    conditions = Array.new
+    conditions << "logs.user_id = ?"
+    conditions << user.id
+    if params[:see_all]
+      @logs = Log.paginate :all, :page => params[:page], :per_page => 1000000, :conditions => conditions, :order => "created_at DESC"
+    else
+      @logs = Log.paginate :page => params[:page], :per_page => 30, :conditions => conditions, :order => "created_at DESC"
+    end
+  end
 end
