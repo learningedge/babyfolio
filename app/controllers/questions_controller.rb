@@ -7,26 +7,21 @@ class QuestionsController < ApplicationController
     @is_initial = true
     @child = current_user.own_children.find(params[:child])
 
-    @answers = Hash.new
-    @child.answers.each do |a|
-      @answers[a.question_id.to_s] = a.value
-    end
-
 #    render :text => @answers.inspect
     if params[:level] == 'basic'
-      @form_link = complete_questionnaire_basic_url
+      @form_link = complete_questionnaire_basic_url #setting link for the form to post to complete_questionaire_basic
       @categories_with_questions = Question.get_questions_for_age(@child.months_old, '<', 1, 'DESC')
     elsif params[:level] == 'advanced'
-      @form_link = complete_questionnaire_advanced_url
+      @form_link = complete_questionnaire_advanced_url #setting link for the form to post to complete_questionaire_advanced
       @categories_with_questions = Question.get_questions_for_age_range(@child.months_old, 2 , 1 )
     else
-      @form_link = complete_questionnaire_url
+      @form_link = complete_questionnaire_url #setting link for the form to post to complete_questionaire
       @categories_with_questions = Question.get_questions_for_age(@child.months_old)
     end
 
     ages = @categories_with_questions.map{ |cq| cq[:questions].map{|q| q.age} }.flatten.uniq
     @answers = Hash.new
-    Score.includes(:answers).where(:age => ages).map{|sc| sc.answers}.flatten.each do |a|
+    Score.includes(:answers).where({:age => ages, :child_id => @child.id}).map{|sc| sc.answers}.flatten.each do |a|
       @answers[a.question_id.to_s] = a.value
     end
 
@@ -100,7 +95,7 @@ class QuestionsController < ApplicationController
       if @answers.blank?
         ages = @categories_with_questions.map{ |cq| cq[:questions].map{|q| q.age} }.flatten.uniq
         @answers = Hash.new
-        Score.includes(:answers).where(:age => ages).map{|sc| sc.answers}.flatten.each do |a|
+        Score.includes(:answers).where({:age => ages, :child_id => @child.id}).map{|sc| sc.answers}.flatten.each do |a|
           @answers[a.question_id.to_s] = a.value
         end
       end
@@ -179,7 +174,7 @@ class QuestionsController < ApplicationController
       if @answers.blank?
         ages = @categories_with_questions.map{ |cq| cq[:questions].map{|q| q.age} }.flatten.uniq
         @answers = Hash.new
-        Score.includes(:answers).where(:age => ages).map{|sc| sc.answers}.flatten.each do |a|
+        Score.includes(:answers).where({:age => ages, :child_id => @child.id}).map{|sc| sc.answers}.flatten.each do |a|
           @answers[a.question_id.to_s] = a.value
         end
       end
@@ -199,8 +194,7 @@ class QuestionsController < ApplicationController
     @categories_with_questions = []
 
 #     IF ANY QUESTIONS ANSWERED
-    if params[:question_answers]
-
+    if params[:question_answers]         
 #      IF ALL QUESTIONS ANSWERED COUNT AND SAVE SCORES
       if params[:question_answers].length == params[:question_ids].length
         answers = params[:question_answers]
@@ -220,22 +214,26 @@ class QuestionsController < ApplicationController
         end
 
 #        CHECK ALL ALWAYS_OR_BEYOND ANSWERS FOR EACH SCORE AND DISPLANY LEVEL ABOVE FOR EACH OF THOSE STAGES
-        questions_array = Array.new
-        scores_by_category = scores.group_by{ |sc| sc.category }.map{ |k,v| {:category => k, :scores => v } }        
-        scores_by_category.each do |sc|
-          max_score = sc[:scores].max_by(&:age)
-          min_score = sc[:scores].min_by(&:age)
-          if min_score.value <= 0.0
-            questions_array += Question.for_age_and_category(min_score.age, min_score.category, '<', 1, 'DESC')
-          elsif max_score.value >= 1.0
-            questions_array += Question.for_age_and_category(max_score.age, max_score.category, '>', 1, 'ASC')
+        if params[:is_initial] == "true"
+          questions_array = Array.new
+          scores_by_category = scores.group_by{ |sc| sc.category }.map{ |k,v| {:category => k, :scores => v } }
+          scores_by_category.each do |sc|
+            max_score = sc[:scores].max_by(&:age)
+            min_score = sc[:scores].min_by(&:age)
+            if min_score.value <= 0.0
+              questions_array += Question.for_age_and_category(min_score.age, min_score.category, '<', 1, 'DESC')
+            elsif max_score.value >= 1.0
+              questions_array += Question.for_age_and_category(max_score.age, max_score.category, '>', 1, 'ASC')
+            end
           end
+          @categories_with_questions  = Question.order_categories(questions_array.group_by{|q| q.category})
         end
-        @categories_with_questions  = Question.order_categories(questions_array.group_by{|q| q.category})
         flash[:notice] = "Questionnaire successfuly submitted."
+        @is_initial = false
         flash[:no_alert] = true
       else
         @answers = params[:question_answers]
+        @is_initial = params[:is_initial]
         @categories_with_questions  = Question.find(params[:question_ids]).group_by{|q| q.category}.map{ | k,v | { :category => k, :questions => v} }
         flash[:notice] = "You need to answer all questions before proceeding."
       end    
@@ -251,7 +249,7 @@ class QuestionsController < ApplicationController
       if @answers.blank?
         ages = @categories_with_questions.map{ |cq| cq[:questions].map{|q| q.age} }.flatten.uniq
         @answers = Hash.new
-        Score.includes(:answers).where(:age => ages).map{|sc| sc.answers}.flatten.each do |a|
+        Score.includes(:answers).where({:age => ages, :child_id => @child.id}).map{|sc| sc.answers}.flatten.each do |a|
           @answers[a.question_id.to_s] = a.value
         end
       end
