@@ -34,8 +34,7 @@
             <div class="age">
               
               <% v.each do |q| %>
-                <%#= @answerss.inspect %>
-                <%#= @answers.inspect %>
+
                 <div class="single_question <%=  'questions_error' if !flash[:no_alert] && @answers && @answers[q.id.to_s].blank? %>">
                   <%= hidden_field_tag "question_ids[]", q.id %>
                   <span class="question_text">[<%= q.age %>] <%= @child.replace_question_forms(q.text) %></span>
