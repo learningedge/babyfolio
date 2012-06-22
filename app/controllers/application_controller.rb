@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   private
     def clear_session
       if current_user_session
+        @current_user_session = nil
+        @current_user = nil
         current_user_session.destroy
         reset_session        
       end

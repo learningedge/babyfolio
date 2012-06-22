@@ -2,17 +2,18 @@ class UsersController < ApplicationController
     
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]  
-  before_filter :require_family, :only => [:show]  
+  before_filter :require_family, :only => [:show]
+  before_filter :reset_session, :only => [:new]
 
 
-  def new
-    
+  def new    
     if current_user && current_user.is_temporary
       @user = current_user            
       @user.email = ''
       @user.first_name = ''
       @user.last_name = ''
     else
+      clear_session
       @user = User.new
     end
     
@@ -107,15 +108,21 @@ class UsersController < ApplicationController
   end
 
   def create_temp_user
-    y = params[:birth_year].to_i
-    m = params[:birth_month].to_i
-    d = params[:birth_day].to_i
+    y = params[:birth_year].to_i if params[:birth_year].present?
+    m = params[:birth_month].to_i if params[:birth_month].present?
+    d = params[:birth_day].to_i if params[:birth_day].present?
+   
     date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d) if d && m && y
     gender = params[:gender] || Child::GENDERS['Male']
     ft = params[:form_type]
 
-
-    unless current_user            
+    if ft.nil? && date.nil?
+      flash[:notice] = "Incorrect child's birth date."
+      redirect_to root_url
+      return
+    end
+    
+    unless current_user
         if date || ft.present?
           timeStamp =  DateTime.now.to_f.to_s
           new_user = User.new({
@@ -133,20 +140,20 @@ class UsersController < ApplicationController
             family = Family.create({:name => 'FamilyName', :zip_code => 'none' })
             child = family.children.build({:first_name => 'Child One', :last_name => family.name, :birth_date => date || DateTime.now , :gender => gender  })
             family.save
-            
+
             new_user.relations.build({ :family => family, :member_type => Relation::MEMBER_TYPE[:PARENT], :accepted => true, :display_name => "TheParent", :token => timeStamp })
             if new_user.save
               UserSession.new(new_user)
             else
               flash[:notice] = "There were some errors creating temporary account."
             end
-        else
-          flash[:notice] = "There were some errors creating temporary account."
-        end               
+         else
+           flash[:notice] = "There were some errors creating temporary account."
+         end
       end
     else
       if ft.blank?
-        flash[:notice] = "You have your profile already."              
+        flash[:notice] = "You have your profile already."
       end
       child = current_user.own_children.first
     end
@@ -158,7 +165,5 @@ class UsersController < ApplicationController
     end
 
   end
-
-
-
+  
 end

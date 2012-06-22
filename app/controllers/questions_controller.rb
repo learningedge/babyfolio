@@ -26,6 +26,10 @@ class QuestionsController < ApplicationController
 
     @all_images = @child.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
     Log.create_log(current_user.id, ["Questionnaire(#{params[:level] || 'normal' }) requested for #{ @child.first_name }[#{@child.months_old}]."])
+    
+    if @categories_with_questions.map {|el| el[:questions]}.flatten.empty?
+      @no_questions =  "Sorry, there aren't any questions for your child's age."
+    end
   end
 
 

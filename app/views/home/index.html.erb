@@ -88,7 +88,7 @@
           Capture those precious moments and turn your library into a tool to
           discover & develop your child's special story. <span>It's Free</span>
         </p>
-        <a href="#"><img src="/images/signup_btn.png" alt="sign_up" /></a>
+        <a href="<%= signup_path %>"><img src="/images/signup_btn.png" alt="sign_up" /></a>
       </div>
       <div class="container_right">
         <div id="profile_logo"></div>
@@ -140,7 +140,7 @@
             <div class="start_multi">
               <h1>Start your multimedia BabyFolio.</h1>
               <h3>Your First Question:</h3>
-              <p>What is your baby's avorite plaything now & how does she or he play with it? </p>
+              <p>What is your baby's favorite plaything now & how does she or he play with it? </p>
               <%#*<a href="#"><img src="/images/capture_story.png" alt="capture_story" /></a>%>
               <%= form_tag create_temp_user_account_url do  %>
                 <%= hidden_field_tag 'form_type', 'moment' %>
@@ -161,22 +161,33 @@
                 <div class="icon1 icon">
                   <h1>Getting to Know You</h1>
                   <p>What recent developments have you noticed?</p>
-                </div>
-                <a href="">Add Moment</a>
+                </div>                
+              <%= form_tag create_temp_user_account_url do  %>
+                <%= hidden_field_tag 'form_type', 'moment' %>
+                <%= submit_tag "Add Moment" %>
+              <% end %>
               </li>
               <li id="moment">
                 <div class="icon2 icon">
-                  <h1>places</h1>
-                  <p></p>
-                </div>
-                <a href="">Add Moment</a>
+                  <h1>Places <span class="h1_smaller_text">you went</span><br />
+                     & Things <span class="h1_smaller_text">you did</span>
+                  </h1>
+                  <p>What's your baby doing-<br /> with blocks?</p>
+                </div>                
+              <%= form_tag create_temp_user_account_url do  %>
+                <%= hidden_field_tag 'form_type', 'moment' %>
+                <%= submit_tag "Add Moment" %>
+              <% end %>
               </li>
               <li id="moment">
                 <div class="icon3 icon">
-                  <h1>people</h1>
-                  <p></p>
+                  <h1>People in your life</h1>
+                  <p>Who does your baby<br /> spend significant time with?</p>
                 </div>
-                <a href="">Add Moment</a>
+              <%= form_tag create_temp_user_account_url do  %>
+                <%= hidden_field_tag 'form_type', 'moment' %>
+                <%= submit_tag "Add Moment" %>
+              <% end %>
               </li>
             </ul>
           </div>

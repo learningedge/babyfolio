@@ -20,11 +20,12 @@
 
     
     <%= form_tag complete_questionnaire_url(:level => @level), :class => "questions_form" do %>
+      <h2><%= @no_questions %> </h2>
       <%= hidden_field_tag "child", @child.id %>
       <%= hidden_field_tag "current_step", @current_step %>      
       <% @categories_with_questions.each do |cat|  %>
         <div class="single_question_category">
-          <div class="question_category_title"><%= cat[:category] %></div>
+          <div class="question_category_title"><%= cat[:category] if @no_questions.blank? %></div>
 
           <% questions_by_age = cat[:questions].group_by{|qu| qu.age} %>
           <% questions_age = questions_by_age.collect{|ky, vl| ky}.first %>
@@ -57,7 +58,7 @@
       <% end %>
       
       <div class="submit">
-        <%= submit_tag (@next_child != nil ? "Submit & go next" : "Submit answers")  %>
+        <%= submit_tag (@no_questions.present? ? "Continue" : @next_child != nil ? "Submit" : "Submit")  %>
       </div>
     <% end %>
 

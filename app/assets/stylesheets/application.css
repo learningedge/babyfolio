@@ -221,10 +221,13 @@ hr { margin: 15px 0;  }
 #home #wrraper #container_home #moments {width: 993px;padding: 0 12px 15px}
 #home #wrraper #container_home #moments ul {border-top: 1px dotted #555555;padding: 22px 0 0}
 #home #wrraper #container_home #moments ul li {display: inline-block;width: 316px;background: url('/images/moments_bg.png') no-repeat;padding: 0 0 0 12px;}
-#home #wrraper #container_home #moments ul li a {text-decoration: none;display: block;font:11px arial;margin: 0 13px 0 223px;color: #9b7804;background: #f5f2dd;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);display: inline-block;padding: 4px 10px}
+#home #wrraper #container_home #moments ul li input[type="submit"] { cursor: pointer; border: none; text-decoration: none;display: block;font:11px arial;margin: 0 13px 0 223px;color: #9b7804;background: #f5f2dd;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);display: inline-block;padding: 4px 10px}
 #home #wrraper #container_home #moments ul li .icon {width: 222px;height: 100px;padding: 0 93px;text-align: center;margin: 0 0 39px}
-#home #wrraper #container_home #moments ul li .icon h1 {font:27px Helvetica_seven;color:#9b7804}
-#home #wrraper #container_home #moments ul li .icon p {font:14px arial; color:#898989;margin: 10px 0 0;width: 200px}
+#home #wrraper #container_home #moments ul li .icon h1 {font:27px Helvetica_seven;color:#9b7804; line-height: 22px; padding-top: 5px; }
+#home #wrraper #container_home #moments ul li .icon2 h1 {  font-size: 30px; text-align: left; padding-left: 25px; }
+#home #wrraper #container_home #moments ul li .icon.icon2 p { margin-top: 10px; }
+#home #wrraper #container_home #moments ul li .icon h1 .h1_smaller_text { font-size: 20px; font-family: Helvetica_seven;}
+#home #wrraper #container_home #moments ul li .icon p {font:14px arial; color:#898989;margin: 15px 0 0;width: 200px; padding-left: 10px;}
 #home .footer_container {width: 1020px; margin:0 auto}
 
 
