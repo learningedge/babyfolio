@@ -95,6 +95,7 @@ class Registration::AddPhotosController < ApplicationController
     mom.media << media
     mom.child = child
     mom.visibility = visibility
+    mom.user = current_user
     mom.save
 
     log_description = Array.new
