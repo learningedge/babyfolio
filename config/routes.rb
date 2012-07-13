@@ -34,6 +34,9 @@ Babyfolio::Application.routes.draw do
 
   end
 
+    match '/milestone/' => "milestones#show", :as => :show_milestone
+
+
 
   resources :moments, :except => [:new, :index] do
       new do
@@ -54,6 +57,8 @@ Babyfolio::Application.routes.draw do
         get '/connect_it/:id' => "moments#connect_it", :as => :connect
       end
   end
+
+
 
   resources :youtube, :only => [:new] do
     new do

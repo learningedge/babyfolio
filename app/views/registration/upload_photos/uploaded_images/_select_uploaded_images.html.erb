@@ -1,9 +1,10 @@
 <div class="imported-message">Images imported.</div>
 <div class="preloader"></div>
-<div class="uploaded-images-container">  
-  <div id="file-registration-uploader"></div>
+<div class="uploaded-images-container">
+  <div id="file-registration-uploader"></div>    
   <%#= form_tag registration_add_photos_import_media_url, :remote => true do -%>
     <%= hidden_field_tag "child_id", @selected_child.id %>
+    
     
     <div class="uploaded-images right-photos-container">
 
@@ -15,8 +16,10 @@
   
     </div>
     <div class="visibility">
-      <span>Privacy level: <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%></span>      
+      <span>Privacy level: <%= select_tag :visiblity, options_for_select(Moment::VISIBILITY) -%></span>
     </div>
+
+    
     <!--div class="buttons-container">
       <span><%#= submit_tag "Add uploaded images", :class => "registration-submit-button" -%></span>
     </div-->

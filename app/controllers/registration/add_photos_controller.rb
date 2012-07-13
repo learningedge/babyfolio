@@ -63,14 +63,14 @@ class Registration::AddPhotosController < ApplicationController
   end
 
   def update_visibility
-    s = ''
-    Moment.find(params[:moments]).each do |m|
-      m.visibility = params[:visibility]
-      m.save
-      s += m.id.to_s
+    unless params[:moment].nil?
+      Moment.find(params[:moments]).each do |m|
+        m.visibility = params[:visibility]
+        m.save
+      end
     end
 
-    render :text => s
+    render :text => 'sucess'
   end
 
   def create_photo

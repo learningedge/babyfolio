@@ -7,9 +7,10 @@ class ChildrenController < ApplicationController
   def show
     @user = current_user
     @families = @user.families
-    @selected_family = current_family    
+    @selected_family = current_family
     @children = @selected_family.children
-    @selected_child ||= params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first        
+    @selected_child ||= params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
+    @level = flash[:level]
 
     ## select only moments where
     moments = @selected_child.moments.can_be_viewed_by(current_user, @selected_family)

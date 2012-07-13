@@ -1,7 +1,7 @@
-  
   <style type="text/css">
 	#wrraper {width:1075px;padding:0 !important;background:#fff;}
-	</style>
+  </style>
+  
   <div class="container  children">
 	<div id="top_container">
 		<div class="top_box_bg"></div>
@@ -140,6 +140,7 @@
         $(function(){
           $('.popup').jqm();
           $('#container_right .logo').click(function(){
+          
             $('.popup').append($('.milestone-popup'));
             $('.popup').css({left: ($(window).width()/2-$('.popup').width()/2),top: ($(window).height()/2-$('.popup').height()/2+$(window).scrollTop())})
             $('.popup').jqmShow();
@@ -148,7 +149,18 @@
         })
       </script>
       <div id="most_post">
-        
+
+        <%= link_to "Show questionnaire results", "#", :rel => 227,  :onclick => 'show_milestone(this); return false;' if @level && @level == 'basic' %>
+        <script type="text/javascript">
+          function show_milestone(object) {
+            var width = 500;
+            var height = 650;
+            var left = parseInt((screen.availWidth/2) - (width/2));
+            var top = parseInt((screen.availHeight/2) - (height/2));
+            var url = '<%= show_milestone_url( :child_id => @selected_child.id  ) %>' + '&mid=' + $(object).attr('rel');
+            window.open(url,"_blank","menubar=0,resizable=0,width=500,height=650,location=0,left=" + left + ",top=" + top + ",screenX=" + left + ",screenY=" + top);
+          }
+        </script>
         <div class="single_post">
           <h1>Getting to Know You Tools</h1>
           <p>

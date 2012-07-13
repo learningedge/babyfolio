@@ -87,8 +87,9 @@ class QuestionsController < ApplicationController
               categories.each do |c|
                 questions_array += Question.for_age_and_category(c.age, c.category, '<', 1, 'DESC')
               end
-            end                        
+            end          
           end
+
 
         elsif @level == 'advanced'
           #        CHECK ALL ALWAYS_OR_BEYOND ANSWERS FOR EACH SCORE AND DISPLANY LEVEL ABOVE FOR EACH OF THOSE STAGES
@@ -105,7 +106,6 @@ class QuestionsController < ApplicationController
               end
             end        
           end
-
           
         else
           #        SELECT MAX SCORED CATEGORY AND LOAD 2 MORE LEVELS AFTER INITIAL FORM IS SUBMITTED
@@ -170,6 +170,14 @@ class QuestionsController < ApplicationController
             redirect_uri = questions_url(:child => next_child.id, :level => @level)
           end
         end        
+      end
+
+      if @level == 'basic'
+        flash[:level] = 'basic'
+      elsif @level == 'advanced'
+        flash[:level] = 'advanced'
+      else
+        flash[:level] = 'normal'
       end
       redirect_to redirect_uri
     end

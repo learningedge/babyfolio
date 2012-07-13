@@ -1,0 +1,25 @@
+<div id="milestone_summary">
+  <h1><%= @child.first_name -%>'s <%= @question.category %>  Genius</h1>
+  <p>Here’s the important <%= @question.category.downcase %> development touchstone to focus on now.</p>
+  <h2>"<%= @milestone.title %>" Touchstone</h2>
+  <p>What it means: </p>
+  <p><%= truncate(@milestone.observation_what_it_means, :length => 40, :separator => ' ', :omission => '... ') %></p>
+  <p>How to nurture it: </p>
+  <p><%= truncate(@milestone.parent_as_partner, :length => 40, :separator => ' ', :omission => '... ') %></p>
+
+  
+  <br/>
+  <br/>
+  <p><%= link_to "Tell us more (what you have seen with #{@child.first_name})", child_milestone_new_moment_path(:child_id => @child.id, :milestone_id => Milestone.first.id), :onclick => 'redirect_parent(this); return false;' %></p>
+  <p>Ask the village (what they’ve seen about <%=@child.first_name %>)</p>
+  
+
+
+  <script type="text/javascript">
+    function redirect_parent(object) {
+      window.opener.location = $(object).attr('href');
+      window.close();
+    }
+  </script>
+</div>
+

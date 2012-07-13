@@ -602,7 +602,7 @@ div.submit {float:left;margin-right:20px}
 
 .registration-process .user-form input[type=submit].registration-submit-button,
 .registration-process .user-form .uploaded-images-container .qq-upload-button,
-.registration-process .user-form .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;/*behavior: url(/PIE/PIE.htc)*/;height:auto;text-decoration:none;text-align:center;margin-top:20px;padding:5px 0px;width:150px}
+.registration-process .user-form .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;/*behavior: url(/PIE/PIE.htc)*/;height:auto;text-decoration:none;text-align:center;margin:20px 0 10px;padding:5px 0px;width:150px}
 .select-layout,
 .registration-process .user-form select {font: 11px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;vertical-align:middle;display:inline-block}
 
@@ -632,12 +632,13 @@ div.submit {float:left;margin-right:20px}
 .registration-process .user-form .socials-container .ajax-container .image input{display:none}
 .registration-process .user-form .socials-container .ajax-container .image.selected {background-color:#9b7304;border-color:#9b7804}
 .registration-process .user-form .socials-container .ajax-container .image.selected .title {color:white}
-.registration-process .user-form .socials-container .ajax-container .visibility {text-align:right}
+.registration-process .user-form .socials-container .ajax-container .visibility { clear: both; padding-top: 15px;}
+.registration-process .user-form .socials-container .ajax-container .photos { clear: both; }
 .registration-process .user-form .socials-container .ajax-container .buttons-container {text-align:center}
 .registration-process .user-form .socials-container .ajax-container .buttons-container > span {display:inline-block;vertical-align:middle}
 
 
-.registration-process .user-form .socials-container .ajax-container .qq-upload-list {height:53px}
+.registration-process .user-form .socials-container .ajax-container .qq-upload-list { height: auto; width: 100%; }
 .registration-process .user-form .socials-container .ajax-container .uploaded-images-grid .image .thumb {position:relative}
 .registration-process .user-form .socials-container .ajax-container .uploaded-images-grid .image .thumb .remove {display:none;position:absolute;background-color:black;cursor:pointer;height:100%;width:100%;line-height:75px;left:0px;top:0px}
 .registration-process .user-form .socials-container .ajax-container .uploaded-images-grid .image:hover .thumb .remove {display:block}
