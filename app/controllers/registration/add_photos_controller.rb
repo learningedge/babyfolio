@@ -48,16 +48,35 @@ class Registration::AddPhotosController < ApplicationController
   ##################
 
   def photo
-
-    one_image = Media.find(params[:id])
+    one_image = Media.find(params[:media_id])
     respond_to do |format|
-      format.html { render :partial => 'registration/upload_photos/uploaded_images/uploaded_image', :locals => {:photo => one_image} }
+      format.html { render :partial => 'registration/upload_photos/uploaded_images/uploaded_image', :locals => {:photo => one_image, :moment_id => params[:moment_id]} }
     end
     
   end
 
+  def remove_moment
+    moment = Moment.find(params[:id])
+    moment.destroy();
+
+    render :text => "removed";
+  end
+
+  def update_visibility
+    s = ''
+    Moment.find(params[:moments]).each do |m|
+      m.visibility = params[:visibility]
+      m.save
+      s += m.id.to_s
+    end
+
+    render :text => s
+  end
+
   def create_photo
-    
+    child_id = params[:child_id]
+    visibility = params[:visibility] || 'public';
+
     if params[:qqfile].kind_of? String
       ext = '.' + params[:qqfile].split('.').last
       fname = params[:qqfile].split(ext).first
@@ -70,8 +89,21 @@ class Registration::AddPhotosController < ApplicationController
     end
 
     media = MediaImage.create_media_object(tempfile, current_user.id)
+    child = Child.find(child_id)
+
+    mom = Moment.new
+    mom.media << media
+    mom.child = child
+    mom.visibility = visibility
+    mom.save
+
+    log_description = Array.new
+    log_description << "MOMENT ##{mom.id} CREATED IN REGISTRATION PROCESS:"
+    log_description << "Title: #{mom.title}"
+    Log.create_log current_user.id, log_description
+    
     respond_to do |format|
-      format.html { render :text => "{\"media_id\":\"#{media.id}\"}" }
+      format.html { render :text => "{\"media_id\":\"#{media.id}\", \"moment_id\":\"#{mom.id}\"}" }
     end
   end
 

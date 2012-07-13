@@ -100,6 +100,10 @@
         imported_message($('#uploaded-images-ajax-container'));
       })
 
+      $('#visiblity').change(function() {
+        visiblity_change();
+      });
+
     })
 
     /*************** ONCLICK FUNCTIONS **************/
@@ -192,6 +196,43 @@
 
     function remove_element(object){
       $(object).remove();
+    }
+
+    function remove_moment(object) {
+      var mom_id = $(object).attr('id');
+      uploaded_images_loader_start();
+      $.ajax({
+        url: '<%= registration_remove_moment_import_media_path -%>',
+        data: {id: mom_id},
+        type: 'POST',
+        success: function(data) {
+            if(data == 'removed') {
+              $(object).fadeOut(function(){
+                $(this).remove();
+              })
+            }
+            uploaded_images_loader_stop();
+        }
+      });     
+
+    }
+
+    function visiblity_change() {
+      var moments = [];
+      var visibility = $('#visiblity').val();
+      uploaded_images_loader_start();
+      $('#uploaded-images-ajax-grid .image').each(function() {
+        moments.push($(this).attr("id"));
+      });
+
+      $.ajax({
+        url: '<%= registration_update_visibility_import_media_path -%>',
+        data: {moments: moments, visibility: visibility},
+        type: 'POST',
+        success: function(data) {
+            uploaded_images_loader_stop();
+        }
+      });     
     }
 
     function imported_message(container){

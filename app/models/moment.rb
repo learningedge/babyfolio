@@ -4,7 +4,7 @@ class Moment < ActiveRecord::Base
 
 #  validates :title, :presence => true
   has_many :attachments, :as => :object
-  has_many :media, :through => :attachments
+  has_many :media, :through => :attachments, :dependent => :destroy
   belongs_to :child
   belongs_to :user
   

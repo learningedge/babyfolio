@@ -21,6 +21,8 @@ Babyfolio::Application.routes.draw do
     post '/add-photos/photo' => "add_photos#photo", :as => :add_photos_photo
     post '/add-photos/create-photos' => "add_photos#create_photo", :as => :add_photos_create_photo
     post '/add-photos/import-media' => "add_photos#import_media", :as => :add_photos_import_media
+    post '/add-photos/remove-moment' => "add_photos#remove_moment", :as => :remove_moment_import_media
+    post '/add-photos/update-visibility' => "add_photos#update_visibility", :as => :update_visibility_import_media
     
     match '/add-videos/new-vimeo-video' => "add_videos#new_vimeo", :as => :add_videos_new_vimeo
     post '/add-videos/upload-vimeo-video' => "add_videos#upload_vimeo", :as => :add_videos_upload_vimeo
