@@ -163,12 +163,12 @@
 
         <script type="text/javascript">
           function show_milestone(object) {
-            var width = 500;
+            var width = 520;
             var height = 650;
             var left = parseInt((screen.availWidth/2) - (width/2));
             var top = parseInt((screen.availHeight/2) - (height/2));
             var url = '<%= show_milestone_url( :child_id => @selected_child.id  ) %>' + '&mid=' + $(object).attr('rel');
-            window.open(url,"_blank","menubar=0,resizable=0,scrollbars=1,width=500,height=650,location=0,left=" + left + ",top=" + top + ",screenX=" + left + ",screenY=" + top);
+            window.open(url,"_blank","menubar=0,resizable=0,scrollbars=1,width=520,height=650,location=0,left=" + left + ",top=" + top + ",screenX=" + left + ",screenY=" + top);
           }
         </script>
         <div class="single_post">

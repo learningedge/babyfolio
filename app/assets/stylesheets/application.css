@@ -64,6 +64,8 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+.italic { font-style: italic;}
+
 html {height: 100%}
 
 body {width:100%;margin: 0 auto; background: url('/images/wood.png') repeat-x #f5f2dd; height: 100%}
@@ -856,6 +858,27 @@ div.submit {float:left;margin-right:20px}
 
 
 
+/******************* MILESTONES *********************/
+  #milestone_summary {font-family: "Helvetica_seven";color:#555555;padding:20px; }
+  #milestone_summary h1{font-size:40px;color:#9b7804;text-align:center; padding: 20px 0;}
+  #milestone_summary h2{font-size:30px;text-align:center; padding-bottom: 40px; }
+  #milestone_summary #milestone_activities_wrapper ul,
+  #milestone_summary .less,
+  #milestone_summary .more,
+  #milestone_summary p{font-family: Helvetica, Arial;font-size:14px}
+  #milestone_summary #milestone_header { text-align: center;}
+  #milestone_summary p.title {font-weight:bold; padding: 15px 0;}
+  #milestone_summary p.italic { padding-bottom: 5px; }
+  #milestone_summary a {color:#5674b9}
+  #milestone_summary a:hover {text-decoration:none}
+  #milestone_summary .read_less { padding-top: 10px;  }
+  #milestone_summary .more,
+  #milestone_summary .less { padding-left: 10px; padding-right: 30px;}
+  #milestone_summary .more { display: none; }
+  #milestone_summary .less_more_wrapper a.read_less,
+  #milestone_summary a.activity_less_link{ display: block; }
+  #milestone_summary #milestone_activities_wrapper ul { list-style-type: disc; padding-left: 20px;}
+  #milestone_summary .activity_details { display: none;}
 
 
 /* TAG IT, CONNECT IT DEEPEN IT */

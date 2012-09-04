@@ -130,7 +130,7 @@ class Score < ActiveRecord::Base
   def self.basic_immediate_LWs(child)
     current_age = child.scores.select_ages(child.months_old, '<=', 1, 'DESC').map{ |s| s.age }
     below1_age = child.scores.select_ages(current_age, '<', 1, 'DESC').map{ |s| s.age }    
-    scores = child.scores.includes(:answers).where(:age => below1_age)
+    scores = child.scores.includes(:answers).where(:age => below1_age).all
 
     unless Score.any_score_outdated?(scores, child)
       first_freq_or_emer = scores.find{ |s| s.answers.any?{ |a| a.value == "frequent" || a.value == "emerging" }}
@@ -213,7 +213,7 @@ class Score < ActiveRecord::Base
     mids = []
     if result.present?
       result.each do |a|
-        mids << Question.select(:mid).find(a.question_id).mid 
+        mids << Question.select(:mid).find(a.question_id).mid if a
       end
     end
      

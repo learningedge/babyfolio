@@ -31,10 +31,10 @@ Babyfolio::Application.routes.draw do
     match '/add-videos/upload-youtube-video' => "add_videos#upload_youtube", :as => :add_videos_upload_youtube
     match '/add-videos/upload-file-youtube-video' => "add_videos#upload_file_youtube", :as => :add_videos_upload_file_youtube
     post '/add-videos/import-media' => "add_videos#import_media", :as => :add_videos_import_media
-
   end
 
     match '/milestone' => "milestones#show", :as => :show_milestone
+    match '/milestone/details/:mid/:child_id' => "milestones#show_full", :as => :show_milestone_details
 
 
 

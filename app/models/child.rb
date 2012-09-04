@@ -26,7 +26,6 @@ class Child < ActiveRecord::Base
   validates :first_name, :presence => true
   validates :birth_date, :presence => true
 
-
   scope :ids, select(:id)
 
   GENDERS = {
@@ -39,7 +38,7 @@ class Child < ActiveRecord::Base
 
   FORMS = {
     /(#)+he\/she#/ => ['he', 'she'],
-    /(#)+He\/She(#)+/ => ['He', 'She'],
+    /(#)+He\/[S,s]he(#)+/ => ['He', 'She'],
     /(#)+his\/her(#)+/ => ['his', 'her'],
     /(#)+His\/Her(#)+/ => ['His', 'Her'],
     /(#)+him\/her(#)+/ => ['him', 'her'],
@@ -76,7 +75,7 @@ class Child < ActiveRecord::Base
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
       end
-      question_text = question_text.gsub(/#first#/, first_name)
+      question_text = question_text.gsub(/#first#|#Nickname#/, self.first_name)
       return question_text
   end
 

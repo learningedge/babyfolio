@@ -1,0 +1,42 @@
+
+  @font-face {
+    font-family: 'Helvetica_seven';
+    src: url('/font/helvetica77condensed_bold.otf');
+  }
+
+  @font-face {
+    font-family: 'Helvetica_57';
+    src: url('/font/helvetica57condensed.otf');
+  }
+
+  @font-face {
+    font-family: 'Helvetica_rd';
+    src: url('/font/helveticardbd.otf');
+  }
+
+  @font-face {
+    font-family: 'Helvetica_light';
+    src: url('/font/helvetica_lightnormal.otf');
+  }
+
+  @font-face {
+    font-family: 'Helvetica_67';
+    src: url('/font/helvetica67condensedmedium.otf');
+  }
+
+  @font-face {
+    font-family: 'Helvetica_Inserat';
+    src: url('/font/helveticainserat.otf');
+  }
+  html, body {height:100%;background-color:#F5F2DD !important;padding:0px;margin:0px}
+  #milestone_summary {font-family: "Helvetica_seven";color:#555555;padding:20px; width: 460px;}
+  #milestone_summary h1{font-size:40px;color:#9b7804;text-align:center}
+  #milestone_summary h2{font-size:30px;text-align:center}
+  #milestone_summary p{font-family: Helvetica, Arial;font-size:12px}
+  #milestone_summary #milestone_header p { text-align: center;}
+  #milestone_summary p.title {font-weight:bold}
+  #milestone_summary a {color:#5674b9}
+  #milestone_summary a:hover {text-decoration:none}
+  #milestone_summary .more { display: none; }
+  #milestone_summary .less_more_wrapper a{ display: block;  }
+  #milestone_summary #milestone_activities_wrapper ul { list-style-type: disc; }

@@ -647,7 +647,7 @@ namespace :excel do
                       :observation_title => observation_title,
                       :observation_desc => observation_desc,
                       :observation_what_it_means => observation_what_it_means,
-                      :other_occurances => other_occurances,
+                      :other_occurances => other_occurances.to_s.gsub(/\n/, "<br>").gsub(/\?/, ''),
                       :parent_as_partner => parent_as_partner,
                       :activity_1_title => activity_1_title,
                       :activity_1_subtitle => activity_1_subtitle,
