@@ -19,8 +19,8 @@
       <div>
         <%= f.fields_for :children do |child_form| %>
           <div class="single_child row" style="<%=  'display: block' if (child_form.object.first_name or child_form.object.birth_date) %>">
-            <%= child_form.label :first_name, "First Name: "%>
-            <%= child_form.text_field :first_name, :class => 'first_name_input' %>
+            <%= child_form.label :first_name, "First Name: " -%>
+            <%= child_form.text_field :first_name, :class => 'first_name_input', :value => set_blank_input_value(child_form.object.first_name) -%>
             <%= child_form.label :birth_date, "Birth Date: "%>
             <%= child_form.date_select :birth_date, {:default => child_form.object.formated_birth_date}, :class => "select-layout" -%>
             <%#= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date, :readonly => true, :class => 'birth_date_input' } %>
@@ -75,7 +75,7 @@
 
       <div class="row">        
         <%= f.label :zip_code, "Zip Code: " %>
-        <%= f.text_field :zip_code %>
+        <%= f.text_field :zip_code, :value => set_blank_input_value(f.object.zip_code) %>
       </div>
 
       <div class="submit">

@@ -1,0 +1,18 @@
+Testing
+
+<script type="text/javascript">
+function open_popup() {
+  popupWindow = window.open('/','popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+}
+
+function open2() {
+var open_link = window.open('','_blank');
+open_link.location="/";
+}
+
+//open_popup();
+open2();
+</script>
+
+<a href="javascript:open2();">Open tab</a><br />
+<a href="javascript:open_popup();">Open Popup</a>

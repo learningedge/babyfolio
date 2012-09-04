@@ -1,0 +1,157 @@
+------ migrating questions ------ 
+4 / v / 2 
+Q) Reaching Out for Partially Covering Objects: Visual Memory 
+M) Visual Memory 
+
+12 / v / 1 
+Q) Developing Detour Behavior 
+M) Developing of Detour Behavior 
+
+21 / v / 1 
+Q) Scribbles That Reflect Physical Activity 
+M) Gestural Representation: Scribbles That Reflect Physical Activity 
+
+4 / s / 1 
+Q) Preferential Smiles for Caregivers 
+M) Differentiating between Strangers and Familiar People- Preferential Smiles for Caregivers 
+
+4 / s / 2 
+Q) Signs of Fear 
+M) Differentiating between Strangers and Familiar People- Early Signs of Fear 
+
+12 / s / 1 
+Q) Psychological Instead of Physical Contact 
+M) Psychological Contact Instead of Physical Contact: A Secure Base to Explore and Feel Safe From 
+
+1 / mv / 2 
+Q) Stereotypic Leg Movement: Kicking Like a Frog 
+M) Repetitive, Stereotypic Leg Movements 
+
+2 / mv / 1 
+Q) Push Up Chest: Development of Shoulder Muscles 
+M) Push Up Chest 
+
+3 / mv / 2 
+Q) Maintains a Grasp of Object Set in Hand 
+M) Maintaining Grasp of Object Set in Hand 
+
+4 / mv / 2 
+Q) Visually-Directed Reaching 
+M) Visually Directed Reaching 
+
+6 / mv / 1 
+Q) Sitting Supported by Hands or Leaning Forward Unsupported 
+M) Sits Supported by Hands or Leaning Forward Unsupported 
+
+7 / mv / 3 
+Q) Crawling 
+//===== No milestone for mv_7_3 ====//
+
+9 / mv / 4 
+Q) Differentiating 
+//===== No milestone for mv_9_4 ====//
+
+10 / mv / 3 
+Q) Hand-clapping 
+//===== No milestone for mv_10_3 ====//
+
+12 / mv / 1 
+Q) Learning to Walk 
+M) Independent Walking 
+
+15 / mv / 3 
+Q) Stacking Blocks: Eye-Hand Coordination 
+M) Stacking Objects: Eye-Hand Coordination 
+
+21 / mv / 2 
+Q) Manipulation 
+M) Acting on Objects and Anticipating Movement Paths 
+
+24 / mv / 1 
+Q) Running 
+M) Jumping with Both Feet 
+
+24 / mv / 2 
+Q) Jumping 
+M) Imitating Patterns of Motor Actions on Objects 
+
+24 / mv / 3 
+Q) Copy Cat Action 
+//===== No milestone for mv_24_3 ====//
+
+27 / mv / 2 
+Q) Successful Stair Climbing 
+M) Fine Motor Movement Schemes 
+
+27 / mv / 3 
+Q) Successful Gras 
+//===== No milestone for mv_27_3 ====//
+
+30 / mv / 2 
+Q) Hand-Finger Coordination 
+M) Mature Walking 
+
+33 / mv / 1 
+Q) Catching 
+M) Gross Motor Catching 
+
+36 / mv / 1 
+Q) Overhand Strike 
+M) Hitting a Ball on the Ground 
+
+36 / mv / 2 
+Q) Scissors Grip 
+M) Increasing Hand-Finger Coordination 
+
+36 / mv / 3 
+Q) Early Pencil Gr 
+//===== No milestone for mv_36_3 ====//
+
+42 / mv / 1 
+Q) One-foot Hop 
+M) Hopping 
+
+42 / mv / 2 
+Q) Over-hand Throw 
+M) Use of Pencils 
+
+42 / mv / 3 
+Q) Successful Penc 
+//===== No milestone for mv_42_3 ====//
+
+48 / mv / 1 
+Q) Successful Running 
+M) Skipping 
+
+48 / mv / 2 
+Q) One-foot Skipping 
+M) Refined Hand and Finger Skills 
+
+48 / mv / 3 
+Q) Drawing Simple  
+//===== No milestone for mv_48_3 ====//
+
+48 / mv / 4 
+Q) Fine Motor Cont 
+//===== No milestone for mv_48_4 ====//
+
+6 / ln / 2 
+Q) Doing Things and Discovering What Happens Next 
+M) Finding Out What Causes What 
+
+8 / ln / 2 
+Q) Acting on Understandings of Object Permanence 
+M) Acting Upon Understanding of Object Permanence 
+
+2 / l / 3 
+Q) Early Turn-Taki 
+//===== No milestone for l_2_3 ====//
+
+9 / l / 2 
+Q) Protowords 
+M) Protowords: Ones Own Words 
+
+18 / l / 2 
+Q) First Language Explosion 
+M) First Vocabulary Explosion 
+

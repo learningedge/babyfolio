@@ -28,5 +28,5 @@
 </div>
   <%= will_paginate @moments, :page_links => false %>
 <% else %>
-<h2>Please enter a photo or Moment (no entries to date).<!-- Sorry, but <%#= @selected_child.first_name %> hasn't any moments. --></h2>
+<h2><a href="<%= child_new_moment_path(:child_id => @selected_child.id) -%>">Please enter a Story Moment (and photo/video). No entries submitted yet.</a></h2>
 <% end %>

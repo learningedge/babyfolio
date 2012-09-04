@@ -10,7 +10,9 @@ class ChildrenController < ApplicationController
     @selected_family = current_family
     @children = @selected_family.children
     @selected_child ||= params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
-    @level = flash[:level]
+    if session[:level] && session[:level][@selected_child.id]
+      @level = session[:level][@selected_child.id]
+    end
 
     ## select only moments where
     moments = @selected_child.moments.can_be_viewed_by(current_user, @selected_family)

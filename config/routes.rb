@@ -34,7 +34,7 @@ Babyfolio::Application.routes.draw do
 
   end
 
-    match '/milestone/' => "milestones#show", :as => :show_milestone
+    match '/milestone' => "milestones#show", :as => :show_milestone
 
 
 

@@ -1,9 +1,9 @@
-<%  @families_for_select = current_user.families.accepted.collect { |fam| ["#{fam.name}'s family", fam.id] } %>
+<%  @families_for_select = current_user.families.accepted.collect { |fam| ["#{set_blank_input_value(fam.name)}'s family", fam.id] } %>
 
 <% unless @families_for_select.length <= 1 %>
   <%= form_tag change_family_user_sessions_path, :class => "select_family_form" do %>
     <%= select_tag :id, options_for_select(@families_for_select, current_family.id), :onchange => "$(this).parents('form').submit();"  %>
   <% end %>
 <% else %>
-  <%= "#{current_family.name}'s family" -%>
+  <%= "#{set_blank_input_value(current_family.name)}'s family" -%>
 <% end %>

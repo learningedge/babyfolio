@@ -3,28 +3,26 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]  
   before_filter :require_family, :only => [:show]
-  before_filter :reset_session, :only => [:new]
+#  before_filter :reset_session, :only => [:new]
 
 
   def new    
-    if current_user && current_user.is_temporary
-      @user = current_user            
+    if !current_user and session[:temporary_user_id]
+      @user = User.find(session[:temporary_user_id])
       @user.email = ''
       @user.first_name = ''
       @user.last_name = ''
     else
-      clear_session
       @user = User.new
+      clear_session
     end
-    
     @accept_terms = false
   end
 
   def create
-    if current_user && current_user.is_temporary
-      @user = current_user
-      @user.update_attributes(params[:user])
-      
+    if session[:temporary_user_id]
+      @user = User.find(session[:temporary_user_id])
+      @user.update_attributes(params[:user])      
     else
       @user = User.new(params[:user])      
       @user.reset_single_access_token
@@ -137,12 +135,13 @@ class UsersController < ApplicationController
 
           new_user.reset_perishable_token
           if new_user.save
-            family = Family.create({:name => 'FamilyName', :zip_code => 'none' })
-            child = family.children.build({:first_name => 'Child One', :last_name => family.name, :birth_date => date || DateTime.now , :gender => gender  })
+            family = Family.create({:name => Family::DEFAULTS[:family_name], :zip_code => Family::DEFAULTS[:zipcode] })
+            child = family.children.build({:first_name => Child::DEFAULTS[:first_name], :last_name => family.name, :birth_date => date || DateTime.now , :gender => gender  })
             family.save
 
             new_user.relations.build({ :family => family, :member_type => Relation::MEMBER_TYPE[:PARENT], :accepted => true, :display_name => "TheParent", :token => timeStamp })
             if new_user.save
+              session[:temporary_user_created] = true
               UserSession.new(new_user)
             else
               flash[:notice] = "There were some errors creating temporary account."
@@ -160,10 +159,9 @@ class UsersController < ApplicationController
 
     unless ft.blank?
       redirect_to child_new_moment_url(:child_id => child.id )
-    else
+    else      
       redirect_to questions_url(:child => child.id, :level => 'basic' )
     end
-
   end
   
 end

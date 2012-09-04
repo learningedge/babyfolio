@@ -78,6 +78,7 @@ class FamiliesController < ApplicationController
 
     respond_to do |format|
       if @family.save
+        logger.info("INFO: czy zapisze?");
         current_user.update_attribute(:is_temporary, false) if current_user.families.first.children.first.scores.empty?
         if parents_count == 2
           second_relation = @family.relations.fetch(1)
@@ -98,7 +99,9 @@ class FamiliesController < ApplicationController
         format.xml  { render :xml => @family, :status => :created, :location => @family }
         
       else
-        @family.relations.first.user = User.new(:email => current_user.email)
+        unless current_user.is_temporary
+          @family.relations.first.user = User.new(:email => current_user.email)
+        end
         @family.relations.build(:user => User.new, :member_type => 'mother') if @family.relations.length == 1
 
         while @family.children.length < 10 do
@@ -122,7 +125,7 @@ class FamiliesController < ApplicationController
     end
   end
 
-  def update
+  def update    
     @family = current_user.families.parenting_families.includes(:children).find(my_family.id)
     if @family.update_attributes(params[:family])
       flash[:notice] = 'Family successfully updated.'

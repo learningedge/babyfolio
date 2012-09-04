@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def set_blank_input_value text
+    if text == Family::DEFAULTS[:family_name] or text == Family::DEFAULTS[:zipcode] or text == Child::DEFAULTS[:first_name]
+      ""
+    else
+      text
+    end
+  end
+
   def get_image_tag object, style
     image_tag get_image_url(object, style)
   end

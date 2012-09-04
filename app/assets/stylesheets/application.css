@@ -273,7 +273,7 @@ hr { margin: 15px 0;  }
 /* Book */
 #wrraper .container #container_left #book_box {position: relative;width: 300px;top: 0;left: 0}
 #wrraper .container #container_left #book {position: relative;left: -126px;top: 25px;z-index: 1}
-#wrraper .container #container_left #book #container_book {background: url('/images/storybook.png') no-repeat;width: 907px;height: 736px;padding: 68px 0 0 72px}
+#wrraper .container #container_left #book #container_book {background: url('/images/storybook.png') no-repeat;width: 835px;height: 736px;padding: 68px 0 0 72px}
 #wrraper .container #container_left #book #container_book #book_left {float: left;width: 300px;padding: 22px 0 0}
 #wrraper .container #container_left #book #container_book #book_left img {border: 10px solid #D5D2BE}
 #wrraper .container #container_left #book #container_book #book_left span {display: inline-block;width: 203px;color:#636363;font: 24px 'Helvetica_57';padding: 0 0 0 25px}
@@ -333,7 +333,7 @@ hr { margin: 15px 0;  }
 .storybook_container .container #container_left #footer_bg_profile {background:#fff}
 .storybook_container .container #container_left #footer_bg_profile #footer {width:720px}
 
-#wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);position: relative;padding: 166px 0 0;/*height: 100%*/margin-left: 762px}
+#wrraper .container #container_right {/*float: right*/;width: 274px;background: #E8E3C0;border-radius: 11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);position: relative;padding: 130px 0 0;/*height: 100%*/margin-left: 762px}
 #wrraper .container #container_right .milestone-popup {display:none}
 #wrraper .container #container_right .logo{background: url('/images/right_logo.png');position: absolute;top: -9px;left: -21px;width: 290px;height: 124px}
 #wrraper .container #container_right #most_post {margin: 0 0 0 35px}
@@ -341,6 +341,9 @@ hr { margin: 15px 0;  }
 #wrraper .container #container_right #most_post .single_post h1 {font: 30px 'helvetica_seven';color:#555555}
 #wrraper .container #container_right #most_post .single_post p {color:#555555;font: 12px arial;padding: 0 0 6px}
 #wrraper .container #container_right #most_post .single_post a {text-align: right;color: #5674b9;font: 12px arial;display: block;margin: 22px 0 0}
+#wrraper .container #container_right #most_post #immediate_lws{ color: #555; font: bold 12px Arial; margin-bottom: 15px; padding: 0 20px 0 10px;  } 
+#wrraper .container #container_right #most_post #immediate_lws hr { color: #eee} 
+
 
 /* Footer */
 #footer {background: #cbcac5;padding: 50px 0 0; height: 95px;width: 1021px;margin: 0 auto}
@@ -383,13 +386,13 @@ div.user-form #login_left div.submit {margin-left: 80px;}
 #or { position: absolute; top: 50%; left: 409px; background-color: #E8E3C0; padding: 5px 0;  } 
 
 
-#new_user .header {text-align:center;padding-bottom:15px}
-#new_user #login_left {width:260px;text-align:center;border:none}
-#new_user #login_left h4 {font:20px/22px 'arial';color:#9b7804}
-#new_user #login_left #fblogin_link a{background-color:#5775ae;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);padding:10px 40px;color:white;display:inline-block;text-decoration:none}
-#new_user #login_left .note {font-size:12px;padding:10px;font-style:italic}
-#new_user #login_right {width:360px;text-align:right;border-left:1px solid #AAAAAA}
-#new_user #login_right .conditions {text-align:left}
+#new_user .header, .edit_user .header {text-align:center;padding-bottom:15px}
+#new_user #login_left, .edit_user #login_left {width:260px;text-align:center;border:none}
+#new_user #login_left h4, .edit_user #login_left h4 {font:20px/22px 'arial';color:#9b7804}
+#new_user #login_left #fblogin_link a, .edit_user #login_left #fblogin_link a{background-color:#5775ae;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);padding:10px 40px;color:white;display:inline-block;text-decoration:none}
+#new_user #login_left .note, .edit_user #login_left .note {font-size:12px;padding:10px;font-style:italic}
+#new_user #login_right, .edit_user #login_right {width:360px;text-align:right;border-left:1px solid #AAAAAA}
+#new_user #login_right .conditions, .edit_user #login_right .conditions {text-align:left}
 
 
 .user-form {float:right;position: relative;background:#e8e3c0;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);width:720px;padding: 30px 20px 30px 50px;font: 14px arial; color:#898989}

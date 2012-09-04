@@ -33,6 +33,9 @@ class Child < ActiveRecord::Base
     'Male' => 'male',
     'Female' => 'female'
   }
+  DEFAULTS = {
+    :first_name => "__first_name"
+  }
 
   FORMS = {
     /(#)+he\/she#/ => ['he', 'she'],
@@ -64,10 +67,16 @@ class Child < ActiveRecord::Base
     return mnths > 0 ? mnths-1 : 0
   end
 
-  def replace_question_forms(question_text)
+  def days_old
+    (DateTime.now.to_date - self.birth_date.to_date).to_i
+  end
+
+
+  def replace_forms(question_text)
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
       end
+      question_text = question_text.gsub(/#first#/, first_name)
       return question_text
   end
 
@@ -75,6 +84,9 @@ class Child < ActiveRecord::Base
     @index ||= (gender == 'male' ? 0 : 1);
   end
 
+  def get_all_images 
+    self.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
+  end
 
   def age_text
     distance_of_time_in_words_to_now(self.birth_date)

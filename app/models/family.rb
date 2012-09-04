@@ -30,5 +30,9 @@ class Family < ActiveRecord::Base
   end
 
   STEPS = ["Create Family", "Invite Family and Friends", "Add Photos/Videos"]
+  DEFAULTS = {
+    :family_name => "__family_name",
+    :zipcode => "__zipcode"
+  }
 
 end

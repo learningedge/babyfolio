@@ -1,6 +1,7 @@
   <style type="text/css">
 	#wrraper {width:1075px;padding:0 !important;background:#fff;}
   </style>
+ 
   
   <div class="container  children">
 	<div id="top_container">
@@ -74,7 +75,6 @@
         <h1>Build upon #first#'s storybook</h1>
         <div class="shadow"><img src="/images/shadow.png" alt="" /></div>
         <div><span style="float:left; padding-left: 30px;">Questionaires: </span><a href="<%= questions_url({:child => @selected_child.id , :level => 'basic'}) %>">Basic</a> <a href="<%= questions_url(:child => @selected_child.id) %>">Normal</a> <a href="<%= questions_url({:child => @selected_child.id, :level => 'advanced'}) %>">Advanced</a><br /><br /></div>
-        <!-- <a href="<%#= questions_url %>" style="background: url(/images/button.png) repeat scroll 0 0 transparent; font: 16px/53px 'helvetica_seven'; color: #fff; height: 53px; width: 110px; margin-left: 30px; padding: 0 15px; float: none; display: block; text-decoration: none;">Fill Questionaires</a> -->
         
         <a href="<%= child_new_moment_path(:child_id => @selected_child.id) -%>"><img src="/images/add_moment.png" alt="" /></a>
         <div class="text">text text text</div>
@@ -149,8 +149,18 @@
         })
       </script>
       <div id="most_post">
+	<div id="immediate_lws">
+	  <% lws = Score.select_LWs(@selected_child) %>
+	  <% if lws.present? %>
+	     <% lws.each_with_index do |mid,idx| %>
+                Learing Window(<%= idx + 1 %>): <%= link_to "link", "#", :rel => mid, :onclick => 'show_milestone(this); return false;' %><br />
+	     <% end %>
+	  <% else %>
+	    Can't figure out Learning Windows. Please take one of the questionnaires to get required results.
+	  <% end %>
+	  <hr />
+	</div>
 
-        <%= link_to "Show questionnaire results", "#", :rel => 227,  :onclick => 'show_milestone(this); return false;' if @level && @level == 'basic' %>
         <script type="text/javascript">
           function show_milestone(object) {
             var width = 500;
@@ -158,7 +168,7 @@
             var left = parseInt((screen.availWidth/2) - (width/2));
             var top = parseInt((screen.availHeight/2) - (height/2));
             var url = '<%= show_milestone_url( :child_id => @selected_child.id  ) %>' + '&mid=' + $(object).attr('rel');
-            window.open(url,"_blank","menubar=0,resizable=0,width=500,height=650,location=0,left=" + left + ",top=" + top + ",screenX=" + left + ",screenY=" + top);
+            window.open(url,"_blank","menubar=0,resizable=0,scrollbars=1,width=500,height=650,location=0,left=" + left + ",top=" + top + ",screenX=" + left + ",screenY=" + top);
           }
         </script>
         <div class="single_post">
