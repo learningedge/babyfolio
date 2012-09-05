@@ -5,7 +5,7 @@
     <p class='title'>What to look for and what it means: </p>
     <div class="less_more_wrapper">
       <div class="less">
-        <%= @child.replace_forms(smart_truncate(@milestone.observation_what_it_means, :words => 10)) -%>
+        <%= @child.replace_forms(smart_truncate(@milestone.observation_what_it_means, :words => 10)).html_safe -%>
         <a href="#" class="read_more">Read more</a>
       </div>
       <div class="more">
@@ -21,7 +21,7 @@
     <p class='title'>Why it's important: </p>
     <div class="less_more_wrapper">
       <div class="less">
-        <%= @child.replace_forms(smart_truncate(@milestone.research_background, :words => 10)) -%>
+        <%= @child.replace_forms(smart_truncate(@milestone.research_background, :words => 10)).html_safe -%>
         <a href="#" class="read_more">Read more</a>
       </div>
       <div class="more">
@@ -36,23 +36,23 @@
     <p class='title'>How to nurture it: </p>
     <div class="less_more_wrapper">
       <div class="less">
-        <%= @child.replace_forms(smart_truncate(@milestone.parent_as_partner, :words => 10)) -%>
+        <%= @child.replace_forms(smart_truncate(@milestone.parent_as_partner, :words => 10)).html_safe -%>
         <a href="#" class="read_more">Read more</a>
       </div>
       <div class="more">
-        <%= @child.replace_forms(@milestone.parent_as_partner) %>
+        <%= @child.replace_forms(@milestone.parent_as_partner).html_safe %>
         <a href="#" class="read_less">Less</a>
       </div>
     </div>
   </div>
 
-  <% if @milestone.activity_1_title.present? || @milestone.activity_2_title.present? %>
+  <% if @milestone.activity_1_title_text(@child) || @milestone.activity_2_title_text(@child) %>
     <div id="milestone_activities_wrapper">
       <p class='title'>Types of activities to play:</p>
       <ul>
-        <% unless @milestone.activity_1_title.blank? %>
+        <% if @milestone.activity_1_title_text(@child) %>
         <li>
-            <p class="title"><%= @child.replace_forms(@milestone.activity_1_title) %></p>
+            <p class="title"><%= @milestone.activity_1_title_text(@child).html_safe %></p>
             <a href="#" class="activity_more_link">Read more</a>
             <div class="activity_details">
               <%= display_ms_field @milestone.activity_1_subtitle, "Subtitle", { :hr => true } %>
@@ -66,9 +66,9 @@
         </li>
         <% end %>
         
-        <% unless @milestone.activity_2_title.blank? %>
+        <% if @milestone.activity_2_title_text(@child) %>
           <li>
-              <p class="title"><%= @child.replace_forms(@milestone.activity_2_title) %></p>
+              <p class="title"><%= @milestone.activity_1_title_text(@child).html_safe %></p>
               <a href="#" class="activity_more_link">Read more</a>
               <div class="activity_details">
                 <%= display_ms_field @milestone.activity_2_subtitle, "Subtitle", { :hr => true } %>
