@@ -112,7 +112,10 @@ Babyfolio::Application.routes.draw do
   get "confirmation/resend" => "confirmation#re_send_email"
   get "confirmation/confirm_email"
   get "confirmation/accept_invitation" => "confirmation#accept_invitation"
+  get "confirmation/accept_relations" => "confirmation#accept_relations"
+  post "confirmation/save_relations" => "confirmation#save_relations"
   put "confirmation/update_user" => "confirmation#update_user"
+  
 
   get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
   post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
@@ -122,6 +125,7 @@ Babyfolio::Application.routes.draw do
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'signup' => "users#new", :as => :signup
+  match 'create-profile-photo' => "users#create_profile_photo", :as => :create_profile_photo
   
   resources :families, :only => [:new, :create, :index, :update] do
     collection do
@@ -141,8 +145,13 @@ Babyfolio::Application.routes.draw do
     end
   end
 
-  resources :children, :only => [:edit, :update] do
+  resources :children, :only => [:create, :edit, :update] do
     collection do
+      get '/new' => "children#new", :as => :new_child
+      get '/add_friends' => "children#add_friends", :as => :add_friends
+      get '/add_family' => "children#add_family", :as => :add_family
+      post '/create_relations' => "children#create_relations", :as => :create_relations
+      post '/create_childs_photo' => "children#create_childs_photo", :as => :new_child_photo
       get ':child_id' => "children#show", :as => :child_profile
       get :show, :as => :child_profile
       get '/:id/info' => "children#info", :as => :info

@@ -1,0 +1,47 @@
+<p>You've been invited to join following BabyFolios:</p>
+<%= form_tag confirmation_save_relations_url %>
+  <% @relations.each_with_index do |r,idx| %>
+  <%= r.child.first_name %><br />
+  <%= r.child.last_name %><br />
+  <%= r.member_type %><br />
+  <%= image_tag r.child.media.image.url(:medium) unless r.child.media.blank? %>
+  Accept: <%= radio_button_tag "accepted[#{idx}]", r.token %> Decline<%= radio_button_tag "declined[#{idx}]", r.token %>
+  <%= submit_tag "Continue" %>
+<% end %>
+
+
+<%#*<div class="container confirmation-welcome">%>
+  <%#*<div id="title">Welcome</div>%>
+
+  <%# unless @relation.accepted %>
+
+    <%#*<div class="user-form">%>
+
+      <%#*<h2>Please fill up below form in order to confirm your account.</h2>%>
+      <%#= render "shared/error_messages", :target => @relation %>
+
+      <%#= form_for @relation, :url => confirmation_update_user_path, :method => :put do |f| %>
+        <%#= f.hidden_field :token %>
+
+        <%# unless f.object.user.email_confirmed  %>
+          <%#= f.fields_for :user do |form| %>
+            <%#= render :partial => "/users/form", :object => form, :locals => { :user => form.object } -%>
+          <%# end %>
+        <%# end %>
+        <%#*<div class="submit">%>
+          <%#= f.submit "Submit" %>
+        <%#*</div>%>
+
+      <%# end %>
+    <%#*</div>%>
+
+  <%#  else %>
+    <%#*<h2>You have already accepted invitation.</h2>%>
+  <%# end %>
+  <%#*<div class="clear"></div>%>
+<%#*</div>%>
+
+
+
+
+

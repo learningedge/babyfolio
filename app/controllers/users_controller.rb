@@ -2,8 +2,7 @@ class UsersController < ApplicationController
     
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]  
-  before_filter :require_family, :only => [:show]
-#  before_filter :reset_session, :only => [:new]
+  #before_filter :require_family, :only => [:show]
 
 
   def new    
@@ -13,8 +12,8 @@ class UsersController < ApplicationController
       @user.first_name = ''
       @user.last_name = ''
     else
-      @user = User.new
       clear_session
+      @user = User.new
     end
     @accept_terms = false
   end
@@ -29,33 +28,39 @@ class UsersController < ApplicationController
     end
 
     @user.reset_perishable_token
-    @accept_terms = params[:accept_terms] || false
+    @user.profile_media = Media.find_by_id(params[:user_profile_media])
     
     if @user.valid?
-      unless params[:accept_terms]
-        @user.add_object_error('You need to accept terms of service before proceeding')
-        flash[:notice] = "There was a problem creating your account."
-        render :action => :new
-      else
-#        if session[:child_birth_date].present? && session[:child_gender].present?
-#          @user.child_info = {:gender => session[:child_gender], :birth_date => session[:child_birth_date] }
-#          session[:child_birth_date] = nil
-#          session[:child_gender] = nil
-#        end
-        
-        @user.save
-        @user.update_attribute(:email_confirmed, false)
-        UserMailer.confirmation_email(@user).deliver
+      @user.email_confirmed = false
+      @user.save      
+      UserMailer.confirmation_email(@user).deliver
 
-        flash[:notice] = "Your account has been created. Confirmation email has been sent."
-        redirect_to new_family_url
-        #redirect_to confirmation_url
-      end
+      flash[:notice] = "Your account has been created. Confirmation email has been sent."
+      redirect_to new_child_children_url
     else
       flash[:notice] = "There was a problem creating your account."
       render :action => :new
     end
   end
+
+  def create_profile_photo
+    if params[:qqfile].kind_of? String
+      ext = '.' + params[:qqfile].split('.').last
+      fname = params[:qqfile].split(ext).first
+      tempfile = Tempfile.new([fname, ext])
+      tempfile.binmode
+      tempfile << request.body.read
+      tempfile.rewind
+    else
+      tempfile = params[:qqfile].tempfile
+    end
+
+    media = MediaImage.create(:image => tempfile)
+    respond_to do |format|
+      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:medium)}\"}" }
+    end
+  end
+
 
   def show
     @user = current_user
@@ -76,6 +81,7 @@ class UsersController < ApplicationController
   def update
     @edit = true
     @user = current_user # makes our views "cleaner" and more consistent
+    @user.profile_media = Media.find_by_id(params[:user_profile_media])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to child_profile_children_url

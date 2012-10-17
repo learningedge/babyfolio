@@ -4,8 +4,9 @@ class QuestionsController < ApplicationController
 
   def before_filter_require
     if current_user
-      require_my_family
-      require_family_with_child
+      require_child
+      #require_my_family
+      #require_family_with_child
     elsif !session[:temporary_user_id]
       redirect_to errors_permission_url
     end
@@ -21,7 +22,7 @@ class QuestionsController < ApplicationController
     flash[:no_alert] = true  # DONT MARK QUESTIONS AS BEING REQUIRED TO ANSWER AT THE FIRST QUESTIONAIRE DISPLAY
     @current_step = 1
     current_user ? user = current_user : user = User.find(session[:temporary_user_id])    
-    @child = user.own_children.find(params[:child])
+    @child = user.children.find(params[:child])
     @level = params[:level]
 
 #    render :text => @answers.inspect
@@ -49,7 +50,7 @@ class QuestionsController < ApplicationController
     questions_array = []
     current_user ? user = current_user : user = User.find(session[:temporary_user_id])
     child_id = params[:child].to_i
-    @child = user.own_children.find(child_id)
+    @child = user.children.find(child_id)
     @level = params[:level]    
     @current_step = params[:current_step].to_i
     @categories_with_questions = []

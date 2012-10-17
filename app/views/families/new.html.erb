@@ -22,19 +22,14 @@
             <%= child_form.label :first_name, "First Name: " -%>
             <%= child_form.text_field :first_name, :class => 'first_name_input', :value => set_blank_input_value(child_form.object.first_name) -%>
             <%= child_form.label :birth_date, "Birth Date: "%>
-            <%= child_form.date_select :birth_date, {:default => child_form.object.formated_birth_date}, :class => "select-layout" -%>
-            <%#= child_form.text_field :birth_date, { :value => child_form.object.formated_birth_date, :readonly => true, :class => 'birth_date_input' } %>
+            <%= child_form.date_select :birth_date, {:default => child_form.object.formated_birth_date}, :class => "select-layout" -%>            
             <%= child_form.label :gender, "Gender: "%>            
             <%= child_form.select :gender, options_for_select(Child::GENDERS, child_form.object.gender),{}, :class => "select-layout" %>
             <div class="child_file_filed">
               <%= child_form.label :profile_image, "Child image: " %>
               <%= child_form.file_field :profile_image %>
             </div>
-            
-
-            <%#= child_form.fields_for :media do |media_form| %>
-              <%#= media_form.file_field :image %>
-            <%# end %>            
+                        
             <% counter += 1 %>
           </div>
         <% end %>

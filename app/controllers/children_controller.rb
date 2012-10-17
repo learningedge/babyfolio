@@ -1,21 +1,57 @@
 class ChildrenController < ApplicationController
 
   before_filter :require_user
-  before_filter :require_family
-  before_filter :require_family_with_child
+  before_filter :require_child, :except => [:new,:create,:create_childs_photo]
+
+  def new
+    @child = Child.new    
+  end
+
+  def create
+    @child = Child.new(params[:child])
+    @child.media = MediaImage.find_by_id(params[:child_profile_media])
+
+    if @child.save
+      Relation.create(:member_type => params[:relation_type], :user_id => current_user.id, :child_id => @child.id, :accepted => true, :token => current_user.perishable_token)
+      current_user.reset_perishable_token
+      redirect_to child_profile_children_url
+    else
+      render :action => 'new'
+    end
+  end
+
+  def create_childs_photo
+    if params[:qqfile].kind_of? String
+      ext = '.' + params[:qqfile].split('.').last
+      fname = params[:qqfile].split(ext).first
+      tempfile = Tempfile.new([fname, ext])
+      tempfile.binmode
+      tempfile << request.body.read
+      tempfile.rewind
+    else
+      tempfile = params[:qqfile].tempfile
+    end
+
+    media = MediaImage.create(:image => tempfile)
+    respond_to do |format|
+      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:medium)}\"}" }
+    end
+  end
 
   def show
     @user = current_user
-    @families = @user.families
-    @selected_family = current_family
-    @children = @selected_family.children
-    @selected_child ||= params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
+    @children = current_user.relations.find_all_by_accepted(1, :conditions => ['child_id is not null'], :include => [:child]).map{|r| r.child}
     if session[:level] && session[:level][@selected_child.id]
       @level = session[:level][@selected_child.id]
     end
 
-    ## select only moments where
-    moments = @selected_child.moments.can_be_viewed_by(current_user, @selected_family)
+    @selected_child = @children.select{|c| c.id == params[:child_id].to_i }.first
+    if @selected_child.present?
+      set_current_child @selected_child.id
+    else
+      @selected_child = current_child
+    end
+    moments = @selected_child.moments
 
     @moments = moments.paginate(:page => params[:page])
   end
@@ -40,6 +76,65 @@ class ChildrenController < ApplicationController
 
     redirect_to child_profile_children_url
   end
+
+  def add_friends
+  end
+
+  def add_family
+  end
+
+  def create_relations    
+    @friends = params[:friends]
+    user_emails = Array.new
+    users = Array.new
+    @error = false
+
+    @friends = @friends.select{ |f| f[1]['email'].strip.present?}
+    user_emails = @friends.map{|f| f[1]['email']}.uniq
+
+    
+    if user_emails.empty?
+      @error = true
+      @flash_error = "You need to enter at least one email";
+    end
+
+    unless @error
+      exist_users = User.where(['email IN (?)', user_emails]).all      
+
+      @friends.each do |f|
+        idx = exist_users.find_index{|u| u.email == f[1]['email']}
+        if idx
+          @user = exist_users[idx]
+        else
+          @user = User.new(:email => f[1][:email])
+          @user.reset_password
+          @user.reset_perishable_token
+          @user.reset_single_access_token
+        end
+
+        unless @user.valid?
+            @error = true
+            break
+        end        
+        @user.relations.find_or_initialize_by_child_id(current_child.id, :member_type => f[1][:member_type], :token => @user.perishable_token)
+        @user.reset_perishable_token
+        users << @user
+      end
+    end
+    
+    unless @error
+      users.each do |user|
+        user.save
+        UserMailer.invite_user(user.relations.first{|r| r.child_id == current_child.id}, current_user).deliver
+      end
+      flash[:notice] = "Thanks fo inviting others. We have successfully sent emails to the other family & friends that you entered."
+      redirect_to child_profile_children_path
+    else
+      flash[:error] = "Invalid emails!"
+      render :action => :add_friends
+    end
+  end
+
 
   def info
     if current_user.can_view_child? params[:id]

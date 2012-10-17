@@ -1,9 +1,8 @@
   <style type="text/css">
 	#wrraper {width:1075px;padding:0 !important;background:#fff;}
   </style>
- 
-  
-  <div class="container  children">
+   
+  <div class="container  children">    
 	<div id="top_container">
 		<div class="top_box_bg"></div>
 	</div>
@@ -13,7 +12,7 @@
         <div id="title"><%= @selected_child.first_name -%>'s Unique Story</div>
         <div id="drop_list">
           <%= form_tag({}, { :method => :get }) do -%>
-          <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/children/' + this.value" } -%>
+            <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/children/' + this.value" } -%>
           <% end -%>
           <span id="setting_kids">
             <a href="#">Add</a>
@@ -35,17 +34,17 @@
             <div id="family_list">
               <span>Add Family & Friends</span>
               <ul>
-		<% @selected_family.relations.each do |relation| -%>
-                <li>
-		  <% if relation.user_id == current_user.id -%>
-		  <%= link_to relation.get_member_type_name, edit_account_path -%>
-		  <% else -%>
-		  <%= relation.get_member_type_name -%>
-		  <% end -%>
-		</li>
-		<% end -%>
+		<%# @selected_family.relations.each do |relation| -%>
+                <%#*<li>%>
+		  <%# if relation.user_id == current_user.id -%>
+		  <%#= link_to relation.get_member_type_name, edit_account_path -%>
+		  <%# else -%>
+		  <%#= relation.get_member_type_name -%>
+		  <%# end -%>
+		<%#*</li>%>
+		<%# end -%>
               </ul>
-              <a href="<%= add_friends_families_path -%>">Invite Another</a>
+              <a href="<%= add_friends_children_path -%>">Invite Another</a>
             </div>
           </div>
           <div id="book_right">

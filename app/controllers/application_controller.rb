@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_confirmation
 
   config.filter_parameters :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?
+  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?, :current_child, :set_current_child
 
   private
     def clear_session
@@ -78,6 +78,26 @@ class ApplicationController < ActionController::Base
       if current_user and !current_user.email_confirmed and current_user.created_at < (DateTime.now - 7.days)
         redirect_to confirmation_url
       end
+    end
+
+    def current_child
+      return @current_child if defined?(@current_child)
+      if session[:current_child]
+        @current_child = Child.find_by_id(session[:current_child]);
+      else
+        @current_child = current_user.children.first 
+        set_current_child @current_child.id if @current_child
+      end
+      @current_child
+    end
+
+    def set_current_child child_id
+      session[:current_child] = child_id
+      @current_child = Child.find_by_id(child_id);
+    end
+
+    def require_child
+      redirect_to new_child_children_path unless current_user.children.any?
     end
 
     def current_family

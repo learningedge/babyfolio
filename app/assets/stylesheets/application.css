@@ -10,7 +10,7 @@
  *
  *= require_self
  *= require_tree .
-*/
+*/r
 
 @font-face {
 font-family: 'Helvetica_seven';
@@ -393,7 +393,7 @@ div.user-form #login_left div.submit {margin-left: 80px;}
 #new_user #login_left h4, .edit_user #login_left h4 {font:20px/22px 'arial';color:#9b7804}
 #new_user #login_left #fblogin_link a, .edit_user #login_left #fblogin_link a{background-color:#5775ae;border-radius:11px;-webkit-border-radius: 11px;-moz-border-radius: 11px;behavior: url(/PIE/PIE.htc);padding:10px 40px;color:white;display:inline-block;text-decoration:none}
 #new_user #login_left .note, .edit_user #login_left .note {font-size:12px;padding:10px;font-style:italic}
-#new_user #login_right, .edit_user #login_right {width:360px;text-align:right;border-left:1px solid #AAAAAA}
+#new_user #login_right, .edit_user #login_right {width:360px;text-align:right;}
 #new_user #login_right .conditions, .edit_user #login_right .conditions {text-align:left}
 
 
@@ -605,6 +605,7 @@ div.submit {float:left;margin-right:20px}
 #selected-image .image .checkbox-radiobutton {position:absolute;display:none}
 /* flickr facebook uploaded-images in registration process */
 
+#login_right #file-registration-uploader .qq-uploader .qq-upload-button{ background: none; border: none; width: 93px; height: 93px; padding: 0; background: url(/images/icon1.png) no-repeat center center; }
 .registration-process .user-form input[type=submit].registration-submit-button,
 .registration-process .user-form .uploaded-images-container .qq-upload-button,
 .registration-process .user-form .registration-submit-button {background:#f5f2dd;color:#9b7804;font:11px/13px arial;display:inline-block;border-radius:11px;-moz-border-radius: 11px;-webkit-border-radius: 11px;/*behavior: url(/PIE/PIE.htc)*/;height:auto;text-decoration:none;text-align:center;margin:20px 0 10px;padding:5px 0px;width:150px}

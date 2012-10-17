@@ -24,11 +24,6 @@ class FamiliesController < ApplicationController
       session[:is_registration] = nil
     end
 
-#    if current_user.child_info
-#      @family.children.first.birth_date = current_user.child_info[:birth_date]
-#      @family.children.first.gender = current_user.child_info[:gender]
-#    end       
-
     @family.relations.build :user => User.new, :member_type => 'parent'
 
   end
@@ -78,7 +73,6 @@ class FamiliesController < ApplicationController
 
     respond_to do |format|
       if @family.save
-        logger.info("INFO: czy zapisze?");
         current_user.update_attribute(:is_temporary, false) if current_user.families.first.children.first.scores.empty?
         if parents_count == 2
           second_relation = @family.relations.fetch(1)
@@ -135,15 +129,13 @@ class FamiliesController < ApplicationController
     end
   end 
 
-  def add_family
-    
+  def add_family    
   end
 
-  def add_friends
-    
+  def add_friends    
   end
 
-  def create_friend_relations
+  def create_relations
     @family = current_family
     @friends = params[:friends]
     user_emails = Array.new
@@ -241,82 +233,7 @@ class FamiliesController < ApplicationController
   end
 
   def create_friends
-#    flash[:registration] = flash[:registration]
-#    @family = current_family
-#    users = Array.new
-#    tokens = Array.new
-#
-#    @emails = params[:emails].split(',')
-#    @emails = @emails.collect {|email| email.strip }
-#    @emails.delete("")
-#    @message = params[:message]
-#
-#    @error = false
-#
-#    if @emails.empty?
-#      @error = true
-#      @flash_notice = "You can't invite no one"
-#    end
-#
-#    unless @error
-#
-#      exist_users = User.where(['email IN (?)', @emails]).all
-#
-#      unless @error
-#        @emails.each do |email|
-#          @user_exist = false
-#
-#          exist_users.each do |exist_user|
-#            if exist_user.email == email
-#              @user = exist_user
-#              @user_exist = true
-#              break
-#            end
-#          end
-#
-#          unless @user_exist
-#            @user = User.new(:email => email)
-#            @user.reset_password
-#            @user.reset_perishable_token
-#            @user.reset_single_access_token
-#          end
-#
-#          unless @user.valid?
-#              @error = true
-#              break
-#          end
-#
-#          user_relation = @user.relations.where(:family_id => @family.id).first
-#
-#          if user_relation.nil?
-#            @user.relations.build :member_type => Relation::MEMBER_TYPE[:OTHER], :family_id => @family.id, :token => @user.perishable_token
-#          else
-#            user_relation.update_attribute(:token, @user.perishable_token)
-#          end
-#
-#          tokens << @user.perishable_token
-#          @user.reset_perishable_token
-#          users << @user
-#
-#        end
-#
-#      end
-#
-#    end
-#
-#    if @error
-#      flash[:notice] = @flash_notice
-#      render :action => :add_friends
-#    else
-#      users.each do |user|
-#        user.save
-#        UserMailer.invite_user(user.relations.where(["family_id = ?",@family.id]).first, current_user, @message).deliver
-#      end
-#      flash[:notice] = 'Congrats you send emails to your friends :D!!'
-#      flash[:tokens] = tokens
-#      redirect_to relations_families_path
-#    end
-    
+ 
   end
 
   def relations

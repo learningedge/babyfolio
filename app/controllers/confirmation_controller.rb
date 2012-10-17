@@ -29,66 +29,75 @@ class ConfirmationController < ApplicationController
       UserSession.create(@user)
       @user.reset_perishable_token!
       flash[:notice] = "Email successfuly confirmed."
-      if my_family 
-        unless @user.is_temporary
-          redirect_to child_profile_children_url
-        else
-          redirect_to new_family_url
-        end
-      else
-        redirect_to new_family_url
-      end
+      redirect_to child_profile_children_url      
     end
   end
 
-#  def accept_invitation
-#    @token = params[:token]
-#    @user = User.find_by_perishable_token @token
-#    UserSession.create(@user)
-#  end
-#
-#  def update_user
-#    params[:user][:email_confirmed] ||= 1
-#    current_user.assign_attributes(params[:user])
-#    current_user.reset_perishable_token!
-#    if current_user.save
-#      flash[:notice] = "Account details sucessfully updated."
-#      redirect_to home_index_path
-#    else
-#      @user = current_user
-#      render :accept_invitation
-#    end
-#  end
 
 
-  def accept_invitation
-    @token = params[:token]
-    @relation = Relation.find_by_token(@token, :include => [:user])
-    @accept_terms = false
+  def accept_invitation    
+    @relation = Relation.find_by_token(params[:token], :include => [:user])
+    @user = @relation.user
+    @edit = true
     UserSession.create(@relation.user)
-    session[:curent_family] = @relation.family_id
+    if @user.email_confirmed
+      @relations = Relation.find_all_by_user_id_and_accepted(@user.id, [0,2], :include => [:child, :user])
+      render :accept_relations
+    end
+    
     rescue NoMethodError
-      flash[:notice] = "Ooooooooops, there is something wrong with your invitation."
+      flash[:notice] = "Ooops, there is something wrong with your invitation."
       redirect_to login_url
   end
 
-  def update_user    
-    @relation = Relation.find_by_token(params[:relation][:token])
-    @relation.assign_attributes(params[:relation])
-    @accept_terms = params[:accept_terms] || false
+  def accept_relations     
+  end
 
-     if @relation.valid?
-      unless params[:accept_terms]
-        @relation.add_object_error('You need to accept terms of service before proceeding')
-        flash[:notice] = "There was a problem with creating your account."
-        render :accept_invitation
-      else
-        @relation.save
-        flash[:notice] = "Your settings has been sucessfully updated."
-        @relation.user.update_attribute :email_confirmed, 1
-        @relation.update_attribute :accepted, 1
-        redirect_to child_profile_children_url
+  def save_relations
+    if params[:accepted].present?
+      accepted_tokens = params[:accpeted].map{|k,v| v}
+      accepted_rels = Relation.find_all_by_token(accepted_tokens)
+
+      accepted_rels.each do |r|
+        r.update_attribute(:accepted, 1)
       end
+    end
+
+    if params[:declined].present?
+      declined_tokens = params[:declined].map{|k,v| v}
+      declined_rels = Relation.find_all_by_token(declined_tokens)
+
+      declined_rels.each do |r|
+        r.update_attribute(:accepted, 2)
+      end
+    end
+    
+    
+
+    
+    
+
+    
+
+    
+
+    redirect_to child_profile_children_url
+  end
+
+  def update_user    
+    @relation = Relation.find_by_token(params[:token], :include => [:user])
+    @user = @relation.user
+    @edit = true
+
+    @user.profile_media = Media.find_by_id(params[:user_profile_media])
+    @user.assign_attributes(params[:user])
+      
+     if @user.valid?
+        @user.email_confirmed = true
+        @user.save        
+        flash[:notice] = "Your settings has been sucessfully updated."
+        @relations = Relation.find_all_by_user_id_and_accepted(@user.id, [0,2],:include => [:child, :user])
+        render :accept_relations
     else
         flash[:notice] = "There was a problem with creating your account."
         render :accept_invitation

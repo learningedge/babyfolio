@@ -1,0 +1,42 @@
+<div id="new_child_form">
+<%= render "shared/error_messages", :target => @child %>
+<%= form_for @child do |f| -%>
+      <div class="row">
+        First Name: <%= f.text_field :first_name, :value => @child.first_name %>
+      </div>
+      <div class="row">
+        Last Name: <%= f.text_field :last_name, :value => @child.last_name %>
+      </div>
+      <div class="row">
+        Gender: Male <%= f.radio_button :gender, 'male' %> Female <%= f.radio_button :gender, 'female' %>
+      </div>
+      <div class="row">
+        Birth Date: <%= f.date_select :birth_date, {:default => f.object.formated_birth_date}, :class => "select-layout" -%>
+      </div>
+              
+      <div class="row">
+        Relationship: <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
+      </div>
+
+      <%= hidden_field_tag 'child_profile_media', (@child.media.id if @child.media.present?) %>
+      <div id="file-registration-uploader"></div>
+
+       <%= f.submit "Add Child" %>
+<% end %>
+</div>
+
+
+  <script type="text/javascript">
+  $(function() {
+    var uploader = new qq.FileUploader({
+        element: document.getElementById('file-registration-uploader'),
+        action: '<%= new_child_photo_children_path -%>',
+        params: {},
+        onComplete: function(id, fileName, responseJSON){
+          
+          $('#child_profile_media').val(responseJSON.media_id);          
+        }
+    });
+
+  });
+</script>

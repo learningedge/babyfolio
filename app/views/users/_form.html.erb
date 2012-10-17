@@ -1,25 +1,4 @@
-<%= render "shared/error_messages", :target => @user %>
-
-
-<% unless @edit %>
-  <div class="email row">
-    <span class="label">
-      <%= form.label :email %>
-    </span>
-    <span class="field">
-      <%= form.text_field :email %>
-    </span>
-  </div>
-<% else %>
-  <div class="row">
-    <span class="label">
-      <%= form.label :email %>
-    </span>
-    <span class="field">
-      <%= @user.email %>
-    </span>
-  </div>
-<% end %>
+<%= render "shared/error_messages", :target => user %>
 
 <div class="first-name row">
   <span class="label">
@@ -37,6 +16,29 @@
     <%= form.text_field :last_name %>
   </span>
 </div>
+
+<% unless @edit %>
+  <div class="email row">
+    <span class="label">
+      <%= form.label :email %>
+    </span>
+    <span class="field">
+      <%= form.text_field :email %>
+    </span>
+  </div>
+<% else %>
+  <div class="row">
+    <span class="label">
+      <%= form.label :email %>
+    </span>
+    <span class="field">
+      <%= form.hidden_field :email %>
+      <%= user.email %>
+    </span>
+  </div>
+<% end %>
+
+
 <div class="password row">
   <span class="label">
     <%= form.label :password, form.object.new_record? ? nil : "Change password" %>
@@ -54,6 +56,29 @@
     <%= form.password_field :password_confirmation %>
   </span>
 </div>
+
+<%= hidden_field_tag 'user_profile_media' %>
+<div id="file-registration-uploader"></div>
+
+  <script type="text/javascript">
+  $(function() {
+    var uploader = new qq.FileUploader({
+        element: document.getElementById('file-registration-uploader'),
+        action: '<%= create_profile_photo_path -%>',
+        params: {},
+        onComplete: function(id, fileName, responseJSON){
+
+          $('#user_profile_media').val(responseJSON.media_id);
+          var prof_img = $('#profile_image');
+          $('#login_right #file-registration-uploader .qq-uploader .qq-upload-button').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
+          //$('#profile_image').attr('src', responseJSON.img_url);
+          //$('#file-registration-uploader').html(prof_img);
+        }
+    });
+
+  });
+</script>
+
 
 
 
