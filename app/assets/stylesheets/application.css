@@ -381,7 +381,7 @@ a:hover {text-decoration:none}
 
 /*   LOGIN  */
 
-#login_left {float: left; width: 43%; padding-right: 55px; border-right: 1px solid #aaa;}
+#login_left {float: left; width: 43%; padding-right: 55px;}
 #login_right {float: left;   width: 40%; padding-left: 30px; text-align: center;}
 div.user-form #login_left div.submit {margin-left: 80px;}
 #fblogin_link { margin-top: 20px; }

@@ -40,15 +40,15 @@
       Forgot password or can't log in? <%= link_to 'Click here', new_forgot_password_url -%>.
     </div>    
    </div>
-   <div id="login_right">
-     Sign in with your facebook account 
-     <div id="fblogin_link">
-       <%= link_to '/auth/facebook?display=popup', :onclick => "open_popup_login(this.href); return false;" do %>
-         <%= image_tag "/images/fblogin.png" %>
-       <% end %>
-     </div>
-   </div>
-   <div id="or">or</div>
+   <%#*<div id="login_right">%>
+     <%#*Sign in with your facebook account%>
+     <%#*<div id="fblogin_link">%>
+       <%#= link_to '/auth/facebook?display=popup', :onclick => "open_popup_login(this.href); return false;" do %>
+         <%#= image_tag "/images/fblogin.png" %>
+       <%# end %>
+     <%#*</div>%>
+   <%#*</div>%>
+   <%#*<div id="or">or</div>%>
 
   </div>
   <div class="clear"></div>

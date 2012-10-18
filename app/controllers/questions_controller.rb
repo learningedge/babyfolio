@@ -33,20 +33,18 @@ class QuestionsController < ApplicationController
   def update_initial_questionnaire
     @step = params[:step].to_i
     cat_ans = params[:categories_answered] || Array.new
-    
-    questions = Question.find_all_by_id(params[:questions])
     q_array = Array.new
+    questions = Question.find_all_by_id(params[:questions])    
 
     if @step == 1
       questions.each do |q|
         q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
       end
-
-    elsif @step == 2      
+    elsif @step == 2
+      q_age = Question.select_ages(questions.first.age, '<', 1, 'DESC')
       questions.each do |q|
-          unless cat_ans.include?(q.category)
-            q_age = Question.select_ages(q.age, '<', 1, 'DESC').first.age
-            q_array += Question.find_all_by_category_and_age(q.category, q_age, :limit => 2) if q_age >= 0
+          if !cat_ans.include?(q.category) && q_age.present?
+            q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
           else
             q_array << q
           end          
@@ -58,8 +56,7 @@ class QuestionsController < ApplicationController
           else
             q_array << q
           end
-      end
-      
+      end      
     end
 
     @questions = q_array.group_by{|q| q.category}
@@ -72,11 +69,11 @@ class QuestionsController < ApplicationController
     end
     
     respond_to do |format|
-        if @step > 3
-          format.js 
+        if @step > 3 || questions.to_s == q_array.to_s
+          format.js
         end
         format.html { render :partial => 'questions_listing', :locals => { :questions => @questions, :step => @step + 1, :categories_answered => cat_ans} }
-    end    
+    end
   end
 
   def initial_questionnaire_completed
