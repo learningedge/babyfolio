@@ -13,8 +13,9 @@ class Question < ActiveRecord::Base
   ANSWERS = {
     'not_yet' => { :val => 'Not Yet', :order => 0, :score => 0},
     'emerging' => { :val => 'Emerging', :order => 1, :score => 1},
-    'frequent' => { :val => 'Frequent', :order => 2, :score => 2},
-    'always_or_beyond' => { :val => 'Always or Beyond', :order => 3, :score => 3}
+    'seen' => { :val => "I've seen it", :order => 2, :score => 1.5},
+    'frequent' => { :val => 'Frequent', :order => 3, :score => 2},
+    'always_or_beyond' => { :val => 'Always or Beyond', :order => 4, :score => 3},    
   }
 
   def self.answers_in_order

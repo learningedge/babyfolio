@@ -5,11 +5,84 @@ class QuestionsController < ApplicationController
   def before_filter_require
     if current_user
       require_child
-      #require_my_family
-      #require_family_with_child
     elsif !session[:temporary_user_id]
       redirect_to errors_permission_url
     end
+  end
+
+  def initial_questionnaire
+    @step = 1    
+    @age = current_child.months_old
+    @q_age = Question.select_ages(@age, '<=', 1, 'DESC').first.age    
+    @questions = Question.find_all_by_age(@q_age).group_by{|q| q.category}
+    @questions.each do |k,v|
+      @questions[k] = v.first
+    end            
+  end
+
+  def update_seen
+    question = Question.find(params[:question])
+    Answer.find_or_create_by_child_id_and_question_id(params[:child_id], question.id, :value => 'seen')
+    next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
+
+    respond_to do |format|        
+        format.html { render :partial => 'single_question', :locals => { :question => next_question, :category => next_question.category } }
+    end              
+  end
+
+  def update_initial_questionnaire
+    @step = params[:step].to_i
+    cat_ans = params[:categories_answered] || Array.new
+    
+    questions = Question.find_all_by_id(params[:questions])
+    q_array = Array.new
+
+    if @step == 1
+      questions.each do |q|
+        q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
+      end
+
+    elsif @step == 2      
+      questions.each do |q|
+          unless cat_ans.include?(q.category)
+            q_age = Question.select_ages(q.age, '<', 1, 'DESC').first.age
+            q_array += Question.find_all_by_category_and_age(q.category, q_age, :limit => 2) if q_age >= 0
+          else
+            q_array << q
+          end          
+      end
+    elsif @step == 3
+      questions.each do |q|
+          unless cat_ans.include?(q.category)            
+            q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
+          else
+            q_array << q
+          end
+      end
+      
+    end
+
+    @questions = q_array.group_by{|q| q.category}
+    @questions.each do |k,v|
+      if @step == 1 || @step == 2
+          @questions[k] = v.last
+      else
+          @questions[k] = v.first
+      end
+    end
+    
+    respond_to do |format|
+        if @step > 3
+          format.js 
+        end
+        format.html { render :partial => 'questions_listing', :locals => { :questions => @questions, :step => @step + 1, :categories_answered => cat_ans} }
+    end    
+  end
+
+  def initial_questionnaire_completed
+    # DO SOMEETHING WITH INITIAL QUESTIONNAIRE RESULTS HERE
+    flash[:notice] = "Successfuly completed initial questionnaire!"
+    redirect_to child_profile_children_path
   end
 
   def index

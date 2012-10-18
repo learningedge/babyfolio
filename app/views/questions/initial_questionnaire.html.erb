@@ -1,0 +1,11 @@
+<%= render :partial => 'questions_listing', :locals => {:questions => @questions, :step => @step, :categories_answered => Array.new} %>
+
+<script type="text/javascript">
+  $(function() {
+    $('.not-seen-form').live('ajax:success', function(xhr, data){
+        if(!(data.indexOf('window.location') > -1)) {
+          $('.not-seen-form').parents('#all-initial-questions').replaceWith(data);
+        }
+    });
+  });
+</script>

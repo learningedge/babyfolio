@@ -11,10 +11,13 @@ class ChildrenController < ApplicationController
     @child = Child.new(params[:child])
     @child.media = MediaImage.find_by_id(params[:child_profile_media])
 
-    if @child.save
-      Relation.create(:member_type => params[:relation_type], :user_id => current_user.id, :child_id => @child.id, :accepted => true, :token => current_user.perishable_token)
-      current_user.reset_perishable_token
-      redirect_to child_profile_children_url
+    if @child.save      
+      rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
+      rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token)
+      rel.save
+      current_user.reset_perishable_token!            
+      set_current_child @child.id
+      redirect_to initial_questionnaire_url
     else
       render :action => 'new'
     end

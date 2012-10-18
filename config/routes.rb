@@ -88,6 +88,10 @@ Babyfolio::Application.routes.draw do
   get "/errors/permission" => "errors#permission", :as => :errors_permission  
 
   get "questions/:child(/:level)" => "questions#index", :as => :questions
+  get "initial_questionnaire" => "questions#initial_questionnaire", :as => :initial_questionnaire
+  post "update_seen/:child_id/:question" => "questions#update_seen", :as => :update_seen
+  post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
+  get "initial_questionnaire_completed" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
   post "complete_questionnaire(/:level)" => "questions#complete_questionnaire", :as => :complete_questionnaire
 #  post "complete_questionnaire/advanced" => "questions#complete_questionnaire_advanced"
 #  post "complete_questionnaire/basic" => "questions#complete_questionnaire_basic"

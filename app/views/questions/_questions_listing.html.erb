@@ -1,0 +1,12 @@
+<div id="all-initial-questions">
+  <%= form_tag({:action => :update_initial_questionnaire}, :remote => true, :class => 'not-seen-form') do %>
+    <% categories_answered.each do |c| %>
+      <%= hidden_field_tag 'categories_answered[]', c %>
+    <% end %>
+    <%= hidden_field_tag 'step', step %>
+    <% questions.each do |key, qc| %>
+      <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
+    <% end %>
+  <%= submit_tag "I haven't seen any of this" %>
+  <% end %>
+</div>
