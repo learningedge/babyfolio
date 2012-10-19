@@ -26,59 +26,62 @@ class QuestionsController < ApplicationController
     next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
 
     respond_to do |format|        
-        format.html { render :partial => 'single_question', :locals => { :question => next_question, :category => next_question.category } }
+        format.html { render :partial => 'single_question', :locals => { :question => next_question, :category => question.category } }
     end              
   end
 
   def update_initial_questionnaire
     @step = params[:step].to_i
-    cat_ans = params[:categories_answered] || Array.new
+    @cat_ans = params[:categories_answered] || Array.new
     q_array = Array.new
     questions = Question.find_all_by_id(params[:questions])    
 
-    if @step == 1
-      questions.each do |q|
-        q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
-      end
-    elsif @step == 2
-      q_age = Question.select_ages(questions.first.age, '<', 1, 'DESC')
-      questions.each do |q|
-          if !cat_ans.include?(q.category) && q_age.present?
+    questions.each do |q|
+      if @step == 1
+          q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
+      elsif @step == 2
+          q_age = Question.select_ages(questions.first.age, '<', 1, 'DESC')
+          if !@cat_ans.include?(q.category) && q_age.present?
             q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
           else
             q_array << q
           end          
-      end
-    elsif @step == 3
-      questions.each do |q|
-          unless cat_ans.include?(q.category)            
+      elsif @step == 3
+          unless @cat_ans.include?(q.category)
             q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
           else
             q_array << q
           end
-      end      
-    end
-
-    @questions = q_array.group_by{|q| q.category}
-    @questions.each do |k,v|
-      if @step == 1 || @step == 2
-          @questions[k] = v.last
-      else
-          @questions[k] = v.first
       end
-    end
-    
+    end                                                          
+       
     respond_to do |format|
-        if @step > 3 || questions.to_s == q_array.to_s
-          format.js
+        if q_array.empty? || @step > 3 || questions.to_s == q_array.to_s
+              format.js
+        else
+          @questions = q_array.group_by{|q| q.category}
+          @questions.each do |k,v|
+              if @step == 1 || @step == 2
+                @questions[k] = v.last
+              else
+                @questions[k] = v.first
+              end
+          end
+
+          format.html { render :partial => 'questions_listing', :locals => { :questions => @questions, :step => @step + 1, :categories_answered => @cat_ans} }
         end
-        format.html { render :partial => 'questions_listing', :locals => { :questions => @questions, :step => @step + 1, :categories_answered => cat_ans} }
     end
   end
 
   def initial_questionnaire_completed
     # DO SOMEETHING WITH INITIAL QUESTIONNAIRE RESULTS HERE
-    flash[:notice] = "Successfuly completed initial questionnaire!"
+    if params[:notice]
+      flash[:notice] = params[:notice]
+    else
+      flash[:notice] = "Successfuly completed initial questionnaire!"
+    end
+    
+    
     redirect_to child_profile_children_path
   end
 

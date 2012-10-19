@@ -1,1 +1,6 @@
-window.location = "<%= initial_questionnaire_completed_url %>";
+<% if @cat_ans.empty? %>
+  <% notice = "Questionnaire terminated without any answers." %>
+<% end %>
+
+window.location = "<%= initial_questionnaire_completed_url(:notice => notice) %>";
+

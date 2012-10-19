@@ -7,11 +7,9 @@
           $('.not-seen-form').parents('#all-initial-questions').replaceWith(data);
         }
     }).live('ajax:before', function(){
-          $('.preloader').fadeIn();
-    }).live('ajax:complete', function(){
-        if(!(data.indexOf('window.location') > -1)) {
+        $('.preloader').fadeIn();
+    }).live('ajax:complete', function(){       
           $('.preloader').fadeOut();
-        }
     });
   });
 </script>

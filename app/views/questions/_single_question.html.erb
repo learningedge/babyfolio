@@ -1,24 +1,37 @@
 <div class="single-question">
-      <%= hidden_field_tag "questions[]", question.id  %>
-      <div>[<%= Question::CATS[category] %>]</div>      
-      <div>(<%= question.age %>) <%=  current_child.replace_forms(question.text) %></div>
-      <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => 'single-seen', :id=>'q_' +question.id.to_s %>
+      <% if question.present? %>
 
-      <script type="text/javascript">
-        $(function() {
-          $('.preloader').fadeOut().hide();
-          $('#q_<%= question.id %>').bind('ajax:success', function(xhr, data){
-            var cat = "<%= category -%>";
-            if($(this).parents('.not-seen-form').first().find('input[value="' + cat + '"]').length <= 0) {            
-              var hidden = document.createElement('input');
-              hidden.type = "hidden";
-              hidden.name = "categories_answered[]";
-              hidden.value = cat;
-              $(this).parents('.not-seen-form').prepend(hidden);
-            }                        
-            $(this).parents('.single-question').replaceWith(data);              
+        <%= hidden_field_tag "questions[]", question.id  %>
+        <div>[<%= Question::CATS[category] %>]</div>
+        <div>(<%= question.age %>) <%=  current_child.replace_forms(question.text) %></div>
+        <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => 'single-seen', :id=>'q_' +question.id.to_s %>
+
+        <script type="text/javascript">
+          $(function() {
+            $('.preloader').fadeOut().hide();
+            $('#q_<%= question.id %>').bind('ajax:success', function(xhr, data){
+              var cat = "<%= category -%>";
+              if($(this).parents('.not-seen-form').first().find('input[value="' + cat + '"]').length <= 0) {
+                var hidden = document.createElement('input');
+                hidden.type = "hidden";
+                hidden.name = "categories_answered[]";
+                hidden.value = cat;
+                $(this).parents('.not-seen-form').prepend(hidden);
+              }
+              $(this).parents('.single-question').replaceWith(data);
+            });
           });
-        });
-      </script>
+        </script>
+
+      <% else %>
+
+        <p>No more questions found for category <%= Question::CATS[category] %>.</p>
+        <script type="text/javascript">
+          $(function() {
+            $('.preloader').fadeOut().hide();
+          });
+        </script>
+
+      <% end %>
 </div>
 
