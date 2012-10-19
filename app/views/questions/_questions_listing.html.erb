@@ -11,3 +11,12 @@
   <%= submit_tag "I haven't seen any of this", :disable_with => 'Please wait...' %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.not-seen-form').bind('ajax:complete', function(){
+          $('.preloader').fadeOut();
+    });
+  });
+
+</script>

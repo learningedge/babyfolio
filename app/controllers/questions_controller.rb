@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
       if @step == 1
           q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
       elsif @step == 2
-          q_age = Question.select_ages(questions.first.age, '<', 1, 'DESC')
+          q_age = Question.select_ages(q.age, '<', 1, 'DESC')
           if !@cat_ans.include?(q.category) && q_age.present?
             q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
           else
