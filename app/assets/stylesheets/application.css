@@ -676,6 +676,11 @@ div.submit {float:left;margin-right:20px}
 .children #top_container .top_box_bg {position: absolute; height: 243px; background: none repeat scroll 0% 0% rgb(245, 242, 221); width: 1075px; border-radius: 18px 18px 0pt 0pt;}
 
 /* QUESTIONAIRE */
+/*    INITIAL QUESTIONNAIRE */
+#all-initial-questions { position: relative; }
+#all-initial-questions .preloader { display: none; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background-position: center center; background-color: #F5F2DD; opacity: 0.8;}
+
+
 
 .single_question_category { margin-bottom: 30px; }
 .question_category_title { font-weight: bold; font-size: 18px; margin: 20px 0 10px; }

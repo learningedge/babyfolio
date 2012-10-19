@@ -1,4 +1,5 @@
 <div id="all-initial-questions">
+  <div class="preloader"></div>
   <%= form_tag({:action => :update_initial_questionnaire}, :remote => true, :class => 'not-seen-form') do %>
     <% categories_answered.each do |c| %>
       <%= hidden_field_tag 'categories_answered[]', c %>
@@ -7,6 +8,6 @@
     <% questions.each do |key, qc| %>
       <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
     <% end %>
-  <%= submit_tag "I haven't seen any of this" %>
+  <%= submit_tag "I haven't seen any of this", :disable_with => 'Please wait...' %>
   <% end %>
 </div>
