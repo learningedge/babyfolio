@@ -40,29 +40,29 @@ class QuestionsController < ApplicationController
     questions.each do |q|
       if @step == 1
           q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
-      elsif @step == 2
+      elsif @step >= 2 && @step%2 == 0
           q_age = Question.select_ages(q.age, '<', 1, 'DESC')
           if !@cat_ans.include?(q.category) && q_age.present?
             q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
           else
             q_array << q
           end          
-      elsif @step == 3
+      else
           unless @cat_ans.include?(q.category)
             q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
           else
             q_array << q
-          end
+          end              
       end
     end                                                          
        
     respond_to do |format|
-        if q_array.empty? || @step > 3 || questions.to_s == q_array.to_s
+        if q_array.empty? || questions.to_s == q_array.to_s
               format.js
         else
           @questions = q_array.group_by{|q| q.category}
           @questions.each do |k,v|
-              if @step == 1 || @step == 2
+              if @step == 1 || @step == 2 || (@step > 2 && @step%2 == 0)
                 @questions[k] = v.last
               else
                 @questions[k] = v.first
