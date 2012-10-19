@@ -6,9 +6,9 @@
         if(!(data.indexOf('window.location') > -1)) {
           $('.not-seen-form').parents('#all-initial-questions').replaceWith(data);
         }
-    }.live('ajax:before', function(){        
+    }).live('ajax:before', function(){
           $('.preloader').fadeIn();
-    }.live('ajax:complete', function(){
+    }).live('ajax:complete', function(){
           $('.preloader').fadeOut();
     });
   });
