@@ -9,7 +9,9 @@
     }).live('ajax:before', function(){
           $('.preloader').fadeIn();
     }).live('ajax:complete', function(){
+        if(!(data.indexOf('window.location') > -1)) {
           $('.preloader').fadeOut();
+        }
     });
   });
 </script>
