@@ -464,6 +464,16 @@ div.submit {float:left;margin-right:20px}
 .skip a{display:block;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;text-align:center;text-decoration:none}
 
 /* relations */
+#accept-relations-wrapper .single-relation .relation-accept-btn,
+#accept-relations-wrapper .single-relation .relation-decline-btn { display: inline-block; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background-color: transparent;}
+#accept-relations-wrapper .single-relation .relation-decline-btn.active { background-color: red; color: #fff; }
+#accept-relations-wrapper .single-relation .relation-accept-btn.active { background-color: green; color: #fff; }
+#accept-relations-wrapper .single-relation .updating { background-color: #B0B0B0;}
+#accept-relations-wrapper .relation-processing-done.hidden { display: none; }
+#accept-relations-wrapper .relation-processing-done { display: inline-block; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; }
+
+
+
 .relations .row span.label {width: 250px}
 .relations .row select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(/PIE/PIE.htc);width:204px}
 
@@ -501,6 +511,9 @@ div.submit {float:left;margin-right:20px}
 .my-family-info .single_child input[type=text].birth_date_input {width:87px}
 
 /* .child-info */
+#new_child_form .row { margin-bottom: 10px; }
+
+
 
 .child-info {}
 .child-info .moment {padding:10px 0px}

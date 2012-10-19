@@ -117,7 +117,7 @@ Babyfolio::Application.routes.draw do
   get "confirmation/confirm_email"
   get "confirmation/accept_invitation" => "confirmation#accept_invitation"
   get "confirmation/accept_relations" => "confirmation#accept_relations"
-  post "confirmation/save_relations" => "confirmation#save_relations"
+  post "confirmation/update_relation" => "confirmation#update_relation"  
   put "confirmation/update_user" => "confirmation#update_user"
   
 

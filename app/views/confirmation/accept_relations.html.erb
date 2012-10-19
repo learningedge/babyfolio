@@ -1,45 +1,55 @@
-<p>You've been invited to join following BabyFolios:</p>
-<%= form_tag confirmation_save_relations_url %>
-  <% @relations.each_with_index do |r,idx| %>
-  <%= r.child.first_name %><br />
-  <%= r.child.last_name %><br />
-  <%= r.member_type %><br />
-  <%= image_tag r.child.media.image.url(:medium) unless r.child.media.blank? %>
-  Accept: <%= radio_button_tag "accepted[#{idx}]", r.token %> Decline<%= radio_button_tag "declined[#{idx}]", r.token %>
-  <%= submit_tag "Continue" %>
-<% end %>
+<div id="accept-relations-wrapper">
+
+  <% if @relations.empty? %>
+
+        <p>There aren't any relations to approve.</p>
+        <div class="relation-processing-done">
+          <%= link_to "Continue", child_profile_children_path %>
+        </div>
+
+  <% else %>
+    
+        <p>You've been invited to join following BabyFolios:</p>
+        <% @relations.each_with_index do |r,idx| %>
+          <div class="single-relation">
+            <%= r.child.first_name if r.child.first_name %><br />
+            <%= r.child.last_name if r.child.last_name %><br />
+            <%= r.member_type %><br />
+            <%= image_tag r.child.media.image.url(:medium) unless r.child.media.blank? %>
+            <div>
+              <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'relation-accept-btn' %>
+              <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'relation-decline-btn' %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="hidden relation-processing-done">
+          <%= link_to "Continue", child_profile_children_path %>
+        </div>
+
+        <script type="text/javascript">
+          $(function() {
+            $('.relation-accept-btn, .relation-decline-btn').bind('ajax:before', function() {
+              $(this).parents('.single-relation').fadeOut(function() { $(this).remove(); } );
+            });           
+
+            <%#*$('.relation-accept-btn').bind('ajax:success', function() {%>
+              <%#*$(this).parents('.single-relation').find('.relation-accept-btn, .relation-decline-btn').removeClass('active');%>
+              <%#*$(this).removeClass('updating').addClass('active');%>
+            <%#*});%>
+            <%#*$('.relation-decline-btn').bind('ajax:success', function() {%>
+              <%#*$(this).parents('.single-relation').find('.relation-accept-btn, .relation-decline-btn').removeClass('active');%>
+              <%#*$(this).removeClass('updating').addClass('active');%>
+            <%#*});%>
+          });
+
+        </script>
 
 
-<%#*<div class="container confirmation-welcome">%>
-  <%#*<div id="title">Welcome</div>%>
+      
+  <% end %>
 
-  <%# unless @relation.accepted %>
-
-    <%#*<div class="user-form">%>
-
-      <%#*<h2>Please fill up below form in order to confirm your account.</h2>%>
-      <%#= render "shared/error_messages", :target => @relation %>
-
-      <%#= form_for @relation, :url => confirmation_update_user_path, :method => :put do |f| %>
-        <%#= f.hidden_field :token %>
-
-        <%# unless f.object.user.email_confirmed  %>
-          <%#= f.fields_for :user do |form| %>
-            <%#= render :partial => "/users/form", :object => form, :locals => { :user => form.object } -%>
-          <%# end %>
-        <%# end %>
-        <%#*<div class="submit">%>
-          <%#= f.submit "Submit" %>
-        <%#*</div>%>
-
-      <%# end %>
-    <%#*</div>%>
-
-  <%#  else %>
-    <%#*<h2>You have already accepted invitation.</h2>%>
-  <%# end %>
-  <%#*<div class="clear"></div>%>
-<%#*</div>%>
+</div>
 
 
 

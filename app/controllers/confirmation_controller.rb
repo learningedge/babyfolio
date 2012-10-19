@@ -41,7 +41,7 @@ class ConfirmationController < ApplicationController
     @edit = true
     UserSession.create(@relation.user)
     if @user.email_confirmed
-      @relations = Relation.find_all_by_user_id_and_accepted(@user.id, [0,2], :include => [:child, :user])
+      @relations = Relation.find_all_by_user_id_and_accepted(@user.id, 0, :include => [:child, :user])
       render :accept_relations
     end
     
@@ -53,36 +53,28 @@ class ConfirmationController < ApplicationController
   def accept_relations     
   end
 
-  def save_relations
-    if params[:accepted].present?
-      accepted_tokens = params[:accpeted].map{|k,v| v}
-      accepted_rels = Relation.find_all_by_token(accepted_tokens)
+  def update_relation
+    if params[:token].present?
+      token = params[:token]
+      rel = Relation.find_by_token(token)
 
-      accepted_rels.each do |r|
-        r.update_attribute(:accepted, 1)
+      if params[:accept].present?
+        rel.update_attribute(:accepted, params[:accept])
+      else
+        rel.destroy
+      end
+      count = Relation.count(:all, :conditions => ['user_id = ? AND accepted = 0', current_user.id])
+
+      respond_to do |format|
+        if count > 0
+          format.html { render :text => count }
+        else
+          format.js { render :js => 'window.location = "' + child_profile_children_url + '";' }
+        end
       end
     end
-
-    if params[:declined].present?
-      declined_tokens = params[:declined].map{|k,v| v}
-      declined_rels = Relation.find_all_by_token(declined_tokens)
-
-      declined_rels.each do |r|
-        r.update_attribute(:accepted, 2)
-      end
-    end
-    
-    
-
-    
-    
-
-    
-
-    
-
-    redirect_to child_profile_children_url
   end
+  
 
   def update_user    
     @relation = Relation.find_by_token(params[:token], :include => [:user])
@@ -96,7 +88,7 @@ class ConfirmationController < ApplicationController
         @user.email_confirmed = true
         @user.save        
         flash[:notice] = "Your settings has been sucessfully updated."
-        @relations = Relation.find_all_by_user_id_and_accepted(@user.id, [0,2],:include => [:child, :user])
+        @relations = Relation.find_all_by_user_id_and_accepted(@user.id, 0,:include => [:child, :user])
         render :accept_relations
     else
         flash[:notice] = "There was a problem with creating your account."
