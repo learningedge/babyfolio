@@ -62,7 +62,7 @@ class QuestionsController < ApplicationController
         else
           @questions = q_array.group_by{|q| q.category}
           @questions.each do |k,v|
-              if @step == 1 || @step == 2 || (@step > 2 && @step%2 == 0)
+              if @step == 1 || (@step >= 2 && @step%2 == 0)
                 @questions[k] = v.last
               else
                 @questions[k] = v.first
