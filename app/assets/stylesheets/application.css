@@ -679,7 +679,8 @@ div.submit {float:left;margin-right:20px}
 /*    INITIAL QUESTIONNAIRE */
 #all-initial-questions { position: relative; }
 #all-initial-questions .preloader { display: none; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background-position: center center; background-color: #F5F2DD; opacity: 0.8;}
-
+#all-initial-questions .single-question { width: 45%; border: 1px solid #CCC; border-radius: 10px; float: left; width: 40%; border: 1px solid #CCC; border-radius: 10px; float: left; padding: 10px; margin: 5px; height: 130px;{
+}
 
 
 .single_question_category { margin-bottom: 30px; }

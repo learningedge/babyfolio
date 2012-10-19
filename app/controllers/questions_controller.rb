@@ -36,6 +36,7 @@ class QuestionsController < ApplicationController
     q_array = Array.new
     questions = Question.find_all_by_id(params[:questions])    
 
+    
     questions.each do |q|
       if @step == 1
           q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
