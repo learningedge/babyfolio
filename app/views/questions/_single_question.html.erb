@@ -6,6 +6,7 @@
 
       <script type="text/javascript">
         $(function() {
+          $('.preloader').fadeOut().hide();
           $('#q_<%= question.id %>').bind('ajax:success', function(xhr, data){
             var cat = "<%= category -%>";
             if($(this).parents('.not-seen-form').first().find('input[value="' + cat + '"]').length <= 0) {            
@@ -14,8 +15,8 @@
               hidden.name = "categories_answered[]";
               hidden.value = cat;
               $(this).parents('.not-seen-form').prepend(hidden);
-            }
-            $(this).parents('.single-question').replaceWith(data);
+            }                        
+            $(this).parents('.single-question').replaceWith(data);              
           });
         });
       </script>
