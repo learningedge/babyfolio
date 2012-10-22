@@ -15,9 +15,7 @@
             <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/children/' + this.value" } -%>
           <% end -%>
           <span id="setting_kids">
-            <a href="#">Add</a>
-            Or
-            <a href="<%= edit_families_path -%>">Select Another Child</a>
+            <a href="<%= new_child_children_path %>">Add Child</a>
           </span>
         </div>
         <div id="clear"></div>
@@ -73,7 +71,14 @@
       <div id="storybook_moments">
         <h1>Build upon #first#'s storybook</h1>
         <div class="shadow"><img src="/images/shadow.png" alt="" /></div>
-        <div><span style="float:left; padding-left: 30px;">Questionaires: </span><a href="<%= questions_url({:child => @selected_child.id , :level => 'basic'}) %>">Basic</a> <a href="<%= questions_url(:child => @selected_child.id) %>">Normal</a> <a href="<%= questions_url({:child => @selected_child.id, :level => 'advanced'}) %>">Advanced</a><br /><br /></div>
+        <div>
+          <span style="float:left; padding-left: 30px;">Questionaires: </span>
+          <%= link_to "Initial Questionnaire", initial_questionnaire_path %>
+          <!--a href="<%= questions_url({:child => @selected_child.id , :level => 'basic'}) %>">Basic</a>
+          <a href="<%= questions_url(:child => @selected_child.id) %>">Normal</a>
+          <a href="<%= questions_url({:child => @selected_child.id, :level => 'advanced'}) %>">Advanced</a-->
+          <br /><br />
+        </div>
         
         <a href="<%= child_new_moment_path(:child_id => @selected_child.id) -%>"><img src="/images/add_moment.png" alt="" /></a>
         <div class="text">text text text</div>

@@ -131,10 +131,19 @@ class ChildrenController < ApplicationController
         UserMailer.invite_user(user.relations.first{|r| r.child_id == current_child.id}, current_user).deliver
       end
       flash[:notice] = "Thanks fo inviting others. We have successfully sent emails to the other family & friends that you entered."
-      redirect_to child_profile_children_path
-    else
-      flash[:error] = "Invalid emails!"
-      render :action => :add_friends
+      if params[:page] == 'add_family'
+        redirect_to child_profile_children_path
+      else
+        redirect_to add_family_children_path
+      end
+    else      
+      if params[:page] == 'add_friends'
+        flash.now[:error] = "Invalid emails!"
+        render :action => :add_friends
+      else
+        flash.now[:error] = "Invalid emails!"
+        render :action => :add_family
+      end
     end
   end
 
