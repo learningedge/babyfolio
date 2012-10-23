@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_confirmation
 
   config.filter_parameters :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?, :current_child, :set_current_child
+  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?, :current_child, :set_current_child, :category_name
 
   private
     def clear_session
@@ -177,6 +177,10 @@ class ApplicationController < ActionController::Base
 
         return @youtube_user
       end
+    end
+
+    def category_name(str)
+      Question::CATS[str]
     end
 
 end

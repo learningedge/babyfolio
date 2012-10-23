@@ -1,0 +1,42 @@
+<% single_item_width = 300; %>
+
+<div id="reflect-column-wrapper">
+
+    <% @answers.each_with_index do |(k,v), idx| %>
+      <% f = true if idx == 0 || idx == 1 %>
+      <% l = true if(idx == (@answers.size-1) || idx == (@answers.size-2) ) %>
+      <% curr_width = (v.first.question.age.to_f - @min.to_f) / @diff %>
+      <% if f %>
+        <%  cl="first-reflect" %>
+      <%  elsif l %>
+        <%  cl='last-reflect' %>
+      <%  end %>
+
+
+  
+      <div class="single-reflected-item <%= cl %>">
+        <p><%= category_name(k) %>(<%=  k %>)</p>
+      
+        <div class="reflect-bar" style="width: <%= single_item_width * curr_width + 50 %>px"><%= "str" if f %><%= "weak" if l %>
+            <div class="reflect-popup">
+              <% m = Milestone.find_by_mid(v.first.question.mid) %>
+              <% if m %>
+                  <% if f %>
+                      <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).html_safe  %>
+                  <% elsif l %>
+                      <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).html_safe  %>
+                  <% else %>
+                      <%= @avg_text.gsub('<INTELLIGENCE>', category_name(k)).html_safe  %>
+                  <% end %>
+                  
+                  <p><a href="#"><%= current_child.replace_forms(m.activity_1_title) %></a></p>
+                  <p><a href="#"><%= current_child.replace_forms(m.activity_2_title) %></a></p>
+              <% end %>
+            </div>
+        </div>        
+      
+    </div>
+
+    <% end %>
+  
+</div>

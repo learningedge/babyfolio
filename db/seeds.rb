@@ -18,6 +18,8 @@ Moment.delete_all
 Relation.delete_all
 Service.delete_all
 User.delete_all
+Answer.delete_all
+Score.delete_all
 
 @admin = User.where(:email => 'admin@codephonic.com');
 @admin.each do |admin|

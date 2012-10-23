@@ -156,7 +156,8 @@ Babyfolio::Application.routes.draw do
       get '/add_family' => "children#add_family", :as => :add_family
       post '/create_relations' => "children#create_relations", :as => :create_relations
       post '/create_childs_photo' => "children#create_childs_photo", :as => :new_child_photo
-      get ':child_id' => "children#show", :as => :child_profile
+      get '/reflect' => "children#reflect", :as => :child_reflect
+      get ':child_id' => "children#show", :as => :child_profile      
       get :show, :as => :child_profile
       get '/:id/info' => "children#info", :as => :info
     end

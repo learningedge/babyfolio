@@ -13,8 +13,7 @@ class Child < ActiveRecord::Base
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment
   has_many :moments, :conditions => ["moments.visibility NOT IN (?)",Moment::ARCHIVED]
-  has_many :scores
-  has_many :answers, :through => :scores
+  has_many :answers
   has_many :questions, :through => :answers
 
 #accepts_nested_attributes_for :attachment, :allow_destroy => true

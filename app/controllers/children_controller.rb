@@ -41,6 +41,28 @@ class ChildrenController < ApplicationController
     end
   end
 
+  def reflect
+    @answers = current_child.answers.includes([{:question => :milestone}]).find_all_by_value('seen').group_by{|a| a.question.category }
+    @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age } }.reverse
+    @answers.each do |k,v|
+      max_age = v.max_by{ |a| a.question.age}.question.age      
+      v.delete_if{|a| a.question.age != max_age}
+    end
+    @answers.sort_by{|k,v| v.length }
+    @max = @answers.map{ |k,v| v.first.question.age }.max
+    @min = @answers.map{ |k,v| v.first.question.age }.min
+    @diff = @max - @min
+
+    @str_text = "<BABYNAME> is currently faster to develop in <INTELLIGENCE>.<br/><br/> Boost this development by:"
+    @avg_text = "<BABYNAME> also has <INTELLIGENCE> development.<br/><br/> Strengthen this development by:"
+    @weak_text = "<BABYNAME> is currently slower to develop in <INTELLIGENCE>.<br/><br/>Support their development by:"
+
+    @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
+    @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)
+    @weak_text = @weak_text.gsub('<BABYNAME>', current_child.first_name)
+
+  end
+
   def show
     @user = current_user
     @children = current_user.relations.find_all_by_accepted(1, :conditions => ['child_id is not null'], :include => [:child]).map{|r| r.child}
