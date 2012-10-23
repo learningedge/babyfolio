@@ -6,7 +6,9 @@
     <% end %>
     <%= hidden_field_tag 'step', step %>
     <% questions.each do |key, qc| %>
-      <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
+      <div class="single-question">
+        <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
+      </div>
     <% end %>
   <%= submit_tag "I haven't seen any of this", :disable_with => 'Please wait...' %>
   <div class="clear"></div>

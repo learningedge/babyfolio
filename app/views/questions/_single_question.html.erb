@@ -1,4 +1,4 @@
-<div class="single-question">
+
       <% if question.present? %>
 
         <%= hidden_field_tag "questions[]", question.id  %>
@@ -18,7 +18,8 @@
                 hidden.value = cat;
                 $(this).parents('.not-seen-form').prepend(hidden);
               }
-              $(this).parents('.single-question').replaceWith(data);
+              var newQ = $(this).parents('.single-question').html(data);              
+              $(newQ).effect('highlight', {color: '#fff'}, 1000);
             });
           });
         </script>
@@ -33,5 +34,5 @@
         </script>
 
       <% end %>
-</div>
+
 

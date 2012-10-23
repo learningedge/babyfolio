@@ -42,13 +42,20 @@ class ChildrenController < ApplicationController
   end
 
   def reflect
-    @answers = current_child.answers.includes([{:question => :milestone}]).find_all_by_value('seen').group_by{|a| a.question.category }
+    @answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }.reverse
     @answers.each do |k,v|
       max_age = v.max_by{ |a| a.question.age}.question.age      
       v.delete_if{|a| a.question.age != max_age}
     end
-    @answers.sort_by{|k,v| v.length }
+
+    third_from_start = @answers[2][1].first
+    third_from_end = @answers[-3][1].first
+
+    @str_answers = @answers.select{ |k,v| v.first.question.age > third_from_start.question.age }
+    @weak_answers = @answers.select{ |k,v| v.first.question.age < third_from_end.question.age }
+    @avg_answers = @answers - @str_answers - @weak_answers
+    
     @max = @answers.map{ |k,v| v.first.question.age }.max
     @min = @answers.map{ |k,v| v.first.question.age }.min
     @diff = @max - @min
@@ -60,7 +67,6 @@ class ChildrenController < ApplicationController
     @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
     @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)
     @weak_text = @weak_text.gsub('<BABYNAME>', current_child.first_name)
-
   end
 
   def show

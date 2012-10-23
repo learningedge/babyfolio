@@ -13,9 +13,12 @@
         <div id="drop_list">
           <%= form_tag({}, { :method => :get }) do -%>
             <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/children/' + this.value" } -%>
+            <%= link_to "Add Child", new_child_children_path, :class => "add_child_link" %>
           <% end -%>
-          <span id="setting_kids">
-            <a href="<%= new_child_children_path %>">Add Child</a> or go to <%= @selected_child.first_name %>'s <%= link_to "Reflect page", child_reflect_children_path %>.
+          <span id="setting_kids">            
+            <p></p>
+            <p>Go to: <%= link_to "Reflect page", child_reflect_children_path %></p>
+            
           </span>
         </div>
         <div id="clear"></div>

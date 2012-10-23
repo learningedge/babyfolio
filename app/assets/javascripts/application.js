@@ -14,6 +14,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require fileuploader
-//= require jquery-ui-1.8.17.custom.min
+//= require jquery-ui-1.9.0.custom.min
 //= require jquery.iframe-transport
 //= require jquery.remotipart

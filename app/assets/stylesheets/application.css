@@ -265,7 +265,7 @@ hr { margin: 15px 0;  }
 
 #container_header {margin: 5px 0 0;height: 90px;}
 #wrraper .container #title {display: inline;font: 40px "Helvetica_seven";color: #9b7804;background: url('/images/patern_profile.png') no-repeat center bottom;padding: 0 0 40px;float: left;min-width:200px;text-align:center}
-#wrraper .container #drop_list {width: 206px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 101px;float: left}
+#wrraper .container #drop_list {width: 300px;display: inline-block;font: 14px arial;color: #9b7804;margin: 0 0 0 101px;float: left}
 #wrraper .container #drop_list select {font: 14px arial;color: #898989;padding: 7px 0 7px 11px;border: 1px solid #DBD4AF ;border-radius:8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;behavior: url(/PIE/PIE.htc);width:204px}
 #wrraper .container #drop_list #setting_kids {margin: 12px 0 0}
 #wrraper .container #drop_list a {font: 14px arial;color: #9b7804;text-decoration: none}
@@ -692,7 +692,7 @@ div.submit {float:left;margin-right:20px}
 /*    INITIAL QUESTIONNAIRE */
 #all-initial-questions { position: relative; }
 #all-initial-questions .preloader { display: none; width: 100%; height: 100%; position: absolute; left: 0; top: 0; background-position: center center; background-color: #F5F2DD; opacity: 0.8;}
-#all-initial-questions .single-question { width: 45%; border: 1px solid #CCC; border-radius: 10px; float: left; width: 40%; border: 1px solid #CCC; border-radius: 10px; float: left; padding: 10px; margin: 5px; height: 130px;}
+#all-initial-questions .single-question { width: 45%; border: 1px solid #CCC; border-radius: 10px; float: left; width: 40%; border: 1px solid #CCC; border-radius: 10px; float: left; padding: 10px; margin: 5px; height: 130px; background-color: #F5F2DD;}
 
 .single_question_category { margin-bottom: 30px; }
 .question_category_title { font-weight: bold; font-size: 18px; margin: 20px 0 10px; }
@@ -916,6 +916,11 @@ div.submit {float:left;margin-right:20px}
 #errors-container {height:250px}
 #errors-container .permission {}
 #errors-container .permission a.submit-button{display:block;text-align:center;text-decoration:none;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;margin-top:20px}
+
+/* CHILDREN - SHOW */
+#wrraper .container #drop_list .add_child_link { color: #5674B9; margin-left: 15px;}
+#wrraper .container #drop_list #setting_kids { text-align: left; }
+#wrraper .container #drop_list #setting_kids a { color: #5674B9; }
 
 /*   REFLECTION */
 
