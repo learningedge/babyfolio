@@ -36,7 +36,7 @@ class ConfirmationController < ApplicationController
 
 
   def accept_invitation    
-    @relation = Relation.find_by_token(params[:token], :include => [:user])
+    @relation = Relation.includes(:inviter).find_by_token(params[:token], :include => [:user])
     @user = @relation.user
     @edit = true
     UserSession.create(@relation.user)

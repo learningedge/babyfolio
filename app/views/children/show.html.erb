@@ -33,19 +33,9 @@
               <span id="count_entries">xx Story Entries</span>
             </div>
             <div id="family_list">
-              <span>Add Family & Friends</span>
-              <ul>
-		<%# @selected_family.relations.each do |relation| -%>
-                <%#*<li>%>
-		  <%# if relation.user_id == current_user.id -%>
-		  <%#= link_to relation.get_member_type_name, edit_account_path -%>
-		  <%# else -%>
-		  <%#= relation.get_member_type_name -%>
-		  <%# end -%>
-		<%#*</li>%>
-		<%# end -%>
-              </ul>
-              <a href="<%= add_friends_children_path -%>">Invite Another</a>
+              <span>Family & Friends</span>
+              <ul></ul>
+              <a href="<%= add_friends_children_path -%>">Invite Others</a>
             </div>
           </div>
           <div id="book_right">

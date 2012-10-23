@@ -147,7 +147,7 @@ class ChildrenController < ApplicationController
             @error = true
             break
         end        
-        @user.relations.find_or_initialize_by_child_id(current_child.id, :member_type => f[1][:member_type], :token => @user.perishable_token)
+        @user.relations.find_or_initialize_by_child_id(current_child.id, :member_type => f[1][:member_type], :token => @user.perishable_token, :inviter => current_user)
         @user.reset_perishable_token
         users << @user
       end

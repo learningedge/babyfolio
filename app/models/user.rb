@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :services
   has_many :relations, :autosave => true
+  has_many :invites, :class_name => 'Relation'
   has_many :moments, :conditions => ["moments.visibility NOT IN (?)", Moment::ARCHIVED]
   has_many :families, :through => :relations
   has_many :children, :through => :relations, :conditions => "accepted = 1"
