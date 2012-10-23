@@ -54,7 +54,7 @@ class ChildrenController < ApplicationController
 
     @str_answers = @answers.select{ |k,v| v.first.question.age > third_from_start.question.age }
     @weak_answers = @answers.select{ |k,v| v.first.question.age < third_from_end.question.age }
-    @avg_answers = @answers - @str_answers - @weak_answers
+    @avg_answers = @answers - @str_answers - @weak_answers    
     
     @max = @answers.map{ |k,v| v.first.question.age }.max
     @min = @answers.map{ |k,v| v.first.question.age }.min

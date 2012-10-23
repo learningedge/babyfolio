@@ -926,8 +926,10 @@ div.submit {float:left;margin-right:20px}
 
 #reflect-column-wrapper { width: 360px; padding-bottom: 50px;}
 #reflect-column-wrapper .single-reflected-item { position: relative; display: inline-block; width: 100%;}
-#reflect-column-wrapper .single-reflected-item.first-reflect .reflect-bar { background-color: #78C2B9 }
-#reflect-column-wrapper .single-reflected-item.last-reflect .reflect-bar { background-color: #debd6c }
+#reflect-column-wrapper .single-reflected-item.first-reflect .reflect-bar,
+#reflect-column-wrapper .single-reflected-item.first-reflect .reflect-bar .reflect-popup{ background-color: #D9EAD3 }
+#reflect-column-wrapper .single-reflected-item.last-reflect .reflect-bar,
+#reflect-column-wrapper .single-reflected-item.last-reflect .reflect-bar .reflect-popup{ background-color: #FFF2CC }
 #reflect-column-wrapper .reflect-bar { height: 20px; border: 1px solid #ccc;}
 #reflect-column-wrapper .reflect-bar .reflect-popup { display: none; position: absolute; left: 100%; top: 0; width: 400px; background-color: #F5F2DD; border: 1px solid #ccc; padding: 10px; border-radius: 3px;}
 #reflect-column-wrapper .single-reflected-item:hover .reflect-popup { display: block; }

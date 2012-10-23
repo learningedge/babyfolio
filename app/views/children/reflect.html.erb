@@ -1,5 +1,13 @@
 <div id="reflect-column-wrapper">  
+  <%  if @avg_answers.size != @answers.size %>
     <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
     <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
     <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
+  <% else %>
+  <p>Hey!  Looks like <%= current_child.first_name %> is performing at the same level for all developmental stages.  Please check back after <%= current_child.replace_forms('#he/she#') %>  has exhibited other WATCH behaviors to see an update!</p>
+  <br/>
+
+  <p>In the meantime, start playing with your baby now!</p>
+  <%= link_to "Play Now", '#' %>
+  <% end %>
 </div>
