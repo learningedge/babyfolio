@@ -43,7 +43,7 @@ class ChildrenController < ApplicationController
 
   def reflect
     @answers = current_child.answers.includes([{:question => :milestone}]).find_all_by_value('seen').group_by{|a| a.question.category }
-    @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age } }.reverse
+    @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }.reverse
     @answers.each do |k,v|
       max_age = v.max_by{ |a| a.question.age}.question.age      
       v.delete_if{|a| a.question.age != max_age}
