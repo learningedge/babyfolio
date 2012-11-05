@@ -1,0 +1,31 @@
+  <% relations.each_with_index do |r,idx| %>
+    <div class="single-relation">
+      <%= image_tag r.child.media.image.url(:medium) unless r.child.media.blank? %>
+      <%= r.child.first_name if r.child.first_name %><br />
+      <%= r.child.last_name if r.child.last_name %><br />
+      (<%= r.inviter.first_name %> <%= r.inviter.last_name %> <%= r.child.first_name %>'s  <%= r.inviter.relations.find_by_child_id(r.child.id).member_type %>)<br />
+      <div>
+        <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'relation-accept-btn' %>
+        <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'relation-decline-btn' %>
+      </div>
+    </div>
+  <% end %>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.relation-accept-btn, .relation-decline-btn').bind('ajax:before', function() {
+        $(this).parents('.single-relation').fadeOut(function() { 
+            $(this).remove();
+            if($('.single-relation').length == 0 && $('#settings-wrapper').length < 1) { window.location = "<%=  child_profile_children_url %>"; }
+         });
+      });
+
+    });
+
+  </script>    
+
+
+
+
+
+

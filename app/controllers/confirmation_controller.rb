@@ -33,27 +33,29 @@ class ConfirmationController < ApplicationController
     end
   end
 
-
-
   def accept_invitation    
     @relation = Relation.includes(:inviter).find_by_token(params[:token], :include => [:user])
     @user = @relation.user
     @edit = true
+    @edit_password = true
     UserSession.create(@relation.user)
-    if @user.email_confirmed
-      @relations = Relation.find_all_by_user_id_and_accepted(@user.id, 0, :include => [:child, :user])
-      render :accept_relations
+    @user.update_attribute(:email_confirmed, true)
+    unless current_user.is_temporary
+      redirect_to confirmation_accept_relations_path
     end
+
     
     rescue NoMethodError
       flash[:notice] = "Ooops, there is something wrong with your invitation."
       redirect_to login_url
   end
 
-  def accept_relations     
+  def accept_relations
+    @relations = current_user.relations.find_all_by_accepted(0, :include => [:child, :user])
   end
 
   def update_relation
+
     if params[:token].present?
       token = params[:token]
       rel = Relation.find_by_token(token)
@@ -65,12 +67,8 @@ class ConfirmationController < ApplicationController
       end
       count = Relation.count(:all, :conditions => ['user_id = ? AND accepted = 0', current_user.id])
 
-      respond_to do |format|
-        if count > 0
-          format.html { render :text => count }
-        else
-          format.js { render :js => 'window.location = "' + child_profile_children_url + '";' }
-        end
+      respond_to do |format|        
+          format.html { render :text => count }   
       end
     end
   end
@@ -82,14 +80,13 @@ class ConfirmationController < ApplicationController
     @edit = true
 
     @user.profile_media = Media.find_by_id(params[:user_profile_media])
-    @user.assign_attributes(params[:user])
-      
-     if @user.valid?
-        @user.email_confirmed = true
-        @user.save        
+    params[:user][:is_temporary] = 0
+    @user.assign_attributes(params[:user])        
+    @user.add_object_error("Password can't be blank") if params[:user][:password].blank?
+
+    if @user.errors.empty? && @user.save
         flash[:notice] = "Your settings has been sucessfully updated."
-        @relations = Relation.find_all_by_user_id_and_accepted(@user.id, 0,:include => [:child, :user])
-        render :accept_relations
+        redirect_to confirmation_accept_relations_path
     else
         flash[:notice] = "There was a problem with creating your account."
         render :accept_invitation

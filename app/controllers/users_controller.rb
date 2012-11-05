@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
     
-  before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload]
-  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]  
-  #before_filter :require_family, :only => [:show]
-
+  before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload, :settings, :update_password]
+  before_filter :require_child, :only => [:settings]
+  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]    
 
   def new    
     if !current_user and session[:temporary_user_id]
@@ -61,16 +60,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def settings
+    if current_child
+      @current_relation = current_child.relations.find_by_user_id(current_user.id)
+      @invited_by_me = Relation.find_all_by_inviter_id_and_accepted_and_child_id(current_user.id, [0, 1], current_child.id, :include => [:child, :inviter])
+    end
+    @pending_invitations = current_user.relations.find_all_by_accepted(0, :include => [:user, :child])
+     
+  end
 
   def show
     @user = current_user
 
     @families = @user.families
     @selected_family = current_family
-        
+
     @children = @selected_family.children
-    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first    
-    
+    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first        
   end
 
   def edit
@@ -80,14 +86,37 @@ class UsersController < ApplicationController
 
   def update
     @edit = true
-    @user = current_user # makes our views "cleaner" and more consistent
+    @user = current_user
     @user.profile_media = Media.find_by_id(params[:user_profile_media])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
-      redirect_to child_profile_children_url
+      redirect_to settings_path
     else
       render :action => :edit
     end
+  end
+
+  def update_password
+    @user = current_user    
+        
+    password = "#{params[:current_password]}#{@user.password_salt}"
+    @password = Authlogic::CryptoProviders::Sha512.encrypt(password)
+    if @password == @user.crypted_password
+      @password_ok = true
+    end
+
+    @user.add_object_error("Your current password doesn't match") unless @password_ok
+    @user.add_object_error("New password can't be blank") if params[:user][:password].blank?
+    
+    
+    respond_to do |format|
+      if @user.errors.blank? && @user.update_attributes(params[:user])
+        format.js { render :partial => "change_password_success" }
+      else
+        format.html { render :partial => "change_password", :locals => {:user => current_user } }
+      end
+    end
+    
   end
 
   def add_image

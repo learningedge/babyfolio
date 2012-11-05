@@ -917,6 +917,11 @@ div.submit {float:left;margin-right:20px}
 #errors-container .permission {}
 #errors-container .permission a.submit-button{display:block;text-align:center;text-decoration:none;background: url('/images/button.png'); width:140px;height:53px;border:none;color:white; font: 16px/53px 'helvetica_seven'; cursor: pointer;margin-top:20px}
 
+/* TOP TABS */
+#wrraper #top-tabs { text-align: center; margin-bottom: 10px; }
+#wrraper #top-tabs a{ display: inline-block; width: 22%; }
+
+
 /* CHILDREN - SHOW */
 #wrraper .container #drop_list .add_child_link { color: #5674B9; margin-left: 15px;}
 #wrraper .container #drop_list #setting_kids { text-align: left; }
@@ -933,3 +938,9 @@ div.submit {float:left;margin-right:20px}
 #reflect-column-wrapper .reflect-bar { height: 20px; border: 1px solid #ccc;}
 #reflect-column-wrapper .reflect-bar .reflect-popup { display: none; position: absolute; left: 100%; top: 0; width: 400px; background-color: #F5F2DD; border: 1px solid #ccc; padding: 10px; border-radius: 3px;}
 #reflect-column-wrapper .single-reflected-item:hover .reflect-popup { display: block; }
+
+/* SETTINGS */
+
+#settings-wrapper .settings-edit-entry,
+#settings-wrapper .single-relation { float: left; width: 40%; border: 1px solid #ccc; border-radius: 4px; padding: 15px; }
+#settings-wrapper #change-password-wrapper { display: none; }

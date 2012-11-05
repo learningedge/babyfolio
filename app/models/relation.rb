@@ -1,7 +1,7 @@
 class Relation < ActiveRecord::Base
   belongs_to :user, :autosave => true, :validate => true
-  belongs_to :family
-  belongs_to :child
+#  belongs_to :family
+  belongs_to :child, :autosave => true, :validate => true
   belongs_to :inviter, :class_name => 'User'
 
   validates :token, :uniqueness => true, :presence => true

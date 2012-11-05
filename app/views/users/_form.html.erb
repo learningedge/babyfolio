@@ -32,30 +32,30 @@
       <%= form.label :email %>
     </span>
     <span class="field">
-      <%= form.hidden_field :email %>
       <%= user.email %>
     </span>
   </div>
 <% end %>
 
+<% if user.new_record? || current_user.is_temporary %>
+    <div class="password row">
+      <span class="label">
+        <%= form.label :password, form.object.new_record? || @edit_password ? nil : "Change password" %>
+      </span>
+      <span class="field">
+        <%= form.password_field :password %>
+      </span>
+    </div>
 
-<div class="password row">
-  <span class="label">
-    <%= form.label :password, form.object.new_record? ? nil : "Change password" %>
-  </span>
-  <span class="field">
-    <%= form.password_field :password %>
-  </span>
-</div>
-
-<div class="password row">
-  <span class="label">
-    <%= form.label :password_confirmation %>
-  </span>
-  <span class="field">
-    <%= form.password_field :password_confirmation %>
-  </span>
-</div>
+    <div class="password row">
+      <span class="label">
+        <%= form.label :password_confirmation %>
+      </span>
+      <span class="field">
+        <%= form.password_field :password_confirmation %>
+      </span>
+    </div>
+<% end %>
 
 <%= hidden_field_tag 'user_profile_media' %>
 <div id="file-registration-uploader"></div>
@@ -71,8 +71,7 @@
           $('#user_profile_media').val(responseJSON.media_id);
           var prof_img = $('#profile_image');
           $('#login_right #file-registration-uploader .qq-uploader .qq-upload-button').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
-          //$('#profile_image').attr('src', responseJSON.img_url);
-          //$('#file-registration-uploader').html(prof_img);
+
         }
     });
 

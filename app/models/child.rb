@@ -7,7 +7,7 @@ class Child < ActiveRecord::Base
  
   attr_accessor :profile_image
 
-  belongs_to :family
+  has_many :relations
   has_many :users, :through => :relations
 
   has_one :attachment, :as => :object
@@ -15,9 +15,6 @@ class Child < ActiveRecord::Base
   has_many :moments, :conditions => ["moments.visibility NOT IN (?)",Moment::ARCHIVED]
   has_many :answers
   has_many :questions, :through => :answers
-
-#accepts_nested_attributes_for :attachment, :allow_destroy => true
-# accepts_nested_attributes_for :media, :allow_destroy => true
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true

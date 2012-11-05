@@ -38,21 +38,23 @@ class QuestionsController < ApplicationController
 
     
     questions.each do |q|
-      if @step == 1
-          q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
-      elsif @step >= 2 && @step%2 == 0
+      if @step%2 == 1
+          unless @cat_ans.include?(q.category)
+            q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
+          end
+      else #if @step >= 2 && @step%2 == 0
           q_age = Question.select_ages(q.age, '<', 1, 'DESC')
           if !@cat_ans.include?(q.category) && q_age.present?
             q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
-          else
-            q_array << q
+          #else
+            #q_array << q
           end          
-      else
-          unless @cat_ans.include?(q.category)
-            q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
-          else
-            q_array << q
-          end              
+      #else
+#          unless @cat_ans.include?(q.category)
+ #           q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
+          #else
+            #q_array << q
+  #        end
       end
     end                                                          
        
@@ -74,8 +76,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def initial_questionnaire_completed
-    # DO SOMEETHING WITH INITIAL QUESTIONNAIRE RESULTS HERE
+  def initial_questionnaire_completed    
     if params[:notice]
       flash[:notice] = params[:notice]
     else
@@ -83,7 +84,7 @@ class QuestionsController < ApplicationController
     end
     
     
-    redirect_to child_profile_children_path
+    redirect_to child_reflect_children_path
   end
 
   def index

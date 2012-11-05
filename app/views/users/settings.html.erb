@@ -1,0 +1,86 @@
+
+<div id="settings-wrapper">
+
+  <% if @current_relation %>
+  <h1><%=  @current_relation.child.first_name %> details: </h1>
+    <div id="settings-my-children">
+          <div class="settings-edit-entry">
+            <%= image_tag @current_relation.child.media.image.url(:medium) if @current_relation.child.media %>
+            <%= @current_relation.child.first_name %><br />
+            <%= @current_relation.child.birth_date.to_date %><br />
+            <%= @current_relation.child.gender %><br />
+            <%= @current_relation.member_type %><br />
+            <%= link_to "Edit", edit_child_path(:id => @current_relation.child.id) if @current_relation.is_admin %>
+          </div>
+          <div class="settings-edit-entry">
+            <%= image_tag current_user.profile_media.image.url(:medium) if current_user.profile_media %>
+            <%= current_user.first_name %><br />            
+            <%= current_user.email %><br />
+            <%= link_to "Edit", edit_account_path %>
+            <%= link_to "Change password", "#", :class => "show-password-change" %>
+
+            <div id="change-password-wrapper">
+              <%= render :partial => "users/change_password", :locals => {:user => current_user} %>
+            </div>
+          </div>
+        <div class="clear"></div>
+    </div>  
+  <% end %>
+
+  <% if @invited_by_me %>
+  <h1>Invitations sent:</h1>
+      <div>
+        <%= link_to "Invite to Circle", new_relation_path, :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn" if @current_relation.is_admin %>
+      </div>
+      <div id="add-relation-wrapper"></div>
+      
+      <div id="child-invites">
+            <% @invited_by_me.each do |relation| %>
+              <div class="settings-edit-entry">
+                  <%= relation.user.first_name %> <%= relation.user.last_name %><br />
+                  <%= relation.member_type %><br />
+                  <%= relation.user.email %><br />
+                  <%= "Admin<br />".html_safe if relation.is_admin %>                  
+                      <% admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{relation.child.first_name}'s BabyFolio, edit or delete posts, and other awesome powers." %>
+                      <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>                      
+                      <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :disable_with => 'Processing...', :confirm => admin_confirm_msg %>
+                      <% unless relation.is_admin %>
+                        <%= link_to "Remove", relation_path(:id => relation.id), :method => :delete, :disable_with => 'Processing...', :confirm => remove_confirm_msg %>
+                      <% end %>
+              </div>
+          <% end %>
+          <div class="clear"></div>
+      </div>  
+  <% end %>
+
+  <div id="settings-invitations-received">
+    <h1>Invitations received:</h1>
+    <%= render :partial => 'confirmation/accept_relations', :locals => {:relations => @pending_invitations} %>
+    <div class="clear"></div>
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+
+        $('.show-password-change').click(function() {
+          $('#change-password-wrapper').show();
+          return false;
+        });
+                
+        $('#change-password-form').live('ajax:success', function(xhr, data) {          
+          $('#change-password-wrapper').html(data);
+        });                
+
+        $('#add-relation-btn').live('ajax:success', function(xhr, data) {          
+          $('#add-relation-wrapper').html(data);
+        });
+
+        $('#new-relation-form').live('ajax:success', function(xhr, data) {
+          $('#add-relation-wrapper').html(data);
+        });
+
+    });
+  </script>
+
+
+</div>

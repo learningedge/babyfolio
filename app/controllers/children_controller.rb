@@ -92,20 +92,33 @@ class ChildrenController < ApplicationController
   end
 
   def update
-
-    if !params[:flickr_photos].blank?
-      media_element = MediaFlickr.create_media_objects(params[:flickr_photos].first, params[:flickr_pids].first, current_user.id)
-    elsif !params[:facebook_photos].blank?
-      media_element = MediaFacebook.create_media_objects(params[:facebook_photos].first, params[:facebook_pids].first, current_user.id)
-    elsif !params[:uploaded_images_pids].blank?
-      media_element = Media.find(params[:uploaded_images_pids].first)
+    relation = current_user.relations.includes(:child).find_by_child_id(params[:id])
+    relation.child.assign_attributes(params[:child])    
+    relation.child.media = Media.find_by_id(params[:child_profile_media])
+    relation.member_type = params[:relation_type]
+    if relation.save
+      flash.now[:notice] = "Child sucessfully updated"
+      redirect_to settings_path
+    else
+      @child = relation.child
+      render :edit
     end
 
-    @child = Child.find(params[:id])
-    @child.media = media_element
-    @child.save
-
-    redirect_to child_profile_children_url
+#    if !params[:flickr_photos].blank?
+#      media_element = MediaFlickr.create_media_objects(params[:flickr_photos].first, params[:flickr_pids].first, current_user.id)
+#    elsif !params[:facebook_photos].blank?
+#      media_element = MediaFacebook.create_media_objects(params[:facebook_photos].first, params[:facebook_pids].first, current_user.id)
+#    elsif !params[:uploaded_images_pids].blank?
+#      media_element = Media.find(params[:uploaded_images_pids].first)
+#    end
+#
+#    @child = Child.find(params[:id])
+#    @child.media = media_element
+#    @child.save
+#
+#
+#    redirect_to child_profile_children_url
+    
   end
 
   def add_friends

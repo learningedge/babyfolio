@@ -1,12 +1,4 @@
-<div class="container settings main-settings">
-
-  <div id="left">
-    <div id="title">Edit Account</div>
-    <div id="change-form">
-      <a href="#" class="current">Main Settings</a>
-    </div>
-  </div>
-
+ 
   <div class="user-form">
 
     <%= form_for @user, :url => account_path do |f| %>
@@ -17,18 +9,7 @@
       </div>
     
     <% end %>
-
-    <div class="upload-profile-image">
-      <%= get_image_tag @user, "large" -%>
-      <%= link_to 'Set profile image', image_account_path -%>
-    </div>
-
-    <div class="clear"></div>
-    <hr/>
-    <div id="social-connections">
-      <%= render :partial => "shared/connections_info" %>
-    </div>
+    
 
   </div>
   <div class="clear"></div>
-</div>

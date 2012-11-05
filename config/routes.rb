@@ -3,7 +3,7 @@ Babyfolio::Application.routes.draw do
   namespace :admin do
     root :to => "dashboard#index"
     get "/" => "dashboard#index", :as => :dashboard_index
-    post "/search" => "dashboard#search", :as => :search
+    post "/search" => "dashboard#search", :as => :search    
     resources :users, :only => [:index, :edit, :update] do
       collection do
         get '/:user_id/logs' => "users#logs", :as => :logs
@@ -13,7 +13,6 @@ Babyfolio::Application.routes.draw do
   end
 
   namespace :registration do
-
     post '/add-photos/flickr/photos' => "add_photos#flickr_photos", :as => :add_photos_flickr_photos
     post '/add-photos/flickr/sets' => "add_photos#flickr_sets", :as => :add_photos_flickr_sets
     post '/add-photos/facebook/photos' => "add_photos#facebook_photos", :as => :add_photos_facebook_photos
@@ -33,6 +32,7 @@ Babyfolio::Application.routes.draw do
     post '/add-videos/import-media' => "add_videos#import_media", :as => :add_videos_import_media
   end
 
+    get '/user/settings' => "users#settings", :as => :settings
     match '/milestone' => "milestones#show", :as => :show_milestone
     match '/milestone/details/:mid/:child_id' => "milestones#show_full", :as => :show_milestone_details
 
@@ -131,23 +131,23 @@ Babyfolio::Application.routes.draw do
   match 'signup' => "users#new", :as => :signup
   match 'create-profile-photo' => "users#create_profile_photo", :as => :create_profile_photo
   
-  resources :families, :only => [:new, :create, :index, :update] do
-    collection do
-      get :add_friends
-      get :add_family
-      get :add_children
-      get :add_parent 
-      post :create_parent
-      match :create_friend_relations
-      get 'family/relations' => :family_relations_info
-      get :edit
-      match :create_friends
-      get :relations
-      post :create_relations
-      
-      post :change_family_to_edit
-    end
-  end
+#  resources :families, :only => [:new, :create, :index, :update] do
+#    collection do
+#      get :add_friends
+#      get :add_family
+#      get :add_children
+#      get :add_parent
+#      post :create_parent
+#      match :create_friend_relations
+#      get 'family/relations' => :family_relations_info
+#      get :edit
+#      match :create_friends
+#      get :relations
+#      post :create_relations
+#
+#      post :change_family_to_edit
+#    end
+#  end
 
   resources :children, :only => [:create, :edit, :update] do
     collection do
@@ -163,7 +163,9 @@ Babyfolio::Application.routes.draw do
     end
   end
 
-  resources :relations, :only => [:destroy]
+  resources :relations, :only => [:destroy, :new, :create] do
+      get 'make-admin' => "relations#make_admin", :as => :make_admin      
+  end
 
   resources :user_sessions do
     collection do
@@ -176,6 +178,8 @@ Babyfolio::Application.routes.draw do
       get 'edit' => "users#edit"
       get 'image' => "users#add_image"
       put 'upload' => "users#upload_image"
+      get 'change-password' => "users#change_password"
+      put 'update-password' => "users#update_password"
       post 'create_temp_user' => "users#create_temp_user"
     end
   end
