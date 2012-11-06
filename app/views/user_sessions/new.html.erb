@@ -1,7 +1,6 @@
-<div class="container">
-  <div id="title">Login</div>
+<div class="container">  
   <div class="user-form">
-    <%= render "shared/error_messages", :target => @user_session %>
+    <%= render "shared/error_messages", :target => @user_session, :summary => "There were some errors while loggin in:" %>
     <div id="login_left">
     <%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
       <div class="email row">
@@ -19,18 +18,7 @@
         <span class="field">
           <%= f.password_field :password %>
         </span>
-      </div>
-      <div class="remember_me row">
-        <span class="label">
-        </span>
-        <span class="field">
-          <%= f.check_box :remember_me %>
-        </span>
-        <span>
-          <%= f.label :remember_me %>
-        </span>
-
-      </div>
+      </div>      
       <div class="submit">
           <%= f.submit "Login" %>
       </div>

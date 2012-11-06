@@ -1,229 +1,40 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
-
-<% if current_user %>
-  <div id="page-wrapper">
-    <div id="top">
-      <div id="login_box">
-
-        <ul>
-          <li class="avatar">
-            <%= get_image_tag current_user, "vsmall" -%>
-          </li>
-
-          <li><a href="<%= child_profile_children_path -%>">Hi, <%= current_user.get_user_name -%></a></li>          
-
-          <li><span class="border">|</span></li>
-          <li><a href="<%= logout_path -%>">Log Out </a></li>
-          <li><span class="border">|</span></li>
-          <li><a href="<%= edit_account_path -%>">Setting </a></li>
-          <li><span class="border">|</span></li>
-          <li><a href="#">Tour</a></li>
-        </ul>
-
-      </div>
-
-    </div>
+<% content_for :middle_bar do %>
+  <div id="middle-bar-inner-wrapper">
+      <strong>BabyFolio</strong> is the best place for you to track and support your baby’s development.
+      <a href="<%= signup_path %>" class="btn" id="get-started-btn">Get Started</a>
   </div>
 <% end %>
 
 <div id="home">
 
-  <div id="top">
-    <div id="right">
-      <img src="/images/home_right.jpg" alt="right_logo" />
-    </div>
-    <div class="info-bar">
-
-      <% if flash[:error] %>
-        <div class="error-notice">
-          <img src="/images/icon1.png" alt="baby_icon_error" />
-          <span><%= flash[:error] -%></span>
-        </div>
-      <% end %>
-
-      <% if flash[:notice] %>
-        <div class="notice">
-          <img src="/images/baby_icon_full.png" alt="baby_icon" />
-          <span><%= flash[:notice] -%></span>
-        </div>
-      <% end %>
-      <div class="clear"></div>
-      <script type="text/javascript">
-		$(window).load(function(){
-			$('.info-bar').hide().fadeIn(500).delay(5000).fadeOut(500);
-		})
-      </script>
-    </div>
-
-
-    <div id="left">
-      <img src="/images/home_left.jpg" alt="left_logo" />
-    </div>
-    <div id="center">
-      <img src="/images/home_logo.png" alt="home_logo" />
-    </div>
-  </div>
-  <div id="login_box">
-    <ul>
-      <li><a href="#">About Us</a><span>|</span></li>
-      <li><a href="#">Take a Tour</a><span>|</span></li>
-      <li><a href="<%= signup_path %>">Sign Up</a><span>|</span></li>
-      <li><a href="<%= login_path %>">Sign In</a></li>
-    </ul>
+  <div class="left-column">
+    <img src="images/home_img.jpg" alt="Home image" />
+    <p id="featured-in-text">Featured in</p>
+    <img src="images/featured_logos.png"  alt="Featured logos"/>
+    
   </div>
 
-  <div id="slider">
-    <div id="welcome_container">
-      <div class="container_left">
-        <h1>Welcome to Babyfolio</h1>
-        <p>
-          Create & share the story of your children's unique development.
-          Capture those precious moments and turn your library into a tool to
-          discover & develop your child's special story. <span>It's Free</span>
-        </p>
-        <a href="<%= signup_path %>"><img src="/images/signup_btn.png" alt="sign_up" /></a>
+  <div class="right-column">
+    <div id="circle-display">
+      <div id="watch-display">
+        <h1>Watch</h1>
+        <p>Identify your baby's important developments.</p>
       </div>
-      <div class="container_right">
-        <div id="profile_logo"></div>
-        <div id="profile_form">
-          <%= form_tag create_temp_user_account_url do%>
-            <p>
-              Find out about your child's Striking
-              development in language,</br>
-              logic and more!
-            </p>
-            <p>
-              Give us 5 minutes and we'll give you </br> insights into your child's
-              unique story.</br>
-              <a href="#">Find Out More</a>
-            </p>
-            <h3>Enter your Child's Birth Date:</h3>
-            <ul>
-              <li><input type="text" placeholder="Day" id="birth_day" name="birth_day"/></li>
-              <li><input type="text" placeholder="Month" id="birth_month" name="birth_month"/></li>
-              <li><input type="text" placeholder="Year" id="birth_year" name="birth_year"/></li>
-              <li id="gender_li">
-                <label for="male"><input type="radio" name="gender" value="male" id="male" checked="true"/> Male</label>
-                <label for="female"><input type="radio" name="gender" value="female" id="female"/> Female</label>
-              </li>
-            </ul>
-
-            <script type="text/javascript">
-              $(function() {
-              $('#birth_day').jStepper({minValue:1, maxValue:31, minLength: 1,allowDecimals: false, disableAutocomplete: true});
-              $('#birth_month').jStepper({minValue:1, maxValue:12, minLength: 1, allowDecimals: false,  disableAutocomplete: true});
-              $('#birth_year').jStepper({minLength: 4, minValue:1, maxValue: (new Date).getFullYear(), allowDecimals: false,});
-              });
-            </script>
-
-            <div class="submit">
-              <%= submit_tag " " %>
-            </div>
-          <% end %>
-        </div>
+      <div id="reflect-display">
+        <h1>Reflect</h1>
+        <p>Understand your baby’s strengths and weaknesses and how you can build on them.</p>
+      </div>
+      <div id="play-display">
+        <h1>Play</h1>
+        <p>Get tips and activity ideas to best support important developments during the optimal "Learning Window."</p>
+      </div>
+      <div id="plus-display">
+        <h1>*Plus you can share your Babyfolio!</h1>
+        <p>Let friends and family participate and contribute as your baby learns and develops.</p>
       </div>
     </div>
   </div>
 
-  <div id="wrraper">
-    <div id="container_home">
-      <div class="shadow_left">
-        <div class="shadow_right">
-          <div id="container_start_multi">
-            <div class="start_multi">
-              <h1>Start your multimedia BabyFolio.</h1>
-              <h3>Your First Question:</h3>
-              <p>What is your baby's favorite plaything now & how does she or he play with it? </p>
-              <%#*<a href="#"><img src="/images/capture_story.png" alt="capture_story" /></a>%>
-              <%= form_tag create_temp_user_account_url do  %>
-                <%= hidden_field_tag 'form_type', 'moment' %>
-                <%= submit_tag "" %>
-              <% end %>
-            </div>
-            <div id="social_panel">
-              <p>Use the Moments you have </br>already uploaded to:</p>
-              <img src="/images/home_fb.png" alt="fb" />
-              <img src="/images/home_yt.png" alt="yt" />
-            </div>
-          </div>
-          <div class="shadow"><img src="/images/home_shadow.png" alt="" /></div>
-          <h2>Choose a Chapter & Start telling your baby's story :</h2>
-          <div id="moments">
-            <ul>
-              <li id="moment">
-                <div class="icon1 icon">
-                  <h1>Getting to Know You</h1>
-                  <p>What recent developments have you noticed?</p>
-                </div>                
-              <%= form_tag create_temp_user_account_url do  %>
-                <%= hidden_field_tag 'form_type', 'moment' %>
-                <%= submit_tag "Add Moment" %>
-              <% end %>
-              </li>
-              <li id="moment">
-                <div class="icon2 icon">
-                  <h1>Places <span class="h1_smaller_text">you went</span><br />
-                     & Things <span class="h1_smaller_text">you did</span>
-                  </h1>
-                  <p>What's your baby doing-<br /> with blocks?</p>
-                </div>                
-              <%= form_tag create_temp_user_account_url do  %>
-                <%= hidden_field_tag 'form_type', 'moment' %>
-                <%= submit_tag "Add Moment" %>
-              <% end %>
-              </li>
-              <li id="moment">
-                <div class="icon3 icon">
-                  <h1>People in your life</h1>
-                  <p>Who does your baby<br /> spend significant time with?</p>
-                </div>
-              <%= form_tag create_temp_user_account_url do  %>
-                <%= hidden_field_tag 'form_type', 'moment' %>
-                <%= submit_tag "Add Moment" %>
-              <% end %>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id="footer">
-    <div class="footer_container">
-      <div id="footer_left">
-        <div id="copyright">
-          Copyright &copy; 2011. Baby folio. All rights reserved.
-        </div>
-        <div id="footer_link">
-          <ul>
-            <li><a href="#">Home<span>|</span></a></li>
-            <li><a href="#">Blog<span>|</span></a></li>
-            <li><a href="#">About Us<span>|</span></a></li>
-            <li><a href="#">Contact Us<span>|</span></a></li>
-            <li><a href="#">Privacy<span>|</span></a></li>
-            <li><a href="#">Site Map<span>|</span></a></li>
-            <li><a href="#">Resources<span>|</span></a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-        </div>
-      </div>
-      <div id="footer_right">
-        <div id="social_links">
-          <span>Follow us on</span>
-          <ul>
-            <li><a href="#"><img src="/images/twitter.png" alt="" /></a></li>
-            <li><a href="#"><img src="/images/facebook.png" alt="" /></a></li>
-            <li><a href="#"><img src="/images/sweetbook.png" alt="" /></a></li>
-            <li><a href="#"><img src="/images/rss.png" alt="" /></a></li>
-          </ul>
-        </div>
-      </div>
-      <div id="clear"></div>
-    </div>
-  </div>
+  <div class="clear"></div>
 </div>
 
-<%= javascript_include_tag "jquery.jstepper.min.js"  -%>

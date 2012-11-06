@@ -1,31 +1,39 @@
-<div class="container">  
+<% content_for :middle_bar do %>
 
-  <div id="title">Register</div>
-  <div class="user-form">
-    <%= form_for @user, :url => account_path(@user), :method => :post do |f| -%>
-      <div class="header">
-        <h2>Create a SmarterFolio account</h2>
-        <div>or <%= link_to "log in here!", login_path -%></div>
-      </div>      
-      
-      <div id="login_right">
-        <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>          
-
-        <div class="submit">
-          <%= f.submit "Continue" %>
-        </div>
-      </div>
-      <div class="clear"></div>
-    <% end %>
-    <div>
-      <a href="mailto:bogus@email.com">
-        <span>Have a question?  Send us an email and Annie, our Community Manager, will be happy to help!</span>
-        <img src="" alt="Annie Image"/>
-      </a>
-    </div>
+  <div class="left-column"></div>
+  <div class="right-column">
+    <div class="step-arrow" id="watching-baby">Watching Your Baby</div>
+    <div class="step-arrow" id="add-baby">Add/Join a BabyFolio</div>
+    <div class="step-arrow active" id="create-acc">Create Account</div>
   </div>
   <div class="clear"></div>
 
+<% end %>
 
+<div id="registration-first">
+  <div class="left-column">
+    <div id="annie-wrapper">
+      <img src="images/annie.jpg"></img>
+      <h4>Have a question?</h4>
+      <p><a href="mailto:#">Send us an email</a> and Annie, our Community Manager, will be happy to help you!</p>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="right-column">
+    <div class="user-form">
+      <%= form_for @user, :url => account_path(@user), :method => :post do |f| -%>        
+
+        <div id="login_right">
+          <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+
+          <div class="submit">
+            <%= f.submit "Continue" %>
+          </div>
+        </div>
+        <div class="clear"></div>
+      <% end %>      
+    </div>
+  </div>
+  <div class="clear"></div>
 </div>
-

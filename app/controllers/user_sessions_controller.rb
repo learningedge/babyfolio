@@ -11,7 +11,8 @@ class UserSessionsController < ApplicationController
   end
 
   def create    
-    @user_session = UserSession.new(params[:user_session])
+    @user_session = UserSession.new(params[:user_session])    
+
     if @user_session.save
       @user_session.user.reset_perishable_token!
       session[:is_login] = nil
@@ -21,6 +22,7 @@ class UserSessionsController < ApplicationController
       redirect_back_or_default child_profile_children_url
     else
       render :action => :new
+      
     end
   end
 
@@ -34,7 +36,7 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     reset_session
     flash[:notice] = "Logout successful!"    
-    redirect_back_or_default login_path
+    redirect_back_or_default root_path
     
   end
 end

@@ -1,0 +1,767 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb5a38400, pid=3242, tid=2949626736
+#
+# JRE version: 6.0_20-b20
+# Java VM: OpenJDK Client VM (19.0-b09 mixed mode, sharing linux-x86 )
+# Derivative: IcedTea6 1.9.5
+# Distribution: Ubuntu 10.10, package 6b20-1.9.5-0ubuntu1
+# Problematic frame:
+# J  java.awt.Font.defaultLineMetrics(Ljava/awt/font/FontRenderContext;)Lsun/font/FontLineMetrics;
+#
+# If you would like to submit a bug report, please include
+# instructions how to reproduce the bug and visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-6/
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0xb0593000):  JavaThread "AWT-EventQueue-1" [_thread_in_Java, id=3330, stack(0xafafb000,0xafcfc000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=8 (), si_addr=0x00000000
+
+Registers:
+EAX=0x9450c6d8, EBX=0x9450c6d8, ECX=0x77c32310, EDX=0x6e23d838
+ESP=0xafcf9b8c, EBP=0xafcf9bc8, ESI=0xafcf9ba0, EDI=0xb5a38400
+EIP=0xb5a38400, CR2=0xb7761100, EFLAGS=0x00000207
+
+Register to memory mapping:
+
+EAX=0x9450c6d8
+{method} 
+ - klass: {other class}
+
+EBX=0x9450c6d8
+{method} 
+ - klass: {other class}
+
+ECX=0x77c32310
+java.awt.Font 
+ - klass: 'java/awt/Font'
+
+EDX=0x6e23d838
+
+[error occurred during error reporting (printing registers, top of stack, instructions near pc), id 0xb]
+
+Stack: [0xafafb000,0xafcfc000],  sp=0xafcf9b8c,  free space=2042k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+J  java.awt.Font.defaultLineMetrics(Ljava/awt/font/FontRenderContext;)Lsun/font/FontLineMetrics;
+j  java.awt.font.TextLayout.fastInit([CLjava/awt/Font;Ljava/util/Map;Ljava/awt/font/FontRenderContext;)V+12
+j  java.awt.font.TextLayout.<init>(Ljava/lang/String;Ljava/awt/Font;Ljava/awt/font/FontRenderContext;)V+124
+j  org.netbeans.modules.editor.lib.drawing.DrawGraphics$GraphicsDG.drawStringTextLayout(Ljavax/swing/JComponent;Ljava/awt/Graphics;Ljava/lang/String;II)V+43
+j  org.netbeans.modules.editor.lib.drawing.DrawGraphics$GraphicsDG.flush(Z)V+890
+j  org.netbeans.modules.editor.lib.drawing.DrawGraphics$GraphicsDG.flush()V+2
+j  org.netbeans.modules.editor.lib.drawing.DrawGraphics$GraphicsDG.setX(I)V+9
+j  org.netbeans.modules.editor.lib.drawing.DrawEngine.handleEOL(Lorg/netbeans/modules/editor/lib/drawing/DrawEngine$DrawInfo;)V+8
+J  org.netbeans.modules.editor.lib.drawing.DrawEngine.drawFragment(Lorg/netbeans/modules/editor/lib/drawing/DrawEngine$DrawInfo;)V
+j  org.netbeans.modules.editor.lib.drawing.DrawEngine.draw(Ljavax/swing/text/View;Lorg/netbeans/modules/editor/lib/drawing/DrawGraphics;Lorg/netbeans/editor/EditorUI;IIIII)V+67
+j  org.netbeans.modules.editor.lib.drawing.DrawEngineLineView.paint(Ljava/awt/Graphics;Ljava/awt/Shape;)V+450
+j  org.netbeans.lib.editor.view.GapBoxViewChildren.paintChildren(Ljava/awt/Graphics;Ljava/awt/Rectangle;)V+175
+j  org.netbeans.lib.editor.view.GapBoxView.paint(Ljava/awt/Graphics;Ljava/awt/Shape;)V+12
+j  org.netbeans.lib.editor.view.GapDocumentView.paint(Ljava/awt/Graphics;Ljava/awt/Shape;)V+56
+j  org.netbeans.modules.editor.lib.drawing.DrawEngineDocView.paint(Ljava/awt/Graphics;Ljava/awt/Shape;)V+47
+j  org.netbeans.editor.view.spi.LockView.paint(Ljava/awt/Graphics;Ljava/awt/Shape;)V+22
+j  javax.swing.plaf.basic.BasicTextUI$RootView.paint(Ljava/awt/Graphics;Ljava/awt/Shape;)V+48
+j  javax.swing.plaf.basic.BasicTextUI.paintSafely(Ljava/awt/Graphics;)V+65
+j  javax.swing.plaf.basic.BasicTextUI.paint(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V+45
+j  javax.swing.plaf.basic.BasicTextUI.update(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V+3
+j  javax.swing.JComponent.paintComponent(Ljava/awt/Graphics;)V+26
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+269
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JViewport.paint(Ljava/awt/Graphics;)V+205
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  org.netbeans.swing.tabcontrol.TabbedContainer.paint(Ljava/awt/Graphics;)V+53
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JComponent.paintChildren(Ljava/awt/Graphics;)V+473
+j  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V+301
+j  javax.swing.JComponent.paintToOffscreen(Ljava/awt/Graphics;IIIIII)V+41
+j  javax.swing.BufferStrategyPaintManager.paint(Ljavax/swing/JComponent;Ljavax/swing/JComponent;Ljava/awt/Graphics;IIII)Z+157
+j  javax.swing.RepaintManager.paint(Ljavax/swing/JComponent;Ljavax/swing/JComponent;Ljava/awt/Graphics;IIII)V+52
+j  javax.swing.JComponent._paintImmediately(IIII)V+679
+j  javax.swing.JComponent.paintImmediately(IIII)V+83
+j  javax.swing.RepaintManager.paintDirtyRegions(Ljava/util/Map;)V+188
+j  javax.swing.RepaintManager.paintDirtyRegions()V+46
+j  javax.swing.RepaintManager.prePaintDirtyRegions()V+73
+j  javax.swing.RepaintManager.access$700(Ljavax/swing/RepaintManager;)V+1
+j  javax.swing.RepaintManager$ProcessingRunnable.run()V+37
+j  java.awt.event.InvocationEvent.dispatch()V+47
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+26
+j  org.netbeans.core.TimableEventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+14
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+192
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x203db2]
+V  [libjvm.so+0x302879]
+V  [libjvm.so+0x202d4f]
+V  [libjvm.so+0x2031aa]
+V  [libjvm.so+0x203308]
+V  [libjvm.so+0x255670]
+V  [libjvm.so+0x3b15ec]
+V  [libjvm.so+0x3b16b2]
+V  [libjvm.so+0x3092a1]
+C  [libpthread.so.0+0x5cc9]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0xaf934000 JavaThread "Image Fetcher 0" daemon [_thread_blocked, id=3362, stack(0xade60000,0xae061000)]
+  0x0920e400 JavaThread "Parsing & Indexing Loop (100825-unknown-revn)" daemon [_thread_in_native, id=3343, stack(0xae262000,0xae463000)]
+  0x09223400 JavaThread "Inactive RequestProcessor thread [Was:Folder recognizer/org.openide.loaders.FolderList$ListTask]" daemon [_thread_blocked, id=3340, stack(0xae463000,0xae664000)]
+  0x0922d800 JavaThread "Inactive RequestProcessor thread [Was:org.netbeans.modules.project.ui.ProjectsRootNode$ProjectChildren/org.netbeans.modules.project.ui.ProjectsRootNode$ProjectChildren$1]" daemon [_thread_blocked, id=3339, stack(0xae664000,0xae865000)]
+  0x0912fc00 JavaThread "pool-3-thread-1" [_thread_blocked, id=3338, stack(0xae865000,0xaea66000)]
+  0xb0558c00 JavaThread "Inactive RequestProcessor thread [Was:org.netbeans.modules.editor.errorstripe.AnnotationView/org.netbeans.modules.editor.errorstripe.AnnotationView$RepaintTask]" daemon [_thread_blocked, id=3337, stack(0xaea66000,0xaec67000)]
+  0x09124c00 JavaThread "Inactive RequestProcessor thread [Was:VersioningAnnotator.annotationRefresh/org.netbeans.modules.versioning.VersioningAnnotationProvider$Cache$AnnotationRefreshTask]" daemon [_thread_blocked, id=3336, stack(0xaec67000,0xaee68000)]
+  0xaf932400 JavaThread "Inactive RequestProcessor thread [Was:Rails Annotation/org.netbeans.modules.ruby.railsprojects.ui.RailsLogicalViewProvider$RailsLogicalViewRootNode]" daemon [_thread_blocked, id=3335, stack(0xb1b88000,0xb1d89000)]
+  0xb4b56c00 JavaThread "DestroyJavaVM" [_thread_blocked, id=3243, stack(0xb754f000,0xb7750000)]
+  0x090de400 JavaThread "Flushing caches" [_thread_blocked, id=3333, stack(0xaf4fe000,0xaf6ff000)]
+=>0xb0593000 JavaThread "AWT-EventQueue-1" [_thread_in_Java, id=3330, stack(0xafafb000,0xafcfc000)]
+  0xb057a000 JavaThread "TimerQueue" daemon [_thread_blocked, id=3329, stack(0xb130a000,0xb150b000)]
+  0xb0592800 JavaThread "Inactive RequestProcessor thread [Was:VersioningAnnotator.annotationRefresh/org.netbeans.modules.versioning.VersioningAnnotationProvider$Cache$AnnotationRefreshTask]" daemon [_thread_blocked, id=3328, stack(0xafcfc000,0xafefd000)]
+  0xb0571800 JavaThread "Inactive RequestProcessor thread [Was:org.openide.text Editor Initialization/org.openide.text.CloneableEditor$DoInitialize]" daemon [_thread_blocked, id=3327, stack(0xafefd000,0xb00fe000)]
+  0xb0590800 JavaThread "Default RequestProcessor" daemon [_thread_blocked, id=3326, stack(0xb00fe000,0xb02ff000)]
+  0xb056c000 JavaThread "Thread-3" daemon [_thread_blocked, id=3325, stack(0xb02ff000,0xb0500000)]
+  0xb4be9c00 JavaThread "AWT-Shutdown" [_thread_blocked, id=3268, stack(0xb1109000,0xb130a000)]
+  0xb4b75c00 JavaThread "AWT-XAWT" daemon [_thread_in_native, id=3262, stack(0xb150b000,0xb170c000)]
+  0xb4b5a000 JavaThread "Inactive RequestProcessor thread [Was:Project UI/org.netbeans.modules.project.ui.ProjectsRootNode$BadgingNode]" daemon [_thread_blocked, id=3261, stack(0xb1712000,0xb1913000)]
+  0x09175400 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=3260, stack(0xb1987000,0xb1b88000)]
+  0xb4b55000 JavaThread "Inactive RequestProcessor thread [Was:org.netbeans.modules.project.ui.actions.MainProjectAction/org.netbeans.modules.project.ui.actions.MainProjectAction$1]" daemon [_thread_blocked, id=3258, stack(0xb1d89000,0xb1f8a000)]
+  0xb4b49c00 JavaThread "CLI Requests Server" daemon [_thread_in_native, id=3257, stack(0xb1f8a000,0xb218b000)]
+  0xb4b1d800 JavaThread "Active Reference Queue Daemon" daemon [_thread_blocked, id=3253, stack(0xb3ffa000,0xb41fb000)]
+  0xb4b05400 JavaThread "Timer-0" daemon [_thread_blocked, id=3252, stack(0xb41fb000,0xb43fc000)]
+  0x090be800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=3249, stack(0xb447d000,0xb467e000)]
+  0x090bc800 JavaThread "CompilerThread0" daemon [_thread_blocked, id=3248, stack(0xb467e000,0xb46ff000)]
+  0x090bac00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3247, stack(0xb46ff000,0xb4900000)]
+  0x090b3400 JavaThread "Finalizer" daemon [_thread_blocked, id=3246, stack(0xb4c52000,0xb4e53000)]
+  0x090b1c00 JavaThread "Reference Handler" daemon [_thread_blocked, id=3245, stack(0xb4e53000,0xb5054000)]
+
+Other Threads:
+  0x090b0400 VMThread [stack: 0xb5054000,0xb50d5000] [id=3244]
+  0x090ca400 WatcherThread [stack: 0xb43fc000,0xb447d000] [id=3250]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 17792K, used 4485K [0x6dfc0000, 0x6f300000, 0x765c0000)
+  eden space 15872K,  16% used [0x6dfc0000, 0x6e241588, 0x6ef40000)
+  from space 1920K, 100% used [0x6ef40000, 0x6f120000, 0x6f120000)
+  to   space 1920K,   0% used [0x6f120000, 0x6f120000, 0x6f300000)
+ tenured generation   total 39320K, used 34679K [0x765c0000, 0x78c26000, 0x871c0000)
+   the space 39320K,  88% used [0x765c0000, 0x7879dcd8, 0x7879de00, 0x78c26000)
+ compacting perm gen  total 32768K, used 31187K [0x871c0000, 0x891c0000, 0x939c0000)
+   the space 32768K,  95% used [0x871c0000, 0x89034e48, 0x89035000, 0x891c0000)
+    ro space 10240K,  73% used [0x939c0000, 0x94116e28, 0x94117000, 0x943c0000)
+    rw space 12288K,  60% used [0x943c0000, 0x94aff9f8, 0x94affa00, 0x94fc0000)
+
+Dynamic libraries:
+00110000-00123000 r-xp 00000000 08:01 392197     /lib/libz.so.1.2.3.4
+00123000-00124000 r--p 00012000 08:01 392197     /lib/libz.so.1.2.3.4
+00124000-00125000 rw-p 00013000 08:01 392197     /lib/libz.so.1.2.3.4
+00125000-0012f000 r-xp 00000000 08:01 407775     /lib/libnss_files-2.12.1.so
+0012f000-00130000 r--p 00009000 08:01 407775     /lib/libnss_files-2.12.1.so
+00130000-00131000 rw-p 0000a000 08:01 407775     /lib/libnss_files-2.12.1.so
+00131000-00135000 r-xp 00000000 08:01 132828     /usr/lib/libXtst.so.6.1.0
+00135000-00136000 r--p 00003000 08:01 132828     /usr/lib/libXtst.so.6.1.0
+00136000-00137000 rw-p 00004000 08:01 132828     /usr/lib/libXtst.so.6.1.0
+00138000-0014d000 r-xp 00000000 08:01 407784     /lib/libpthread-2.12.1.so
+0014d000-0014e000 ---p 00015000 08:01 407784     /lib/libpthread-2.12.1.so
+0014e000-0014f000 r--p 00015000 08:01 407784     /lib/libpthread-2.12.1.so
+0014f000-00150000 rw-p 00016000 08:01 407784     /lib/libpthread-2.12.1.so
+00150000-00152000 rw-p 00000000 00:00 0 
+00152000-00166000 r-xp 00000000 08:01 171570     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+00166000-00167000 r--p 00013000 08:01 171570     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+00167000-00168000 rw-p 00014000 08:01 171570     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+00168000-001ab000 r-xp 00000000 08:01 171868     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/xawt/libmawt.so
+001ab000-001ac000 r--p 00042000 08:01 171868     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/xawt/libmawt.so
+001ac000-001ae000 rw-p 00043000 08:01 171868     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/xawt/libmawt.so
+001ae000-001af000 rw-p 00000000 00:00 0 
+001af000-001c7000 r-xp 00000000 08:01 133749     /usr/lib/libxcb.so.1.1.0
+001c7000-001c8000 r--p 00017000 08:01 133749     /usr/lib/libxcb.so.1.1.0
+001c8000-001c9000 rw-p 00018000 08:01 133749     /usr/lib/libxcb.so.1.1.0
+001c9000-001cb000 r-xp 00000000 08:01 132792     /usr/lib/libXcomposite.so.1.0.0
+001cb000-001cc000 r--p 00001000 08:01 132792     /usr/lib/libXcomposite.so.1.0.0
+001cc000-001cd000 rw-p 00002000 08:01 132792     /usr/lib/libXcomposite.so.1.0.0
+001cd000-00324000 r-xp 00000000 08:01 407764     /lib/libc-2.12.1.so
+00324000-00326000 r--p 00157000 08:01 407764     /lib/libc-2.12.1.so
+00326000-00327000 rw-p 00159000 08:01 407764     /lib/libc-2.12.1.so
+00327000-0032a000 rw-p 00000000 00:00 0 
+0032a000-0032e000 r-xp 00000000 08:01 132798     /usr/lib/libXdmcp.so.6.0.0
+0032e000-0032f000 r--p 00003000 08:01 132798     /usr/lib/libXdmcp.so.6.0.0
+0032f000-00330000 rw-p 00004000 08:01 132798     /usr/lib/libXdmcp.so.6.0.0
+00330000-00338000 r-xp 00000000 08:01 132822     /usr/lib/libXrender.so.1.3.0
+00338000-00339000 r--p 00007000 08:01 132822     /usr/lib/libXrender.so.1.3.0
+00339000-0033a000 rw-p 00008000 08:01 132822     /usr/lib/libXrender.so.1.3.0
+0033a000-0037e000 r-xp 00000000 08:01 171553     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libfontmanager.so
+0037e000-00380000 r--p 00043000 08:01 171553     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libfontmanager.so
+00380000-00381000 rw-p 00045000 08:01 171553     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libfontmanager.so
+00381000-00386000 rw-p 00000000 00:00 0 
+00386000-00388000 r-xp 00000000 08:01 132796     /usr/lib/libXdamage.so.1.1.0
+00388000-00389000 r--p 00001000 08:01 132796     /usr/lib/libXdamage.so.1.1.0
+00389000-0038a000 rw-p 00002000 08:01 132796     /usr/lib/libXdamage.so.1.1.0
+0038a000-003ae000 r-xp 00000000 08:01 407769     /lib/libm-2.12.1.so
+003ae000-003af000 r--p 00023000 08:01 407769     /lib/libm-2.12.1.so
+003af000-003b0000 rw-p 00024000 08:01 407769     /lib/libm-2.12.1.so
+003b0000-003d3000 r-xp 00000000 08:01 392152     /lib/libpng12.so.0.44.0
+003d3000-003d4000 r--p 00022000 08:01 392152     /lib/libpng12.so.0.44.0
+003d4000-003d5000 rw-p 00023000 08:01 392152     /lib/libpng12.so.0.44.0
+003d5000-003f4000 r-xp 00000000 08:01 133363     /usr/lib/libjpeg.so.62.0.0
+003f4000-003f5000 r--p 0001e000 08:01 133363     /usr/lib/libjpeg.so.62.0.0
+003f5000-003f6000 rw-p 0001f000 08:01 133363     /usr/lib/libjpeg.so.62.0.0
+003f6000-003fd000 r-xp 00000000 08:01 154371     /usr/lib/libgif.so.4.1.6
+003fd000-003fe000 r--p 00006000 08:01 154371     /usr/lib/libgif.so.4.1.6
+003fe000-003ff000 rw-p 00007000 08:01 154371     /usr/lib/libgif.so.4.1.6
+003ff000-00407000 r-xp 00000000 08:01 132794     /usr/lib/libXcursor.so.1.0.2
+00407000-00408000 r--p 00007000 08:01 132794     /usr/lib/libXcursor.so.1.0.2
+00408000-00409000 rw-p 00008000 08:01 132794     /usr/lib/libXcursor.so.1.0.2
+00409000-0040f000 r-xp 00000000 08:01 132820     /usr/lib/libXrandr.so.2.2.0
+0040f000-00410000 r--p 00005000 08:01 132820     /usr/lib/libXrandr.so.2.2.0
+00410000-00411000 rw-p 00006000 08:01 132820     /usr/lib/libXrandr.so.2.2.0
+00411000-0041b000 r-xp 00000000 08:01 130127     /usr/lib/libpangocairo-1.0.so.0.2800.2
+0041b000-0041c000 r--p 00009000 08:01 130127     /usr/lib/libpangocairo-1.0.so.0.2800.2
+0041c000-0041d000 rw-p 0000a000 08:01 130127     /usr/lib/libpangocairo-1.0.so.0.2800.2
+0041d000-00435000 r-xp 00000000 08:01 132863     /usr/lib/libatk-1.0.so.0.3209.1
+00435000-00436000 ---p 00018000 08:01 132863     /usr/lib/libatk-1.0.so.0.3209.1
+00436000-00437000 r--p 00018000 08:01 132863     /usr/lib/libatk-1.0.so.0.3209.1
+00437000-00438000 rw-p 00019000 08:01 132863     /usr/lib/libatk-1.0.so.0.3209.1
+00438000-0045c000 r-xp 00000000 08:01 130178     /usr/lib/libpangoft2-1.0.so.0.2800.2
+0045c000-0045d000 r--p 00023000 08:01 130178     /usr/lib/libpangoft2-1.0.so.0.2800.2
+0045d000-0045e000 rw-p 00024000 08:01 130178     /usr/lib/libpangoft2-1.0.so.0.2800.2
+0045e000-00460000 r-xp 00000000 08:01 133137     /usr/lib/libgmodule-2.0.so.0.2600.0
+00460000-00461000 r--p 00002000 08:01 133137     /usr/lib/libgmodule-2.0.so.0.2600.0
+00461000-00462000 rw-p 00003000 08:01 133137     /usr/lib/libgmodule-2.0.so.0.2600.0
+00462000-00465000 r-xp 00000000 08:01 133247     /usr/lib/libgthread-2.0.so.0.2600.0
+00465000-00466000 r--p 00003000 08:01 133247     /usr/lib/libgthread-2.0.so.0.2600.0
+00466000-00467000 rw-p 00004000 08:01 133247     /usr/lib/libgthread-2.0.so.0.2600.0
+00467000-0046d000 r-xp 00000000 08:01 133745     /usr/lib/libxcb-render.so.0.0.0
+0046d000-0046e000 r--p 00005000 08:01 133745     /usr/lib/libxcb-render.so.0.0.0
+0046e000-0046f000 rw-p 00006000 08:01 133745     /usr/lib/libxcb-render.so.0.0.0
+00470000-00476000 r-xp 00000000 08:01 171579     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/native_threads/libhpi.so
+00476000-00477000 r--p 00005000 08:01 171579     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/native_threads/libhpi.so
+00477000-00478000 rw-p 00006000 08:01 171579     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/native_threads/libhpi.so
+00478000-004b7000 r-xp 00000000 08:01 130126     /usr/lib/libpango-1.0.so.0.2800.2
+004b7000-004b8000 ---p 0003f000 08:01 130126     /usr/lib/libpango-1.0.so.0.2800.2
+004b8000-004b9000 r--p 0003f000 08:01 130126     /usr/lib/libpango-1.0.so.0.2800.2
+004b9000-004ba000 rw-p 00040000 08:01 130126     /usr/lib/libpango-1.0.so.0.2800.2
+004ba000-004e8000 r-xp 00000000 08:01 133062     /usr/lib/libfontconfig.so.1.4.4
+004e8000-004e9000 r--p 0002d000 08:01 133062     /usr/lib/libfontconfig.so.1.4.4
+004e9000-004ea000 rw-p 0002e000 08:01 133062     /usr/lib/libfontconfig.so.1.4.4
+004ea000-004ee000 r-xp 00000000 08:01 132916     /usr/lib/libcanberra-gtk.so.0.1.6
+004ee000-004ef000 r--p 00003000 08:01 132916     /usr/lib/libcanberra-gtk.so.0.1.6
+004ef000-004f0000 rw-p 00004000 08:01 132916     /usr/lib/libcanberra-gtk.so.0.1.6
+004f0000-004fe000 r-xp 00000000 08:01 132918     /usr/lib/libcanberra.so.0.2.4
+004fe000-004ff000 r--p 0000d000 08:01 132918     /usr/lib/libcanberra.so.0.2.4
+004ff000-00500000 rw-p 0000e000 08:01 132918     /usr/lib/libcanberra.so.0.2.4
+00500000-00502000 r-xp 00000000 08:01 407794     /lib/libutil-2.12.1.so
+00502000-00503000 r--p 00001000 08:01 407794     /lib/libutil-2.12.1.so
+00503000-00504000 rw-p 00002000 08:01 407794     /lib/libutil-2.12.1.so
+00504000-00586000 r-xp 00000000 08:01 171551     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libawt.so
+00586000-00587000 r--p 00081000 08:01 171551     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libawt.so
+00587000-0058d000 rw-p 00082000 08:01 171551     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libawt.so
+0058d000-005b2000 rw-p 00000000 00:00 0 
+005b2000-006cb000 r-xp 00000000 08:01 132783     /usr/lib/libX11.so.6.3.0
+006cb000-006cc000 r--p 00118000 08:01 132783     /usr/lib/libX11.so.6.3.0
+006cc000-006ce000 rw-p 00119000 08:01 132783     /usr/lib/libX11.so.6.3.0
+006ce000-006cf000 rw-p 00000000 00:00 0 
+006cf000-0070f000 r-xp 00000000 08:01 133173     /usr/lib/libgobject-2.0.so.0.2600.0
+0070f000-00710000 r--p 00040000 08:01 133173     /usr/lib/libgobject-2.0.so.0.2600.0
+00710000-00711000 rw-p 00041000 08:01 133173     /usr/lib/libgobject-2.0.so.0.2600.0
+00711000-00718000 r-xp 00000000 08:01 133710     /usr/lib/libvorbisfile.so.3.3.2
+00718000-00719000 r--p 00006000 08:01 133710     /usr/lib/libvorbisfile.so.3.3.2
+00719000-0071a000 rw-p 00007000 08:01 133710     /usr/lib/libvorbisfile.so.3.3.2
+0071f000-00728000 r-xp 00000000 08:01 171564     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjpeg.so
+00728000-00729000 r--p 00008000 08:01 171564     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjpeg.so
+00729000-0072a000 rw-p 00009000 08:01 171564     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjpeg.so
+0072a000-0075d000 r-xp 00000000 08:01 392140     /lib/libpcre.so.3.12.1
+0075d000-0075e000 r--p 00032000 08:01 392140     /lib/libpcre.so.3.12.1
+0075e000-0075f000 rw-p 00033000 08:01 392140     /lib/libpcre.so.3.12.1
+0075f000-00763000 r-xp 00000000 08:01 130525     /usr/lib/gtk-2.0/2.10.0/immodules/im-ibus.so
+00763000-00764000 r--p 00003000 08:01 130525     /usr/lib/gtk-2.0/2.10.0/immodules/im-ibus.so
+00764000-00765000 rw-p 00004000 08:01 130525     /usr/lib/gtk-2.0/2.10.0/immodules/im-ibus.so
+00765000-00767000 r-xp 00000000 08:01 132810     /usr/lib/libXinerama.so.1.0.0
+00767000-00768000 r--p 00001000 08:01 132810     /usr/lib/libXinerama.so.1.0.0
+00768000-00769000 rw-p 00002000 08:01 132810     /usr/lib/libXinerama.so.1.0.0
+00769000-0076e000 r-xp 00000000 08:01 133470     /usr/lib/libogg.so.0.7.0
+0076e000-0076f000 r--p 00004000 08:01 133470     /usr/lib/libogg.so.0.7.0
+0076f000-00770000 rw-p 00005000 08:01 133470     /usr/lib/libogg.so.0.7.0
+00770000-00787000 r-xp 00000000 08:01 133105     /usr/lib/libgdk_pixbuf-2.0.so.0.2200.0
+00787000-00788000 r--p 00017000 08:01 133105     /usr/lib/libgdk_pixbuf-2.0.so.0.2200.0
+00788000-00789000 rw-p 00018000 08:01 133105     /usr/lib/libgdk_pixbuf-2.0.so.0.2200.0
+00789000-007a3000 r-xp 00000000 08:01 392164     /lib/libselinux.so.1
+007a3000-007a4000 r--p 00019000 08:01 392164     /lib/libselinux.so.1
+007a4000-007a5000 rw-p 0001a000 08:01 392164     /lib/libselinux.so.1
+007a5000-007c9000 r-xp 00000000 08:01 392075     /lib/libexpat.so.1.5.2
+007c9000-007cb000 r--p 00024000 08:01 392075     /lib/libexpat.so.1.5.2
+007cb000-007cc000 rw-p 00026000 08:01 392075     /lib/libexpat.so.1.5.2
+007cc000-007d9000 r-xp 00000000 08:01 133655     /usr/lib/libtdb.so.1.2.1
+007d9000-007da000 r--p 0000c000 08:01 133655     /usr/lib/libtdb.so.1.2.1
+007da000-007db000 rw-p 0000d000 08:01 133655     /usr/lib/libtdb.so.1.2.1
+007db000-007e9000 r-xp 00000000 08:01 132800     /usr/lib/libXext.so.6.4.0
+007e9000-007ea000 r--p 0000d000 08:01 132800     /usr/lib/libXext.so.6.4.0
+007ea000-007eb000 rw-p 0000e000 08:01 132800     /usr/lib/libXext.so.6.4.0
+007eb000-00847000 r-xp 00000000 08:01 133513     /usr/lib/libpixman-1.so.0.18.4
+00847000-0084a000 r--p 0005c000 08:01 133513     /usr/lib/libpixman-1.so.0.18.4
+0084a000-0084b000 rw-p 0005f000 08:01 133513     /usr/lib/libpixman-1.so.0.18.4
+0084b000-00852000 r-xp 00000000 08:01 133393     /usr/lib/libltdl.so.7.2.1
+00852000-00853000 r--p 00006000 08:01 133393     /usr/lib/libltdl.so.7.2.1
+00853000-00854000 rw-p 00007000 08:01 133393     /usr/lib/libltdl.so.7.2.1
+00854000-0085a000 r-xp 00000000 08:01 171568     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmanagement.so
+0085a000-0085b000 r--p 00005000 08:01 171568     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmanagement.so
+0085b000-0085c000 rw-p 00006000 08:01 171568     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmanagement.so
+00861000-0086a000 r-xp 00000000 08:01 407778     /lib/libnss_nis-2.12.1.so
+0086a000-0086b000 r--p 00008000 08:01 407778     /lib/libnss_nis-2.12.1.so
+0086b000-0086c000 rw-p 00009000 08:01 407778     /lib/libnss_nis-2.12.1.so
+0086c000-0088f000 r-xp 00000000 08:01 132151     /usr/lib/gio/modules/libgvfsdbus.so
+0088f000-00890000 r--p 00022000 08:01 132151     /usr/lib/gio/modules/libgvfsdbus.so
+00890000-00891000 rw-p 00023000 08:01 132151     /usr/lib/gio/modules/libgvfsdbus.so
+00892000-00898000 r-xp 00000000 08:01 407773     /lib/libnss_compat-2.12.1.so
+00898000-00899000 r--p 00006000 08:01 407773     /lib/libnss_compat-2.12.1.so
+00899000-0089a000 rw-p 00007000 08:01 407773     /lib/libnss_compat-2.12.1.so
+0089a000-008c0000 r-xp 00000000 08:01 133706     /usr/lib/libvorbis.so.0.4.4
+008c0000-008c1000 r--p 00025000 08:01 133706     /usr/lib/libvorbis.so.0.4.4
+008c1000-008c2000 rw-p 00026000 08:01 133706     /usr/lib/libvorbis.so.0.4.4
+008c2000-008c7000 r-xp 00000000 08:01 133056     /usr/lib/libffi.so.5.0.10
+008c7000-008c8000 r--p 00004000 08:01 133056     /usr/lib/libffi.so.5.0.10
+008c8000-008c9000 rw-p 00005000 08:01 133056     /usr/lib/libffi.so.5.0.10
+008d0000-008d2000 r-xp 00000000 08:01 133747     /usr/lib/libxcb-shm.so.0.0.0
+008d2000-008d3000 r--p 00001000 08:01 133747     /usr/lib/libxcb-shm.so.0.0.0
+008d3000-008d4000 rw-p 00002000 08:01 133747     /usr/lib/libxcb-shm.so.0.0.0
+008d4000-008e7000 r-xp 00000000 08:01 130958     /usr/lib/libgvfscommon.so.0.0.0
+008e7000-008e8000 r--p 00012000 08:01 130958     /usr/lib/libgvfscommon.so.0.0.0
+008e8000-008e9000 rw-p 00013000 08:01 130958     /usr/lib/libgvfscommon.so.0.0.0
+008ec000-008f4000 r-xp 00000000 08:01 171866     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libsplashscreen.so
+008f4000-008f5000 r--p 00007000 08:01 171866     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libsplashscreen.so
+008f5000-008f6000 rw-p 00008000 08:01 171866     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libsplashscreen.so
+008f6000-008f8000 rw-p 00000000 00:00 0 
+008fc000-00900000 r-xp 00000000 08:01 132802     /usr/lib/libXfixes.so.3.1.0
+00900000-00901000 r--p 00003000 08:01 132802     /usr/lib/libXfixes.so.3.1.0
+00901000-00902000 rw-p 00004000 08:01 132802     /usr/lib/libXfixes.so.3.1.0
+00902000-00912000 r-xp 00000000 08:01 173070     /usr/lib/jni/libjnidispatch.so
+00912000-00913000 r--p 0000f000 08:01 173070     /usr/lib/jni/libjnidispatch.so
+00913000-00914000 rw-p 00010000 08:01 173070     /usr/lib/jni/libjnidispatch.so
+00917000-00919000 r-xp 00000000 08:01 407768     /lib/libdl-2.12.1.so
+00919000-0091a000 r--p 00001000 08:01 407768     /lib/libdl-2.12.1.so
+0091a000-0091b000 rw-p 00002000 08:01 407768     /lib/libdl-2.12.1.so
+0092b000-00931000 r-xp 00000000 08:01 171577     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+00931000-00932000 r--p 00005000 08:01 171577     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+00932000-00933000 rw-p 00006000 08:01 171577     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+00933000-0095d000 r-xp 00000000 08:01 136912     /usr/lib/gtk-2.0/2.10.0/engines/libclearlooks.so
+0095d000-0095e000 r--p 00029000 08:01 136912     /usr/lib/gtk-2.0/2.10.0/engines/libclearlooks.so
+0095e000-0095f000 rw-p 0002a000 08:01 136912     /usr/lib/gtk-2.0/2.10.0/engines/libclearlooks.so
+0095f000-00999000 r-xp 00000000 08:01 403775     /lib/libdbus-1.so.3.5.2
+00999000-0099a000 r--p 00039000 08:01 403775     /lib/libdbus-1.so.3.5.2
+0099a000-0099b000 rw-p 0003a000 08:01 403775     /lib/libdbus-1.so.3.5.2
+009a9000-00a3d000 r-xp 00000000 08:01 133103     /usr/lib/libgdk-x11-2.0.so.0.2200.0
+00a3d000-00a3f000 r--p 00094000 08:01 133103     /usr/lib/libgdk-x11-2.0.so.0.2200.0
+00a3f000-00a40000 rw-p 00096000 08:01 133103     /usr/lib/libgdk-x11-2.0.so.0.2200.0
+00a4a000-00a56000 r-xp 00000000 08:01 132808     /usr/lib/libXi.so.6.1.0
+00a56000-00a57000 r--p 0000b000 08:01 132808     /usr/lib/libXi.so.6.1.0
+00a57000-00a58000 rw-p 0000c000 08:01 132808     /usr/lib/libXi.so.6.1.0
+00a71000-00ae3000 r-xp 00000000 08:01 129893     /usr/lib/libfreetype.so.6.6.0
+00ae3000-00ae7000 r--p 00071000 08:01 129893     /usr/lib/libfreetype.so.6.6.0
+00ae7000-00ae8000 rw-p 00075000 08:01 129893     /usr/lib/libfreetype.so.6.6.0
+00ae8000-00b22000 r-xp 00000000 08:01 133304     /usr/lib/libibus.so.2.0.0
+00b22000-00b23000 r--p 00039000 08:01 133304     /usr/lib/libibus.so.2.0.0
+00b23000-00b24000 rw-p 0003a000 08:01 133304     /usr/lib/libibus.so.2.0.0
+00b3a000-00b4a000 r-xp 00000000 08:01 407785     /lib/libresolv-2.12.1.so
+00b4a000-00b4b000 r--p 00010000 08:01 407785     /lib/libresolv-2.12.1.so
+00b4b000-00b4c000 rw-p 00011000 08:01 407785     /lib/libresolv-2.12.1.so
+00b4c000-00b4e000 rw-p 00000000 00:00 0 
+00b67000-00b6e000 r-xp 00000000 08:01 171571     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00b6e000-00b6f000 r--p 00006000 08:01 171571     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00b6f000-00b70000 rw-p 00007000 08:01 171571     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00b8e000-00b95000 r-xp 00000000 08:01 407786     /lib/librt-2.12.1.so
+00b95000-00b96000 r--p 00006000 08:01 407786     /lib/librt-2.12.1.so
+00b96000-00b97000 rw-p 00007000 08:01 407786     /lib/librt-2.12.1.so
+00b97000-00c45000 r-xp 00000000 08:01 129923     /usr/lib/libcairo.so.2.11000.0
+00c45000-00c46000 ---p 000ae000 08:01 129923     /usr/lib/libcairo.so.2.11000.0
+00c46000-00c47000 r--p 000ae000 08:01 129923     /usr/lib/libcairo.so.2.11000.0
+00c47000-00c48000 rw-p 000af000 08:01 129923     /usr/lib/libcairo.so.2.11000.0
+00c48000-00c4a000 rw-p 00000000 00:00 0 
+00c4a000-00d17000 r-xp 00000000 08:01 392086     /lib/libglib-2.0.so.0.2600.0
+00d17000-00d18000 r--p 000cc000 08:01 392086     /lib/libglib-2.0.so.0.2600.0
+00d18000-00d19000 rw-p 000cd000 08:01 392086     /lib/libglib-2.0.so.0.2600.0
+00d1a000-00d1c000 r-xp 00000000 08:01 132787     /usr/lib/libXau.so.6.0.0
+00d1c000-00d1d000 r--p 00001000 08:01 132787     /usr/lib/libXau.so.6.0.0
+00d1d000-00d1e000 rw-p 00002000 08:01 132787     /usr/lib/libXau.so.6.0.0
+00d38000-00d4b000 r-xp 00000000 08:01 407771     /lib/libnsl-2.12.1.so
+00d4b000-00d4c000 r--p 00012000 08:01 407771     /lib/libnsl-2.12.1.so
+00d4c000-00d4d000 rw-p 00013000 08:01 407771     /lib/libnsl-2.12.1.so
+00d4d000-00d4f000 rw-p 00000000 00:00 0 
+00d5a000-00d87000 r-xp 00000000 08:01 171567     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/liblcms.so
+00d87000-00d88000 r--p 0002c000 08:01 171567     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/liblcms.so
+00d88000-00d89000 rw-p 0002d000 08:01 171567     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/liblcms.so
+00d89000-00d8b000 rw-p 00000000 00:00 0 
+00d91000-00d93000 r-xp 00000000 08:01 130369     /usr/lib/pango/1.6.0/modules/pango-basic-fc.so
+00d93000-00d94000 r--p 00001000 08:01 130369     /usr/lib/pango/1.6.0/modules/pango-basic-fc.so
+00d94000-00d95000 rw-p 00002000 08:01 130369     /usr/lib/pango/1.6.0/modules/pango-basic-fc.so
+00de3000-00e05000 r-xp 00000000 08:01 171560     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00e05000-00e06000 r--p 00021000 08:01 171560     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00e06000-00e08000 rw-p 00022000 08:01 171560     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00e2f000-00e4b000 r-xp 00000000 08:01 407759     /lib/ld-2.12.1.so
+00e4b000-00e4c000 r--p 0001b000 08:01 407759     /lib/ld-2.12.1.so
+00e4c000-00e4d000 rw-p 0001c000 08:01 407759     /lib/ld-2.12.1.so
+00e5e000-00e78000 r-xp 00000000 08:01 392082     /lib/libgcc_s.so.1
+00e78000-00e79000 r--p 00019000 08:01 392082     /lib/libgcc_s.so.1
+00e79000-00e7a000 rw-p 0001a000 08:01 392082     /lib/libgcc_s.so.1
+00ec5000-00ecf000 r-xp 00000000 08:01 405012     /lib/libudev.so.0.9.1
+00ecf000-00ed0000 r--p 00009000 08:01 405012     /lib/libudev.so.0.9.1
+00ed0000-00ed1000 rw-p 0000a000 08:01 405012     /lib/libudev.so.0.9.1
+00f03000-00f0e000 r-xp 00000000 08:01 171576     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00f0e000-00f0f000 ---p 0000b000 08:01 171576     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00f0f000-00f10000 r--p 0000b000 08:01 171576     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00f10000-00f11000 rw-p 0000c000 08:01 171576     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00f16000-00f1b000 r-xp 00000000 08:01 136941     /usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so
+00f1b000-00f1c000 r--p 00004000 08:01 136941     /usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so
+00f1c000-00f1d000 rw-p 00005000 08:01 136941     /usr/lib/gtk-2.0/modules/libcanberra-gtk-module.so
+00f28000-00f2b000 r-xp 00000000 08:01 171548     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00f2b000-00f2c000 r--p 00002000 08:01 171548     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00f2c000-00f2d000 rw-p 00003000 08:01 171548     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00f8e000-00f8f000 r-xp 00000000 00:00 0          [vdso]
+00f8f000-013d6000 r-xp 00000000 08:01 171543     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/libjvm.so
+013d6000-013ed000 r--p 00447000 08:01 171543     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/libjvm.so
+013ed000-013fa000 rw-p 0045e000 08:01 171543     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/libjvm.so
+013fa000-01816000 rw-p 00000000 00:00 0 
+01816000-018e9000 r-xp 00000000 08:01 171569     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmlib_image.so
+018e9000-018ea000 r--p 000d3000 08:01 171569     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmlib_image.so
+018ea000-018eb000 rw-p 000d4000 08:01 171569     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libmlib_image.so
+02101000-021e9000 r-xp 00000000 08:01 133119     /usr/lib/libgio-2.0.so.0.2600.0
+021e9000-021eb000 r--p 000e7000 08:01 133119     /usr/lib/libgio-2.0.so.0.2600.0
+021eb000-021ec000 rw-p 000e9000 08:01 133119     /usr/lib/libgio-2.0.so.0.2600.0
+021ec000-021ed000 rw-p 00000000 00:00 0 
+06616000-069de000 r-xp 00000000 08:01 133251     /usr/lib/libgtk-x11-2.0.so.0.2200.0
+069de000-069e2000 r--p 003c8000 08:01 133251     /usr/lib/libgtk-x11-2.0.so.0.2200.0
+069e2000-069e4000 rw-p 003cc000 08:01 133251     /usr/lib/libgtk-x11-2.0.so.0.2200.0
+069e4000-069e6000 rw-p 00000000 00:00 0 
+08048000-08051000 r-xp 00000000 08:01 171609     /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08051000-08052000 r--p 00008000 08:01 171609     /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08052000-08053000 rw-p 00009000 08:01 171609     /usr/lib/jvm/java-6-openjdk/jre/bin/java
+0907b000-09484000 rw-p 00000000 00:00 0          [heap]
+6dfc0000-6f300000 rw-p 00000000 00:00 0 
+6f300000-765c0000 rw-p 00000000 00:00 0 
+765c0000-78c26000 rw-p 00000000 00:00 0 
+78c26000-871c0000 rw-p 00000000 00:00 0 
+871c0000-891c0000 rw-p 00000000 00:00 0 
+891c0000-939c0000 rw-p 00000000 00:00 0 
+939c0000-94117000 r--s 00001000 08:01 175415     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/classes.jsa
+94117000-943c0000 rw-p 00000000 00:00 0 
+943c0000-94b00000 rw-p 00758000 08:01 175415     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/classes.jsa
+94b00000-94fc0000 rw-p 00000000 00:00 0 
+94fc0000-950bb000 rw-p 00e98000 08:01 175415     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/classes.jsa
+950bb000-953c0000 rw-p 00000000 00:00 0 
+953c0000-953c8000 r-xs 00f93000 08:01 175415     /usr/lib/jvm/java-6-openjdk/jre/lib/i386/client/classes.jsa
+953c8000-957c0000 rw-p 00000000 00:00 0 
+add00000-add69000 rw-p 00000000 00:00 0 
+add69000-ade00000 ---p 00000000 00:00 0 
+ade60000-ade63000 ---p 00000000 00:00 0 
+ade63000-ae061000 rw-p 00000000 00:00 0 
+ae061000-ae064000 ---p 00000000 00:00 0 
+ae064000-ae262000 rw-p 00000000 00:00 0 
+ae262000-ae265000 ---p 00000000 00:00 0 
+ae265000-ae463000 rw-p 00000000 00:00 0 
+ae463000-ae466000 ---p 00000000 00:00 0 
+ae466000-ae664000 rw-p 00000000 00:00 0 
+ae664000-ae667000 ---p 00000000 00:00 0 
+ae667000-ae865000 rw-p 00000000 00:00 0 
+ae865000-ae868000 ---p 00000000 00:00 0 
+ae868000-aea66000 rw-p 00000000 00:00 0 
+aea66000-aea69000 ---p 00000000 00:00 0 
+aea69000-aec67000 rw-p 00000000 00:00 0 
+aec67000-aec6a000 ---p 00000000 00:00 0 
+aec6a000-aee68000 rw-p 00000000 00:00 0 
+aee68000-af4fe000 rw-s 00000000 00:04 753681     /SYSV00000000 (deleted)
+af4fe000-af501000 ---p 00000000 00:00 0 
+af501000-af6ff000 rw-p 00000000 00:00 0 
+af6ff000-af702000 ---p 00000000 00:00 0 
+af702000-af900000 rw-p 00000000 00:00 0 
+af900000-af9fe000 rw-p 00000000 00:00 0 
+af9fe000-afa00000 ---p 00000000 00:00 0 
+afafb000-afafe000 ---p 00000000 00:00 0 
+afafe000-afcfc000 rw-p 00000000 00:00 0 
+afcfc000-afcff000 ---p 00000000 00:00 0 
+afcff000-afefd000 rw-p 00000000 00:00 0 
+afefd000-aff00000 ---p 00000000 00:00 0 
+aff00000-b00fe000 rw-p 00000000 00:00 0 
+b00fe000-b0101000 ---p 00000000 00:00 0 
+b0101000-b02ff000 rw-p 00000000 00:00 0 
+b02ff000-b0302000 ---p 00000000 00:00 0 
+b0302000-b0500000 rw-p 00000000 00:00 0 
+b0500000-b05f7000 rw-p 00000000 00:00 0 
+b05f7000-b0600000 ---p 00000000 00:00 0 
+b06ac000-b06fb000 r--p 00000000 08:01 273449     /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono.ttf
+b06fb000-b0751000 r--p 00000000 08:01 260312     /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf
+b0751000-b0752000 r--s 00000000 08:01 158402     /var/cache/fontconfig/c05880de57d1f5e948fdfacc138775d9-le32d4.cache-3
+b0752000-b0758000 r--s 00000000 08:01 158399     /var/cache/fontconfig/945677eb7aeaf62f1d50efc3fb3ec7d8-le32d4.cache-3
+b0758000-b075a000 r--s 00000000 08:01 158400     /var/cache/fontconfig/99e8ed0e538f840c565b6ed5dad60d56-le32d4.cache-3
+b075a000-b075d000 r--s 00000000 08:01 158409     /var/cache/fontconfig/e383d7ea5fbe662a33d9b44caf393297-le32d4.cache-3
+b075d000-b0760000 r--s 00000000 08:01 137787     /var/cache/fontconfig/2cd17615ca594fa2959ae173292e504c-le32d4.cache-3
+b0760000-b0761000 r--s 00000000 08:01 158410     /var/cache/fontconfig/e7071f4a29fa870f4323321c154eba04-le32d4.cache-3
+b0761000-b0764000 r--s 00000000 08:01 158396     /var/cache/fontconfig/6eb3985aa4124903f6ff08ba781cd364-le32d4.cache-3
+b0764000-b0765000 r--s 00000000 08:01 158392     /var/cache/fontconfig/4c73fe0c47614734b17d736dbde7580a-le32d4.cache-3
+b0765000-b0766000 r--s 00000000 08:01 158385     /var/cache/fontconfig/0d8c3b2ac0904cb8a57a757ad11a4a08-le32d4.cache-3
+b0766000-b0767000 r--s 00000000 08:01 158394     /var/cache/fontconfig/6a53c69dea097a2d716e069445527da8-le32d4.cache-3
+b0767000-b076b000 r--s 00000000 08:01 158401     /var/cache/fontconfig/a755afe4a08bf5b97852ceb7400b47bc-le32d4.cache-3
+b076b000-b0772000 r--s 00000000 08:01 175402     /var/cache/fontconfig/6d41288fd70b0be22e8c3a91e032eec0-le32d4.cache-3
+b0772000-b077d000 r--s 00000000 08:01 158386     /var/cache/fontconfig/0f34bcd4b6ee430af32735b75db7f02b-le32d4.cache-3
+b077d000-b0780000 r--s 00000000 08:01 158406     /var/cache/fontconfig/d60319d88cac85ba9e1a07bd06cfbb8c-le32d4.cache-3
+b0780000-b0781000 r--s 00000000 08:01 137786     /var/cache/fontconfig/4794a0821666d79190d59a36cb4f44b5-le32d4.cache-3
+b0781000-b0789000 r--s 00000000 08:01 158405     /var/cache/fontconfig/d52a8644073d54c13679302ca1180695-le32d4.cache-3
+b0789000-b078b000 r--s 00000000 08:01 137784     /var/cache/fontconfig/e13b20fdb08344e0e664864cc2ede53d-le32d4.cache-3
+b078b000-b078e000 r--s 00000000 08:01 158398     /var/cache/fontconfig/7ef2298fde41cc6eeb7af42e48b7d293-le32d4.cache-3
+b0900000-b09a9000 rw-p 00000000 00:00 0 
+b09a9000-b0a00000 ---p 00000000 00:00 0 
+b0b00000-b0c00000 rw-p 00000000 00:00 0 
+b0d9a000-b0dfa000 rw-s 00000000 00:04 720912     /SYSV00000000 (deleted)
+b0e00000-b0efa000 rw-p 00000000 00:00 0 
+b0efa000-b0f00000 ---p 00000000 00:00 0 
+b0f1f000-b1000000 r--s 00000000 08:01 175635     /home/gxx/.netbeans/6.9/var/cache/all-layers.dat
+b1000000-b10fe000 rw-p 00000000 00:00 0 
+b10fe000-b1100000 ---p 00000000 00:00 0 
+b1109000-b110c000 ---p 00000000 00:00 0 
+b110c000-b130a000 rw-p 00000000 00:00 0 
+b130a000-b130d000 ---p 00000000 00:00 0 
+b130d000-b150b000 rw-p 00000000 00:00 0 
+b150b000-b150e000 ---p 00000000 00:00 0 
+b150e000-b170c000 rw-p 00000000 00:00 0 
+b170c000-b1712000 r--s 000fc000 08:01 171066     /usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar
+b1712000-b1715000 ---p 00000000 00:00 0 
+b1715000-b1913000 rw-p 00000000 00:00 0 
+b1913000-b1914000 r--s 00000000 08:01 158402     /var/cache/fontconfig/c05880de57d1f5e948fdfacc138775d9-le32d4.cache-3
+b1914000-b191a000 r--s 00000000 08:01 158399     /var/cache/fontconfig/945677eb7aeaf62f1d50efc3fb3ec7d8-le32d4.cache-3
+b191a000-b191c000 r--s 00000000 08:01 158400     /var/cache/fontconfig/99e8ed0e538f840c565b6ed5dad60d56-le32d4.cache-3
+b191c000-b191f000 r--s 00000000 08:01 158409     /var/cache/fontconfig/e383d7ea5fbe662a33d9b44caf393297-le32d4.cache-3
+b191f000-b1922000 r--s 00000000 08:01 137787     /var/cache/fontconfig/2cd17615ca594fa2959ae173292e504c-le32d4.cache-3
+b1922000-b1923000 r--s 00000000 08:01 158410     /var/cache/fontconfig/e7071f4a29fa870f4323321c154eba04-le32d4.cache-3
+b1923000-b1926000 r--s 00000000 08:01 158396     /var/cache/fontconfig/6eb3985aa4124903f6ff08ba781cd364-le32d4.cache-3
+b1926000-b1927000 r--s 00000000 08:01 158392     /var/cache/fontconfig/4c73fe0c47614734b17d736dbde7580a-le32d4.cache-3
+b1927000-b1928000 r--s 00000000 08:01 158385     /var/cache/fontconfig/0d8c3b2ac0904cb8a57a757ad11a4a08-le32d4.cache-3
+b1928000-b1929000 r--s 00000000 08:01 158394     /var/cache/fontconfig/6a53c69dea097a2d716e069445527da8-le32d4.cache-3
+b1929000-b192d000 r--s 00000000 08:01 158401     /var/cache/fontconfig/a755afe4a08bf5b97852ceb7400b47bc-le32d4.cache-3
+b192d000-b1934000 r--s 00000000 08:01 175402     /var/cache/fontconfig/6d41288fd70b0be22e8c3a91e032eec0-le32d4.cache-3
+b1934000-b193f000 r--s 00000000 08:01 158386     /var/cache/fontconfig/0f34bcd4b6ee430af32735b75db7f02b-le32d4.cache-3
+b193f000-b1942000 r--s 00000000 08:01 158406     /var/cache/fontconfig/d60319d88cac85ba9e1a07bd06cfbb8c-le32d4.cache-3
+b1942000-b1943000 r--s 00000000 08:01 137786     /var/cache/fontconfig/4794a0821666d79190d59a36cb4f44b5-le32d4.cache-3
+b1943000-b194b000 r--s 00000000 08:01 158405     /var/cache/fontconfig/d52a8644073d54c13679302ca1180695-le32d4.cache-3
+b194b000-b194d000 r--s 00000000 08:01 137784     /var/cache/fontconfig/e13b20fdb08344e0e664864cc2ede53d-le32d4.cache-3
+b194d000-b1950000 r--s 00000000 08:01 158398     /var/cache/fontconfig/7ef2298fde41cc6eeb7af42e48b7d293-le32d4.cache-3
+b1950000-b1951000 r--s 00000000 08:01 158402     /var/cache/fontconfig/c05880de57d1f5e948fdfacc138775d9-le32d4.cache-3
+b1951000-b1957000 r--s 00000000 08:01 158399     /var/cache/fontconfig/945677eb7aeaf62f1d50efc3fb3ec7d8-le32d4.cache-3
+b1957000-b1959000 r--s 00000000 08:01 158400     /var/cache/fontconfig/99e8ed0e538f840c565b6ed5dad60d56-le32d4.cache-3
+b1959000-b195c000 r--s 00000000 08:01 158409     /var/cache/fontconfig/e383d7ea5fbe662a33d9b44caf393297-le32d4.cache-3
+b195c000-b195f000 r--s 00000000 08:01 137787     /var/cache/fontconfig/2cd17615ca594fa2959ae173292e504c-le32d4.cache-3
+b195f000-b1960000 r--s 00000000 08:01 158410     /var/cache/fontconfig/e7071f4a29fa870f4323321c154eba04-le32d4.cache-3
+b1960000-b1963000 r--s 00000000 08:01 158396     /var/cache/fontconfig/6eb3985aa4124903f6ff08ba781cd364-le32d4.cache-3
+b1963000-b1964000 r--s 00000000 08:01 158392     /var/cache/fontconfig/4c73fe0c47614734b17d736dbde7580a-le32d4.cache-3
+b1964000-b1965000 r--s 00000000 08:01 158385     /var/cache/fontconfig/0d8c3b2ac0904cb8a57a757ad11a4a08-le32d4.cache-3
+b1965000-b1966000 r--s 00000000 08:01 158394     /var/cache/fontconfig/6a53c69dea097a2d716e069445527da8-le32d4.cache-3
+b1966000-b196a000 r--s 00000000 08:01 158401     /var/cache/fontconfig/a755afe4a08bf5b97852ceb7400b47bc-le32d4.cache-3
+b196a000-b1971000 r--s 00000000 08:01 175402     /var/cache/fontconfig/6d41288fd70b0be22e8c3a91e032eec0-le32d4.cache-3
+b1971000-b197c000 r--s 00000000 08:01 158386     /var/cache/fontconfig/0f34bcd4b6ee430af32735b75db7f02b-le32d4.cache-3
+b197c000-b197f000 r--s 00000000 08:01 158406     /var/cache/fontconfig/d60319d88cac85ba9e1a07bd06cfbb8c-le32d4.cache-3
+b197f000-b1987000 r--s 00000000 08:01 158405     /var/cache/fontconfig/d52a8644073d54c13679302ca1180695-le32d4.cache-3
+b1987000-b198a000 ---p 00000000 00:00 0 
+b198a000-b1b88000 rw-p 00000000 00:00 0 
+b1b88000-b1b8b000 ---p 00000000 00:00 0 
+b1b8b000-b1d89000 rw-p 00000000 00:00 0 
+b1d89000-b1d8c000 ---p 00000000 00:00 0 
+b1d8c000-b1f8a000 rw-p 00000000 00:00 0 
+b1f8a000-b1f8d000 ---p 00000000 00:00 0 
+b1f8d000-b3f9b000 rw-p 00000000 00:00 0 
+b3f9b000-b3ffa000 r--s 00d86000 08:01 171891     /usr/lib/jvm/java-6-openjdk/lib/tools.jar
+b3ffa000-b3ffd000 ---p 00000000 00:00 0 
+b3ffd000-b41fb000 rw-p 00000000 00:00 0 
+b41fb000-b41fe000 ---p 00000000 00:00 0 
+b41fe000-b43fc000 rw-p 00000000 00:00 0 
+b43fc000-b43fd000 ---p 00000000 00:00 0 
+b43fd000-b447d000 rw-p 00000000 00:00 0 
+b447d000-b4480000 ---p 00000000 00:00 0 
+b4480000-b467e000 rw-p 00000000 00:00 0 
+b467e000-b4681000 ---p 00000000 00:00 0 
+b4681000-b46ff000 rw-p 00000000 00:00 0 
+b46ff000-b4702000 ---p 00000000 00:00 0 
+b4702000-b4900000 rw-p 00000000 00:00 0 
+b4900000-b4b00000 r--p 00000000 08:01 132369     /usr/lib/locale/locale-archive
+b4b00000-b4bff000 rw-p 00000000 00:00 0 
+b4bff000-b4c00000 ---p 00000000 00:00 0 
+b4c00000-b4c01000 r--p 00000000 00:00 0 
+b4c01000-b4c02000 r--s 00000000 08:01 137786     /var/cache/fontconfig/4794a0821666d79190d59a36cb4f44b5-le32d4.cache-3
+b4c02000-b4c04000 r--s 00000000 08:01 137784     /var/cache/fontconfig/e13b20fdb08344e0e664864cc2ede53d-le32d4.cache-3
+b4c04000-b4c07000 r--s 00000000 08:01 158398     /var/cache/fontconfig/7ef2298fde41cc6eeb7af42e48b7d293-le32d4.cache-3
+b4c07000-b4c0d000 r--s 0001f000 08:01 171895     /usr/lib/jvm/java-6-openjdk/lib/dt.jar
+b4c0d000-b4c0e000 r--s 00001000 08:01 173191     /usr/share/netbeans/platform12/lib/locale/org-openide-util_zh_CN.jar
+b4c0e000-b4c0f000 r--s 00001000 08:01 173195     /usr/share/netbeans/platform12/lib/locale/org-openide-util_pt_BR.jar
+b4c0f000-b4c10000 r--s 00000000 08:01 173190     /usr/share/netbeans/platform12/lib/locale/org-openide-util-lookup_zh_CN.jar
+b4c10000-b4c11000 r--s 00000000 08:01 173194     /usr/share/netbeans/platform12/lib/locale/org-openide-util-lookup_pt_BR.jar
+b4c11000-b4c12000 r--s 00000000 08:01 173186     /usr/share/netbeans/platform12/lib/locale/org-openide-util-lookup_ja.jar
+b4c12000-b4c13000 r--s 00001000 08:01 173187     /usr/share/netbeans/platform12/lib/locale/org-openide-util_ja.jar
+b4c13000-b4c14000 r--s 00000000 08:01 173189     /usr/share/netbeans/platform12/lib/locale/org-openide-modules_zh_CN.jar
+b4c14000-b4c15000 r--s 00000000 08:01 173193     /usr/share/netbeans/platform12/lib/locale/org-openide-modules_pt_BR.jar
+b4c15000-b4c16000 r--s 00000000 08:01 173185     /usr/share/netbeans/platform12/lib/locale/org-openide-modules_ja.jar
+b4c16000-b4c17000 r--s 00000000 08:01 173188     /usr/share/netbeans/platform12/lib/locale/boot_zh_CN.jar
+b4c17000-b4c18000 r--s 00000000 08:01 173192     /usr/share/netbeans/platform12/lib/locale/boot_pt_BR.jar
+b4c18000-b4c19000 r--s 00000000 08:01 175285     /usr/share/netbeans/6.9/nb/core/locale/core_nb_pt_BR.jar
+b4c19000-b4c1a000 r--s 00000000 08:01 175281     /usr/share/netbeans/6.9/nb/core/locale/core_nb_ja.jar
+b4c1a000-b4c1b000 r--s 00000000 08:01 175282     /usr/share/netbeans/6.9/nb/core/locale/org-netbeans-upgrader_ja.jar
+b4c1b000-b4c1c000 r--s 00000000 08:01 175284     /usr/share/netbeans/6.9/nb/core/locale/org-netbeans-upgrader_zh_CN.jar
+b4c1c000-b4c1d000 r--s 00000000 08:01 175283     /usr/share/netbeans/6.9/nb/core/locale/core_nb_zh_CN.jar
+b4c1d000-b4c1e000 r--s 00045000 08:01 175280     /usr/share/netbeans/6.9/nb/core/locale/core_nb.jar
+b4c1e000-b4c1f000 r--s 00000000 08:01 175286     /usr/share/netbeans/6.9/nb/core/locale/org-netbeans-upgrader_pt_BR.jar
+b4c1f000-b4c22000 r--s 0003b000 08:01 175287     /usr/share/netbeans/6.9/nb/core/org-netbeans-upgrader.jar
+b4c22000-b4c23000 r--s 00001000 08:01 173175     /usr/share/netbeans/platform12/core/locale/core_pt_BR.jar
+b4c23000-b4c24000 r--s 00001000 08:01 173171     /usr/share/netbeans/platform12/core/locale/core_ja.jar
+b4c24000-b4c25000 r--s 00001000 08:01 173173     /usr/share/netbeans/platform12/core/locale/core_zh_CN.jar
+b4c25000-b4c26000 r--s 00001000 08:01 173174     /usr/share/netbeans/platform12/core/locale/org-openide-filesystems_zh_CN.jar
+b4c26000-b4c27000 r--s 00001000 08:01 173176     /usr/share/netbeans/platform12/core/locale/org-openide-filesystems_pt_BR.jar
+b4c27000-b4c28000 r--s 00001000 08:01 173172     /usr/share/netbeans/platform12/core/locale/org-openide-filesystems_ja.jar
+b4c28000-b4c2d000 r--s 00093000 08:01 173169     /usr/share/netbeans/platform12/core/core.jar
+b4c2d000-b4c34000 r--s 00099000 08:01 173168     /usr/share/netbeans/platform12/core/org-openide-filesystems.jar
+b4c34000-b4c37000 r--s 00033000 08:01 173178     /usr/share/netbeans/platform12/lib/org-openide-util-lookup.jar
+b4c37000-b4c3d000 r--s 00074000 08:01 173179     /usr/share/netbeans/platform12/lib/org-openide-util.jar
+b4c3d000-b4c3f000 r--s 00006000 08:01 173180     /usr/share/netbeans/platform12/lib/org-openide-modules.jar
+b4c3f000-b4c42000 r--s 0003f000 08:01 173181     /usr/share/netbeans/platform12/lib/boot.jar
+b4c42000-b4c4a000 r--s 00053000 08:01 308686     /usr/share/java/log4j-1.2-1.2.15.jar
+b4c4a000-b4c52000 r--s 00066000 08:01 304357     /usr/share/java/gnome-java-bridge.jar
+b4c52000-b4c55000 ---p 00000000 00:00 0 
+b4c55000-b4e53000 rw-p 00000000 00:00 0 
+b4e53000-b4e56000 ---p 00000000 00:00 0 
+b4e56000-b5054000 rw-p 00000000 00:00 0 
+b5054000-b5055000 ---p 00000000 00:00 0 
+b5055000-b50d5000 rw-p 00000000 00:00 0 
+b50d5000-b50d7000 r--s 0001d000 08:01 171065     /usr/lib/jvm/java-6-openjdk/jre/lib/plugin.jar
+b50d7000-b50dc000 r--s 00044000 08:01 171064     /usr/lib/jvm/java-6-openjdk/jre/lib/netx.jar
+b50dc000-b510e000 rw-p 00000000 00:00 0 
+b510e000-b529d000 r--s 038bb000 08:01 171540     /usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar
+b529d000-b52bb000 rw-p 00000000 00:00 0 
+b52bb000-b530f000 rw-p 00000000 00:00 0 
+b530f000-b5323000 rw-p 00000000 00:00 0 
+b5323000-b5396000 rw-p 00000000 00:00 0 
+b5396000-b53a0000 rw-p 00000000 00:00 0 
+b53a0000-b53d9000 rw-p 00000000 00:00 0 
+b53d9000-b53ed000 rw-p 00000000 00:00 0 
+b53ed000-b545f000 rw-p 00000000 00:00 0 
+b545f000-b546f000 rw-p 00000000 00:00 0 
+b546f000-b54c3000 rw-p 00000000 00:00 0 
+b54c3000-b54e3000 rw-p 00000000 00:00 0 
+b54e3000-b554f000 rw-p 00000000 00:00 0 
+b554f000-b5a3f000 rwxp 00000000 00:00 0 
+b5a3f000-b754f000 rw-p 00000000 00:00 0 
+b754f000-b7552000 ---p 00000000 00:00 0 
+b7552000-b7753000 rw-p 00000000 00:00 0 
+b7753000-b7754000 r--s 00000000 08:01 173184     /usr/share/netbeans/platform12/lib/locale/boot_ja.jar
+b7754000-b7757000 r--s 0000f000 08:01 171046     /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar
+b7757000-b7758000 r--p 002a1000 08:01 132369     /usr/lib/locale/locale-archive
+b7758000-b7760000 rw-s 00000000 08:01 22010      /tmp/hsperfdata_gxx/3242
+b7760000-b7761000 rw-p 00000000 00:00 0 
+b7761000-b7762000 r--p 00000000 00:00 0 
+b7762000-b7764000 rw-p 00000000 00:00 0 
+bf88c000-bf8ae000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Djdk.home=/usr/lib/jvm/java-6-openjdk -Djava.library.path=/usr/lib/jni -Dnetbeans.system_http_proxy=DIRECT -Dnetbeans.system_http_non_proxy_hosts= -Dnetbeans.dirs=/usr/share/netbeans/6.9/nb:/usr/share/netbeans/6.9/bin/../ergonomics:/usr/share/netbeans/6.9/ide:/usr/share/netbeans/6.9/java:/usr/share/netbeans/6.9/bin/../xml:/usr/share/netbeans/6.9/apisupport:/usr/share/netbeans/6.9/bin/../webcommon:/usr/share/netbeans/6.9/bin/../websvccommon:/usr/share/netbeans/6.9/bin/../enterprise:/usr/share/netbeans/6.9/bin/../mobility:/usr/share/netbeans/6.9/bin/../profiler:/usr/share/netbeans/6.9/bin/../ruby:/usr/share/netbeans/6.9/bin/../python:/usr/share/netbeans/6.9/bin/../php:/usr/share/netbeans/6.9/bin/../visualweb:/usr/share/netbeans/6.9/bin/../soa:/usr/share/netbeans/6.9/bin/../identity:/usr/share/netbeans/6.9/bin/../uml:/usr/share/netbeans/6.9/harness:/usr/share/netbeans/6.9/bin/../cnd:/usr/share/netbeans/6.9/bin/../dlight:/usr/share/netbeans/6.9/bin/../groovy:/usr/share/netbeans/6.9/bin/../extra:/usr/share/netbeans/6.9/bin/../javafx:/usr/share/netbeans/6.9/bin/../javacard: -Dnetbeans.home=/usr/share/netbeans/6.9/platform -Dnetbeans.importclass=org.netbeans.upgrade.AutoUpgrade -Xmx402m -Xss2m -Xms32m -XX:PermSize=32m -XX:MaxPermSize=200m -Dapple.laf.useScreenMenuBar=true -Dsun.java2d.noddraw=true -Dsun.java2d.pmoffscreen=false -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/gxx/.netbeans/6.9/var/log/heapdump.hprof 
+java_command: org.netbeans.Main --userdir /home/gxx/.netbeans/6.9 --branding nb
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/var/lib/gems/1.8/bin
+USERNAME=gxx
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x3df4f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x3df4f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x3055c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: SIG_IGN, sa_mask[0]=0x00001000, sa_flags=0x10000000
+SIGXFSZ: [libjvm.so+0x3055c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x3055c0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x304c70], sa_mask[0]=0x00000000, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x3077e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: [libjvm.so+0x3077e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x3077e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Ubuntu 10.10 (maverick)
+uname:Linux 2.6.35-25-generic #44-Ubuntu SMP Fri Jan 21 17:40:48 UTC 2011 i686
+libc:glibc 2.12.1 NPTL 2.12.1 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 1024, AS infinity
+load average:2.79 1.24 0.46
+
+/proc/meminfo:
+MemTotal:        2060872 kB
+MemFree:         1186352 kB
+Buffers:          149380 kB
+Cached:           362112 kB
+SwapCached:            0 kB
+Active:           458380 kB
+Inactive:         367564 kB
+Active(anon):     315600 kB
+Inactive(anon):     9980 kB
+Active(file):     142780 kB
+Inactive(file):   357584 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+HighTotal:       1187784 kB
+HighFree:         502932 kB
+LowTotal:         873088 kB
+LowFree:          683420 kB
+SwapTotal:        492540 kB
+SwapFree:         492540 kB
+Dirty:              1824 kB
+Writeback:            20 kB
+AnonPages:        314460 kB
+Mapped:           112472 kB
+Shmem:             11120 kB
+Slab:              31524 kB
+SReclaimable:      21604 kB
+SUnreclaim:         9920 kB
+KernelStack:        2896 kB
+PageTables:         6296 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     1522976 kB
+Committed_AS:    1480708 kB
+VmallocTotal:     122880 kB
+VmallocUsed:        6120 kB
+VmallocChunk:     111344 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       4096 kB
+DirectMap4k:       20472 kB
+DirectMap4M:      888832 kB
+
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 6, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 2060872k(1186352k free), swap 492540k(492540k free)
+
+vm_info: OpenJDK Client VM (19.0-b09) for linux-x86 JRE (1.6.0_20-b20), built on Jan 27 2011 22:47:50 by "buildd" with gcc 4.4.5
+
+time: Tue Oct 30 16:09:21 2012
+elapsed time: 26 seconds
+
