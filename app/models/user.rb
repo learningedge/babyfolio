@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   acts_as_authentic do |t|
     t.ignore_blank_passwords = true;
+    t.merge_validates_length_of_password_field_options :minimum =>6, :maximum =>12
   end
 
   disable_perishable_token_maintenance(true)

@@ -74,8 +74,8 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 #footer #footer-content a { margin-right: 15px; }
 
 #login-wrapper { float: right; margin-top: 20px;}
-#login-wrapper input[type="text"],
-#login-wrapper input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box-shadow: inset 1px 1px 3px #ccc; border: 1px solid #d8d8d8; font: 12px Arial}
+input[type="text"],
+input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box-shadow: inset 1px 1px 3px #ccc; border: 1px solid #d8d8d8; font: 12px Arial}
 #login-wrapper input[type="submit"] { margin-left: 10px; }
 #login-wrapper .forgot-password-link { text-align: right; margin-top: 5px; margin-right: 66px;}
 #login-wrapper .field_with_errors {display: inline-block;}
@@ -87,6 +87,14 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 .content-inner-wrapper .right-column { padding-left: 20px; }
 .left-column{ width: 326px; padding-right: 15px; border-right: 1px solid #aaa; float: left; }
 .right-column { float: left; }
+/*  FORMS */
+.row { margin-bottom: 20px; position: relative;}
+.row .label { display: inline-block; width: 140px; text-align: right; margin-right: 13px;}
+.row .label .field-error-input label{ color: red; }
+.row .field .field-error-input input { border-color: red; }
+.row input[type="text"],
+.row input[type="password"] { width: 225px;}
+.row .validation-error { position: absolute; left: 100%; top: 0; width: 450px; }
 
 /* GLOBAL LAYOUT */
 
@@ -120,7 +128,6 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 #middle-bar .right-column #create-acc { left: 0; padding-left: 50px; width: 169px; }
 #middle-bar .right-column #add-baby { left: 195px; padding-left: 40px; width: 209px;}
 #middle-bar .right-column #watching-baby { left: 420px; padding-left: 40px; width: 209px;}
-
 
 
 /* REGISTRATION - 1ST STEP */

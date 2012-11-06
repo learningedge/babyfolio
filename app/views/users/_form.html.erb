@@ -1,4 +1,4 @@
-<%= render "shared/error_messages", :target => user %>
+<%#= render "shared/error_messages", :target => user %>
 
 <div class="first-name row">
   <span class="label">
@@ -49,10 +49,10 @@
 
     <div class="password row">
       <span class="label">
-        <%= form.label :password_confirmation %>
+        <%= form.label :password_confirmation, "Confirm Password" %>
       </span>
       <span class="field">
-        <%= form.password_field :password_confirmation %>
+        <%= form.password_field :password_confirmation  %>
       </span>
     </div>
 <% end %>
