@@ -81,8 +81,9 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 #login-wrapper .field_with_errors {display: inline-block;}
 #login-wrapper .field_with_errors input { border-color: red;}
 
+.content-inner-wrapper { padding: 10px 0; }
 .content-inner-wrapper .left-column,
-.content-inner-wrapper .right-column { margin: 10px 0; padding-top: 15px }
+.content-inner-wrapper .right-column { padding-top: 10px; padding-bottom: 10px; }
 .content-inner-wrapper .right-column { padding-left: 20px; }
 .left-column{ width: 326px; padding-right: 15px; border-right: 1px solid #aaa; float: left; }
 .right-column { float: left; }
