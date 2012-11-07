@@ -37,7 +37,7 @@ class ChildrenController < ApplicationController
 
     media = MediaImage.create(:image => tempfile)
     respond_to do |format|
-      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:medium)}\"}" }
+      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:upload_med)}\"}" }
     end
   end
 

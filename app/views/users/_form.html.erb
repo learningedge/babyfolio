@@ -45,9 +45,10 @@
       <span class="field">
         <%= form.password_field :password %>
       </span>
+      <div class="italic" style="text-align: right;">(at least 6 characters)</div>
     </div>
 
-    <div class="password row">
+    <div class="row">
       <span class="label">
         <%= form.label :password_confirmation, "Confirm Password" %>
       </span>
@@ -58,7 +59,13 @@
 <% end %>
 
 <%= hidden_field_tag 'user_profile_media' %>
-<div id="file-registration-uploader"></div>
+<div class="row photo-upload-row">
+  <span class="label">Please upload a photo of yourself</span>
+  <div id="file-registration-uploader">
+    <div class="clear"></div>
+  </div>
+</div>
+
 
   <script type="text/javascript">
   $(function() {
@@ -68,9 +75,13 @@
         params: {},
         onComplete: function(id, fileName, responseJSON){
 
+          $('.qq-upload-list li').each(function() {
+            if($(this).find('.qq-upload-file').text() == fileName);
+            $(this).fadeOut('slow');
+          });
+                    
           $('#user_profile_media').val(responseJSON.media_id);
-          var prof_img = $('#profile_image');
-          $('#login_right #file-registration-uploader .qq-uploader .qq-upload-button').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
+          $('#login_right #file-registration-uploader .qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
 
         }
     });

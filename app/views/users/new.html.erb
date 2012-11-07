@@ -12,8 +12,8 @@
 
 <div id="registration-first">
   <div class="left-column">
-    <div id="annie-wrapper">
-      <img src="images/annie.jpg"></img>
+    <div id="left-column-tooltip" class="<%= "annie-highlight" unless @user.errors.empty? %>">
+      <img src="/images/annie.jpg" />
       <h4>Have a question?</h4>
       <p><a href="mailto:#">Send us an email</a> and Annie, our Community Manager, will be happy to help you!</p>
       <div class="clear"></div>
@@ -26,10 +26,11 @@
 
         <div id="login_right">
           <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>
-
+          <div class="clear"></div>
           <div class="submit">
-            <%= f.submit "Continue" %>
+            <%= f.submit "Continue", :class => "btn btn-big" %>
           </div>
+          <div class="clear"></div>
         </div>
         <div class="clear"></div>
       <% end %>      

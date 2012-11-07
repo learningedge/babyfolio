@@ -1,2 +1,45 @@
-<%= render :partial => 'form', :locals => {:child => @child, :edit => false} %>
+<% content_for :middle_bar do %>
+
+  <div class="left-column"></div>
+  <div class="right-column">
+    <div class="step-arrow" id="watching-baby">Watching Your Baby</div>
+    <div class="step-arrow active" id="add-baby">Add/Join a BabyFolio</div>
+    <div class="step-arrow active" id="create-acc">Create Account</div>
+  </div>
+  <div class="clear"></div>
+
+<% end %>
+
+<div id="registration-second">
+  <div class="left-column">
+    <div id="left-column-tooltip">
+      <img src="/images/dream_catcher.png" alt=""/>
+      <h4>Joining BabyFolios</h4>
+      <p class="reg-second-ttip">Want to join a BabyFolio that already exists?  Ask the baby's parents to add you!</p>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <div class="right-column">
+    <%= render :partial => 'form', :locals => {:child => @child, :edit => false} %>
+    <%#*<div class="user-form">%>
+      <%#= form_for @user, :url => account_path(@user), :method => :post do |f| -%>
+
+        <%#*<div id="login_right">%>
+          <%#= render :partial => "form", :object => f, :locals => { :user => @user } -%>
+          <%#*<div class="clear"></div>%>
+          <%#*<div class="submit">%>
+            <%#= f.submit "Continue", :class => "btn btn-big" %>
+          <%#*</div>%>
+          <%#*<div class="clear"></div>%>
+        <%#*</div>%>
+        <%#*<div class="clear"></div>%>
+      <%# end %>
+    <%#*</div>%>
+  </div>
+  <div class="clear"></div>
+</div>
+
+
+
 

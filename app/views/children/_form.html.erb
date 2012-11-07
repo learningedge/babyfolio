@@ -1,31 +1,53 @@
 <div id="new_child_form">
-<%= render "shared/error_messages", :target => child %>
 <%= form_for child do |f| -%>
       <%= f.hidden_field :id, :value => child.id if edit %>
       <div class="row">
-        First Name: <%= f.text_field :first_name, :value => child.first_name %>
+        <span class="label">
+            <%= f.label :first_name %>
+        </span>
+        <%= f.text_field :first_name, :value => child.first_name %>
       </div>
       <div class="row">
-        Last Name: <%= f.text_field :last_name, :value => child.last_name %>
+        <span class="label">
+            <%= f.label :last_name %>
+        </span>
+        <%= f.text_field :last_name, :value => child.last_name %>
       </div>
       <div class="row">
-        Gender: Male <%= f.radio_button :gender, 'male' %> Female <%= f.radio_button :gender, 'female' %>
+        <span class="label">
+            <%= f.label :gender %>
+        </span>
+        <%= f.radio_button :gender, 'male' %> Male <%= f.radio_button :gender, 'female' %> Female 
       </div>
-      <div class="row">
-        Birth Date: <%= f.date_select :birth_date, {:default => f.object.formated_birth_date}, :class => "select-layout" -%>
+      <div class="row birth-row">
+        <span class="label">
+            <%= f.label :birth_date %>
+        </span>
+        <%= f.date_select :birth_date, {:default => f.object.formated_birth_date}, :class => "select-layout" -%>
       </div>
 
       <div class="row">
-        Relationship: <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
+        <span class="label">
+            Relationship
+        </span>
+        <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
       </div>
 
+  
       <%= hidden_field_tag 'child_profile_media', (child.media.id if child.media.present?) %>
+      <div class="row photo-upload-row">
+        <span class="label">Please upload a photo of your baby:</span>
+        <div id="file-registration-uploader">
+          <div class="clear"></div>
+        </div>
+      </div>
+
       <div id="file-registration-uploader"></div>
 
       <% if edit %>
-          <%= f.submit "Update Child" %>
+          <%= f.submit "Update Child", :class => 'btn btn-big' %>
       <% else %>
-          <%= f.submit "Add Child" %>
+          <%= f.submit "Continue", :class => 'btn btn-big' %>
       <% end %>
       
 <% end %>
@@ -39,7 +61,15 @@
         params: {},
         onComplete: function(id, fileName, responseJSON){
 
+          $('.qq-upload-list li').each(function() {
+            if($(this).find('.qq-upload-file').text() == fileName);
+            $(this).fadeOut('slow');
+          });
+
           $('#child_profile_media').val(responseJSON.media_id);
+          $('#registration-second #file-registration-uploader .qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
+
+          
         }
     });
 
