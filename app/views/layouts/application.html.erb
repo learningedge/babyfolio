@@ -5,33 +5,33 @@
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  
+
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
    <div id="header">
      <div class="inner-wrapper">
        <div id="logo-wrapper"><a href="/">Babyfolio</a></div>
-       <div id="login-wrapper">         
-          <%= render :partial => "user_sessions/login_form" %>         
+       <div id="login-wrapper">
+          <%= render :partial => "user_sessions/login_form" %>
        </div>
      </div>
    </div>
 
    <div id="content-wrapper">
           <div id="middle-bar">
-            <div class="inner-wrapper">              
-                  <%= yield :middle_bar %>              
+            <div class="inner-wrapper">
+                  <%= yield :middle_bar %>
             </div>
           </div>
-          
+
           <div class="inner-wrapper content-inner-wrapper">
             <%= yield %>
             <div class="clear"></div>
           </div>
-                 
+
    </div>
-   
+
     <div id="footer">
       <div class="inner-wrapper">
         <div id="footer-content">
@@ -44,12 +44,12 @@
       </div>
     </div>
 
-  <script type="text/javascript">        
-    
+  <script type="text/javascript">
+
     $(function() {
       $('select').selectbox();
       $('.content-inner-wrapper .left-column').height($(document).height() - $('#header').height() - $('#footer').height() - $('#middle-bar').height() - 40);
-      
+
     });
   </script>
 </body>

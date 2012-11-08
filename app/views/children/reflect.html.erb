@@ -1,14 +1,42 @@
-<h1>Here's a summary of <%= current_child.first_name %> 's development profile:</h1>
+<% content_for :middle_bar do %>
+  <span>Here is a summary of Lazaro’s development profile.</span>
+<% end %>
+
+<h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
 <div id="reflect-column-wrapper">  
-  
-    <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
-    <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
-    <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
+    <p class="str-text">strength</p>
+
+    <div id="all-reflected-items">
+      <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
+      <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
+      <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
+    </div>
+    <p  class="str-text">needs improvement</p>
   <%  if @avg_answers.size == @answers.size %>
     <p>Hey!  Looks like <%= current_child.first_name %> is performing at the same level for all developmental stages.  Please check back after <%= current_child.replace_forms('#he/she#') %>  has exhibited other WATCH behaviors to see an update!</p>
-    <br/>
-
     <p>In the meantime, start playing with your baby now!</p>
     <%= link_to "Play Now", '#' %>
   <% end %>
+</div>
+
+<h4>Reflect on <%= current_child.first_name %> ’s</h4>
+<h4>Social Developement</h4>
+<div id="reflect-column-wrapper" class="reflect-bottom-box">
+  <p>Write about a recent event where <span class="bold"><%= current_child.first_name %></span> performed one of the actions below and post it his timeline:</p>
+  <ul>
+    <li>
+      <a href="#">Pretended While Playing</a>
+      <div><img src="/images/reflect_icon_circle.png" /></div>
+    </li>
+    <li>
+      <a href="#">Learned What is Right and Wrong</a>
+      <div><img src="/images/reflect_icon_circle.png" /></div>
+    </li>
+    <li>
+      <a href="#">Imitated Another Child in Play</a>
+      <div><img src="/images/reflect_icon_circle.png" /></div>
+    </li>
+    
+  </ul>
+  <div class="clear"></div>
 </div>

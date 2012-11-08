@@ -19,9 +19,6 @@ class ApplicationController < ActionController::Base
       session[:is_registration] = nil
     end
 
-#    def family_registration?
-#      session[:is_registration] || false
-#    end
 
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -100,84 +97,6 @@ class ApplicationController < ActionController::Base
       redirect_to new_child_children_path unless current_child
     end
 
-#    def current_family
-#      return @current_family if defined?(@current_family) and @current_family.id == session[:current_family]
-#      if session[:current_family]
-#        return @current_family = current_user.families.find_by_id(session[:current_family])
-#      else
-#        @current_family = current_user.main_family
-#        session[:current_family] = @current_family.id if @current_family
-#        return @current_family
-#      end
-#    end
-
-#    def my_family
-#      return @my_family if defined?(@my_family)
-#      if current_user.families.parenting_families.exists? session[:current_family]
-#        @my_family = current_family
-#      else
-#        session[:current_family] = current_user.families.parenting_families.first
-#        @my_family = current_family
-#      end
-#    end
-
-#    def require_family
-#      redirect_to new_family_url unless current_family
-#    end
-#
-#    def require_my_family
-#      @current_user = current_user
-#      unless @current_user.is_parent?
-#        redirect_to new_family_url
-#      end
-#    end
-
-#    def require_family_with_child
-#      unless current_user.relations.accepted.find_by_family_id(current_family.id) && current_family.children.exists?
-#        family_with_child = current_user.first_family_with_child
-#        if family_with_child.blank?
-#                flash[:error] = "The #{current_family.name}'s family doesn't have any children"
-#          redirect_to edit_families_path
-#          return
-#              else
-#                session[:current_family] = family_with_child.id
-#        end
-#      end
-#    end
-
-#    def require_no_family
-#      redirect_to child_profile_children_url if current_family
-#    end
-
-#    def user_is_parent?
-#      return  true if current_family.relations.is_parent.find_by_user_id(current_user.id)
-#      false
-#    end
-    
-#    def require_parent
-#      unless user_is_parent?
-#        flash[:error] = "That action requires you to be a parent of the family.";
-#        redirect_back_or_default family_relations_families_url
-#      end
-#    end
-    
-
-    def youtube_user
-
-      return @youtube_user if defined?(@youtube_user)
-
-      unless current_user.services.youtube.empty?
-        youtube = current_user.services.youtube.first
-        @youtube_user = YouTubeIt::OAuthClient.new(
-                                                   :consumer_key => '821905120152.apps.googleusercontent.com', 
-                                                   :consumer_secret => 'q9XDXCtGECoa0clbFMeVGuKT', 
-                                                   :client_id => youtube.uid, 
-                                                   :dev_key => "AI39si5CBu2pCYdFlu9nRI5ATwxqvUHm3vlw2MR4qD42DjXRS-UkGhXhai1oT7V4DBt8OJmQn9h6qzfX7OsggfcMf-8luMew4w")
-        @youtube_user.authorize_from_access(youtube.token, youtube.secret)
-
-        return @youtube_user
-      end
-    end
 
     def category_name(str)
       Question::CATS[str]

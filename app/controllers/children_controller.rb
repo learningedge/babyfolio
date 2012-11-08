@@ -1,7 +1,8 @@
 class ChildrenController < ApplicationController
-
+  layout "child", :only => [:reflect]
   before_filter :require_user
   before_filter :require_child, :except => [:new,:create,:create_childs_photo]
+
 
   def new
     @child = Child.new    
@@ -60,9 +61,11 @@ class ChildrenController < ApplicationController
     @min = @answers.map{ |k,v| v.first.question.age }.min
     @diff = @max - @min
 
-    @str_text = "<BABYNAME> is currently faster to develop in <INTELLIGENCE>.<br/><br/> Boost this development by:"
-    @avg_text = "<BABYNAME> also has <INTELLIGENCE> development.<br/><br/> Strengthen this development by:"
-    @weak_text = "<BABYNAME> is currently slower to develop in <INTELLIGENCE>.<br/><br/>Support their development by:"
+    @str_text = "<h4>Strong Development</h4><p><span>#{ current_child.first_name}</span> is showing promise at <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>#{current_child.first_name} is showing promise at language development based on the behavioral milestones he has already exhibited.</p><p>The following play activities will further boost this development:</p><h5>Recommended Play Activities</h5>"
+    @avg_text = "<h4>Average Development</h4><p><span>#{ current_child.first_name}</span> also shows <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>Recently, #{current_child.first_name} pretended while playing.</p><p>Support his continuing social development with these activities below.</p><h5>Recommended Play Activities</h5>"
+    @weak_text = "<h4>Needs Improvement in Development</h4><p><span>#{ current_child.first_name}</span> is currently slower to develop in <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>Recently, #{current_child.first_name} Felt Worried or Sad After Making a Mistake.</p><p>Support his continuing emotional development with these activities below.</p><h5>Recommended Play Activities</h5>"
+
+
 
     @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
     @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)

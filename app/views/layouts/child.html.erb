@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>Babyfolio</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body id="page-child">
+    <div id="header">
+      <span id="header-text"><%= "#{current_child.first_name}'s" if current_child %></span>
+      <span id="logo-wrapper"><a href="/">Babyfolio</a></span>          
+    </div>
+    <div id="orange-nav">
+      <div class="inner-wrapper">
+        <ul id="orange-nav-ul">
+          <li id="orange-timeline">Timeline<a href="#"></a></li>
+          <li id="orange-play">Play<a href="#"></a></li>
+          <li id="orange-watch">Watch<a href="#"></a></li>
+          <li id="orange-reflect">Reflect<a href="#"></a></li>
+          <li id="orange-more">More<span id="more-arrow"></span><a href="#"></a></li>
+        </ul>
+      </div>
+    </div>
+
+   <div id="content-wrapper">
+          <div id="middle-bar">
+            <div class="inner-wrapper">
+                  <%= yield :middle_bar %>
+            </div>
+          </div>
+
+          <div class="inner-wrapper content-inner-wrapper">
+            <%= yield %>
+            <div class="clear"></div>
+          </div>
+
+   </div>
+
+    <div id="footer">
+      <div class="inner-wrapper">
+        <div id="footer-content">
+          <%= link_to "Privacy Policy", "#" %>
+          <%= link_to "About Us", "#" %>
+          <%= link_to "Contact Us", "#" %>
+
+          <span>Copyright &copy; <%=  Time.now.year %> BabyFolio. All rights reserved. </span>
+        </div>
+      </div>
+    </div>
+
+  <script type="text/javascript">
+
+    $(function() {
+      $('select').selectbox();
+      $('.content-inner-wrapper .left-column').height($(document).height() - $('#header').height() - $('#footer').height() - $('#middle-bar').height() - 40);
+
+    });
+  </script>
+</body>
+</html>
