@@ -1,18 +1,25 @@
-<div id="all-initial-questions">
-  <div class="preloader"></div>
-  <%= form_tag({:action => :update_initial_questionnaire}, :remote => true, :class => 'not-seen-form') do %>
-    <% categories_answered.each do |c| %>
-      <%= hidden_field_tag 'categories_answered[]', c %>
-    <% end %>
-    <%= hidden_field_tag 'step', step %>
-    <% questions.each do |key, qc| %>
-      <div class="single-question">
-        <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
-      </div>
-    <% end %>
-  <%= submit_tag "I haven't seen any of this", :disable_with => 'Please wait...' %>
-  <div class="clear"></div>
-  <% end %>
+
+    <div id="all-initial-questions">
+      <%= form_tag({:action => :update_initial_questionnaire}, :remote => true, :class => 'not-seen-form') do %>
+        <% categories_answered.each do |c| %>
+          <%= hidden_field_tag 'categories_answered[]', c %>
+        <% end %>
+        <%= hidden_field_tag 'step', step %>
+        <% questions.each do |key, qc| %>
+          <div class="single-question single-<%= key  %> ">
+            <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
+          </div>
+        <% end %>
+      <%= submit_tag "I have not seen any of these behaviors.", :disable_with => 'Please wait...', :class => 'not-seen-link' %>
+      <div class="clear"></div>
+      <% end %>
+    </div>
+
+
+
+
+
+
   <script type="text/javascript">
     $(function() {
       $('.not-seen-form').bind('ajax:complete', function(){
@@ -21,5 +28,5 @@
     });
   </script>
 
-</div>
+
 

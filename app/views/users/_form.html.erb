@@ -40,7 +40,7 @@
 <% if user.new_record? || current_user.is_temporary %>
     <div class="password row">
       <span class="label">
-        <%= form.label :password, form.object.new_record? || @edit_password ? nil : "Change password" %>
+        <%= form.label :password, "Password" %>
       </span>
       <span class="field">
         <%= form.password_field :password %>

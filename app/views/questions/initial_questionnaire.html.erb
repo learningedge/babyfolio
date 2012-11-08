@@ -1,4 +1,44 @@
-<%= render :partial => 'questions_listing', :locals => {:questions => @questions, :step => @step, :categories_answered => Array.new} %>
+<% content_for :middle_bar do %>
+
+  <div class="left-column"></div>
+  <div class="right-column">
+    <div class="step-arrow active" id="watching-baby"><span>Watching Your Baby</span></div>
+    <div class="step-arrow active done" id="add-baby"><span>Add/Join a BabyFolio</span></div>
+    <div class="step-arrow active done" id="create-acc"><span>Create Account</span></div>
+  </div>
+  <div class="clear"></div>
+
+<% end %>
+
+  <div id="registration-third">
+<div class="left-column">
+
+    <div id="left-column-tooltip">
+      <p><span class="bold">We're almost finished!</span> We just need to know what your baby is actually doing so we can identify the most important developments and tailor the site to your specific baby."</p>
+      <div class="clear"></div>
+    </div>
+</div>
+
+<div class="right-column">
+  <div id="instruction-column">
+      <div id="tip-number1"></div>
+      <p>For every behavior that you've already seen your baby do, click on "I've seen this!" Every behavior you click on will be replaced with a new one.</p>
+      <div id="tip-number2"></div>
+      <p>Keep clicking until all the behaviors you see listed are ones that your baby has not yet exhibited.</p>
+      <div id="tip-number3"></div>
+      <p>Then click on "I have not seen any of these behaviors,” to complete this screen.</p>
+  </div>
+  <div id="questionnaire-column">
+    <%= render :partial => 'questions_listing', :locals => {:questions => @questions, :step => @step, :categories_answered => Array.new} %>
+  </div>
+
+  <div class="clear"></div>
+
+</div>
+
+
+  
+</div>
 
 <script type="text/javascript">
   $(function() {

@@ -23,11 +23,13 @@ class RelationsController < ApplicationController
     if user.new_record?
       user.reset_password
       user.reset_single_access_token
+      user.reset_perishable_token
     end
 
     
     user.relations.find_or_initialize_by_child_id(current_child.id, :member_type => params[:relation_type], :token => user.perishable_token, :inviter => current_user, :is_admin => params[:is_admin], :accepted => false)
     user.reset_perishable_token
+    
     
 
     respond_to do |format|

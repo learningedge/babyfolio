@@ -1,22 +1,41 @@
+<% content_for :middle_bar do %>
+
+  <div class="left-column"></div>
+  <div class="right-column">
+    <%#*<div class="step-arrow" id="watching-baby"><span>Registration Complete</span></div>%>
+    <div class="step-arrow active" id="add-baby"><span>Add/Join a BabyFolio</span></div>
+    <div class="step-arrow active done" id="create-acc"><span>Create Account</span></div>
+  </div>
+  <div class="clear"></div>
+
+<% end %>
+
+
+
 <div id="accept-relations-wrapper">
 
-  <% if @relations.blank? %>
+    <div class="left-column">
+      <div id="left-column-tooltip">
+        <img src="/images/bottle.png" />
+        <h4>Start Your Own BabyFolio</h4>
+        <p>Want to create a BabyFolio for your baby?</p>
+        <div class="clear"></div>
+      </div>
+  </div>
 
-        <p>There aren't any relations to approve.</p>
-        <div class="relation-processing-done">
-          <%= link_to "Continue", child_profile_children_path %>
-        </div>
+  <div class="right-column">
+      <% if @relations.blank? %>
+            <h4>There aren't any relations to approve.</h4>
+            
+            <div class="relation-processing-done">
+              <%= link_to "Continue", child_profile_children_path, :class => "btn btn-big" %>
+            </div>
 
-  <% else %>    
-        <h1>You've been invited to join following BabyFolios:</h1>
-        
-        <%= render :partial => 'accept_relations', :locals => {:relations => @relations} %>
-
-        <div class="hidden relation-processing-done">
-          <%= link_to "Continue", child_profile_children_path %>
-        </div>
-      
-  <% end %>
+      <% else %>
+            <h4>You’ve been invited to join the following BabyFolios:</h4>
+            <%= render :partial => 'accept_relations', :locals => {:relations => @relations} %>
+      <% end %>
+  </div>
 
 </div>
 

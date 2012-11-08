@@ -68,7 +68,7 @@ class Child < ActiveRecord::Base
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
       end
-      question_text = question_text.gsub(/#first#|#Nickname#/, self.first_name)
+      question_text = question_text.gsub(/#first#|#Nickname#/, "<span class='bold'>#{self.first_name}</span>")
       return question_text
   end
 

@@ -9,7 +9,7 @@ class Media < ActiveRecord::Base
     
     :vsmall => "26x26#",
     :small => "40x40#",
-    :medium => "93x93#",
+    :medium => "76x76#",
     :moment_thumb => "120x90#",
     :upload_med => "161x155#",
     :large => "228x254#",

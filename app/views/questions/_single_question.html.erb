@@ -2,9 +2,10 @@
       <% if question.present? %>
 
         <%= hidden_field_tag "questions[]", question.id  %>
-        <div>[<%= Question::CATS[category] %>]</div>
-        <div>(<%= question.age %>) <%=  current_child.replace_forms(question.text) %></div>
-        <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => 'single-seen', :id=>'q_' +question.id.to_s %>
+        <div class="category-circle category-circle-<%= category %>"></div>
+        
+        <p><%= question.age %>) <%=  current_child.replace_forms(question.text) %></p>
+        <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => 'btn', :id=>'q_' +question.id.to_s %>
 
         <script type="text/javascript">
           $(function() {

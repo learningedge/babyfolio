@@ -1,19 +1,24 @@
   <% relations.each_with_index do |r,idx| %>
     <div class="single-relation">
-      <%= image_tag r.child.media.image.url(:medium) unless r.child.media.blank? %>
-      <%= r.child.first_name if r.child.first_name %><br />
-      <%= r.child.last_name if r.child.last_name %><br />
-      (<%= r.inviter.first_name %> <%= r.inviter.last_name %> <%= r.child.first_name %>'s  <%= r.inviter.relations.find_by_child_id(r.child.id).member_type %>)<br />
+      <%= image_tag (r.child.media.blank? ? "/images/img_upload_child_med.png" : r.child.media.image.url(:medium)) %>
       <div>
-        <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'relation-accept-btn' %>
-        <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'relation-decline-btn' %>
+        <p>
+          <%  if r.child.first_name %>
+            <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %>, </span>
+          <% end %>
+          <%= r.inviter.relations.find_by_child_id(r.child.id).member_type.capitalize %> : <%= r.inviter.get_user_name %>
+        </p>
+
+        <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
+        <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
       </div>
+      <div class="clear"></div>
     </div>
   <% end %>
 
   <script type="text/javascript">
     $(function() {
-      $('.relation-accept-btn, .relation-decline-btn').bind('ajax:before', function() {
+      $('.relation-btn').bind('ajax:before', function() {
         $(this).parents('.single-relation').fadeOut(function() { 
             $(this).remove();
             if($('.single-relation').length == 0 && $('#settings-wrapper').length < 1) { window.location = "<%=  child_profile_children_url %>"; }

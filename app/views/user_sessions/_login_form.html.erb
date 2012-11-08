@@ -4,8 +4,7 @@
   
 
 <% else  %>
-
-  <%#= render "shared/error_messages", :target => @user_session %>
+  
   <%= form_for @user_session, :as => :user_session, :url => { :controller => :user_sessions, :action => "create" } do |f| %>
         <span class="field">
           <%= f.text_field :email, :placeholder => "Email" %>
