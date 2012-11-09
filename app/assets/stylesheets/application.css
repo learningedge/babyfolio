@@ -116,7 +116,7 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 #content-wrapper .birth-row .sbOptions { width: 100px; text-indent: 10px;}
 #content-wrapper .birth-row .sbSelector { text-indent: 20px; }
 #content-wrapper .sbToggle { background: url("/images/select_arrow.png") no-repeat 0 0 transparent; width: 23px;  height: 21px; }
-#content-wrapper .sbSelector { height: 21px; line-height: 21px; color: #585858; width: auto; }
+#content-wrapper .sbSelector { height: 21px; line-height: 21px; color: #585858; width: 100%; }
 #content-wrapper .sbOptions { background-color: #fff; border-radius: 0 0 4px 4px; border-style: none solid; border-color: #D8D8D8; box-shadow: inset 1px 1px 1px #ccc; }
 #content-wrapper .sbOptions { padding: 4px 0 4px 3px; }
 #content-wrapper .sbOptions a:hover,
