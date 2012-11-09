@@ -2,41 +2,97 @@
   <span>Here is a summary of <%= current_child.first_name %>’s development profile.</span>
 <% end %>
 
-<h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
-<div id="reflect-column-wrapper">  
-    <p class="str-text">strength</p>
+<div class="<%= "all-even" if @avg_answers.size == @answers.size %>">
+  <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
+  <div id="reflect-column-wrapper">
+      <p class="str-text">strength</p>
 
-    <div id="all-reflected-items">
-      <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
-      <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
-      <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
+      <div id="all-reflected-items">
+        <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
+        <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
+        <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
+      </div>
+      <p  class="str-text">needs improvement</p>
+  </div>
+
+  <div id="even-reflect" class="hidden">
+    <div class="reflect-popup-static">
+      <h4>Even Development</h4>
+      <p>Hey! Looks like <span class="bold"><%= current_child.first_name %></span> is performing at the same level for all developmental stages.  Please check back after <%= current_child.replace_forms('#he/she#') %>  has exhibited other <span class="bold">WATCH behaviors</span> to see an update!</p>
+      <p>In the meantime, start playing with your baby now!</p>
+      <%= link_to "Play Now", '#', :class => 'btn' %>                    
     </div>
-    <p  class="str-text">needs improvement</p>
-  <%  if @avg_answers.size == @answers.size %>
-    <p>Hey!  Looks like <%= current_child.first_name %> is performing at the same level for all developmental stages.  Please check back after <%= current_child.replace_forms('#he/she#') %>  has exhibited other WATCH behaviors to see an update!</p>
-    <p>In the meantime, start playing with your baby now!</p>
-    <%= link_to "Play Now", '#' %>
-  <% end %>
+
+    <div id="reflect-column-wrapper" class="reflect-bottom-box">
+        <p>Write about a recent event where <span class="bold"><%= current_child.first_name %></span> performed one of the actions below and post it his timeline:</p>
+        <ul>
+          <li>
+            <a href="#">Pretended While Playing</a>
+            <div><img src="/images/reflect_icon_circle.png" /></div>
+          </li>
+          <li>
+            <a href="#">What is Right and Wrong</a>
+            <div><img src="/images/reflect_icon_circle.png" /></div>
+          </li>
+          <li>
+            <a href="#">Imitated Another Child</a>
+            <div><img src="/images/reflect_icon_circle.png" /></div>
+          </li>
+
+        </ul>
+        <div class="clear"></div>
+     </div>
+  </div>
+
+  <div id="bottom-reflect">
+      <div class="clear"></div>
+      <h4>Reflect on <%= current_child.first_name %> ’s</h4>
+      <h4>Social Developement</h4>
+      <div id="reflect-column-wrapper" class="reflect-bottom-box">
+        <p>Write about a recent event where <span class="bold"><%= current_child.first_name %></span> performed one of the actions below and post it his timeline:</p>
+        <ul>
+          <li>
+            <a href="#">Pretended While Playing</a>
+            <div><img src="/images/reflect_icon_circle.png" /></div>
+          </li>
+          <li>
+            <a href="#">Learned What is Right and Wrong</a>
+            <div><img src="/images/reflect_icon_circle.png" /></div>
+          </li>
+          <li>
+            <a href="#">Imitated Another Child in Play</a>
+            <div><img src="/images/reflect_icon_circle.png" /></div>
+          </li>
+
+        </ul>
+        <div class="clear"></div>
+      </div>
+  </div>
+
+</div> 
+
+
+
+<div id="reflect-info-popup" style="" class="hidden">
+  <div id="reflect-info-popup-inner">
+    <h3>Welcome to BabyFolio!</h3>
+    <p>There are four important activities that are part of <%= current_child.first_name %>'s  BabyFolio.</p>
+    <ul>
+      <li id="li-1">In the <span class="bold">WATCH</span> section, you can see what developments <%= current_child.first_name %> may be making soon, so you know what to be on the lookout for.</li>
+      <li id="li-2">In the <span class="bold">PLAY</span> section, you can find fun activities and games to do with <%= current_child.first_name %> that support his development and build on the skills they already have.</li>
+      <li id="li-3">In the <span class="bold">TIMELINE</span> section, you can see what's happened so far and share it with close friends and family so that everyone can participate in the development of <%= current_child.first_name %></li>
+      <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <%= current_child.first_name %>’s strengths and areas for improvement in his development, and find activities to help those areas.</li>
+    </ul>
+    <p>View <%= current_child.first_name %>’s development progress now or invite close friends and family to join his circle!</p>
+    <div><%= link_to "Send Invites", settings_path, :class => 'btn'  %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
+    <a href="#" class="close-popup-icon jqmClose">Close</a>
+  </div>
 </div>
 
-<h4>Reflect on <%= current_child.first_name %> ’s</h4>
-<h4>Social Developement</h4>
-<div id="reflect-column-wrapper" class="reflect-bottom-box">
-  <p>Write about a recent event where <span class="bold"><%= current_child.first_name %></span> performed one of the actions below and post it his timeline:</p>
-  <ul>
-    <li>
-      <a href="#">Pretended While Playing</a>
-      <div><img src="/images/reflect_icon_circle.png" /></div>
-    </li>
-    <li>
-      <a href="#">Learned What is Right and Wrong</a>
-      <div><img src="/images/reflect_icon_circle.png" /></div>
-    </li>
-    <li>
-      <a href="#">Imitated Another Child in Play</a>
-      <div><img src="/images/reflect_icon_circle.png" /></div>
-    </li>
-    
-  </ul>
-  <div class="clear"></div>
-</div>
+<%= javascript_include_tag 'jqModal' -%>
+<script type="text/javascript">
+  $(function() {
+    $('#reflect-info-popup').jqm({modal:true});
+    $('#reflect-info-popup').jqmShow();
+  });
+</script>

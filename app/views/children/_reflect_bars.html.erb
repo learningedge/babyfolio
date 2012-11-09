@@ -1,5 +1,5 @@
 
-<% single_item_width = 150; %>
+<% single_item_width = 100; %>
     <% if answers %>
       <% answers.each_with_index do |(k,v), idx| %>
         <% f = true if type == "str" %>
@@ -27,10 +27,10 @@
 
 
                           <% unless m.activity_1_title.blank? %> 
-                              <p><a href="#" class="btn"><%= current_child.replace_forms(truncate(m.activity_1_title, :length => 20)) %></a></p>
+                              <p><a href="#" class="btn"><%= current_child.replace_forms(truncate(m.activity_1_title, :length => 40)).html_safe %></a></p>
                           <% end %>
                           <% unless m.activity_2_title.blank? %>
-                              <p><a href="#" class="btn"><%= current_child.replace_forms(truncate(m.activity_2_title, :length => 20)) %></a></p>
+                              <p><a href="#" class="btn"><%= current_child.replace_forms(truncate(m.activity_2_title, :length => 40)).html_safe %></a></p>
                           <% end %>
 
                       <% end %>
