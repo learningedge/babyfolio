@@ -64,7 +64,6 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 
 #content-wrapper { padding-bottom: 70px; }
 #middle-bar { background: url(/images/content_border_top.png) repeat-x center bottom #fff; }
-#middle-bar .inner-wrapper { padding-bottom: 5px;}
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper { padding: 25px 50px 25px 23px; }
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper { font-size: 35px; }
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper #get-started-btn { float:right; }
@@ -76,6 +75,7 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 #footer #footer-content a { margin-right: 15px; }
 
 #login-wrapper { float: right; margin-top: 20px;}
+#login-wrapper a { font-size: 15px; }
 input[type="text"],
 input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box-shadow: inset 1px 1px 3px #ccc; border: 1px solid #d8d8d8; font: 12px Arial}
 #login-wrapper input[type="submit"] { margin-left: 10px; }
@@ -169,8 +169,8 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 #content-wrapper #left-column-tooltip h4{ border-bottom: 1px solid #989898; margin-left: 83px; padding: 6px 0; margin-bottom: 6px;}
 #content-wrapper #left-column-tooltip p{ font-size: 12px; margin-left: 83px;}
 #content-wrapper #left-column-tooltip p a { font-size: 12px; }
-#middle-bar .left-column {  height: 47px; }
-#middle-bar .right-column { position: relative;}
+#middle-bar .left-column {  height: 47px; padding-bottom: 4px}
+#middle-bar .right-column { position: relative; }
 #middle-bar .right-column .step-arrow { position: absolute; top: 0; width: 249px; line-height: 47px; background: url(/images/step_arrow_white.png) no-repeat right center; text-align: center; }
 #middle-bar .right-column .step-arrow span { color: #f26a21; font-weight: 500; }
 #middle-bar .right-column .step-arrow.active { background-image: url(/images/step_arrow.png); }
@@ -210,7 +210,7 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 #content-wrapper #registration-third .right-column #instruction-column p { font-weight: bold;font-size: 15px; }
 #content-wrapper #registration-third .right-column #questionnaire-column { float: left; }
 #content-wrapper #registration-third .right-column #questionnaire-column .single-question {  border: 2px solid #f08a47; background-color: #fdfbe2; margin-bottom: 7px; padding: 10px 10px 10px 70px; background-position: 10px center; background-repeat: no-repeat;}
-#content-wrapper #registration-third .right-column #questionnaire-column .single-question p { min-height: 55px; margin: 0 10px; width: 230px; display: inline-block; vertical-align: middle;}
+#content-wrapper #registration-third .right-column #questionnaire-column .single-question p { min-height: 55px; margin: 0 10px; width: 220px; display: inline-block; vertical-align: middle;}
 #content-wrapper #registration-third .single-question.single-e { background-image: url(/images/circle_e.png) }
 #content-wrapper #registration-third .single-question.single-l { background-image: url(/images/circle_l.png) }
 #content-wrapper #registration-third .single-question.single-ln { background-image: url(/images/circle_ln.png) }
@@ -219,11 +219,7 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 #content-wrapper #registration-third .single-question.single-v { background-image: url(/images/circle_v.png) }
 #content-wrapper #registration-third .single-question.single-s { background-image: url(/images/circle_s.png) }
 #content-wrapper #registration-third .right-column #questionnaire-column .not-seen-link { color: #0c8a9a; background: none; border: none; width: 100%; text-align: center; font-size: 15px; margin: 15px 0; cursor: pointer;  }
-
-
-
 /* REGISTRATION - 3RD STEP */
-
 
 /* TOP TABS */
 #wrraper #top-tabs { text-align: center; margin-bottom: 10px; }
@@ -266,8 +262,19 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #reflect-column-wrapper.reflect-bottom-box ul li a {font: 12px/14px Arial;}
 #reflect-column-wrapper.reflect-bottom-box ul li div { margin-top: 10px; }
 
-
 /* SETTINGS */
 #settings-wrapper .settings-edit-entry,
 #settings-wrapper .single-relation { float: left; width: 40%; border: 1px solid #ccc; border-radius: 4px; padding: 15px; }
 #settings-wrapper #change-password-wrapper { display: none; }
+#settings-wrapper .settings-edit-entry#add-relation-wrapper {float: none; width: auto;}
+#settings-wrapper .settings-edit-entry#add-relation-wrapper .btn { margin-left: 160px; }
+
+/* USER EDIT */
+
+#user-edit .btn-big { background-position: 80px center; margin-left: 230px; margin-top: 30px; }
+
+/* MAIN FOLIO PAGE */
+#child-folio-page .child-img { float: left; margin-right: 20px; }
+#child-folio-page .child-img img { border-radius: 4px; }
+#child-folio-page h4 { margin-bottom: 20px; }
+

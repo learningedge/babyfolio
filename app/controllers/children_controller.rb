@@ -65,8 +65,6 @@ class ChildrenController < ApplicationController
     @avg_text = "<h4>Average Development</h4><p><span>#{ current_child.first_name}</span> also shows <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>Recently, #{current_child.first_name} pretended while playing.</p><p>Support his continuing social development with these activities below.</p><h5>Recommended Play Activities</h5>"
     @weak_text = "<h4>Needs Improvement in Development</h4><p><span>#{ current_child.first_name}</span> is currently slower to develop in <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>Recently, #{current_child.first_name} Felt Worried or Sad After Making a Mistake.</p><p>Support his continuing emotional development with these activities below.</p><h5>Recommended Play Activities</h5>"
 
-
-
     @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
     @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)
     @weak_text = @weak_text.gsub('<BABYNAME>', current_child.first_name)

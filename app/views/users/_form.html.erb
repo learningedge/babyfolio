@@ -81,7 +81,7 @@
           });
                     
           $('#user_profile_media').val(responseJSON.media_id);
-          $('#login_right #file-registration-uploader .qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
+          $('.qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
 
         }
     });

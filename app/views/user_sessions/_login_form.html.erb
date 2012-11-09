@@ -1,6 +1,6 @@
 <% if current_user %>
   
-  <p>Hello <%= current_user.get_user_name %>. <%= link_to "Logout", logout_path %></p>
+  <p>Hello <%= current_user.get_user_name %> <%= link_to "Logout", logout_path %> (<%= link_to "Settings", settings_path  %>)</p>
   
 
 <% else  %>

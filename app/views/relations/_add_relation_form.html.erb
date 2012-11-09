@@ -1,6 +1,5 @@
 <%= form_for user, :remote => true, :url => relations_path, :html => {:id => "new-relation-form"} do |form| %>
-    <%= render "shared/error_messages", :target => user, :summary => "There were some errors while inviting:" %>
-
+    
     <div class="first-name row">
       <span class="label">
         <%= form.label :first_name %>
@@ -28,14 +27,16 @@
    </div>
     
     <div class="row">
-        Relationship <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
+        <span class="label"><%= label_tag "Relationship" %></span>
+        <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
     </div>
 
     <div class="row">
-        Admin <%= select_tag :is_admin, options_for_select([["No", 0], ["Yes", 1]]), :class => 'select-layout' -%>
+        <span class="label"><%= label_tag "Admin" %></span>
+        <%= select_tag :is_admin, options_for_select([["No", 0], ["Yes", 1]]), :class => 'select-layout' -%>
     </div>
 
-    <%= form.submit "Invite", :disable_with => "Inviting..." %>
+    <%= form.submit "Invite", :disable_with => "Inviting...", :class => 'btn' %>
 <% end %>
 
 

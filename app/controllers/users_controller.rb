@@ -106,8 +106,7 @@ class UsersController < ApplicationController
     end
 
     @user.add_object_error("Your current password doesn't match") unless @password_ok
-    @user.add_object_error("New password can't be blank") if params[:user][:password].blank?
-    
+    @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?    
     
     respond_to do |format|
       if @user.errors.blank? && @user.update_attributes(params[:user])

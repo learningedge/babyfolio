@@ -1,11 +1,12 @@
- 
+<div id="user-edit">
   <div class="user-form">
 
     <%= form_for @user, :url => account_path do |f| %>
       <%= render :partial => "form", :object => f, :locals => { :user => @user, :edit => @edit} %>
-    
+      <div class="clear"></div>
+      
       <div class="submit">
-        <%= f.submit "Update" %>
+        <%= f.submit "Update", :class => 'btn btn-big' %>
       </div>
     
     <% end %>
@@ -13,3 +14,4 @@
 
   </div>
   <div class="clear"></div>
+</div>

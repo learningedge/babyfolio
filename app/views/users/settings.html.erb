@@ -2,7 +2,7 @@
 <div id="settings-wrapper">
 
   <% if @current_relation %>
-  <h1><%=  @current_relation.child.first_name %> details: </h1>
+  <h4><%=  @current_relation.child.first_name %> details: </h4>
     <div id="settings-my-children">
           <div class="settings-edit-entry">
             <%= image_tag @current_relation.child.media.image.url(:medium) if @current_relation.child.media %>
@@ -27,12 +27,14 @@
     </div>  
   <% end %>
 
-  <% if @invited_by_me %>
-  <h1>Invitations sent:</h1>
+  <% if @invited_by_me.present? %>
+  <h4>Invitations sent:</h4>
       <div>
-        <%= link_to "Invite to Circle", new_relation_path, :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn" if @current_relation.is_admin %>
+        <%= link_to "Invite to Circle", new_relation_path, :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn", :class => 'btn' if @current_relation.is_admin %>
       </div>
-      <div id="add-relation-wrapper"></div>
+
+      <div id="add-relation-wrapper" class="settings-edit-entry hidden"></div>
+
       
       <div id="child-invites">
             <% @invited_by_me.each do |relation| %>
@@ -42,22 +44,27 @@
                   <%= relation.user.email %><br />
                   <%= "Admin<br />".html_safe if relation.is_admin %>                  
                       <% admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{relation.child.first_name}'s BabyFolio, edit or delete posts, and other awesome powers." %>
-                      <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>                      
-                      <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :disable_with => 'Processing...', :confirm => admin_confirm_msg %>
+                      <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>
                       <% unless relation.is_admin %>
-                        <%= link_to "Remove", relation_path(:id => relation.id), :method => :delete, :disable_with => 'Processing...', :confirm => remove_confirm_msg %>
+                        <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :disable_with => 'Processing...', :confirm => admin_confirm_msg %>
                       <% end %>
+                      <%= link_to "Remove", relation_path(:id => relation.id), :method => :delete, :disable_with => 'Processing...', :confirm => remove_confirm_msg %>
+                      
               </div>
           <% end %>
           <div class="clear"></div>
-      </div>  
+      </div>
+      
+
   <% end %>
 
-  <div id="settings-invitations-received">
-    <h1>Invitations received:</h1>
-    <%= render :partial => 'confirmation/accept_relations', :locals => {:relations => @pending_invitations} %>
-    <div class="clear"></div>
-  </div>
+  <% if @pending_invitations.present? %>
+      <div id="settings-invitations-received">
+        <h4>Invitations received:</h4>
+        <%= render :partial => 'confirmation/accept_relations', :locals => {:relations => @pending_invitations} %>
+        <div class="clear"></div>
+      </div>
+  <% end %>
 
   <script type="text/javascript">
     $(function() {
@@ -72,7 +79,7 @@
         });                
 
         $('#add-relation-btn').live('ajax:success', function(xhr, data) {          
-          $('#add-relation-wrapper').html(data);
+          $('#add-relation-wrapper').html(data).show();
         });
 
         $('#new-relation-form').live('ajax:success', function(xhr, data) {
