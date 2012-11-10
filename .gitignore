@@ -7,7 +7,6 @@
 .htaccess
 public/.htaccess
 db/schema.rb
-Gemfile.lock
 /vendor/bundle
 /vendor/cache
 
