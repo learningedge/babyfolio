@@ -230,7 +230,7 @@ DEPENDENCIES
   omniauth-flickr
   omniauth-vimeo
   omniauth-youtube
-  paperclip (= 3.0.1)
+  paperclip (~> 3.0.1)
   rails (= 3.2.1)
   remotipart
   roo
