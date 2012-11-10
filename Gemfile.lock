@@ -122,10 +122,9 @@ GEM
       omniauth-oauth (~> 1.0)
     omniauth-youtube (2.1)
       omniauth-oauth2 (~> 1.0)
-    paperclip (3.0.1)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    paperclip (2.8.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
     polyglot (0.3.3)
@@ -230,7 +229,7 @@ DEPENDENCIES
   omniauth-flickr
   omniauth-vimeo
   omniauth-youtube
-  paperclip (~> 3.0.1)
+  paperclip (~> 2.8.0)
   rails (= 3.2.1)
   remotipart
   roo

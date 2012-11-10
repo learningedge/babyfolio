@@ -21,7 +21,7 @@ gem 'json'
 gem 'mysql2'
 gem 'therubyracer'
 gem 'jquery-rails'
-gem 'paperclip', '~> 3.0.1'
+gem 'paperclip', '~> 2.8.0'
 gem 'flickraw'
 gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
 gem 'roo'
