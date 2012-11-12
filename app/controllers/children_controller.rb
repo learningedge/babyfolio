@@ -1,5 +1,5 @@
 class ChildrenController < ApplicationController
-  layout "child", :only => [:reflect]
+  layout "child", :only => [:reflect, :play]
   before_filter :require_user
   before_filter :require_child, :except => [:new,:create,:create_childs_photo]
 
@@ -68,6 +68,61 @@ class ChildrenController < ApplicationController
     @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
     @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)
     @weak_text = @weak_text.gsub('<BABYNAME>', current_child.first_name)
+  end
+
+  def play    
+
+    answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
+    answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
+    answers.each do |k,v|
+      max_age = v.max_by{ |a| a.question.age}.question.age
+      v.delete_if{|a| a.question.age != max_age}
+    end
+
+    ms = []
+    answers.each do |k,v|
+      ms  << {:category => v.first.question.category, :milestone => Milestone.find_by_mid(v.map{|a| a.question.mid }) }
+    end
+
+#    render :text => ms.map{ |m| m[:milestone].mid }, :layout => true
+
+    @activities = []
+    ms.each do |ms|
+      if ms[:milestone].activity_1_title.present?
+        @activities << { :category => ms[:category],
+                         :ms_id => ms[:milestone].id,
+                         :ms_title => current_child.replace_forms(ms[:milestone].title).html_safe,
+                         :title => current_child.replace_forms(ms[:milestone].activity_1_title).html_safe,
+                         :subtitle => current_child.replace_forms(ms[:milestone].activity_1_subtitle).html_safe,
+                         :response => current_child.replace_forms(ms[:milestone].activity_1_response).html_safe,
+                         :variations => current_child.replace_forms(ms[:milestone].activity_1_modification).html_safe,
+                         :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits).html_safe,
+                        }
+      end
+
+      if ms[:milestone].activity_2_title.present?
+        @activities << { :category => ms[:category],
+                         :ms_id => ms[:milestone].id,
+                         :ms_title => current_child.replace_forms(ms[:milestone].title).html_safe,
+                         :title => current_child.replace_forms(ms[:milestone].activity_2_title).html_safe,
+                         :subtitle => current_child.replace_forms(ms[:milestone].activity_2_subtitle).html_safe,
+                         :response => current_child.replace_forms(ms[:milestone].activity_2_response).html_safe,
+                         :variations => current_child.replace_forms(ms[:milestone].activity_2_modification).html_safe,
+                         :learning_benefits => current_child.replace_forms(ms[:milestone].activity_2_learning_benefits).html_safe,
+                        }
+      end                            
+    end
+
+    
+    @total_activities = @activities.size
+
+    @per_page = 3
+    @page = (params[:page] ||= 1).to_i
+    @offset_start = (@page -1)* @per_page
+    @offset_end = @offset_start + @per_page -1
+    length = @activities[@offset_start..@offset_end].size
+    @offset_end = @offset_start + (length - 1)
+    
   end
 
   def show

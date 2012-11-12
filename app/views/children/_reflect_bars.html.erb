@@ -13,7 +13,8 @@
           <div class="reflect-icon reflect-icon-<%=  k %>"></div>
           <div class="reflect-bar-wrapper">
               <div class="reflect-bar" style="width: <%= single_item_width * curr_width + 100 %>px">
-                  <div class="reflect-popup">                    
+                  <div class="reflect-popup">
+                    <div class="pointing-arrow"></div>
                     <div class="popup-wrapper">
                       <% m = Milestone.find_by_mid(v.first.question.mid) %>
                       <% if m %>
