@@ -17,9 +17,9 @@
       <div class="inner-wrapper">
         <ul id="orange-nav-ul">
           <li id="orange-timeline">Timeline<a href="#"></a></li>
-          <li id="orange-play">Play<a href="#"></a></li>
+          <li id="orange-play">Play<a href="<%= play_children_path %>" class="<%= 'active' if controller.action_name == "play" %>"></a></li>
           <li id="orange-watch">Watch<a href="#"></a></li>
-          <li id="orange-reflect">Reflect<a href="<%= child_reflect_children_path %>"></a></li>
+          <li id="orange-reflect">Reflect<a href="<%= child_reflect_children_path %>" class="<%= 'active' if controller.action_name == "reflect" %>"></a></li>
           <li id="orange-more">More<span id="more-arrow"></span><a href="<%= settings_path %>"></a></li>
         </ul>
       </div>

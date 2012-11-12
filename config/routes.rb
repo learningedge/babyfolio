@@ -131,24 +131,6 @@ Babyfolio::Application.routes.draw do
   match 'signup' => "users#new", :as => :signup
   match 'create-profile-photo' => "users#create_profile_photo", :as => :create_profile_photo
   
-#  resources :families, :only => [:new, :create, :index, :update] do
-#    collection do
-#      get :add_friends
-#      get :add_family
-#      get :add_children
-#      get :add_parent
-#      post :create_parent
-#      match :create_friend_relations
-#      get 'family/relations' => :family_relations_info
-#      get :edit
-#      match :create_friends
-#      get :relations
-#      post :create_relations
-#
-#      post :change_family_to_edit
-#    end
-#  end
-
   resources :children, :only => [:create, :edit, :update] do
     collection do
       get '/new' => "children#new", :as => :new_child
@@ -157,6 +139,7 @@ Babyfolio::Application.routes.draw do
       post '/create_relations' => "children#create_relations", :as => :create_relations
       post '/create_childs_photo' => "children#create_childs_photo", :as => :new_child_photo
       get '/reflect' => "children#reflect", :as => :child_reflect
+      get '/play(/:page)' => "children#play", :as => :play
       get ':child_id' => "children#show", :as => :child_profile      
       get :show, :as => :child_profile
       get '/:id/info' => "children#info", :as => :info
