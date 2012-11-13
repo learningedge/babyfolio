@@ -1,0 +1,59 @@
+<li class="single-activity">
+    <div class="single-activity-left">
+      
+      <div class="category-corner <%= time %>">
+        <img src="/images/icon_teal_<%= a[:category] %>.png" />
+        <div><a href="#"><%= category_name(a[:category]) %></a></div>
+        <% if time == "future" %>
+          <div>keep trying!</div>
+        <% elsif time == "past" %>
+          <div>good work!</div>
+        <% end %>
+      </div>
+    </div>
+    <div class="single-activity-right">
+      <div class="single-activity-nav">
+          <%= link_to adjacent_activity_children_path(:mid => a[:mid], :dir => "prev"), :remote => true do %>
+            <img src="/images/teal_l_arrow.png"/>
+          <% end  %>
+          <a href="#" class="activity-title-link"><%= a[:title] %></a>
+          <%= link_to adjacent_activity_children_path(:mid => a[:mid], :dir => "next"), :remote => true do %>
+            <img src="/images/teal_r_arrow.png"/>
+          <% end %>          
+      </div>
+      <div class="activity-setup"><%= a[:setup] %></div>
+      <div class="play-icons-corner">
+        <a href="#"><img src="/images/reflect_icon_circle.png" /></a>
+        <a href="#"><img src="/images/thumb_up.png" /></a>
+        <a href="#"><img src="/images/thumb_down.png" /></a>
+      </div>
+    </div>
+    <div class="clear"></div>
+
+
+    <div class="play-popup">
+      <div class="pointing-arrow"></div>
+      <div class="popup-wrapper">
+            <% unless a[:response].blank? %>
+                <h4><%= a[:title] %></h4>
+                <p><%= a[:response] %></p>
+            <% end %>
+
+            <% unless a[:variations].blank? %>
+                <h5>Variations</h5>
+                <p><%= a[:variations] %></p>
+            <% end %>
+
+            <% unless a[:learning_benefits].blank? %>
+                <h5>What Did We Just Do?</h5>
+                <p><%= a[:learning_benefits] %></p>
+            <% end %>
+
+            <h5 class="play-final-header">This is good for <%= current_child.first_name.capitalize %> because he has: </h5>
+            <ul class="play-popup-ms">
+              <li><a href="#" ><%= truncate(a[:ms_title], :length => 40) %></a></li>
+            </ul>
+      </div>
+    </div>
+
+  </li>

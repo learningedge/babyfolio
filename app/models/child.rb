@@ -45,11 +45,7 @@ class Child < ActiveRecord::Base
 
   def formated_birth_date
     birth_date.strftime("%m/%d/%Y") unless birth_date.nil?
-  end
-
-  def media_ids_fom_moments
-    
-  end
+  end  
 
   def months_old
     mnths = 0;
@@ -63,13 +59,15 @@ class Child < ActiveRecord::Base
     (DateTime.now.to_date - self.birth_date.to_date).to_i
   end
 
-
-  def replace_forms(question_text)
+  def replace_forms(question_text, truncate = 0)
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
       end
+      if truncate > 0
+        question_text = truncate(question_text, :length => truncate, :separator => ' ')
+      end
       question_text = question_text.gsub(/#first#|#Nickname#/, "<span class='bold'>#{self.first_name}</span>")
-      return question_text
+      return question_text.html_safe
   end
 
   def gender_index

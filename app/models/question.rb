@@ -2,7 +2,7 @@ require 'roo'
 class Question < ActiveRecord::Base
 
   has_many :answers
-  belongs_to :milestone, :foreign_key => :mid
+  belongs_to :milestone, :class_name =>"Milestone", :primary_key => 'mid', :foreign_key => 'mid'
 
   scope :select_ages, lambda {|age, dir, count, order| select('distinct age').where('age ' + dir + ' ?', age).limit(count).order("age #{order}") }
 
@@ -26,7 +26,8 @@ class Question < ActiveRecord::Base
     "l" => "Language",
     "ln" => "Logic",
     "s" => "Social",
-    "v" => "Visual & Spatial Reasoning",
+    "v" => "Visual",
+#    "v" => "Visual & Spatial Reasoning",
     "mv" => "Movement",
     "e" => "Emotional",
     "m" => "Music"
