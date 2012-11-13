@@ -89,10 +89,13 @@
   </div>
 </div>
 
-<%= javascript_include_tag 'jqModal' -%>
-<script type="text/javascript">
-  $(function() {
-    $('#reflect-info-popup').jqm({modal:true});
-    $('#reflect-info-popup').jqmShow();
-  });
-</script>
+ <% if session[:reflect_popup] %>
+      <% session[:reflect_popup] = nil %>
+      <%= javascript_include_tag 'jqModal' -%>
+      <script type="text/javascript">
+        $(function() {
+          $('#reflect-info-popup').jqm({modal:true});
+          $('#reflect-info-popup').jqmShow();
+        });
+      </script>
+  <%  end %>
