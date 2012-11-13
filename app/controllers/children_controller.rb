@@ -71,7 +71,6 @@ class ChildrenController < ApplicationController
   end
 
   def play    
-
     answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
     answers.each do |k,v|
@@ -84,45 +83,33 @@ class ChildrenController < ApplicationController
       ms  << {:category => v.first.question.category, :milestone => Milestone.find_by_mid(v.map{|a| a.question.mid }) }
     end
 
-#    render :text => ms.map{ |m| m[:milestone].mid }, :layout => true
-
     @activities = []
-    ms.each do |ms|
-      if ms[:milestone].activity_1_title.present?
+    ms.each do |ms|      
         @activities << { :category => ms[:category],
-                         :ms_id => ms[:milestone].id,
-                         :ms_title => current_child.replace_forms(ms[:milestone].title).html_safe,
-                         :title => current_child.replace_forms(ms[:milestone].activity_1_title).html_safe,
-                         :subtitle => current_child.replace_forms(ms[:milestone].activity_1_subtitle).html_safe,
-                         :response => current_child.replace_forms(ms[:milestone].activity_1_response).html_safe,
-                         :variations => current_child.replace_forms(ms[:milestone].activity_1_modification).html_safe,
-                         :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits).html_safe,
-                        }
-      end
-
-      if ms[:milestone].activity_2_title.present?
-        @activities << { :category => ms[:category],
-                         :ms_id => ms[:milestone].id,
-                         :ms_title => current_child.replace_forms(ms[:milestone].title).html_safe,
-                         :title => current_child.replace_forms(ms[:milestone].activity_2_title).html_safe,
-                         :subtitle => current_child.replace_forms(ms[:milestone].activity_2_subtitle).html_safe,
-                         :response => current_child.replace_forms(ms[:milestone].activity_2_response).html_safe,
-                         :variations => current_child.replace_forms(ms[:milestone].activity_2_modification).html_safe,
-                         :learning_benefits => current_child.replace_forms(ms[:milestone].activity_2_learning_benefits).html_safe,
-                        }
-      end                            
+                         :mid => ms[:milestone].mid,
+                         :ms_title => current_child.replace_forms(ms[:milestone].title, 35),
+                         :title => current_child.replace_forms(ms[:milestone].activity_1_title, 60),
+                         :setup => current_child.replace_forms(ms[:milestone].activity_1_set_up, 90),
+                         :response => current_child.replace_forms(ms[:milestone].activity_1_response),
+                         :variations => current_child.replace_forms(ms[:milestone].activity_1_modification),
+                         :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits),
+                        }      
     end
 
     
-    @total_activities = @activities.size
+#    @total_activities = @activities.size
+#
+#    @per_page = 3
+#    @page = (params[:page] ||= 1).to_i
+#    @offset_start = (@page -1)* @per_page
+#    @offset_end = @offset_start + @per_page -1
+#    length = @activities[@offset_start..@offset_end].size
+#    @offset_end = @offset_start + (length - 1)    
+  end
 
-    @per_page = 3
-    @page = (params[:page] ||= 1).to_i
-    @offset_start = (@page -1)* @per_page
-    @offset_end = @offset_start + @per_page -1
-    length = @activities[@offset_start..@offset_end].size
-    @offset_end = @offset_start + (length - 1)
-    
+  def get_adjacent_activity
+    ms = Question.joins([:milestone,:answers])#.where(["answers.child_id = ? AND questions.mid = ? ", current_child.id, params[:mid]])
+    render :text => ms.map{|m| m.mid}.join("<br />")
   end
 
   def show

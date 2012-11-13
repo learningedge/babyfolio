@@ -1,5 +1,6 @@
 <% content_for :middle_bar do %>
-  <span>Look for upcoming developmental behaviors <%= current_child.first_name %> will exhibit. </span>
+  <span>Here is a list of recommended play activities for <%= current_child.first_name %> based on his current development.</span>
+  
 <% end %>
 
 <div id="play-wrapper">
@@ -7,62 +8,15 @@
     <p>Click on the title for a detailed description and associated behavioral milestones.</p>
 
     <div id="play-actions-wrapper">      
-      <%= activity_pagination(@page, @per_page, @total_activities, @offset_start, @offset_end) %>
+      <%#= activity_pagination(@page, @per_page, @total_activities, @offset_start, @offset_end) %>
         <ul id="activities-wrapper">          
-          <% @activities[@offset_start..@offset_end].each do |a| %>
-            <li class="single-activity">
-
-              <div class="single-activity-left">
-                <p><a href="#"><%= truncate(a[:title],:length => 35).html_safe %></a></p>
-                <div class="category-corner">
-                  <img src="/images/icon_teal_<%= a[:category] %>.png" />
-                  <div><a href="#"><%= category_name(a[:category]) %></a></div>
-                </div>
-              </div>
-              <div class="single-activity-right">
-                <p><%= a[:subtitle].blank? ? "Subtitle placeholder" : (truncate(a[:subtitle], :length => 20).html_safe) %></p>
-                <div class="play-icons-corner">
-                  <a href="#"><img src="/images/reflect_icon_circle.png" /></a>
-                  <a href="#"><img src="/images/thumb_up.png" /></a>
-                  <a href="#"><img src="/images/thumb_down.png" /></a>
-                </div>
-              </div>
-              <div class="clear"></div>
-
-              <div class="play-popup">
-                <div class="pointing-arrow"></div>
-                <div class="popup-wrapper">                  
-                      <% unless a[:response].blank? %>
-                          <h4><%= a[:title] %></h4>
-                          <p><%= a[:response] %></p>
-                      <% end %>
-
-                      <% unless a[:variations].blank? %>
-                          <h5>Variations</h5>
-                          <p><%= a[:variations] %></p>
-                      <% end %>
-
-                      <% unless a[:learning_benefits].blank? %>
-                          <h5>What Did We Just Do?</h5>
-                          <p><%= a[:learning_benefits] %></p>
-                      <% end %>
-
-                      <h5 class="play-final-header">This is good for <%= current_child.first_name.capitalize %> because he has: </h5>
-                      <ul class="play-popup-ms">
-                        <li><a href="#" ><%= truncate(a[:ms_title], :length => 40) %></a></li>
-                      </ul>
-
-                      
-                  
-                </div>
-              </div>
-
-            </li>
+          <% @activities.each do |a| %>
+            <%= render :partial => 'play_single', :locals => { :a => a, :time => 'current' } %>
           <% end %>
 
         </ul>
       <div class="clear"></div>
-      <%= activity_pagination(@page, @per_page, @total_activities, @offset_start, @offset_end) %>
+      <%#= activity_pagination(@page, @per_page, @total_activities, @offset_start, @offset_end) %>
     </div>
     
   </div>

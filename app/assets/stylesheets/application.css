@@ -90,7 +90,7 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 .content-inner-wrapper .right-column { padding-top: 10px; padding-bottom: 10px; }
 .content-inner-wrapper .right-column { padding-left: 20px; }
 .left-column{ width: 326px; padding-right: 15px; border-right: 1px solid #aaa; float: left; }
-#page-child .left-column { border: none; width: 335px; padding-right: 0;}
+#page-child .left-column { border: none; width: 345px;}
 .right-column { float: left; }
 /*  FORMS */
 .row { margin-bottom: 20px; clear: both; display: block;}
@@ -294,21 +294,31 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #play-wrapper .left-column > p { font: 15px Arial; margin-bottom: 20px;}
 #play-wrapper .left-column .pagination { text-align: right; font-size: 10px; margin-bottom: 10px;}
 #play-wrapper .left-column .pagination p { font-size: 10px; }
-#activities-wrapper .single-activity{ border: 10px solid #d6ebf8; background-color: #fff; width: 325px; box-shadow: 2px 2px 3px #bbb; margin-bottom: 20px; padding: 7px 0; position: relative;}
-#activities-wrapper .single-activity:last-child { margin-bottom: 10px; }
-#activities-wrapper .single-activity .single-activity-left { float: left; width: 135px; padding: 10px; border-right: 1px solid #aaa; min-height: 80px;}
-#activities-wrapper .single-activity .single-activity-right { padding: 10px; float: left; max-width: 140px }
-#activities-wrapper .single-activity .single-activity-left p a,
-#activities-wrapper .single-activity .single-activity-right p { font-size: 15px;}
-#activities-wrapper .single-activity .play-icons-corner { position: absolute; bottom: 15px; right: 10px;   }
+#activities-wrapper { background-color: #d6ebf8; box-shadow: 2px 2px 3px #bbb; padding: 12px 8px;  }
+#activities-wrapper .single-activity{ border: 2px solid #fff; border-right-width: 1px; background-color: #fff; margin-bottom: 10px; padding: 5px; position: relative;}
+#activities-wrapper .single-activity:last-child { margin-bottom: 0; }
+#activities-wrapper .single-activity .single-activity-left { float: left; width: 48px; padding-right: 7px; border-right: 1px solid #aaa; min-height: 100px; text-align: center; }
+#activities-wrapper .single-activity .single-activity-left div,
+#activities-wrapper .single-activity .single-activity-left div a{ font-size: 9px; color: inherit;}
+#activities-wrapper .single-activity .single-activity-left img { margin-bottom: 5px; }
+#activities-wrapper .single-activity .single-activity-right { float: left; width: 250px; padding-left: 5px; padding-bottom: 42px;}
+#activities-wrapper .single-activity .single-activity-right .single-activity-nav a{ font-size: 15px; }
+#activities-wrapper .single-activity .single-activity-right .single-activity-nav { text-align: center; margin-bottom: 4px;}
+#activities-wrapper .single-activity .single-activity-right .single-activity-nav .arrow-activity { width: 15px; display: inline-block; }
+#activities-wrapper .single-activity .single-activity-right .single-activity-nav .activity-title-link { width: 210px;  display: inline-block; vertical-align: top;}
+#activities-wrapper .single-activity .single-activity-right .activity-setup { font-size: 12px; padding: 0 5px;}
+#activities-wrapper .single-activity .single-activity-left .category-corner.current { color: #1FA9BB }
+#activities-wrapper .single-activity .single-activity-left .category-corner.future { color: #cc3333; }
+#activities-wrapper .single-activity .single-activity-left .category-corner.past { color: #46b649; }
+
+#activities-wrapper .single-activity .play-icons-corner { position: absolute; bottom: 5px; right: 10px;   }
 #activities-wrapper .single-activity .play-icons-corner a { margin-left: 5px; }
-#activities-wrapper .single-activity .play-icons-corner a img { border: none; }
-#activities-wrapper .single-activity .category-corner { position: absolute; bottom: 15px; left: 10px; width: 135px;  }
+#activities-wrapper .single-activity img { border: none; }
 
 .play-popup { display: inline-block; visibility: hidden; position: absolute; left: 100%; top: -40px; width: 500px; padding-left: 31px; background: none; padding-bottom: 70px;}
 
 .play-popup .popup-wrapper { background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px;}
-#activities-wrapper .single-activity:hover { border-color: #fdfbe2;}
+#activities-wrapper .single-activity:hover { border-color: #f7a266; border-right: 1px solid #f36c21; background-color: #fdfbe2;}
 .single-activity:hover .play-popup { display: block; visibility: visible;}
 .play-popup .popup-wrapper h4 { font: bold 18px Arial; color: #f26722; margin-bottom: 10px;}
 .play-popup .popup-wrapper h5{ font: bold 15px Arial; color: #f26722; margin-bottom: 10px;}
