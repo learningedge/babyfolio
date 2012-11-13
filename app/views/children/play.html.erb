@@ -24,3 +24,13 @@
   
 
 </div>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.activity-title-link').click(function() {      
+        $('.single-activity.selected').removeClass('selected');
+        $(this).parents('.single-activity').addClass('selected');
+        return false;
+      });
+    });
+  </script>

@@ -42,25 +42,18 @@ class QuestionsController < ApplicationController
           unless @cat_ans.include?(q.category)
             q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
           end
-      else #if @step >= 2 && @step%2 == 0
+      else 
           q_age = Question.select_ages(q.age, '<', 1, 'DESC')
           if !@cat_ans.include?(q.category) && q_age.present?
             q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
-          #else
-            #q_array << q
           end          
-      #else
-#          unless @cat_ans.include?(q.category)
- #           q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
-          #else
-            #q_array << q
-  #        end
       end
     end                                                          
        
     respond_to do |format|
         if q_array.empty? || questions.to_s == q_array.to_s
               format.js
+              session[:reflect_popup] = true
         else
           @questions = q_array.group_by{|q| q.category}
           @questions.each do |k,v|

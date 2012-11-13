@@ -70,22 +70,32 @@ class ChildrenController < ApplicationController
     @weak_text = @weak_text.gsub('<BABYNAME>', current_child.first_name)
   end
 
-  def play    
+  def play
     answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
     answers.each do |k,v|
       max_age = v.max_by{ |a| a.question.age}.question.age
       v.delete_if{|a| a.question.age != max_age}
     end
-
+  
+    if params[:mid]
+      m = Milestone.includes(:questions).find_by_mid(params[:mid])
+    end
+    
     ms = []
     answers.each do |k,v|
-      ms  << {:category => v.first.question.category, :milestone => Milestone.find_by_mid(v.map{|a| a.question.mid }) }
-    end
+      if m.blank? || v.first.question.category != m.questions.first.category
+        ms  << {:category => v.first.question.category, :milestone => v.first.question.milestone }
+      else
+        ms  << { :category => m.questions.first.category, :milestone => m }
+      end
+    end              
 
     @activities = []
-    ms.each do |ms|      
-        @activities << { :category => ms[:category],
+    ms.each do |ms|
+        selected = true if ms[:milestone].mid == params[:mid]
+        @activities << {
+                         :category => ms[:category],
                          :mid => ms[:milestone].mid,
                          :ms_title => current_child.replace_forms(ms[:milestone].title, 35),
                          :title => current_child.replace_forms(ms[:milestone].activity_1_title, 60),
@@ -93,7 +103,8 @@ class ChildrenController < ApplicationController
                          :response => current_child.replace_forms(ms[:milestone].activity_1_response),
                          :variations => current_child.replace_forms(ms[:milestone].activity_1_modification),
                          :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits),
-                        }      
+                         :selected => selected || false
+                        }
     end
 
     

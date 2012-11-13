@@ -318,8 +318,8 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 .play-popup { display: inline-block; visibility: hidden; position: absolute; left: 100%; top: -40px; width: 500px; padding-left: 31px; background: none; padding-bottom: 70px;}
 
 .play-popup .popup-wrapper { background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px;}
-#activities-wrapper .single-activity:hover { border-color: #f7a266; border-right: 1px solid #f36c21; background-color: #fdfbe2;}
-.single-activity:hover .play-popup { display: block; visibility: visible;}
+#activities-wrapper .single-activity.selected { border-color: #f7a266; border-right: 1px solid #f36c21; background-color: #fdfbe2;}
+.single-activity.selected .play-popup { display: block; visibility: visible;}
 .play-popup .popup-wrapper h4 { font: bold 18px Arial; color: #f26722; margin-bottom: 10px;}
 .play-popup .popup-wrapper h5{ font: bold 15px Arial; color: #f26722; margin-bottom: 10px;}
 .play-popup .popup-wrapper p { font-size: 15px; margin-bottom: 10px; }
