@@ -51,7 +51,7 @@
 
             <h5 class="play-final-header">This is good for <%= current_child.first_name.capitalize %> because he has: </h5>
             <ul class="play-popup-ms">
-              <li><a href="#" ><%= truncate(a[:ms_title], :length => 40) %></a></li>
+              <li><a href="<%= watch_children_path(:mid => a[:mid])  %>"><%= truncate(a[:ms_title], :length => 40) %></a></li>
             </ul>
       </div>
     </div>

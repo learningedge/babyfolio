@@ -140,7 +140,7 @@ Babyfolio::Application.routes.draw do
       post '/create_childs_photo' => "children#create_childs_photo", :as => :new_child_photo
       get '/reflect' => "children#reflect", :as => :child_reflect
       get '/play(/:mid/:no)' => "children#play", :as => :play
-      get '/watch' => "children#watch", :as => :watch
+      get '/watch(/:mid)' => "children#watch", :as => :watch
       get '/get-adjacent-activity/:mid/:dir' => "children#get_adjacent_activity", :as => :adjacent_activity
       get '/get-adjacent-behaviour/:mid/:dir' => "children#get_adjacent_behaviour", :as => :adjacent_behaviour
       get ':child_id' => "children#show", :as => :child_profile      

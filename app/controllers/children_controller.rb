@@ -142,7 +142,7 @@ class ChildrenController < ApplicationController
                          :category => m[:category],
                          :mid => m[:milestone].mid,
                          :ms_title => current_child.replace_forms(m[:milestone].title, 35),
-                         :title => current_child.replace_forms(m[:milestone].observation_title, 60),
+                         :title => m[:milestone].observation_title.blank? ? "Title goes here" : current_child.replace_forms(m[:milestone].observation_title, 60),
                          :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
                          :desc => current_child.replace_forms(m[:milestone].observation_desc),
                          :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
