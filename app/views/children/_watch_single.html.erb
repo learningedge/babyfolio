@@ -1,0 +1,79 @@
+<li class="single-activity <%= "selected" if item[:selected] %>" >
+    <div class="single-activity-left">
+
+      <div class="category-corner <%= time %>">
+        <img src="/images/icon_teal_<%= item[:category] %>.png" />
+        <div><a href="#"><%= category_name(item[:category]) %></a></div>
+
+        <% if time == "future" %>
+          <div>keep trying!</div>
+        <% elsif time == "past" %>
+          <div>good work!</div>
+        <% end %>
+          
+      </div>
+    </div>
+    <div class="single-activity-right">
+      <div class="single-activity-nav">
+          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true do %>
+            <img src="/images/teal_l_arrow.png"/>
+          <% end  %>
+          <a href="#" class="activity-title-link"><%= item[:title] %></a>
+          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true do %>
+            <img src="/images/teal_r_arrow.png"/>
+          <% end %>
+      </div>
+      <div class="activity-setup"><%= item[:subtitle] %></div>
+      <div class="play-icons-corner">
+        <a href="#"><img src="/images/reflect_icon_circle.png" /></a>
+        <a href="#"><img src="/images/tick_btn.png" /></a>
+        
+      </div>
+    </div>
+    <div class="clear"></div>
+
+
+    <div class="play-popup">
+      <div class="pointing-arrow"></div>
+      <div class="popup-wrapper">
+            <h4><%= item[:title] %></h4>
+            <% unless item[:desc].blank? %>                
+                <p><%= item[:desc] %></p>
+            <% end %>
+
+            <% unless item[:examples].blank? %>
+                <h5>Examples</h5>
+                <p><%= item[:examples] %></p>
+            <% end %>
+          
+            <h5>Recommanded Play Activities</h5>
+            <p>
+              <% unless item[:activity_1_title].blank? %>
+                <a href="<%= item[:activity_1_url] %>" class="btn"><%= item[:activity_1_title] %></a>
+              <% end %>
+              <% unless item[:activity_2_title].blank? %>
+                <a href="<%= item[:activity_2_url] %>" class="btn"><%= item[:activity_2_title] %></a>
+              <% end %>
+            </p>
+
+            <% unless item[:why_important].blank? %>
+                <h5>Why Is This Important?</h5>
+                <p><%= item[:why_important] %></p>
+            <% end %>
+
+             <hr />
+
+             <div class="theory">
+               <h5>Theory</h5>
+               <%= item[:theory] unless item[:theory].blank? %>
+             </div>
+             <div class="references">
+                <h5>References</h5>
+                <%= item[:references] unless item[:references].blank? %>
+             </div>
+             <div class="clear"></div>
+
+      </div>
+    </div>
+
+  </li>

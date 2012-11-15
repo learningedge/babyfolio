@@ -1,0 +1,28 @@
+<% content_for :middle_bar do %>
+  <span>Here are upcoming developmental behaviors <%= current_child.first_name %> will exhibit.</span>
+
+<% end %>
+
+
+  <div class="left-column">
+    <p>Click on the check mark when you see this behavior in your child. Or click on a title for more information and the associated play activities.</p>
+          
+        <ul id="activities-wrapper">
+          <% @behaviours.each do |a| %>
+            <%= render :partial => 'watch_single', :locals => { :item => a, :time => 'current' } %>
+          <% end %>
+        </ul>
+    
+      <div class="clear"></div>      
+    </div>
+  
+
+  <script type="text/javascript">
+    $(function() {
+      $('.activity-title-link').click(function() {
+        $('.single-activity.selected').removeClass('selected');
+        $(this).parents('.single-activity').addClass('selected');
+        return false;
+      });
+    });
+  </script>

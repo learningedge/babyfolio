@@ -1,5 +1,5 @@
 class ChildrenController < ApplicationController
-  layout "child", :only => [:reflect, :play]
+  layout "child", :only => [:reflect, :play, :watch]
   before_filter :require_user
   before_filter :require_child, :except => [:new,:create,:create_childs_photo]
 
@@ -105,22 +105,57 @@ class ChildrenController < ApplicationController
                          :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits),
                          :selected => selected || false
                         }
-    end
-
-    
-#    @total_activities = @activities.size
-#
-#    @per_page = 3
-#    @page = (params[:page] ||= 1).to_i
-#    @offset_start = (@page -1)* @per_page
-#    @offset_end = @offset_start + @per_page -1
-#    length = @activities[@offset_start..@offset_end].size
-#    @offset_end = @offset_start + (length - 1)    
+    end  
   end
 
   def get_adjacent_activity
     ms = Question.joins([:milestone,:answers])#.where(["answers.child_id = ? AND questions.mid = ? ", current_child.id, params[:mid]])
     render :text => ms.map{|m| m.mid}.join("<br />")
+  end
+
+  def watch
+    ms = []
+    @behaviours = []
+    
+    answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
+    answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
+    answers.each do |k,v|
+      max_age = v.max_by{ |a| a.question.age}.question.age
+      v.delete_if{|a| a.question.age != max_age}
+    end
+
+    if params[:mid]
+      m = Milestone.includes(:questions).find_by_mid(params[:mid])
+    end
+    
+    answers.each do |k,v|
+      if m.blank? || v.first.question.category != m.questions.first.category
+        ms  << {:category => v.first.question.category, :milestone => v.first.question.milestone }
+      else
+        ms  << { :category => m.questions.first.category, :milestone => m }
+      end
+    end
+    
+    ms.each do |m|
+        selected = true if m[:milestone].mid == params[:mid]
+        @behaviours << {
+                         :category => m[:category],
+                         :mid => m[:milestone].mid,
+                         :ms_title => current_child.replace_forms(m[:milestone].title, 35),
+                         :title => current_child.replace_forms(m[:milestone].observation_title, 60),
+                         :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
+                         :desc => current_child.replace_forms(m[:milestone].observation_desc),
+                         :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
+                         :activity_1_title => current_child.replace_forms(m[:milestone].activity_1_title, 40),
+                         :activity_2_title => current_child.replace_forms(m[:milestone].activity_2_title, 40),
+                         :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
+                         :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
+                         :why_important => current_child.replace_forms(m[:milestone].observation_what_it_means),
+                         :theory => current_child.replace_forms(m[:milestone].research_background),
+                         :references => current_child.replace_forms(m[:milestone].research_references),                         
+                         :selected => selected || false
+                        }
+    end  
   end
 
   def show

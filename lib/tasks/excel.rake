@@ -604,9 +604,9 @@ namespace :excel do
 
 
   private 
-    def upload_milestones file_path
-    	file = Excel.new(file_path)
-	file.default_sheet = file.sheets.at(0)
+  def upload_milestones file_path
+    file = Excel.new(file_path)
+    file.default_sheet = file.sheets.at(0)
     2.upto(file.last_row) do |line|      
       age = Integer(file.cell(line, 'A'))
       cat = file.cell(line, 'B')
@@ -617,8 +617,9 @@ namespace :excel do
       	mid = cat + "_" + age.to_s + "_" + lw_no
         title = file.cell(line, 'D')
         research_background = file.cell(line, 'F')
-        research_references = file.cell(line, 'H')
-        observation_title = file.cell(line, 'I')
+        research_references = file.cell(line, 'G')
+        observation_title = file.cell(line, 'H')
+        observation_subtitle = file.cell(line, 'I')
         observation_desc = file.cell(line, 'J')
         observation_what_it_means = file.cell(line, 'K')
         other_occurances = file.cell(line, 'L')
@@ -645,6 +646,7 @@ namespace :excel do
                       :research_background => research_background.to_s.gsub(/\n/, '<br />'),
                       :research_references => research_references.to_s.gsub(/\n/, '<br />'),
                       :observation_title => observation_title.to_s.gsub(/\n/, '<br />'),
+                      :observation_subtitle => observation_subtitle.to_s.gsub(/\n/, '<br />'),
                       :observation_desc => observation_desc.to_s.gsub(/\n/, '<br />'),
                       :observation_what_it_means => observation_what_it_means.to_s.gsub(/\n/, '<br />'),
                       :other_occurances => other_occurances.to_s.gsub(/\n/, '<br />'),

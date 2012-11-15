@@ -30,7 +30,7 @@
                           <% unless m.activity_1_title.blank? %> 
                               <p><a href="<%= play_children_path(:mid => m.mid, :no => 1) %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_1_title, :length => 40)).html_safe %></a></p>
                           <% end %>
-                          <% unless true #m.activity_2_title.blank? %>
+                          <% unless m.activity_2_title.blank? %>
                               <p><a href="<%= play_children_path(:mid => m.mid, :no => 2) %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_2_title, :length => 40)).html_safe %></a></p>
                           <% end %>
 

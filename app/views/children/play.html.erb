@@ -3,12 +3,9 @@
   
 <% end %>
 
-<div id="play-wrapper">
   <div class="left-column">
     <p>Click on the title for a detailed description and associated behavioral milestones.</p>
-
-    <div id="play-actions-wrapper">      
-      <%#= activity_pagination(@page, @per_page, @total_activities, @offset_start, @offset_end) %>
+    
         <ul id="activities-wrapper">          
           <% @activities.each do |a| %>
             <%= render :partial => 'play_single', :locals => { :a => a, :time => 'current' } %>
@@ -16,15 +13,10 @@
 
         </ul>
       <div class="clear"></div>
-      <%#= activity_pagination(@page, @per_page, @total_activities, @offset_start, @offset_end) %>
     </div>
     
   </div>
-
   
-
-</div>
-
   <script type="text/javascript">
     $(function() {
       $('.activity-title-link').click(function() {      
