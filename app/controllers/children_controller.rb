@@ -108,9 +108,41 @@ class ChildrenController < ApplicationController
     end  
   end
 
-  def get_adjacent_activity
-    ms = Question.joins([:milestone,:answers])#.where(["answers.child_id = ? AND questions.mid = ? ", current_child.id, params[:mid]])
-    render :text => ms.map{|m| m.mid}.join("<br />")
+  def get_adjacent_activity 
+    ms = Milestone.includes(:questions).find_by_mid(params[:mid])    
+
+    if params[:dir] == 'prev'
+      dir = "<"
+      order = "DESC"
+    else
+      dir = ">"
+      order = "ASC"
+    end
+
+    qs = Question.where(["age #{dir} ? AND questions.category = ? ", ms.questions.first.age, ms.questions.first.category ]).order("age #{order}").limit(1).first
+    age = current_child.answers.joins(:question).includes(:question).where(["questions.category = ? ", qs.category]).order('questions.age DESC').first.question.age
+    if age < qs.age
+      time = "future"
+    elsif age > qs.age
+      time = "past"
+    else
+      time = "current"
+    end
+
+    item =  {
+               :category => qs.category,
+               :mid => qs.milestone.mid,
+               :ms_title => current_child.replace_forms(qs.milestone.title, 35),
+               :title => qs.milestone.activity_1_title.blank? ? "Title goes here" : current_child.replace_forms(qs.milestone.activity_1_title, 60),
+               :setup => current_child.replace_forms(qs.milestone.activity_1_set_up, 90),
+               :response => current_child.replace_forms(qs.milestone.activity_1_response),
+               :variations => current_child.replace_forms(qs.milestone.activity_1_modification),
+               :learning_benefits => current_child.replace_forms(qs.milestone.activity_1_learning_benefits),
+               :selected => false
+              }
+              respond_to do |format|
+                format.html { render :partial => "play_single", :locals => { :a => item, :time => time} }
+              end
   end
 
   def watch
@@ -156,6 +188,49 @@ class ChildrenController < ApplicationController
                          :selected => selected || false
                         }
     end  
+  end
+
+  def get_adjacent_behaviour
+    ms = Milestone.includes(:questions).find_by_mid(params[:mid])
+
+    if params[:dir] == 'prev'
+      dir = "<"
+      order = "DESC"
+    else
+      dir = ">"
+      order = "ASC"
+    end
+
+    qs = Question.where(["age #{dir} ? AND questions.category = ? ", ms.questions.first.age, ms.questions.first.category ]).order("age #{order}").limit(1).first
+    age = current_child.answers.joins(:question).includes(:question).where(["questions.category = ? ", qs.category]).order('questions.age DESC').first.question.age
+    if age < qs.age
+      time = "future"
+    elsif age > qs.age
+      time = "past"
+    else
+      time = "current"
+    end
+
+    item =  {
+               :category => qs.category,
+               :mid => qs.mid,
+               :ms_title => current_child.replace_forms(qs.milestone.title, 35),
+               :title => qs.milestone.observation_title.blank? ? "Title goes here" : current_child.replace_forms(qs.milestone.observation_title, 60),
+               :subtitle =>  qs.milestone.observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(qs.milestone.observation_subtitle),
+               :desc => current_child.replace_forms(qs.milestone.observation_desc),
+               :examples =>  current_child.replace_forms(qs.milestone.other_occurances),
+               :activity_1_title => current_child.replace_forms(qs.milestone.activity_1_title, 40),
+               :activity_2_title => current_child.replace_forms(qs.milestone.activity_2_title, 40),
+               :activity_1_url => play_children_path(:mid => qs.mid, :no => 1),
+               :activity_2_url => play_children_path(:mid => qs.mid, :no => 2),
+               :why_important => current_child.replace_forms(qs.milestone.observation_what_it_means),
+               :theory => current_child.replace_forms(qs.milestone.research_background),
+               :references => current_child.replace_forms(qs.milestone.research_references),
+               :selected => false
+              }
+              respond_to do |format|
+                format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }
+              end
   end
 
   def show

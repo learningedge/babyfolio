@@ -19,7 +19,19 @@
 
   <script type="text/javascript">
     $(function() {
-      $('.activity-title-link').click(function() {
+      $('.previous-activity-link, .next-activity-link').live("ajax:before", function() {
+        $(this).parents('.single-activity').addClass('show-preloader');
+      });
+      $('.previous-activity-link, .next-activity-link').live("ajax:complete", function() {
+        $(this).parents('.single-activity').removeClass('show-preloader');
+      });
+
+
+       $('.previous-activity-link, .next-activity-link').live("ajax:success", function(xhr,data) {
+        $(this).parents('.single-activity').replaceWith(data);
+      });
+
+      $('.activity-title-link').live('click', function() {
         $('.single-activity.selected').removeClass('selected');
         $(this).parents('.single-activity').addClass('selected');
         return false;

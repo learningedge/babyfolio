@@ -1,25 +1,22 @@
-<li class="single-activity <%= "selected" if item[:selected] %>" >
+<li class="single-activity <%= "selected" if item[:selected] %> <%= time %>" >
     <div class="single-activity-left">
 
-      <div class="category-corner <%= time %>">
+      <div class="category-corner">
         <img src="/images/icon_teal_<%= item[:category] %>.png" />
         <div><a href="#"><%= category_name(item[:category]) %></a></div>
 
-        <% if time == "future" %>
-          <div>keep trying!</div>
-        <% elsif time == "past" %>
-          <div>good work!</div>
-        <% end %>
+        <div class="show-future">keep trying!</div>
+        <div class="show-past">good work!</div>
           
       </div>
     </div>
     <div class="single-activity-right">
       <div class="single-activity-nav">
-          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true do %>
+          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' do %>
             <img src="/images/teal_l_arrow.png"/>
           <% end  %>
           <a href="#" class="activity-title-link"><%= item[:title] %></a>
-          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true do %>
+          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link' do %>
             <img src="/images/teal_r_arrow.png"/>
           <% end %>
       </div>
@@ -37,6 +34,9 @@
       <div class="pointing-arrow"></div>
       <div class="popup-wrapper">
             <h4><%= item[:title] %></h4>
+            <div class="show-future">future activity</div>
+            <div class="show-past">completed activity <span><%= current_child.first_name.capitalize %> already did this with you.</span></div>
+
             <% unless item[:desc].blank? %>                
                 <p><%= item[:desc] %></p>
             <% end %>
@@ -75,5 +75,5 @@
 
       </div>
     </div>
-
+    <div class="preloader-div"></div>
   </li>
