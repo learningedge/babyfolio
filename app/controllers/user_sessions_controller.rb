@@ -19,7 +19,7 @@ class UserSessionsController < ApplicationController
 
       flash[:notice] = "Login successful!"
       Log.create_log(@user_session.user.id, ["User login successful!"])
-      redirect_back_or_default child_profile_children_url
+      redirect_back_or_default child_reflect_children_path
     else
       render :action => :new
       
