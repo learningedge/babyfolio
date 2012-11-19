@@ -15,6 +15,7 @@ class Child < ActiveRecord::Base
   has_many :moments, :conditions => ["moments.visibility NOT IN (?)",Moment::ARCHIVED]
   has_many :answers
   has_many :questions, :through => :answers
+  has_many :timeline_entries, :class_name => "TimelineEntry"
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true

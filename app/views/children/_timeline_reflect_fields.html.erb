@@ -1,0 +1,2 @@
+<p> <%= select_tag "who", options_for_select(@relatives.map{|u| [u.get_user_name.capitalize, u.id]}) %> </p>
+<p>has question about <%= current_child.first_name.capitalize %> </p>

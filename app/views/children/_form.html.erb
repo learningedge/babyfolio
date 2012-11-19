@@ -58,7 +58,7 @@
   $(function() {
     var uploader = new qq.FileUploader({
         element: document.getElementById('file-registration-uploader'),
-        action: '<%= new_child_photo_children_path -%>',
+        action: '<%= create_photo_children_path -%>',
         params: {},
         onComplete: function(id, fileName, responseJSON){
 
@@ -68,7 +68,7 @@
           });
 
           $('#child_profile_media').val(responseJSON.media_id);
-          $('#registration-second #file-registration-uploader .qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
+          $('#file-registration-uploader .qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
 
           
         }

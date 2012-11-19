@@ -5,7 +5,7 @@
         <h4 id="title"><%= @selected_child.first_name -%>'s Unique Story</h4>
         <div id="drop_list">
           <%= form_tag({}, { :method => :get }) do -%>
-            <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/children/' + this.value" } -%>
+            <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }, @selected_child.id), {:onChange => "document.location = '/children/timeline' + this.value" } -%>
             <%= link_to "Add Child", new_child_children_path, :class => "add_child_link" %>
           <% end -%>
           <span id="setting_kids">            
@@ -19,13 +19,11 @@
           
 
       <script type="text/javascript">
-        $(function(){
-          //$('.popup').jqm();
+        $(function(){          
           $('#container_right .logo').click(function(){
           
             $('.popup').append($('.milestone-popup'));
-            $('.popup').css({left: ($(window).width()/2-$('.popup').width()/2),top: ($(window).height()/2-$('.popup').height()/2+$(window).scrollTop())})
-            //$('.popup').jqmShow();
+            $('.popup').css({left: ($(window).width()/2-$('.popup').width()/2),top: ($(window).height()/2-$('.popup').height()/2+$(window).scrollTop())})            
             return false;            
           })
         })

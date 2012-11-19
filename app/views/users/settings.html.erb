@@ -5,7 +5,7 @@
   <h4><%=  @current_relation.child.first_name %> details: </h4>
     <div id="settings-my-children">
           <div class="settings-edit-entry">
-            <%= image_tag @current_relation.child.media.image.url(:medium) if @current_relation.child.media %>
+            <%= image_tag @current_relation.child.media.image.url(:profile_medium) if @current_relation.child.media %>
             <%= @current_relation.child.first_name %><br />
             <%= @current_relation.child.birth_date.to_date %><br />
             <%= @current_relation.child.gender %><br />

@@ -11,12 +11,15 @@
 <body id="page-child">
     <div id="header">
       <span id="header-text"><%= "#{current_child.first_name}'s" if current_child %></span>
-      <span id="logo-wrapper"><a href="/">Babyfolio</a></span>          
+      <span id="logo-wrapper"><a href="/">Babyfolio</a></span>
+      <div id="login-wrapper">
+          <%= render :partial => "user_sessions/login_form" %>
+      </div>
     </div>
     <div id="orange-nav">
       <div class="inner-wrapper">
         <ul id="orange-nav-ul">
-          <li id="orange-timeline">Timeline<a href="#"></a></li>
+          <li id="orange-timeline">Timeline<a href="<%= timeline_children_path %>" class="<%= 'active' if controller.action_name == "timeline" %>"></a></li>
           <li id="orange-play">Play<a href="<%= play_children_path %>" class="<%= 'active' if controller.action_name == "play" %>"></a></li>
           <li id="orange-watch">Watch<a href="<%= watch_children_path %>" class="<%= 'active' if controller.action_name == "watch" %>"></a></li>
           <li id="orange-reflect">Reflect<a href="<%= child_reflect_children_path %>" class="<%= 'active' if controller.action_name == "reflect" %>"></a></li>

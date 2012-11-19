@@ -1,0 +1,2 @@
+<p><%= current_child.first_name.capitalize %> <%= text_field_tag "did_what", nil, :placeholder => "did what?"  %> </p>
+<p> for <%= select_tag "who", options_for_select(@relatives.map{|u| [u.get_user_name.capitalize, u.id]}) %> </p>
