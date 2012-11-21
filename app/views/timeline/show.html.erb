@@ -79,7 +79,9 @@
                 <div class="clear"></div>
               </div>
 
-              <div class="te-image-wrapper"><img src="<%= te.media.first.image.url(:attachment_large) if te.media.present? %>" class="round-corners"/></div>
+              <div class="te-image-wrapper">
+                <%= image_tag te.media.first.image.url(:attachment_large), :class => "round-corners" if te.media.present? %>                
+              </div>
 
               <div class="te-comments">
                 <%= form_tag add_timeline_comment_path, :class => "comment-form" do %>
