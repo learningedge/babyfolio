@@ -1,5 +1,8 @@
 <% content_for :middle_bar do %>
-  <span>Comming soon!</span>
+  <div id="timeline-notice" class="round-corners">
+    <img src="/images/child_head_small.png" />
+    <span><%= current_child.first_name %> can already...</span>
+  </div>
 
 <% end %>
 
@@ -11,7 +14,7 @@
               <% end -%>
       </div>
 
-      <div class="child-image-large shadow round-corners" style="background-image: url(<%= @selected_child.media.image.url(:profile_large) if @selected_child.media %>);"></div>
+      <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.media.image.url(:profile_large)})" if @selected_child.media %>);"></div>
 
       <div id="add-entry-tabs">
         <ul>
@@ -58,14 +61,14 @@
     <ul id="timeline-right">
       <% @timeline_entries.each do |te| %>
       <li class="single-timeline-entry">
-          <span class="entry-avatar round-corners"><%= image_tag @selected_child.media.image.url(:profile_small) %></span>
+          <span class="entry-avatar round-corners"><%= image_tag @selected_child.media.image.url(:profile_small) if @selected_child.media.present? %></span>
           <div class="single-timeline-entry-inner">
             <div class="te-arrow-left"></div>
             <div class="te-box">
               <div class="te-header">
                 <span class="te-category">
-                  <img src="/images/icon_teal_mv<%#= te.category %>.png" />
-                  <p>Category <%#= category_name(te.category) %></p>
+                  <%= image_tag "/images/icon_teal_#{te.category}.png" if te.category%>                  
+                  <p><%= category_name(te.category) if te.category %></p>
                 </span>
                 <span class="te-date">
                   <%= te.published %>

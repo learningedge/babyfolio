@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
 
   scope :question_categories, select('distinct category') 
   scope :category_ages, lambda { |age, cat, dir, count, order| select('distinct age').where(['age ' + dir + ' ? and category= ?', age, cat]).order('age ' + order).limit(count) } 
-  scope :for_age_and_category, lambda { |months, cat, dir, count, order| where(["age in (?) AND category =?", (category_ages(months, cat, dir, count, order).map{|q| q.age}), cat])}
+  scope :for_age_and_category, lambda { |months, cat, dir, count, order| where(["age in (?) AND category =?", (category_ages(months, cat, dir, count, order).map{|q| q.age}), cat])}    
 
   ANSWERS = {
     'not_yet' => { :val => 'Not Yet', :order => 0, :score => 0},

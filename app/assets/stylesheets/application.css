@@ -119,6 +119,7 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 #page-child #orange-nav ul #orange-more #more-arrow { display: inline-block; margin-left: 10px; width: 10px; height: 10px; background: url("/images/icon_arrow_more.png") no-repeat center center;}
 #page-child #middle-bar { background: url("/images/middle_bar_bottom_bg.png") repeat-x center bottom #1fa9bb; padding:0; }
 #page-child #middle-bar .inner-wrapper { padding: 0; text-align: center;}
+#page-child #middle-bar.timeline-middle-bar .inner-wrapper {text-align: left; }
 #page-child #middle-bar span { color: #fff; font: 18px/56px Arial; }
 
 /* GLOBAL LAYOUT */
@@ -319,8 +320,13 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 /* PLAY */
 
 /*    TIMELINE   */
+#timeline-notice { background-color: #fff; display: inline-block; margin: 10px 0; }
+#page-child #middle-bar #timeline-notice img,
+#page-child #middle-bar #timeline-notice span { display: inline-block; vertical-align: middle; color: #666766; font: normal 12px Arial; padding: 5px;}
+#page-child #middle-bar #timeline-notice img { padding-left: 15px; }
+#page-child #middle-bar #timeline-notice span { padding-right: 15px; max-width: 300px; }
 #timeline-wrapper #timeline-left {width: 325px; float: left;}
-#timeline-wrapper .child-image-large {width: 320px; height: 288px; background-repeat: no-repeat; background-position: center center; background-size: cover; background-color: #eee; margin-top: 10px; }
+#timeline-wrapper .child-image-large {width: 320px; height: 288px; background-repeat: no-repeat; background-position: center center; background-size: cover; background-color: #eee; margin-top: 10px; background-image: url(/images/img_upload_child.png)}
 #timeline-wrapper #add-entry-tabs { background-color: #d6ebf8; border-top: 2px solid #84b2c0; border-left: 2px solid #84b2c0; border-right: 1px solid #288d9e; border-bottom: 1px solid #288d9e; margin-top: 10px; padding: 20px 8px 8px 8px;}
 #timeline-wrapper #add-entry-tabs .ui-tabs-nav li { display: inline-block; background: url(/images/tabs_border.png) no-repeat right 6px; }
 #timeline-wrapper #add-entry-tabs .ui-tabs-nav li:last-child { background-image: none; }

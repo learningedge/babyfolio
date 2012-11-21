@@ -18,8 +18,8 @@
     </div>
     <div id="orange-nav">
       <div class="inner-wrapper">
-        <ul id="orange-nav-ul">
-          <li id="orange-timeline">Timeline<a href="<%= show_timeline_path  %>" class="<%= 'active' if controller.action_name == "timeline" %>"></a></li>
+        <ul id="orange-nav-ul">          
+          <li id="orange-timeline">Timeline<a href="<%= show_timeline_path  %>" class="<%= 'active' if controller.controller_name == 'timeline' && controller.action_name == "show" %>"></a></li>
           <li id="orange-play">Play<a href="<%= play_children_path %>" class="<%= 'active' if controller.action_name == "play" %>"></a></li>
           <li id="orange-watch">Watch<a href="<%= watch_children_path %>" class="<%= 'active' if controller.action_name == "watch" %>"></a></li>
           <li id="orange-reflect">Reflect<a href="<%= child_reflect_children_path %>" class="<%= 'active' if controller.action_name == "reflect" %>"></a></li>
@@ -29,7 +29,7 @@
     </div>
 
    <div id="content-wrapper">
-          <div id="middle-bar">
+          <div id="middle-bar" class="<%= 'timeline-middle-bar' if controller.controller_name == 'timeline' && controller.action_name == "show" %>">
             <div class="inner-wrapper">
                   <%= yield :middle_bar %>
             </div>

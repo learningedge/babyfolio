@@ -5,9 +5,9 @@ class TimelineEntry < ActiveRecord::Base
   has_one :child
 
   def published   
-    if (Time.now.to_datetime - self.created_at.to_datetime).to_i < 1
+    if(Time.now.to_date == self.created_at.to_date)
       "Today"
-    elsif (Time.now.to_datetime - self.created_at.to_datetime).to_i == 1
+    elsif Time.now.to_date - 1.days == self.created_at.to_date
       "Yesterday"
     else
       self.created_at.strftime("%-m/%-d/%y")
