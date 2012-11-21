@@ -92,7 +92,9 @@
                 <div class="comments-wrapper">
                   <% te.comments.reverse.each do |c| %>
                       <div class="single-comment">
-                        <span class="comment-author-img"><img src="<%= c.author.profile_media.image.url(:profile_tiny) %>" class="round-corners"/></span>
+                        <span class="comment-author-img">
+                          <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
+                        </span>
                         <span class="comment-date"><%= c.published %></span>                        
                         <span class="comment-content"><span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>
                       </div>
