@@ -137,18 +137,22 @@ Babyfolio::Application.routes.draw do
       get '/add_friends' => "children#add_friends", :as => :add_friends
       get '/add_family' => "children#add_family", :as => :add_family
       post '/create_relations' => "children#create_relations", :as => :create_relations
-      post '/create-photo' => "children#create_photo", :as => :create_photo
-      
-      post '/add-timeline-entry' => "children#add_timeline_entry", :as => :add_timeline_entry
+      post '/create-photo' => "children#create_photo", :as => :create_photo            
       get '/reflect' => "children#reflect", :as => :child_reflect
       get '/play(/:mid/:no)' => "children#play", :as => :play
       get '/watch(/:mid)' => "children#watch", :as => :watch
       get '/get-adjacent-activity/:mid/:dir' => "children#get_adjacent_activity", :as => :adjacent_activity
       get '/get-adjacent-behaviour/:mid/:dir' => "children#get_adjacent_behaviour", :as => :adjacent_behaviour
-      get '(:child_id)' => "children#timeline", :as => :timeline
       get '/:id/info' => "children#info", :as => :info
     end
   end
+
+  # TIMELINE
+  post 'timeline/add-timeline-entry' => "timeline#add_entry", :as => :add_timeline_entry
+  post 'timeline/add-comment' => "timeline#add_comment", :as => :add_timeline_comment
+  get 'timeline/(:child_id)' => "timeline#show", :as => :show_timeline
+
+  # TIMELINE 
 
   resources :relations, :only => [:destroy, :new, :create] do
       get 'make-admin' => "relations#make_admin", :as => :make_admin      

@@ -15,9 +15,11 @@ class User < ActiveRecord::Base
   has_many :children, :through => :relations, :conditions => "accepted = 1"
   has_many :all_children, :through => :relations
   has_many :logs
+  has_many :media, :class_name => "Media"
   
   has_one :attachment, :as => :object
   has_one :profile_media, :through => :attachment, :source => :media
+  
 
   scope :ids, select("users.id")
 

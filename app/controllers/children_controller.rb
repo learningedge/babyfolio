@@ -1,7 +1,7 @@
 class ChildrenController < ApplicationController
-  layout "child", :only => [:reflect, :play, :watch, :timeline]
+  layout "child", :only => [:reflect, :play, :watch]
   before_filter :require_user
-  before_filter :require_child, :except => [:new,:create,:create_childs_photo]
+  before_filter :require_child, :except => [:new,:create,:create_photo]
 
   def new
     @child = Child.new    
@@ -35,48 +35,14 @@ class ChildrenController < ApplicationController
       tempfile = params[:qqfile].tempfile
     end
 
-    Media.find(params[:previous_img]).delete if params[:previous_img]
-    media = MediaImage.create(:image => tempfile)
+    current_user.media.find(params[:previous_img]).delete if params[:previous_img]
+    media = MediaImage.create(:image => tempfile, :user => current_user)
     respond_to do |format|      
       format.json { render :json => { "success" => "true", "media_id" => "#{media.id}", "img_url" => "#{media.image.url(:profile_medium)}"} }
+#      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:profile_medium)}\"}" }
     end
   end
 
-  def timeline
-    @children = current_user.children
-    @selected_child = @children.find_by_id(params[:child_id]) || @children.first
-
-    set_current_child @selected_child.id  unless @selected_child.blank?
-
-    @relatives = @selected_child.users
-    @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media).order("created_at DESC")
-  end
-
-  def add_timeline_entry
-    te = TimelineEntry.new({ :entry_type => params[:entry_type], :child_id => current_child.id, :description => params[:details]})
-    
-    med = Media.find_by_id(params[:media_id])
-    te.media << med if med
-    who = User.find_by_id(params[:who]).get_user_name if params[:who]
-
-    case te.entry_type
-      when "play"
-        title = "#{current_child.first_name} and #{who} #{params[:did_what]}"
-      when "watch"
-        title = "#{current_child.first_name} #{params[:did_what]} for #{who}"
-      when "reflect"
-        title = "#{who} has a question about #{current_child.first_name}"
-      when "likes"
-        title = "#{current_child.first_name} likes #{params[:likes]}"
-      when "dislikes"
-        title = "#{current_child.first_name} dislikes #{params[:dislikes]}"
-      else
-    end
-
-    te.title = title
-    te.save    
-    render :xml => te, :layout => true
-  end
 
   def reflect
     @answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
@@ -269,23 +235,6 @@ class ChildrenController < ApplicationController
               end
   end
 
-#  def show
-#    @user = current_user
-#    @children = current_user.relations.find_all_by_accepted(1, :conditions => ['child_id is not null'], :include => [:child]).map{|r| r.child}
-#    if session[:level] && session[:level][@selected_child.id]
-#      @level = session[:level][@selected_child.id]
-#    end
-#
-#    @selected_child = @children.select{|c| c.id == params[:child_id].to_i }.first
-#    if @selected_child.present?
-#      set_current_child @selected_child.id
-#    else
-#      @selected_child = current_child
-#    end
-#    moments = @selected_child.moments
-#
-#    @moments = moments.paginate(:page => params[:page])
-#  end
 
   def edit
     @child = Child.find(params[:id])    

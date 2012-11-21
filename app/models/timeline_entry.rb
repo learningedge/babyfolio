@@ -10,7 +10,7 @@ class TimelineEntry < ActiveRecord::Base
     elsif (Time.now.to_datetime - self.created_at.to_datetime).to_i == 1
       "Yesterday"
     else
-      self.created_at.strftime("%m/%d/%y")
+      self.created_at.strftime("%-m/%-d/%y")
     end
   end
 end
