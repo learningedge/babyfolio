@@ -6,6 +6,16 @@ class ApplicationController < ActionController::Base
   config.filter_parameters :password, :password_confirmation
   helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?, :current_child, :set_current_child, :category_name
 
+before_filter :authenticate
+
+protected
+
+def authenticate
+  authenticate_or_request_with_http_basic do |username, password|
+    username == "bf" && password == "bfdev"
+  end
+end
+
   private
     def clear_session
       if current_user_session
