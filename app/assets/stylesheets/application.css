@@ -12,6 +12,59 @@
  *= require_tree .
 */
 
+@font-face {
+    font-family: 'ArvoRegular';
+    src: url('/font/Arvo-Regular-webfont.eot');
+    src: url('/font/Arvo-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/Arvo-Regular-webfont.woff') format('woff'),
+         url('/font/Arvo-Regular-webfont.ttf') format('truetype'),
+         url('/font/Arvo-Regular-webfont.svg#ArvoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ArvoItalic';
+    src: url('/font/Arvo-Italic-webfont.eot');
+    src: url('/font/Arvo-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/Arvo-Italic-webfont.woff') format('woff'),
+         url('/font/Arvo-Italic-webfont.ttf') format('truetype'),
+         url('/font/Arvo-Italic-webfont.svg#ArvoItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ArvoBold';
+    src: url('/font/Arvo-Bold-webfont.eot');
+    src: url('/font/Arvo-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/Arvo-Bold-webfont.woff') format('woff'),
+         url('/font/Arvo-Bold-webfont.ttf') format('truetype'),
+         url('/font/Arvo-Bold-webfont.svg#ArvoBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ArvoBoldItalic';
+    src: url('/font/Arvo-BoldItalic-webfont.eot');
+    src: url('/font/Arvo-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/Arvo-BoldItalic-webfont.woff') format('woff'),
+         url('/font/Arvo-BoldItalic-webfont.ttf') format('truetype'),
+         url('/font/Arvo-BoldItalic-webfont.svg#ArvoBoldItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.arvo { font-family: 'ArvoRegular', Arial, sans-serif; }
+.arvo-italic { font-family: 'ArvoItalic', Arial, sans-serif; }
+.arvo-bold { font-family: 'ArvoBold', Arial, sans-serif; }
+.arvo-bold-italic { font-family: 'ArvoBoldItalic', Arial, sans-serif; }
+
 * { margin: 0; padding: 0; color: #666766; font-family: Arial;}
 
 a { text-decoration: none; color: #1fa9bb; font: 11px Arial; }
@@ -40,8 +93,8 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 #content-wrapper { padding-bottom: 70px; }
 #middle-bar { background: url(/images/content_border_top.png) repeat-x center bottom #fff; }
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper { padding: 25px 50px 25px 23px; }
-#middle-bar .inner-wrapper #middle-bar-inner-wrapper { font-size: 35px; }
-#middle-bar .inner-wrapper #middle-bar-inner-wrapper #get-started-btn { float:right; }
+#middle-bar .inner-wrapper #middle-bar-inner-wrapper { font-size: 40px; position: relative;}
+#middle-bar .inner-wrapper #middle-bar-inner-wrapper #get-started-btn { position: absolute; bottom: 30px; right: 65px; }
 
 .inner-wrapper { width: 1004px; margin: 0 auto;}
 #footer { width: 100%; height: 70px; position: absolute; bottom: 0; left: 0; background: url(/images/footer_border_top.png) repeat-x center top #d5ebf8;}
@@ -87,7 +140,7 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 .qq-uploader .qq-img-link { background: url(/images/img_upload_text.png) no-repeat left bottom; width: 161px; height: 15px; display: inline-block; padding-top: 7px;}
 .qq-uploader .qq-upload-list { position: absolute; left: 100%; top: 0; width: 230px;}
 
-#content-wrapper .sbHolder { display: inline-block; background-color: #fff; height: 21px; border-radius: 4px; box-shadow: inset 1px 1px 3px #ccc; border: 1px solid #d8d8d8; font: 12px Arial; }
+#content-wrapper .sbHolder { display: inline-block; background-color: #fff; height: 21px; border-radius: 4px; box-shadow: inset 1px 1px 3px #ccc; border: 1px solid #d8d8d8; font: 12px Arial; vertical-align: middle;}
 #content-wrapper .birth-row .sbHolder,
 #content-wrapper .birth-row .sbOptions { width: 100px; text-indent: 10px;}
 #content-wrapper .birth-row .sbSelector { text-indent: 20px; }
@@ -222,17 +275,17 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 #reflect-info-popup #reflect-info-popup-inner ul #li-3 { background: url(/images/no_3.png) no-repeat left top; }
 #reflect-info-popup #reflect-info-popup-inner ul #li-4 { background: url(/images/no_4.png) no-repeat left top; }
 #reflect-info-popup #reflect-info-popup-inner div { margin: 20px 30px 0 64px; }
-#reflect-info-popup #reflect-info-popup-inner div .btn {margin-right: 10px; }
+#reflect-info-popup #reflect-info-popup-inner div .btn {margin-right: 10px; padding: 6px 15px; font-size: 14px; }
 #reflect-info-popup #reflect-info-popup-inner .close-popup-icon { display: inline-block; position: absolute; width: 25px; height: 26px; right: 10px; top: 10px; background: url(/images/close_dialog.png) no-repeat center center; text-indent: -9999px; text-transform: capitalize;}
 
 h4.reflect-header { font-weight: bold; margin: 15px 0; }
-.all-even #reflect-column-wrapper { float: left; }
+/*.all-even #reflect-column-wrapper { float: left; }
 .all-even #even-reflect { display: block !important; float: left; width: 500px; margin-left: 40px;}
 .all-even #even-reflect #reflect-column-wrapper { width: 450px; }
 .all-even #even-reflect #reflect-column-wrapper.reflect-bottom-box ul li { width: 145px; padding: 0 2px; }
 .all-even #bottom-reflect,
 .all-even .reflect-popup { display: none !important; }
-.all-even .reflect-popup-static { background-color: #fdfbe2; border-style: solid ; border-color: #f37121; border-width: 1px; padding: 15px; }
+.all-even .reflect-popup-static { background-color: #fdfbe2; border-style: solid ; border-color: #f37121; border-width: 1px; padding: 15px; }*/
 #reflect-column-wrapper { border: 10px solid #d6ebf8; background-color: #fff; display: inline-block; margin-bottom: 20px; width: 325px; box-shadow: 2px 2px 3px #bbb;}
 #reflect-column-wrapper #all-reflected-items { margin: 10px 0 20px; }
 #reflect-column-wrapper .str-text { margin-left: 45px; font: 12px Arial; margin-top: 10px; margin-bottom: 10px; }

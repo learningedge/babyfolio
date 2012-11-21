@@ -4,7 +4,8 @@ class ChildrenController < ApplicationController
   before_filter :require_child, :except => [:new,:create,:create_photo]
 
   def new
-    @child = Child.new    
+    @child = Child.new
+    @child.last_name = current_user.last_name if current_user.last_name.present?
   end
 
   def create

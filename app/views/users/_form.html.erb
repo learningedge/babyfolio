@@ -2,7 +2,7 @@
 
 <div class="first-name row">
   <span class="label">
-    <%= form.label :first_name %>
+    <%= form.label :first_name, "Your First Name" %>
   </span>
   <span class="field">
     <%= form.text_field :first_name %>
@@ -10,7 +10,7 @@
 </div>
 <div class="last-name row">
   <span class="label">
-    <%= form.label :last_name %>
+    <%= form.label :last_name, "Your Last Name" %>
   </span>
   <span class="field">
     <%= form.text_field :last_name %>
@@ -20,7 +20,7 @@
 <% unless @edit %>
   <div class="email row">
     <span class="label">
-      <%= form.label :email %>
+      <%= form.label :email, "Your Email" %>
     </span>
     <span class="field">
       <%= form.text_field :email %>

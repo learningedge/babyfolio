@@ -2,20 +2,18 @@
   <span>Here is a summary of <%= current_child.first_name %>’s development profile.</span>
 <% end %>
 
-<div class="<%= "all-even" if @avg_answers.size == @answers.size %>">
+<div class="">
   <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
   <div id="reflect-column-wrapper">
-      <p class="str-text">strength</p>
-
+      
       <div id="all-reflected-items">
         <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
-      </div>
-      <p  class="str-text">needs improvement</p>
+      </div>      
   </div>
 
-  <div id="even-reflect" class="hidden">
+  <!--div id="even-reflect" class="hidden">
     <div class="reflect-popup-static">
       <h4>Even Development</h4>
       <p>Hey! Looks like <span class="bold"><%= current_child.first_name %></span> is performing at the same level for all developmental stages.  Please check back after <%= current_child.replace_forms('#he/she#') %>  has exhibited other <span class="bold">WATCH behaviors</span> to see an update!</p>
@@ -42,7 +40,7 @@
         </ul>
         <div class="clear"></div>
      </div>
-  </div>
+  </div-->
 
   <div id="bottom-reflect">
       <div class="clear"></div>
@@ -76,15 +74,15 @@
 <div id="reflect-info-popup" style="" class="hidden">
   <div id="reflect-info-popup-inner">
     <h3>Welcome to BabyFolio!</h3>
-    <p>There are four important activities that are part of <%= current_child.first_name %>'s  BabyFolio.</p>
+    <p>There are four important activities that are part of <span class="bold"><%= current_child.first_name %>'s</span>  BabyFolio.</p>
     <ul>
-      <li id="li-1">In the <span class="bold">WATCH</span> section, you can see what developments <%= current_child.first_name %> may be making soon, so you know what to be on the lookout for.</li>
-      <li id="li-2">In the <span class="bold">PLAY</span> section, you can find fun activities and games to do with <%= current_child.first_name %> that support his development and build on the skills they already have.</li>
-      <li id="li-3">In the <span class="bold">TIMELINE</span> section, you can see what's happened so far and share it with close friends and family so that everyone can participate in the development of <%= current_child.first_name %></li>
-      <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <%= current_child.first_name %>’s strengths and areas for improvement in his development, and find activities to help those areas.</li>
+      <li id="li-1">In the <span class="bold">WATCH</span> section, you can see what developments <span class="bold"><%= current_child.first_name %></span> may be making soon, so you know what to be on the lookout for.</li>
+      <li id="li-2">In the <span class="bold">PLAY</span> section, you can find fun activities and games to do with <span class="bold"><%= current_child.first_name %></span> that support his development and build on the skills they already have.</li>
+      <li id="li-3">In the <span class="bold">TIMELINE</span> section, you can see what's happened so far and share it with close friends and family so that everyone can participate in the development of <span class="bold"><%= current_child.first_name %></span></li>
+      <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <span class="bold"><%= current_child.first_name %>’s</span> strengths and areas for improvement in his development, and find activities to help those areas.</li>
     </ul>
-    <p>View <%= current_child.first_name %>’s development progress now or invite close friends and family to join his circle!</p>
-    <div><%= link_to "Send Invites", settings_path, :class => 'btn'  %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
+    <p>View <span class="bold"><%= current_child.first_name %>’s</span> development progress now or invite close friends and family to join his circle!</p>
+    <div><%= link_to "Send Invites", settings_path, :class => 'btn' %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
     <a href="#" class="close-popup-icon jqmClose">Close</a>
   </div>
 </div>

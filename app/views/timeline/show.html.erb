@@ -14,7 +14,7 @@
               <% end -%>
       </div>
 
-      <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.media.image.url(:profile_large)})" %>"></div>
+      <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.media.image.url(:profile_large)})" if @selected_child.media.present? %>"></div>
 
       <div id="add-entry-tabs">
         <ul>

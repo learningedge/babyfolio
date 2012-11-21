@@ -3,32 +3,32 @@
       <%= f.hidden_field :id, :value => child.id if edit %>
       <div class="row">
         <span class="label">
-            <%= f.label :first_name %>
+            <%= f.label :first_name, "Baby's First Name" %>
         </span>
         <%= f.text_field :first_name, :value => child.first_name %>
       </div>
       <div class="row">
         <span class="label">
-            <%= f.label :last_name %>
+            <%= f.label :last_name, "Baby's Last Name" %>
         </span>
         <%= f.text_field :last_name, :value => child.last_name %>
       </div>
       <div class="row">
         <span class="label">
-            <%= f.label :gender %>
+            <%= f.label :gender, "Baby's Gender" %>
         </span>
         <%= f.radio_button :gender, 'male' %> Male <%= f.radio_button :gender, 'female' %> Female 
       </div>
       <div class="row birth-row">
         <span class="label">
-            <%= f.label :birth_date %>
+            <%= f.label :birth_date, "Baby's Birth Date" %>
         </span>
         <%= f.date_select :birth_date, {:default => f.object.formated_birth_date}, :class => "select-layout" -%>
       </div>
 
       <div class="row">
         <span class="label">
-            Relationship
+            Your relationship
         </span>
         <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
       </div>

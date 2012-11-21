@@ -4,8 +4,8 @@ class HomeController < ApplicationController
   skip_before_filter :require_confirmation
   
   def index
-    redirect_to child_reflect_children_path if current_user
-#    redirect_to timeline_children_path if current_user
+#    redirect_to child_reflect_children_path if current_user
+    redirect_to show_timeline_path if current_user
     @user_session = UserSession.new
   end
 

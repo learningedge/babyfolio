@@ -6,10 +6,9 @@ class TimelineController < ApplicationController
 
 
   def show
-    @children = current_user.children
-    @selected_child = @children.find_by_id(params[:child_id]) || @children.first
-
-    set_current_child @selected_child.id  unless @selected_child.blank?
+    @children = current_user.children    
+    @selected_child = @children.find_by_id(params[:child_id]) || @children.find_by_id(current_child.id)
+    set_current_child @selected_child.id  unless params[:child_id].blank?
 
     @relatives = @selected_child.users
     @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media).order("created_at DESC")
