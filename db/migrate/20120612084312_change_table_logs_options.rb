@@ -1,7 +1,7 @@
 class ChangeTableLogsOptions < ActiveRecord::Migration
   def up
     drop_table :logs
-    create_table :logs, :options => "ENGINE=MyISAM" do |t|
+    create_table :logs do |t|
 
       t.string :description
       t.integer :user_id

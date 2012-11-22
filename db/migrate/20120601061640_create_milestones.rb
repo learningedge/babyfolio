@@ -1,6 +1,6 @@
 class CreateMilestones < ActiveRecord::Migration
   def change
-    create_table :milestones, :options => "ENGINE=MyISAM" do |milestone|
+    create_table :milestones do |milestone|
 
       milestone.integer :mid
       milestone.string :title
