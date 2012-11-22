@@ -30,12 +30,12 @@
     <div class="clear"></div>
 
 
-    <div class="play-popup">
+    <div class="play-popup <%= time %>">
       <div class="pointing-arrow"></div>
       <div class="popup-wrapper">
             <h4><%= item[:title] %></h4>
-            <div class="show-future">future activity</div>
-            <div class="show-past">completed activity <span><%= current_child.first_name.capitalize %> already did this with you.</span></div>
+            <div class="show-future">future behavior</div>
+            <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
 
             <% unless item[:desc].blank? %>                
                 <p><%= item[:desc] %></p>

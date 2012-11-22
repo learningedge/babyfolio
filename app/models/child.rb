@@ -31,7 +31,7 @@ class Child < ActiveRecord::Base
   }
 
   FORMS = {
-    /(#)+he\/she#/ => ['he', 'she'],
+    /(#)+he\/she(#)+/ => ['he', 'she'],
     /(#)+He\/[S,s]he(#)+/ => ['He', 'She'],
     /(#)+his\/her(#)+/ => ['his', 'her'],
     /(#)+His\/Her(#)+/ => ['His', 'Her'],

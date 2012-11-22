@@ -14,7 +14,7 @@ class ChildrenController < ApplicationController
 
     if @child.save      
       rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
-      rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token)
+      rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
       rel.save
       current_user.reset_perishable_token!            
       set_current_child @child.id
@@ -64,9 +64,18 @@ class ChildrenController < ApplicationController
     @min = @answers.map{ |k,v| v.first.question.age }.min
     @diff = @max - @min
 
-    @str_text = "<h4>Strong Development</h4><p><span>#{ current_child.first_name}</span> is showing promise at <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p></p><p>The following play activities will further boost this development:</p><h5>Recommended Play Activities</h5>"
-    @avg_text = "<h4>Average Development</h4><p><span>#{ current_child.first_name}</span> also shows <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>Recently, #{current_child.first_name} pretended while playing.</p><p>Support his continuing social development with these activities below.</p><h5>Recommended Play Activities</h5>"
-    @weak_text = "<h4>Needs Improvement in Development</h4><p><span>#{ current_child.first_name}</span> is currently slower to develop in <span><INTELLIGENCE> development</span> based on the behavioral milestones he has already exhibited.</p><p>Recently, #{current_child.first_name} Felt Worried or Sad After Making a Mistake.</p><p>Support his continuing emotional development with these activities below.</p><h5>Recommended Play Activities</h5>"
+    @str_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
+                 <p><span>#{ current_child.first_name}</span> is developing more quickly at <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
+                 <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
+                 <p>We recommend the following play activities to further strengthen this development:</p>")
+    
+    @avg_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
+                 <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
+                 <p>Strengthen this development with these activities:</p>")
+    @weak_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
+                  <p>#{ current_child.first_name} is currently slower to develop in <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
+                  <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
+                  <p>Support their development with these activities:</p>")
 
     @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
     @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)
@@ -94,22 +103,29 @@ class ChildrenController < ApplicationController
       end
     end              
 
+    is_selected = false
     @activities = []
     ms.each do |ms|
-        selected = true if ms[:milestone].mid == params[:mid]
+        if ms[:milestone].mid == params[:mid]
+          is_selected = true
+          selected = true
+        end
         @activities << {
                          :category => ms[:category],
                          :mid => ms[:milestone].mid,
                          :ms_title => current_child.replace_forms(ms[:milestone].title, 35),
-                         :title => current_child.replace_forms(ms[:milestone].activity_1_title, 60),
+                         :title => ms[:milestone].activity_1_title.present? ? current_child.replace_forms(ms[:milestone].activity_1_title, 60) : "Title goes here",
                          :setup => current_child.replace_forms(ms[:milestone].activity_1_set_up, 90),
                          :response => current_child.replace_forms(ms[:milestone].activity_1_response),
                          :variations => current_child.replace_forms(ms[:milestone].activity_1_modification),
                          :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits),
                          :selected => selected || false
                         }
-    end  
+    end
+    @activities.first[:selected] = true unless is_selected
   end
+
+  
 
   def get_adjacent_activity 
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])    
@@ -141,7 +157,7 @@ class ChildrenController < ApplicationController
                :response => current_child.replace_forms(qs.milestone.activity_1_response),
                :variations => current_child.replace_forms(qs.milestone.activity_1_modification),
                :learning_benefits => current_child.replace_forms(qs.milestone.activity_1_learning_benefits),
-               :selected => false
+               :selected => true
               }
               respond_to do |format|
                 format.html { render :partial => "play_single", :locals => { :a => item, :time => time} }
@@ -170,9 +186,13 @@ class ChildrenController < ApplicationController
         ms  << { :category => m.questions.first.category, :milestone => m }
       end
     end
-    
+
+    is_selected = false
     ms.each do |m|
-        selected = true if m[:milestone].mid == params[:mid]
+        if m[:milestone].mid == params[:mid]
+          is_selected = true
+          selected = true
+        end
         @behaviours << {
                          :category => m[:category],
                          :mid => m[:milestone].mid,
@@ -190,7 +210,8 @@ class ChildrenController < ApplicationController
                          :references => current_child.replace_forms(m[:milestone].research_references),                         
                          :selected => selected || false
                         }
-    end  
+    end
+    @behaviours.first[:selected] = true unless is_selected
   end
 
   def get_adjacent_behaviour
@@ -229,7 +250,7 @@ class ChildrenController < ApplicationController
                :why_important => current_child.replace_forms(qs.milestone.observation_what_it_means),
                :theory => current_child.replace_forms(qs.milestone.research_background),
                :references => current_child.replace_forms(qs.milestone.research_references),
-               :selected => false
+               :selected => true
               }
               respond_to do |format|
                 format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }

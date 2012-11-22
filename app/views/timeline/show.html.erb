@@ -1,17 +1,15 @@
 <% content_for :middle_bar do %>
   <div id="timeline-notice" class="round-corners">
     <img src="/images/child_head_small.png" />
-    <span><%= current_child.first_name %> can already...</span>
+    <span><%= current_child.first_name %> has already...</span>
   </div>
 
 <% end %>
 
   <div id="timeline-wrapper">
     <div id="timeline-left">
-      <div id="drop_list">
-              <%= form_tag({}, { :method => :get }) do -%>
+      <div id="drop_list">              
                 <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }.insert(0, ["Select baby", nil])), {:onChange => "changeChild(this);" } -%>                
-              <% end -%>
       </div>
 
       <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.media.image.url(:profile_large)})" if @selected_child.media.present? %>"></div>

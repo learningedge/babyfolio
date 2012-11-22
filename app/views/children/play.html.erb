@@ -3,9 +3,8 @@
   
 <% end %>
 
-  <div class="left-column">
-    <p>Click on the title for a detailed description and associated behavioral milestones.</p>
-    
+  <p id="left-column-additional-info">Click on the title for a detailed description and associated behavioral milestones.</p>
+  <div class="left-column">       
         <ul id="activities-wrapper">          
           <% @activities.each do |a| %>
             <%= render :partial => 'play_single', :locals => { :a => a, :time => 'current' } %>
@@ -13,12 +12,15 @@
 
         </ul>
       <div class="clear"></div>
-    </div>
-    
   </div>
+  <div class="right-column right-column-play"></div>
+    
+  <div class="clear"></div>
   
   <script type="text/javascript">
-    $(function() {
+    $(function() {      
+      showPlayPopup($('.selected .activity-title-link'));
+
       $('.previous-activity-link, .next-activity-link').live("ajax:before", function() {
         $(this).parents('.single-activity').addClass('show-preloader');
       });
@@ -27,13 +29,27 @@
       });
 
       $('.previous-activity-link, .next-activity-link').live("ajax:success", function(xhr,data) {
+        $('.single-activity.selected').removeClass('selected');
         $(this).parents('.single-activity').replaceWith(data);
+        showPlayPopup($(data).find('.activity-title-link'));
       });
 
       $('.activity-title-link').live('click', function() {
-        $('.single-activity.selected').removeClass('selected');
-        $(this).parents('.single-activity').addClass('selected');
-        return false;
+          $('.single-activity.selected').removeClass('selected');
+          showPlayPopup($(this));
+          return false;
       });
+
     });
+
+    function showPlayPopup(title) {        
+        $(title).parents('.single-activity').addClass('selected');
+
+        var sa = $(title).parents('.single-activity').find('.play-popup');
+        $('.right-column').html(sa.clone().show());
+
+        $('.right-column').find('.pointing-arrow').css({top : $('.single-activity.selected').position().top + 30});
+        $('.right-column .popup-wrapper').css({minHeight: $('#activities-wrapper').height() });
+    }
+
   </script>
