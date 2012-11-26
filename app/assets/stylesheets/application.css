@@ -364,6 +364,9 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #activities-wrapper .single-activity .play-icons-corner .likes-btn { background: url(/images/thumb_up.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .likes-btn:hover { background: url(/images/thumb_up_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .likes-btn.active { background: url(/images/thumb_up_active.png) no-repeat center center !important;}
+#activities-wrapper .single-activity .play-icons-corner .seen-tick-btn { background: url(/images/tick_btn.png) no-repeat center center;}
+#activities-wrapper .single-activity .play-icons-corner .seen-tick-btn.active { background: url(/images/tick_btn_active.png) no-repeat center center !important;}
+#activities-wrapper .single-activity .play-icons-corner .seen-tick-btn:hover { background: url(/images/tick_btn_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn { background: url(/images/thumb_down.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn:hover { background: url(/images/thumb_down_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn.active { background: url(/images/thumb_down_active.png) no-repeat center center !important;}

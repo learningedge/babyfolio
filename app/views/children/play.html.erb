@@ -41,12 +41,15 @@
       });
 
       $('.show-dialog').live('click', function() {
-        $($(this).attr('href')).dialog({modal: true});
+        $($(this).attr('href')).dialog({modal: true, hide: 'fade'});
+
         return false;
       });
 
       $('.te-form').live("ajax:success", function(xhr,data) {
-          $(this).parents('.play-dialog').html(data).dialog('close');
+          $(this).parents('.play-dialog').html(data).delay(4000, function() {
+            $(this).dialog('close');
+          })
       });
 
     });
