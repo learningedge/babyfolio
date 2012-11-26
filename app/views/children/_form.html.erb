@@ -35,16 +35,15 @@
 
   
       <%= hidden_field_tag 'child_profile_media', (child.media.id if child.media.present?) %>
-      <div class="row photo-upload-row">
+      <div class="row photo-upload-row <%= "missing-image" if @child.errors[:media].present? %>">
         <span class="label">Please upload a photo of your baby:</span>
         <div id="file-registration-uploader">
-          <div class="clear"></div>
+          
         </div>
       </div>
-
-      <div id="file-registration-uploader"></div>
+  
       <div class="clear"></div>
-
+      
       <% if edit %>
           <%= f.submit "Update Child", :class => 'btn btn-big' %>
       <% else %>

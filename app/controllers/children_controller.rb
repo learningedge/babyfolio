@@ -10,9 +10,14 @@ class ChildrenController < ApplicationController
 
   def create
     @child = Child.new(params[:child])
-    @child.media = MediaImage.find_by_id(params[:child_profile_media])
+    @child.media = MediaImage.find_by_id(params[:child_profile_media])    
 
-    if @child.save      
+    unless @child.media
+      @child.valid?
+      @child.errors.add(:media, "Please upload child media before proceeding.")
+    end
+
+    if @child.media && @child.save
       rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
       rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
       rel.save

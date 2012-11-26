@@ -227,6 +227,8 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #content-wrapper #left-column-tooltip p.reg-second-ttip { font-size: 15px; }
 #registration-second .btn-big { background-position: 92px center; margin-left: 240px; margin-top: 30px; }
 #new_child_form .qq-uploader .qq-img-preview { background: url(/images/img_upload_child.png) no-repeat left top; }
+#new_child_form .photo-upload-row.missing-image .label{ color: #ED1F24; }
+#new_child_form .photo-upload-row.missing-image .qq-uploader .qq-img-preview { width: 159px; border: 1px solid #ED1F24;}
 
 
 /* REGISTRATION - 2ND STEP - ACCEPT INVITATIONS */
