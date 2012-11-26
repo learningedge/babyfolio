@@ -142,6 +142,7 @@ Babyfolio::Application.routes.draw do
       get '/play(/:mid/:no)' => "children#play", :as => :play
       get '/watch(/:mid)' => "children#watch", :as => :watch
       get '/get-adjacent-activity/:mid/:dir' => "children#get_adjacent_activity", :as => :adjacent_activity
+      post '/activity-like' => "children#activity_like", :as => :activity_like
       get '/get-adjacent-behaviour/:mid/:dir' => "children#get_adjacent_behaviour", :as => :adjacent_behaviour
       get '/:id/info' => "children#info", :as => :info
     end
@@ -149,6 +150,7 @@ Babyfolio::Application.routes.draw do
 
   # TIMELINE
   post 'timeline/add-timeline-entry' => "timeline#add_entry", :as => :add_timeline_entry
+  post 'timeline/add-basic-timeline-entry' => "timeline#add_from_popup", :as => :add_basic_entry
   post 'timeline/add-comment' => "timeline#add_comment", :as => :add_timeline_comment
   get 'timeline/(:child_id)' => "timeline#show", :as => :show_timeline
 

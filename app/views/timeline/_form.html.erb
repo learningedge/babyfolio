@@ -3,15 +3,15 @@
     <%=
         case type
           when "play"
-            render :partial => "play_fields"
+            render :partial => "timeline/play_fields"
           when "watch"
-            render :partial => "watch_fields"
+            render :partial => "timeline/watch_fields"
           when "reflect"
-            render :partial => "reflect_fields"
+            render :partial => "timeline/reflect_fields"
           when "likes"
-            render :partial => "likes_fields"
+            render :partial => "timeline/likes_fields"
           when "dislikes"
-            render :partial => "dislikes_fields"
+            render :partial => "timeline/dislikes_fields"
           else
         end
     %>

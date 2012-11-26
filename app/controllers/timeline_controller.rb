@@ -15,31 +15,21 @@ class TimelineController < ApplicationController
   end
 
 
-  def add_entry
-    te = TimelineEntry.new({ :entry_type => params[:entry_type], :child_id => current_child.id, :description => params[:details], :category => params[:category]})
-
-    med = Media.find_by_id(params[:media_id])
-    te.media << med if med
-    who = User.find_by_id(params[:who]).get_user_name if params[:who]
-
-    case te.entry_type
-      when "play"
-        title = "#{current_child.first_name} and #{who} #{params[:did_what]}"
-      when "watch"
-        title = "#{current_child.first_name} #{params[:did_what]} for #{who}"
-      when "reflect"
-        title = "#{who} has a question about #{current_child.first_name}"
-      when "likes"
-        title = "#{current_child.first_name} likes #{params[:likes]}"
-      when "dislikes"
-        title = "#{current_child.first_name} dislikes #{params[:dislikes]}"
-      else
-    end
-
-    te.title = title
+  def add_entry    
+    te = TimelineEntry.build_entry(params[:entry_type], params[:did_what], current_child, params[:details], params[:category], params[:media_id], params[:who])
     te.save
     
     redirect_to show_timeline_path
+  end
+
+  def add_from_popup
+    te = TimelineEntry.build_entry(params[:entry_type], params[:content], current_child, params[:details], params[:category], nil, params[:who])
+    te.save
+
+    respond_to do |format|
+      format.html { render :text => "Sucessfully submited Timeline entry." }
+    end
+
   end
 
   def add_comment

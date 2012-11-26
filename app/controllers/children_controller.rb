@@ -67,8 +67,7 @@ class ChildrenController < ApplicationController
     @str_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
                  <p><span>#{ current_child.first_name}</span> is developing more quickly at <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
                  <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
-                 <p>We recommend the following play activities to further strengthen this development:</p>")
-    
+                 <p>We recommend the following play activities to further strengthen this development:</p>")    
     @avg_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
                  <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
                  <p>Strengthen this development with these activities:</p>")
@@ -103,13 +102,11 @@ class ChildrenController < ApplicationController
       end
     end              
 
-    is_selected = false
     @activities = []
     ms.each do |ms|
-        if ms[:milestone].mid == params[:mid]
-          is_selected = true
-          selected = true
-        end
+        selected = true if ms[:milestone].mid == params[:mid]
+        ms_likes = ms[:milestone].likes.find_by_child_id(current_child.id)
+        likes = ms_likes.value unless ms_likes.nil?
         @activities << {
                          :category => ms[:category],
                          :mid => ms[:milestone].mid,
@@ -119,10 +116,11 @@ class ChildrenController < ApplicationController
                          :response => current_child.replace_forms(ms[:milestone].activity_1_response),
                          :variations => current_child.replace_forms(ms[:milestone].activity_1_modification),
                          :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits),
-                         :selected => selected || false
+                         :selected => selected || false,
+                         :likes => likes
                         }
     end
-    @activities.first[:selected] = true unless is_selected
+    @activities.first[:selected] = true unless @activities.any? { |a| a[:selected] == true }
   end
 
   
@@ -148,20 +146,31 @@ class ChildrenController < ApplicationController
       time = "current"
     end
 
+    ms_likes = qs.milestone.likes.find_by_child_id(current_child.id)
+    likes = ms_likes.value unless ms_likes.nil?
     item =  {
                :category => qs.category,
-               :mid => qs.milestone.mid,
+               :mid => qs.milestone.mid,               
                :ms_title => current_child.replace_forms(qs.milestone.title, 35),
                :title => qs.milestone.activity_1_title.blank? ? "Title goes here" : current_child.replace_forms(qs.milestone.activity_1_title, 60),
                :setup => current_child.replace_forms(qs.milestone.activity_1_set_up, 90),
                :response => current_child.replace_forms(qs.milestone.activity_1_response),
                :variations => current_child.replace_forms(qs.milestone.activity_1_modification),
                :learning_benefits => current_child.replace_forms(qs.milestone.activity_1_learning_benefits),
-               :selected => true
+               :selected => true,
+               :likes => likes
               }
               respond_to do |format|
                 format.html { render :partial => "play_single", :locals => { :a => item, :time => time} }
-              end
+              end    
+  end
+
+  def activity_like
+    m_object_id = Milestone.find_by_mid(params[:mid]).id
+    l = Like.find_or_initialize_by_child_id_and_activity_id(current_child.id, m_object_id)
+    l.value = params[:likes]
+    l.save
+    render :text => "Done for #{params[:mid]}"
   end
 
   def watch
@@ -187,12 +196,8 @@ class ChildrenController < ApplicationController
       end
     end
 
-    is_selected = false
     ms.each do |m|
-        if m[:milestone].mid == params[:mid]
-          is_selected = true
-          selected = true
-        end
+        selected = true if m[:milestone].mid == params[:mid]         
         @behaviours << {
                          :category => m[:category],
                          :mid => m[:milestone].mid,
@@ -211,7 +216,7 @@ class ChildrenController < ApplicationController
                          :selected => selected || false
                         }
     end
-    @behaviours.first[:selected] = true unless is_selected
+    @behaviours.first[:selected] = true unless @behaviours.any? { |a| a[:selected] == true }
   end
 
   def get_adjacent_behaviour

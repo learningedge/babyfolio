@@ -16,7 +16,7 @@
                   <div class="reflect-popup">
                     <div class="pointing-arrow"></div>
                     <div class="popup-wrapper">
-                      <% m = Milestone.find_by_mid(v.first.question.mid) %>
+                      <% m = v.first.question.milestone %>
                       <% if m %>
                           <% if f %>
                               <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).html_safe  %>

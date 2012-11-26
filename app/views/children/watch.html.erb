@@ -40,6 +40,16 @@
           return false;
       });
 
+      $('.show-dialog').live('click', function() {
+        $($(this).attr('href')).dialog({modal: true});
+        return false;
+      });
+
+      $('.te-form').live("ajax:success", function(xhr,data) {
+          $(this).parents('.play-dialog').html(data).dialog('close');
+      });
+
+
     });
 
     function showPlayPopup(title) {

@@ -16,6 +16,7 @@ class Child < ActiveRecord::Base
   has_many :answers
   has_many :questions, :through => :answers
   has_many :timeline_entries, :class_name => "TimelineEntry"
+  has_many :likes
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true

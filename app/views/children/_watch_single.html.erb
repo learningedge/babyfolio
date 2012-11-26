@@ -22,8 +22,19 @@
       </div>
       <div class="activity-setup"><%= item[:subtitle] %></div>
       <div class="play-icons-corner">
-        <a href="#"><img src="/images/reflect_icon_circle.png" /></a>
-        <a href="#"><img src="/images/tick_btn.png" /></a>
+
+        <%= link_to "#dialog-timeline-#{item[:mid]}", :class => "show-dialog" do %>
+          <img src="/images/reflect_icon_circle.png" />
+        <% end %>
+        <%= link_to "#dialog-timeline-#{item[:mid]}", :class => "show-dialog" do %>
+          <img src="/images/tick_btn.png" />
+        <% end %>
+
+        <div id="dialog-timeline-<%= item[:mid] %>" class="play-dialog">
+            <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title].gsub('"' , ' ').strip , :category => item[:category], :mid => item[:mid] } %>
+        </div>
+
+        
         
       </div>
     </div>

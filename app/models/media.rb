@@ -21,31 +21,4 @@ class Media < ActiveRecord::Base
     end
   end
 
-#  def youtube_object
-#    begin
-#      if self.user.youtube_user
-#        self.user.youtube_user.my_video(self.media_id)
-#      else
-#        client = YouTubeIt::Client.new(:dev_key => Yetting.youtube["dev_key"])
-#        client.video_by(self.media_id)
-#      end
-#    rescue
-#      return nil
-#    end
-#  end
-#
-#  def vimeo_object
-#    begin
-#      if self.user.has_vimeo_account?
-#        client = self.user.vimeo_client
-#        video = client.get_info(self.media_id)
-#        video["video"][0]
-#      else
-#        video = Vimeo::Simple::Video.info(self.media_id)
-#        video[0]
-#      end
-#    rescue
-#      return nil
-#    end
-#  end
 end

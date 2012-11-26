@@ -1,0 +1,67 @@
+<%= form_tag add_basic_entry_path, :remote => true, :class => 'te-form' do %>
+  <%= hidden_field_tag "entry_type", type %>
+  <%= hidden_field_tag "content", did_what %>
+  <%= hidden_field_tag "category", category %>
+
+    <h4 class="arvo">Post to <span class="arvo-bold"><%= current_child.first_name %>'s</span> Timeline</h4>
+    <div class="popup-frame">
+      <div class="popup-frame-inner">
+        <% if type == "play" %>
+          <p class="row"><%= current_child.first_name.capitalize %> and <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+          <p class="row did-row"><%= did_what %></p>
+
+        <% elsif type == "watch" %>
+          <p class="row"><%= current_child.first_name.capitalize %> <%= did_what %></p>
+          <p>for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+
+        <% else %>
+          <p class="row"><%= current_child.first_name.capitalize %> <%= type%> </p>
+          <p class="row did-row"><%= did_what %></p>
+        <% end %>
+
+        <p class="text-area-row"><%= text_area_tag "details", nil, :placeholder => "add more details here...", :class => "row" %></p>
+
+        <div id="entry-image-uploader-<%= "#{mid}_#{type}" %>" class="entry-image-uploader"></div>
+        <div class="img-wrapper"></div>
+
+
+        <%= submit_tag "Post", :class => 'btn' %>
+      </div>
+    </div>
+  <div class="clear"></div>
+  
+
+<% end %>
+
+  <script type="text/javascript">
+          $(function() {
+            var uploader_<%= "#{mid}_#{type}" %> = new qq.FileUploader({
+            element: document.getElementById('entry-image-uploader-<%= "#{mid}_#{type}" %>'),
+            action: '<%= create_photo_children_path -%>',
+            params: { },
+            onSubmit: function() {
+              var prev_img = $(this.element).parents('.popup-frame-inner').find('.img-wrapper input[type="hidden"]').val();
+              if(prev_img) uploader_<%= "#{mid}_#{type}" %>.setParams({ previous_img : prev_img });
+            },
+            onComplete: function(id, fileName, responseJSON){
+
+              $('.qq-upload-list li').each(function() {
+                if($(this).find('.qq-upload-file').text() == fileName);
+                $(this).fadeOut('slow');
+              });
+
+              var img = document.createElement('img');
+              img.src = responseJSON.img_url;
+              var hidden = document.createElement('input');
+              hidden.type = "hidden";
+              hidden.value = responseJSON.media_id;
+              hidden.name = "media_id"
+
+              console.log($('#entry-image-uploader-<%= "#{mid}_#{type}" %>').parents('.popup-frame-inner').find('.img-wrapper'));
+              $('#entry-image-uploader-<%= "#{mid}_#{type}" %>').parents('.popup-frame-inner').find('.img-wrapper').html("").append(img).append(hidden);
+            }
+        });
+      });
+
+
+  </script>

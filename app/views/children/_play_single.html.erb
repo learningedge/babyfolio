@@ -21,14 +21,26 @@
       </div>
       <div class="activity-setup"><%= a[:setup] %></div>
       <div class="play-icons-corner">
-        <a href="#"><img src="/images/reflect_icon_circle.png" /></a>
-        <a href="#"><img src="/images/thumb_up.png" /></a>
-        <a href="#"><img src="/images/thumb_down.png" /></a>
+        <% active_like = "active" if a[:likes] == true %>
+        <% active_dislike = "active" if a[:likes] == false %>
+
+        <%= link_to "Timeline", "#dialog-timeline-#{a[:mid]}", :class => "show-dialog timeline-btn" %>
+        <%= link_to "Likes",  "#dialog-likes-#{a[:mid]}", :class => "show-dialog likes-btn #{active_like}",  :data_mid => "#{a[:mid]}", :onclick => "like(this); return false;" %>
+        <%= link_to "Dislikes", "#dialog-dislikes-#{a[:mid]}", :class => "show-dialog dislikes-btn #{active_dislike}", :data_mid => "#{a[:mid]}", :onclick => "dislike(this); return false;" %>
+
+        <div id="dialog-timeline-<%= a[:mid] %>" class="play-dialog">
+            <%= render :partial => 'timeline_popup', :locals => { :type => "play", :did_what => a[:title], :category => a[:category], :mid => a[:mid] } %>
+        </div>
+        <div id="dialog-likes-<%= a[:mid] %>" class="play-dialog">
+            <%= render :partial => 'timeline_popup', :locals => { :type => "likes", :did_what => a[:title], :category => a[:category], :mid => a[:mid] } %>
+        </div>
+        <div id="dialog-dislikes-<%= a[:mid] %>" class="play-dialog">
+            <%= render :partial => 'timeline_popup', :locals => { :type => "dislikes", :did_what => a[:title], :category => a[:category], :mid => a[:mid] } %>
+        </div>
       </div>
+
     </div>
-    <div class="clear"></div>
-
-
+    <div class="clear"></div>    
     <div class="play-popup <%= time %>">
       <div class="pointing-arrow"></div>
       <div class="popup-wrapper">            

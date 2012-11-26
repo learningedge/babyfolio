@@ -2,6 +2,7 @@ class Milestone < ActiveRecord::Base
   include ApplicationHelper
 
   has_and_belongs_to_many :moment_tags
+  has_many :likes, :foreign_key => 'activity_id'
   has_many :questions, :class_name =>"Question", :foreign_key => 'mid', :primary_key => 'mid'
 
   def activity_1_title_text child

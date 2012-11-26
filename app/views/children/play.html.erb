@@ -1,5 +1,5 @@
 <% content_for :middle_bar do %>
-  <span>Here is a list of recommended play activities for <%= current_child.first_name %> based on his current development.</span>
+  <span>Here is a list of recommended play activities for <%= current_child.first_name %> based on <%= current_child.replace_forms("#his/her#") %> current development.</span>
   
 <% end %>
 
@@ -40,6 +40,15 @@
           return false;
       });
 
+      $('.show-dialog').live('click', function() {
+        $($(this).attr('href')).dialog({modal: true});
+        return false;
+      });
+
+      $('.te-form').live("ajax:success", function(xhr,data) {
+          $(this).parents('.play-dialog').html(data).dialog('close');
+      });
+
     });
 
     function showPlayPopup(title) {        
@@ -52,4 +61,23 @@
         $('.right-column .popup-wrapper').css({minHeight: $('#activities-wrapper').height() });
     }
 
+    /*  LIKES - DISLIKES   */
+            
+    function like(btn) {
+      postLike(1, btn);
+    }
+    function dislike(btn) {
+      postLike(0, btn);
+    }
+
+    function postLike(like, btn) {
+      m_id = $(btn).attr('data_mid');
+
+      $.post('<%= activity_like_children_path %>', {mid : m_id, likes: like}, function(data) {
+        $(btn).siblings('.likes-btn, .dislikes-btn').removeClass('active');
+        $(btn).addClass('active')
+      });
+    }
+
   </script>
+
