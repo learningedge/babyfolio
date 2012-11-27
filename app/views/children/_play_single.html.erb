@@ -11,13 +11,9 @@
     </div>
     <div class="single-activity-right">
       <div class="single-activity-nav">
-          <%= link_to adjacent_activity_children_path(:mid => a[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' do %>
-            <img src="/images/teal_l_arrow.png"/>
-          <% end  %>
+          <%= link_to "#", adjacent_activity_children_path(:mid => a[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
           <a href="#" class="activity-title-link"><%= a[:title] %></a>
-          <%= link_to adjacent_activity_children_path(:mid => a[:mid], :dir => "next"), :remote => true, :class => 'next-activity-link' do %>
-            <img src="/images/teal_r_arrow.png"/>
-          <% end %>          
+          <%= link_to "#", adjacent_activity_children_path(:mid => a[:mid], :dir => "next"), :remote => true, :class => 'next-activity-link' %>
       </div>
       <div class="activity-setup"><%= a[:setup] %></div>
       <div class="play-icons-corner">

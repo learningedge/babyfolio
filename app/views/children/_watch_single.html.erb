@@ -12,13 +12,9 @@
     </div>
     <div class="single-activity-right">
       <div class="single-activity-nav">
-          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' do %>
-            <img src="/images/teal_l_arrow.png"/>
-          <% end  %>
+          <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
           <a href="#" class="activity-title-link"><%= item[:title] %></a>
-          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link' do %>
-            <img src="/images/teal_r_arrow.png"/>
-          <% end %>
+          <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
       </div>
       <div class="activity-setup"><%= item[:subtitle] %></div>
       <div class="play-icons-corner">

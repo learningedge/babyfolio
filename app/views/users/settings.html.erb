@@ -30,13 +30,11 @@
   
   <div>
     <%= link_to "Invite to Circle", new_relation_path, :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn", :class => 'btn' if @current_relation.is_admin %>
+    <div id="add-relation-wrapper" class="settings-edit-entry hidden"></div>
   </div>
 
   <% if @invited_by_me.present? %>
-      <h4>Invitations sent:</h4>
-
-      <div id="add-relation-wrapper" class="settings-edit-entry hidden"></div>
-
+      <h4>Invitations sent:</h4>     
       
       <div id="child-invites">
             <% @invited_by_me.each do |relation| %>

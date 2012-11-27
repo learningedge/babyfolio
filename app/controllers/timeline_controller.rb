@@ -6,14 +6,18 @@ class TimelineController < ApplicationController
 
 
   def show
-    @children = current_user.children    
+    @children = current_user.children
     @selected_child = @children.find_by_id(params[:child_id]) || @children.find_by_id(current_child.id)
     set_current_child @selected_child.id  unless params[:child_id].blank?
 
     @relatives = @selected_child.users
     @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media).order("created_at DESC")
-  end
 
+    max_by_cat = current_child.max_seen_by_category
+    @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title, 55) if max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
+    @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title, 55) if max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
+
+  end
 
   def add_entry    
     te = TimelineEntry.build_entry(params[:entry_type], params[:did_what], current_child, params[:details], params[:category], params[:media_id], params[:who])

@@ -1,7 +1,7 @@
 <% content_for :middle_bar do %>
   <div id="timeline-notice" class="round-corners">
     <img src="/images/child_head_small.png" />
-    <span><%= current_child.first_name %> has already...</span>
+    <span><%= current_child.first_name %> has already "<%= @child_has_str %>" , "<%= @child_has_weak %>"</span>
   </div>
 
 <% end %>
