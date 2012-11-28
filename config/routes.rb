@@ -156,9 +156,10 @@ Babyfolio::Application.routes.draw do
 
   # TIMELINE 
 
-  resources :relations, :only => [:destroy, :new, :create] do
-      get 'make-admin' => "relations#make_admin", :as => :make_admin      
+  resources :relations, :only => [:destroy, :create] do      
+      get 'make-admin' => "relations#make_admin", :as => :make_admin
   end
+  get 'new-relation/:child_id' => "relations#new", :as => :new_relation
 
   resources :user_sessions do
     collection do

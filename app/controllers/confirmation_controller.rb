@@ -38,6 +38,7 @@ class ConfirmationController < ApplicationController
     @user = @relation.user
     @edit = true
     @edit_password = true
+    reset_session
     UserSession.create(@relation.user)
     @user.update_attribute(:email_confirmed, true)
     unless current_user.is_temporary
@@ -85,13 +86,10 @@ class ConfirmationController < ApplicationController
     @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?
 
     if @user.errors.empty? && @user.save
-#        flash[:notice] = "Your settings has been sucessfully updated."
         redirect_to confirmation_accept_relations_path
     else
-#        flash[:notice] = "There was a problem with creating your account."
         render :accept_invitation
-    end
-     
+    end     
   end
 
   private

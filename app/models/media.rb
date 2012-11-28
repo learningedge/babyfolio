@@ -8,6 +8,7 @@ class Media < ActiveRecord::Base
 
     :profile_tiny => "32x32#",
     :profile_small => "50x50#",
+    :profile_small_invites => "75x75#",
     :profile_medium => "161x155#",
     :profile_large => "320x288#",
     :attachment_large => "310x310"

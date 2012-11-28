@@ -1,3 +1,10 @@
+<% if current_user.profile_media.present? %>
+  <style type="text/css">
+    .edit_user .qq-uploader .qq-img-preview {  background-image: url(<%= current_user.profile_media.image.url(:profile_medium) %> ); }
+  </style>
+<% end %>
+
+
 <%#= render "shared/error_messages", :target => user %>
 
 <div class="first-name row">

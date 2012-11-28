@@ -54,6 +54,11 @@ class Child < ActiveRecord::Base
     result
   end
 
+  def relation_to_current_user user
+    rel = self.relations.find_by_user_id(user.id)
+    rel.member_type if rel
+  end
+
   def formated_birth_date
     birth_date.strftime("%m/%d/%Y") unless birth_date.nil?
   end  

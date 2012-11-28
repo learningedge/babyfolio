@@ -72,12 +72,16 @@ a:visited { color: #0c8a9a; }
 a:hover { text-decoration: underline; }
 h4 { font-size: 15px; font-weight: bold; }
 ul { list-style:  none;}
+.left { float: left; }
+.right { float: right; }
 .clear {clear: both;height: 0px; overflow: hidden;}
 .hidden { display: none; }
 .italic { font-style: italic;}
 .bold {font-weight: bold !important; color: inherit; }
-.btn { display: inline-block; cursor: pointer; padding: 1px 5px; font: bold 12px Arial; border: 2px solid #64c3cf;  border-radius: 4px; background-image: none; background-color: #0c8a9a !important; color: #fff !important; text-decoration: none !important;}
+.btn { display: inline-block; cursor: pointer; padding: 2px 6px; font: bold 12px Arial; border: 2px solid #64c3cf;  border-radius: 4px; background-image: none; background-color: #0c8a9a !important; color: #fff !important; text-decoration: none !important;}
+.btn-grey { background-color: #989898 !important; border-color: #676767 !important }
 .btn:hover { background-color: #0dadc2 !important; border-color: #64c3cf !important; }
+.btn-grey:hover { background-color: #b8b8b8 !important; border-color: #676767 !important }
 .btn-big { font-size: 17px; padding: 5px 35px 5px 10px; background: url(/images/start_btn.png) no-repeat 105px center #0c8a9a; }
 .shadow { box-shadow: 2px 2px 5px #555; }
 .round-corners { border-radius: 4px; }
@@ -89,8 +93,8 @@ ul { list-style:  none;}
 html { height: 100%; }
 body { position: relative; min-height: 100%;  background: url(/images/content_wrapper_bg.png) repeat-x center top #fff;}
 .ui-widget-overlay { position: absolute; left: 0; top: 0; background-color: #000; opacity: 0.6;}
-.ui-dialog { background-color: #fff; padding: 7px; position: relative; }
-.ui-dialog .ui-dialog-titlebar { position: absolute; top: 5px; right: 10px; }
+.ui-dialog { background-color: #fff; padding: 7px; position: relative; display: inline-block; width: auto !important;}
+.ui-dialog .ui-dialog-titlebar { position: absolute; top: 10px; right: 15px; }
 .ui-dialog .ui-icon-closethick { text-indent: -9999px; text-transform: capitalize; background: url(/images/close_dialog.png) no-repeat center center; width: 25px; height: 26px; display: inline-block; }
 
 #header { background: url(/images/header_border_bottom.png) repeat-x center bottom #e2f4fc;}
@@ -242,8 +246,8 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #content-wrapper #accept-relations-wrapper .right-column .single-relation img { float: left; margin-right: 14px; border-radius: 4px; }
 #content-wrapper #accept-relations-wrapper .right-column .single-relation > div { width: 300px; margin-top: 10px;}
 #content-wrapper #accept-relations-wrapper .right-column .single-relation .btn { margin-top: 10px; margin-right: 8px; padding: 5px 7px; }
-#content-wrapper #accept-relations-wrapper .right-column .single-relation .btn.decline-btn { background-color: #989898; border-color: #676767 }
-#content-wrapper #accept-relations-wrapper .right-column .single-relation .btn.decline-btn:hover { background-color: #b8b8b8; border-color: #676767 }
+#content-wrapper .btn.decline-btn { background-color: #989898 !important; border-color: #676767 !important}
+#content-wrapper .btn.decline-btn:hover { background-color: #b8b8b8 !important; border-color: #676767 !important}
 #content-wrapper #accept-relations-wrapper .right-column .btn-big { background-position: 90px center; }
 /* REGISTRATION - 2ND STEP */
 
@@ -484,15 +488,68 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 /*    TIMELINE   */
 
 /* SETTINGS */
-#settings-wrapper .settings-edit-entry,
-#settings-wrapper .single-relation { float: left; width: 40%; border: 1px solid #ccc; border-radius: 4px; padding: 15px; }
-#settings-wrapper #change-password-wrapper { display: none; }
-#settings-wrapper .settings-edit-entry#add-relation-wrapper {float: none; width: auto;}
-#settings-wrapper .settings-edit-entry#add-relation-wrapper .btn { margin-left: 160px; }
+
+#settings-wrapper { width: 915px; margin: 10px auto 40px;}
+#settings-wrapper .setting-block { border: 1px solid #0c8a9a;  background-color: #d6ebf8; width: 408px; float: left; padding: 11px; position: relative;}
+#settings-wrapper #user-children-settings .setting-block{ background-color: #fdfbe2; border-color: #f26822; }
+#settings-wrapper .setting-block-left { margin-right: 38px; }
+#settings-wrapper .settings-invited,
+#settings-wrapper .settings-invitees { width: 430px; margin-top: 30px;}
+#settings-wrapper .settings-invitees { margin-right: 38px; }
+#settings-wrapper .settings-invitees .setting-header { font: bold 18px/22px Arial; margin-bottom: 8px; }
+#settings-wrapper .settings-invited .setting-header { font: bold 15px/22px Arial; margin-bottom: 8px; }
+#settings-wrapper .settings-invitees .settings-header .btn { padding: 2px 10px 2px 25px; background: url(/images/invite_plus.png) 10px center no-repeat; }
+#settings-wrapper .settings-invitees .invitees-image { width: 75px; height: 75px; margin-right: 10px; background: url(/images/img_upload.png) center center no-repeat; background-size: cover; }
+#settings-wrapper #child-invites { font: 12px/16px Arial; }
+#settings-wrapper #child-invites .invitees-buttons { position: absolute; bottom: 10px; right: 10px; }
+#settings-wrapper #child-invites .invitees-buttons .btn { margin-left: 10px; }
+#settings-wrapper .single-relation,
+#settings-wrapper #child-invites .setting-block { margin-bottom: 10px; }
+#settings-wrapper .single-relation .invitation-child-image{ width: 75px; height: 75px; margin-right: 10px; background: url(/images/img_upload_child_med.png) center center no-repeat; background-size: cover;  }
+#settings-wrapper .single-relation p { font-size: 12px; margin-bottom: 37px; }
+
+#user-children-settings .user-settings-details,
+#user-children-settings .child-settings-details { height: 158px; font: 15px/25px Arial; }
+#user-children-settings .childs-details-right { padding-left: 10px; }
+#user-children-settings .user-settings-details .btn,
+#user-children-settings .child-settings-details .btn { position: absolute; right: 10px; bottom: 10px; padding: 2px 15px; }
+#user-children-settings .user-settings-details .show-password-change { position: absolute; right: 155px; bottom: 18px; }
+#change-password-wrapper { display: none; }
+
+#add-relation-wrapper { border: 2px solid #f26722; padding: 20px; width: 400px; }
+#add-relation-wrapper h4 { text-align: center; font-size: 18px; margin-bottom: 20px}
+#add-relation-wrapper .chose-contacts-wrapper { border-bottom: 1px solid; padding-bottom: 20px; }
+#add-relation-wrapper .label { text-align: left; padding-left: 20px; vertical-align: middle;}
+#add-relation-wrapper .field { margin-right: 70px }
+#add-relation-wrapper input[type="text"] { width: 155px; }
+#add-relation-wrapper input[type="radio"] { display: inline-block; vertical-align: middle; }
+#add-relation-wrapper input[type="radio"]#is_admin_0 { margin-left: 15px; }
+#add-relation-wrapper .sbHolder { width: 110px; }
+#add-relation-wrapper .sbOptions { width: 107px; }
+h4.arvo.relation-added { width: 400px; padding-top: 40px; }
+#change-password-wrapper .validation-error,
+#add-relation-wrapper .validation-error { padding: 5px; width: 190px; border-radius: 4px; background-color: #fff; border: 1px solid;  }
+
+#change-password-wrapper,
+.dialog { border: 2px solid #f26722; padding: 20px; width: 400px !important; }
+#change-password-wrapper h4,
+.dialog h4 { text-align: center; font-size: 18px; margin-bottom: 20px }
+.dialog p { padding: 0 20px; }
+.dialog .dialog-buttons { padding: 0 20px; text-align: right; margin-top: 15px;}
+
+#change-password-wrapper input[type="password"] { width: 175px; }
+#change-password-wrapper .row { margin-bottom: 10px; }
+#change-password-wrapper .submit { margin-top: 20px; margin-bottom: 0;}
+#change-password-wrapper .submit .btn { margin-right: 46px }
+#change-password-wrapper { text-align: center; }
 
 /* USER EDIT */
 
 #user-edit .btn-big { background-position: 80px center; margin-left: 230px; margin-top: 30px; }
+
+/* CHILD EDIT */
+
+.edit_child .btn-big { background-position: 120px center; margin-left: 230px; margin-top: 30px; margin-bottom: 40px;}
 
 /* MAIN FOLIO PAGE */
 #child-folio-page .child-img { float: left; margin-right: 20px; }

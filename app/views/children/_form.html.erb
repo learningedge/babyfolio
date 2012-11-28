@@ -1,3 +1,9 @@
+<% if child.media.present? %>
+  <style type="text/css">
+    #new_child_form .edit_child .qq-uploader .qq-img-preview {  background-image: url(<%= child.media.image.url(:profile_medium) %> ); }
+  </style>
+<% end %>
+
 <div id="new_child_form">
 <%= form_for child do |f| -%>
       <%= f.hidden_field :id, :value => child.id if edit %>
@@ -30,7 +36,7 @@
         <span class="label">
             Your relationship
         </span>
-        <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
+        <%= select_tag :relation_type, options_for_select(Relation::TYPE_KEYS, child.relation_to_current_user(current_user)), {:class => "select-layout" } -%>
       </div>
 
   

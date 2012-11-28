@@ -97,6 +97,9 @@ class ApplicationController < ActionController::Base
       redirect_to new_child_children_path unless current_child
     end
 
+    def require_seen_behaviours
+        redirect_to initial_questionnaire_path if current_child.answers.where(:value => 'seen').count == 0
+    end
 
     def category_name(str)
       Question::CATS[str]

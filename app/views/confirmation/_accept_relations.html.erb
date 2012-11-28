@@ -1,12 +1,12 @@
   <% relations.each_with_index do |r,idx| %>
     <div class="single-relation">
-      <%= image_tag (r.child.media.blank? ? "/images/img_upload_child_med.png" : r.child.media.image.url(:medium)) %>
+      <%= image_tag (r.child.media.blank? ? "/images/img_upload_child_med.png" : r.child.media.image.url(:profile_medium)) %>
       <div>
         <p>
           <%  if r.child.first_name %>
-            <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %>, </span>
+            <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %></span>
           <% end %>
-          <%= r.inviter.relations.find_by_child_id(r.child.id).member_type.capitalize %> : <%= r.inviter.get_user_name %>
+          (<%= r.get_opposite_relation_type %> of <%= r.inviter.get_user_name %>)
         </p>
 
         <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
