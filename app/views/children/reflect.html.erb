@@ -2,76 +2,31 @@
   <span>Here is a summary of <%= current_child.first_name %>’s development profile.</span>
 <% end %>
 
-<div class="">
+<div>
   <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
-  <div id="reflect-column-wrapper">
-      
+  <div id="reflect-column-wrapper" class="left">
       <div id="all-reflected-items">
         <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
       </div>      
   </div>
-
-  <!--div id="even-reflect" class="hidden">
-    <div class="reflect-popup-static">
-      <h4>Even Development</h4>
-      <p>Hey! Looks like <span class="bold"><%= current_child.first_name %></span> is performing at the same level for all developmental stages.  Please check back after <%= current_child.replace_forms('#he/she#') %>  has exhibited other <span class="bold">WATCH behaviors</span> to see an update!</p>
-      <p>In the meantime, start playing with your baby now!</p>
-      <%= link_to "Play Now", '#', :class => 'btn' %>                    
-    </div>
-
-    <div id="reflect-column-wrapper" class="reflect-bottom-box">
-        <p>Write about a recent event where <span class="bold"><%= current_child.first_name %></span> performed one of the actions below and post it his timeline:</p>
-        <ul>
-          <li>
-            <a href="#">Pretended While Playing</a>
-            <div><img src="/images/reflect_icon_circle.png" /></div>
-          </li>
-          <li>
-            <a href="#">What is Right and Wrong</a>
-            <div><img src="/images/reflect_icon_circle.png" /></div>
-          </li>
-          <li>
-            <a href="#">Imitated Another Child</a>
-            <div><img src="/images/reflect_icon_circle.png" /></div>
-          </li>
-
-        </ul>
-        <div class="clear"></div>
-     </div>
-  </div-->
-
-  <div id="bottom-reflect">
-      <div class="clear"></div>
-      <h4>Reflect on <%= current_child.first_name %> ’s</h4>
-      <h4>Social Developement</h4>
-      <div id="reflect-column-wrapper" class="reflect-bottom-box">
-        <p>Write about a recent event where <span class="bold"><%= current_child.first_name %></span> performed one of the actions below and post it his timeline:</p>
-        <ul>
-          <li>
-            <a href="#">Pretended While Playing</a>
-            <div><img src="/images/reflect_icon_circle.png" /></div>
-          </li>
-          <li>
-            <a href="#">Learned What is Right and Wrong</a>
-            <div><img src="/images/reflect_icon_circle.png" /></div>
-          </li>
-          <li>
-            <a href="#">Imitated Another Child in Play</a>
-            <div><img src="/images/reflect_icon_circle.png" /></div>
-          </li>
-
-        </ul>
-        <div class="clear"></div>
-      </div>
+  <div id="reflect-content-window" class="left">
+    <h4>Even Development</h4>
+    <p>Hey! Looks like <span class="bold"><%= current_child.first_name %></span> is performing at the same level for all developmental stages.  Please check back after he has exhibited other WATCH behaviors to see an update!</p>
+    <p>In the meantime, start playing with your baby now!</p>
+    <%= link_to "Play now!", play_children_path, :class => "btn" %>
   </div>
+  <div id="reflect-to-timeline" class="left">
+            <%= render :partial => "reflect_timeline"  %>
+    <div id="reflect-to-timeline-cover"><span>You have successfully posted to <span class="bold"><%= current_child.first_name %></span> Timeline</span><span class="vertical-aligner"></span></div>
+  </div>
+  
+  <div class="clear"></div>
+</div>
 
-</div> 
 
-
-
-<div id="reflect-info-popup" style="" class="hidden">
+<div id="reflect-info-popup" class="hidden">
   <div id="reflect-info-popup-inner">
     <h3>Welcome to BabyFolio!</h3>
     <p>There are four important activities that are part of <span class="bold"><%= current_child.first_name %>'s</span>  BabyFolio.</p>
@@ -97,3 +52,30 @@
         });
       </script>
   <%  end %>
+
+  <script type="text/javascript">
+    $(function() {
+      if(1 != <%=  @lengths.size %>) {
+        updatePopup($('.single-reflected-item').first());
+      } else {
+        $('#reflect-to-timeline').hide();
+      }
+      
+      $('.single-reflected-item').click(function() {
+        updatePopup($(this));
+      });
+    });
+
+    function updatePopup(item) {
+        $('#reflect-to-timeline').show();
+        $('.single-reflected-item').removeClass('active-item');
+        details = $(item).find('.behaviour-details');
+        $(item).addClass('active-item');
+        $('#reflect-content-window').html($(item).find('.popup-wrapper').html());
+        $('#reflect-to-timeline .what').text($(details).attr('data-behaviour'));
+        $('#reflect-to-timeline #te_category').val($(details).attr('data-category'));
+        $('#reflect-to-timeline #did_what').val($(details).attr('data-behaviour'));
+        $('#reflect-to-timeline-cover').hide();
+        $('.img-wrapper').html('');
+    }
+  </script>

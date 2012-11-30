@@ -1,18 +1,15 @@
-
-<% single_item_width = 100; %>
     <% if answers %>
       <% answers.each_with_index do |(k,v), idx| %>
         <% f = true if type == "str" %>
         <% l = true if type == "weak" %>
-        <% curr_width = (v.first.question.age.to_f - @min.to_f) / @diff %>
-        
+        <% curr_width = @lengths[v.first.question.age] %>        
 
         <div class="single-reflected-item">
           <div class="cat-name"><%= category_name(k) %></div>
 
           <div class="reflect-icon reflect-icon-<%=  k %>"></div>
           <div class="reflect-bar-wrapper">
-              <div class="reflect-bar" style="width: <%= single_item_width * curr_width + 100 %>px">
+              <div class="reflect-bar" style="width: <%= curr_width %>px">
                   <div class="reflect-popup">
                     <div class="pointing-arrow"></div>
                     <div class="popup-wrapper">
@@ -36,6 +33,7 @@
 
                       <% end %>
                     </div>
+                    <a href="#" class="behaviour-details hidden" data-category="<%= k %>" data-behaviour="<%= m.observation_title.blank? ? "Empty title" : m.observation_title %>"></a>
                   </div>
               </div>
           </div>

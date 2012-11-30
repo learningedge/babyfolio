@@ -1,0 +1,60 @@
+<%= form_tag reflect_to_timeline_path, :remote => :true, :class => "reflect-to-form" do %>
+  <%= hidden_field_tag "te_category", nil %>
+  <p>Please reflect on and describe a recent time when <span class="bold"><%= current_child.first_name  %></span> <span class="what italic"></span>. What did this reveal about <span class="bold"><%= current_child.first_name  %></span>?</p>
+
+  <div id="reflect-to-timeline-inner">
+    <div id="reflect-to-timeline-inner-middle">
+
+      <p class="row"><%= current_child.first_name.capitalize %> <%= text_field_tag "did_what", nil %> for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+      <p><%= text_area_tag "details", nil, :placeholder => "add more details here...", :class => "row" %></p>
+
+      <div id="reflect-to-timeline-footer">
+        <%= submit_tag "Post", :class => 'btn', :disable_with => "Processing..." %>
+        <div id="entry-image-uploader" class="entry-image-uploader"></div>
+        <div class="clear"></div>
+        <div class="img-wrapper"></div>
+      </div>
+
+      <div class="clear"></div>
+    </div>   
+  </div>
+
+<% end  %>
+
+    <script type="text/javascript">
+      $(function() {
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('entry-image-uploader'),
+            action: '<%= create_photo_children_path -%>',
+            params: { },
+            onSubmit: function() {
+              var prev_img = $(this.element).parents('#reflect-to-timeline').find('.img-wrapper input[type="hidden"]').val();
+              if(prev_img) uploader.setParams({ previous_img : prev_img, size: 'attachment_large' });
+            },
+            onComplete: function(id, fileName, responseJSON){
+
+              $('.qq-upload-list li').each(function() {
+                if($(this).find('.qq-upload-file').text() == fileName);
+                $(this).fadeOut('slow');
+              });
+
+              var img = document.createElement('img');
+              img.src = responseJSON.img_url;
+              var hidden = document.createElement('input');
+              hidden.type = "hidden";
+              hidden.value = responseJSON.media_id;
+              hidden.name = "media_id"
+
+              $('#entry-image-uploader').parents('#reflect-to-timeline').find('.img-wrapper').html("").append(img).append(hidden);
+            }
+        });
+
+        $('.reflect-to-form').bind('ajax:success', function(xhr, data) {
+          updatePopup($(this).parents('.single-reflect-item'));
+          $('#reflect-to-timeline-cover').show();
+        });
+
+      });
+    </script>
+
+

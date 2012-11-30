@@ -25,7 +25,7 @@ class TimelineController < ApplicationController
     te.save
     
     redirect_to show_timeline_path
-  end
+  end  
 
   def add_from_popup
     te = TimelineEntry.build_entry(params[:entry_type], params[:content], current_child, params[:details], params[:category], nil, params[:who])
@@ -35,6 +35,15 @@ class TimelineController < ApplicationController
       format.html { render :text => "Sucessfully submited Timeline entry." }
     end
 
+  end
+
+  def reflect_to_timeline
+    te = TimelineEntry.build_entry("watch", params[:did_what], current_child, params[:details], params[:te_category], params[:media_id], params[:who])
+    te.save
+
+    respond_to do |format|
+      format.html { render :text =>  "Success"  }
+    end
   end
 
   def add_comment

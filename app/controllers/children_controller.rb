@@ -30,6 +30,7 @@ class ChildrenController < ApplicationController
   end
 
   def create_photo
+    size = params[:size].to_sym if params[:size]
     if params[:qqfile].kind_of? String
       ext = '.' + params[:qqfile].split('.').last
       fname = params[:qqfile].split(ext).first
@@ -44,7 +45,7 @@ class ChildrenController < ApplicationController
     current_user.media.find(params[:previous_img]).delete if params[:previous_img]
     media = MediaImage.create(:image => tempfile, :user => current_user)
     respond_to do |format|      
-      format.json { render :json => { "success" => "true", "media_id" => "#{media.id}", "img_url" => "#{media.image.url(:profile_medium)}"} }
+      format.json { render :json => { "success" => "true", "media_id" => "#{media.id}", "img_url" => "#{media.image.url(size || :profile_medium)}"} }
 #      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:profile_medium)}\"}" }
     end
   end
@@ -64,26 +65,41 @@ class ChildrenController < ApplicationController
     @str_answers = @answers.select{ |k,v| v.first.question.age > third_from_start.question.age }
     @weak_answers = @answers.select{ |k,v| v.first.question.age < third_from_end.question.age }
     @avg_answers = @answers - @str_answers - @weak_answers    
+
+
+    uniq_ages = @answers.map{ |k,v| v.first.question.age }.uniq.sort
+    @lengths = Hash.new
+    if uniq_ages.size == 1
+      @lengths[uniq_ages[0]] = 125
+    else
+      uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
+    end
     
-    @max = @answers.map{ |k,v| v.first.question.age }.max
-    @min = @answers.map{ |k,v| v.first.question.age }.min
-    @diff = @max - @min
 
-    @str_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
-                 <p><span>#{ current_child.first_name}</span> is developing more quickly at <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
-                 <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
-                 <p>We recommend the following play activities to further strengthen this development:</p>")    
-    @avg_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
-                 <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
-                 <p>Strengthen this development with these activities:</p>")
-    @weak_text = current_child.replace_forms("<h4><INTELLIGENCE></h4>
-                  <p>#{ current_child.first_name} is currently slower to develop in <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
-                  <p>Recently, #{ current_child.first_name} <WTitlePast>.</p>
-                  <p>Support their development with these activities:</p>")
 
-    @str_text = @str_text.gsub('<BABYNAME>', current_child.first_name)
-    @avg_text = @avg_text.gsub('<BABYNAME>', current_child.first_name)
-    @weak_text = @weak_text.gsub('<BABYNAME>', current_child.first_name)
+
+#    render :text => @lengths.inspect
+    
+    @str_text = current_child.replace_forms(
+                  "<h4>Strong Development</h4>
+                  <p>#{current_child.first_name} is showing promise at <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
+                  <p>Recently, #{current_child.first_name} Realized All Things Have Names.</p>
+                  <p>The following play activities will further boost this development:</p>
+                  <h5>Recommended Play Activities</h5>")
+      
+    @avg_text = current_child.replace_forms("
+                  <h4>Average Development</h4>
+                  <p>#{current_child.first_name} also shows social development based on the behavioral milestones #he/she# has already exhibited.</p>
+                  <p>Recently, #{current_child.first_name} pretended while playing.</p>
+                  <p>Support #his/her# continuing social development with these activities below.</p>
+                  <h5>Recommended Play Activities</h5>")
+
+
+    @weak_text = current_child.replace_forms("
+                  <h4>Needs Improvement in Development</h4>
+                  <p>#{current_child.first_name} is currently slower to develop in <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.  Recently, #{current_child.first_name} Felt Worried or Sad After Making a Mistake.</p>
+                  <p>Support #his/her# continuing emotional development with these activities below.</p>
+                  <h5>Supporting Activities</h5>")
   end
 
   def play

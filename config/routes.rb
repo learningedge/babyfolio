@@ -151,6 +151,7 @@ Babyfolio::Application.routes.draw do
   # TIMELINE
   post 'timeline/add-timeline-entry' => "timeline#add_entry", :as => :add_timeline_entry
   post 'timeline/add-basic-timeline-entry' => "timeline#add_from_popup", :as => :add_basic_entry
+  post 'timeline/reflect_to_timeline' => "timeline#reflect_to_timeline", :as => :reflect_to_timeline
   post 'timeline/add-comment' => "timeline#add_comment", :as => :add_timeline_comment
   get 'timeline/(:child_id)' => "timeline#show", :as => :show_timeline
 
