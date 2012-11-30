@@ -26,7 +26,7 @@
         var uploader = new qq.FileUploader({
             element: document.getElementById('entry-image-uploader'),
             action: '<%= create_photo_children_path -%>',
-            params: { },
+            params: { size: 'attachment_large' },
             onSubmit: function() {
               var prev_img = $(this.element).parents('#reflect-to-timeline').find('.img-wrapper input[type="hidden"]').val();
               if(prev_img) uploader.setParams({ previous_img : prev_img, size: 'attachment_large' });
