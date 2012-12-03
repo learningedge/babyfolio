@@ -40,7 +40,10 @@ Babyfolio::Application.routes.draw do
   match 'logout' => "user_sessions#destroy", :as => :logout
   match 'signup' => "users#new", :as => :signup
   match 'create-profile-photo' => "users#create_profile_photo", :as => :create_profile_photo
-  
+
+  resources :user_sessions do
+  end
+
   resources :children, :only => [:create, :edit, :update] do
     collection do
       get '/new' => "children#new", :as => :new_child
