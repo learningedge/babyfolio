@@ -258,8 +258,8 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #content-wrapper #registration-third .right-column #instruction-column #tip-number3 { height: 24px; background: url(/images/instr_circle3.png) no-repeat center top; margin-bottom: 5px; margin-top: 15px}
 #content-wrapper #registration-third .right-column #instruction-column p { font-weight: bold;font-size: 15px; }
 #content-wrapper #registration-third .right-column #questionnaire-column { float: left; }
-#content-wrapper #registration-third .right-column #questionnaire-column .single-question {  border: 2px solid #f08a47; background-color: #fdfbe2; margin-bottom: 7px; padding: 10px 10px 10px 70px; background-position: 10px center; background-repeat: no-repeat;}
-#content-wrapper #registration-third .right-column #questionnaire-column .single-question p { min-height: 55px; margin: 0 10px; width: 220px; display: inline-block; vertical-align: middle;}
+#content-wrapper #registration-third .right-column #questionnaire-column .single-question {  border: 2px solid #f08a47; background-color: #fdfbe2; margin-bottom: 7px; padding: 10px 10px 10px 60px; background-position: 5px center; background-repeat: no-repeat;}
+#content-wrapper #registration-third .right-column #questionnaire-column .single-question p { min-height: 55px; margin: 0 10px; width: 190px; display: inline-block; vertical-align: middle;}
 #content-wrapper #registration-third .single-question.single-e { background-image: url(/images/circle_e.png) }
 #content-wrapper #registration-third .single-question.single-l { background-image: url(/images/circle_l.png) }
 #content-wrapper #registration-third .single-question.single-ln { background-image: url(/images/circle_ln.png) }
@@ -267,7 +267,15 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #content-wrapper #registration-third .single-question.single-mv { background-image: url(/images/circle_mv.png) }
 #content-wrapper #registration-third .single-question.single-v { background-image: url(/images/circle_v.png) }
 #content-wrapper #registration-third .single-question.single-s { background-image: url(/images/circle_s.png) }
-#content-wrapper #registration-third .right-column #questionnaire-column .not-seen-link { color: #0c8a9a; background: none; border: none; width: 100%; text-align: center; font-size: 15px; margin: 15px 0; cursor: pointer;  }
+#content-wrapper #registration-third .seen-btn-wrapper { display: inline-block; vertical-align: middle;}
+#content-wrapper #registration-third .seen-btn-wrapper a { display: block; text-align: center; margin-bottom: 6px;}
+#content-wrapper #registration-third .right-column #questionnaire-column #finish-link-wrapper { text-align: center; }
+#content-wrapper #registration-third .right-column #questionnaire-column .not-seen-link { color: #0c8a9a; background: none; border: none; width: 100%; text-align: center; font-size: 15px; margin: 15px 0; cursor: pointer; }
+#content-wrapper #registration-third .single-question { position: relative; }
+#content-wrapper #registration-third .single-question .single-question-cover.current,
+#content-wrapper #registration-third .single-question .single-question-cover { width: 100%; height: 100%; position: absolute; top:0 ; left: 0; background-color: #fff; display: none; opacity: 0.7;}
+#content-wrapper #registration-third .single-question .single-question-cover.shown,
+#content-wrapper #registration-third .single-question .single-question-cover.completed { display: inline-block; }
 /* REGISTRATION - 3RD STEP */
 
 /* TOP TABS */

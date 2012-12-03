@@ -1,31 +1,26 @@
-
     <div id="all-initial-questions">
-      <%= form_tag({:action => :update_initial_questionnaire}, :remote => true, :class => 'not-seen-form') do %>
-        <% categories_answered.each do |c| %>
-          <%= hidden_field_tag 'categories_answered[]', c %>
-        <% end %>
-        <%= hidden_field_tag 'step', step %>
         <% questions.each do |key, qc| %>
-          <div class="single-question single-<%= key  %> ">
-            <%= render :partial => 'single_question', :locals => { :question => qc, :category => key} %>
+          <div class="single-question single-<%= key %>">
+            <%= render :partial => 'single_question', :locals => { :question => qc[0], :category => key, :completed => qc[1] } %>
           </div>
-        <% end %>
-      <%= submit_tag "I have not seen any of these behaviors.", :disable_with => 'Please wait...', :class => 'not-seen-link' %>
-      <div class="clear"></div>
-      <% end %>
+        <% end %>      
+      <div id="finish-link-wrapper"><%= link_to "Finish", child_reflect_children_path , :class => 'not-seen-link hidden' %></div>
     </div>
-
-
-
-
-
 
   <script type="text/javascript">
     $(function() {
       $('.not-seen-form').bind('ajax:complete', function(){
             $('.preloader').fadeOut();
-      });
+      });      
+      $('.single-question-cover:not(.completed)').addClass('shown').first().removeClass('shown');
+      showFinish();
     });
+
+    function showFinish() {
+      if($('.single-question-cover').length == $('.single-question-cover.completed').length) {
+        $('.not-seen-link').removeClass('hidden');
+      }
+    }
   </script>
 
 
