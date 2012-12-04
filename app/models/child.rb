@@ -61,7 +61,13 @@ class Child < ActiveRecord::Base
 
   def formated_birth_date
     birth_date.strftime("%m/%d/%Y") unless birth_date.nil?
-  end  
+  end
+
+  def get_image_src size, default = "/images/img_upload_child.png"
+    result = self.media.image.url(size)
+    result = default if result.blank?
+    result
+  end
 
   def months_old
     mnths = 0;

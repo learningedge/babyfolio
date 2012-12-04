@@ -15,8 +15,8 @@ class TimelineController < ApplicationController
     @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media).order("created_at DESC")
 
     max_by_cat = current_child.max_seen_by_category
-    @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
-    @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title) if max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
+    @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0] && max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
+    @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title) if max_by_cat[-1] && max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
 
   end
 

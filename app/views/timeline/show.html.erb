@@ -12,7 +12,7 @@
                 <%= select_tag "people", options_for_select(@children.map { |c| ["#{c.first_name}'s Profile", c.id] }.insert(0, ["Select baby", nil])), {:onChange => "changeChild(this);" } -%>                
       </div>
 
-      <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.media.image.url(:profile_large)})" if @selected_child.media.present? %>"></div>
+      <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.get_image_src(:profile_large, " ")})" %>"></div>
 
       <div id="add-entry-tabs">
         <ul>
@@ -59,7 +59,7 @@
     <ul id="timeline-right">
       <% @timeline_entries.each do |te| %>
       <li class="single-timeline-entry">
-          <span class="entry-avatar round-corners"><%= image_tag @selected_child.media.image.url(:profile_small) if @selected_child.media.present? %></span>
+          <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present?  %></span>
           <div class="single-timeline-entry-inner">
             <div class="te-arrow-left"></div>
             <div class="te-box">

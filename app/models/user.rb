@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   
   has_one :attachment, :as => :object
   has_one :profile_media, :through => :attachment, :source => :media
+  has_many :timeline_entries, :class_name => "TimelineEntry"
   
 
   scope :ids, select("users.id")
@@ -35,6 +36,12 @@ class User < ActiveRecord::Base
     else 
       return first_name.capitalize + " " + last_name.capitalize
     end
+  end
+
+  def get_image_src size, default = "/images/img_upload.png"
+    result = self.profile_media.image.url(size)
+    result = default if result.blank?
+    result
   end
 
   def add_object_error(str)

@@ -3,6 +3,7 @@ class TimelineEntry < ActiveRecord::Base
   has_many :comments, :through => :meta_entries, :source => :object, :source_type => "Comment"
   has_many :media, :through => :meta_entries, :source => :object, :source_type => "Media"
   has_one :child
+  belongs_to :user
 
   def self.build_entry type, did_what, child, desc = nil, category = nil, media = nil, who_id = nil
     te = TimelineEntry.new({ :entry_type => type, :child_id => child.id, :description => desc, :category => category})
