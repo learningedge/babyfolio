@@ -21,8 +21,8 @@
         <% active_dislike = "active" if a[:likes] == false %>
 
         <%= link_to "Timeline", "#dialog-timeline-#{a[:mid]}", :class => "show-dialog timeline-btn" %>
-        <%= link_to "Likes",  "#dialog-likes-#{a[:mid]}", :class => "show-dialog likes-btn #{active_like}",  :data_mid => "#{a[:mid]}", :onclick => "like(this); return false;" %>
         <%= link_to "Dislikes", "#dialog-dislikes-#{a[:mid]}", :class => "show-dialog dislikes-btn #{active_dislike}", :data_mid => "#{a[:mid]}", :onclick => "dislike(this); return false;" %>
+                <%= link_to "Likes",  "#dialog-likes-#{a[:mid]}", :class => "show-dialog likes-btn #{active_like}",  :data_mid => "#{a[:mid]}", :onclick => "like(this); return false;" %>
 
         <div id="dialog-timeline-<%= a[:mid] %>" class="play-dialog">
             <%= render :partial => 'timeline_popup', :locals => { :type => "play", :did_what => a[:title], :category => a[:category], :mid => a[:mid] } %>
@@ -58,7 +58,7 @@
                 <p><%= a[:learning_benefits] %></p>
             <% end %>
 
-            <h5 class="play-final-header">This is good for <%= current_child.first_name.capitalize %> because he has: </h5>
+            <h5 class="play-final-header">This Is Good For <%= current_child.first_name.capitalize %> Because <%= current_child.replace_forms("#He/She#") %>  Has: </h5>
             <ul class="play-popup-ms">
               <li><a href="<%= watch_children_path(:mid => a[:mid])  %>"><%= truncate(a[:ms_title], :length => 40) %></a></li>
             </ul>

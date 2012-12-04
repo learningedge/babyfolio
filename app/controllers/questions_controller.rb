@@ -75,13 +75,13 @@ class QuestionsController < ApplicationController
 #    end
 #  end
 #
-#  def initial_questionnaire_completed
-#    @qs_ms = current_child.max_seen_by_category
-#    @qs_ms.each do |q|
-#      TimelineEntry.create({ :entry_type => "reflect", :child_id => current_child.id, :title => q.milestone.title, :category => q.category})
-#    end
-#
-#    redirect_to child_reflect_children_path
-#  end
+  def initial_questionnaire_completed
+    @qs_ms = current_child.max_seen_by_category
+    @qs_ms.each do |q|
+      TimelineEntry.create({ :entry_type => "reflect", :child_id => current_child.id, :title => q.milestone.title, :category => q.category})
+    end
+
+    redirect_to child_reflect_children_path
+  end
 
 end

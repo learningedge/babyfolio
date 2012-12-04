@@ -2,6 +2,7 @@ class ChildrenController < ApplicationController
   layout "child", :only => [:reflect, :play, :watch]
   before_filter :require_user
   before_filter :require_child, :except => [:new,:create,:create_photo]
+  before_filter :require_seen_behaviours, :except => [:new,:create,:create_photo]
 
   def new
     @child = Child.new
@@ -46,39 +47,44 @@ class ChildrenController < ApplicationController
     media = MediaImage.create(:image => tempfile, :user => current_user)
     respond_to do |format|      
       format.json { render :json => { "success" => "true", "media_id" => "#{media.id}", "img_url" => "#{media.image.url(size || :profile_medium)}"} }
-#      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(:profile_medium)}\"}" }
     end
   end
 
-
   def reflect
-    @answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
-    @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }.reverse
-    @answers.each do |k,v|
-      max_age = v.max_by{ |a| a.question.age}.question.age      
-      v.delete_if{|a| a.question.age != max_age}
+    categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category} #.sort_by{ |k,v| v.age }.reverse
+    categorized_qs.each do |k,v|
+      categorized_qs[k] = v.first
     end
 
-    third_from_start = @answers[2][1].first
-    third_from_end = @answers[-3][1].first
-
-    @str_answers = @answers.select{ |k,v| v.first.question.age > third_from_start.question.age }
-    @weak_answers = @answers.select{ |k,v| v.first.question.age < third_from_end.question.age }
-    @avg_answers = @answers - @str_answers - @weak_answers    
-
-
-    uniq_ages = @answers.map{ |k,v| v.first.question.age }.uniq.sort
+    uniq_ages = categorized_qs.map{ |k,v| v.age }.uniq.sort
     @lengths = Hash.new
     if uniq_ages.size == 1
       @lengths[uniq_ages[0]] = 125
     else
       uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
     end
+
+    third_from_start = categorized_qs.values[2] 
+    third_from_end = categorized_qs.values[-3]
     
+    @str_answers = categorized_qs.reject{ |k,v| v.age <= third_from_start.age } unless third_from_start.nil?
+    @weak_answers = categorized_qs.reject{ |k,v| v.age >= third_from_end.age } unless third_from_end.nil?
+    @avg_answers = categorized_qs
+    @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
+    @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
 
-
-
-#    render :text => @lengths.inspect
+    @empty_answers = ActiveSupport::OrderedHash.new
+    Question::CATS.each do |k,v|
+      @empty_answers[k] = nil if categorized_qs[k].nil?
+    end
+    
+#    @answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
+#    @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }.reverse
+#    @answers.each do |k,v|
+#      max_age = v.max_by{ |a| a.question.age}.question.age
+#      v.delete_if{|a| a.question.age != max_age}
+#    end
+#
     
     @str_text = current_child.replace_forms(
                   "<h4>Strong Development</h4>

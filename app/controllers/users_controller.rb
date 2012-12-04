@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   layout "child", :only => [:settings]
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload, :settings, :update_password]
   before_filter :require_child, :only => [:settings]
-  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]    
+  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]
+  before_filter :require_seen_behaviours, :only => [:settings]
 
   def new    
     if !current_user and session[:temporary_user_id]

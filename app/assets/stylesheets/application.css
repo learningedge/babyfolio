@@ -337,6 +337,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #reflect-content-window h5{ font: bold 15px Arial; color: #f26722; margin-bottom: 10px;}
 #reflect-content-window p { font-size: 15px; margin-bottom: 10px; }
 #reflect-content-window p span { font-weight: bold;}
+#reflect-content-window .btn { margin-right: 10px; }
 
 #reflect-to-timeline { position: relative; background-color: #d6ebf8; padding: 10px; border: 1px solid #0c8a9a; width: 600px; margin-left: 30px; margin-top: 15px;}
 #reflect-to-timeline-inner { background-color: #fff; padding: 15px 0;}
@@ -455,9 +456,10 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #timeline-wrapper #timeline-left {width: 325px; float: left;}
 #timeline-wrapper .child-image-large {width: 320px; height: 288px; background-repeat: no-repeat; background-position: center center; background-size: cover; background-color: #eee; margin-top: 10px; background-image: url(/images/img_upload_child.png)}
 #timeline-wrapper #add-entry-tabs { background-color: #d6ebf8; border-top: 2px solid #84b2c0; border-left: 2px solid #84b2c0; border-right: 1px solid #288d9e; border-bottom: 1px solid #288d9e; margin-top: 10px; padding: 20px 8px 8px 8px;}
-#timeline-wrapper #add-entry-tabs .ui-tabs-nav li { display: inline-block; background: url(/images/tabs_border.png) no-repeat right 6px; }
+#timeline-wrapper #add-entry-tabs .ui-tabs-nav li { display: inline-block; background: url(/images/tabs_border.png) repeat-y right center; vertical-align: middle; width: 52px; padding-right: 5px; height: 30px; line-height: 10px; text-align: center;}
 #timeline-wrapper #add-entry-tabs .ui-tabs-nav li:last-child { background-image: none; }
-#timeline-wrapper #add-entry-tabs .ui-tabs-nav li a { font: 11px Arial; color: #0c8a9a; padding: 0 14px 0 13px; outline: none;}
+#timeline-wrapper #add-entry-tabs .ui-tabs-nav li a { font: 11px Arial; color: #0c8a9a; outline: none; display: inline-block; vertical-align: middle;}
+#timeline-wrapper #add-entry-tabs .ui-tabs-nav li .vertical-alignment { display: inline-block; height: 100%; width: 0px; vertical-align: middle; }
 #timeline-wrapper #add-entry-tabs .arrow-pointer { height: 13px; width: 100%; background-image: url(/images/tabs_arrow.png); background-repeat: no-repeat; }
 #add-play .arrow-pointer { background-position: 18px bottom; }
 #add-watch .arrow-pointer { background-position: 74px bottom; }
