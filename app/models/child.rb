@@ -64,7 +64,7 @@ class Child < ActiveRecord::Base
   end
 
   def get_image_src size, default = "/images/img_upload_child.png"
-    result = self.media.image.url(size)
+    result = self.media.image.url(size) if self.media
     result = default if result.blank?
     result
   end
