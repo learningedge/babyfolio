@@ -11,8 +11,10 @@
           <p class="row did-row"><%= did_what %></p>
 
         <% elsif type == "watch" %>
-          <p class="row"><%= current_child.first_name.capitalize %> <%= did_what %></p>
-          <p>for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+          <div class="watch-offset-wrapper">
+            <p class="row"><%= current_child.first_name.capitalize %> <%= did_what %></p>
+            <p>for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+          </div>
 
         <% else %>
           <p class="row"><%= current_child.first_name.capitalize %> <%= type%> </p>
@@ -21,11 +23,13 @@
 
         <p class="text-area-row"><%= text_area_tag "details", nil, :placeholder => "add more details here...", :class => "row" %></p>
 
-        <div id="entry-image-uploader-<%= "#{mid}_#{type}" %>" class="entry-image-uploader"></div>
-        <div class="img-wrapper"></div>
-
-
-        <%= submit_tag "Post", :class => 'btn' %>
+        <div class="popup-buttons-wrapper">
+          <%= submit_tag "Post", :class => 'btn' %>
+          <div id="entry-image-uploader-<%= "#{mid}_#{type}" %>" class="entry-image-uploader"></div>
+          <div class="clear"></div>
+          <div class="img-wrapper"></div>          
+          
+        </div>
       </div>
     </div>
   <div class="clear"></div>
@@ -34,17 +38,22 @@
 <% end %>
 
   <script type="text/javascript">
+          var key_t = '<%= Rails.application.config.session_options[:key] %>';
+          var forg_prot = "<%= form_authenticity_token %>";
+          
           $(function() {
             var uploader_<%= "#{mid}_#{type}" %> = new qq.FileUploader({
             element: document.getElementById('entry-image-uploader-<%= "#{mid}_#{type}" %>'),
             action: '<%= create_photo_children_path -%>',
-            params: { },
+            params: { key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
             onSubmit: function() {
               var prev_img = $(this.element).parents('.popup-frame-inner').find('.img-wrapper input[type="hidden"]').val();
-              if(prev_img) uploader_<%= "#{mid}_#{type}" %>.setParams({ previous_img : prev_img });
+              if(prev_img) uploader_<%= "#{mid}_#{type}" %>.setParams({
+                    previous_img : prev_img,
+                    key : key_t,
+                    "<%= request_forgery_protection_token %>" : forg_prot });
             },
             onComplete: function(id, fileName, responseJSON){
-
               $('.qq-upload-list li').each(function() {
                 if($(this).find('.qq-upload-file').text() == fileName);
                 $(this).fadeOut('slow');
@@ -56,8 +65,7 @@
               hidden.type = "hidden";
               hidden.value = responseJSON.media_id;
               hidden.name = "media_id"
-
-              console.log($('#entry-image-uploader-<%= "#{mid}_#{type}" %>').parents('.popup-frame-inner').find('.img-wrapper'));
+              
               $('#entry-image-uploader-<%= "#{mid}_#{type}" %>').parents('.popup-frame-inner').find('.img-wrapper').html("").append(img).append(hidden);
             }
         });

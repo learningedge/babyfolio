@@ -51,7 +51,7 @@ class ChildrenController < ApplicationController
   end
 
   def reflect
-    categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category} #.sort_by{ |k,v| v.age }.reverse
+    categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category}
     categorized_qs.each do |k,v|
       categorized_qs[k] = v.first
     end
@@ -77,14 +77,6 @@ class ChildrenController < ApplicationController
     Question::CATS.each do |k,v|
       @empty_answers[k] = nil if categorized_qs[k].nil?
     end
-    
-#    @answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
-#    @answers = @answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }.reverse
-#    @answers.each do |k,v|
-#      max_age = v.max_by{ |a| a.question.age}.question.age
-#      v.delete_if{|a| a.question.age != max_age}
-#    end
-#
     
     @str_text = current_child.replace_forms(
                   "<h4>Strong Development</h4>
@@ -203,28 +195,34 @@ class ChildrenController < ApplicationController
   def watch
     ms = []
     @behaviours = []
-    
-    answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
-    answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
-    answers.each do |k,v|
-      max_age = v.max_by{ |a| a.question.age}.question.age
-      v.delete_if{|a| a.question.age != max_age}
+    current_questions = []
+
+    questions = current_child.max_seen_by_category
+
+#    answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
+#    answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }    
+
+    questions.each do |q|      
+      current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
     end
+        
+#    render :text => current_questions.map{ |q| { q.category => q.age} }.inspect + "<br/><br/><br/>" + questions.map{ |q| { q.category => q.age} }.inspect
 
     if params[:mid]
       m = Milestone.includes(:questions).find_by_mid(params[:mid])
     end
-    
-    answers.each do |k,v|
-      if m.blank? || v.first.question.category != m.questions.first.category
-        ms  << {:category => v.first.question.category, :milestone => v.first.question.milestone }
+
+    current_questions.each do |q|
+      if m.blank? || q.category != m.questions.first.category
+        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
       else
-        ms  << { :category => m.questions.first.category, :milestone => m }
+        time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
+        ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
       end
     end
 
     ms.each do |m|
-        selected = true if m[:milestone].mid == params[:mid]         
+        selected = true if m[:milestone].mid == params[:mid]
         @behaviours << {
                          :category => m[:category],
                          :mid => m[:milestone].mid,
@@ -239,11 +237,14 @@ class ChildrenController < ApplicationController
                          :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
                          :why_important => current_child.replace_forms(m[:milestone].observation_what_it_means),
                          :theory => current_child.replace_forms(m[:milestone].research_background),
-                         :references => current_child.replace_forms(m[:milestone].research_references),                         
+                         :references => current_child.replace_forms(m[:milestone].research_references),
+                         :time => m[:time],
                          :selected => selected || false
                         }
     end
     @behaviours.first[:selected] = true unless @behaviours.any? { |a| a[:selected] == true }
+
+#    render :text => questions.first.age.to_s + " " + ms[-1][:milestone].questions.first.age.to_s
   end
 
   def get_adjacent_behaviour
@@ -257,11 +258,13 @@ class ChildrenController < ApplicationController
       order = "ASC"
     end
 
-    qs = Question.where(["age #{dir} ? AND questions.category = ? ", ms.questions.first.age, ms.questions.first.category ]).order("age #{order}").limit(1).first
-    age = current_child.answers.joins(:question).includes(:question).where(["questions.category = ? ", qs.category]).order('questions.age DESC').first.question.age
-    if age < qs.age
+    qs = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age #{dir} ?", ms.questions.first.age], :order => "questions.age #{order}", :limit => 1)
+    max_ans_age = current_child.questions.where(["questions.category = ? ", qs.category]).order('questions.age DESC').limit(1).first.age
+    qs_current = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age > ?", max_ans_age], :order => "questions.age ASC", :limit => 1)
+    
+    if qs_current.age < qs.age
       time = "future"
-    elsif age > qs.age
+    elsif qs_current.age > qs.age
       time = "past"
     else
       time = "current"
@@ -305,87 +308,7 @@ class ChildrenController < ApplicationController
     else
       @child = relation.child
       render :edit
-    end
-
-    
+    end   
   end
-
-  def add_friends
-  end
-
-  def add_family
-  end
-
-  def create_relations    
-    @friends = params[:friends]
-    user_emails = Array.new
-    users = Array.new
-    @error = false
-
-    @friends = @friends.select{ |f| f[1]['email'].strip.present?}
-    user_emails = @friends.map{|f| f[1]['email']}.uniq
-
-    
-    if user_emails.empty?
-      @error = true
-      @flash_error = "You need to enter at least one email";
-    end
-
-    unless @error
-      exist_users = User.where(['email IN (?)', user_emails]).all      
-
-      @friends.each do |f|
-        idx = exist_users.find_index{|u| u.email == f[1]['email']}
-        if idx
-          @user = exist_users[idx]
-        else
-          @user = User.new(:email => f[1][:email])
-          @user.reset_password
-          @user.reset_perishable_token
-          @user.reset_single_access_token
-        end
-
-        unless @user.valid?
-            @error = true
-            break
-        end        
-        @user.relations.find_or_initialize_by_child_id(current_child.id, :member_type => f[1][:member_type], :token => @user.perishable_token, :inviter => current_user)
-        @user.reset_perishable_token
-        users << @user
-      end
-    end
-    
-    unless @error
-      users.each do |user|
-        user.save
-        UserMailer.invite_user(user.relations.first{|r| r.child_id == current_child.id}, current_user).deliver
-      end
-      flash[:notice] = "Thanks fo inviting others. We have successfully sent emails to the other family & friends that you entered."
-      if params[:page] == 'add_family'
-        redirect_to child_profile_children_path
-      else
-        redirect_to add_family_children_path
-      end
-    else      
-      if params[:page] == 'add_friends'
-        flash.now[:error] = "Invalid emails!"
-        render :action => :add_friends
-      else
-        flash.now[:error] = "Invalid emails!"
-        render :action => :add_family
-      end
-    end
-  end
-
-
-  def info
-    if current_user.can_view_child? params[:id]
-      @child = Child.find(params[:id])
-    else
-      respond_to do |format|
-        format.html { redirect_to errors_permission_path }
-      end
-    end
-  end
-  
+ 
 end

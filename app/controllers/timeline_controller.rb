@@ -21,24 +21,45 @@ class TimelineController < ApplicationController
   end
 
   def add_entry    
-    te = TimelineEntry.build_entry(params[:entry_type], params[:did_what], current_child, params[:details], params[:category], params[:media_id], params[:who])
+    te = TimelineEntry.build_entry(params[:entry_type], 
+                                   params[:did_what],
+                                   current_child,
+                                   current_user,
+                                   params[:details],
+                                   params[:category],
+                                   params[:media_id],
+                                   params[:who])
     te.save
     
     redirect_to show_timeline_path
   end  
 
   def add_from_popup
-    te = TimelineEntry.build_entry(params[:entry_type], params[:content], current_child, params[:details], params[:category], nil, params[:who])
+    te = TimelineEntry.build_entry(params[:entry_type],
+                                   params[:content],
+                                   current_child,
+                                   current_user,
+                                   params[:details],
+                                   params[:category],
+                                   params[:media_id],
+                                   params[:who])
     te.save
 
     respond_to do |format|
-      format.html { render :text => "Sucessfully submited Timeline entry." }
+      format.html { render :text => '<h4 class="arvo success">Sucessfully submitted Timeline entry</h4>' }
     end
 
   end
 
   def reflect_to_timeline
-    te = TimelineEntry.build_entry("watch", params[:did_what], current_child, params[:details], params[:te_category], params[:media_id], params[:who])
+    te = TimelineEntry.build_entry("watch",
+                                   params[:did_what],
+                                   current_child,
+                                   current_user,
+                                   params[:details],
+                                   params[:te_category],
+                                   params[:media_id],
+                                   params[:who])
     te.save
 
     respond_to do |format|

@@ -36,6 +36,14 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def update_watched
+    ms = Milestone.includes(:questions).find_by_mid(params[:mid])
+    Answer.find_or_create_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
+    respond_to do |format|
+        format.html { render :text => 'success' }
+    end
+  end
+
 #  def update_initial_questionnaire
 #    @step = params[:step].to_i
 #    @cat_ans = params[:categories_answered] || Array.new

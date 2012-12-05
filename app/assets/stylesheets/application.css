@@ -408,7 +408,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #activities-wrapper .single-activity .play-icons-corner .likes-btn:hover { background: url(/images/thumb_up_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .likes-btn.active { background: url(/images/thumb_up_active.png) no-repeat center center !important;}
 #activities-wrapper .single-activity .play-icons-corner .seen-tick-btn { background: url(/images/tick_btn.png) no-repeat center center;}
-#activities-wrapper .single-activity .play-icons-corner .seen-tick-btn.active { background: url(/images/tick_btn_active.png) no-repeat center center !important;}
+#activities-wrapper .single-activity.past .play-icons-corner .seen-tick-btn { background: url(/images/tick_btn_active.png) no-repeat center center !important;}
 #activities-wrapper .single-activity .play-icons-corner .seen-tick-btn:hover { background: url(/images/tick_btn_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn { background: url(/images/thumb_down.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn:hover { background: url(/images/thumb_down_hover.png) no-repeat center center;}
@@ -436,14 +436,25 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 
 .play-dialog { display: none; background-color: #fff;}
 .play-dialog h4{ font-size: 15px; line-height: 30px;}
-.play-dialog .popup-frame { margin-top: 10px; border-right: 1px solid #288d9e; border-bottom: 1px solid #288d9e; border-left: 2px solid #8db4c1; border-top: 2px solid #8db4c1}
+.play-dialog h4.success { padding: 40px 20px; }
+.play-dialog .popup-frame { margin-top: 10px; border-right: 1px solid #288d9e; border-bottom: 1px solid #288d9e; border-left: 2px solid #8db4c1; border-top: 2px solid #8db4c1; width: 300px;}
 .play-dialog .popup-frame-inner { border: 8px solid #d6ebf8; padding: 10px;}
 .play-dialog .sbHolder { width: 130px; text-align: left;}
 .play-dialog .row { text-align: center; margin-bottom: 3px;}
 .play-dialog .text-area-row { margin-top: 10px; }
-.play-dialog .text-area-row textarea { width: 235px; }
+.play-dialog .text-area-row textarea { width: 240px; text-align: left;}
+.play-dialog .qq-uploader { width: auto; }
 .play-dialog .qq-img-preview { display: none; }
 .play-dialog .qq-upload-button { height: auto; }
+.play-dialog .qq-upload-list { list-style: none; left: 220px; }
+.play-dialog .qq-upload-list li { border-radius: 4px; background-color: #fff; padding: 3px 6px;  }
+.play-dialog .entry-image-uploader { float: right; }
+.play-dialog .popup-buttons-wrapper { margin-top: 5px; }
+.play-dialog .btn { float: right; }
+.play-dialog .img-wrapper {text-align: center;  }
+.play-dialog .img-wrapper img { border-radius: 4px; margin-top: 10px; }
+.play-dialog .watch-offset-wrapper { text-align: left; padding-left: 75px; }
+.play-dialog .watch-offset-wrapper .row { text-align: left; }
 
 /* PLAY */
 

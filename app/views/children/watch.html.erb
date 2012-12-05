@@ -7,11 +7,11 @@
   <div class="left-column">              
         <ul id="activities-wrapper">
           <% @behaviours.each do |a| %>
-            <%= render :partial => 'watch_single', :locals => { :item => a, :time => 'current' } %>
+            <%= render :partial => 'watch_single', :locals => { :item => a, :time => a[:time] } %>
           <% end %>
         </ul>
     
-      <div class="clear"></div>      
+        <div class="clear"></div>
   </div>
   <div class="right-column right-column-watch"></div>
 
@@ -46,10 +46,19 @@
       });
 
       $('.te-form').live("ajax:success", function(xhr,data) {
-          $(this).parents('.play-dialog').html(data).dialog('close');
+          $(this).parents('.play-dialog').html(data);
       });
 
+      $('.seen-tick-btn').live('ajax:before',function() {
+        $('.single-activity').removeClass('selected');
+        $(this).parents('.single-activity').removeClass('current future').addClass('past selected');
+        $(this).parents('.single-activity').find('.play-popup').removeClass('current future').addClass('past');
+        showPlayPopup($(this).parents('.single-activity').find('.activity-title-link'));
+      });
 
+      $('.seen-tick-btn').live('ajax:success',function() {
+        $(this).parents('.single-activity').find('.next-activity-link').click();
+      });
     });
 
     function showPlayPopup(title) {
@@ -61,5 +70,8 @@
         $('.right-column').find('.pointing-arrow').css({top : $('.single-activity.selected').position().top + 30});
         $('.right-column .popup-wrapper').css({minHeight: $('#activities-wrapper').height() });
     }
+
+
+
 
   </script>

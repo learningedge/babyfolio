@@ -18,20 +18,15 @@
       </div>
       <div class="activity-setup"><%= item[:subtitle] %></div>
       <div class="play-icons-corner">
-
         <%= link_to "Timeline", "#dialog-timeline-#{item[:mid]}", :class => "show-dialog timeline-btn" %>
-        <%= link_to "Seen this", "#dialog-timeline-#{item[:mid]}", :class => "show-dialog seen-tick-btn" %>
+        <%= link_to "Seen this", update_watched_path(:mid => item[:mid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
 
         <div id="dialog-timeline-<%= item[:mid] %>" class="play-dialog">
             <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title].gsub('"' , ' ').strip , :category => item[:category], :mid => item[:mid] } %>
-        </div>
-
-        
-        
+        </div>                
       </div>
     </div>
     <div class="clear"></div>
-
 
     <div class="play-popup <%= time %>">
       <div class="pointing-arrow"></div>

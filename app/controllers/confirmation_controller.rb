@@ -1,8 +1,8 @@
 class ConfirmationController < ApplicationController
 
-  skip_before_filter :require_confirmation
+#  skip_before_filter :require_confirmation
   before_filter :require_user, :only => [:index, :re_send_email]
-  before_filter :require_no_confirmation, :only => [:index, :re_send_email]
+#  before_filter :require_no_confirmation, :only => [:index, :re_send_email]
 
   def index
     @user = current_user
@@ -92,13 +92,13 @@ class ConfirmationController < ApplicationController
     end     
   end
 
-  private
-
-  def require_no_confirmation
-    if current_user.email_confirmed
-      redirect_to child_profile_children_url
-      flash[:notice] = "Your email is confirmed already."
-    end
-  end
+#  private
+#
+#  def require_no_confirmation
+#    if current_user.email_confirmed
+#      redirect_to child_profile_children_url
+#      flash[:notice] = "Your email is confirmed already."
+#    end
+#  end
 
 end
