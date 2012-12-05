@@ -192,7 +192,7 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 /* GLOBAL LAYOUT */
 
 /* HOME */
-#content-wrapper #home .left-column #featured-in-text { font-size: 20px; margin: 5px 0;}
+#content-wrapper #home .left-column #featured-in-text { font-size: 20px; margin: 15px 0;}
 #content-wrapper #home .right-column { padding: 60px 0 0 50px;}
 #content-wrapper #home .right-column #circle-display {background: url(/images/mid_arrows.png) no-repeat 52% 45%; padding-left: 10px; }
 #content-wrapper #home .right-column h1 { color: #f26a21; font-size: 30px; margin: 0 auto;}
