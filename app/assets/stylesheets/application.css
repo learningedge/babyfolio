@@ -192,6 +192,7 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 /* GLOBAL LAYOUT */
 
 /* HOME */
+#content-wrapper #home .left-column { height: auto !important; }
 #content-wrapper #home .left-column #featured-in-text { font-size: 20px; margin: 15px 0;}
 #content-wrapper #home .right-column { padding: 60px 0 0 50px;}
 #content-wrapper #home .right-column #circle-display {background: url(/images/mid_arrows.png) no-repeat 52% 45%; padding-left: 10px; }
@@ -315,7 +316,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #reflect-column-wrapper .str-text { margin-left: 45px; font: 12px Arial; margin-top: 10px; margin-bottom: 10px; }
 #reflect-column-wrapper .cat-name { color: #1fa9bb; margin-left: 45px; font: 15px Arial; }
 #reflect-column-wrapper .reflect-bar-wrapper { border: 2px solid #e3e2e2; width: 250px; float: left;}
-#reflect-column-wrapper .single-reflected-item { position: relative; padding: 6px 25px 6px 0; border: 1px solid #fff;}
+#reflect-column-wrapper .single-reflected-item { position: relative; padding: 6px 25px 6px 0; border: 1px solid #fff; cursor: pointer;}
 #reflect-column-wrapper .single-reflected-item .reflect-icon { width: 26px; height: 23px; float: left; padding: 0 9px; }
 #reflect-column-wrapper .single-reflected-item .reflect-icon-s { background: url(/images/icon_teal_s.png) no-repeat center center; }
 #reflect-column-wrapper .single-reflected-item .reflect-icon-l { background: url(/images/icon_teal_l.png) no-repeat center center; }
@@ -370,6 +371,8 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #left-column-additional-info { width: 315px; font: 15px Arial; padding: 15px;}
 .content-inner-wrapper .right-column-play,
 .content-inner-wrapper .right-column-watch{ float: left; padding-left: 0;}
+
+.right-column-play .play-popup.future .popup-wrapper .show-future { background: url(/images/sun1.png) no-repeat left center; line-height: 37px;}
 #play-wrapper .left-column .pagination { text-align: right; font-size: 10px; margin-bottom: 10px;}
 #play-wrapper .left-column .pagination p { font-size: 10px; }
 #activities-wrapper { background-color: #d6ebf8; box-shadow: 2px 2px 3px #bbb; padding: 12px 8px; position: relative;}
@@ -416,6 +419,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #activities-wrapper .single-activity img { border: none; }
 
 .play-popup { display: none; width: 610px; padding-left: 31px; background: none; position: relative;}
+.play-popup .pointing-arrow { position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: 0;}
 .play-popup .popup-wrapper { background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px;}
 .play-popup.future .popup-wrapper .show-future { display: block; padding-left: 42px; background: url(/images/sun.png) no-repeat left center; line-height: 32px; font-size: 12px; margin-bottom: 10px}
 .play-popup.past .popup-wrapper .show-past { display: block; padding-left: 36px; background: url(/images/tick_green.png) no-repeat left center; line-height: 26px; font-size: 12px; margin-bottom: 10px}

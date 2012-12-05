@@ -12,6 +12,7 @@ db/schema.rb
 
 
 *.rbc
+*.log
 *.sassc
 .sass-cache
 capybara-*.html
