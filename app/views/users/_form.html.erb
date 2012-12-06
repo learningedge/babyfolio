@@ -72,12 +72,15 @@
 </div>
 
 
-  <script type="text/javascript">
+<script type="text/javascript">
+var key_t = '<%= Rails.application.config.session_options[:key] %>';
+var forg_prot = "<%= form_authenticity_token %>";
+
   $(function() {
     var uploader = new qq.FileUploader({
         element: document.getElementById('file-registration-uploader'),
         action: '<%= create_profile_photo_path -%>',
-        params: {},
+        params: { key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
         onComplete: function(id, fileName, responseJSON){
 
           $('.qq-upload-list li').each(function() {

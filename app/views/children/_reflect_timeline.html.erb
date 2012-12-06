@@ -22,14 +22,18 @@
 <% end  %>
 
     <script type="text/javascript">
+      var key_t = '<%= Rails.application.config.session_options[:key] %>';
+      var forg_prot = "<%= form_authenticity_token %>";
+
       $(function() {
         var uploader = new qq.FileUploader({
             element: document.getElementById('entry-image-uploader'),
             action: '<%= create_photo_children_path -%>',
-            params: { size: 'attachment_large' },
+            params: { size: 'attachment_large', key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
             onSubmit: function() {
               var prev_img = $(this.element).parents('#reflect-to-timeline').find('.img-wrapper input[type="hidden"]').val();
-              if(prev_img) uploader.setParams({ previous_img : prev_img, size: 'attachment_large' });
+              if(prev_img) uploader.setParams({ previous_img : prev_img, size: 'attachment_large',
+              key : key_t, "<%= request_forgery_protection_token %>" : forg_prot});
             },
             onComplete: function(id, fileName, responseJSON){
 

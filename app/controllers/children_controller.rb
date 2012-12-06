@@ -45,8 +45,8 @@ class ChildrenController < ApplicationController
 
     current_user.media.find(params[:previous_img]).delete if params[:previous_img]
     media = MediaImage.create(:image => tempfile, :user => current_user)
-    respond_to do |format|      
-      format.json { render :json => { "success" => "true", "media_id" => "#{media.id}", "img_url" => "#{media.image.url(size || :profile_medium)}"} }
+    respond_to do |format|
+      format.html { render :text => "{\"success\":\"true\", \"media_id\":\"#{media.id}\", \"img_url\":\"#{media.image.url(size || :profile_medium)}\"}" }      
     end
   end
 

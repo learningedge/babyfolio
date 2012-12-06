@@ -2,7 +2,6 @@
   <span>Here are <%= current_child.first_name %>’s most important developments:</span>
 
 <% end %>
-
 <div>
   <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
   <div id="reflect-column-wrapper" class="left">
@@ -44,6 +43,7 @@
   </div>
 </div>
 
+  
  <% if session[:reflect_popup] %>
       <% session[:reflect_popup] = nil %>
       <%= javascript_include_tag 'jqModal' -%>

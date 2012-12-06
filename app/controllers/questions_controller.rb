@@ -3,14 +3,15 @@ class QuestionsController < ApplicationController
   skip_before_filter :clear_family_registration
 
 
-  def initial_questionnaire
+  def initial_questionnaire    
     @step = 1    
     @age = current_child.months_old
     @q_age = Question.select_ages(@age, '<=', 1, 'DESC').first.age    
     @questions = Question.find_all_by_age(@q_age).group_by{|q| q.category}
     @questions.each do |k,v|
       @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
-    end            
+    end
+    session[:reflect_popup] = true
   end
 
   def update_seen
@@ -89,6 +90,7 @@ class QuestionsController < ApplicationController
       TimelineEntry.create({ :entry_type => "reflect", :child_id => current_child.id, :title => q.milestone.title, :category => q.category, :user => current_user })
     end
 
+    session[:reflect_popup] = true
     redirect_to child_reflect_children_path
   end
 
