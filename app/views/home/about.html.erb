@@ -1,0 +1,59 @@
+<% content_for :middle_bar do %>
+    <span>About Us</span>
+<% end %>
+
+
+<p id="our-mission">Our Mission: We help babies thrive.</p>
+
+      <div id="about-tabs">
+        <ul id="about-tabs-ul">
+          <li><a href="#overview-tab">Overview</a><span class="vertical-alignment"></span></li>
+          <li><a href="#manifesto-tab" id="manifest-tab-btn">Our Parenting Manifesto</a><span class="vertical-alignment"></span></li>
+          <li><a href="#who-tab">Who We Are</a><span class="vertical-alignment"></span></li>
+        </ul>
+
+        <div id="overview-tab" class="tab">
+          <div class="pointing-arrow"></div>
+
+            <h4>Overview</h4>
+            <p>Children, like snowflakes, are unique. <span class="bold">BabyFolio</span> encourages and supports parents to find the unique patterns and provide the right “Quality Play” (or "Foundational Play") that will help them thrive. </p>
+
+            <h5>Our Mission</h5>
+            <p>We help baby’s thrive.<br/><br/> Every baby is different. Our goal is to enable parents to better understand their unique baby and provide more responsive and individualized support so that baby thrives. We do this by promoting real engagement between parents and babies as they build strong and intimate relationships. <span class="bold">BabyFolio</span> instills confidence and piece of mind for parents because they know that they are doing everything they can to give baby the best possible start. (Find out more, read our <a href="#" id="manifesto-tab-link">Parenting Manifesto</a>)</p>
+
+            <h5>What we do</h5>
+            <p>Zero in on what matters most - We ACT on the understanding that every baby is different. <span class="bold">BabyFolio</span> empowers parents to identify the most important developments occurring in their baby’s life and then offers tailored tips, activities, and resources so those babies will have the best possible start in life. </p>
+            <p>Provide a private social network—We enable parents to engage the “village” of people that spend time with and care about baby so that they also can learn from and contribute to better understanding and better supporting baby’s optimal learning and development.</p>
+            <p>Build a lasting archive and record–<span class="bold">BabyFolio</span> accumulates interesting and insightful information effortlessly while working on what matters most and engaging baby’s social network,  The result is an amazing “21st century” babybook shining a light on meaningful patterns that develop over time and allows the "trying on" of developmental lenses to leverage that information for baby’s lifelong happiness.</p>
+
+            <h5>How it works </h5>
+            <p class="paragraph p1">The service starts by asking you to “Reflect” on the specific behaviors you have seen your child performing across important developmental areas such as language, logic & numbers, and social development. For example, if your child is 9 months old, we might ask if you have seen your baby pointing at things yet. Unlike sites that assume all babies are doing the same thing at the same age we understand that there is an extremely broad range around any given milestone or developmental behavior as to when it may occur. So we take the time to find out exactly what your baby is doing and when.</p>
+            <p class="paragraph p2">Once we have zeroed in on the pace of important developments or “learning windows”, we provide “Play” ideas and activities to enrich those developments and provide the strongest foundations possible. These learning windows are sensitive periods where your child is eager to exercise their newfound skills & interests. Engaging in Quality Play experiences when baby’s interest is highest will strengthen learning and lays a foundation for robust future development.</p>
+            <p class="paragraph p3">In addition to supporting current learning windows, <span class="bold">BabyFolio</span> signals you to “Watch” for the next set of natural development behaviors that will be on the horizon. We provide information about the learning windows so that you can better understand why they are so important to that area of development. We bring to your attention the behaviors that may follow their current developments and ask you to identify them when they start so that we can begin a new set of Quality Play activities at just the right time.</p>
+            <p class="paragraph p4">As you utilize the site and post your observations about what you have seen and what you are doing, the “Timeline” helps you capture and share your baby’s development with others who have interest or participate in these developments. The timeline not only provides a nice record of your baby’s development but is also an excellent place for people who spend time with and / or care about your baby to share their insights and thoughts.</p>
+        </div>
+        <div id="manifesto-tab" class="tab">
+          <div class="pointing-arrow"></div>
+          <h4>Our Parenting Manifesto</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus condimentum volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam semper feugiat tempus. Sed id enim massa, sed sodales turpis. Cras nisi erat, luctus sed aliquam in, eleifend in dui. Proin fermentum tincidunt bibendum.</p>
+          <p> Ut adipiscing nisi vitae orci consequat cursus. Ut nec sem a leo dictum rutrum at quis diam. Pellentesque semper eleifend purus, in sagittis orci consectetur eget.</p>
+        </div>
+        <div id="who-tab" class="tab">
+          <div class="pointing-arrow"></div>
+          <h4>Who We Are</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus condimentum volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam semper feugiat tempus. Sed id enim massa, sed sodales turpis. Cras nisi erat, luctus sed aliquam in, eleifend in dui. Proin fermentum tincidunt bibendum.</p>
+          <p> Ut adipiscing nisi vitae orci consequat cursus. Ut nec sem a leo dictum rutrum at quis diam. Pellentesque semper eleifend purus, in sagittis orci consectetur eget.</p>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+
+<script type="text/javascript">
+  $(function() {
+      $('#about-tabs').tabs({active: 0});
+
+      $('#manifesto-tab-link').click(function() {
+        $('#manifest-tab-btn').click();        
+      });
+    });
+</script>

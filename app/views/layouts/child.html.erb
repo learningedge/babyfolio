@@ -8,13 +8,14 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body id="page-child">
+<body id="page-child" class="<%= controller.action_name %>">
     <div id="header">
-      <span id="header-text"><%= "#{current_child.first_name}'s" if current_child %></span>
+      <span id="header-text"><%= "#{current_child.first_name}'s" if current_user && current_child %></span>
       <span id="logo-wrapper"><a href="/">Babyfolio</a></span>
       <div id="login-wrapper">
           <%= render :partial => "user_sessions/login_form" %>
       </div>
+      <div class="clear"></div>
     </div>
     <div id="orange-nav">
       <div class="inner-wrapper">

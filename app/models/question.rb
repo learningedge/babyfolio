@@ -29,8 +29,8 @@ class Question < ActiveRecord::Base
     "v" => "Visual",
 #    "v" => "Visual & Spatial Reasoning",
     "mv" => "Movement",
-    "e" => "Emotional",
-    "m" => "Music"
+#    "e" => "Emotional",
+#    "m" => "Music"
   }
   
   CATEGORIES = [
