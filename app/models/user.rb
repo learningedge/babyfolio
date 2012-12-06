@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   end
 
   def get_image_src size, default = "/images/img_upload.png"
-    result = self.profile_media.image.url(size)
+    result = self.profile_media.image.url(size) if self.profile_media.present?
     result = default if result.blank?
     result
   end

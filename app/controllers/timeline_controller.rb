@@ -5,9 +5,8 @@ class TimelineController < ApplicationController
   before_filter :require_child
   before_filter :require_seen_behaviours, :only => [:show]
 
-
-  def show
-    @children = current_user.children
+  def show_timeline
+    @children = current_user.children    
     @selected_child = @children.find_by_id(params[:child_id]) || @children.find_by_id(current_child.id)
     set_current_child @selected_child.id  unless params[:child_id].blank?
 
@@ -18,6 +17,8 @@ class TimelineController < ApplicationController
     @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0] && max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
     @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title) if max_by_cat[-1] && max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
 
+    @timeline_visited = current_user.timeline_visited
+    current_user.update_attribute(:timeline_visited, true)
   end
 
   def add_entry    
@@ -48,7 +49,6 @@ class TimelineController < ApplicationController
     respond_to do |format|
       format.html { render :text => '<h4 class="arvo success">Sucessfully submitted Timeline entry</h4>' }
     end
-
   end
 
   def reflect_to_timeline
