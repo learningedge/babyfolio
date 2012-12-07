@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
   
   def send_contact msg
        @msg = msg
-       mail(:to => "team@codephonic.com", :subject => "New Contact Us Submission")
+       mail(:to => "tickets@baby1.uservoice.com", :subject => "New Contact Us Submission")
   end
 
 end
