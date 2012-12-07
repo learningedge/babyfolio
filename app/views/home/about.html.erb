@@ -1,5 +1,5 @@
 <% content_for :middle_bar do %>
-    <span>About Us</span>
+    <span><%= params[:is_contact] ? "Contact Us" : "About Us" %></span>
 <% end %>
 
 
@@ -7,9 +7,10 @@
 
       <div id="about-tabs">
         <ul id="about-tabs-ul">
-          <li><a href="#overview-tab">Overview</a><span class="vertical-alignment"></span></li>
-          <li><a href="#manifesto-tab" id="manifest-tab-btn">Our Parenting Manifesto</a><span class="vertical-alignment"></span></li>
-          <li><a href="#who-tab">Who We Are</a><span class="vertical-alignment"></span></li>
+          <li><a href="#overview-tab">Overview</a></li>
+          <li><a href="#manifesto-tab" id="manifest-tab-btn">Our Parenting Manifesto</a></li>
+          <li><a href="#who-tab">Who We Are</a></li>
+          <li><a href="#contact-tab">Contact Us</a></li>
         </ul>
 
         <div id="overview-tab" class="tab">
@@ -44,16 +45,28 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus condimentum volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam semper feugiat tempus. Sed id enim massa, sed sodales turpis. Cras nisi erat, luctus sed aliquam in, eleifend in dui. Proin fermentum tincidunt bibendum.</p>
           <p> Ut adipiscing nisi vitae orci consequat cursus. Ut nec sem a leo dictum rutrum at quis diam. Pellentesque semper eleifend purus, in sagittis orci consectetur eget.</p>
         </div>
+        <div id="contact-tab" class="tab">
+          <div class="pointing-arrow"></div>
+          <div id="contact-tab-inner">
+            <%= render :partial => "contact_form" %>
+          </div>
+        </div>
+
         <div class="clear"></div>
       </div>
 
 
 <script type="text/javascript">
   $(function() {
-      $('#about-tabs').tabs({active: 0});
+      $('#about-tabs').tabs({active: <%= params[:is_contact] ? 3 : 0 %> });
+      $('#about-tabs #contact-us-form .btn').removeAttr('disabled');
 
       $('#manifesto-tab-link').click(function() {
         $('#manifest-tab-btn').click();        
+      });
+
+      $('#contact-us-form').live('ajax:success',function(xhr, data) {
+        $('#contact-tab-inner').html(data);
       });
     });
 </script>

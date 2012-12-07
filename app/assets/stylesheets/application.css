@@ -138,7 +138,8 @@ input[type="password"]{ width: 150px; padding: 4px 10px; border-radius: 4px; box
 .row .label { display: inline-block; width: 140px; text-align: right; margin-right: 13px;}
 .row .field-error-input { position: relative; }
 .row .field-error-input label{ color: #ed1f24; }
-.row .field-error-input input { border-color: #ed1f24; }
+.row .field-error-input input,
+.row .field-error-input textarea{ border-color: #ed1f24; }
 .row input[type="text"],
 .row input[type="password"] { width: 225px;}
 .row .validation-error { position: absolute; left: 105%; top: 0; width: 450px; font: bold 11px Arial; color: #ed1f24}
@@ -217,7 +218,7 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #about-tabs-ul li a:hover,
 #about-tabs-ul .ui-tabs-active a{ border-left: 1px solid #f7a266; border-top: 1px solid #f7a266; border-right: 1px solid #f36c21; border-bottom: 1px solid #f36c21; background-color: #fdfbe2; color: #0c8a9a;}
 #about-tabs .tab #manifesto-tab-link { font-size: 15px; }
-#about-tabs .tab { float: left; width: 570px; position: relative; padding: 15px 15px 30px; margin-left: 25px; margin-top: 10px; margin-bottom: 30px; border-left: 1px solid #f7a266; border-top: 1px solid #f7a266; border-right: 1px solid #f36c21; border-bottom: 1px solid #f36c21; background-color: #fdfbe2; }
+#about-tabs .tab { float: left; width: 570px; position: relative; padding: 15px 15px 30px; margin-left: 25px; margin-top: 10px; margin-bottom: 30px; border-left: 1px solid #f7a266; border-top: 1px solid #f7a266; border-right: 1px solid #f36c21; border-bottom: 1px solid #f36c21; background-color: #fdfbe2; min-height: 133px;}
 #about-tabs .tab h4 { font: bold 18px Arial; color: #f26722; margin-bottom: 10px;}
 #about-tabs .tab h5 { font: bold 15px Arial; color: #f26722; }
 #about-tabs .tab p { font: 15px/18px Arial; margin-bottom: 10px;}
@@ -230,6 +231,12 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #about-tabs .tab#overview-tab .pointing-arrow{ top: 14px;}
 #about-tabs .tab#manifesto-tab .pointing-arrow{ top: 54px;}
 #about-tabs .tab#who-tab .pointing-arrow{ top: 92px;}
+#about-tabs .tab#contact-tab .pointing-arrow{ top: 132px;}
+#about-tabs #contact-us-form { margin-top: 30px; }
+#about-tabs #contact-us-form .label { display: inline-block; vertical-align: middle; font-size: 15px; }
+#about-tabs #contact-us-form .label span { font-size: 12px;}
+#about-tabs #contact-us-form textarea { width: 225px; height: 80px; vertical-align: middle; padding: 10px; }
+
 
 /*    ABOUT  */
 
@@ -336,7 +343,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 .all-even #bottom-reflect,
 .all-even .reflect-popup { display: none !important; }
 .all-even .reflect-popup-static { background-color: #fdfbe2; border-style: solid ; border-color: #f37121; border-width: 1px; padding: 15px; }*/
-#reflect-column-wrapper { border: 10px solid #d6ebf8; background-color: #fff; display: inline-block; margin-bottom: 20px; width: 325px; box-shadow: 2px 2px 3px #bbb;}
+#reflect-column-wrapper { position: relative; border: 10px solid #d6ebf8; background-color: #fff; display: inline-block; margin-bottom: 20px; width: 325px; box-shadow: 2px 2px 3px #bbb;}
 #reflect-column-wrapper #all-reflected-items { margin: 10px 0 20px; }
 #reflect-column-wrapper .str-text { margin-left: 45px; font: 12px Arial; margin-top: 10px; margin-bottom: 10px; }
 #reflect-column-wrapper .cat-name { color: #1fa9bb; margin-left: 45px; font: 15px Arial; }
@@ -358,12 +365,13 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #reflect-column-wrapper .reflect-bar .reflect-popup .popup-wrapper p { font-size: 15px; margin-bottom: 10px; }
 #reflect-column-wrapper .reflect-bar .reflect-popup .popup-wrapper p span { font-weight: bold;}
 
-#reflect-content-window { width: 600px; background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px; margin-left: 30px; }
+#reflect-content-window { width: 600px; background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px; margin-left: 30px; position: relative;}
 #reflect-content-window h4 { font: bold 18px Arial; color: #f26722; margin-bottom: 10px;}
 #reflect-content-window h5{ font: bold 15px Arial; color: #f26722; margin-bottom: 10px;}
 #reflect-content-window p { font-size: 15px; margin-bottom: 10px; }
 #reflect-content-window p span { font-weight: bold;}
 #reflect-content-window .btn { margin-right: 10px; }
+#reflect-content-window .reflect-pointing-arrow{ position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: -32px; top: 0;}
 
 #reflect-to-timeline { position: relative; background-color: #d6ebf8; padding: 10px; border: 1px solid #0c8a9a; width: 600px; margin-left: 30px; margin-top: 15px;}
 #reflect-to-timeline-inner { background-color: #fff; padding: 15px 0;}

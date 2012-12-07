@@ -15,7 +15,9 @@ Babyfolio::Application.routes.draw do
   get '/user/settings' => "users#settings", :as => :settings  
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
+  get "contact" => "home#about", :as => :contact, :defaults => { :is_contact => true }
   get "about" => "home#about", :as => :about
+  post "send-contact" => "home#send_contact", :as => :send_contact
 
 #  QUESTIONNAIRES
   get "questionnaire/initial" => "questions#initial_questionnaire", :as => :initial_questionnaire

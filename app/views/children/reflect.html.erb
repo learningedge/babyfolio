@@ -12,7 +12,7 @@
         <%= render :partial => 'reflect_bars', :locals => { :answers => @empty_answers, :type => 'empty' } %>
       </div>      
   </div>
-  <div id="reflect-content-window" class="left">
+  <div id="reflect-content-window" class="left">    
     <h4>Even Development</h4>
     <p>Hey! Looks like <span class="bold"><%= current_child.first_name %></span> is performing at the same level for all developmental stages.  Please check back after he has exhibited other WATCH behaviors to see an update!</p>
     <p>In the meantime, start playing with your baby now!</p>
@@ -57,14 +57,17 @@
 
   <script type="text/javascript">
     $(function() {
+      $('#reflect-content-window').height($('#reflect-column-wrapper').height());
       if(1 != <%=  @lengths.size %>) {
         updatePopup($('.single-reflected-item').first());
+        updateArrowPosition();
       } else {
         $('#reflect-to-timeline').hide();
       }
       
       $('.single-reflected-item').click(function() {
         updatePopup($(this));
+        updateArrowPosition();
       });
     });
 
@@ -86,5 +89,10 @@
          $(item).addClass('active-item');
          $('#reflect-content-window').html($(item).find('.unfinished-questionnaire-notice').html());
       }
+    }
+
+    function updateArrowPosition() {
+       arr_top = $($('.single-reflected-item.active-item')).position().top + 25;
+       $('#reflect-content-window .reflect-pointing-arrow').css({top: arr_top});
     }
   </script>

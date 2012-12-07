@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     end
 
     @user.reset_perishable_token
-    @user.profile_media = Media.find_by_id(params[:user_profile_media])
+    @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
     
     if @user.valid?
       @user.email_confirmed = false
@@ -89,7 +89,7 @@ class UsersController < ApplicationController
   def update
     @edit = true
     @user = current_user    
-    @user.profile_media = Media.find_by_id(params[:user_profile_media])
+    @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to settings_path
