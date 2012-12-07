@@ -19,6 +19,8 @@ gem 'flickraw'
 #gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
 gem 'roo'
 gem 'remotipart'
+gem 'aws-s3'
+gem 'aws-sdk'
 
 group :test do
 

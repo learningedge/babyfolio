@@ -45,7 +45,7 @@ Babyfolio::Application.routes.draw do
   match 'signup' => "users#new", :as => :signup
   match 'create-profile-photo' => "users#create_profile_photo", :as => :create_profile_photo
 
-  resources :user_sessions do
+  resources :user_sessions do    
   end
 
   resources :children, :only => [:create, :edit, :update] do

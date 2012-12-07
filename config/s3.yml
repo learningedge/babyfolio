@@ -1,0 +1,12 @@
+development:
+  bucket: BabyFolio
+  access_key_id: AKIAJX5WFA27ACV24IPQ
+  secret_access_key: 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
+test:
+  bucket: BabyFolio
+  access_key_id: AKIAJX5WFA27ACV24IPQ
+  secret_access_key: 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
+production:  
+  bucket: BabyFolio
+  access_key_id: AKIAJX5WFA27ACV24IPQ
+  secret_access_key: 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
