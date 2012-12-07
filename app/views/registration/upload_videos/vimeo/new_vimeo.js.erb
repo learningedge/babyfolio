@@ -1,5 +1,0 @@
-<%= remotipart_response do %>
-  vimeo_loader_stop();
-  console.log("success");
-  $("#vimeo-ajax-container .vimeo").html('<%=raw (render "/registration/upload_videos/vimeo/new_vimeo.html.erb").gsub(/\s+/, " ").strip -%>');
-<% end %>

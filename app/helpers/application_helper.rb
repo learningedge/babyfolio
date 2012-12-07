@@ -66,16 +66,5 @@ module ApplicationHelper
     a[0..n].join(' ') + (a.size > n ? '...' : '')
   end
 
-  
-
-#  def youtube_client
-#    return @client if defined?(@client)
-#    @client = YouTubeIt::Client.new(:dev_key => Yetting.youtube["dev_key"])
-#  end
-
-#  def vimeo_video_client service
-#    return @vimeo_client if defined?(@vimeo_client)
-#    @vimeo_client = Vimeo::Advanced::Video.new(Yetting.vimeo["key"], Yetting.vimeo["secret"], :token => service.token, :secret => service.secret)
-#  end
 
 end

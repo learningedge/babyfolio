@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/charlotte-ruby/yettings.git
-  revision: b39aaab65a89ce7bf6b77b816a212d18d095f554
-  branch: ruby187
-  specs:
-    yettings (0.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -36,7 +29,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
-    attr_required (0.0.5)
     authlogic (3.1.3)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -55,11 +47,6 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.4)
       multipart-post (~> 1.1)
-    fb_graph (2.5.8)
-      httpclient (>= 2.2.0.2)
-      json
-      rack-oauth2 (>= 0.14.4)
-      tzinfo
     flickraw (0.9.6)
     google-spreadsheet-ruby (0.3.0)
       google_drive (>= 0.3.0)
@@ -67,13 +54,8 @@ GEM
       nokogiri (>= 1.4.4, != 1.5.2, != 1.5.1)
       oauth (>= 0.3.6)
       oauth2 (>= 0.5.0)
-    hashie (1.2.0)
     hike (1.2.1)
-    httparty (0.9.0)
-      multi_json (~> 1.0)
-      multi_xml
     httpauth (0.2.0)
-    httpclient (2.3.0.1)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.3)
@@ -93,7 +75,6 @@ GEM
     mocha (0.12.7)
       metaclass (~> 0.0.1)
     multi_json (1.3.7)
-    multi_xml (0.5.1)
     multipart-post (1.1.5)
     mysql2 (0.3.11)
     nokogiri (1.5.5)
@@ -104,24 +85,6 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
-    omniauth (1.1.1)
-      hashie (~> 1.2)
-      rack
-    omniauth-facebook (1.4.1)
-      omniauth-oauth2 (~> 1.1.0)
-    omniauth-flickr (0.0.9)
-      omniauth-oauth (~> 1.0)
-    omniauth-oauth (1.0.1)
-      oauth
-      omniauth (~> 1.0)
-    omniauth-oauth2 (1.1.1)
-      oauth2 (~> 0.8.0)
-      omniauth (~> 1.0)
-    omniauth-vimeo (1.0.0)
-      multi_json (~> 1.3)
-      omniauth-oauth (~> 1.0)
-    omniauth-youtube (2.1)
-      omniauth-oauth2 (~> 1.0)
     paperclip (2.8.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -132,13 +95,6 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-oauth2 (1.0.0)
-      activesupport (>= 2.3)
-      attr_required (>= 0.0.5)
-      httpclient (>= 2.2.0.2)
-      i18n
-      multi_json (>= 1.3.6)
-      rack (>= 1.1)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
@@ -176,7 +132,6 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    simple_oauth (0.1.9)
     spreadsheet (0.7.4)
       ruby-ole (>= 1.0)
     sprockets (2.1.3)
@@ -196,20 +151,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    vimeo (1.5.3)
-      httparty (>= 0.4.5)
-      httpclient (>= 2.1.5.2)
-      json (>= 1.1.9)
-      multipart-post (>= 1.0.1)
-      oauth (>= 0.4.3)
     will_paginate (3.0.3)
-    youtube_it (2.1.8)
-      builder
-      faraday (~> 0.8)
-      nokogiri (~> 1.5.2)
-      oauth (~> 0.4.4)
-      oauth2 (~> 0.6)
-      simple_oauth (~> 0.1.5)
 
 PLATFORMS
   ruby
@@ -218,18 +160,12 @@ DEPENDENCIES
   authlogic
   coffee-rails (~> 3.2.1)
   execjs
-  fb_graph
   flickraw
   jquery-rails
   json
   metaclass
   mocha
   mysql2
-  omniauth
-  omniauth-facebook
-  omniauth-flickr
-  omniauth-vimeo
-  omniauth-youtube
   paperclip (~> 2.8.0)
   pg (~> 0.14.1)
   rails (= 3.2.1)
@@ -238,7 +174,4 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   therubyracer
   uglifier (>= 1.0.3)
-  vimeo
   will_paginate
-  yettings!
-  youtube_it

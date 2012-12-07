@@ -11,8 +11,7 @@ class Child < ActiveRecord::Base
   has_many :users, :through => :relations
 
   has_one :attachment, :as => :object
-  has_one :media, :through => :attachment
-  has_many :moments, :conditions => ["moments.visibility NOT IN (?)",Moment::ARCHIVED]
+  has_one :media, :through => :attachment  
   has_many :answers
   has_many :questions, :through => :answers
   has_many :timeline_entries, :class_name => "TimelineEntry"
@@ -94,10 +93,6 @@ class Child < ActiveRecord::Base
 
   def gender_index
     @index ||= (gender == 'male' ? 0 : 1);
-  end
-
-  def get_all_images 
-    self.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
   end
 
   def age_text

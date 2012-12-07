@@ -6,10 +6,6 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
-
-
-
-
 Attachment.delete_all
 Child.delete_all
 Family.delete_all

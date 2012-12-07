@@ -1,6 +1,0 @@
-<span class="image" id="<%=  moment_id %>" thumb_url="<%= photo.image(:moment_thumb) -%>" onclick="remove_moment(this);return false;" >
-  <div class="thumb" style="background-image: url('<%= photo.image(:moment_thumb) -%>')">
-    <div class="remove">Remove</div>
-  </div>
-  <%= hidden_field_tag "uploaded_images_pids[]", photo.id -%>
-</span>
