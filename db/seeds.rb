@@ -6,41 +6,23 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
+Answer.delete_all
 Attachment.delete_all
 Child.delete_all
-Family.delete_all
-Media.delete_all
-Moment.delete_all
+Comment.delete_all
+Like.delete_all
+Log.delete_all
+Media.destroy_all
+Milestone.delete_all
+Question.delete_all
 Relation.delete_all
-Service.delete_all
+TimelineEntry.delete_all
+TimelineMeta.delete_all
 User.delete_all
-Answer.delete_all
-Score.delete_all
-
-@admin = User.where(:email => 'admin@codephonic.com');
-@admin.each do |admin|
-
-admin.families.parenting_families.each do |family|
-  puts family.inspect
-  family.children.each do |child|
-    child.moments.destroy_all
-    child.destroy
-  end
-  family.destroy
-end
-
-admin.moments.destroy_all
-admin.services.destroy_all
-admin.destroy
-
-end
-
 
 @user = User.new(:email => 'admin@codephonic.com', :password => 'qwerty', :password_confirmation => 'qwerty', :email_confirmed => 1, :is_admin => true)
 @user.reset_perishable_token
 @user.save
-
-
 
 Rake::Task['excel:all'].invoke
 
