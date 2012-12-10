@@ -1,10 +1,19 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-  before_filter :clear_family_registration
-  before_filter :require_confirmation
+  protect_from_forgery  
+#  before_filter :require_confirmation
 
   config.filter_parameters :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :current_family, :my_family, :youtube_user, :flickr_images, :get_return_url_or_default, :family_registration?, :user_is_parent?, :current_child, :set_current_child, :category_name
+  helper_method :current_user_session, :current_user, :get_return_url_or_default, :current_child, :set_current_child, :category_name
+
+before_filter :authenticate
+
+protected
+
+def authenticate
+  authenticate_or_request_with_http_basic do |username, password|
+    username == "bf" && password == "bfdev"
+  end
+end
 
 before_filter :authenticate
 
@@ -24,11 +33,6 @@ end
         reset_session        
       end
     end
-
-    def clear_family_registration
-      session[:is_registration] = nil
-    end
-
 
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -51,17 +55,7 @@ end
     def require_user
       unless current_user
         store_location
-        flash[:notice] = "You must be logged in to access this page"
         redirect_to login_url
-        return false
-      end
-    end
-
-    def require_no_user
-      if current_user
-        store_location
-        flash[:notice] = "You must be logged out to access this page"
-        redirect_to home_index_url
         return false
       end
     end
@@ -81,11 +75,11 @@ end
       back_url
     end
 
-    def require_confirmation
-      if current_user and !current_user.email_confirmed and current_user.created_at < (DateTime.now - 7.days)
-        redirect_to confirmation_url
-      end
-    end
+#    def require_confirmation
+#      if current_user and !current_user.email_confirmed and current_user.created_at < (DateTime.now - 7.days)
+#        redirect_to confirmation_url
+#      end
+#    end
 
     def current_child
       return @current_child if defined?(@current_child)
@@ -107,6 +101,9 @@ end
       redirect_to new_child_children_path unless current_child
     end
 
+    def require_seen_behaviours
+        redirect_to initial_questionnaire_path if current_child.answers.where(:value => 'seen').count == 0
+    end
 
     def category_name(str)
       Question::CATS[str]

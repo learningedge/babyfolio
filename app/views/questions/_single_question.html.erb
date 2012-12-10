@@ -1,33 +1,33 @@
-
-      <% if question.present? %>
-
+      <% if question.present? %>        
+        <div class="single-question-cover <%= 'completed' if completed %>"> </div>
         <%= hidden_field_tag "questions[]", question.id  %>
         <div class="category-circle category-circle-<%= category %>"></div>
+
+        <p><%#= question.age.to_s + ")" %> <%=  current_child.replace_forms(question.text) %></p>
+        <div class="seen-btn-wrapper">
+          <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id, :start_age => @q_age, :value => 1), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => "btn q_#{question.id}" %>
+          <%= link_to "I haven't seen this yet", update_seen_path(:child_id => current_child.id, :question => question.id, :start_age => @q_age, :value => 0), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => "btn btn-grey q_#{question.id}" %>
+        </div>
         
-        <p><%= question.age %>) <%=  current_child.replace_forms(question.text) %></p>
-        <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => 'btn', :id=>'q_' +question.id.to_s %>
 
         <script type="text/javascript">
           $(function() {
             $('.preloader').fadeOut().hide();
-            $('#q_<%= question.id %>').bind('ajax:success', function(xhr, data){
-              var cat = "<%= category -%>";
-              if($(this).parents('.not-seen-form').first().find('input[value="' + cat + '"]').length <= 0) {
-                var hidden = document.createElement('input');
-                hidden.type = "hidden";
-                hidden.name = "categories_answered[]";
-                hidden.value = cat;
-                $(this).parents('.not-seen-form').prepend(hidden);
-              }
+            $('.q_<%= question.id %>').bind('ajax:success', function(xhr, data){
+              var cat = "<%= category -%>";              
               var newQ = $(this).parents('.single-question').html(data);              
               $(newQ).effect('highlight', {color: '#fff'}, 1000);
+              if ($(newQ).find('.single-question-cover.completed').length > 0) {
+                $(newQ).next('.single-question').find('.single-question-cover.shown').removeClass('shown');
+                showFinish();
+              }
             });
           });
         </script>
 
       <% else %>
 
-        <p>No more questions found for category <%= Question::CATS[category] %>.</p>
+        <p>No more questions found for <%= Question::CATS[category] %> category.</p>
         <script type="text/javascript">
           $(function() {
             $('.preloader').fadeOut().hide();
@@ -36,4 +36,5 @@
 
       <% end %>
 
+        
 

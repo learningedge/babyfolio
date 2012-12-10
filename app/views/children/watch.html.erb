@@ -3,22 +3,24 @@
 
 <% end %>
 
-
-  <div class="left-column">
-    <p>Click on the check mark when you see this behavior in your child. Or click on a title for more information and the associated play activities.</p>
-          
+  <p id="left-column-additional-info">Click on the check mark when you see this behavior in your child. Or click on a title for more information and the associated play activities.</p>
+  <div class="left-column">              
         <ul id="activities-wrapper">
           <% @behaviours.each do |a| %>
-            <%= render :partial => 'watch_single', :locals => { :item => a, :time => 'current' } %>
+            <%= render :partial => 'watch_single', :locals => { :item => a, :time => a[:time] } %>
           <% end %>
         </ul>
     
-      <div class="clear"></div>      
-    </div>
-  
+        <div class="clear"></div>
+  </div>
+  <div class="right-column right-column-watch"></div>
+
+  <div class="clear"></div>
 
   <script type="text/javascript">
     $(function() {
+      showPlayPopup($('.selected .activity-title-link'));
+
       $('.previous-activity-link, .next-activity-link').live("ajax:before", function() {
         $(this).parents('.single-activity').addClass('show-preloader');
       });
@@ -26,15 +28,50 @@
         $(this).parents('.single-activity').removeClass('show-preloader');
       });
 
-
-       $('.previous-activity-link, .next-activity-link').live("ajax:success", function(xhr,data) {
+      $('.previous-activity-link, .next-activity-link').live("ajax:success", function(xhr,data) {
+        $('.single-activity.selected').removeClass('selected');
         $(this).parents('.single-activity').replaceWith(data);
+        showPlayPopup($(data).find('.activity-title-link'));
       });
 
       $('.activity-title-link').live('click', function() {
-        $('.single-activity.selected').removeClass('selected');
-        $(this).parents('.single-activity').addClass('selected');
+          $('.single-activity.selected').removeClass('selected');
+          showPlayPopup($(this));
+          return false;
+      });
+
+      $('.show-dialog').live('click', function() {
+        $($(this).attr('href')).dialog({modal: true});
         return false;
       });
+
+      $('.te-form').live("ajax:success", function(xhr,data) {
+          $(this).parents('.play-dialog').html(data);
+      });
+
+      $('.seen-tick-btn').live('ajax:before',function() {
+        $('.single-activity').removeClass('selected');
+        $(this).parents('.single-activity').removeClass('current future').addClass('past selected');
+        $(this).parents('.single-activity').find('.play-popup').removeClass('current future').addClass('past');
+        showPlayPopup($(this).parents('.single-activity').find('.activity-title-link'));
+      });
+
+      $('.seen-tick-btn').live('ajax:success',function() {
+        $(this).parents('.single-activity').find('.next-activity-link').click();
+      });
     });
+
+    function showPlayPopup(title) {
+        $(title).parents('.single-activity').addClass('selected');
+
+        var sa = $(title).parents('.single-activity').find('.play-popup');
+        $('.right-column').html(sa.clone().show());
+
+        $('.right-column').find('.pointing-arrow').css({top : $('.single-activity.selected').position().top});
+        $('.right-column .popup-wrapper').css({minHeight: $('#activities-wrapper').height() });
+    }
+
+
+
+
   </script>

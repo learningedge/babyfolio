@@ -5,14 +5,6 @@ gem 'rails', '3.2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'omniauth'
-gem 'omniauth-facebook'
-gem 'omniauth-youtube'
-gem 'omniauth-flickr'
-gem 'omniauth-vimeo'
-gem 'vimeo'
-gem 'youtube_it'
-gem 'fb_graph'
 gem 'will_paginate'
 
 gem 'authlogic'
@@ -24,9 +16,11 @@ gem 'therubyracer'
 gem 'jquery-rails'
 gem 'paperclip', '~> 2.8.0'
 gem 'flickraw'
-gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
+#gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
 gem 'roo'
 gem 'remotipart'
+gem 'aws-s3'
+gem 'aws-sdk'
 
 group :test do
 

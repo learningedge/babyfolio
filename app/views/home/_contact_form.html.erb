@@ -1,0 +1,42 @@
+<h4>Contact Us</h4>
+<p>We'd love to hear your thoughts, feedback, opinions and questions about <span class="bold">BabyFolio</span>!Send us an email and we'll get back to you as soon as possible.</p>
+
+
+<%= form_for @contact, :remote => :true, :url => send_contact_path, :html => {:id => "contact-us-form"} do |form| %>
+<div class="row">
+      <span class="label">
+        <%= form.label :name, "Your Full Name <br/><span>(required)</span>".html_safe %>
+      </span>
+      <span class="field">
+        <%= form.text_field :name %>
+      </span>
+</div>
+<div class="row">
+      <span class="label">
+        <%= form.label :email, "Your Email<br/><span>(required)</span>".html_safe %>
+      </span>
+      <span class="field">
+        <%= form.text_field :email %>
+      </span>
+</div>
+<div class="row">
+      <span class="label">
+        <%= form.label :title, "Subject Title <br/><span>(required)</span>".html_safe %>
+      </span>
+      <span class="field">
+        <%= form.text_field :title %>
+      </span>
+</div>
+<div class="row">
+      <span class="label">
+        <%= form.label :content, "Detailed Message <br/><span>(required)</span>".html_safe %>
+      </span>
+      <span class="field">
+        <%= form.text_area :content %>
+      </span>
+</div>
+<div class="row">
+    <div class="label"></div>
+    <%= form.submit "Send", :disable_with => "Sending...", :class => 'btn' %>
+</div>
+<% end %>

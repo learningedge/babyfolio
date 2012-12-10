@@ -38,7 +38,7 @@ module Babyfolio
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    config.action_mailer.default_url_options = { :host => 'babyfolio.qa.codephonic.com'}
+    config.action_mailer.default_url_options = { :host => ENV['EMAIL_DOMAIN'] || 'babyfolio.qa.codephonic.com'}
     
     config.action_view.javascript_expansions[:default] = %w(jquery rails application)
     

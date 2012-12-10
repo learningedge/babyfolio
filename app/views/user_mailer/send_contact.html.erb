@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>New 'Contact Us' form submission:</h4>
+    <hr/>
+    <div><span style="font-weight: bold">User's Full Name:</span> <%= @msg.name %></div>
+    <div><span style="font-weight: bold">User's Email:</span> <a href="mailto:<%= @msg.email %>?Subject=Re:<%= @msg.title %>"><%= @msg.email %></a></div>
+    <div><span style="font-weight: bold">Subject Title:</span> <%= @msg.title  %></div>
+    <div><span style="font-weight: bold">Detailed Message:</span> <br/><%= @msg.content %></div>
+    
+  </body>
+</html>
+
+
+
+
+

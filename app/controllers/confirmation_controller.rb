@@ -1,8 +1,8 @@
 class ConfirmationController < ApplicationController
 
-  skip_before_filter :require_confirmation
+#  skip_before_filter :require_confirmation
   before_filter :require_user, :only => [:index, :re_send_email]
-  before_filter :require_no_confirmation, :only => [:index, :re_send_email]
+#  before_filter :require_no_confirmation, :only => [:index, :re_send_email]
 
   def index
     @user = current_user
@@ -38,6 +38,7 @@ class ConfirmationController < ApplicationController
     @user = @relation.user
     @edit = true
     @edit_password = true
+    reset_session
     UserSession.create(@relation.user)
     @user.update_attribute(:email_confirmed, true)
     unless current_user.is_temporary
@@ -85,22 +86,19 @@ class ConfirmationController < ApplicationController
     @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?
 
     if @user.errors.empty? && @user.save
-#        flash[:notice] = "Your settings has been sucessfully updated."
         redirect_to confirmation_accept_relations_path
     else
-#        flash[:notice] = "There was a problem with creating your account."
         render :accept_invitation
-    end
-     
+    end     
   end
 
-  private
-
-  def require_no_confirmation
-    if current_user.email_confirmed
-      redirect_to child_profile_children_url
-      flash[:notice] = "Your email is confirmed already."
-    end
-  end
+#  private
+#
+#  def require_no_confirmation
+#    if current_user.email_confirmed
+#      redirect_to child_profile_children_url
+#      flash[:notice] = "Your email is confirmed already."
+#    end
+#  end
 
 end

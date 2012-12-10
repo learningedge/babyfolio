@@ -1,14 +1,7 @@
 Babyfolio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  Rails.application.config.middleware.use OmniAuth::Builder do
-
-
-    provider :facebook, '263019473774028', '7c92fcaf00c30a9da772af2de7a2b144',{ :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
-end
-
-
-  # Code is not reloaded between requests
+    # Code is not reloaded between requests
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on

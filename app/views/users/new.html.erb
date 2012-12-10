@@ -1,8 +1,7 @@
 <% content_for :middle_bar do %>
-
-  <div class="left-column"></div>
+ 
   <div class="right-column">
-    <div class="step-arrow" id="watching-baby"><span>Watching Your Baby</span></div>
+    <div class="step-arrow" id="watching-baby"><span>Describe Your Baby</span></div>
     <div class="step-arrow" id="add-baby"><span>Add/Join a BabyFolio</span></div>
     <div class="step-arrow active" id="create-acc"><span>Create Account</span></div>
   </div>
@@ -15,7 +14,7 @@
     <div id="left-column-tooltip" class="<%= "annie-highlight" unless @user.errors.empty? %>">
       <img src="/images/annie.jpg" />
       <h4>Have a question?</h4>
-      <p><a href="mailto:#">Send us an email</a> and Annie, our Community Manager, will be happy to help you!</p>
+      <p><a href="<%= contact_path %>">Send us an email</a> and Annie, our Community Manager, will be happy to help you!</p>
       <div class="clear"></div>
     </div>
   </div>

@@ -1,25 +1,34 @@
+<% content_for :middle_bar do %> 
+    <span>You can change your account settings and manage your circles here.</span>
+<% end %>
 
 <div id="settings-wrapper">
 
   <% if @current_relation %>
-  <h4><%=  @current_relation.child.first_name %> details: </h4>
-    <div id="settings-my-children">
-          <div class="settings-edit-entry">
-            <%= image_tag @current_relation.child.media.image.url(:profile_medium) if @current_relation.child.media %>
-            <%= @current_relation.child.first_name %><br />
-            <%= @current_relation.child.birth_date.to_date %><br />
-            <%= @current_relation.child.gender %><br />
-            <%= @current_relation.member_type %><br />
-            <%= link_to "Edit", edit_child_path(:id => @current_relation.child.id) if @current_relation.is_admin %>
+    <div id="user-children-settings">
+          <div class="child-settings-details setting-block setting-block-left">
+            <%= image_tag @current_relation.child.media.image.url(:profile_medium), :class => "round-corners left" if @current_relation.child.media %>
+            <div class="childs-details-right left">
+              <div class="bold"><%= @current_relation.child.first_name %> <%= @current_relation.child.last_name %></div>
+              <div><%= @current_relation.child.birth_date.strftime('%B %-d, %Y') %></div>
+              <div><%= @current_relation.child.gender.capitalize %></div>
+              <div>You are <span class="bold"><%= @current_relation.child.first_name %>'s</span> <%= @current_relation.member_type %></div>
+              <%= link_to "Edit", edit_child_path(:id => @current_relation.child.id), :class => "btn" if @current_relation.is_admin %>
+            </div>
+            <div class="clear"></div>
           </div>
-          <div class="settings-edit-entry">
-            <%= image_tag current_user.profile_media.image.url(:medium) if current_user.profile_media %>
-            <%= current_user.first_name %><br />            
-            <%= current_user.email %><br />
-            <%= link_to "Edit", edit_account_path %>
-            <%= link_to "Change password", "#", :class => "show-password-change" %>
+      
+          <div class="user-settings-details setting-block">
+            <%= image_tag current_user.profile_media.image.url(:profile_medium), :class => "round-corners left" if current_user.profile_media %>
+            <div class="left childs-details-right">
+                <div class="bold"><%= current_user.get_user_name %></div>
+                <div><span class="bold"><%= @current_relation.child.first_name %></span> is your <%= @current_relation.get_opposite_relation_type.downcase  %></div>
+                <%= current_user.email %><br />
+                <%= link_to "Edit", edit_account_path, :class => "btn" %>
+                <%= link_to "Change password", "#change-password-wrapper", :class => "show-password-change" %>
+            </div>
 
-            <div id="change-password-wrapper">
+            <div id="change-password-wrapper" class="dialog">
               <%= render :partial => "users/change_password", :locals => {:user => current_user} %>
             </div>
           </div>
@@ -27,66 +36,147 @@
     </div>  
   <% end %>
 
-  <% if @invited_by_me.present? %>
-  <h4>Invitations sent:</h4>
-      <div>
-        <%= link_to "Invite to Circle", new_relation_path, :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn", :class => 'btn' if @current_relation.is_admin %>
-      </div>
-
-      <div id="add-relation-wrapper" class="settings-edit-entry hidden"></div>
-
-      
+  
+  <div class="left settings-invitees">
+    <div class="setting-header">
+        <span><%= @current_relation.child.first_name %>'s BabyFolio</span>
+        <%= link_to "Invite to Circle", new_relation_path(:child_id => @current_relation.child.id), :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn", :class => 'btn right' if @current_relation.is_admin %>
+    </div>
+    <div class="clear"></div>
+    <div id="add-relation-wrapper" class="settings-edit-entry hidden round-corners"></div>
       <div id="child-invites">
             <% @invited_by_me.each do |relation| %>
-              <div class="settings-edit-entry">
-                  <%= relation.user.first_name %> <%= relation.user.last_name %><br />
-                  <%= relation.member_type %><br />
-                  <%= relation.user.email %><br />
-                  <%= "Admin<br />".html_safe if relation.is_admin %>                  
-                      <% admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{relation.child.first_name}'s BabyFolio, edit or delete posts, and other awesome powers." %>
-                      <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>
+              <div class="setting-block">
+                  <div class="invitees-image round-corners left" style="<%= "background-image: url(#{relation.user.profile_media.image.url(:profile_small_invites)})" if relation.user.profile_media %>"></div>
+                  <div class="left">
+                    <div class="bold"><%= relation.user.get_user_name %></div>
+                    <div><span class="bold"><%= relation.child.first_name %></span> is <span class="bold"><%=  relation.user.first_name + "'s" %></span> <%= relation.get_opposite_relation_type.downcase %></div>
+                    <div><%= relation.user.email %></div>                    
+                    <% admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{relation.child.first_name}'s BabyFolio, edit or delete posts, and other awesome powers." %>
+                    <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>
+                    <div class="invitees-buttons">
                       <% unless relation.is_admin %>
-                        <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :disable_with => 'Processing...', :confirm => admin_confirm_msg %>
+                        <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :class => "btn right make-admin-btn", :data_user => relation.user.get_user_name, :data_child => relation.child.first_name + "'s" %>
                       <% end %>
-                      <%= link_to "Remove", relation_path(:id => relation.id), :method => :delete, :disable_with => 'Processing...', :confirm => remove_confirm_msg %>
-                      
+                      <%= link_to "Remove", relation_path(:id => relation.id), :class => "btn btn-grey right remove-user-btn", :data_user => relation.user.get_user_name, :data_child => relation.child.first_name %>
+                    </div>
+                  </div>
               </div>
           <% end %>
           <div class="clear"></div>
       </div>
-      
+  </div>
 
-  <% end %>
+  <div class="left settings-invited">
+    <div class="setting-header">
+      <span>You’ve been invited to join the following BabyFolios</span>
+    </div>       
 
-  <% if @pending_invitations.present? %>
-      <div id="settings-invitations-received">
-        <h4>Invitations received:</h4>
-        <%= render :partial => 'confirmation/accept_relations', :locals => {:relations => @pending_invitations} %>
-        <div class="clear"></div>
-      </div>
-  <% end %>
+    <div class="left">
+      <% @pending_invitations.each_with_index do |r,idx| %>
+        <div class="single-relation setting-block">
+          <div class="invitation-child-image round-corners left" style="<%= "background-image: url(#{r.child.media.image.url(:profile_small_invites)})" if r.child.media %>"></div>          
+          <div class="left">
+            <p>
+              <%  if r.child.first_name %>
+                <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %></span>,
+              <% end %>
+              <%= r.get_opposite_relation_type.downcase %> of <%= r.inviter.get_user_name %>
+            </p>
+
+            <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
+            <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
+          </div>
+          <div class="clear"></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="confirm-removal-dialog" class="dialog">
+    <h4 class="arvo">Remove <span class="user-to-remove arvo-bold"></span>?</h4>
+    <p>
+      Are you sure you want to remove <span class="user-to-remove bold"></span>? They will no longer be able to be part of <span class="child-to-remove bold"></span> development on <span class="bold">BabyFolio!</span>
+    </p>
+    <div class="dialog-buttons">
+      <%= link_to "Yes", "#", :method => :delete, :disable_with => 'Processing...', :class => "btn yes-remove-user" %>
+      <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+    </div>
+  </div>
+
+  <div id="confirm-admin-dialog" class="dialog">
+    <h4 class="arvo">Make <span class="user-to-remove arvo-bold"></span> Admin?</h4>
+    <p>
+      Are you sure you want to rmake <span class="user-to-remove bold"></span> an admin?  They will be able to invite and remove people from <span class="child-to-remove bold"></span> <span class="bold">BabyFolio</span>, edit or delete posts, and other awesome powers.
+    </p>
+    <div class="dialog-buttons">
+      <%= link_to "Yes", "#", :disable_with => 'Processing...', :class => "btn yes-remove-user" %>
+      <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+    </div>
+  </div>
+
+  <div class="clear"></div>
 
   <script type="text/javascript">
     $(function() {
 
-        $('.show-password-change').click(function() {
-          $('#change-password-wrapper').show();
+        $('.remove-user-btn').click(function() {
+          userName = $(this).attr('data_user');
+          childName = $(this).attr('data_child');
+          $('#confirm-removal-dialog .user-to-remove').text(userName);
+          $('#confirm-removal-dialog .child-to-remove').text(childName);
+          $('#confirm-removal-dialog .yes-remove-user').attr('href', $(this).attr('href'));
+          $('#confirm-removal-dialog').dialog('open');
           return false;
         });
-                
-        $('#change-password-form').live('ajax:success', function(xhr, data) {          
-          $('#change-password-wrapper').html(data);
-        });                
+
+        $('.make-admin-btn').click(function() {
+          userName = $(this).attr('data_user');
+          childName = $(this).attr('data_child');
+          $('#confirm-admin-dialog .user-to-remove').text(userName);
+          $('#confirm-admin-dialog .child-to-remove').text(childName);
+          $('#confirm-admin-dialog .yes-remove-user').attr('href', $(this).attr('href'));
+          $('#confirm-admin-dialog').dialog('open');
+          return false;
+        });
+        
+        $('#confirm-removal-dialog, #confirm-admin-dialog').dialog({
+            autoOpen: false,
+            modal: true
+        });
+
+        $('.relation-btn').bind('ajax:before', function() {
+          $(this).parents('.single-relation').fadeOut(function() {
+              $(this).remove();              
+           });
+        });
+
+        $('.show-password-change').click(function() {
+          $($(this).attr('href')).dialog({modal: true});
+          return false;
+        });
+
+
+        $('#change-password-form').live('ajax:success', function(xhr, data) {
+          $('#change-password-wrapper').html(data);          
+        });
 
         $('#add-relation-btn').live('ajax:success', function(xhr, data) {          
-          $('#add-relation-wrapper').html(data).show();
+          $('#add-relation-wrapper').html(data).dialog({modal: true});
+          $('#add-relation-wrapper select').selectbox();          
         });
 
         $('#new-relation-form').live('ajax:success', function(xhr, data) {
           $('#add-relation-wrapper').html(data);
+          $('#add-relation-wrapper select').selectbox();
         });
 
     });
+
+    function closeDialog(closeBtn) {
+      $(closeBtn).parents('.dialog').dialog('close');
+
+    }
   </script>
 
 

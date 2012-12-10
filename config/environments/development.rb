@@ -1,15 +1,6 @@
 Babyfolio::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  Rails.application.config.middleware.use OmniAuth::Builder do
-
-    provider :facebook, Yetting.facebook["key"], Yetting.facebook["secret"], { :scope => 'email,offline_access,read_stream,user_photos', :display => 'popup' }
-    provider :youtube, Yetting.youtube["key"], Yetting.youtube["secret"]
-    provider :flickr, Yetting.flickr["key"], Yetting.flickr["secret"], { :scope => 'read' }
-    provider :vimeo, Yetting.vimeo["key"], Yetting.vimeo["secret"],  {:scope => 'write' }
-
-  end
-
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

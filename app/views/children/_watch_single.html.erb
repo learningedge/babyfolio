@@ -12,30 +12,28 @@
     </div>
     <div class="single-activity-right">
       <div class="single-activity-nav">
-          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' do %>
-            <img src="/images/teal_l_arrow.png"/>
-          <% end  %>
+          <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
           <a href="#" class="activity-title-link"><%= item[:title] %></a>
-          <%= link_to adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link' do %>
-            <img src="/images/teal_r_arrow.png"/>
-          <% end %>
+          <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
       </div>
       <div class="activity-setup"><%= item[:subtitle] %></div>
       <div class="play-icons-corner">
-        <a href="#"><img src="/images/reflect_icon_circle.png" /></a>
-        <a href="#"><img src="/images/tick_btn.png" /></a>
-        
+        <%= link_to "Timeline", "#dialog-timeline-#{item[:mid]}", :class => "show-dialog timeline-btn" %>
+        <%= link_to "Seen this", update_watched_path(:mid => item[:mid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
+
+        <div id="dialog-timeline-<%= item[:mid] %>" class="play-dialog">
+            <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title].gsub('"' , ' ').strip , :category => item[:category], :mid => item[:mid] } %>
+        </div>                
       </div>
     </div>
     <div class="clear"></div>
 
-
-    <div class="play-popup">
+    <div class="play-popup <%= time %>">
       <div class="pointing-arrow"></div>
       <div class="popup-wrapper">
             <h4><%= item[:title] %></h4>
-            <div class="show-future">future activity</div>
-            <div class="show-past">completed activity <span><%= current_child.first_name.capitalize %> already did this with you.</span></div>
+            <div class="show-future">future behavior</div>
+            <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
 
             <% unless item[:desc].blank? %>                
                 <p><%= item[:desc] %></p>

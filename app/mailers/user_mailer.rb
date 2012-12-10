@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "test@babyfolio.qa.codephonic.com"
+  default :from => ENV['EMAIL_FROM'] || "test@babyfolio.qa.codephonic.com"  
 
   def confirmation_email(user)
     @user = user
@@ -28,14 +28,10 @@ class UserMailer < ActionMailer::Base
     @url += "?token=" + relation.token
     mail(:to => @user.email, :subject => "Join family at Babyfolio")
   end
-
-  def email_new_moment user, moment
-      @user = user
-      @moment = moment
-      logger.info("Zobaczmy objekt child: #{@moment.child.inspect}")
-      logger.info("Zobaczmy objekt user: #{@user.inspect}")
-      friends = (@moment.child.family.users - [@user]).collect {|friend| friend.email}
-      mail(:to => friends, :subcject => "Email to Village" )
+  
+  def send_contact msg
+       @msg = msg
+       mail(:to => ENV['CONTACT_EMAIL'] || "tickets@baby1.uservoice.com", :subject => "New Contact Us Submission")
   end
 
 end

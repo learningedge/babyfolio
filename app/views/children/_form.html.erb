@@ -1,3 +1,9 @@
+<% if child.media.present? %>
+  <style type="text/css">
+    #new_child_form .edit_child .qq-uploader .qq-img-preview {  background-image: url(<%= child.media.image.url(:profile_medium) %> ); }
+  </style>
+<% end %>
+
 <div id="new_child_form">
 <%= form_for child do |f| -%>
       <%= f.hidden_field :id, :value => child.id if edit %>
@@ -30,21 +36,20 @@
         <span class="label">
             Your relationship
         </span>
-        <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
+        <%= select_tag :relation_type, options_for_select(Relation::TYPE_KEYS, child.relation_to_current_user(current_user)), {:class => "select-layout" } -%>
       </div>
 
   
       <%= hidden_field_tag 'child_profile_media', (child.media.id if child.media.present?) %>
-      <div class="row photo-upload-row">
+      <div class="row photo-upload-row <%= "missing-image" if @child.errors[:media].present? %>">
         <span class="label">Please upload a photo of your baby:</span>
         <div id="file-registration-uploader">
-          <div class="clear"></div>
+          
         </div>
       </div>
-
-      <div id="file-registration-uploader"></div>
+  
       <div class="clear"></div>
-
+      
       <% if edit %>
           <%= f.submit "Update Child", :class => 'btn btn-big' %>
       <% else %>
@@ -55,11 +60,14 @@
 </div>
 
 <script type="text/javascript">
+  var key_t = '<%= Rails.application.config.session_options[:key] %>';
+  var forg_prot = "<%= form_authenticity_token %>";
+
   $(function() {
     var uploader = new qq.FileUploader({
         element: document.getElementById('file-registration-uploader'),
         action: '<%= create_photo_children_path -%>',
-        params: {},
+        params: { key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
         onComplete: function(id, fileName, responseJSON){
 
           $('.qq-upload-list li').each(function() {

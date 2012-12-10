@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
-    
+
+  layout "child", :only => [:settings]
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload, :settings, :update_password]
   before_filter :require_child, :only => [:settings]
-  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]    
+  skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]
+  before_filter :require_seen_behaviours, :only => [:settings]
 
   def new    
     if !current_user and session[:temporary_user_id]
@@ -27,7 +29,7 @@ class UsersController < ApplicationController
     end
 
     @user.reset_perishable_token
-    @user.profile_media = Media.find_by_id(params[:user_profile_media])
+    @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
     
     if @user.valid?
       @user.email_confirmed = false
@@ -86,8 +88,8 @@ class UsersController < ApplicationController
 
   def update
     @edit = true
-    @user = current_user
-    @user.profile_media = Media.find_by_id(params[:user_profile_media])
+    @user = current_user    
+    @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
       redirect_to settings_path
@@ -99,18 +101,22 @@ class UsersController < ApplicationController
   def update_password
     @user = current_user    
         
-    password = "#{params[:current_password]}#{@user.password_salt}"
+    password = "#{params[:user][:current_pass]}#{@user.password_salt}"
     @password = Authlogic::CryptoProviders::Sha512.encrypt(password)
     if @password == @user.crypted_password
       @password_ok = true
     end
 
-    @user.add_object_error("Your current password doesn't match") unless @password_ok
-    @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?    
+    @user.errors.add(:current_pass, "doesn't match") unless @password_ok
+    @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?
+
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password_confirmation]
+
     
     respond_to do |format|
-      if @user.errors.blank? && @user.update_attributes(params[:user])
-        format.js { render :partial => "change_password_success" }
+      if @user.errors.blank? && @user.save
+        format.html { render :partial => "change_password_success" }
       else
         format.html { render :partial => "change_password", :locals => {:user => current_user } }
       end
@@ -173,7 +179,7 @@ class UsersController < ApplicationController
             child = family.children.build({:first_name => Child::DEFAULTS[:first_name], :last_name => family.name, :birth_date => date || DateTime.now , :gender => gender  })
             family.save
 
-            new_user.relations.build({ :family => family, :member_type => Relation::MEMBER_TYPE[:PARENT], :accepted => true, :display_name => "TheParent", :token => timeStamp })
+            new_user.relations.build({ :family => family, :member_type => "Father", :accepted => true, :display_name => "TheParent", :token => timeStamp })
             if new_user.save
               session[:temporary_user_created] = true
               UserSession.new(new_user)

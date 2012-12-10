@@ -1,3 +1,5 @@
+<h4 class="arvo">Share a <span class="arvo-bold">BabyFolio</span></h4>
+<!--div class="row chose-contacts-wrapper" ><span class="label"></span><%= link_to "Choose from Contacts", "#", :class => "btn" %></div-->
 <%= form_for user, :remote => true, :url => relations_path, :html => {:id => "new-relation-form"} do |form| %>
     
     <div class="first-name row">
@@ -28,15 +30,22 @@
     
     <div class="row">
         <span class="label"><%= label_tag "Relationship" %></span>
-        <%= select_tag :relation_type, options_from_collection_for_select(Relation::MEMBER_TYPE_NAME, :first, :last, :selected => Relation::MEMBER_TYPE[:FATHER]), {:class => "select-layout" } -%>
+        <%= select_tag :relation_type, options_for_select(Relation::TYPE_KEYS), {:class => "select-layout" } -%>
     </div>
 
     <div class="row">
-        <span class="label"><%= label_tag "Admin" %></span>
-        <%= select_tag :is_admin, options_for_select([["No", 0], ["Yes", 1]]), :class => 'select-layout' -%>
+        <span class="label"><%= label_tag "Admin" %></span>        
+        <%= radio_button_tag "is_admin", "1", :checked => false, :id => 'yes-admin' %>
+        <label for="is_admin_1">Yes</label>
+        <%= radio_button_tag "is_admin", "0", :checked => false, :id => 'no-admin' %>
+        <label for="is_admin_0">No</label>
     </div>
 
+  <div class="row">
+    <div class="label"></div>
     <%= form.submit "Invite", :disable_with => "Inviting...", :class => 'btn' %>
+  </div>
+    
 <% end %>
 
 

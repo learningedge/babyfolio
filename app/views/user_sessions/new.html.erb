@@ -1,6 +1,9 @@
-<div class="container">  
-  <div class="user-form">
-    <%= render "shared/error_messages", :target => @user_session, :summary => "There were some errors while loggin in:" %>
+<div class="container">
+  <div class="row">
+    <div class="label"></div>
+    <h4 style="display: inline-block;">Please enter user credentials in order to log into the site.</h4>
+  </div>
+  <div class="user-form">    
     <div id="login_left">
     <%= form_for @user_session, :as => :user_session, :url => { :action => "create" } do |f| %>
       <div class="email row">
@@ -19,24 +22,18 @@
           <%= f.password_field :password %>
         </span>
       </div>      
-      <div class="submit">
-          <%= f.submit "Login" %>
+      <div class="row submit">
+        <div class="label"></div>
+          <%= f.submit "Login", :class => 'btn'%>
       </div>
     <% end %>
     <div class="clear"></div>
-    <div class="forgot-link">
+    <div class="forgot-link row">
+      <div class="label"></div>
       Forgot password or can't log in? <%= link_to 'Click here', new_forgot_password_url -%>.
     </div>    
    </div>
-   <%#*<div id="login_right">%>
-     <%#*Sign in with your facebook account%>
-     <%#*<div id="fblogin_link">%>
-       <%#= link_to '/auth/facebook?display=popup', :onclick => "open_popup_login(this.href); return false;" do %>
-         <%#= image_tag "/images/fblogin.png" %>
-       <%# end %>
-     <%#*</div>%>
-   <%#*</div>%>
-   <%#*<div id="or">or</div>%>
+
 
   </div>
   <div class="clear"></div>

@@ -3,15 +3,15 @@
     <%=
         case type
           when "play"
-            render :partial => "play_fields"
+            render :partial => "timeline/play_fields"
           when "watch"
-            render :partial => "watch_fields"
+            render :partial => "timeline/watch_fields"
           when "reflect"
-            render :partial => "reflect_fields"
+            render :partial => "timeline/reflect_fields"
           when "likes"
-            render :partial => "likes_fields"
+            render :partial => "timeline/likes_fields"
           when "dislikes"
-            render :partial => "dislikes_fields"
+            render :partial => "timeline/dislikes_fields"
           else
         end
     %>
@@ -27,14 +27,18 @@
     
     
     <script type="text/javascript">
+      var key_t = '<%= Rails.application.config.session_options[:key] %>';
+      var forg_prot = "<%= form_authenticity_token %>";
+
       $(function() {
         var uploader_<%= type %> = new qq.FileUploader({
             element: document.getElementById('entry-image-uploader-<%= type %>'),
             action: '<%= create_photo_children_path -%>',
-            params: { },
+            params: { key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
             onSubmit: function() {
               var prev_img = $(this.element).parents('.tab').find('.img-wrapper input[type="hidden"]').val();
-              if(prev_img) uploader_<%= type %>.setParams({ previous_img : prev_img });
+              if(prev_img) uploader_<%= type %>.setParams({ previous_img : prev_img,
+              key : key_t, "<%= request_forgery_protection_token %>" : forg_prot });
             },
             onComplete: function(id, fileName, responseJSON){
 

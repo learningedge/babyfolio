@@ -11,11 +11,11 @@ class Child < ActiveRecord::Base
   has_many :users, :through => :relations
 
   has_one :attachment, :as => :object
-  has_one :media, :through => :attachment
-  has_many :moments, :conditions => ["moments.visibility NOT IN (?)",Moment::ARCHIVED]
+  has_one :media, :through => :attachment  
   has_many :answers
   has_many :questions, :through => :answers
   has_many :timeline_entries, :class_name => "TimelineEntry"
+  has_many :likes
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true
@@ -31,7 +31,7 @@ class Child < ActiveRecord::Base
   }
 
   FORMS = {
-    /(#)+he\/she#/ => ['he', 'she'],
+    /(#)+he\/she(#)+/ => ['he', 'she'],
     /(#)+He\/[S,s]he(#)+/ => ['He', 'She'],
     /(#)+his\/her(#)+/ => ['his', 'her'],
     /(#)+His\/Her(#)+/ => ['His', 'Her'],
@@ -45,7 +45,7 @@ class Child < ActiveRecord::Base
 
 
   def max_seen_by_category
-    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.category, max(questions.age) as age').order('age desc')
+    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.category, max(questions.age) as age').order('age desc')    
     result = []
     questions.each do |q|
       result << self.questions.includes(:milestone).find_by_age_and_category(q.age, q.category)
@@ -53,9 +53,20 @@ class Child < ActiveRecord::Base
     result
   end
 
+  def relation_to_current_user user
+    rel = self.relations.find_by_user_id(user.id)
+    rel.member_type if rel
+  end
+
   def formated_birth_date
     birth_date.strftime("%m/%d/%Y") unless birth_date.nil?
-  end  
+  end
+
+  def get_image_src size, default = "/images/img_upload_child.png"
+    result = self.media.image.url(size) if self.media
+    result = default if result.blank?
+    result
+  end
 
   def months_old
     mnths = 0;
@@ -82,10 +93,6 @@ class Child < ActiveRecord::Base
 
   def gender_index
     @index ||= (gender == 'male' ? 0 : 1);
-  end
-
-  def get_all_images 
-    self.moments.collect{ |mom| mom.media }.flatten.select{ |x| x.kind_of? MediaImage }.uniq
   end
 
   def age_text
