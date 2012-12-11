@@ -548,6 +548,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-category p{color: #65c3cf;}
 #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-date { text-align: center; width: 45px; font: italic 10px Arial; color: #999;}
 #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-title { font: bold 12px Arial; margin-left: 10px; vertical-align: middle; max-width: 410px;}
+#timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-title a { font: inherit; color: inherit; }
 #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .timeline-desc { font-size: 12px; padding-left: 113px; padding-right: 20px; margin: 10px 0;}
 #timeline-wrapper .te-image-wrapper { text-align: center; margin: 10px 0 0; }
 #timeline-wrapper .entry-avatar { width: 50px; height: 50px; display: inline-block; background: url(/images/img_upload_child_med.png) center center no-repeat;}

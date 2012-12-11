@@ -84,25 +84,12 @@ class ChildrenController < ApplicationController
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. Watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><ParentingTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
-
-#                  <h4>Strong Development</h4>
-#                  <p>#{current_child.first_name} is showing promise at <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.</p>
-#                  <p>Recently, #{current_child.first_name} Realized All Things Have Names.</p>
-#                  <p>The following play activities will further boost this development:</p>
-#                  <h5>Recommended Play Activities</h5>")
       
     @avg_text = current_child.replace_forms("
-                  <h4><WTitle>: #{current_child.first_name} Most Important <INTELLIGENCE> Development</h4>
+                  <h4><WTitle>: #{current_child.first_name}'s Most Important <INTELLIGENCE> Development</h4>
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><ParentingTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
-
-#                  <h4>Average Development</h4>
-#                  <p>#{current_child.first_name} also shows social development based on the behavioral milestones #he/she# has already exhibited.</p>
-#                  <p>Recently, #{current_child.first_name} pretended while playing.</p>
-#                  <p>Support #his/her# continuing social development with these activities below.</p>
-#                  <h5>Recommended Play Activities</h5>")
-
 
     @weak_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
@@ -111,10 +98,6 @@ class ChildrenController < ApplicationController
                   <p><ParentingTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
 
-#                  <h4>Needs Improvement in Development</h4>
-#                  <p>#{current_child.first_name} is currently slower to develop in <INTELLIGENCE> development based on the behavioral milestones #he/she# has already exhibited.  Recently, #{current_child.first_name} Felt Worried or Sad After Making a Mistake.</p>
-#                  <p>Support #his/her# continuing emotional development with these activities below.</p>
-#                  <h5>Supporting Activities</h5>")
   end
 
   def play

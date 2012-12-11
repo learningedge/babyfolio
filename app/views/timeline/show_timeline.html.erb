@@ -59,7 +59,7 @@
     <ul id="timeline-right">
       <% @timeline_entries.each do |te| %>
       <li class="single-timeline-entry">
-          <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present?  %></span>
+          <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %></span>
           <div class="single-timeline-entry-inner">
             <div class="te-arrow-left"></div>
             <div class="te-box">
@@ -72,7 +72,11 @@
                   <%= te.published %>
                 </span>
                 <span class="te-title">
-                  <%= te.title %>
+                  <% if te.behaviour %>
+                    <%= link_to te.title.html_safe, watch_children_path(:mid => te.behaviour.mid) %>
+                  <% else %>
+                    <%= te.title.html_safe %>
+                  <% end %>
                 </span>                               
                 <div class="clear"></div>
                 <% if  te.description.present? %>
@@ -98,7 +102,8 @@
                           <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
                         </span>
                         <span class="comment-date"><%= c.published %></span>                        
-                        <span class="comment-content"><span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>
+                        <span class="comment-content">                          
+                            <span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>                    
                       </div>
                   <% end %>
 
@@ -119,7 +124,9 @@
                   <img src="/images/timeline_joined_icon.png" />
                 </span>
                 <span class="joined-date"><%= current_child.joined %></span>
-                <span class="te-title"><%= current_child.first_name %> started <%= current_child.replace_forms("#his/her#") %> BabyFolio.</span>
+                <span class="te-title">
+                    <%= current_child.first_name %> started <%= current_child.replace_forms("#his/her#") %> BabyFolio.                  
+                </span>
             </div>
         </div>
       </li>

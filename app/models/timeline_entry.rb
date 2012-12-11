@@ -2,15 +2,19 @@ class TimelineEntry < ActiveRecord::Base
   has_many :meta_entries, :class_name => "TimelineMeta"
   has_many :comments, :through => :meta_entries, :source => :object, :source_type => "Comment"
   has_many :media, :through => :meta_entries, :source => :object, :source_type => "Media"
+  has_one :meta_entry, :class_name => "TimelineMeta"
+  has_one :behaviour, :through => :meta_entry, :source => :object, :source_type => "Milestone"
   has_one :child
   belongs_to :user
 
-  def self.build_entry type, did_what, child, author, desc = nil, category = nil, media = nil, who_id = nil
+  def self.build_entry type, did_what, child, author, desc = nil, category = nil, media = nil, who_id = nil, mid = nil
     te = TimelineEntry.new({ :entry_type => type, :child_id => child.id, :user_id => author.id, :description => desc, :category => category})
 
     med = Media.find_by_id(media)
     te.media << med if med
     who = User.find_by_id(who_id).get_user_name if who_id
+    behaviour = Milestone.find_by_mid(mid) if mid
+    te.behaviour = behaviour
 
     case te.entry_type
       when "play"
