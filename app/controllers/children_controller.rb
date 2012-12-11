@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ChildrenController < ApplicationController
   layout "child", :only => [:reflect, :play, :watch]
   before_filter :require_user
@@ -97,7 +98,6 @@ class ChildrenController < ApplicationController
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><ParentingTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
-
   end
 
   def play

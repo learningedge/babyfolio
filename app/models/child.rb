@@ -45,7 +45,7 @@ class Child < ActiveRecord::Base
 
 
   def max_seen_by_category
-    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.id, questions.category, max(questions.age) as age').order('age desc')    
+    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.category, max(questions.age) as age').order('age desc')    
     result = []
     questions.each do |q|
       result << self.questions.includes(:milestone).find_by_age_and_category(q.age, q.category)

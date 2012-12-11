@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "test@babyfolio.qa.codephonic.com"
+  default :from => ENV['EMAIL_FROM'] || "test@babyfolio.qa.codephonic.com"  
 
   def confirmation_email(user)
     @user = user
@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
   
   def send_contact msg
        @msg = msg
-       mail(:to => "tickets@baby1.uservoice.com", :subject => "New Contact Us Submission")
+       mail(:to => ENV['CONTACT_EMAIL'] || "tickets@baby1.uservoice.com", :subject => "New Contact Us Submission")
   end
 
 end
