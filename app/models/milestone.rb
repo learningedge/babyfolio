@@ -15,7 +15,11 @@ class Milestone < ActiveRecord::Base
 
 
   def get_title
-    self.observation_title.blank? ? "Empty title" : self.observation_title
+    self.title.blank? ? "Title goes here" : self.title
+  end
+
+  def get_parenting_tip
+    self.parent_as_partner.blank? ? "Parenting tip placeholder" : self.parent_as_partner
   end
 
 end

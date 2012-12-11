@@ -373,7 +373,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #reflect-content-window .btn { margin-right: 10px; }
 #reflect-content-window .reflect-pointing-arrow{ position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: -32px; top: 0;}
 
-#reflect-to-timeline { position: relative; background-color: #d6ebf8; padding: 10px; border: 1px solid #0c8a9a; width: 600px; margin-left: 30px; margin-top: 15px;}
+#reflect-to-timeline { position: relative; background-color: #d6ebf8; padding: 10px; border: 1px solid #0c8a9a; width: 600px; float: right; margin-right: 7px; margin-top: 15px;}
 #reflect-to-timeline-inner { background-color: #fff; padding: 15px 0;}
 #reflect-to-timeline-inner-middle { width: 580px; margin: 0 auto; }
 #reflect-to-timeline-inner-middle textarea { width: 560px; height: 85px; padding: 10px 10px;}

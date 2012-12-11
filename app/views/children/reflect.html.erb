@@ -57,7 +57,7 @@
 
   <script type="text/javascript">
     $(function() {
-      $('#reflect-content-window').height($('#reflect-column-wrapper').height());
+      $('#reflect-content-window').css({ minHeight :  $('#reflect-column-wrapper').height()});
       if(1 != <%=  @lengths.size %>) {
         updatePopup($('.single-reflected-item').first());
         updateArrowPosition();

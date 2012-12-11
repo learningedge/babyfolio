@@ -83,20 +83,21 @@ class ChildrenController < ApplicationController
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
                   <p>Current Strength - #{current_child.first_name} is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. Watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
+                  <p><PTip></p>
                   <p><ParentingTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
       
     @avg_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}'s Most Important <INTELLIGENCE> Development</h4>
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
-                  <p><ParentingTip></p>
+                  <p><PTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
 
     @weak_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
                   <p>Current Area for Improvement: #{current_child.first_name} is developing less quickly in <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Development naturally spurts and lags in all areas. Keep watching for opportunities to bolster #his/her# <INTELLIGENCE> development.</p>
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
-                  <p><ParentingTip></p>
+                  <p><PTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
   end
 
@@ -199,14 +200,9 @@ class ChildrenController < ApplicationController
 
     questions = current_child.max_seen_by_category
 
-#    answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
-#    answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }    
-
     questions.each do |q|      
       current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
-    end
-        
-#    render :text => current_questions.map{ |q| { q.category => q.age} }.inspect + "<br/><br/><br/>" + questions.map{ |q| { q.category => q.age} }.inspect
+    end        
 
     if params[:mid]
       m = Milestone.includes(:questions).find_by_mid(params[:mid])
@@ -227,7 +223,7 @@ class ChildrenController < ApplicationController
                          :category => m[:category],
                          :mid => m[:milestone].mid,
                          :ms_title => current_child.replace_forms(m[:milestone].title, 35),
-                         :title => m[:milestone].observation_title.blank? ? "Title goes here" : current_child.replace_forms(m[:milestone].observation_title, 60),
+                         :title => current_child.replace_forms(m[:milestone].get_title, 60),
                          :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
                          :desc => current_child.replace_forms(m[:milestone].observation_desc),
                          :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
@@ -274,7 +270,7 @@ class ChildrenController < ApplicationController
                :category => qs.category,
                :mid => qs.mid,
                :ms_title => current_child.replace_forms(qs.milestone.title, 35),
-               :title => qs.milestone.observation_title.blank? ? "Title goes here" : current_child.replace_forms(qs.milestone.observation_title, 60),
+               :title =>  current_child.replace_forms(qs.milestone.get_title, 60),
                :subtitle =>  qs.milestone.observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(qs.milestone.observation_subtitle),
                :desc => current_child.replace_forms(qs.milestone.observation_desc),
                :examples =>  current_child.replace_forms(qs.milestone.other_occurances),

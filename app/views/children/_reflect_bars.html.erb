@@ -16,11 +16,11 @@
                       <% m = v.milestone unless v.nil? %>
                       <% if m %>
                           <% if f %>
-                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).html_safe  %>
+                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% elsif l %>
-                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).html_safe  %>
+                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% else %>
-                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).html_safe %>
+                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% end %>
 
                           <% unless m.activity_1_title.blank? %> 
