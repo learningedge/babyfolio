@@ -14,6 +14,11 @@
     }
     _kms('//i.kissmetrics.com/i.js');
     _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+
+   <% if current_user %>
+    _kmq.push(['identify', '<%= current_user.get_user_name + "(#{current_user.email})" %>']);
+   <% end %>
+
   </script>
 
   <script type="text/javascript">
@@ -27,7 +32,12 @@
       ga.async = true;
       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-     })(); 
+     })();
+
+   <% if current_user %>
+     _gaq.push(['_setCustomVar', 1, 'User Identity', '<%= current_user.get_user_name + "(#{current_user.email})" %>', 2 ]);
+   <% end %>
+    
   </script>
   
   <title>Babyfolio</title>
