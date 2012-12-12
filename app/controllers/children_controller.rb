@@ -25,7 +25,7 @@ class ChildrenController < ApplicationController
       rel.save
       current_user.reset_perishable_token!            
       set_current_child @child.id
-      redirect_to initial_questionnaire_url
+      redirect_to registration_initial_questionnaire_path
     else
       render :action => 'new'
     end
