@@ -8,13 +8,15 @@ class TimelineEntry < ActiveRecord::Base
   belongs_to :user
 
   def self.build_entry type, did_what, child, author, desc = nil, category = nil, media = nil, who_id = nil, mid = nil
+    behaviour = Milestone.includes(:questions).find_by_mid(mid) if mid
+    category ||=  behaviour.questions.first.category if behaviour
     te = TimelineEntry.new({ :entry_type => type, :child_id => child.id, :user_id => author.id, :description => desc, :category => category})
 
     med = Media.find_by_id(media)
     te.media << med if med
     who = User.find_by_id(who_id).get_user_name if who_id
-    behaviour = Milestone.find_by_mid(mid) if mid
     te.behaviour = behaviour
+    
 
     case te.entry_type
       when "play"

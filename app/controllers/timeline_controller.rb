@@ -29,7 +29,8 @@ class TimelineController < ApplicationController
                                    params[:details],
                                    params[:category],
                                    params[:media_id],
-                                   params[:who]
+                                   params[:who],
+                                   params[:te_mid]
                                  )
     te.save
     
