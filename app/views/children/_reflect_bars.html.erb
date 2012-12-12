@@ -16,11 +16,11 @@
                       <% m = v.milestone unless v.nil? %>
                       <% if m %>
                           <% if f %>
-                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).html_safe  %>
+                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% elsif l %>
-                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).html_safe  %>
+                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% else %>
-                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).html_safe %>
+                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% end %>
 
                           <% unless m.activity_1_title.blank? %> 
@@ -29,7 +29,7 @@
                           <% unless true %>
                               <p><a href="<%= play_children_path(:mid => m.mid, :no => 2) %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_2_title, :length => 40)).html_safe %></a></p>
                           <% end %>
-                          <a href="#" class="behaviour-details hidden" data-category="<%= k %>" data-behaviour="<%= m.get_title %>"></a>
+                          <a href="#" class="behaviour-details hidden" data-category="<%= k %>" data-behaviour="<%= m.get_title %>" data-mid="<%= m.mid %>"></a>
                       <% else %>
                           <div class="unfinished-questionnaire-notice">
                             <h4>Hey there, to see information about these intelligences, you'll have to complete your baby's registration first.  Would you like to do that now?</h4>

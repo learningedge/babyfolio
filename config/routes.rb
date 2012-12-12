@@ -19,6 +19,11 @@ Babyfolio::Application.routes.draw do
   get "about" => "home#about", :as => :about
   post "send-contact" => "home#send_contact", :as => :send_contact
 
+  #REGISTRATION  SPECIFIC
+    get "registration/children/new" => "children#new", :as => :registration_new_child
+    get "registration/questionnaire/initial" => "questions#initial_questionnaire", :as => :registration_initial_questionnaire
+  #REGISTRATION  SPECIFIC
+    
 #  QUESTIONNAIRES
   get "questionnaire/initial" => "questions#initial_questionnaire", :as => :initial_questionnaire
   post "update_seen/:child_id/:question/:start_age/:value" => "questions#update_seen", :as => :update_seen

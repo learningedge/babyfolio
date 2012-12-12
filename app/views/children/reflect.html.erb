@@ -57,7 +57,7 @@
 
   <script type="text/javascript">
     $(function() {
-      $('#reflect-content-window').height($('#reflect-column-wrapper').height());
+      $('#reflect-content-window').css({ minHeight :  $('#reflect-column-wrapper').height()});
       if(1 != <%=  @lengths.size %>) {
         updatePopup($('.single-reflected-item').first());
         updateArrowPosition();
@@ -80,6 +80,7 @@
         $('#reflect-content-window').html($(item).find('.popup-wrapper').html());
         $('#reflect-to-timeline .what').text($(details).attr('data-behaviour'));
         $('#reflect-to-timeline #te_category').val($(details).attr('data-category'));
+        $('#reflect-to-timeline #te_mid').val($(details).attr('data-mid'));
         $('#reflect-to-timeline #did_what').val($(details).attr('data-behaviour'));
         $('#reflect-to-timeline-cover').hide();
         $('.img-wrapper').html('');

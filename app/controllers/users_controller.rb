@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       UserMailer.confirmation_email(@user).deliver
 
       flash[:notice] = "Your account has been created. Confirmation email has been sent."
-      redirect_to new_child_children_url
+      redirect_to registration_new_child_path
     else
       flash[:notice] = "There was a problem creating your account."
       render :action => :new
