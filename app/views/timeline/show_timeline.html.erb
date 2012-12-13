@@ -58,8 +58,8 @@
 
     <ul id="timeline-right">
       <% @timeline_entries.each do |te| %>
-      <li class="single-timeline-entry">
-          <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present?  %></span>
+      <li class="single-timeline-entry <%= 'is-auto' if te.is_auto %>">
+          <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %></span>
           <div class="single-timeline-entry-inner">
             <div class="te-arrow-left"></div>
             <div class="te-box">
@@ -72,7 +72,11 @@
                   <%= te.published %>
                 </span>
                 <span class="te-title">
-                  <%= te.title %>
+                  <% if te.behaviour %>
+                    <%= link_to te.title.html_safe, watch_children_path(:mid => te.behaviour.mid) %>
+                  <% else %>
+                    <%= te.title.html_safe %>
+                  <% end %>
                 </span>                               
                 <div class="clear"></div>
                 <% if  te.description.present? %>
@@ -88,9 +92,11 @@
                 <%= form_tag add_timeline_comment_path, :class => "comment-form" do %>
                   <%= submit_tag "Post comment", :class => "comment-balloon" %>
                   <%= hidden_field_tag "te_id", te.id %>
-                  <%= text_field_tag "text", nil, :id => "comment-input-#{te.id}", :class => "comment-input"  %>
-                  <%= link_to "Add new entry", "#", :class => "timeline-btn" %>
+                  <%= text_field_tag "text", nil, :id => "comment-input-#{te.id}", :class => "comment-input"  %>                  
                 <% end %>
+
+                <%= link_to "Add new entry", "#repost_#{te.id}", :class => "timeline-btn" %>
+
                 <div class="comments-wrapper">
                   <% te.comments.reverse.each do |c| %>
                       <div class="single-comment">
@@ -98,14 +104,44 @@
                           <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
                         </span>
                         <span class="comment-date"><%= c.published %></span>                        
-                        <span class="comment-content"><span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>
+                        <span class="comment-content">                          
+                            <span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>                    
                       </div>
                   <% end %>
 
                 </div>
-              </div>
-                
+              </div>                
             </div>
+
+            <%= form_tag add_timeline_entry_path, :class => "repost-form hidden", :id => "repost_#{te.id}" do %>
+              <% b = te.behaviour %>
+              <% if b.present?  %>
+                <% te_mid = b.mid %>
+                <% te_what = current_child.replace_forms(b.get_title) %>
+              <% end %>
+              <%= hidden_field_tag "te_mid", te_mid %>
+              <%= hidden_field_tag "entry_type", "watch" %>
+              <p>Please describe a recent time when <span class="bold"><%= current_child.first_name  %></span> <span class="italic"><%= te_what %></span>.  Elaborate on the details of what, where and how. Try to capture a baseline so you can see how this behavior grows and changes over time.</p>
+
+              <div class="repost-timeline-inner">
+                <div class="repost-timeline-inner-middle">
+
+                  <p class="row"><%= current_child.first_name.capitalize %> <%= text_field_tag "did_what", te_what %> for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+                  <p><%= text_area_tag "details", nil, :placeholder => "add more details here...", :class => "row" %></p>
+
+                  <div class="reflect-to-timeline-footer">
+                    <%= submit_tag "Post", :class => 'btn', :disable_with => "Processing..." %>
+                    <div id="entry-image-uploader-te-<%= te.id %>" class="entry-image-uploader"></div>
+                    <div class="clear"></div>
+                    <div class="img-wrapper"></div>
+                  </div>
+
+                  <div class="clear"></div>
+                </div>
+              </div>
+
+            <% end  %>
+
             
           </div>
       </li>
@@ -119,7 +155,9 @@
                   <img src="/images/timeline_joined_icon.png" />
                 </span>
                 <span class="joined-date"><%= current_child.joined %></span>
-                <span class="te-title"><%= current_child.first_name %> started <%= current_child.replace_forms("#his/her#") %> BabyFolio.</span>
+                <span class="te-title">
+                    <%= current_child.first_name %> started <%= current_child.replace_forms("#his/her#") %> BabyFolio.                  
+                </span>
             </div>
         </div>
       </li>
@@ -142,6 +180,13 @@
       <% unless @timeline_visited %>
         $('#timeline-info-dialog').dialog({modal: true});
       <% end %>
+
+        $('.timeline-btn').click(function() {        
+          $($(this).attr('href')).dialog({ modal : true});
+          $('.ui-dialog-titlebar').css({top: '10px', right: '16px'});
+          $('.ui-dialog').css({padding: '15px'});
+          return false;
+        });
     });
 
 
@@ -153,5 +198,41 @@
       }
       return false;
     }
+
+
+    var key_t = '<%= Rails.application.config.session_options[:key] %>';
+    var forg_prot = "<%= form_authenticity_token %>";
+
+    $('.repost-form .entry-image-uploader').each(function() {
+      var wrapper =  $(this);
+      var uploader = new qq.FileUploader({
+            element: document.getElementById($(wrapper).attr('id')),
+            action: '<%= create_photo_children_path -%>',
+            params: { size: 'attachment_large', key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
+            onSubmit: function() {
+              var prev_img = $(this.element).parents('.repost-form').find('.img-wrapper input[type="hidden"]').val();
+              if(prev_img) uploader.setParams({ previous_img : prev_img, size: 'attachment_large',
+              key : key_t, "<%= request_forgery_protection_token %>" : forg_prot});
+            },
+            onComplete: function(id, fileName, responseJSON){
+
+              $('.qq-upload-list li').each(function() {
+                if($(this).find('.qq-upload-file').text() == fileName);
+                $(this).fadeOut('slow');
+              });
+
+              var img = document.createElement('img');
+              img.src = responseJSON.img_url;
+              var hidden = document.createElement('input');
+              hidden.type = "hidden";
+              hidden.value = responseJSON.media_id;
+              hidden.name = "media_id"
+
+              $(wrapper).parents('.repost-form').find('.img-wrapper').html("").append(img).append(hidden);
+              console.log(wrapper);
+            }
+        });
+    });
+    
   </script>
 

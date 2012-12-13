@@ -11,7 +11,7 @@ class TimelineController < ApplicationController
     set_current_child @selected_child.id  unless params[:child_id].blank?
 
     @relatives = @selected_child.users
-    @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media).order("created_at DESC")
+    @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media, :behaviour).order("created_at DESC")
 
     max_by_cat = current_child.max_seen_by_category
     @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0] && max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
@@ -29,7 +29,9 @@ class TimelineController < ApplicationController
                                    params[:details],
                                    params[:category],
                                    params[:media_id],
-                                   params[:who])
+                                   params[:who],
+                                   params[:te_mid]
+                                 )
     te.save
     
     redirect_to show_timeline_path
@@ -43,7 +45,9 @@ class TimelineController < ApplicationController
                                    params[:details],
                                    params[:category],
                                    params[:media_id],
-                                   params[:who])
+                                   params[:who],
+                                   params[:mid]
+                                  )
     te.save
 
     respond_to do |format|
@@ -59,7 +63,9 @@ class TimelineController < ApplicationController
                                    params[:details],
                                    params[:te_category],
                                    params[:media_id],
-                                   params[:who])
+                                   params[:who],
+                                   params[:te_mid]
+                                 )
     te.save
 
     respond_to do |format|

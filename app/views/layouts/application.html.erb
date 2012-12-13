@@ -1,6 +1,47 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+  <script type="text/javascript">
+    var _kmq = _kmq || [];
+    var _kmk = _kmk || '<%= ENV['KISSMETRICS_API_KEY'] || '2917a0b57032da8bc8288dbaad7467c7268cba32' %>';
+
+   <% if current_user %>
+    _kmq.push(['identify', '<%= current_user.get_user_name + "(#{current_user.email})" %>']);
+   <% end %>
+
+   _kmq.push(['record', 'Page View']);
+
+    function _kms(u){
+      setTimeout(function(){
+        var d = document, f = d.getElementsByTagName('script')[0],
+        s = d.createElement('script');
+        s.type = 'text/javascript'; s.async = true; s.src = u;
+        f.parentNode.insertBefore(s, f);
+      }, 1);
+    }
+    _kms('//i.kissmetrics.com/i.js');
+    _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+
+  </script>
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36979084-1']);
+   <% if current_user %>
+     _gaq.push(['_setCustomVar', 1, 'User Identity', '<%= current_user.get_user_name + "(#{current_user.email})" %>', 2 ]);
+   <% end %>
+    _gaq.push(['_trackPageview']);
+    
+    (function() {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+     })();
+
+  </script>
+  
   <title>Babyfolio</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
@@ -51,6 +92,15 @@
       $('.content-inner-wrapper .left-column').height($(document).height() - $('#header').height() - $('#footer').height() - $('#middle-bar').height() - 40);      
 
     });
+  </script>
+
+  <script type="text/javascript">
+    var uvOptions = {};
+    (function() {
+      var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+      uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/5SIpu4jSMdIOeghQI3V4NQ.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+    })();
   </script>
 </body>
 </html>

@@ -87,7 +87,18 @@ class QuestionsController < ApplicationController
   def initial_questionnaire_completed
     @qs_ms = current_child.max_seen_by_category
     @qs_ms.each do |q|
-      TimelineEntry.create({ :entry_type => "reflect", :child_id => current_child.id, :title => q.milestone.title, :category => q.category, :user => current_user })
+      te = TimelineEntry.build_entry("watch",
+                                   q.milestone.get_title,
+                                   current_child,
+                                   current_user,
+                                   nil,
+                                   q.category,
+                                   nil,
+                                   current_user.id,
+                                   q.milestone.mid
+                                 )
+      te.is_auto = true
+      te.save
     end
 
     session[:reflect_popup] = true
