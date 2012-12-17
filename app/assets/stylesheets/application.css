@@ -93,7 +93,8 @@ ul { list-style:  none;}
 html { height: 100%; }
 body { position: relative; min-height: 100%;  background: url(/images/content_wrapper_bg.png) repeat-x center top #fff;}
 .ui-widget-overlay { position: absolute; left: 0; top: 0; background-color: #000; opacity: 0.6;}
-.ui-dialog { background-color: #fff; padding: 7px; position: relative; display: inline-block; width: auto !important;}
+.ui-dialog { background-color: #fff; padding: 7px; position: absolute; display: inline-block; width: auto !important; }
+.ui-widget-overlay { height: 100% !important; }
 .ui-dialog .ui-dialog-titlebar { position: absolute; top: 10px; right: 15px; }
 .ui-dialog .ui-icon-closethick { text-indent: -9999px; text-transform: capitalize; background: url(/images/close_dialog.png) no-repeat center center; width: 25px; height: 26px; display: inline-block; }
 
