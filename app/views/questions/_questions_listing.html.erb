@@ -1,7 +1,7 @@
     <div id="all-initial-questions">
-        <% questions.each do |key, qc| %>
+        <% behaviours.each do |key, bc| %>
           <div class="single-question single-<%= key %>">
-            <%= render :partial => 'single_question', :locals => { :question => qc[0], :category => key, :completed => qc[1] } %>
+            <%= render :partial => 'single_question', :locals => { :behaviour => bc[0], :category => key, :completed => bc[1] } %>
           </div>
         <% end %>      
       <!--div id="finish-link-wrapper"><%#= link_to "Finish", initial_questionnaire_completed_path , :class => 'not-seen-link hidden' %></div-->

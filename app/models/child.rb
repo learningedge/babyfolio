@@ -11,9 +11,19 @@ class Child < ActiveRecord::Base
   has_many :users, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.access" => true}, :source => :user
   has_many :admins, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.is_admin" => true, "relations.access" => true}, :source => :user
 
-  has_one :attachment, :as => :object, :dependent => :destroy
-  has_one :media, :through => :attachment 
-  has_many :answers, :dependent => :destroy
+#<<<<<<< HEAD
+#  has_one :attachment, :as => :object, :dependent => :destroy
+#  has_one :media, :through => :attachment
+#  has_many :answers, :dependent => :destroy
+#=======
+  has_one :attachment, :as => :object
+  has_one :media, :through => :attachment  
+  has_many :answers
+
+  has_many :seen_behaviours
+  has_many :behaviours, :through => :seen_behaviours
+  
+#>>>>>>> reworking db scheme , watch still to be done - gitt
   has_many :questions, :through => :answers
   has_many :timeline_entries, :class_name => "TimelineEntry", :dependent => :destroy
   has_many :likes, :dependent => :destroy
@@ -62,11 +72,20 @@ class Child < ActiveRecord::Base
   }
 
 
+#  def max_seen_by_category
+#    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.category, max(questions.age) as age').order('age desc')
+#    result = []
+#    questions.each do |q|
+#      result << self.questions.includes(:milestone).find_by_age_and_category(q.age, q.category)
+#    end
+#    result
+#  end
+
   def max_seen_by_category
-    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.category, max(questions.age) as age').order('age desc')    
     result = []
-    questions.each do |q|
-      result << self.questions.includes(:milestone).find_by_age_and_category(q.age, q.category)
+    behaviours = self.behaviours.group('behaviours.category').select('behaviours.category, max(behaviours.age_from) as age_from').order('age_from desc')
+    behaviours.each do |b|
+      result << self.behaviours.find_by_age_from_and_category(b.age_from, b.category)
     end
     result
   end
@@ -131,6 +150,10 @@ class Child < ActiveRecord::Base
     return mnths > 0 ? mnths-1 : 0
   end
 
+  def current_behaviours
+    self.behaviours.group("behaviours.category").where(["behaviours.age_from <= ?", self.months_old])
+  end
+
   def days_old
     (DateTime.now.to_date - self.birth_date.to_date).to_i
   end
@@ -142,7 +165,7 @@ class Child < ActiveRecord::Base
       if truncate > 0
         question_text = truncate(question_text, :length => truncate, :separator => ' ')
       end
-      question_text = question_text.gsub(/#first#|#Nickname#/, "<span class='bold'>#{self.first_name}</span>")
+      question_text = question_text.gsub(/#first#|#Nickname#|<NAME>/, "<span class='bold'>#{self.first_name}</span>")
       return question_text.html_safe
   end
 

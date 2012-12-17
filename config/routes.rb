@@ -30,7 +30,7 @@ Babyfolio::Application.routes.draw do
     
 #  QUESTIONNAIRES
   get "questionnaire/initial" => "questions#initial_questionnaire", :as => :initial_questionnaire
-  post "update_seen/:child_id/:question/:start_age/:value" => "questions#update_seen", :as => :update_seen
+  post "update_seen/:behaviour/:start_age/:value" => "questions#update_seen", :as => :update_seen
   post "update_watch/:mid" => "questions#update_watched", :as => :update_watched
   post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
   get "initial_questionnaire_completed/(:add_child)" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
@@ -70,9 +70,9 @@ Babyfolio::Application.routes.draw do
       post '/create_relations' => "children#create_relations", :as => :create_relations
       post '/create-photo' => "children#create_photo", :as => :create_photo            
       get '/reflect' => "children#reflect", :as => :child_reflect
-      get '/play(/:mid/:no)' => "children#play", :as => :play
-      get '/watch(/:mid)' => "children#watch", :as => :watch
-      get '/get-adjacent-activity/:mid/:dir' => "children#get_adjacent_activity", :as => :adjacent_activity
+      get '/play(/:aid)' => "children#play", :as => :play
+      get '/watch(/:bid)' => "children#watch", :as => :watch
+      get '/get-adjacent-activity/:aid/:dir' => "children#get_adjacent_activity", :as => :adjacent_activity
       post '/activity-like' => "children#activity_like", :as => :activity_like
       get '/get-adjacent-behaviour/:mid/:dir' => "children#get_adjacent_behaviour", :as => :adjacent_behaviour
       get '/:id/info' => "children#info", :as => :info

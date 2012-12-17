@@ -125,11 +125,11 @@ end
     end
 
     def require_seen_behaviours
-        redirect_to registration_initial_questionnaire_path if current_child.answers.where(:value => 'seen').count == 0
+        redirect_to initial_questionnaire_path if current_child.seen_behaviours.count == 0
     end
 
     def category_name(str)
-      Question::CATS[str]
+      Behaviour::CATEGORIES[str]
     end
 
 

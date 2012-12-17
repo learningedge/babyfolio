@@ -66,12 +66,9 @@ class ChildrenController < ApplicationController
   end
 
   def reflect
-    categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category}
-    categorized_qs.each do |k,v|
-      categorized_qs[k] = v.first
-    end
+    seen_behaviours = current_child.max_seen_by_category
 
-    uniq_ages = categorized_qs.map{ |k,v| v.age }.uniq.sort
+    uniq_ages = seen_behaviours.map{ |b| b.age_from }.uniq.sort
     @lengths = Hash.new
     if uniq_ages.size == 1
       @lengths[uniq_ages[0]] = 125
@@ -79,10 +76,30 @@ class ChildrenController < ApplicationController
       uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
     end
 
-    @avg_answers = categorized_qs.map{|k,v| v}
-    unless @avg_answers.first.age == @avg_answers.last.age
-        @weak_answers = [@avg_answers.pop]
-        @str_answers = [@avg_answers.shift]
+#<<<<<<< HEAD
+#    @avg_answers = categorized_qs.map{|k,v| v}
+#    unless @avg_answers.first.age == @avg_answers.last.age
+#        @weak_answers = [@avg_answers.pop]
+#        @str_answers = [@avg_answers.shift]
+#=======
+    third_from_start = seen_behaviours[2]
+    third_from_end = seen_behaviours[-3]
+
+    seen_behaviours = seen_behaviours.group_by{|q| q.category}
+    seen_behaviours.each do |k,v|
+      seen_behaviours[k] = v.first
+    end
+    
+    @str_answers = seen_behaviours.reject{ |k,v| v.age_from <= third_from_start.age_from } unless third_from_start.nil?
+    @weak_answers = seen_behaviours.reject{ |k,v| v.age_from >= third_from_end.age_from } unless third_from_end.nil?
+    @avg_answers = seen_behaviours
+    @avg_answers = seen_behaviours.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
+    @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
+
+    @empty_answers = ActiveSupport::OrderedHash.new
+    Behaviour::CATEGORIES.each do |k,v|
+      @empty_answers[k] = nil if seen_behaviours[k].nil?
+#>>>>>>> reworking db scheme , watch still to be done - gitt
     end
     @avg_answers = @avg_answers.sort_by{|q| Question::CATS_ORDER.index(q.category)  }.sort_by{|q| q.age}.reverse
 
@@ -93,22 +110,22 @@ class ChildrenController < ApplicationController
 
     @str_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
-                  <p>Current Strength - #{current_child.first_name} is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>
-                  <p>TIP: Recently #{current_child.first_name} <WTitlePast>. Watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
+                  <p>Current Strength - <span class='bold'>#{current_child.first_name}</span> is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>
+                  <p>TIP: Recently <span class='bold'>#{current_child.first_name}</span> <WTitlePast>. Watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><PTip></p>
                   <p><ParentingTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
       
     @avg_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}'s Most Important <INTELLIGENCE> Development</h4>
-                  <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
+                  <p>TIP: Recently <span class='bold'>#{current_child.first_name}</span> <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><PTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
 
     @weak_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
-                  <p>Current Area for Improvement: #{current_child.first_name} is developing less quickly in <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Development naturally spurts and lags in all areas. Keep watching for opportunities to bolster #his/her# <INTELLIGENCE> development.</p>
-                  <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
+                  <p>Current Area for Improvement: <span class='bold'>#{current_child.first_name}</span> is developing less quickly in <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Development naturally spurts and lags in all areas. Keep watching for opportunities to bolster #his/her# <INTELLIGENCE> development.</p>
+                  <p>TIP: Recently <span class='bold'>#{current_child.first_name}</span> <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><PTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
 
@@ -118,43 +135,38 @@ class ChildrenController < ApplicationController
   end
 
   def play
-    answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
-    answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
-    answers.each do |k,v|
-      max_age = v.max_by{ |a| a.question.age}.question.age
-      v.delete_if{|a| a.question.age != max_age}
-    end
-  
-    if params[:mid]
-      m = Milestone.includes(:questions).find_by_mid(params[:mid])
+    @activities = []
+    if params[:aid]
+      curr_a = Activity.includes(:behaviour).find_by_id(params[:aid])
     end
     
-    ms = []
-    answers.each do |k,v|
-      if m.blank? || v.first.question.category != m.questions.first.category
-        ms  << {:category => v.first.question.category, :milestone => v.first.question.milestone }
+    seen_behaviours = current_child.max_seen_by_category
+      
+    seen_behaviours.each do |sb|
+      if curr_a.nil? || sb.category != curr_a.category
+          a = sb.activities.first
       else
-        ms  << { :category => m.questions.first.category, :milestone => m }
+          a = curr_a          
       end
-    end              
-
-    @activities = []
-    ms.each do |ms|
-        selected = true if ms[:milestone].mid == params[:mid]
-        ms_likes = ms[:milestone].likes.find_by_child_id(current_child.id)
-        likes = ms_likes.value unless ms_likes.nil?
-        @activities << {
-                         :category => ms[:category],
-                         :mid => ms[:milestone].mid,
-                         :ms_title => current_child.replace_forms(ms[:milestone].title, 35),
-                         :title => ms[:milestone].activity_1_title.present? ? current_child.replace_forms(ms[:milestone].activity_1_title, 60) : "Title goes here",
-                         :setup => current_child.replace_forms(ms[:milestone].activity_1_set_up, 90),
-                         :response => current_child.replace_forms(ms[:milestone].activity_1_response),
-                         :variations => current_child.replace_forms(ms[:milestone].activity_1_modification),
-                         :learning_benefits => current_child.replace_forms(ms[:milestone].activity_1_learning_benefits),
+      selected = a.id == params[:aid].to_i ? true : false
+      a_likes = a.likes.find_by_child_id(current_child.id)
+      likes = a_likes.value unless a_likes.nil?
+      @activities << {
+                         :category => a.category,
+                         :aid => a.id,
+                         :b_title => current_child.replace_forms(a.behaviour.title_past),
+                         :bid => a.behaviour.id,
+                         :title => current_child.replace_forms(a.title),
+                         :action => current_child.replace_forms(a.action),
+                         :actioned => current_child.replace_forms(a.actioned),
+                         :desc_short => current_child.replace_forms(a.description_short),
+                         :desc_long => current_child.replace_forms(a.description_long),
+                         :variation1 => current_child.replace_forms(a.variation1),
+                         :variation2 => current_child.replace_forms(a.variation2),                         
+                         :learning_benefit => current_child.replace_forms(a.learning_benefit),
                          :selected => selected || false,
                          :likes => likes
-                        }
+                    }
     end
     @activities.first[:selected] = true unless @activities.any? { |a| a[:selected] == true }
   end
@@ -162,7 +174,7 @@ class ChildrenController < ApplicationController
   
 
   def get_adjacent_activity 
-    ms = Milestone.includes(:questions).find_by_mid(params[:mid])    
+    curr_a = Activity.includes(:behaviour).find_by_id(params[:aid])
 
     if params[:dir] == 'prev'
       dir = "<"
@@ -172,69 +184,105 @@ class ChildrenController < ApplicationController
       order = "ASC"
     end
 
-    qs = Question.where(["age #{dir} ? AND questions.category = ? ", ms.questions.first.age, ms.questions.first.category ]).order("age #{order}").limit(1).first
-    age = current_child.answers.joins(:question).includes(:question).where(["questions.category = ? ", qs.category]).order('questions.age DESC').first.question.age
-    if age < qs.age
-      time = "future"
-    elsif age > qs.age
-      time = "past"
-    else
-      time = "current"
-    end
+    new_a = Activity.find_by_category(curr_a.category, :conditions => ["age_from #{dir} ?", curr_a.age_from], :order => "age_from #{order}")
+    curr_b = current_child.behaviours.find_by_category(curr_a.category, :order => 'age_from DESC')
+    time = "current"
+    time = "past" if new_a.age_from < curr_b.age_from
+    time = "future" if new_a.age_from > curr_b.age_from
 
-    ms_likes = qs.milestone.likes.find_by_child_id(current_child.id)
+    ms_likes = new_a.likes.find_by_child_id(current_child.id)
     likes = ms_likes.value unless ms_likes.nil?
     item =  {
-               :category => qs.category,
-               :mid => qs.milestone.mid,               
-               :ms_title => current_child.replace_forms(qs.milestone.title, 35),
-               :title => qs.milestone.activity_1_title.blank? ? "Title goes here" : current_child.replace_forms(qs.milestone.activity_1_title, 60),
-               :setup => current_child.replace_forms(qs.milestone.activity_1_set_up, 90),
-               :response => current_child.replace_forms(qs.milestone.activity_1_response),
-               :variations => current_child.replace_forms(qs.milestone.activity_1_modification),
-               :learning_benefits => current_child.replace_forms(qs.milestone.activity_1_learning_benefits),
-               :selected => true,
-               :likes => likes
+                         :category => new_a.category,
+                         :a_id => new_a.id,
+                         :b_title => current_child.replace_forms(new_a.behaviour.title_past),
+                         :b_uid => new_a.behaviour.id,
+                         :title => current_child.replace_forms(new_a.title),
+                         :action => current_child.replace_forms(a.action),
+                         :actioned => current_child.replace_forms(a.actioned),
+                         :desc_short => current_child.replace_forms(new_a.description_short),
+                         :desc_long => current_child.replace_forms(new_a.description_long),
+                         :variation1 => current_child.replace_forms(new_a.variation1),
+                         :variation2 => current_child.replace_forms(new_a.variation2),
+                         :learning_benefit => current_child.replace_forms(new_a.learning_benefit),
+                         :selected => true,
+                         :likes => likes
               }
-              respond_to do |format|
-                format.html { render :partial => "play_single", :locals => { :a => item, :time => time} }
-              end    
+    respond_to do |format|
+      format.html { render :partial => "play_single", :locals => { :a => item, :time => time} }
+    end
   end
 
   def activity_like
-    m_object_id = Milestone.find_by_mid(params[:mid]).id
-    l = Like.find_or_initialize_by_child_id_and_activity_id(current_child.id, m_object_id)
+    a_object_id = Activity.find_by_id(params[:aid]).id
+    l = Like.find_or_initialize_by_child_id_and_activity_id(current_child.id, a_object_id)
     l.value = params[:likes]
     l.save
-    render :text => "Done for #{params[:mid]}"
+    render :text => "Done for #{params[:aid]}"
   end
 
   def watch
     ms = []
-    @behaviours = []
-    current_questions = []
+#<<<<<<< HEAD
+#    @behaviours = []
+#    current_questions = []
+#
+#    questions = current_child.max_seen_by_category
+#
+#
+#    questions.each do |q|
+#      question = Question.get_next_questions_for_category(q.category, q.age, 1).first
+#      current_questions << (question || q)
+#    end
+#
+#    if params[:mid]
+#      m = Milestone.includes(:questions).find_by_mid(params[:mid])
+#    end
+#
+#    current_questions.each do |q|
+#      if m.present? && q.category == m.questions.first.category
+#        time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
+#        ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
+#      else
+#        ms  << {:category => q.category, :milestone => q.milestone, :time => "current", :is_next => Question.get_next_questions_for_category(q.category,q.age,1).first.present? }
+#=======
+    @behaviours = []    
 
-    questions = current_child.max_seen_by_category
+    curr_b = Behaviour.find_by_id(params[:bid]) if params[:bid].present?
+    seen_behaviours = current_child.max_seen_by_category
 
-
-    questions.each do |q|      
-      question = Question.get_next_questions_for_category(q.category, q.age, 1).first
-      current_questions << (question || q)
-    end        
-    
-    if params[:mid]
-      m = Milestone.includes(:questions).find_by_mid(params[:mid])
-    end
-
-    current_questions.each do |q|
-      if m.present? && q.category == m.questions.first.category
-        time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
-        ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
-      else
-        ms  << {:category => q.category, :milestone => q.milestone, :time => "current", :is_next => Question.get_next_questions_for_category(q.category,q.age,1).first.present? }
+    seen_behaviours.each do |b|
+      beh = Behaviour.find_by_category(b.category, :conditions => ["age_from > ?", b.age_from], :order => "age_from ASC")
+      time = "current"
+      
+      if curr_b && b.category == curr_b.category
+        beh = curr_b
+        time = curr_b.age_from > beh.age_from ? "future" : "past"
+#>>>>>>> reworking db scheme , watch still to be done - gitt
       end
-    end
+      
 
+      @behaviours << { 
+                       :category => beh.category,
+                       :time => time,
+                       :bid => beh.id,
+                       :ms_title => current_child.replace_forms(m[:milestone].title, 35),
+                       :title => current_child.replace_forms(m[:milestone].get_title, 60),
+                       :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
+                       :desc => current_child.replace_forms(m[:milestone].observation_desc),
+                       :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
+                       :activity_1_title => current_child.replace_forms(m[:milestone].activity_1_title, 40),
+                       :activity_2_title => current_child.replace_forms(m[:milestone].activity_2_title, 40),
+                       :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
+                       :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
+                       :why_important => current_child.replace_forms(m[:milestone].observation_what_it_means),
+                       :theory => current_child.replace_forms(m[:milestone].research_background),
+                       :references => current_child.replace_forms(m[:milestone].research_references),                       
+                       :selected => selected || false
+
+                     }
+    end        
+            
     ms.each do |m|
         if m[:milestone]
           selected = m[:milestone].mid == params[:mid]

@@ -15,11 +15,11 @@ class TimelineController < ApplicationController
     @selected_child = @children.find_by_id(current_child.id)
     
     @relatives = @selected_child.users
-    @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media, :behaviour).order("created_at DESC")
+    @timeline_entries = @selected_child.timeline_entries.includes(:comments, :media, :item).order("created_at DESC")
 
     max_by_cat = current_child.max_seen_by_category
-    @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0] && max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
-    @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title) if max_by_cat[-1] && max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
+    @child_has_str = current_child.replace_forms(max_by_cat[0].title_past) if max_by_cat[0]
+    @child_has_weak = current_child.replace_forms(max_by_cat[-1].title_past) if max_by_cat[-1]
 
     @timeline_visited = current_user.done_action?('timeline_visited')
     current_user.do_action!('timeline_visited') unless @timeline_visited
@@ -72,6 +72,8 @@ class TimelineController < ApplicationController
   end  
 
   def add_from_popup
+    b = Behaviour.find_by_id(params[:bid]) if params[:bid].present?
+    a = Activity.find_by_id(params[:aid]) if params[:aid].present?
     te = TimelineEntry.build_entry(params[:entry_type],
                                    params[:content],
                                    current_child,
@@ -80,7 +82,7 @@ class TimelineController < ApplicationController
                                    params[:category],
                                    params[:media_id],
                                    params[:who],
-                                   params[:mid]
+                                   a || b
                                   )
     te.save
 
@@ -90,15 +92,16 @@ class TimelineController < ApplicationController
   end
 
   def reflect_to_timeline
+    b = Behaviour.find_by_id(params[:bid])
     te = TimelineEntry.build_entry("watch",
                                    params[:did_what],
                                    current_child,
                                    current_user,
                                    params[:details],
-                                   params[:te_category],
+                                   b.category,
                                    params[:media_id],
                                    params[:who],
-                                   params[:te_mid]
+                                   b
                                  )
     te.save
 

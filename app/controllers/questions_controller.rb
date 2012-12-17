@@ -2,36 +2,43 @@ class QuestionsController < ApplicationController
   before_filter :require_child
 
   def initial_questionnaire    
-    @step = 1    
-    @age = current_child.months_old
-    @q_age = Question.select_ages(@age, '<=', 1, 'DESC').first.age    
-    @questions = Question.find_all_by_age(@q_age).group_by{|q| q.category}
-    @questions.each do |k,v|
-      @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
+    @behaviours = Behaviour.get_by_age(current_child.months_old).group_by{|b| b.category}    
+    @behaviours.each do |k,v|
+      @behaviours[k] = [v.first, current_child.behaviours.exists?("behaviours.category" => v.first.category)]
     end
-    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
+#<<<<<<< HEAD
+#    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
+#=======
+    @q_age = @behaviours.first[1][0].age_from    
+    session[:reflect_popup] = true
+#>>>>>>> reworking db scheme , watch still to be done - gitt
   end
 
   def update_seen
-    question = Question.find_by_id(params[:question])
+    behaviour = Behaviour.find_by_id(params[:behaviour])
     @q_age = params[:start_age].to_i
     
     if params[:value].to_i == 1
-      Answer.find_or_create_by_child_id_and_question_id(params[:child_id], question.id, :value => 'seen')
-      unless @q_age > question.age        
-        next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
+      SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, behaviour.id, :user => current_user)
+      unless @q_age > behaviour.age_from
+        next_behaviour = Behaviour.find_by_category(behaviour.category, :conditions => ['age_from > ?', behaviour.age_from], :order => 'age_from ASC', :limit => 1)
       end      
     else
-      unless @q_age < question.age
-        next_question = Question.find_by_category(question.category, :conditions => ['age < ?', question.age], :order => 'age DESC', :limit => 1)
+#<<<<<<< HEAD
+#      unless @q_age < question.age
+#        next_question = Question.find_by_category(question.category, :conditions => ['age < ?', question.age], :order => 'age DESC', :limit => 1)
+#=======
+      unless @q_age < behaviour.age_from
+        next_behaviour = Behaviour.find_by_category(behaviour.category, :conditions => ['age_from < ?', behaviour.age_from], :order => 'age_from DESC', :limit => 1)
+#>>>>>>> reworking db scheme , watch still to be done - gitt
       end      
     end
     
-    gray_out = true unless next_question
-    next_question ||= question
+    gray_out = true unless next_behaviour
+    next_behaviour ||= behaviour
            
     respond_to do |format|
-        format.html { render :partial => 'single_question', :locals => { :question => next_question, :category => question.category, :completed => gray_out } }
+        format.html { render :partial => 'single_question', :locals => { :behaviour => next_behaviour, :category => behaviour.category, :completed => gray_out } }
     end
   end
 
@@ -49,38 +56,56 @@ class QuestionsController < ApplicationController
     end
   end
 
-
+#<<<<<<< HEAD
+#
+#  def initial_questionnaire_completed
+#    @qs_ms = current_child.max_seen_by_category
+#    @qs_ms.each do |q|
+#      if q.milestone
+#        te = TimelineEntry.build_entry("watch",
+#                                     "is #{q.milestone.get_title}",
+#                                     current_child,
+#                                     current_user,
+#                                     "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
+#                                     q.category,
+#                                     nil,
+#                                     current_user.id,
+#                                     q.milestone.mid
+#                                   )
+#        te.is_auto = true
+#        te.save
+#      end
+#    end
+#
+#    current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
+#
+#    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
+#    #=========== temporary solution in case milestone for question is NIL =========
+#    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.second unless qs.milestone
+#    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.third unless qs.milestone
+#    #=========== temporary solution in case milestone for question is NIL ====
+#    if qs
+#      unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
+#        UserMailer.registration_completed(current_user, current_child, qs).deliver if current_user.user_option.subscribed
+#        current_user.user_emails.create(:title => 'initial_questionnaire_completed')
+#      end
+#=======
   def initial_questionnaire_completed
-    @qs_ms = current_child.max_seen_by_category    
-    @qs_ms.each do |q|
-      if q.milestone
-        te = TimelineEntry.build_entry("watch",
-                                     "is #{q.milestone.get_title}",
-                                     current_child,
-                                     current_user,
-                                     "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
-                                     q.category,
-                                     nil,
-                                     current_user.id,
-                                     q.milestone.mid
-                                   )
-        te.is_auto = true
-        te.save
-      end
-    end
-
-    current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
-
-    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
-    #=========== temporary solution in case milestone for question is NIL =========
-    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.second unless qs.milestone
-    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.third unless qs.milestone
-    #=========== temporary solution in case milestone for question is NIL ====
-    if qs
-      unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
-        UserMailer.registration_completed(current_user, current_child, qs).deliver if current_user.user_option.subscribed
-        current_user.user_emails.create(:title => 'initial_questionnaire_completed')
-      end      
+    @behaviours = current_child.max_seen_by_category
+    @behaviours.each do |b|
+      te = TimelineEntry.build_entry("watch",
+                                      current_child.replace_forms(b.title_past),
+                                      current_child,
+                                      current_user,
+                                      nil,
+                                      b.category,
+                                      nil,
+                                      current_user.id,
+                                      b
+                                    )
+      te.is_auto = true
+      te.save
+#>>>>>>> reworking db scheme , watch still to be done - gitt
     end
 
     if params[:add_child].present?

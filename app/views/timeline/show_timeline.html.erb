@@ -1,14 +1,12 @@
 <% content_for :middle_bar do %>
   <div id="timeline-notice" class="round-corners">
     <img src="/images/child_head_small.png" />
-    <span><%= current_child.first_name %> has already "<%= @child_has_str %>" , "<%= @child_has_weak %>"</span>
+    <span><%= current_child.first_name %> has already <%= @child_has_str %> and <%= @child_has_weak %></span>
   </div>
-
 <% end %>
 
   <div id="timeline-wrapper">
     <div id="timeline-left">
-
       <div class="child-image-large shadow round-corners" style="<%= "background-image: url(#{@selected_child.get_image_src(:profile_large)})" %>"></div>
 
       <div id="add-entry-tabs">
@@ -69,8 +67,10 @@
                   <%= te.published %>
                 </span>
                 <span class="te-title">
-                  <% if te.behaviour %>
-                    <%= link_to te.title.html_safe, watch_children_path(:mid => te.behaviour.mid) %>
+                  <% if te.item_kind == "behaviour" %>
+                    <%= link_to te.title.html_safe, watch_children_path(:bid => te.item_id) %>
+                  <% elsif te.item_kind == "activity" %>
+                    <%= link_to te.title.html_safe, play_children_path(:aid => te.item_id) %>
                   <% else %>
                     <%= te.title.html_safe %>
                   <% end %>
@@ -112,20 +112,18 @@
               </div>                
             </div>
 
-            <%= form_tag add_timeline_entry_path, :class => "repost-form hidden", :id => "repost_#{te.id}" do %>
-              <% b = te.behaviour %>
-              <% if b.present?  %>
-                <% te_mid = b.mid %>
-                <% te_what = current_child.replace_forms(b.get_title) %>
-              <% end %>
-              <%= hidden_field_tag "te_mid", te_mid %>
+            <%= form_tag add_timeline_entry_path, :class => "repost-form hidden", :id => "repost_#{te.id}" do %>              
+              
               <%= hidden_field_tag "entry_type", "watch" %>
-              <p>Please describe a recent time when <span class="bold"><%= current_child.first_name  %></span> <span class="italic"><%= te_what %></span>.  Elaborate on the details of what, where and how. Try to capture a baseline so you can see how this behavior grows and changes over time.</p>
+              <%= hidden_field_tag "te_oid", te.item_id %>
+              <%= hidden_field_tag "te_itype", te.item_kind %>
+              <%= hidden_field_tag "category", te.item_category %>
+              <p>Please describe a recent time when <span class="bold"><%= current_child.first_name  %></span> <span class="italic"><%= te.item_title %></span>.  Elaborate on the details of what, where and how. Try to capture a baseline so you can see how this behavior grows and changes over time.</p>
 
               <div class="repost-timeline-inner">
                 <div class="repost-timeline-inner-middle">
 
-                  <p class="row"><%= current_child.first_name.capitalize %> <%= text_field_tag "did_what", te_what %> for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+                  <p class="row"><%= current_child.first_name.capitalize %> <%= text_field_tag "did_what", te.item_title %> for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
                   <p><%= text_area_tag "details", nil, :placeholder => "add more details here...", :class => "row" %></p>
 
                   <div class="reflect-to-timeline-footer">

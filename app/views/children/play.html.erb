@@ -72,9 +72,9 @@
     }
 
     function postLike(like, btn) {
-      m_id = $(btn).attr('data_mid');
+      a_id = $(btn).attr('data_aid');
 
-      $.post('<%= activity_like_children_path %>', {mid : m_id, likes: like}, function(data) {
+      $.post('<%= activity_like_children_path %>', {aid : a_id, likes: like}, function(data) {
         $(btn).siblings('.likes-btn, .dislikes-btn').removeClass('active');
         $(btn).addClass('active')
       });

@@ -1,6 +1,5 @@
-<%= form_tag reflect_to_timeline_path, :remote => :true, :class => "reflect-to-form" do %>
-  <%= hidden_field_tag "te_category", nil %>
-  <%= hidden_field_tag "te_mid", nil %>
+<%= form_tag reflect_to_timeline_path, :remote => :true, :class => "reflect-to-form" do %>  
+  <%= hidden_field_tag "bid", nil %>
   <p>Please describe a recent time when <span class="bold"><%= current_child.first_name  %></span> <span class="what italic"></span>.  Elaborate on the details of what, where and how. Try to capture a baseline so you can see how this behavior grows and changes over time.</p>
 
   <div id="reflect-to-timeline-inner">

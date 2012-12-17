@@ -542,7 +542,7 @@ namespace :excel do
       else
          print qs_header
       	 print "Q) #{ms_title.gsub(/["'.]/, "").strip[0,15] } \n"
-	 print "//===== No milestone for #{mid} ====//\n\n"
+         print "//===== No milestone for #{mid} ====//\n\n"
 
       end   
     end
@@ -588,7 +588,82 @@ namespace :excel do
     end
   end
 
-private 
+  task :load_all_data => :environment do
+    update_db('public/bf_2y.xls')
+  end
+
+private
+  def update_db file_path
+    file = Excel.new(file_path)
+    file.sheets.each_with_index do |sh, idx|
+      file.default_sheet = file.sheets.at(idx)
+      print "#{sh}\n"
+      if sh.downcase.include? "watch"        
+        2.upto(file.last_row) do |line|
+          age = file.cell(line, 'B').split('-')
+          attr = {
+            :uid => file.cell(line, 'A'),
+            :age_from => age[0].to_i,
+            :age_to => age[1].to_i,
+            :category => file.cell(line, 'C').scan( /\(([A-Z])\)/).first.first,
+            :learning_window => file.cell(line, 'D').scan( /LW([1-9])/).first.first.to_i,
+            :expressive_interpretive => file.cell(line, 'E').scan( /\(([I|E])\)/).first.first,
+            :title_present => file.cell(line, 'F'),
+            :title_past => file.cell(line, 'G'),
+            :description_short => file.cell(line, 'H'),
+            :description_long => file.cell(line, 'I'),
+            :example1 => file.cell(line, 'J'),
+            :example2 => file.cell(line, 'K'),
+            :example3 => file.cell(line, 'L'),
+            :why_important => file.cell(line, 'M'),
+            :theory => file.cell(line, 'N'),
+            :references => file.cell(line, 'O'),
+            :parenting_tip1 => file.cell(line, 'P'),
+            :parenting_tip2 => file.cell(line, 'Q'),
+            :page => file.cell(line, 'R').to_i,
+            :background_research_theory => file.cell(line, 'S')
+          }
+
+          b = Behaviour.includes(:activities).find_or_initialize_by_uid(attr[:uid])
+          b.update_attributes(attr)
+          print "#{b.uid} => #{ b.activities.size } acctivities \n"
+        end
+      elsif sh.downcase.include? "play"
+        2.upto(file.last_row) do |line|
+          age = file.cell(line, 'B').split('-')
+          expr_inter = file.cell(line, 'E')
+          expr_inter = expr_inter.scan( /\(([I|E])\)/).first.first if expr_inter.present?
+          attr = {
+            :uid => file.cell(line, 'A'),
+            :age_from => age[0].to_i,
+            :age_to => age[1].to_i,
+            :category => file.cell(line, 'C').scan( /\(([A-Z])\)/).first.first,
+            :activity_uid => file.cell(line, 'D'),
+            :expressive_interpretive => expr_inter,
+            :title => file.cell(line, 'F'),
+            :action => file.cell(line, 'G'),
+            :actioned => file.cell(line, 'H'),
+            :description_short => file.cell(line, 'I'),
+            :description_long => file.cell(line, 'J'),            
+            :variation1 => file.cell(line, 'K'),
+            :variation2 => file.cell(line, 'L'),
+            :variation3 => file.cell(line, 'M'),
+            :learning_benefit => file.cell(line, 'N'),
+            :page => file.cell(line, 'O').to_i,
+            :note => file.cell(line, 'P'),
+            :real_world_interests => file.cell(line, 'Q')
+          }
+
+          a = Activity.find_or_initialize_by_activity_uid(attr[:activity_uid])
+          a.update_attributes(attr)
+          #a.load
+          b = Behaviour.find_by_uid(a.uid)
+          print "#{a.activity_uid} => #{a.uid} => #{ b.present? ? "match" : "NO MATCH"} \n" #+ b.uid ? "-got behaviour-" : "-empty-"
+        end
+      end
+    end
+  end
+
   def upload_milestones file_path
     file = Excel.new(file_path)
     file.default_sheet = file.sheets.at(0)

@@ -16,6 +16,22 @@
                       <% if v.present? %>
                           <% if f %>
 
+<<<<<<< HEAD
+                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(v.category)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+                          <% elsif l %>
+                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(v.category)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+                          <% else %>
+                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(v.category)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+                          <% end %>
+
+                          <% unless m.activity_1_title.blank? %> 
+                              <p><a href="<%= play_children_path(:mid => m.mid, :no => 1) %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_1_title, :length => 40)).html_safe %></a></p>
+                          <% end %>
+                          <% unless true %>
+                              <p><a href="<%= play_children_path(:mid => m.mid, :no => 2) %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_2_title, :length => 40)).html_safe %></a></p>
+                          <% end %>
+                          <a href="#" class="behaviour-details hidden" data-category="<%= v.category %>" data-behaviour="<%= m.get_title %>" data-mid="<%= m.mid %>"></a>
+=======
                           <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', v.title_present).gsub('<WTitlePast>', v.title_past).gsub('<PTip>', current_child.replace_forms(v.parenting_tip1)).html_safe %>
                           <% elsif l %>
                               <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', v.title_present).gsub('<WTitlePast>', v.title_past).gsub('<PTip>', current_child.replace_forms(v.parenting_tip1)).html_safe %>
@@ -29,6 +45,7 @@
                             <% end %>
                           </p>
                           <a href="#" class="behaviour-details hidden" data-category="<%= k %>" data-behaviour="<%= v.title_past %>" data-id="<%= v.id %>"></a>
+>>>>>>> reworking db scheme , watch still to be done - gitt
 
                       <% else %>
                           <div class="unfinished-questionnaire-notice">

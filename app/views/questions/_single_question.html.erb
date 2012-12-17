@@ -1,19 +1,19 @@
-      <% if question.present? %>        
+      <% if behaviour.present? %>
         <div class="single-question-cover <%= 'completed' if completed %>"> </div>
-        <%= hidden_field_tag "questions[]", question.id  %>
+        <%= hidden_field_tag "questions[]", behaviour.id  %>
         <div class="category-circle category-circle-<%= category %>"></div>
 
-        <p><%#= question.age.to_s + ")" %> <%=  current_child.replace_forms(question.text) %></p>
+        <p><%=  current_child.replace_forms(behaviour.description_short) %></p>
         <div class="seen-btn-wrapper">
-          <%= link_to "I've seen this", update_seen_path(:child_id => current_child.id, :question => question.id, :start_age => @q_age, :value => 1), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => "btn q_#{question.id}" %>
-          <%= link_to "I haven't seen this yet", update_seen_path(:child_id => current_child.id, :question => question.id, :start_age => @q_age, :value => 0), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => "btn btn-grey q_#{question.id}" %>
+          <%= link_to "I've seen this", update_seen_path(:behaviour => behaviour.id, :start_age => @q_age, :value => 1), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => "btn q_#{behaviour.id}" %>
+          <%= link_to "I haven't seen this yet", update_seen_path(:behaviour => behaviour.id, :start_age => @q_age, :value => 0), :remote => true, :disable_with => 'Please wait...', :method => :post, :class => "btn btn-grey q_#{behaviour.id}" %>
         </div>
         
 
         <script type="text/javascript">
           $(function() {
             $('.preloader').fadeOut().hide();
-            $('.q_<%= question.id %>').bind('ajax:success', function(xhr, data){
+            $('.q_<%= behaviour.id %>').bind('ajax:success', function(xhr, data){
               var cat = "<%= category -%>";              
               var newQ = $(this).parents('.single-question').html(data);              
               $(newQ).effect('highlight', {color: '#fff'}, 1000);
@@ -27,7 +27,7 @@
 
       <% else %>
 
-        <p>No more questions found for <%= Question::CATS[category] %> category.</p>
+        <p>No more questions found for <%= category_name(category) %> category.</p>
         <script type="text/javascript">
           $(function() {
             $('.preloader').fadeOut().hide();

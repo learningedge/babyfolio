@@ -2,7 +2,8 @@
   <%= hidden_field_tag "entry_type", type %>
   <%= hidden_field_tag "content", did_what %>
   <%= hidden_field_tag "category", category %>
-  <%= hidden_field_tag "mid", mid %>
+  <%= hidden_field_tag "aid", aid %>
+  <%= hidden_field_tag "bid", bid %>
 
     <h4 class="arvo">Post to <span class="arvo-bold"><%= current_child.first_name %>'s</span> Timeline</h4>
     <div class="popup-frame">
@@ -26,7 +27,7 @@
 
         <div class="popup-buttons-wrapper">
           <%= submit_tag "Post", :class => 'btn' %>
-          <div id="entry-image-uploader-<%= "#{mid}_#{type}" %>" class="entry-image-uploader"></div>
+          <div id="entry-image-uploader-<%= "#{aid || bid}_#{type}" %>" class="entry-image-uploader"></div>
           <div class="clear"></div>
           <div class="img-wrapper"></div>          
           
@@ -43,13 +44,13 @@
           var forg_prot = "<%= form_authenticity_token %>";
           
           $(function() {
-            var uploader_<%= "#{mid}_#{type}" %> = new qq.FileUploader({
-            element: document.getElementById('entry-image-uploader-<%= "#{mid}_#{type}" %>'),
+            var uploader_<%= "#{aid || bid}_#{type}" %> = new qq.FileUploader({
+            element: document.getElementById('entry-image-uploader-<%= "#{aid || bid}_#{type}" %>'),
             action: '<%= create_photo_children_path -%>',
             params: { key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
             onSubmit: function() {
               var prev_img = $(this.element).parents('.popup-frame-inner').find('.img-wrapper input[type="hidden"]').val();
-              if(prev_img) uploader_<%= "#{mid}_#{type}" %>.setParams({
+              if(prev_img) uploader_<%= "#{aid || bid}_#{type}" %>.setParams({
                     previous_img : prev_img,
                     key : key_t,
                     "<%= request_forgery_protection_token %>" : forg_prot });
@@ -67,7 +68,7 @@
               hidden.value = responseJSON.media_id;
               hidden.name = "media_id"
               
-              $('#entry-image-uploader-<%= "#{mid}_#{type}" %>').parents('.popup-frame-inner').find('.img-wrapper').html("").append(img).append(hidden);
+              $('#entry-image-uploader-<%= "#{aid || bid}_#{type}" %>').parents('.popup-frame-inner').find('.img-wrapper').html("").append(img).append(hidden);
             }
         });
       });
