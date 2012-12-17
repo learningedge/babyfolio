@@ -74,7 +74,7 @@ end
     def current_child
       return @current_child if defined?(@current_child)
       if session[:current_child]
-        @current_child = Child.find_by_id(session[:current_child]);
+        @current_child = current_user.children.find_by_id(session[:current_child]);
       else
         @current_child = current_user.children.first if current_user.children
         set_current_child @current_child.id if @current_child

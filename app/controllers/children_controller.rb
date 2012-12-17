@@ -5,6 +5,12 @@ class ChildrenController < ApplicationController
   before_filter :require_child, :except => [:new,:create,:create_photo]
   before_filter :require_seen_behaviours, :except => [:new,:create,:create_photo]
 
+  def switch_child
+    child = current_user.children.find_by_id(params[:child])
+    set_current_child child.id if child
+    redirect_to params[:request_uri]
+  end
+
   def new
     @child = Child.new
     @child.last_name = current_user.last_name if current_user.last_name.present?
@@ -65,11 +71,11 @@ class ChildrenController < ApplicationController
       uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
     end
 
-    third_from_start = categorized_qs.values[2] 
-    third_from_end = categorized_qs.values[-3]
+    first_str = categorized_qs.values[0]
+    last_weak = categorized_qs.values[-1]
     
-    @str_answers = categorized_qs.reject{ |k,v| v.age <= third_from_start.age } unless third_from_start.nil?
-    @weak_answers = categorized_qs.reject{ |k,v| v.age >= third_from_end.age } unless third_from_end.nil?
+    @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
+    @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
     @avg_answers = categorized_qs
     @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
     @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?

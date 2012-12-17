@@ -1,6 +1,6 @@
 require 'roo'
 class Question < ActiveRecord::Base
-
+  
   has_many :answers
   belongs_to :milestone, :class_name =>"Milestone", :primary_key => 'mid', :foreign_key => 'mid'
 
@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
     ANSWERS.sort_by{|k,v| v[:order]}
   end  
 
-  CATS = { 
+  CATS = {
     "l" => "Language",
     "ln" => "Logic",
     "s" => "Social",
@@ -32,6 +32,8 @@ class Question < ActiveRecord::Base
 #    "e" => "Emotional",
 #    "m" => "Music"
   }
+
+  CATS_ORDER = ["l","ln", "s","v","mv"]
   
   CATEGORIES = [
     "Emotional",

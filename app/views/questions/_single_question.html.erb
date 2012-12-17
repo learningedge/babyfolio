@@ -18,7 +18,7 @@
               var newQ = $(this).parents('.single-question').html(data);              
               $(newQ).effect('highlight', {color: '#fff'}, 1000);
               if ($(newQ).find('.single-question-cover.completed').length > 0) {
-                $(newQ).next('.single-question').find('.single-question-cover.shown').removeClass('shown');
+                $('.single-question-cover.shown').first().removeClass('shown');
                 showFinish();
               }
             });

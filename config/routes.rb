@@ -55,6 +55,7 @@ Babyfolio::Application.routes.draw do
 
   resources :children, :only => [:create, :edit, :update] do
     collection do
+      get 'change-child' => "children#switch_child", :as => :switch
       get '/new' => "children#new", :as => :new_child
       get '/add_friends' => "children#add_friends", :as => :add_friends
       get '/add_family' => "children#add_family", :as => :add_family
