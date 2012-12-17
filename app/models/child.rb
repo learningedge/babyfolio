@@ -158,7 +158,8 @@ class Child < ActiveRecord::Base
     (DateTime.now.to_date - self.birth_date.to_date).to_i
   end
 
-  def replace_forms(question_text, truncate = 0)
+  def replace_forms(question_text = nil, truncate = 0)
+      return nil if question_text.blank?
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
       end

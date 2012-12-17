@@ -7,9 +7,14 @@ class QuestionsController < ApplicationController
       @behaviours[k] = [v.first, current_child.behaviours.exists?("behaviours.category" => v.first.category)]
     end
 #<<<<<<< HEAD
-#    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
+##<<<<<<< HEAD
+##    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
+##=======
+#    @q_age = @behaviours.first[1][0].age_from
 #=======
-    @q_age = @behaviours.first[1][0].age_from    
+    @q_age = @behaviours.first[1][0].age_from
+    @behaviours = @behaviours.sort_by{|k,v| Behaviour::CATEGORIES_ORDER.index(k) }
+#>>>>>>> watch section updated to the new db - gutto
     session[:reflect_popup] = true
 #>>>>>>> reworking db scheme , watch still to be done - gitt
   end
@@ -43,14 +48,19 @@ class QuestionsController < ApplicationController
   end
 
   def update_watched
-    ms = Milestone.includes(:questions).find_by_mid(params[:mid])
-    a = Answer.find_or_initialize_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
-    if a.new_record?
-      current_child.users.each do |relative|
-        UserMailer.child_entered_learning_window(relative, current_child, ms).deliver unless relative.id == current_user.id
-      end
-      a.save
-    end    
+#<<<<<<< HEAD
+#    ms = Milestone.includes(:questions).find_by_mid(params[:mid])
+#    a = Answer.find_or_initialize_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
+#    if a.new_record?
+#      current_child.users.each do |relative|
+#        UserMailer.child_entered_learning_window(relative, current_child, ms).deliver unless relative.id == current_user.id
+#      end
+#      a.save
+#    end
+#=======
+    beh = Behaviour.find_by_id(params[:bid])
+    current_child.seen_behaviours.find_or_create_by_behaviour_id(beh.id, :user => current_user)
+#>>>>>>> watch section updated to the new db - gutto
     respond_to do |format|
         format.html { render :text => 'success' }
     end

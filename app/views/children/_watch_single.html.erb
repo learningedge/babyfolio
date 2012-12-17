@@ -12,17 +12,27 @@
     </div>
     <div class="single-activity-right">
       <div class="single-activity-nav">
+<% if false %>
+<<<<<<< HEAD
           <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
           <a href="#" class="activity-title-link"><%= item[:title] %></a>  
           <%= link_to( "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link') if item[:is_next] %>
+=======
+<% end %>
+          <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
+          <a href="#" class="activity-title-link"><%= item[:title] %></a>
+          <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
+<% if false %>
+>>>>>>> watch section updated to the new db - gutto
+<% end %>
       </div>
-      <div class="activity-setup"><%= item[:subtitle] %></div>
+      <div class="activity-setup"><%= item[:desc_short] %></div>
       <div class="play-icons-corner">
-        <%= link_to "Timeline", "#dialog-timeline-#{item[:mid]}", :class => "show-dialog timeline-btn" %>
-        <%= link_to "Seen this", update_watched_path(:mid => item[:mid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
+        <%= link_to "Timeline", "#dialog-timeline-#{item[:bid]}", :class => "show-dialog timeline-btn" %>
+        <%= link_to "Seen this", update_watched_path(:bid => item[:bid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
 
-        <div id="dialog-timeline-<%= item[:mid] %>" class="play-dialog">
-            <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title].gsub('"' , ' ').strip , :category => item[:category], :mid => item[:mid] } %>
+        <div id="dialog-timeline-<%= item[:bid] %>" class="play-dialog">
+            <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title_past].gsub('"' , ' ').strip , :category => item[:category], :aid => nil, :bid => item[:bid] } %>
         </div>                
       </div>
     </div>
@@ -34,30 +44,25 @@
             <h4><%= item[:title] %></h4>
             <div class="show-future">future behavior</div>
             <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
-
-            <% unless item[:desc].blank? %>                
-                <p><%= item[:desc] %></p>
-            <% end %>
-
-            <% unless item[:examples].blank? %>
-                <h5>Examples</h5>
-                <p><%= item[:examples] %></p>
-            <% end %>
+            
+            <p><%= item[:desc_long] %></p>            
+            <h5>Examples</h5>
+            <ul>
+              <%= content_tag(:li, item[:example1]) if item[:example1].present? %>
+              <%= content_tag(:li, item[:example2]) if item[:example2].present? %>
+              <%= content_tag(:li, item[:example3]) if item[:example3].present? %>              
+            </ul>
           
             <h5>Recommanded Play Activities</h5>
-            <p>
-              <% unless item[:activity_1_title].blank? %>
-                <a href="<%= item[:activity_1_url] %>" class="btn"><%= item[:activity_1_title] %></a>
-              <% end %>
-              <% unless item[:activity_2_title].blank? %>
-                <a href="<%= item[:activity_2_url] %>" class="btn"><%= item[:activity_2_title] %></a>
-              <% end %>
-            </p>
-
-            <% unless item[:why_important].blank? %>
-                <h5>Why Is This Important?</h5>
-                <p><%= item[:why_important] %></p>
+            <% item[:activities].each do |a| %>
+              <%= link_to a.title, play_children_path(:aid => a.id), :class => "btn" %>
             <% end %>
+                          
+            <h5>Why Is This Important?</h5>
+            <p><%= item[:why_important] %></p>
+
+            <%= content_tag(:p, "TIP: " + item[:parenting_tip1]) if item[:parenting_tip1].present? %>
+            <%= content_tag(:p, item[:parenting_tip2]) if item[:parenting_tip2].present? %>          
 
              <hr />
 
@@ -75,3 +80,15 @@
     </div>
     <div class="preloader-div"></div>
   </li>
+<% if false %>
+  <<<<<<< HEAD
+=======
+<% end %>
+  <script type="text/javascript">
+    $(function() {
+      $('select').selectbox();
+    });
+  </script>
+<% if false %>
+>>>>>>> watch section updated to the new db - gutto
+<% end %>
