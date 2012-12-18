@@ -1,7 +1,5 @@
 class ForgotPasswordsController < ApplicationController
-
-  skip_before_filter :clear_family_registration
-  before_filter :require_no_user
+  
   before_filter :load_user_using_perishable_token, :only => [:edit, :update]
 
   def new    
@@ -9,15 +7,17 @@ class ForgotPasswordsController < ApplicationController
 
   def create
     @user = User.find_by_email(params[:email])
-    if @user
-      flash[:notice] = "Check your email for further instructions for your password reset."
+    if @user      
       @user.reset_perishable_token!
       UserMailer.forgot_password(@user).deliver
-      redirect_to new_forgot_password_url
+      redirect_to reset_done_path
     else
-      flash[:notice] = "We can't find user with email "+ params[:email]
+      @error = "Sorry. No users found for given email."
       render :action => :new
     end  
+  end
+
+  def reset_done
   end
 
   def edit
@@ -29,8 +29,7 @@ class ForgotPasswordsController < ApplicationController
 
     @user.save_without_session_maintenance
 
-    if @user.save
-      flash[:success] = "Your password was successfully updated"
+    if @user.save      
       redirect_to login_url
     else
       render :action => :edit

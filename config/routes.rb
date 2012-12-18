@@ -1,16 +1,15 @@
 Babyfolio::Application.routes.draw do
 
-#  namespace :admin do
-#    root :to => "dashboard#index"
-#    get "/" => "dashboard#index", :as => :dashboard_index
-#    post "/search" => "dashboard#search", :as => :search
-#    resources :users, :only => [:index, :edit, :update] do
-#      collection do
-#        get '/:user_id/logs' => "users#logs", :as => :logs
-#      end
-#    end
-#    resources :families, :only => [:index, :edit, :update]
-#  end
+  namespace :admin do
+    root :to => "users#index"
+    get "/" => "dashboard#index", :as => :dashboard_index
+    post "/search" => "dashboard#search", :as => :search
+    resources :users, :only => [:index, :edit, :update] do
+      collection do
+        get '/:user_id/logs' => "users#logs", :as => :logs
+      end
+    end    
+  end
 
   get '/user/settings' => "users#settings", :as => :settings  
   get "/errors/permission" => "errors#permission", :as => :errors_permission
@@ -39,10 +38,12 @@ Babyfolio::Application.routes.draw do
   get "confirmation/accept_relations" => "confirmation#accept_relations"
   post "confirmation/update_relation" => "confirmation#update_relation"  
   put "confirmation/update_user" => "confirmation#update_user"
+
   
   get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
   post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
   get "reset-password/password" => "forgot_passwords#edit", :as => :edit_forgot_password
+  get "reset-password/email-sent" => "forgot_passwords#reset_done", :as => :reset_done
   put "reset-password/password/update" => "forgot_passwords#update", :as => :update_forgot_password
 
   match 'login' => "user_sessions#new", :as => :login
