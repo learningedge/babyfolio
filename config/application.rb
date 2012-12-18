@@ -39,7 +39,11 @@ module Babyfolio
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     config.action_mailer.default_url_options = { :host => ENV['EMAIL_DOMAIN'] || 'babyfolio.qa.codephonic.com'}
-    
+ 
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
+      r301 %r{.*}, 'http://www.babyfol.io$&', :if => Proc.new {|rack_env| rack_env['SERVER_NAME'] != 'www.babyfol.io' }
+    end if Rails.env == 'production'
+   
     config.action_view.javascript_expansions[:default] = %w(jquery rails application)
     
     # Use SQL instead of Active Record's schema dumper when creating the database.

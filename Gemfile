@@ -12,7 +12,7 @@ gem 'execjs'
 gem 'json'
 gem 'mysql2'
 gem 'pg', '~> 0.14.1'
-gem 'therubyracer'
+gem 'therubyracer', '~> 0.10.2'
 gem 'jquery-rails'
 gem 'paperclip', '~> 2.8.0'
 gem 'flickraw'
@@ -21,6 +21,7 @@ gem 'roo'
 gem 'remotipart'
 gem 'aws-s3'
 gem 'aws-sdk'
+gem 'rack-rewrite'
 
 group :test do
 
