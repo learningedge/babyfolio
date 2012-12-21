@@ -21,7 +21,6 @@ body,input,textarea,select{color:#221C22;font-size:15px;line-height:1.25;font-fa
 a{color:#221C22;}
 a:hover{color:#B972BA;}
 
-
 /* Main blocks */
 html{ background:#fff url(/images/admin/admin_html_bg.gif) repeat-x; }
 body{ width:1000px; margin:0 auto; }

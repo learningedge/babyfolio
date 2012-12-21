@@ -51,10 +51,12 @@
 </head>
 <body id="page-child" class="<%= controller.action_name %>">
     <div id="header">
-      <div id="children-drop-list">
+      <% if current_user && current_child  %>
+          <div id="children-drop-list">
                 <%= select_tag "people", options_for_select(current_user.children.map { |c| ["#{c.first_name}'s Profile", c.id] }.insert(0, ["Select baby", nil])), {:onChange => "changeChild(this);", :request_uri => request.url } -%>
-      </div>
-      <span id="header-text"><%= "#{current_child.first_name}'s" if current_user && current_child %></span>
+          </div>
+          <span id="header-text"><%= "#{current_child.first_name}'s" %></span>
+      <% end %>
       <span id="logo-wrapper"><a href="/">Babyfolio</a></span>
       <div id="login-wrapper">
           <%= render :partial => "user_sessions/login_form" %>
