@@ -40,6 +40,14 @@
       <%= user.email %>
     </span>
   </div>
+  <div class="row">
+    <span class="label">
+      <%= form.label :zipcode %>
+    </span>
+    <span class="field">
+      <%= form.text_field :zipcode %>
+    </span>
+  </div>
 <% end %>
 
 <% if user.new_record? || current_user.is_temporary %>

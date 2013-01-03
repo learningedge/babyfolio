@@ -6,7 +6,7 @@
 
 <div id="new_child_form">
 <%= form_for child do |f| -%>
-      <%= f.hidden_field :id, :value => child.id if edit %>
+      <%= f.hidden_field :id, :value => child.id if edit %>            
       <div class="row">
         <span class="label">
             <%= f.label :first_name, "Baby's First Name" %>

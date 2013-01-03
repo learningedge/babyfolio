@@ -11,7 +11,7 @@ Babyfolio::Application.routes.draw do
     end    
   end
 
-  get '/user/settings' => "users#settings", :as => :settings  
+  get '/user/settings(/:chid)' => "users#settings", :as => :settings
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
   get "contact" => "home#about", :as => :contact, :defaults => { :is_contact => true }
@@ -19,8 +19,8 @@ Babyfolio::Application.routes.draw do
   post "send-contact" => "home#send_contact", :as => :send_contact
 
   #REGISTRATION  SPECIFIC
-    get "registration/children/new" => "children#new", :as => :registration_new_child
-    get "registration/questionnaire/initial" => "questions#initial_questionnaire", :as => :registration_initial_questionnaire
+    get "registration/children/new" => "children#new", :as => :registration_new_child, :defaults => { :is_registration => true }
+    get "registration/questionnaire/initial" => "questions#initial_questionnaire", :as => :registration_initial_questionnaire , :defaults => { :is_registration => true }    
   #REGISTRATION  SPECIFIC
     
 #  QUESTIONNAIRES
@@ -57,9 +57,9 @@ Babyfolio::Application.routes.draw do
   resources :children, :only => [:create, :edit, :update] do
     collection do
       get 'change-child' => "children#switch_child", :as => :switch
-      get '/new' => "children#new", :as => :new_child
-      get '/add_friends' => "children#add_friends", :as => :add_friends
-      get '/add_family' => "children#add_family", :as => :add_family
+      get '/add' => "children#new", :as => :new_child
+#      get '/add_friends' => "children#add_friends", :as => :add_friends
+#      get '/add_family' => "children#add_family", :as => :add_family
       post '/create_relations' => "children#create_relations", :as => :create_relations
       post '/create-photo' => "children#create_photo", :as => :create_photo            
       get '/reflect' => "children#reflect", :as => :child_reflect
@@ -87,6 +87,7 @@ Babyfolio::Application.routes.draw do
       get 'make-admin' => "relations#make_admin", :as => :make_admin
   end
   get 'new-relation/:child_id' => "relations#new", :as => :new_relation
+  post 'invite-users' => "relations#invite_users", :as => :invite_users
 #  RELATIONS
   
 #  USERS

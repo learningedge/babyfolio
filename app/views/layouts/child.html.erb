@@ -49,7 +49,7 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body id="page-child" class="<%= controller.action_name %>">
+<body id="page-child" class="<%= controller.controller_name %> <%= controller.action_name %>">
     <div id="header">
       <% if current_user && current_child  %>
           <div id="children-drop-list">

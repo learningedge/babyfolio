@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  layout "child", :only => [:settings]
+  layout "child", :only => [:settings, :edit]
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload, :settings, :update_password]
   before_filter :require_child, :only => [:settings]
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]
@@ -63,23 +63,33 @@ class UsersController < ApplicationController
   end
 
   def settings
-    if current_child
-      @current_relation = current_child.relations.find_by_user_id(current_user.id)
-      @invited_by_me = Relation.find_all_by_inviter_id_and_accepted_and_child_id(current_user.id, [0, 1], current_child.id, :include => [:child, :inviter])
-    end
+    @children = current_user.children    
+    @selected_child = @children.find_by_id(params[:chid])
+    @selected_child ||= current_child
+    set_current_child(@selected_child.id)
+    @current_relation = @selected_child.relations.find_by_user_id(current_user.id)
+    
+    @invited_by_me = Relation.find_all_by_inviter_id_and_accepted_and_child_id(current_user.id, [0, 1], @selected_child.id, :include => [:child, :inviter])
     @pending_invitations = current_user.relations.find_all_by_accepted(0, :include => [:user, :child])
-     
+
+    @child = Child.new
+    @child.last_name = current_user.last_name if current_user.last_name.present?
+
+    @invitation_emails = []
+    Relation::TYPE_KEYS.each do |k|
+      @invitation_emails << {:email => '', :type => k, :error => nil }
+    end        
   end
 
-  def show
-    @user = current_user
-
-    @families = @user.families
-    @selected_family = current_family
-
-    @children = @selected_family.children
-    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first        
-  end
+#  def show
+#    @user = current_user
+#
+#    @families = @user.families
+#    @selected_family = current_family
+#
+#    @children = @selected_family.children
+#    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
+#  end
 
   def edit
     @user = current_user

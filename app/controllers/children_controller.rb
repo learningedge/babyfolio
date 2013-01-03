@@ -14,18 +14,15 @@ class ChildrenController < ApplicationController
   def new
     @child = Child.new
     @child.last_name = current_user.last_name if current_user.last_name.present?
+
+    #render :layout => "child" unless params[:is_registration]
   end
 
   def create
     @child = Child.new(params[:child])
     @child.media = MediaImage.find_by_id(params[:child_profile_media])    
 
-#    unless @child.media
-#      @child.valid?
-#      @child.errors.add(:media, "Please upload child media before proceeding.")
-#    end
-
-    if @child.save #@child.media && @child.save
+    if @child.save
       rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
       rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
       rel.save
@@ -296,7 +293,8 @@ class ChildrenController < ApplicationController
 
 
   def edit
-    @child = Child.find(params[:id])    
+    @child = Child.find(params[:id])
+    render :layout => "child"
   end
 
   def update
@@ -309,7 +307,7 @@ class ChildrenController < ApplicationController
       redirect_to settings_path
     else
       @child = relation.child
-      render :edit
+      render :edit, :layout => "child"
     end   
   end
  
