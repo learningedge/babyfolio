@@ -100,6 +100,16 @@ Babyfolio::Application.routes.draw do
   end
 #  USERS    
 
+#  API
+  namespace :api do
+    namespace :v1 do
+      resource :users do
+        post 'login' => "users#login"
+      end
+    end
+  end
+#  API
+
   root :to => "home#index"
   
 end
