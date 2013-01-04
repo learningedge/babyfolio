@@ -104,7 +104,18 @@ Babyfolio::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       resource :users do
+        get 'current' => "users#current"
         post 'login' => "users#login"
+        post 'logout' => "users#logout"
+      end
+
+      resource :children, :only => [:create] do
+        get 'current' => "children#current"
+        get 'play' => "children#play"
+        get 'play/adjacent/:mid/:dir' => "children#get_adjacent_activity"
+        get 'watch' => "children#watch"
+        get 'watch/adjacent/:mid/:dir' => "children#get_adjacent_behaviour"
+        get 'reflect' => "children#reflect"
       end
     end
   end

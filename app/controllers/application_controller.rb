@@ -111,6 +111,9 @@ end
       Question::CATS[str]
     end
 
+    def serialization_scope
+      current_user
+    end
 end
 
 

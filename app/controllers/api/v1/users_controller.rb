@@ -1,5 +1,11 @@
 class Api::V1::UsersController < ApplicationController
   respond_to :json
+  before_filter :require_user, :only => [:current]
+
+  def current
+    @user = current_user
+    render :json => @user
+  end
 
   def create
     @user = User.new(params[:user])      
@@ -13,14 +19,14 @@ class Api::V1::UsersController < ApplicationController
       UserMailer.confirmation_email(@user).deliver
 
       message = "Your account has been created. Confirmation email has been sent."
-      status = true
+      @status = true
     else
       @user.save!
       message = "There was a problem creating your account."
-      status = false
+      @status = false
     end
 
-    render :json => { :message => message, :success => status }
+    render :json => { :message => message, :success => @status }
   end
 
   
@@ -32,15 +38,21 @@ class Api::V1::UsersController < ApplicationController
       @user_session.user.reset_perishable_token!
       session[:is_login] = nil
 
-      Log.create_log(@user_session.user.id, ["User login successful!"])
-      status = true
+      Log.create_log(@user_session.user.id, ["Mobile user login successful!"])
+      @status = true
     else
-      status = false
+      @status = false
     end
 
-    render :json => { :success => status }
+    render :json => { :success => @status }
   end
 
+  def logout
+    Log.create_log(current_user.id, ["Mobile user logout successful!"])
+    current_user_session.destroy
+    reset_session
+    render :json => { :success => true }
+  end
 
 
 end
