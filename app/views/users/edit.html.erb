@@ -5,8 +5,10 @@
       <%= render :partial => "form", :object => f, :locals => { :user => @user, :edit => @edit} %>
       <div class="clear"></div>
 
-      <%= link_to "Back", settings_path, :class => 'btn btn-big btn-big-back' %>
-      <%= f.submit "Update", :class => 'btn btn-big' %>
+      <div id="edit-user-buttons">
+        <%= link_to "Back", settings_path, :class => 'btn btn-big btn-big-back' %>
+        <%= f.submit "Update", :class => 'btn btn-big' %>
+      </div>
 
     
     <% end %>

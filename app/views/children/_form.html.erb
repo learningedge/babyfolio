@@ -50,12 +50,14 @@
       </div>
   
       <div class="clear"></div>
-      <%= link_to "Back", settings_path, :class => 'btn btn-big btn-big-back' if params[:is_registration].blank? %>
-      <% if edit %>
-          <%= f.submit "Update Child", :class => 'btn btn-big' %>
-      <% else %>
-          <%= f.submit "Continue", :class => 'btn btn-big' %>
-      <% end %>
+      <div id="add-child-buttons">
+        <%= link_to "Back", settings_path, :class => 'btn btn-big btn-big-back' if params[:is_registration].blank? %>
+        <% if edit %>
+            <%= f.submit "Update Child", :class => 'btn btn-big' %>
+        <% else %>
+            <%= f.submit "Continue", :class => 'btn btn-big' %>
+        <% end %>
+      </div>
       
 <% end %>
 </div>

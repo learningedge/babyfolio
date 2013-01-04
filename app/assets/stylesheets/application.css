@@ -84,7 +84,7 @@ ul { list-style:  none;}
 .btn:hover { background-color: #0dadc2 !important; border-color: #64c3cf !important; }
 .btn-grey:hover { background-color: #b8b8b8 !important; border-color: #676767 !important }
 .btn-big { font-size: 17px; padding: 5px 35px 5px 10px; background: url(/images/start_btn.png) no-repeat 105px center #0c8a9a; }
-.btn-big-back { padding: 5px 10px; background: none; margin-left: 150px; margin-right: 10px;}
+.btn-big-back { padding: 5px 10px; background: none; margin-right: 10px;}
 .shadow { box-shadow: 2px 2px 5px #555; }
 .round-corners { border-radius: 4px; }
 ::-webkit-input-placeholder { color: #ccc;  }
@@ -297,6 +297,7 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 
 /* REGISTRATION - 2ND STEP - ADD CHILD */
 #content-wrapper #left-column-tooltip p.reg-second-ttip { font-size: 15px; }
+#add-child-buttons { margin-left: 150px; }
 #registration-second .btn-big { background-position: 92px center; margin-top: 30px; }
 #new_child_form .qq-uploader .qq-img-preview { background: url(/images/img_upload_child.png) no-repeat left top; }
 #new_child_form .photo-upload-row.missing-image .label{ color: #ED1F24; }
@@ -724,6 +725,7 @@ h4.arvo.relation-added { width: 400px; padding-top: 40px; }
 /* USER EDIT */
 
 #user-edit .btn-big { background-position: 80px center; margin-top: 30px; }
+#user-edit #edit-user-buttons { margin-left: 150px; }
 
 /* CHILD EDIT */
 
