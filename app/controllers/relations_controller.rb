@@ -41,6 +41,17 @@ class RelationsController < ApplicationController
     end
   end
 
+  def show_invitations_form
+    @invitation_emails = []
+    Relation::TYPE_KEYS.each do |k|
+      @invitation_emails << {:email => '', :type => k, :error => nil }
+    end
+
+    respond_to do |format|
+      format.html { render :partial => "invitations_form" }
+    end
+  end
+
   def invite_users
     types = params[:types]
     emails = params[:emails]
@@ -89,7 +100,7 @@ class RelationsController < ApplicationController
             UserMailer.invite_user(u.relations.find_by_child_id(current_child.id), current_user).deliver
           end
         end
-        format.html { render :text => '<h4 id="success-message">Invitations has been sent.</h4>' }
+        format.html { render :partial => 'invitations_sent' }
       else
         format.html { render :partial => "invitations_form" }
       end

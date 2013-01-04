@@ -55,7 +55,7 @@
 
     <ul id="timeline-right">
       <% @timeline_entries.each do |te| %>
-      <li class="single-timeline-entry <%= 'is-auto' if te.is_auto %>">
+      <li class="single-timeline-entry <%#= 'is-auto' if te.is_auto %>">
           <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %></span>
           <div class="single-timeline-entry-inner">
             <div class="te-arrow-left"></div>
@@ -85,17 +85,12 @@
                 <%= image_tag te.media.first.image.url(:attachment_large), :class => "round-corners" if te.media.present? %>                
               </div>
 
-              <div class="te-comments">
-                <%= form_tag add_timeline_comment_path, :class => "comment-form" do %>
-                  <%= submit_tag "Post comment", :class => "comment-balloon" %>
-                  <%= hidden_field_tag "te_id", te.id %>
-                  <%= text_field_tag "text", nil, :id => "comment-input-#{te.id}", :class => "comment-input"  %>                  
-                <% end %>
+              <div class="te-comments">                
 
                 <%= link_to "Add new entry", "#repost_#{te.id}", :class => "timeline-btn" %>
 
                 <div class="comments-wrapper">
-                  <% te.comments.reverse.each do |c| %>
+                  <% te.comments.each do |c| %>
                       <div class="single-comment">
                         <span class="comment-author-img">
                           <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
@@ -107,6 +102,13 @@
                   <% end %>
 
                 </div>
+
+                <%= form_tag add_timeline_comment_path, :class => "comment-form" do %>
+                  <%= submit_tag "Post comment", :class => "comment-balloon" %>
+                  <%= hidden_field_tag "te_id", te.id %>
+                  <%= text_field_tag "text", nil, :id => "comment-input-#{te.id}", :class => "comment-input"  %>
+                <% end %>
+                
               </div>                
             </div>
 

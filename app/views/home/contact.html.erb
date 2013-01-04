@@ -1,0 +1,19 @@
+<% content_for :middle_bar do %>
+    <span>Contact Us</span>
+<% end %>
+
+
+<div id="contact-tab-inner">
+ <%= render :partial => "contact_form" %>
+</div>
+
+
+<script type="text/javascript">
+  $(function() {
+      $('#contact-us-form .btn').removeAttr('disabled');
+      
+      $('#contact-us-form').live('ajax:success',function(xhr, data) {
+        $('#contact-tab-inner').html(data);
+      });
+  });
+</script>

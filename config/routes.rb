@@ -14,8 +14,9 @@ Babyfolio::Application.routes.draw do
   get '/user/settings(/:chid)' => "users#settings", :as => :settings
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
-  get "contact" => "home#about", :as => :contact, :defaults => { :is_contact => true }
+  get "contact" => "home#contact", :as => :contact, :defaults => { :is_contact => true }
   get "about" => "home#about", :as => :about
+  get "privacy-policy" => "home#privacy", :as => :privacy
   post "send-contact" => "home#send_contact", :as => :send_contact
 
   #REGISTRATION  SPECIFIC
@@ -88,6 +89,7 @@ Babyfolio::Application.routes.draw do
   end
   get 'new-relation/:child_id' => "relations#new", :as => :new_relation
   post 'invite-users' => "relations#invite_users", :as => :invite_users
+  get 'invitations-form' => "relations#show_invitations_form", :as => :show_invitations_form
 #  RELATIONS
   
 #  USERS

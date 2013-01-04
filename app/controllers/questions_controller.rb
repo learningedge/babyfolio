@@ -48,13 +48,13 @@ class QuestionsController < ApplicationController
 
 
   def initial_questionnaire_completed
-    @qs_ms = current_child.max_seen_by_category
+    @qs_ms = current_child.max_seen_by_category    
     @qs_ms.each do |q|
       te = TimelineEntry.build_entry("watch",
                                    "is #{q.milestone.get_title}",
                                    current_child,
                                    current_user,
-                                   nil,
+                                   "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
                                    q.category,
                                    nil,
                                    current_user.id,

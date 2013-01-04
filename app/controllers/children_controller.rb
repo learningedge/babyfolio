@@ -14,8 +14,7 @@ class ChildrenController < ApplicationController
   def new
     @child = Child.new
     @child.last_name = current_user.last_name if current_user.last_name.present?
-
-    #render :layout => "child" unless params[:is_registration]
+    
   end
 
   def create

@@ -18,6 +18,8 @@ class Relation < ActiveRecord::Base
     "Sister" => [ "Brother", "Sister" ],
     "Step-Mother" => [ "Step-son", "Step-daughter" ],
     "Step-Father" => [ "Step-son", "Step-daughter" ],
+    "Godmother" => [ "Godson", "Goddaughter" ],
+    "Godfather" => [ "Godson", "Goddaughter" ],
     "Nanny" => ["friend", "friend"],
     "Babysitter" => ["friend", "friend"],
     "Friend" => ["friend", "friend"]
@@ -34,6 +36,8 @@ class Relation < ActiveRecord::Base
     "Sister",
     "Step-Mother",
     "Step-Father",
+    "Godmother",
+    "Godfather",
     "Nanny",
     "Babysitter",
     "Friend",

@@ -15,8 +15,7 @@ class TimelineEntry < ActiveRecord::Base
     med = Media.find_by_id(media)
     te.media << med if med
     who = User.find_by_id(who_id).get_user_name if who_id
-    te.behaviour = behaviour
-    
+    te.behaviour = behaviour  
 
     case te.entry_type
       when "play"

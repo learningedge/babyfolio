@@ -90,7 +90,7 @@ end
     end
 
     def require_child
-      redirect_to new_child_children_path unless current_child
+      redirect_to registration_new_child_path unless current_child
     end
 
     def require_seen_behaviours

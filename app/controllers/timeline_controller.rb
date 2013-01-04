@@ -74,6 +74,12 @@ class TimelineController < ApplicationController
 
   def add_comment
     te = TimelineEntry.find_by_id(params[:te_id])
+
+    if te.is_auto
+      ccount = te.comments.count
+      te.description = "" if ccount == 0
+    end
+    
     te.comments.build({:text => params[:text], :author => current_user})
     te.save
     redirect_to show_timeline_path

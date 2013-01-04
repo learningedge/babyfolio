@@ -175,8 +175,13 @@
            });
         });
 
+        $('#invite-others .btn').removeAttr('disabled');
     
-        $('#invite-others-form').live("ajax:success", function(xhr, data) {
+        $('#invite-others-form').live("ajax:success", function(xhr, data) {        
+          $('#invite-others-wrapper').html(data);
+        });
+
+        $('.invite-more-btn').live('ajax:success', function(xhr, data) {
           $('#invite-others-wrapper').html(data);
         });
 
