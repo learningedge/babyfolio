@@ -5,19 +5,7 @@ class ApplicationController < ActionController::Base
   config.filter_parameters :password, :password_confirmation
   helper_method :current_user_session, :current_user, :get_return_url_or_default, :current_child, :set_current_child, :category_name
 
-before_filter :authenticate
-
-protected
-
-def authenticate
-  if(ENV['RAILS_ENV'] != 'production')
-    authenticate_or_request_with_http_basic do |username, password|
-      username == "bf" && password == "bfdev"
-    end
-  end
-end
-
-before_filter :authenticate
+# before_filter :authenticate
 
 protected
 

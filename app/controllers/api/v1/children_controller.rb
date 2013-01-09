@@ -218,63 +218,29 @@ class Api::V1::ChildrenController < ApplicationController
 
 
   def reflect
+
+    @reflections = []
+
     categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category}
     categorized_qs.each do |k,v|
       categorized_qs[k] = v.first
-    end
-
-    uniq_ages = categorized_qs.map{ |k,v| v.age }.uniq.sort
-    @lengths = Hash.new
-    if uniq_ages.size == 1
-      @lengths[uniq_ages[0]] = 125
-    else
-      uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
+      serialized = QuestionSerializer.new(v.first, scope: current_child, :root => false)
+      @reflections << serialized
     end
 
     third_from_start = categorized_qs.values[2] 
     third_from_end = categorized_qs.values[-3]
     
-    @str_answers = categorized_qs.reject{ |k,v| v.age <= third_from_start.age } unless third_from_start.nil?
-    @weak_answers = categorized_qs.reject{ |k,v| v.age >= third_from_end.age } unless third_from_end.nil?
-    @avg_answers = categorized_qs
-    @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
-    @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
+    @str_answers = @reflections.reject{ |v| v.age <= third_from_start.age } unless third_from_start.nil?
 
-    @empty_answers = ActiveSupport::OrderedHash.new
-    Question::CATS.each do |k,v|
-      @empty_answers[k] = nil if categorized_qs[k].nil?
-    end
-    
-    @str_text = current_child.replace_forms("
-                  <h4><WTitle>: #{current_child.first_name}'s Most Important <INTELLIGENCE> Development</h4>
-                  <p>Current Strength - #{current_child.first_name} is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>
-                  <p>TIP: Recently #{current_child.first_name} <WTitlePast>. Watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this \"Learning Window\" and help build a strong <INTELLIGENCE> foundation:</p>
-                  <p><PTip></p>
-                  <p><ParentingTip></p>
-                  <h5>Here are specific examples and play activities we recommend:</h5>")
-      
-    @avg_text = current_child.replace_forms("
-                  <h4><WTitle>: #{current_child.first_name}'s Most Important <INTELLIGENCE> Development</h4>
-                  <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this \"Learning Window\" and help build a strong <INTELLIGENCE> foundation:</p>
-                  <p><PTip></p>
-                  <h5>Here are specific examples and play activities we recommend:</h5>")
+    @weak_answers = @reflections.reject{ |v| v.age >= third_from_end.age } unless third_from_end.nil?
+    @avg_answers = @reflections - @str_answers - @weak_answers
 
-    @weak_text = current_child.replace_forms("
-                  <h4><WTitle>: #{current_child.first_name}'s Most Important <INTELLIGENCE> Development</h4>
-                  <p>Current Area for Improvement: #{current_child.first_name} is developing less quickly in <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Development naturally spurts and lags in all areas. Keep watching for opportunities to bolster #his/her# <INTELLIGENCE> development.</p>
-                  <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this \"Learning Window\" and help build a strong <INTELLIGENCE> foundation:</p>
-                  <p><PTip></p>
-                  <h5>Here are specific examples and play activities we recommend:</h5>")
-
-    render :json => { 
-      lengths: @lengths, 
-      strong_answers: @str_answers, 
-      weak_answers: @weak_answers, 
-      avg_answers: @avg_answers, 
-      empty_answers: @empty_answers, 
-      str_text: @str_text, 
-      avg_text: @avg_text, 
-      weak_text: @weak_text
+    render :json => {
+      reflections: @reflections,
+      strong: @str_answers,
+      weak: @weak_answers,
+      avg: @avg_answers
     }
   end
 
