@@ -40,7 +40,6 @@
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
      })();
 
-
   </script>
 
   <title>Babyfolio</title>
@@ -50,9 +49,14 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body id="page-child" class="<%= controller.action_name %>">
+<body id="page-child" class="<%= controller.controller_name %> <%= controller.action_name %>">
     <div id="header">
-      <span id="header-text"><%= "#{current_child.first_name}'s" if current_user && current_child %></span>
+      <% if current_user && current_child  %>
+          <div id="children-drop-list">
+                <%= select_tag "people", options_for_select(current_user.children.map { |c| ["#{c.first_name}'s Profile", c.id] }.insert(0, ["Select baby", nil])), {:onChange => "changeChild(this);", :request_uri => request.url } -%>
+          </div>
+          <span id="header-text"><%= "#{current_child.first_name}'s" %></span>
+      <% end %>
       <span id="logo-wrapper"><a href="/">Babyfolio</a></span>
       <div id="login-wrapper">
           <%= render :partial => "user_sessions/login_form" %>
@@ -88,7 +92,7 @@
     <div id="footer">
       <div class="inner-wrapper">
         <div id="footer-content">
-          <%= link_to "Privacy Policy", "#" %>
+          <%= link_to "Privacy Policy", privacy_path %>
           <%= link_to "About Us", about_path %>
           <%= link_to "Contact Us", contact_path %>
 
@@ -105,15 +109,22 @@
 
     });
     
-  </script>
-
-  <script type="text/javascript">
+  
     var uvOptions = {};
     (function() {
       var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
       uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/5SIpu4jSMdIOeghQI3V4NQ.js';
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
     })();
+
+    function changeChild(item) {
+      addr = $(item).attr('request_uri');
+      if($(item).val()) {
+        document.location = '<%= switch_children_path  %>?child=' + $(item).val() + '&request_uri=' + addr;
+      }
+      return false;
+    }
+
   </script>
 </body>
 </html>

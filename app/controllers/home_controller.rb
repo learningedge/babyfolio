@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
 
-  layout 'child', :only => :about
+  layout 'child', :only => [:about, :contact, :privacy]
+  
   skip_before_filter :clear_family_registration
   skip_before_filter :require_confirmation
   
@@ -9,7 +10,13 @@ class HomeController < ApplicationController
     @user_session = UserSession.new
   end
 
-  def about
+  def about    
+  end
+
+  def privacy    
+  end
+
+  def contact
     @contact = ContactMessage.new
   end
 

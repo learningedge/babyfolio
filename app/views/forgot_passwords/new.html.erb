@@ -1,18 +1,18 @@
 <div class="container forgot-password">
-  <div id="title">Forgor your password?</div>
+  <h3 id="title">Forgor your password?</h3>
   <div class="user-form">
-    <h2>Please enter your email address, and we'll send you instructions on resetting your password</h2>
+    <h3>Please enter your email address, and we'll send you instructions on resetting your password</h3>
     <%= form_tag create_forgot_password_path do -%>
-      <div class="row">
-        <span class="label">
-          <%= label_tag :email, 'Email' -%><br />
-        </span>
+    <br/>
+      <div class="row">               
+        <div class="row" style="color: red"><%= @error %></div>
+        <span>Email</span>
         <span class="field">
           <%= text_field_tag :email -%>
         </span>
       </div>
       <div class="submit">
-        <%= submit_tag "Submit" -%>
+        <%= submit_tag "Submit", :class => "btn" -%>
       </div>
 
     <% end %>

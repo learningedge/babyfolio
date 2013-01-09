@@ -3,9 +3,7 @@
       <%= image_tag (r.child.media.blank? ? "/images/img_upload_child_med.png" : r.child.media.image.url(:profile_medium)) %>
       <div>
         <p>
-          <%  if r.child.first_name %>
-            <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %></span>
-          <% end %>
+          <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %></span>
           (<%= r.get_opposite_relation_type %> of <%= r.inviter.get_user_name %>)
         </p>
 

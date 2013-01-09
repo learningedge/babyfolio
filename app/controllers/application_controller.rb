@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   config.filter_parameters :password, :password_confirmation
   helper_method :current_user_session, :current_user, :get_return_url_or_default, :current_child, :set_current_child, :category_name
 
-# before_filter :authenticate
+  before_filter :authenticate
 
 protected
 
@@ -74,7 +74,7 @@ end
     def current_child
       return @current_child if defined?(@current_child)
       if session[:current_child]
-        @current_child = Child.find_by_id(session[:current_child]);
+        @current_child = current_user.children.find_by_id(session[:current_child]);
       else
         @current_child = current_user.children.first if current_user.children
         set_current_child @current_child.id if @current_child
@@ -88,7 +88,7 @@ end
     end
 
     def require_child
-      redirect_to new_child_children_path unless current_child
+      redirect_to registration_new_child_path unless current_child
     end
 
     def require_seen_behaviours

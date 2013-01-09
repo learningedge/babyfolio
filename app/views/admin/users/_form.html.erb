@@ -1,0 +1,53 @@
+<p class="hint">(<b class="red">*</b> - Required Fields.)</p>
+<h2>BASICS</h2>
+
+<%= form_for([:admin, @user]) do |f| %>
+  <fieldset class="basics">
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this admin_blog from being saved:</h2>
+
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <%= f.label :email %>      
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="row">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="row">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="row">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+      <span class="red">*</span>
+    </div>
+
+    <div class="row">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+      <span class="red">*</span>
+    </div>
+    
+  </fieldset>
+  
+
+  <%= link_to 'Back', admin_users_path, :class => 'btn gray' %>
+  <%#= link_to "User logs", logs_admin_users_path(:user_id => f.object.id), :class => 'btn gray' -%>
+    <br />
+  <input type="submit" value="Update User" />
+<% end %>
+

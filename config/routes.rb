@@ -1,27 +1,27 @@
 Babyfolio::Application.routes.draw do
 
-#  namespace :admin do
-#    root :to => "dashboard#index"
-#    get "/" => "dashboard#index", :as => :dashboard_index
-#    post "/search" => "dashboard#search", :as => :search
-#    resources :users, :only => [:index, :edit, :update] do
-#      collection do
-#        get '/:user_id/logs' => "users#logs", :as => :logs
-#      end
-#    end
-#    resources :families, :only => [:index, :edit, :update]
-#  end
+  namespace :admin do
+    root :to => "users#index"
+    get "/" => "dashboard#index", :as => :dashboard_index
+    post "/search" => "dashboard#search", :as => :search
+    resources :users, :only => [:index, :edit, :update] do
+      collection do
+        get '/:user_id/logs' => "users#logs", :as => :logs
+      end
+    end    
+  end
 
-  get '/user/settings' => "users#settings", :as => :settings  
+  get '/user/settings(/:chid)' => "users#settings", :as => :settings
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
-  get "contact" => "home#about", :as => :contact, :defaults => { :is_contact => true }
+  get "contact" => "home#contact", :as => :contact, :defaults => { :is_contact => true }
   get "about" => "home#about", :as => :about
+  get "privacy-policy" => "home#privacy", :as => :privacy
   post "send-contact" => "home#send_contact", :as => :send_contact
 
   #REGISTRATION  SPECIFIC
-    get "registration/children/new" => "children#new", :as => :registration_new_child
-    get "registration/questionnaire/initial" => "questions#initial_questionnaire", :as => :registration_initial_questionnaire
+    get "registration/children/new" => "children#new", :as => :registration_new_child, :defaults => { :is_registration => true }
+    get "registration/questionnaire/initial" => "questions#initial_questionnaire", :as => :registration_initial_questionnaire , :defaults => { :is_registration => true }    
   #REGISTRATION  SPECIFIC
     
 #  QUESTIONNAIRES
@@ -39,10 +39,12 @@ Babyfolio::Application.routes.draw do
   get "confirmation/accept_relations" => "confirmation#accept_relations"
   post "confirmation/update_relation" => "confirmation#update_relation"  
   put "confirmation/update_user" => "confirmation#update_user"
+
   
   get "reset-password/email" => "forgot_passwords#new", :as => :new_forgot_password
   post "reset-password/email/check" => "forgot_passwords#create", :as => :create_forgot_password
   get "reset-password/password" => "forgot_passwords#edit", :as => :edit_forgot_password
+  get "reset-password/email-sent" => "forgot_passwords#reset_done", :as => :reset_done
   put "reset-password/password/update" => "forgot_passwords#update", :as => :update_forgot_password
 
   match 'login' => "user_sessions#new", :as => :login
@@ -55,9 +57,10 @@ Babyfolio::Application.routes.draw do
 
   resources :children, :only => [:create, :edit, :update] do
     collection do
-      get '/new' => "children#new", :as => :new_child
-      get '/add_friends' => "children#add_friends", :as => :add_friends
-      get '/add_family' => "children#add_family", :as => :add_family
+      get 'change-child' => "children#switch_child", :as => :switch
+      get '/add' => "children#new", :as => :new_child
+#      get '/add_friends' => "children#add_friends", :as => :add_friends
+#      get '/add_family' => "children#add_family", :as => :add_family
       post '/create_relations' => "children#create_relations", :as => :create_relations
       post '/create-photo' => "children#create_photo", :as => :create_photo            
       get '/reflect' => "children#reflect", :as => :child_reflect
@@ -85,6 +88,8 @@ Babyfolio::Application.routes.draw do
       get 'make-admin' => "relations#make_admin", :as => :make_admin
   end
   get 'new-relation/:child_id' => "relations#new", :as => :new_relation
+  post 'invite-users' => "relations#invite_users", :as => :invite_users
+  get 'invitations-form' => "relations#show_invitations_form", :as => :show_invitations_form
 #  RELATIONS
   
 #  USERS

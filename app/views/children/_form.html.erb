@@ -7,6 +7,7 @@
 <div id="new_child_form">
 <%= form_for child do |f| -%>
       <%= f.hidden_field :id, :value => child.id if edit %>
+      <%= hidden_field_tag :is_registration, params[:is_registration] %>
       <div class="row">
         <span class="label">
             <%= f.label :first_name, "Baby's First Name" %>
@@ -49,12 +50,14 @@
       </div>
   
       <div class="clear"></div>
-      
-      <% if edit %>
-          <%= f.submit "Update Child", :class => 'btn btn-big' %>
-      <% else %>
-          <%= f.submit "Continue", :class => 'btn btn-big' %>
-      <% end %>
+      <div id="add-child-buttons">
+        <%= link_to "Back", settings_path, :class => 'btn btn-big btn-big-back' if params[:is_registration].blank? %>
+        <% if edit %>
+            <%= f.submit "Update Child", :class => 'btn btn-big' %>
+        <% else %>
+            <%= f.submit "Continue", :class => 'btn btn-big' %>
+        <% end %>
+      </div>
       
 <% end %>
 </div>

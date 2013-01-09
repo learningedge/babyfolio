@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
       @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
     end
     session[:reflect_popup] = true
+    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
   end
 
   def update_seen
@@ -45,53 +46,15 @@ class QuestionsController < ApplicationController
     end
   end
 
-#  def update_initial_questionnaire
-#    @step = params[:step].to_i
-#    @cat_ans = params[:categories_answered] || Array.new
-#    q_array = Array.new
-#    questions = Question.find_all_by_id(params[:questions])
-#
-#
-#    questions.each do |q|
-#      if @step%2 == 1
-#          unless @cat_ans.include?(q.category)
-#            q_array += Question.find_all_by_category_and_age(q.category, q.age, :limit => 2)
-#          end
-#      else
-#          q_age = Question.select_ages(q.age, '<', 1, 'DESC')
-#          if !@cat_ans.include?(q.category) && q_age.present?
-#            q_array += Question.find_all_by_category_and_age(q.category, q_age.first.age, :limit => 2)
-#          end
-#      end
-#    end
-#
-#    respond_to do |format|
-#        if q_array.empty? || questions.to_s == q_array.to_s
-#              format.js
-#              session[:reflect_popup] = true
-#        else
-#          @questions = q_array.group_by{|q| q.category}
-#          @questions.each do |k,v|
-#              if @step == 1 || (@step >= 2 && @step%2 == 0)
-#                @questions[k] = v.last
-#              else
-#                @questions[k] = v.first
-#              end
-#          end
-#
-#          format.html { render :partial => 'questions_listing', :locals => { :questions => @questions, :step => @step + 1, :categories_answered => @cat_ans} }
-#        end
-#    end
-#  end
-#
+
   def initial_questionnaire_completed
-    @qs_ms = current_child.max_seen_by_category
+    @qs_ms = current_child.max_seen_by_category    
     @qs_ms.each do |q|
       te = TimelineEntry.build_entry("watch",
-                                   q.milestone.get_title,
+                                   "is #{q.milestone.get_title}",
                                    current_child,
                                    current_user,
-                                   nil,
+                                   "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
                                    q.category,
                                    nil,
                                    current_user.id,

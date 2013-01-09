@@ -3,96 +3,144 @@
 <% end %>
 
 <div id="settings-wrapper">
+  <ul id="settings-tabs-ul">
+    <li><a href="#your-information">Your Information</a></li>
+    <% @children.each do |ch| %>
+      <% if ch.id == @selected_child.id %>
+          <li><a href="#current-child" data-href="<%= settings_path(:chid => ch.id) %>" class="selected-child-link"><%= ch.first_name %>'s Information</a></li>
+      <% else %>
+          <li><a data-href="<%= settings_path(:chid => ch.id) %>" class="settings-child-link"><%= ch.first_name %>'s Information</a></li>
+      <% end %>
+    <% end %>
+    <li><a data-href="<%= new_child_children_path %>" class="new-child-link">Add Another Baby To Your Account</a></li>
+    <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+  </ul> 
 
-  <% if @current_relation %>
-    <div id="user-children-settings">
-          <div class="child-settings-details setting-block setting-block-left">
-            <%= image_tag @current_relation.child.media.image.url(:profile_medium), :class => "round-corners left" if @current_relation.child.media %>
-            <div class="childs-details-right left">
+
+  <!------------------->
+  <!-- YOUR INFO TAB -->
+  <!------------------->
+  
+  <div id="your-information" class="tab">
+    <div class="tab-inner-right">
+      <div class="pointing-arrow"></div>
+      <%= image_tag current_user.get_image_src(:profile_medium), :class => "round-corners left"  %>
+      <div id="user-details-right" class="left">
+          <div class="bold"><%= current_user.get_user_name %></div>
+          <div><span class="bold"><%= @current_relation.child.first_name %></span> is your <%= @current_relation.get_opposite_relation_type.downcase  %></div>
+          <div><%= current_user.email %></div>
+          <div><%= current_user.zipcode %></div>
+
+          <div class="edit-buttons">
+            <%= link_to "Edit", edit_account_path, :class => "btn" %>
+            <%= link_to "Change password", "#change-password-wrapper", :class => "show-password-change" %>
+          </div>
+
+          <div id="change-password-wrapper" class="dialog">
+            <%= render :partial => "users/change_password", :locals => {:user => current_user} %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------->
+  <!-- CURRENT CHILD TAB -->
+  <!----------------------->
+  
+  <div id="current-child" class="tab">        
+        <div class="tab-inner-right first">
+            <div class="pointing-arrow"></div>
+            <%= image_tag @current_relation.child.get_image_src(:profile_medium), :class => "round-corners left"  %>
+            <div id="childs-details-right" class="left">
               <div class="bold"><%= @current_relation.child.first_name %> <%= @current_relation.child.last_name %></div>
               <div><%= @current_relation.child.birth_date.strftime('%B %-d, %Y') %></div>
               <div><%= @current_relation.child.gender.capitalize %></div>
               <div>You are <span class="bold"><%= @current_relation.child.first_name %>'s</span> <%= @current_relation.member_type %></div>
-              <%= link_to "Edit", edit_child_path(:id => @current_relation.child.id), :class => "btn" if @current_relation.is_admin %>
+              <div class="edit-buttons">
+                <%= link_to "Edit", edit_child_path(:id => @current_relation.child.id), :class => "btn" if @current_relation.is_admin %>
+              </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="tab-inner-left">
+          <p>Want to invite family and friends to <span class="bold"><%= current_child.first_name %>'s</span> BabyFolio? Just click on the"Invite Family and Friends" button above!</p>
+        </div>
+
+        <% if @invited_by_me.any? %>
+          <div class="tab-inner-right">
+              <div id="child-invites">
+                  <% @invited_by_me.each do |relation| %>
+                    <div class="setting-block">
+                        <div class="invitees-image round-corners" style="<%= "background-image: url(#{relation.user.get_image_src(:profile_small_invites)})" %>"></div>
+                        <div class="relative-info">
+                          <div class="bold"><%= relation.user.get_user_name %></div>
+                          <div><span class="bold"><%= relation.child.first_name %></span> is <span class="bold"><%=  relation.user.get_user_name + "'s" %></span> <%= relation.get_opposite_relation_type.downcase %></div>
+                          <div><%= relation.user.email %></div>
+                          <% admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{relation.child.first_name}'s BabyFolio, edit or delete posts, and other awesome powers." %>
+                          <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>
+                          <div class="invitees-buttons">
+                            <% unless relation.is_admin %>
+                              <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :class => "btn right make-admin-btn", :data_user => relation.user.get_user_name, :data_child => relation.child.first_name + "'s" %>
+                            <% end %>
+                            <%= link_to "Remove", relation_path(:id => relation.id), :class => "btn btn-grey right remove-user-btn", :data_user => relation.user.get_user_name, :data_child => relation.child.first_name %>
+                          </div>
+                          <div class="clear"></div>
+                        </div>                        
+                    </div>
+                <% end %>
+                <div class="clear"></div>
+            </div>
+          </div>
+      <% end %>
+  </div>
+
+  <!----------------->
+  <!-- INVITES TAB -->
+  <!----------------->
+
+  <div id="invite-others" class="tab">
+    <div class="tab-inner-right first">
+      <div class="pointing-arrow"></div>
+      <div id="invite-others-wrapper">
+        <%= render :partial => "relations/invitations_form" %>
+      </div>     
+    </div>
+
+    <div class="tab-inner-left">
+        
+      <div id="invite-others-prompt" class="<%= 'hidden' unless @pending_invitations.empty? %>">
+        <h4>You have no invites at this time.</h4>
+        <p>
+          Want to join someone's BabyFolio?</br>
+          Ask them to invite you!
+        </p>
+      </div>
+
+        <% @pending_invitations.each_with_index do |r,idx| %>
+          <div class="single-relation setting-block">
+            <div class="invitation-child-image round-corners left" style="<%= "background-image: url(#{r.child.get_image_src(:profile_small_invites)})" %>"></div>
+            <div class="invitation-child-details">
+                <div class="bold"><%= r.child.first_name %> <%= r.child.last_name %></div>
+                <div><%= r.get_opposite_relation_type.downcase %> of <%= r.inviter.get_user_name %></div>
+
+                <div class="invitation-buttons">
+                  <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
+                  <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
+                </div>
             </div>
             <div class="clear"></div>
           </div>
-      
-          <div class="user-settings-details setting-block">
-            <%= image_tag current_user.profile_media.image.url(:profile_medium), :class => "round-corners left" if current_user.profile_media %>
-            <div class="left childs-details-right">
-                <div class="bold"><%= current_user.get_user_name %></div>
-                <div><span class="bold"><%= @current_relation.child.first_name %></span> is your <%= @current_relation.get_opposite_relation_type.downcase  %></div>
-                <%= current_user.email %><br />
-                <%= link_to "Edit", edit_account_path, :class => "btn" %>
-                <%= link_to "Change password", "#change-password-wrapper", :class => "show-password-change" %>
-            </div>
+        <% end %>
 
-            <div id="change-password-wrapper" class="dialog">
-              <%= render :partial => "users/change_password", :locals => {:user => current_user} %>
-            </div>
-          </div>
-        <div class="clear"></div>
-    </div>  
-  <% end %>
-
-  
-  <div class="left settings-invitees">
-    <div class="setting-header">
-        <span><%= @current_relation.child.first_name %>'s BabyFolio</span>
-        <%= link_to "Invite to Circle", new_relation_path(:child_id => @current_relation.child.id), :remote => true, :disable_with => 'Please wait...', :id => "add-relation-btn", :class => 'btn right' if @current_relation.is_admin %>
-    </div>
-    <div class="clear"></div>
-    <div id="add-relation-wrapper" class="settings-edit-entry hidden round-corners"></div>
-      <div id="child-invites">
-            <% @invited_by_me.each do |relation| %>
-              <div class="setting-block">
-                  <div class="invitees-image round-corners left" style="<%= "background-image: url(#{relation.user.profile_media.image.url(:profile_small_invites)})" if relation.user.profile_media %>"></div>
-                  <div class="left">
-                    <div class="bold"><%= relation.user.get_user_name %></div>
-                    <div><span class="bold"><%= relation.child.first_name %></span> is <span class="bold"><%=  relation.user.first_name + "'s" %></span> <%= relation.get_opposite_relation_type.downcase %></div>
-                    <div><%= relation.user.email %></div>                    
-                    <% admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{relation.child.first_name}'s BabyFolio, edit or delete posts, and other awesome powers." %>
-                    <% remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name}?  They will no longer be able to be part of #{relation.child.first_name}'s development on BabyFolio!" %>
-                    <div class="invitees-buttons">
-                      <% unless relation.is_admin %>
-                        <%= link_to "Make admin", relation_make_admin_path(:relation_id => relation.id), :class => "btn right make-admin-btn", :data_user => relation.user.get_user_name, :data_child => relation.child.first_name + "'s" %>
-                      <% end %>
-                      <%= link_to "Remove", relation_path(:id => relation.id), :class => "btn btn-grey right remove-user-btn", :data_user => relation.user.get_user_name, :data_child => relation.child.first_name %>
-                    </div>
-                  </div>
-              </div>
-          <% end %>
-          <div class="clear"></div>
       </div>
   </div>
 
-  <div class="left settings-invited">
-    <div class="setting-header">
-      <span>You’ve been invited to join the following BabyFolios</span>
-    </div>       
+</div>
 
-    <div class="left">
-      <% @pending_invitations.each_with_index do |r,idx| %>
-        <div class="single-relation setting-block">
-          <div class="invitation-child-image round-corners left" style="<%= "background-image: url(#{r.child.media.image.url(:profile_small_invites)})" if r.child.media %>"></div>          
-          <div class="left">
-            <p>
-              <%  if r.child.first_name %>
-                <span class="bold"><%= r.child.first_name %> <%= r.child.last_name %></span>,
-              <% end %>
-              <%= r.get_opposite_relation_type.downcase %> of <%= r.inviter.get_user_name %>
-            </p>
-
-            <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
-            <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
-          </div>
-          <div class="clear"></div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
+<!--------------->
+<!--- Dialogs  -->
+<!--------------->
   <div id="confirm-removal-dialog" class="dialog">
     <h4 class="arvo">Remove <span class="user-to-remove arvo-bold"></span>?</h4>
     <p>
@@ -114,11 +162,46 @@
       <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
     </div>
   </div>
-
-  <div class="clear"></div>
+<!--------------->
+<!--- Dialogs  -->
+<!--------------->
 
   <script type="text/javascript">
     $(function() {
+        $('.relation-btn').bind('ajax:before', function() {
+          $(this).parents('.single-relation').fadeOut(function() {
+              $(this).remove();
+              if($('.single-relation').length == 0) { $('#invite-others-prompt').removeClass('hidden'); window.location = "<%=  settings_path %>"; }
+           });
+        });
+
+        $('#invite-others .btn').removeAttr('disabled');
+    
+        $('#invite-others-form').live("ajax:success", function(xhr, data) {        
+          $('#invite-others-wrapper').html(data);
+        });
+
+        $('.invite-more-btn').live('ajax:success', function(xhr, data) {
+          $('#invite-others-wrapper').html(data);
+        });
+
+        $('.clone-relation').live('click', function() {
+          row = $(this).parents('.row');
+          cl = $(row).clone();
+          $(cl).find('#emails_').val('');
+          $(cl).find('.error-message').text('');
+          cl.insertBefore(row);
+        });
+
+        $('#settings-wrapper').tabs({active: <%= params[:chid] ? 1 : 0 %> });
+        $('#current-child .pointing-arrow').css({top : $('.selected-child-link').position().top});
+        $('#invite-others .pointing-arrow').css({top : $('.invite-others-tab-link').position().top});
+        $('.tab-inner-right.first').css({minHeight : $('#settings-tabs-ul').height()-21});
+
+        $('.settings-child-link, .new-child-link').click(function() {
+          document.location = $(this).attr('data-href');
+          return false;
+        });
 
         $('.remove-user-btn').click(function() {
           userName = $(this).attr('data_user');
@@ -139,7 +222,7 @@
           $('#confirm-admin-dialog').dialog('open');
           return false;
         });
-        
+
         $('#confirm-removal-dialog, #confirm-admin-dialog').dialog({
             autoOpen: false,
             modal: true
@@ -147,7 +230,7 @@
 
         $('.relation-btn').bind('ajax:before', function() {
           $(this).parents('.single-relation').fadeOut(function() {
-              $(this).remove();              
+              $(this).remove();
            });
         });
 
@@ -158,12 +241,12 @@
 
 
         $('#change-password-form').live('ajax:success', function(xhr, data) {
-          $('#change-password-wrapper').html(data);          
+          $('#change-password-wrapper').html(data);
         });
 
-        $('#add-relation-btn').live('ajax:success', function(xhr, data) {          
+        $('#add-relation-btn').live('ajax:success', function(xhr, data) {
           $('#add-relation-wrapper').html(data).dialog({modal: true});
-          $('#add-relation-wrapper select').selectbox();          
+          $('#add-relation-wrapper select').selectbox();
         });
 
         $('#new-relation-form').live('ajax:success', function(xhr, data) {
@@ -180,4 +263,4 @@
   </script>
 
 
-</div>
+
