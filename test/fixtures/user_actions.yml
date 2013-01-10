@@ -4,8 +4,27 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  user_id: 1   
+  title: 'account_created'
+  created_at: <%= DateTime.now - 35.minutes %>
+  updated_at: <%= DateTime.now %>
+
+two:
+  user_id: 2
+  title: 'account_created'
+  created_at: <%= DateTime.now - 20.minutes %>
+  updated_at: <%= DateTime.now %>
+
+three:
+  user_id: 3
+  title: 'account_created'
+  created_at: <%= DateTime.now %>
+  updated_at: <%= DateTime.now %>
+
+four:
+  user_id: 4
+  title: 'account_created'
+  created_at: <%= DateTime.now - 2.days %>
+  updated_at: <%= DateTime.now %>
+

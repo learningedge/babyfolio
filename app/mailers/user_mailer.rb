@@ -33,11 +33,12 @@ class UserMailer < ActionMailer::Base
      mail(:to => ENV['CONTACT_EMAIL'] || "tickets@baby1.uservoice.com", :subject => "New Contact Us Submission")
   end
 
-  def registration_completed user, child, milestone
+  def registration_completed user, child, question
     @user = user
     @child = child
-    @milestone = milestone
-    mail(:to => @user.email, :subject => "Welcome to BabyFolio! & #{@child.first_name}'s Language Development: #{@milestone.get_title}")
+    @question = question
+    @milestone = question.milestone
+    mail(:to => @user.email, :subject => "Welcome to BabyFolio! & #{@child.first_name}'s #{Question::CATS[@question.category] } Development: #{@milestone.get_title}")
   end
 
   def step_2_pending user

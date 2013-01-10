@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   has_one :attachment, :as => :object
   has_one :profile_media, :through => :attachment, :source => :media
   has_many :timeline_entries, :class_name => "TimelineEntry"
+
+  before_create :add_options
   
   scope :ids, select("users.id")
   def self.subscribed
@@ -38,7 +40,62 @@ class User < ActiveRecord::Base
                       AND NOT EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)", include_action, exclude_action ])
   end
 
+  def self.send_step_2_pending_emails
+    users = User.subscribed.with_actions('account_created', 'child_added')
+    users.each do |u|
+      u.send_step_2_email
+    end
+  end
 
+  def send_step_2_email
+      joined_at = UserAction.find_by_user_id_and_title(self.id, 'account_created').created_at
+      if (DateTime.now - joined_at.to_datetime).to_f * 24 * 60 >= 30
+        ue = UserEmail.find_or_initialize_by_user_id_and_title(self.id, 'account_created' )
+        if ue.new_record?
+          UserMailer.step_2_pending(self).deliver
+          ue.save
+        end
+      end
+  end
+
+  def self.send_step_3_pending_emails
+    users = User.subscribed.with_actions('child_added', 'initial_questionnaire_completed')
+    users.each do |u|
+      u.send_step_3_email
+    end
+  end
+
+  def send_step_3_email
+    ua = UserAction.find_by_user_id_and_title(self.id, 'child_added')
+      if (DateTime.now - ua.created_at.to_datetime).to_f * 24 * 60 >= 30
+        c = ua.child || self.children.first
+        q = Question.includes(:milestone).find_by_category('l', :conditions => ["questions.age <= ? ", c.months_old], :order => 'questions.age DESC')
+        m = q.milestone if q
+        ue = UserEmail.find_or_initialize_by_user_id_and_title(self.id, 'child_added' )
+        if ue.new_record? && m
+          UserMailer.step_3_pending(self, c, m).deliver
+          ue.save
+        end
+      end
+  end
+
+  def self.resend_registration_completed
+    users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < DATE(?)", DateTime.now - 7.days])
+    users.each do |u|
+        c = u.children.first
+        a = nil
+        Question::CATS_ORDER.each do |c|
+          a = c.answers.includes([:question => :milestone]).where(["questions.category = ?", c]).order('questions.age DESC').limit(1).first.question
+          break unless a.nil?
+        end
+        q = a.question
+        if q
+            UserMailer.registration_completed(u, c, q).deliver
+            ue = u.user_emails.find_by_user_id_and_title(u.id, 'initial_questionnaire_completed')
+            ue.update_attributes(:updated_at => DateTime.now)
+        end
+    end
+  end
   
   def get_user_name
     if first_name.blank?
@@ -74,6 +131,14 @@ class User < ActiveRecord::Base
 
   def do_action! action
     self.user_actions.find_or_create_by_title(action)
+  end
+
+
+
+
+  private
+  def add_options
+    self.build_user_option
   end
 
 end

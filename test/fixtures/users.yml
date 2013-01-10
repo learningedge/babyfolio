@@ -9,19 +9,33 @@ one: {
   first_name: Rafal,
   last_name: Walczak,
   email: rafal@codephonic.com,
-  email_confirmed: 1
+  email_confirmed: 1,
+  is_temporary: false,
+  last_login_at: <% DateTime.now - 30.days %>
 }
 two: {
   id: 2,
-  first_name: John,
-  last_name: Smith,
-  email: john@smith.com,
-  email_confirmed: 1
+  first_name: Lukasz,
+  email: lukasz@codephonic.com,
+  email_confirmed: 1,
+  is_temporary: false,
+  last_login_at: <% DateTime.now - 1.days %>
 }
 three: {
   id: 3,
-  first_name: John,
-  last_name: Kowalski,
-  email: john@kowalski.com,
-  email_confirmed: 1
+  first_name: Augustyn,
+  last_name: Zentner,
+  email: augustyn@codephonic.com,
+  email_confirmed: 1,
+  is_temporary: false,
+  last_login_at: <% DateTime.now - 10.minutes %>
+}
+four: {
+  id: 4,
+  first_name: Someone,
+  last_name: Else,
+  email: someone@codephonic.com,
+  email_confirmed: 1,
+  is_temporary: false,
+  last_login_at: <% DateTime.now - 3.hours %>
 }

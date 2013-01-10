@@ -20,7 +20,6 @@ class UsersController < ApplicationController
     
     if @user.valid?
       @user.email_confirmed = false
-      @user.build_user_option
       @user.user_actions.new(:title => "account_created")
       @user.save      
       redirect_to registration_new_child_path

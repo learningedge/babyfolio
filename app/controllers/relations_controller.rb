@@ -79,7 +79,6 @@ class RelationsController < ApplicationController
           user.reset_password
           user.reset_single_access_token
           user.reset_perishable_token
-          user.user_option.new
         end
 
         rel = user.relations.find_or_initialize_by_child_id(current_child.id, :member_type => ie[:type], :token => user.perishable_token, :inviter => current_user, :is_admin => false, :accepted => false)

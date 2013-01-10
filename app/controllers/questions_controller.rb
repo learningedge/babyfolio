@@ -65,16 +65,19 @@ class QuestionsController < ApplicationController
 
     current_user.user_actions.find_or_create_by_title_and_child_id('initial_questionnaire_completed', current_child.id)
 
-    m = @qs_ms.select{ |q| q.category == 'l'}.first
-    if m
+    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
+    if qs
       unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
-        UserMailer.registration_completed(current_user, current_child, m.milestone).deliver if current_user.user_option.subscribed
+        UserMailer.registration_completed(current_user, current_child, qs).deliver if current_user.user_option.subscribed
         current_user.user_emails.create(:title => 'initial_questionnaire_completed')
-      end
-      
+      end      
     end
 
-    redirect_to child_reflect_children_path
+    if params[:add_child].present?
+      redirect_to registration_new_child_path
+    else
+      redirect_to child_reflect_children_path
+    end
   end
 
 end

@@ -4,8 +4,51 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one: {
+  user_id: 1,
+  subscribed: 1,
+  newsletter_frequency: weekly,
+  language: 1,
+  logic: 1,
+  social: 1,
+  visual: 1,
+  movement: 1,
+  emotional: 1
+}
+
+two: {
+  user_id: 2,
+  subscribed: 1,
+  newsletter_frequency: weekly,
+  language: 1,
+  logic: 1,
+  social: 1,
+  visual: 1,
+  movement: 1,
+  emotional: 1
+}
+
+three: {
+  user_id: 3,
+  subscribed: 1,
+  newsletter_frequency: weekly,
+  language: 1,
+  logic: 1,
+  social: 1,
+  visual: 1,
+  movement: 1,
+  emotional: 1
+}
+
+four: {
+  user_id: 4,
+  subscribed: 0,
+  newsletter_frequency: weekly,
+  language: 1,
+  logic: 1,
+  social: 1,
+  visual: 1,
+  movement: 1,
+  emotional: 1
+}
+

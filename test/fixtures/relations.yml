@@ -4,17 +4,45 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {
-  id: 1,
-  user_id: 1,
-  family_id: 1,
-  member_type: parent,
-  accepted: 1
-}
-two: {
-  id: 2,
-  user_id: 3,
-  family_id: 1,
-  member_type: cousin,
-  accepted: 1
-}
+one: 
+ id: 1,
+ user_id: 1,
+ child_id: 1,
+ member_type: Father,
+ accepted: 1,
+ is_admin: 1
+
+two: 
+ id: 2,
+ user_id: 2,
+ child_id: 1,
+ member_type: Grandmother,
+ accepted: 1,
+ is_admin: 0,
+ inviter_id: 1
+
+three: 
+ id: 3,
+ user_id: 1,
+ child_id: 2,
+ member_type: Father,
+ accepted: 1,
+ is_admin: 1,
+
+four:
+ id: 4,
+ user_id: 3,
+ child_id: 3,
+ member_type: Uncle,
+ accepted: 1,
+ is_admin: 1,
+
+five: 
+ id: 5,
+ user_id: 4,
+ child_id: 4,
+ member_type: Aunt,
+ accepted: 1,
+ is_admin: 1,
+
+
