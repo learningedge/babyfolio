@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>Welcome to BabyFolio, the exciting new app that helps your baby thrive!</h4>
+
+    <p>BabyFolio is centered around your individual child- identifying the most important developments and providing the right play at the right time. Find out more in <%= link_to "About Us", about_url(:confirm => true, :token => @user.persistence_token) %></p>
+
+    <p>To get started, you need to complete the registration process. If you have your own children, you can <%= link_to "register them at the site now", registration_new_child_url(:confirm => true, :token => @user.persistence_token) %>.</p>
+
+    <p>If you would like to be invited to a Folio of another baby you are not the parent of, then please contact the parent or BabyFolio member directly. You can invite anyone you know to BabyFolio here: <%= link_to "invite", settings_invite_url(:confirm => true, :token => @user.persistence_token) %>.</p>
+
+    <p>Please confirm your email address by clicking on any link above or <%= link_to "clicking here", root_url(:confirm => true, :token => @user.persistence_token) %>. You can also copy/paste the link below:</p>
+    <p><%=  root_url(:confirm => true, :token => @user.persistence_token) %></p>
+
+    <p>If you have any questions or concerns, please email us at <a href="mailto:tickets@baby1.uservoice.com">tickets@baby1.uservoice.com</a>.</p>
+
+    <p>Best,</p>
+    <p>BabyFolio Team</p>
+<%= render :partial => 'unsubscribe' %>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

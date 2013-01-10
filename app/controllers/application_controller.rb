@@ -1,11 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery  
 #  before_filter :require_confirmation
+  before_filter :confirm_account_from_link
 
   config.filter_parameters :password, :password_confirmation
   helper_method :current_user_session, :current_user, :get_return_url_or_default, :current_child, :set_current_child, :category_name
-
-before_filter :authenticate
+  before_filter :authenticate
+  
 
 protected
 
@@ -99,6 +100,20 @@ end
 
     def category_name(str)
       Question::CATS[str]
+    end
+
+    def confirm_account_from_link
+      if params[:confirm].present? && params[:token].present?
+        user = User.find_by_persistence_token(params[:token])
+        if user
+          unless user.email_confirmed
+            user.update_attribute(:email_confirmed, true)
+            UserSession.create(user)
+            store_location
+            redirect_to email_confirmed_path
+          end
+        end
+      end
     end
 
 end

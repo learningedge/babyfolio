@@ -193,7 +193,7 @@
           cl.insertBefore(row);
         });
 
-        $('#settings-wrapper').tabs({active: <%= params[:chid] ? 1 : 0 %> });
+        $('#settings-wrapper').tabs({active: <%= params[:is_invite] ? 2 : (params[:chid] ? 1 : 0) %> });
         $('#current-child .pointing-arrow').css({top : $('.selected-child-link').position().top});
         $('#invite-others .pointing-arrow').css({top : $('.invite-others-tab-link').position().top});
         $('.tab-inner-right.first').css({minHeight : $('#settings-tabs-ul').height()-21});

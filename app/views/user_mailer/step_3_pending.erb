@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>Welcome to BabyFolio, the exciting new app that helps your baby thrive!</h4>
+
+    <p>BabyFolio is centered around your individual child- identifying the most important developments and providing the right play at the right time. For example, when you identify that <%= @child.first_name %> has a specific language development such as <%= @child.replace_forms(@milestone.get_title).html_safe %> , you can support this important Learning Window with new experiences and the right kind of play:</p>
+
+    <p><%= @child.replace_forms(@milestone.get_title) %> Parenting Tip: <%= @child.replace_forms(@milestone.get_parenting_tip).html_safe %></p>
+
+    <p>Sample Activities:</p>
+    <ol>
+      <% unless @milestone.activity_1_title.blank? %>
+          <li>
+            <a href="<%= play_children_url(:mid => @milestone.mid, :no => 1, :confirm => true, :token => @user.persistence_token) %>"><%= @child.replace_forms(@milestone.activity_1_title).html_safe %></a>
+            <%= "- #{@child.replace_forms(@milestone.activity_1_set_up)}" if @milestone.activity_1_set_up.present? %>
+          </li>
+      <% end %>
+      <% unless @milestone.activity_2_title.blank? %>
+          <li><a href="<%= play_children_url(:mid => @milestone.mid, :no => 2, :confirm => true, :token => @user.persistence_token) %>"><%= @child.replace_forms(@milestone.activity_2_title).html_safe %></a></li>
+          <%= "- #{@child.replace_forms(@milestone.activity_2_set_up)}" if @milestone.activity_2_set_up.present? %>
+      <% end %>
+    </ol>
+
+    <p>To get started, please take the time to fill out the rest of <%= @child.first_name %>'s <%= link_to "behavior questionaire", registration_initial_questionnaire_url(:confirm => true, :token => @user.persistence_token) %>  </p>
+
+    <p>Please confirm your email address by clicking on any link above or <%= link_to "clicking here", root_url(:confirm => true, :token => @user.persistence_token) %>. You can also copy/paste the link below:</p>
+    <p><%=  root_url(:confirm => true, :token => @user.persistence_token) %></p>
+
+    <p>If you have any questions or concerns, please email us at <a href="mailto:tickets@baby1.uservoice.com">tickets@baby1.uservoice.com</a>.</p>
+
+    <p>Best,</p>
+    <p>BabyFolio Team</p>
+    <%= render :partial => 'unsubscribe' %>
+
+  </body>
+</html>
+
+
+
+
+

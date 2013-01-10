@@ -25,6 +25,7 @@ class ChildrenController < ApplicationController
       rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
       rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
       rel.save
+      current_user.user_actions.find_or_create_by_title_and_child_id("child_added", @child.id)
       current_user.reset_perishable_token!            
       set_current_child @child.id
       redirect_to registration_initial_questionnaire_path
@@ -101,6 +102,9 @@ class ChildrenController < ApplicationController
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><PTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
+
+    @reflect_visited = current_user.done_action?('reflect_visited')
+    current_user.do_action!('reflect_visited')
   end
 
   def play

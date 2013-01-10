@@ -11,6 +11,7 @@ Babyfolio::Application.routes.draw do
     end    
   end
 
+  get '/user/settings/invite' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }
   get '/user/settings(/:chid)' => "users#settings", :as => :settings
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
@@ -34,7 +35,8 @@ Babyfolio::Application.routes.draw do
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
-  get "confirmation/confirm_email"
+#  get "confirmation/confirm_email"
+  get "confirmation/email_confirmed" => "confirmation#email_confirmed", :as => :email_confirmed
   get "confirmation/accept_invitation" => "confirmation#accept_invitation"
   get "confirmation/accept_relations" => "confirmation#accept_relations"
   post "confirmation/update_relation" => "confirmation#update_relation"  
@@ -101,7 +103,8 @@ Babyfolio::Application.routes.draw do
       get 'change-password' => "users#change_password"
       put 'update-password' => "users#update_password"
       post 'create_temp_user' => "users#create_temp_user"
-    end
+      get '/unsubscribe/:token' => "users#unsubscribe", :as => :unsubscribe
+    end    
   end
 #  USERS    
 
