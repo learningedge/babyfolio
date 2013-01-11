@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   
   scope :ids, select("users.id")
   def self.subscribed
-    joins(:user_option).where(['user_options.subscribed = ?', 1])
+    joins(:user_option).where(['user_options.subscribed = ?', true])
   end
   
   def self.with_email title, count
