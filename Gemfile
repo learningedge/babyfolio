@@ -23,6 +23,7 @@ gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'rack-rewrite'
+gem 'exception_notification'
 
 group :test do
 
