@@ -108,14 +108,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
-  test 'send_step_3_pending_emails - two users apply' do
-    User.stubs(:with_actions).returns([@user_one, @user_two])
-    
-    @user_one.stubs(:send_step_3_email).returns(nil)
-    @user_two.stubs(:send_step_3_email).returns(nil)
+  test 'send_step_3_pending_emails - two users apply' do   
+    # @user_one.expects(:send_step_3_email2).at_least(3)
+    # @user_two.expects(:send_step_3_email2).at_least(3)
 
-    @user_one.expects(:send_step_3_email)
-    @user_two.expects(:send_step_3_email)
+#    User.stubs(:with_actions).returns([@user_one, @user_two])
 
     User.send_step_3_pending_emails
 
@@ -130,7 +127,7 @@ class UserTest < ActiveSupport::TestCase
     user_action_1.title = 'child_added'
     user_action_1.save
 
-    users = User.with_actions 'child_added', 'initial_questionnaire_completed'
+    users = User.with_actions 'child_added', 'initial_questionnaire_completed', (DateTime.now - 3.days)
     assert_equal 2, users.count
     
     assert users.include?(@user_one)
@@ -140,10 +137,68 @@ class UserTest < ActiveSupport::TestCase
 
     @user_one.user_option.update_attribute(:subscribed, false)
 
-    users = User.with_actions 'child_added', 'initial_questionnaire_completed'
+    users = User.with_actions 'child_added', 'initial_questionnaire_completed',  (DateTime.now - 3.days)
     assert_equal 1, users.count
     assert users.include?(@user_three)
   end
+
+  test 'resend_registration_completed - all correct' do
+    @user_one.update_attribute(:last_login_at, DateTime.now - 8.days - 1.minute)
+
+    @user_one.user_option.update_attribute(:subscribed, true)
+
+    user_email = user_emails(:one)
+    user_email.user = @user_one
+    user_email.title = 'initial_questionnaire_completed'
+    user_email.count = 0
+    user_email.save
+
+    assert_equal 1, user_email.count
+    
+    User.stubs(:get_first_answer_for_one_of_the_categories).returns(answers(:one))
+
+    counts = UserEmail.sum(:count)
+
+#    User.unstub(:get_first_answer_for_one_of_the_categories)
+
+    User.resend_registration_completed
+
+    user_email.reload
+    assert_equal 2, user_email.count
+    assert_equal counts+1, UserEmail.sum(:count)
+
+    User.resend_registration_completed
+
+    user_email.reload
+    assert_equal 2, user_email.count
+  end
+
+  test 'resend_registration_completed - logged in in the meantime' do
+    @user_one.update_attribute(:last_login_at, DateTime.now - 6.days - 1.minute)
+
+    @user_one.user_option.update_attribute(:subscribed, true)
+
+    user_email = user_emails(:one)
+    user_email.user = @user_one
+    user_email.title = 'initial_questionnaire_completed'
+    user_email.count = 0
+    user_email.save
+
+    assert_equal 1, user_email.count
+    
+    User.stubs(:get_first_answer_for_one_of_the_categories).returns(answers(:one))
+
+    counts = UserEmail.sum(:count)
+
+#    User.unstub(:get_first_answer_for_one_of_the_categories)
+
+    User.resend_registration_completed
+
+    user_email.reload
+    assert_equal 1, user_email.count
+    assert_equal counts, UserEmail.sum(:count)
+
+  end  
   
 
 end

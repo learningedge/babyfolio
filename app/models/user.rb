@@ -88,21 +88,31 @@ class User < ActiveRecord::Base
     return false
   end
 
+  #Need to move to categories
+  def self.get_first_answer_for_one_of_the_categories
+    a = nil
+    Question::CATS_ORDER.each do |category|
+      a = category.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first.question
+      break unless a.nil?
+    end    
+    
+    return a
+  end
+
   def self.resend_registration_completed
     users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < DATE(?)", DateTime.now - 7.days])
-    users.each do |u|
-        c = u.children.first
-        a = nil
-        Question::CATS_ORDER.each do |c|
-          a = c.answers.includes([:question => :milestone]).where(["questions.category = ?", c]).order('questions.age DESC').limit(1).first.question
-          break unless a.nil?
-        end
-        q = a.question
-        if q
-            UserMailer.registration_completed(u, c, q).deliver
-            ue = u.user_emails.find_by_user_id_and_title(u.id, 'initial_questionnaire_completed')
-            ue.update_attributes(:updated_at => DateTime.now)
-        end
+
+    users.each do |user|
+      child = user.children.first
+      answer = User.get_first_answer_for_one_of_the_categories
+
+      question = nil
+      question = answer.question if answer
+      if question
+        UserMailer.registration_completed(user, child, question).deliver
+        ue = user.user_emails.find_by_user_id_and_title(user.id, 'initial_questionnaire_completed')
+        ue.update_attributes(:updated_at => DateTime.now)
+      end
     end
   end
   
