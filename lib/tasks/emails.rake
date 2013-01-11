@@ -13,4 +13,6 @@ namespace :emails do
   task :resend_registration_completed => :environment do
     User.resend_registration_completed
   end
+
+  task :all => [:send_step_2_pending, :send_step_3_pending, :resend_registration_completed]
 end
