@@ -70,9 +70,11 @@ class ChildrenController < ApplicationController
 
     first_str = categorized_qs.values[0]
     last_weak = categorized_qs.values[-1]
-    
-    @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
-    @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+
+    unless first_str.age == last_weak.age
+      @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
+      @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+    end
     @avg_answers = categorized_qs
     @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
     @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?

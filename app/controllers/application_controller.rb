@@ -76,7 +76,7 @@ end
       if session[:current_child]
         @current_child = current_user.children.find_by_id(session[:current_child]);
       else
-        @current_child = current_user.children.first if current_user.children
+        @current_child = current_user.children.first if current_user.children.present?
         set_current_child @current_child.id if @current_child
       end
       @current_child
@@ -92,7 +92,7 @@ end
     end
 
     def require_seen_behaviours
-        redirect_to initial_questionnaire_path if current_child.answers.where(:value => 'seen').count == 0
+        redirect_to registration_initial_questionnaire_path if current_child.answers.where(:value => 'seen').count == 0
     end
 
     def category_name(str)
