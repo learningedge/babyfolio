@@ -13,10 +13,10 @@
     <p>In the <%= link_to "PLAY", play_children_url(:confirm => true, :token => @user.persistence_token) %> section of the site, we give you these Activity Ideas:</p>
     <ol>
       <% unless @milestone.activity_1_title.blank? %>
-          <li><a href="<%= play_children_path(:mid => @milestone.mid, :no => 1) %>"><%= @child.replace_forms(@milestone.activity_1_title).html_safe %></a></li>
+          <li><a href="<%= play_children_url(:mid => @milestone.mid, :no => 1) %>"><%= @child.replace_forms(@milestone.activity_1_title).html_safe %></a></li>
       <% end %>
       <% unless @milestone.activity_2_title.blank? %>
-          <li><a href="<%= play_children_path(:mid => @milestone.mid, :no => 2) %>"><%= @child.replace_forms(@milestone.activity_2_title).html_safe %></a></li>
+          <li><a href="<%= play_children_url(:mid => @milestone.mid, :no => 2) %>"><%= @child.replace_forms(@milestone.activity_2_title).html_safe %></a></li>
       <% end %>
     </ol>
 
