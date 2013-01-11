@@ -35,10 +35,10 @@ five:
 
 six:
   user_id: 1
-  title: 'Tem'
+  title: 'Temp'
   created_at: <%= DateTime.now - 2.days %>
 
 seven:
   user_id: 1
-  title: 'Tem'
+  title: 'Temp'
   created_at: <%= DateTime.now - 2.days %>

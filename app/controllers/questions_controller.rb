@@ -63,7 +63,7 @@ class QuestionsController < ApplicationController
       te.save
     end
 
-    current_user.user_actions.find_or_create_by_title_and_child_id('initial_questionnaire_completed', current_child.id)
+    current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
 
     qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
     if qs
