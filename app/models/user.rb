@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
 
   def send_step_2_email
       joined_at = UserAction.find_by_user_id_and_title(self.id, 'account_created').created_at
-      if (DateTime.now - joined_at.to_datetime).to_f * 24 * 60 >= 30
-        ue = UserEmail.find_or_initialize_by_user_id_and_title(self.id, 'account_created' )
+      if joined_at.to_datetime + 30.minutes < DateTime.now
+        ue = UserEmail.find_or_initialize_by_title_and_user_id('account_created', self.id )
         if ue.new_record?
           UserMailer.step_2_pending(self).deliver
           ue.save

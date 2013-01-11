@@ -25,7 +25,7 @@ three:
 four:
   user_id: 4
   title: 'account_created'
-  created_at: <%= DateTime.now - 2.days %>
+  created_at: <%= DateTime.now - 5.days %>
   updated_at: <%= DateTime.now %>
 
 five:
