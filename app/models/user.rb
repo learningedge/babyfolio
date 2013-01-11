@@ -36,20 +36,15 @@ class User < ActiveRecord::Base
   end
 
   # Need to be changed
-  def self.with_actions include_action, exclude_action
-    actions = UserAction.where({:title => include_action })
-    exclude = UserAction.where({:title => exclude_action })
-    users = (actions - exclude).map { |a| a.user(:include => :user_option) }
-    users.delete_if { |u| u.user_option.subscribed == false }
+  def self.with_actions include_action, exclude_action, no_older_than
+    users = UserAction.no_older_than(no_older_than).includes(:user => :user_option).find_all_by_title(include_action).map{|ua| ua.user}
+    users.delete_if { |u| u.user_option.subscribed == false || u.user_actions.exists?(:title => exclude_action) }
  
     return users
-
-    # subscribed.where(["EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)
-#                      AND NOT EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)", include_action, exclude_action ])
   end
 
   def self.send_step_2_pending_emails
-    users = User.subscribed.with_actions('account_created', 'child_added')
+    users = User.subscribed.with_actions('account_created', 'child_added', (DateTime.now - 3.days))
     users.each do |u|
       u.send_step_2_email
     end
@@ -67,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_step_3_pending_emails
-    users = User.subscribed.with_actions('child_added', 'initial_questionnaire_completed')
+    users = User.subscribed.with_actions('child_added', 'initial_questionnaire_completed', (DateTime.now - 3.days))
     users.each do |u|
       u.send_step_3_email
     end

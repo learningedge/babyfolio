@@ -25,8 +25,7 @@ class ChildrenController < ApplicationController
       rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
       rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
       rel.save
-      ua = UserAction.find_or_initialize_by_user_id_and_title(current_user.id, "child_added")
-      ua.update_attributes({:child_id => @child.id})
+      UserAction.find_or_create_by_user_id_and_title(current_user.id, "child_added", :child_id => @child.id)
       current_user.reset_perishable_token!            
       set_current_child @child.id
       redirect_to registration_initial_questionnaire_path
