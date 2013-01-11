@@ -35,9 +35,17 @@ class User < ActiveRecord::Base
     subscribed.where(["EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ? AND ue.count = ?)", title, count])
   end
 
+  # Need to be changed
   def self.with_actions include_action, exclude_action
-    subscribed.where(["EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)
-                      AND NOT EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)", include_action, exclude_action ])
+    actions = UserAction.where({:title => include_action })
+    exclude = UserAction.where({:title => exclude_action })
+    users = (actions - exclude).map { |a| a.user(:include => :user_option) }
+    users.delete_if { |u| u.user_option.subscribed == false }
+ 
+    return users
+
+    # subscribed.where(["EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)
+#                      AND NOT EXISTS(SELECT 1 FROM user_actions WHERE user_actions.user_id = users.id AND user_actions.title = ?)", include_action, exclude_action ])
   end
 
   def self.send_step_2_pending_emails
@@ -66,17 +74,23 @@ class User < ActiveRecord::Base
   end
 
   def send_step_3_email
-    ua = UserAction.find_by_user_id_and_title(self.id, 'child_added')
-      if (DateTime.now - ua.created_at.to_datetime).to_f * 24 * 60 >= 30
-        c = ua.child || self.children.first
-        q = Question.includes(:milestone).find_by_category('l', :conditions => ["questions.age <= ? ", c.months_old], :order => 'questions.age DESC')
-        m = q.milestone if q
-        ue = UserEmail.find_or_initialize_by_user_id_and_title(self.id, 'child_added' )
-        if ue.new_record? && m
-          UserMailer.step_3_pending(self, c, m).deliver
-          ue.save
-        end
+    user_action = UserAction.find_by_user_id_and_title(self.id, 'child_added')
+    if user_action && (user_action.created_at + 30.minutes < DateTime.now)
+      child = user_action.child || self.children.first
+
+      question = Question.includes(:milestone).find_by_category('l', :conditions => ["questions.age <= ? ", child.months_old], :order => 'questions.age DESC')
+      milestone = question.milestone if question
+
+      user_email = UserEmail.find_or_initialize_by_user_id_and_title(self.id, 'child_added' )
+
+      if user_email.new_record? && milestone
+        UserMailer.step_3_pending(self, child, milestone).deliver
+        user_email.save
+        return true
       end
+    end
+
+    return false
   end
 
   def self.resend_registration_completed

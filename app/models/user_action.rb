@@ -1,4 +1,4 @@
 class UserAction < ActiveRecord::Base
   belongs_to :user
-  has_one :child
+  belongs_to :child
 end
