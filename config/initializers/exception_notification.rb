@@ -1,4 +1,4 @@
-if Rails.env == 'development'
+if Rails.env == 'production'
   Babyfolio::Application.config.middleware.use ExceptionNotifier,
   :email_prefix => "[Babyfolio Exception] ",
   :sender_address => %{"Babyfolio" <info@babyfol.io>},
