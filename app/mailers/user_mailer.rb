@@ -38,19 +38,19 @@ class UserMailer < ActionMailer::Base
     @child = child
     @question = question
     @milestone = question.milestone
-    mail(:to => @user.email, :subject => "Welcome to BabyFolio! & #{@child.first_name}'s #{Question::CATS[@question.category] } Development: #{@milestone.get_title}")
+    mail(:to => @user.email, :subject => "Welcome to BabyFolio & #{@child.first_name}'s #{Question::CATS[@question.category] } Development: #{@milestone.get_title}")
   end
 
   def step_2_pending user
     @user = user
-    mail(:to => @user.email, :subject => "Welcome to BabyFolio!")
+    mail(:to => @user.email, :subject => "Welcome to BabyFolio")
   end
 
   def step_3_pending user, child, milestone
     @user = user
     @child = child
     @milestone = milestone
-    mail(:to => @user.email, :subject => "Welcome to BabyFolio!")
+    mail(:to => @user.email, :subject => "Welcome to BabyFolio")
   end
 
 end
