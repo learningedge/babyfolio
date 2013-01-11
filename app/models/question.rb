@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
   has_many :answers
   belongs_to :milestone, :class_name =>"Milestone", :primary_key => 'mid', :foreign_key => 'mid'
 
+
   scope :select_ages, lambda {|age, dir, count, order| select('distinct age').where('age ' + dir + ' ?', age).limit(count).order("age #{order}") }
 
   scope :question_categories, select('distinct category') 

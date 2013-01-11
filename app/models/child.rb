@@ -93,6 +93,18 @@ class Child < ActiveRecord::Base
       return question_text.html_safe
   end
 
+  def api_replace_forms(question_text, truncate = 0)
+      FORMS.each do |key, val|
+        question_text = question_text.gsub(key, val[gender_index])
+      end
+      if truncate > 0
+        question_text = truncate(question_text, :length => truncate, :separator => ' ')
+      end
+      question_text = question_text.gsub(/#first#|#Nickname#/, "#{self.first_name}")
+      return question_text.html_safe
+  end
+
+
   def gender_index
     @index ||= (gender == 'male' ? 0 : 1);
   end
