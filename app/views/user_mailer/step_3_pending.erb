@@ -15,12 +15,12 @@
       <% unless @milestone.activity_1_title.blank? %>
           <li>
             <a href="<%= play_children_url(:mid => @milestone.mid, :no => 1, :confirm => true, :token => @user.persistence_token) %>"><%= @child.replace_forms(@milestone.activity_1_title).html_safe %></a>
-            <%= "- #{@child.replace_forms(@milestone.activity_1_set_up)}" if @milestone.activity_1_set_up.present? %>
+            <%= "- #{@child.replace_forms(@milestone.activity_1_set_up).html_safe}" if @milestone.activity_1_set_up.present? %>
           </li>
       <% end %>
       <% unless @milestone.activity_2_title.blank? %>
           <li><a href="<%= play_children_url(:mid => @milestone.mid, :no => 2, :confirm => true, :token => @user.persistence_token) %>"><%= @child.replace_forms(@milestone.activity_2_title).html_safe %></a></li>
-          <%= "- #{@child.replace_forms(@milestone.activity_2_set_up)}" if @milestone.activity_2_set_up.present? %>
+          <%= "- #{@child.replace_forms(@milestone.activity_2_set_up).html_safe}" if @milestone.activity_2_set_up.present? %>
       <% end %>
     </ol>
 
