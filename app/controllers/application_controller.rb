@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery  
-#  before_filter :require_confirmation
   before_filter :confirm_account_from_link
 
   config.filter_parameters :password, :password_confirmation
@@ -64,12 +63,6 @@ end
       session[:return_to] = nil
       back_url
     end
-
-#    def require_confirmation
-#      if current_user and !current_user.email_confirmed and current_user.created_at < (DateTime.now - 7.days)
-#        redirect_to confirmation_url
-#      end
-#    end
 
     def current_child
       return @current_child if defined?(@current_child)

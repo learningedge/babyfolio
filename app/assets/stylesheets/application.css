@@ -630,11 +630,15 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #timeline-wrapper .single-timeline-entry span.te-title {font: bold 12px Arial; margin-left: 10px; vertical-align: middle; max-width: 410px; }
 
 .show_timeline .ui-dialog .ui-dialog-titlebar { right: 26px; top: 20px; }
-.show_timeline #timeline-info-dialog { width: 452px !important; padding: 9px; min-height: auto !important;}
-.show_timeline #timeline-info-dialog #timeline-info-popup-inner { border: 3px solid #f26722; border-radius: 5px; padding: 20px;}
-.show_timeline #timeline-info-dialog #timeline-info-popup-inner h4,
-.show_timeline #timeline-info-dialog #timeline-info-popup-inner p { text-align: center }
-.show_timeline #timeline-info-dialog #timeline-info-popup-inner p img { margin-top: 15px; }
+.show_timeline .timeline-info-dialog { width: 500px !important; padding: 9px; min-height: auto !important;}
+.show_timeline .timeline-info-dialog .timeline-info-popup-inner { border: 3px solid #f26722; border-radius: 5px; padding: 20px;}
+.show_timeline .timeline-info-dialog .timeline-info-popup-inner h4,
+.show_timeline .timeline-info-dialog .timeline-info-popup-inner p { text-align: center }
+.show_timeline #timeline-invite-dialog p {text-align: left; margin-top: 15px;}
+.show_timeline .timeline-info-dialog .timeline-info-popup-inner p img { margin-top: 15px; }
+.show_timeline .timeline-info-dialog .tl-popup-buttons { margin-top: 20px; text-align: center;}
+.show_timeline .timeline-info-dialog .tl-popup-buttons a { margin-right: 15px; }
+.show_timeline .timeline-info-dialog .tl-popup-buttons a:last-child { margin-right: 0; }
 
 #reflect-info-popup #reflect-info-popup-inner h3 { font-size: 24px; background: url(/images/child_head.png) no-repeat left center; padding-left: 53px; line-height: 52px; margin: 15px 30px;}
 #reflect-info-popup #reflect-info-popup-inner p { font-size: 15px; margin: 0 30px; }

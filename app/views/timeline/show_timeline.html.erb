@@ -162,11 +162,24 @@
       </li>
     </ul>
 
-    <div id="timeline-info-dialog" class="hidden">
-      <div id="timeline-info-popup-inner">
+    <div id="timeline-info-dialog"class="hidden timeline-info-dialog">
+      <div class="timeline-info-popup-inner">
             <h4 class="arvo">Hey there!</h4>
             <p>Feel free to write about a time your baby exhibited a behavior listed in the timeline.  Just click on the timeline icon to begin!</p>
             <p><img src="/images/timeline_active.png"/></p>
+      </div>
+    </div>
+
+    <div id="timeline-invite-dialog" class="hidden timeline-info-dialog">
+      <div class="timeline-info-popup-inner">
+            <h4 class="arvo">Hello again!</h4>
+            <p>Did you know that you can share <%= current_child.first_name %>'s current developments with <%= current_child.replace_forms('<his/her>') %> close family and friends, or anyone who spends time with <%= current_child.replace_forms('<him/her>') %> (e.g. nanny/babysitter)?</p>
+            <p>That way, everyone who is involved in the baby’s life can learn from and contribute to a better understanding of who this precious person is. Everyone can then better support <%= current_child.first_name %>’s optimal learning and development.</p>
+            <p>Just hop over to the More section and click on ""Invite Family and Friends!" or you can just click on the button below.</p>
+            <div class="tl-popup-buttons">
+              <%= link_to "Invite Family and Friends!" , timeline_invite_redirect_path , :class => "btn", :method => :post %>
+              <%= link_to "Remind me later" , timeline_remind_later_path, :class => "btn remind-later-btn", :remote => true, :method => :post %>
+              <%= link_to "Don't remind me again" , timeline_dont_remind_path, :class => "btn dont-remind-later-btn", :remote => true, :method => :post if @show_dont_btn %></div>
       </div>
     </div>
   </div>
@@ -179,8 +192,16 @@
       <% unless @timeline_visited %>
         $('#timeline-info-dialog').dialog({modal: true});
       <% end %>
+        
+      <% if @show_reminder %>
+        $('#timeline-invite-dialog').dialog({modal: true});
+      <% end %>
 
-        $('.timeline-btn').click(function() {        
+        $('.remind-later-btn, .dont-remind-later-btn').live('ajax:before', function() {
+          $('#timeline-invite-dialog').dialog('close');
+        });
+
+        $('.timeline-btn').click(function() {
           $($(this).attr('href')).dialog({ modal : true});
           $('.ui-dialog-titlebar').css({top: '10px', right: '16px'});
           $('.ui-dialog').css({padding: '15px'});

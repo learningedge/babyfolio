@@ -42,7 +42,11 @@ class Child < ActiveRecord::Base
     /(#)+his\/hers(#)+/ => ['his', 'hers'],
     /(#)+His\/Hers(#)+/ => ['His', 'Hers'],
     /(#)+himself\/herself(#)+/ => ['himself', 'herself'],
-    /(#)+Himself\/Herself(#)+/ => ['Himself', 'Herself']
+    /(#)+Himself\/Herself(#)+/ => ['Himself', 'Herself'],
+    /(<)+His\/Her(>)+/ => ['His', 'Her'],
+    /(<)+his\/her(>)+/ => ['his', 'her'],
+    /(<)+Him\/Her(>)+/ => ['Him', 'Her'],
+    /(<)+him\/her(>)+/ => ['him', 'her']
   }
 
 
