@@ -15,7 +15,7 @@ class Api::V1::ChildrenController < ApplicationController
       @status = false
     end
 
-    render :json => { success: @status }
+    render :json => { :success => @status }
   end
 
   def current
@@ -31,7 +31,7 @@ class Api::V1::ChildrenController < ApplicationController
   def play
     answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
-    answers.each do |k,v|
+    answers.each do |v|
       max_age = v.max_by{ |a| a.question.age}.question.age
       v.delete_if{|a| a.question.age != max_age}
     end
@@ -69,7 +69,7 @@ class Api::V1::ChildrenController < ApplicationController
     end
     @activities.first[:selected] = true unless @activities.any? { |a| a[:selected] == true }
 
-    render :json => { activities: @activities }
+    render :json => { :activities => @activities }
   end
 
   def get_adjacent_activity 
@@ -107,7 +107,7 @@ class Api::V1::ChildrenController < ApplicationController
                :selected => true,
                :likes => likes
               }
-    render :json => { activity: @item, time: @time }
+    render :json => { :activity => @item, :time => @time }
   end
 
 
@@ -163,7 +163,7 @@ class Api::V1::ChildrenController < ApplicationController
     end
     @behaviours.first[:selected] = true unless @behaviours.any? { |a| a[:selected] == true }
 
-    render :json => { behaviours: @behaviours }
+    render :json => { :behaviours => @behaviours }
   end
 
   def get_adjacent_behaviour
@@ -207,7 +207,7 @@ class Api::V1::ChildrenController < ApplicationController
                :selected => true
               }
 
-    render :json => { behaviour: @item, time: @time }
+    render :json => { :behaviour => @item, :time => @time }
   end
 
 
@@ -224,7 +224,7 @@ class Api::V1::ChildrenController < ApplicationController
     categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category}
     categorized_qs.each do |k,v|
       categorized_qs[k] = v.first
-      serialized = QuestionSerializer.new(v.first, scope: current_child, :root => false)
+      serialized = QuestionSerializer.new(v.first, :scope => current_child, :root => false)
       @reflections << serialized
     end
 
@@ -237,10 +237,10 @@ class Api::V1::ChildrenController < ApplicationController
     @avg_answers = @reflections - @str_answers - @weak_answers
 
     render :json => {
-      reflections: @reflections,
-      strong: @str_answers,
-      weak: @weak_answers,
-      avg: @avg_answers
+      :reflections => @reflections,
+      :strong => @str_answers,
+      :weak => @weak_answers,
+      :avg => @avg_answers
     }
   end
 
