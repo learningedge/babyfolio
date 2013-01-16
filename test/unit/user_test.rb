@@ -155,7 +155,7 @@ class UserTest < ActiveSupport::TestCase
 
     assert_equal 1, user_email.count
     
-    User.stubs(:get_first_answer_for_one_of_the_categories).returns(answers(:one))
+    Child.stubs(:get_first_answer_for_one_of_the_categories).returns(answers(:one))
 
     counts = UserEmail.sum(:count)
 

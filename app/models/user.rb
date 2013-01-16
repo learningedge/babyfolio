@@ -118,22 +118,14 @@ class User < ActiveRecord::Base
   end
 
   #Need to move to categories
-  def self.get_first_answer_for_one_of_the_categories
-    a = nil
-    Question::CATS_ORDER.each do |category|
-      a = category.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first.question
-      break unless a.nil?
-    end    
-    
-    return a
-  end
+
 
   def self.resend_registration_completed
     users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < ?", DateTime.now - 7.days])
 
     users.each do |user|
       child = user.children.first
-      answer = User.get_first_answer_for_one_of_the_categories
+      answer = Child.get_first_answer_for_one_of_the_categories
 
       question = nil
       question = answer.question if answer
