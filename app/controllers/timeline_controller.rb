@@ -21,22 +21,22 @@ class TimelineController < ApplicationController
 
     @show_reminder = false
     if current_user.login_count >= 3 && !session[:remind_timeline]
-      unless current_user.user_actions.find_by_title('timeline_dont_remind') 
+      unless current_user.done_action?('timeline_dont_remind')
         @show_reminder = true
-        @show_dont_btn = true if current_user.user_actions.find_by_title('timeline_remind')
+        @show_dont_btn = true if current_user.done_action?('timeline_remind')
       end
     end   
   end
 
   def invite_redirect
-    current_user.user_actions.create(:title => 'timeline_dont_remind')
+    current_user.do_action!('timeline_dont_remind')
     session[:remind_timeline] = true
     redirect_to settings_invite_path
   end
 
   def dont_remind
     session[:remind_timeline] = true
-    current_user.user_actions.create(:title => 'timeline_dont_remind')
+    current_user.do_action!('timeline_dont_remind')
     respond_to do |format|
       format.html { render :nothing => true }
     end    
@@ -44,7 +44,7 @@ class TimelineController < ApplicationController
 
   def remind_later
     session[:remind_timeline] = true
-    current_user.user_actions.find_or_create_by_title('timeline_remind')
+    current_user.do_action!('timeline_remind')
     respond_to do |format|
       format.html { render :nothing => true }
     end    

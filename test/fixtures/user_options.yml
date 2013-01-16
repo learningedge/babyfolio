@@ -19,7 +19,7 @@ one: {
 two: {
   user_id: 2,
   subscribed: 1,
-  newsletter_frequency: weekly,
+  newsletter_frequency: monthly,
   language: 1,
   logic: 1,
   social: 1,

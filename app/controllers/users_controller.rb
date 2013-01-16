@@ -65,6 +65,10 @@ class UsersController < ApplicationController
     end        
   end
 
+  def update_options
+    
+  end
+
 #  def show
 #    @user = current_user
 #

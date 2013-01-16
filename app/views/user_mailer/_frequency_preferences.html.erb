@@ -1,0 +1,22 @@
+<p>Email Peferences:</p>
+
+<%= form_tag update_user_options_url(:token => @user.persistence_token) do %>
+  <p>Please select the frequency by which you would like to receive this type of information:</p>
+  <ul style="list-style: none;">
+    <li><%  radio_button_tag 'newsletter_frequency', 'weekly', @user.user_option.newsletter_frequency == "weekly"  %> Weekly</li>
+    <li><%  radio_button_tag 'newsletter_frequency', 'daily', @user.user_option.newsletter_frequency == "daily"  %> Daily</li>
+    <li><%  radio_button_tag 'newsletter_frequency', 'monthly', @user.user_option.newsletter_frequency == "monthly"  %> Monthly</li>
+  </ul>
+
+  <p>Please check off the intelligences that you would like to receive information about: </p>
+
+  <ul style="list-style: none;">
+    <li><%= check_box_tag 'language', true, @user.user_option.language %> Language</li>
+    <li><%= check_box_tag 'logic', true, @user.user_option.language %> Logic and Number</li>
+    <li><%= check_box_tag 'social', true, @user.user_option.language %> Social</li>
+    <li><%= check_box_tag 'visual', true, @user.user_option.language %> Visual/Spatial</li>
+    <li><%= check_box_tag 'movement', true, @user.user_option.language %> Physical/Movement</li>
+    <li><%= check_box_tag 'emotional', true, @user.user_option.language %> Emotional</li>
+  </ul>
+  <div><%= submit_tag "Update settings" %></div>
+<% end %>

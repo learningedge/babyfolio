@@ -12,6 +12,7 @@ Babyfolio::Application.routes.draw do
   end
 
   get '/user/settings/invite' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }
+  post '/user/settings/update_options/:token' => "users#update_options", :as => :update_user_options
   get '/user/settings(/:chid)' => "users#settings", :as => :settings
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"

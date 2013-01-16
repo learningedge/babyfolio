@@ -14,5 +14,13 @@ namespace :emails do
     User.resend_registration_completed
   end
 
-  task :all => [:send_step_2_pending, :send_step_3_pending, :resend_registration_completed]
+  desc "Send newsletters"
+  task :send_newsletters => :environment do
+    User.send_newsletters
+  end
+  
+  task :half_hour => [:send_step_2_pending, :send_step_3_pending]
+  task :daily => [:resend_registration_completed , :send_newsletters]
+
+  task :all => [:half_hour, :daily]
 end

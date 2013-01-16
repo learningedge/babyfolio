@@ -262,8 +262,135 @@ class UserTest < ActiveSupport::TestCase
     assert ua.created_at + 9.minutes < DateTime.now
 
     @user_one.send_step_2_email
-    assert_equal 0, @user_one.user_emails.length
+    assert_equal 0, @user_one.user_emails.length   
+  end
 
+  test 'test with_newsletter_email_for_frequency should return users with emails sent later than frequency' do
+    # => @user_one newsletter email last sent 9 days ago
+    date = DateTime.now - 9.days
+    email = @user_one.send_email!('newsletter')
+    email.update_attributes({:updated_at => date})
+    assert email.updated_at.to_datetime <=  DateTime.now - 7.days
+
+    assert_equal 1, User.with_email_title_for_frequency("newsletter", 'weekly').count
+
+    # => @user_two newsletter email last sent 6 days ago
+    date = DateTime.now - 6.days
+    email = @user_two.send_email!('newsletter')
+    email.update_attributes({:updated_at => date})
+    assert email.updated_at.to_datetime >=  DateTime.now - 7.days
+
+    assert_equal 1, User.with_email_title_for_frequency("newsletter", 'weekly').count
+    assert_equal 0, User.with_email_title_for_frequency("newsletter", 'monthly').count
+
+    # =>  @user_two newsletter email last sent 40 days ago
+    date = DateTime.now - 40.days
+    email.update_attributes({:updated_at => date})
+
+    assert_equal 1, User.with_email_title_for_frequency("newsletter", 'weekly').count
+    assert_equal 1, User.with_email_title_for_frequency("newsletter", 'monthly').count
+        
+    # => @user_two frequency changed to weekly
+    @user_two.user_option.update_attributes({:newsletter_frequency => 'weekly'})
+
+    assert_equal 2, User.with_email_title_for_frequency("newsletter", 'weekly').count
+    assert_equal 0, User.with_email_title_for_frequency("newsletter", 'monthly').count
+  end
+
+  test 'without_email' do
+    # testing 3 subscribed users without 'newsletter' email
+    users = User.without_email('newsletter')    
+    assert_equal 3, User.without_email('newsletter').count
+  end
+
+  test 'without_newsletter_email_for_frequency' do    
+    assert_equal 0, User.without_newsletter_email_for_frequency('weekly').count
+
+    # => setup @user_three for account created 9 days(has weekly frequency)
+    action = @user_three.do_action!('account_created')
+    action.update_attributes({:created_at => DateTime.now - 9.days})
+
+    assert_equal 1, User.without_newsletter_email_for_frequency('weekly').count
+
+    # => setup @user_three for account created 9 days but has monthly frequency
+    action = @user_two.do_action!('account_created')
+    action.update_attributes({:created_at => DateTime.now - 9.days})
+
+    assert_equal 1, User.without_newsletter_email_for_frequency('weekly').count
+
+    # => setup @user_three for account created 9 days but with weekly frequency
+    @user_two.user_option.update_attributes({:newsletter_frequency => 'weekly'})
+
+    assert_equal 2, User.without_newsletter_email_for_frequency('weekly').count
+
+    # => setup @user_one for account created twa days ago with daily frequency
+    @user_one.user_option.update_attributes({:newsletter_frequency => 'daily'})
+    action = @user_one.do_action!('account_created')
+    action.update_attributes({ :created_at => DateTime.now - 2.days  })
+    assert_equal 1, User.without_newsletter_email_for_frequency('daily').count
+    
+  end
+
+  test 'select_users_for_newsletter' do
+    assert_equal 0, User.select_users_for_newsletter.count
+
+    date = DateTime.now - 9.days
+    email = @user_one.send_email!('newsletter', :updated_at => date)
+    assert @user_one.user_option.newsletter_frequency == 'weekly', "should be weekly"
+#    email.update_attributes({:updated_at => date})
+
+    date = DateTime.now - 40.days
+    email = @user_two.send_email!('newsletter',  :updated_at => date )    
+    assert @user_two.user_option.newsletter_frequency == 'monthly', "should be monthly"
+#    email.update_attributes({:updated_at => date})
+
+    users = User.select_users_for_newsletter    
+    assert_equal 2, users.count
+    assert users.first.is_a?(User), "should be of User type"
+    assert users.first.association('user_option').loaded? , "should eager load user options"
+
+    #change @user_one to monthly subscription
+    @user_one.user_option.update_attribute(:newsletter_frequency, 'monthly')
+    users = User.select_users_for_newsletter
+    assert_equal 1, users.count
+  end
+
+  test 'send_newsletter' do
+    date = DateTime.now - 40.days
+    action = @user_one.do_action!('account_created')
+    action.update_attributes({:created_at => date})
+    #email = @user_one.send_email!('newsletter', :updated_at => date)
+    #email = @user_two.send_email!('newsletter',  :updated_at => date )
+
+    @user_one.my_children.first.answers.create(:question_id => 964)
+    @user_one.my_children.first.answers.create(:question_id => 776)
+    
+    assert_equal 2, @user_one.my_children.first.answers.count
+    assert_equal 1, User.select_users_for_newsletter.count, 'should be one user'
+    assert_equal 0, @user_one.user_emails.find_all_by_title("newsletter").count
+    email = @user_one.user_emails.find_by_title('newsletter')
+    assert_nil(email)
+    
+    User.send_newsletters
+
+    email = @user_one.user_emails.find_by_title('newsletter')
+    assert_not_nil email.child_id
+    assert_equal 1, @user_one.user_emails.find_all_by_title("newsletter").count
+
+    assert_equal 0, User.select_users_for_newsletter.count    
+    assert_equal 's', email.description
+
+    email.update_attributes(:updated_at => date)
+    assert_equal 1, User.select_users_for_newsletter.count
+
+    User.send_newsletters
+
+    email.reload
+    assert email.updated_at >= DateTime.now - 1.minutes
+
+    
+
+    
     
   end
 

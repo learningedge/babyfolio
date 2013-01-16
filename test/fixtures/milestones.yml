@@ -6,5 +6,10 @@
 #
 one:
  mid: 1
+ title: "Title one"
+
+two:
+ mid: 2
+ title: "Title two"
 
 

@@ -1,5 +1,6 @@
 class UserEmail < ActiveRecord::Base
   belongs_to :user
+  belongs_to :child
 
   before_save :update_count
 

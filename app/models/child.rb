@@ -16,6 +16,7 @@ class Child < ActiveRecord::Base
   has_many :questions, :through => :answers
   has_many :timeline_entries, :class_name => "TimelineEntry"
   has_many :likes
+  has_many :user_emails
 
   belongs_to :user_action
 
@@ -59,6 +60,25 @@ class Child < ActiveRecord::Base
     result
   end
 
+  def max_seen_for_category category
+    question = self.questions.where(["answers.value = 'seen' AND questions.category =?", category]).select('questions.category, questions.age').order('age desc').limit(1).first
+    result = self.questions.includes(:milestone).find_by_age_and_category(question.age, question.category)
+    return result
+  end
+
+  def get_next_category_question_with_milestone user, current_category
+    question = nil    
+    current_category ||= Question::CATS_ORDER.first
+
+    user.user_option.get_next_newsletter_categories(current_category).each do |category|
+      answer = self.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first
+      question = answer.question unless answer.nil?
+      break unless answer.nil?
+    end
+
+    return question
+  end
+  
   def relation_to_current_user user
     rel = self.relations.find_by_user_id(user.id)
     rel.member_type if rel

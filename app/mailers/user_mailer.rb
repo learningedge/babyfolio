@@ -53,4 +53,14 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "Welcome to BabyFolio")
   end
 
+  def newsletter user, child, question, milestone_one, milestone_two
+    @user = user
+    @child = child
+    @question = question
+    @milestone = @question.milestone
+    @milestone_next_1 = milestone_one
+    @milestone_next_2 = milestone_two
+    mail(:to => @user.email, :subject => "#{@child.first_name}'s #{Question::CATS[@question.category]} Development")
+  end
+  
 end
