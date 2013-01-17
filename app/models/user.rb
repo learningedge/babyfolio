@@ -50,9 +50,12 @@ class User < ActiveRecord::Base
 
   def self.select_inactive_users
     users = []
-    users += without_email('inactive').inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
-    users += with_email_updated_later_than('inactive', DateTime.now - 14.days).inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
-    users += with_email_updated_later_than('inactive', DateTime.now - 7.days).inactive_from_to(DateTime.now - 21.days, DateTime.now - 28.days )
+    users += without_email('inactive').inactive_from_to(DateTime.now - 1.hours, DateTime.now - 5.days )
+    users += with_email_updated_later_than('inactive', DateTime.now - 5.days).inactive_from_to(DateTime.now - 1.hours, DateTime.now - 5.days )
+    users += with_email_updated_later_than('inactive', DateTime.now - 1.minutes).inactive_from_to(DateTime.now - 5.days, DateTime.now - 10.days )
+#    users += without_email('inactive').inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
+#    users += with_email_updated_later_than('inactive', DateTime.now - 14.days).inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
+#    users += with_email_updated_later_than('inactive', DateTime.now - 7.days).inactive_from_to(DateTime.now - 21.days, DateTime.now - 28.days )
     return users
   end
 
@@ -72,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def self.date_for_frequency frequency
-    date = DateTime.now - 1.days  if frequency == 'weekly' # !!!!!!!! TO BE CHANGED BACK TO 7.days !!!!!!!!
+    date = DateTime.now - 7.days  if frequency == 'weekly'
     date = DateTime.now - 1.days  if frequency == 'daily'
     date = DateTime.now - 1.months  if frequency == 'monthly'
 
