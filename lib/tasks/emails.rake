@@ -18,9 +18,14 @@ namespace :emails do
   task :send_newsletters => :environment do
     User.send_newsletters
   end
+
+  desc "Send emails to inactive users"
+  task :send_inactive => :environment do
+    User.send_inactive
+  end
   
   task :half_hour => [:send_step_2_pending, :send_step_3_pending]
-  task :daily => [:resend_registration_completed , :send_newsletters]
+  task :daily => [:resend_registration_completed , :send_newsletters, :send_inactive]
 
   task :all => [:half_hour, :daily]
 end

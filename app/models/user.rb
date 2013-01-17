@@ -34,12 +34,28 @@ class User < ActiveRecord::Base
   
   def self.with_email title, count
     subscribed.where(["EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ? AND ue.count = ?)", title, count])
-  end
+  end  
 
   def self.without_email title
     subscribed.where(["NOT EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ?)", title])
   end
+
+  def self.with_email_updated_later_than title, last_updated
+    subscribed.where(["EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ? AND ue.updated_at <= ?)", title, last_updated])
+  end
   
+  def self.inactive_from_to date_one, date_two
+    subscribed.where(["users.last_login_at < ? AND users.last_login_at >= ?", date_one, date_two])
+  end
+
+  def self.select_inactive_users
+    users = []
+    users += without_email('inactive').inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
+    users += with_email_updated_later_than('inactive', DateTime.now - 14.days).inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
+    users += with_email_updated_later_than('inactive', DateTime.now - 7.days).inactive_from_to(DateTime.now - 21.days, DateTime.now - 28.days )
+    return users
+  end
+
   # => Queries for newsletters
   def self.with_frequency frequency
     subscribed.where(["user_options.newsletter_frequency = ?", frequency])
@@ -56,7 +72,7 @@ class User < ActiveRecord::Base
   end
 
   def self.date_for_frequency frequency
-    date = DateTime.now - 7.days  if frequency == 'weekly'
+    date = DateTime.now - 1.days  if frequency == 'weekly' # !!!!!!!! TO BE CHANGED BACK TO 7.days !!!!!!!!
     date = DateTime.now - 1.days  if frequency == 'daily'
     date = DateTime.now - 1.months  if frequency == 'monthly'
 
@@ -174,7 +190,19 @@ class User < ActiveRecord::Base
         end
       end
     end
-  end  
+  end
+
+  def self.send_inactive
+    users = User.select_inactive_users
+
+    users.each do |user|
+      child = user.my_children.first
+      if child
+        UserMailer.inactive user, child
+        user.send_email!('inactive', :updated_at => DateTime.now)
+      end
+    end
+  end
 
   def get_user_name
     if first_name.blank?

@@ -62,5 +62,11 @@ class UserMailer < ActionMailer::Base
     @milestone_next_2 = milestone_two
     mail(:to => @user.email, :subject => "#{@child.first_name}'s #{Question::CATS[@question.category]} Development")
   end
+
+  def inactive user, child
+    @user = user
+    @child = child
+    mail(:to => @user.email, :subject => "How's #{@child.first_name}?")
+  end
   
 end
