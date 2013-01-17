@@ -50,9 +50,9 @@ class User < ActiveRecord::Base
 
   def self.select_inactive_users
     users = []
-    users += without_email('inactive').inactive_from_to(DateTime.now - 1.hours, DateTime.now - 10.days )
-    users += with_email_updated_later_than('inactive', DateTime.now - 10.days).inactive_from_to(DateTime.now - 1.hours, DateTime.now - 10.days )
-    users += with_email_updated_later_than('inactive', DateTime.now - 1.minutes).inactive_from_to(DateTime.now - 10.days, DateTime.now - 20.days )
+    users += without_email('inactive').inactive_from_to(DateTime.now - 1.minutes, DateTime.now - 2.minutes )
+    users += with_email_updated_later_than('inactive', DateTime.now - 1.minutes).inactive_from_to(DateTime.now - 1.minutes, DateTime.now - 2.minutes )
+    users += with_email_updated_later_than('inactive', DateTime.now - 1.minutes).inactive_from_to(DateTime.now - 2.minutes, DateTime.now - 4.minutes )
 #    users += without_email('inactive').inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
 #    users += with_email_updated_later_than('inactive', DateTime.now - 14.days).inactive_from_to(DateTime.now - 14.days, DateTime.now - 21.days )
 #    users += with_email_updated_later_than('inactive', DateTime.now - 7.days).inactive_from_to(DateTime.now - 21.days, DateTime.now - 28.days )
