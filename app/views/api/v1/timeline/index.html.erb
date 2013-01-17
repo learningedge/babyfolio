@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <title>Timeline</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+  </head>
+  <body>
+
+    <% content_for :middle_bar do %>
+      <div id="timeline-notice" class="round-corners">
+        <img src="/images/child_head_small.png" />
+        <span><%= current_child.first_name %> has already "<%= @child_has_str %>" , "<%= @child_has_weak %>"</span>
+      </div>
+
+    <% end %>
+
+
+    <div id="mobile-timeline">
+      <div id="timeline-wrapper">
+        <ul id="timeline-right">
+          <% @timeline_entries.each do |te| %>
+            <li class="single-timeline-entry <%#= 'is-auto' if te.is_auto %>">
+            <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %></span>
+            <div class="single-timeline-entry-inner">
+              <div class="te-arrow-left"></div>
+              <div class="te-box">
+                <div class="te-header">
+                  <span class="te-category">
+                    <%= image_tag "/images/icon_teal_#{te.category}.png" if te.category%>                  
+                    <p><%= category_name(te.category) if te.category %></p>
+                  </span>
+                  <span class="te-date">
+                    <%= te.published %>
+                  </span>
+                  <span class="te-title">
+                    <% if te.behaviour %>
+                      <%= link_to te.title.html_safe, watch_children_path(:mid => te.behaviour.mid) %>
+                    <% else %>
+                      <%= te.title.html_safe %>
+                    <% end %>
+                  </span>                               
+                  <div class="clear"></div>
+                  <% if  te.description.present? %>
+                    <div class="timeline-desc"><%= te.description %></div>
+                  <% end %>
+                </div>
+
+                <div class="te-image-wrapper">
+                  <%= image_tag te.media.first.image.url(:attachment_large), :class => "round-corners" if te.media.present? %>                
+                </div>
+
+                <div class="te-comments">                
+
+                  <%= link_to "Add new entry", "#repost_#{te.id}", :class => "timeline-btn" %>
+
+                  <div class="comments-wrapper">
+                    <% te.comments.each do |c| %>
+                      <div class="single-comment">
+                        <span class="comment-author-img">
+                          <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
+                        </span>
+                        <span class="comment-date"><%= c.published %></span>                        
+                        <span class="comment-content">                          
+                          <span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>                    
+                      </div>
+                    <% end %>
+
+                  </div>
+
+                  <%= form_tag add_timeline_comment_path, :class => "comment-form" do %>
+                    <%= submit_tag "Post comment", :class => "comment-balloon" %>
+                    <%= hidden_field_tag "te_id", te.id %>
+                    <%= text_field_tag "text", nil, :id => "comment-input-#{te.id}", :class => "comment-input"  %>
+                  <% end %>
+
+                </div>                
+              </div>
+
+              <%= form_tag add_timeline_entry_path, :class => "repost-form hidden", :id => "repost_#{te.id}" do %>
+                <% b = te.behaviour %>
+                <% if b.present?  %>
+                  <% te_mid = b.mid %>
+                  <% te_what = current_child.replace_forms(b.get_title) %>
+                <% end %>
+                <%= hidden_field_tag "te_mid", te_mid %>
+                <%= hidden_field_tag "entry_type", "watch" %>
+                <p>Please describe a recent time when <span class="bold"><%= current_child.first_name  %></span> <span class="italic"><%= te_what %></span>.  Elaborate on the details of what, where and how. Try to capture a baseline so you can see how this behavior grows and changes over time.</p>
+
+                <div class="repost-timeline-inner">
+                  <div class="repost-timeline-inner-middle">
+
+                    <p class="row"><%= current_child.first_name.capitalize %> <%= text_field_tag "did_what", te_what %> for <%= select_tag "who", options_for_select(current_child.users.map{|u| [u.get_user_name.capitalize, u.id]}) %></p>
+                    <p><%= text_area_tag "details", nil, :placeholder => "add more details here...", :class => "row" %></p>
+
+                    <div class="reflect-to-timeline-footer">
+                      <%= submit_tag "Post", :class => 'btn', :disable_with => "Processing..." %>
+                      <div id="entry-image-uploader-te-<%= te.id %>" class="entry-image-uploader"></div>
+                      <div class="clear"></div>
+                      <div class="img-wrapper"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                  </div>
+                </div>
+
+              <% end  %>
+
+
+            </div>
+            </li>
+          <% end %>
+          <li class="single-timeline-entry">
+          <span class="entry-avatar round-corners"><%= image_tag @selected_child.media.image.url(:profile_small), :class => "entry-avatar round-corners" if @selected_child.media.present? %></span>
+          <div class="single-timeline-entry-inner">
+            <div class="te-arrow-left te-arrow-join"></div>
+            <div class="te-box te-box-join">
+              <span class="te-joined-image">
+                <img src="/images/timeline_joined_icon.png" />
+              </span>
+              <span class="joined-date"><%= current_child.joined %></span>
+              <span class="te-title">
+                <%= current_child.first_name %> started <%= current_child.replace_forms("#his/her#") %> BabyFolio.                  
+              </span>
+            </div>
+          </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

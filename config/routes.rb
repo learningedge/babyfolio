@@ -124,6 +124,7 @@ Babyfolio::Application.routes.draw do
       end
 
       get "timeline" => "timeline#index"
+      post "timeline/comment" => "timeline#add_comment"
     end
   end
 #  API

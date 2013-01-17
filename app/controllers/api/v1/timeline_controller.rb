@@ -1,7 +1,10 @@
 class Api::V1::TimelineController < ApplicationController
-  respond_to :json
+  
+  layout false
+
   before_filter :require_user
   before_filter :require_child
+  before_filter :require_seen_behaviours, :only => [:show]
  
   def index
     @children = current_user.children    
@@ -17,10 +20,25 @@ class Api::V1::TimelineController < ApplicationController
     @timeline_visited = current_user.timeline_visited
     current_user.update_attribute(:timeline_visited, true)
 
-    render :json => @timeline_entries
+    respond_to do |format|
+      format.json { render :json => @timeline_entries }
+      format.html
+    end
   end
 
   def create
   end
 
+  def add_comment
+    te = TimelineEntry.find_by_id(params[:te_id])
+
+    if te.is_auto
+      ccount = te.comments.count
+      te.description = "" if ccount == 0
+    end
+    
+    te.comments.build({:text => params[:text], :author => current_user})
+    te.save
+    redirect_to api_v1_timeline_path
+  end
 end

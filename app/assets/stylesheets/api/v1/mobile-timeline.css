@@ -1,0 +1,8 @@
+#mobile-timeline { margin:3px; }
+#mobile-timeline > #timeline-wrapper #timeline-right { margin:0px; width:100%; }
+#mobile-timeline > #timeline-wrapper .entry-avatar { width:10%; }
+#mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry-inner { width:75%; }
+#mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box { width:100%; padding: 5px 5px 5px 5px; }
+#mobile-timeline .comment-form { width:100%; }
+#mobile-timeline > #timeline-wrapper .te-comments .comment-input { width:80%; }
+#mobile-timeline > #timeline-wrapper .te-image-wrapper img { width:100%; }

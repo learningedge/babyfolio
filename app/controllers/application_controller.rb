@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   config.filter_parameters :password, :password_confirmation
   helper_method :current_user_session, :current_user, :get_return_url_or_default, :current_child, :set_current_child, :category_name
 
-  before_filter :authenticate
+#  before_filter :authenticate
 
 protected
 
