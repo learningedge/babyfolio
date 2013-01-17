@@ -201,7 +201,7 @@ class User < ActiveRecord::Base
     users.each do |user|
       child = user.my_children.first
       if child
-        UserMailer.inactive user, child
+        UserMailer.inactive(user, child).deliver
         user.send_email!('inactive', :updated_at => DateTime.now)
       end
     end
