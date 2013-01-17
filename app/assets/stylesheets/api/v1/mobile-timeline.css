@@ -4,5 +4,10 @@
 #mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry-inner { width:75%; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box { width:100%; padding: 5px 5px 5px 5px; }
 #mobile-timeline .comment-form { width:100%; }
-#mobile-timeline > #timeline-wrapper .te-comments .comment-input { width:80%; }
+#mobile-timeline > #timeline-wrapper .te-comments .comment-input { width:75%; }
 #mobile-timeline > #timeline-wrapper .te-image-wrapper img { width:100%; }
+#mobile-timeline .mobile-comment-meta { width:100%; float:left; }
+#mobile-timeline .mobile-comment-meta-name { margin-top: 9px; }
+#mobile-timeline .mobile-comment-meta > div { float:left; }
+#mobile-timeline .mobile-comment-content { width:100%; float:left; margin-bottom:15px; }
+#mobile-timeline .mobile-comment-content > div { float:left; }

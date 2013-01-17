@@ -56,18 +56,34 @@
                   <div class="comments-wrapper">
                     <% te.comments.each do |c| %>
                       <div class="single-comment">
-                        <span class="comment-author-img">
-                          <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
-                        </span>
-                        <span class="comment-date"><%= c.published %></span>                        
-                        <span class="comment-content">                          
-                          <span class="comment-author-name"><%= c.author.get_user_name %>: </span><%= c.text %></span>                    
+
+                        <div class="mobile-comment-meta">
+                          <div class="mobile-comment-meta-image">
+                            <span class="comment-author-img">
+                              <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
+                            </span>                       
+                          </div>
+                          <div class="mobile-comment-meta-name">
+                            <div>
+                              <span class="comment-author-name"><%= c.author.get_user_name %>:</span>
+                            </div>
+                            <div>
+                              <span class="comment-date"><%= c.published %></span>                        
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mobile-comment-content">
+                          <span class="comment-content">                          
+                            <%= c.text %>
+                          </span>                    
+                        </div>
                       </div>
                     <% end %>
 
                   </div>
 
-                  <%= form_tag add_timeline_comment_path, :class => "comment-form" do %>
+                  <%= form_tag api_v1_timeline_comment_path, :class => "comment-form" do %>
                     <%= submit_tag "Post comment", :class => "comment-balloon" %>
                     <%= hidden_field_tag "te_id", te.id %>
                     <%= text_field_tag "text", nil, :id => "comment-input-#{te.id}", :class => "comment-input"  %>
