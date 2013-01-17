@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
   
   def self.inactive_from_to date_one, date_two
-    subscribed.where(["users.last_login_at < ? AND users.last_login_at >= ?", date_one, date_two])
+    subscribed.where(["users.last_request_at < ? AND users.last_request_at >= ?", date_one, date_two])
   end
 
   def self.select_inactive_users
