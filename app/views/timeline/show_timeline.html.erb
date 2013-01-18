@@ -93,7 +93,7 @@
                   <% te.comments.each do |c| %>
                       <div class="single-comment">
                         <span class="comment-author-img">
-                          <%= image_tag c.author.profile_media.image.url(:profile_tiny), :class => "round-corners" if c.author.profile_media  %>                          
+                          <%= image_tag c.author.get_image_src(:profile_tiny), :class => "round-corners" %>
                         </span>
                         <span class="comment-date"><%= c.published %></span>                        
                         <span class="comment-content">                          

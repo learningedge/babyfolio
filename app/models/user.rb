@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :relations, :autosave => true
   has_many :invites, :class_name => 'Relation'
   has_many :children, :through => :relations, :conditions => "relations.accepted = 1"
-  has_many :my_children, :through => :relations, :conditions => ["relations.is_admin = ?", true], :source => :child
+  has_many :my_children, :through => :relations, :conditions => ["relations.accepted = 1 AND relations.is_admin = ?", true], :source => :child
   has_many :all_children, :through => :relations
   has_many :logs
   has_many :media, :class_name => "Media"
@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
   before_create :add_options
   
   scope :ids, select("users.id")
+
+  #=====================#
+  #===== EMAILS ======= #
+  #=====================#
   def self.subscribed
     joins(:user_option).includes(:user_option).where(['user_options.subscribed = ?', true])
   end
@@ -203,6 +207,9 @@ class User < ActiveRecord::Base
       end
     end
   end
+  #=====================#
+  #===== EMAILS ======= #
+  #=====================#
 
   def get_user_name
     if first_name.blank?

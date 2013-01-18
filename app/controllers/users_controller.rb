@@ -69,16 +69,6 @@ class UsersController < ApplicationController
     
   end
 
-#  def show
-#    @user = current_user
-#
-#    @families = @user.families
-#    @selected_family = current_family
-#
-#    @children = @selected_family.children
-#    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
-#  end
-
   def edit
     @user = current_user
     @edit = true

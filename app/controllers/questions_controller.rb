@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
         next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
       end      
     else
-      unless @q_age < question.age        
+      unless @q_age < question.age
         next_question = Question.find_by_category(question.category, :conditions => ['age < ?', question.age], :order => 'age DESC', :limit => 1)
       end      
     end
@@ -39,7 +39,13 @@ class QuestionsController < ApplicationController
 
   def update_watched
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])
-    Answer.find_or_create_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
+    a = Answer.find_or_initialize_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
+    if a.new_record?
+      current_child.users.each do |relative|
+        UserMailer.child_entered_learning_window(relative, current_child, ms).deliver unless relative.id == current_user.id
+      end
+      a.save
+    end    
     respond_to do |format|
         format.html { render :text => 'success' }
     end

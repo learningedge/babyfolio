@@ -13,7 +13,9 @@
       <% end %>
     <% end %>
     <li><a data-href="<%= new_child_children_path %>" class="new-child-link">Add Another Baby To Your Account</a></li>
-    <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+    <% if current_child.user_is_admin?(current_user) %>
+      <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+    <% end %>
   </ul> 
 
 
@@ -64,7 +66,7 @@
         </div>
 
         <div class="tab-inner-left">
-          <p>Want to invite family and friends to <span class="bold"><%= current_child.first_name %>'s</span> BabyFolio? Just click on the"Invite Family and Friends" button above!</p>
+          <p>Want to invite family and friends to <span class="bold"><%= current_child.first_name %>'s</span> BabyFolio? Just click on the"Invite Family and Friends" button below!</p>
         </div>
 
         <% if @invited_by_me.any? %>
@@ -98,43 +100,44 @@
   <!----------------->
   <!-- INVITES TAB -->
   <!----------------->
-
-  <div id="invite-others" class="tab">
-    <div class="tab-inner-right first">
-      <div class="pointing-arrow"></div>
-      <div id="invite-others-wrapper">
-        <%= render :partial => "relations/invitations_form" %>
-      </div>     
-    </div>
-
-    <div class="tab-inner-left">
-        
-      <div id="invite-others-prompt" class="<%= 'hidden' unless @pending_invitations.empty? %>">
-        <h4>You have no invites at this time.</h4>
-        <p>
-          Want to join someone's BabyFolio?</br>
-          Ask them to invite you!
-        </p>
+  <% if current_child.user_is_admin?(current_user) %>
+    <div id="invite-others" class="tab">
+      <div class="tab-inner-right first">
+        <div class="pointing-arrow"></div>
+        <div id="invite-others-wrapper">
+          <%= render :partial => "relations/invitations_form" %>
+        </div>
       </div>
 
-        <% @pending_invitations.each_with_index do |r,idx| %>
-          <div class="single-relation setting-block">
-            <div class="invitation-child-image round-corners left" style="<%= "background-image: url(#{r.child.get_image_src(:profile_small_invites)})" %>"></div>
-            <div class="invitation-child-details">
-                <div class="bold"><%= r.child.first_name %> <%= r.child.last_name %></div>
-                <div><%= r.get_opposite_relation_type.downcase %> of <%= r.inviter.get_user_name %></div>
+      <div class="tab-inner-left">
 
-                <div class="invitation-buttons">
-                  <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
-                  <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
-                </div>
+        <div id="invite-others-prompt" class="<%= 'hidden' unless @pending_invitations.empty? %>">
+          <h4>You have no invites at this time.</h4>
+          <p>
+            Want to join someone's BabyFolio?</br>
+            Ask them to invite you!
+          </p>
+        </div>
+
+          <% @pending_invitations.each_with_index do |r,idx| %>
+            <div class="single-relation setting-block">
+              <div class="invitation-child-image round-corners left" style="<%= "background-image: url(#{r.child.get_image_src(:profile_small_invites)})" %>"></div>
+              <div class="invitation-child-details">
+                  <div class="bold"><%= r.child.first_name %> <%= r.child.last_name %></div>
+                  <div><%= r.get_opposite_relation_type.downcase %> of <%= r.inviter.get_user_name %></div>
+
+                  <div class="invitation-buttons">
+                    <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
+                    <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
+                  </div>
+              </div>
+              <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-          </div>
-        <% end %>
+          <% end %>
 
-      </div>
-  </div>
+        </div>
+    </div>
+  <% end %>
 
 </div>
 
@@ -195,7 +198,11 @@
 
         $('#settings-wrapper').tabs({active: <%= params[:is_invite] ? 2 : (params[:chid] ? 1 : 0) %> });
         $('#current-child .pointing-arrow').css({top : $('.selected-child-link').position().top});
-        $('#invite-others .pointing-arrow').css({top : $('.invite-others-tab-link').position().top});
+
+        <% if current_child.user_is_admin?(current_user) %>
+            $('#invite-others .pointing-arrow').css({top : $('.invite-others-tab-link').position().top});
+        <% end %>
+            
         $('.tab-inner-right.first').css({minHeight : $('#settings-tabs-ul').height()-21});
 
         $('.settings-child-link, .new-child-link').click(function() {

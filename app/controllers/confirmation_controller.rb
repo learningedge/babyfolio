@@ -37,7 +37,7 @@ class ConfirmationController < ApplicationController
   end
 
   def accept_invitation    
-    @relation = Relation.includes(:inviter).find_by_token(params[:token], :include => [:user])
+    @relation = Relation.find_by_token(params[:token], :include => [:user, :inviter])
     @user = @relation.user
     @edit = true
     @edit_password = true
@@ -79,10 +79,11 @@ class ConfirmationController < ApplicationController
 
     if params[:token].present?
       token = params[:token]
-      rel = Relation.find_by_token(token)
+      rel = Relation.find_by_token(token, :include => [:child, :user, :inviter])
 
       if params[:accept].present?
         rel.update_attribute(:accepted, params[:accept])
+        UserMailer.invitation_accepted(rel).deliver
       else
         rel.destroy
       end

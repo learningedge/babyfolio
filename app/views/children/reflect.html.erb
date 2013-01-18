@@ -20,7 +20,7 @@
   </div>
   <div id="reflect-to-timeline" class="left">
             <%= render :partial => "reflect_timeline"  %>
-    <div id="reflect-to-timeline-cover"><span>You have successfully posted to <span class="bold"><%= current_child.first_name %></span> Timeline</span><span class="vertical-aligner"></span></div>
+    <div id="reflect-to-timeline-cover"><span>You have successfully posted to <span class="bold"><%= current_child.first_name %>'s</span> Timeline</span><span class="vertical-aligner"></span></div>
   </div>
   
   <div class="clear"></div>
@@ -83,7 +83,7 @@
         $('#reflect-to-timeline-cover').hide();
         $('.img-wrapper').html('');
       } else {
-         $('#reflect-to-timeline').hide();
+         <%#*$('#reflect-to-timeline').hide();%>
          $('.single-reflected-item').removeClass('active-item');
          $(item).addClass('active-item');
          $('#reflect-content-window').html($(item).find('.unfinished-questionnaire-notice').html());

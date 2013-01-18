@@ -97,7 +97,8 @@ class RelationsController < ApplicationController
       if @error.blank?
         users.each do |u|
           if u.save
-            UserMailer.invite_user(u.relations.find_by_child_id(current_child.id), current_user).deliver
+            relation = u.relations.find_by_child_id(current_child.id)
+            UserMailer.invite_user(relation).deliver
           end
         end
         format.html { render :partial => 'invitations_sent' }

@@ -98,7 +98,7 @@ class TimelineController < ApplicationController
     te.save
 
     respond_to do |format|
-      format.html { render :text =>  "Success"  }
+      format.html { render :text => "Success" }
     end
   end
 
@@ -112,6 +112,11 @@ class TimelineController < ApplicationController
     
     te.comments.build({:text => params[:text], :author => current_user})
     te.save
+
+    current_child.admins.each do |admin|
+      UserMailer.timeline_comment(current_child, current_user, admin).deliver unless admin.id == current_user.id
+    end
+    
     redirect_to show_timeline_path
   end
 

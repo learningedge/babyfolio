@@ -8,7 +8,8 @@ class Child < ActiveRecord::Base
   attr_accessor :profile_image
 
   has_many :relations
-  has_many :users, :through => :relations
+  has_many :users, :through => :relations, :conditions => "relations.accepted = 1"
+  has_many :admins, :through => :relations, :conditions => ["relations.accepted = 1 AND relations.is_admin = ?", true], :source => :user
 
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment  
@@ -47,7 +48,9 @@ class Child < ActiveRecord::Base
     /(<)+His\/Her(>)+/ => ['His', 'Her'],
     /(<)+his\/her(>)+/ => ['his', 'her'],
     /(<)+Him\/Her(>)+/ => ['Him', 'Her'],
-    /(<)+him\/her(>)+/ => ['him', 'her']
+    /(<)+him\/her(>)+/ => ['him', 'her'],
+    /(<)+He\/She(>)+/ => ['He', 'She'],
+    /(<)+he\/she(>)+/ => ['he', 'she']
   }
 
 
@@ -88,7 +91,12 @@ class Child < ActiveRecord::Base
 
     return a
   end
-  
+
+  def user_is_admin? user
+    relation = self.relations.find_by_user_id(user.id)
+    return relation.is_admin if relation
+  end
+
   def relation_to_current_user user
     rel = self.relations.find_by_user_id(user.id)
     rel.member_type if rel
