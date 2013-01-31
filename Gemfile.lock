@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/alanjds/exception_notification.git
+  revision: 048fc6be972189e62ca3b9453d19233ec5773016
+  specs:
+    exception_notification (2.6.1)
+      actionmailer (>= 3.0.4)
+      tinder (~> 1.8)
+
+GIT
   remote: git://github.com/rails-api/active_model_serializers.git
   revision: 7f87c9b3f2bb26372d75a5c10025e5dd881d6688
   specs:
@@ -60,9 +68,6 @@ GEM
     coffee-script-source (1.4.0)
     erubis (2.7.0)
     eventmachine (1.0.0)
-    exception_notification (3.0.0)
-      actionmailer (>= 3.0.4)
-      tinder (~> 1.8)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.4)
@@ -207,7 +212,7 @@ DEPENDENCIES
   aws-s3
   aws-sdk
   coffee-rails (~> 3.2.1)
-  exception_notification
+  exception_notification!
   execjs
   flickraw
   jquery-rails
