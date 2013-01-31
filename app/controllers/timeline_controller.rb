@@ -121,7 +121,7 @@ class TimelineController < ApplicationController
   end
 
   def error
-    al.test
+    User.testing_user_function
   end
 
 end
