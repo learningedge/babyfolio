@@ -85,6 +85,7 @@ Babyfolio::Application.routes.draw do
   post 'timeline/remind_later' => "timeline#remind_later", :as => :timeline_remind_later
   post 'timeline/dont_remind' => "timeline#dont_remind", :as => :timeline_dont_remind
   get 'timeline/(:child_id)' => "timeline#show_timeline", :as => :show_timeline
+  get 'timeline/error' => "timeline#error", :as => :error_timeline
   
 
   # TIMELINE 
