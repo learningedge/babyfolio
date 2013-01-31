@@ -77,6 +77,7 @@ Babyfolio::Application.routes.draw do
   end
 
   # TIMELINE
+  get 'timeline/error' => "timeline#error", :as => :error_timeline
   post 'timeline/add-timeline-entry' => "timeline#add_entry", :as => :add_timeline_entry
   post 'timeline/add-basic-timeline-entry' => "timeline#add_from_popup", :as => :add_basic_entry
   post 'timeline/reflect_to_timeline' => "timeline#reflect_to_timeline", :as => :reflect_to_timeline
@@ -85,7 +86,6 @@ Babyfolio::Application.routes.draw do
   post 'timeline/remind_later' => "timeline#remind_later", :as => :timeline_remind_later
   post 'timeline/dont_remind' => "timeline#dont_remind", :as => :timeline_dont_remind
   get 'timeline/(:child_id)' => "timeline#show_timeline", :as => :show_timeline
-  get 'timeline/error' => "timeline#error", :as => :error_timeline
   
 
   # TIMELINE 
