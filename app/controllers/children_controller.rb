@@ -68,22 +68,30 @@ class ChildrenController < ApplicationController
       uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
     end
 
-    first_str = categorized_qs.values[0]
-    last_weak = categorized_qs.values[-1]
-
-    unless first_str.age == last_weak.age
-      @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
-      @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+    @avg_answers = categorized_qs.map{|k,v| v}
+    unless @avg_answers.first.age == @avg_answers.last.age
+        @weak_answers = [@avg_answers.pop]
+        @str_answers = [@avg_answers.shift]
     end
-    @avg_answers = categorized_qs
-    @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
-    @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
+    @avg_answers = @avg_answers.sort_by{|q| Question::CATS_ORDER.index(q.category)  }
 
-    @empty_answers = ActiveSupport::OrderedHash.new
-    Question::CATS.each do |k,v|
-      @empty_answers[k] = nil if categorized_qs[k].nil?
+#    first_str = categorized_qs.values[0]
+#    last_weak = categorized_qs.values[-1]
+#
+#    unless first_str.age == last_weak.age
+#      @str_answers = categorized_qs.to_a.first #reject{ |k,v| v.age != first_str.age } unless first_str.nil?
+#      @weak_answers = categorized_qs.to_a.reverse.first #.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+#    end
+#    @avg_answers = categorized_qs
+#    @avg_answers = categorized_qs.reject{|k,v| @str_answers[0] == k} if @str_answers.present?
+#    @avg_answers = @avg_answers.reject{|k,v| @weak_answers[0] == k} if @weak_answers.present?
+
+    @empty_answers = []
+    Question::CATS_ORDER.each do |k,v|
+      @empty_answers << k if categorized_qs[k].nil?
     end
-    
+
+#    render :xml => @avg_answers
     @str_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
                   <p>Current Strength - #{current_child.first_name} is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>

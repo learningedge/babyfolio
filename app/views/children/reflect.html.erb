@@ -9,7 +9,7 @@
         <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
-        <%= render :partial => 'reflect_bars', :locals => { :answers => @empty_answers, :type => 'empty' } %>
+        <%= render :partial => 'reflect_bars_empty', :locals => { :answers => @empty_answers, :type => 'empty' } %>
       </div>      
   </div>
   <div id="reflect-content-window" class="left">    

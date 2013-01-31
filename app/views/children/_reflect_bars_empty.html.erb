@@ -1,0 +1,28 @@
+    <% if answers %>
+      <% answers.each_with_index do |v, idx| %>        
+        <% curr_width = 0 %>
+
+        <div class="single-reflected-item">
+          <div class="cat-name"><%= category_name(v) %></div>
+
+          <div class="reflect-icon reflect-icon-<%=  v %>"></div>
+          <div class="reflect-bar-wrapper">
+              <div class="reflect-bar" style="width: <%= curr_width %>px; border: none;">
+                  <div class="reflect-popup">
+                    <div class="popup-wrapper">
+                      <div class="reflect-pointing-arrow"></div>                      
+                          <div class="unfinished-questionnaire-notice">
+                            <h4>Hey there, to see information about these intelligences, you'll have to complete your baby's registration first.  Would you like to do that now?</h4>
+                            <%= link_to "Yes", initial_questionnaire_path, :class => "btn" %> <%= link_to "No", "#", :class => "btn" %>
+                          </div>
+                    </div>
+
+                  </div>
+              </div>
+          </div>
+          <div class="clear"></div>
+
+      </div>
+
+      <% end %>
+    <% end %>

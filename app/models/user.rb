@@ -37,19 +37,19 @@ class User < ActiveRecord::Base
   end
   
   def self.with_email title, count
-    subscribed.where(["EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ? AND ue.count = ?)", title, count])
+    subscribed.joins(:user_emails).where(["user_emails.title = ? AND user_emails.count = ?", title, count])
   end  
 
   def self.without_email title
     subscribed.where(["NOT EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ?)", title])
   end
 
-  def self.with_email_updated_later_than title, last_updated
-    subscribed.where(["EXISTS(SELECT 1 FROM user_emails ue WHERE ue.user_id = users.id AND ue.title = ? AND ue.updated_at <= ?)", title, last_updated])
+  def self.with_email_updated_later_than title, last_updated    
+    subscribed.joins(:user_emails).where(["user_emails.title = ? AND user_emails.updated_at <= ?", title, last_updated]).group('users.id')
   end
   
   def self.inactive_from_to date_one, date_two
-    subscribed.where(["users.last_request_at < ? AND users.last_request_at >= ?", date_one, date_two])
+    where(["users.last_request_at < ? AND users.last_request_at >= ?", date_one, date_two])
   end
 
   def self.select_inactive_users
@@ -211,6 +211,8 @@ class User < ActiveRecord::Base
   #===== EMAILS ======= #
   #=====================#
 
+
+  
   def get_user_name
     if first_name.blank?
       return email.split('@').first.capitalize unless email.nil?
