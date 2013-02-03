@@ -225,11 +225,11 @@ class ChildrenController < ApplicationController
     end
 
     current_questions.each do |q|
-      if m.blank? || q.category != m.questions.first.category
-        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
-      else
+      if m.present? && q.category == m.questions.first.category
         time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
         ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
+      else
+        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
       end
     end
 
