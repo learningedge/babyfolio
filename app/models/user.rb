@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
 
     users.each do |user|
       child = user.children.first
-      answer = Child.get_first_answer_for_one_of_the_categories
+      answer = child.get_first_answer_for_one_of_the_categories
 
       question = nil
       question = answer.question if answer
