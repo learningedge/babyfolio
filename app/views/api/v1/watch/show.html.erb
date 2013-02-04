@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Watch</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+  </head>
+  <body>
+    <div id="bf-mobile">
+
+      <div class="play-popup <%= @behavior[:time] %>">
+        <div class="popup-wrapper">
+          <h4><%= @behavior[:title] %></h4>
+          <div class="show-future">future behavior</div>
+          <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
+
+          <% unless @behavior[:desc].blank? %>                
+            <p><%= @behavior[:desc] %></p>
+          <% end %>
+
+          <% unless @behavior[:examples].blank? %>
+            <h5>Examples</h5>
+            <p><%= @behavior[:examples] %></p>
+          <% end %>
+
+          <h5>Recommanded Play Activities</h5>
+          <p>
+          <% unless @behavior[:activity_1_title].blank? %>
+            <a href="<%= @behavior[:activity_1_url] %>" class="btn"><%= @behavior[:activity_1_title] %></a>
+          <% end %>
+          <% unless @behavior[:activity_2_title].blank? %>
+            <a href="<%= @behavior[:activity_2_url] %>" class="btn"><%= @behavior[:activity_2_title] %></a>
+          <% end %>
+          </p>
+
+          <% unless @behavior[:why_important].blank? %>
+            <h5>Why Is This Important?</h5>
+            <p><%= @behavior[:why_important] %></p>
+          <% end %>
+
+          <hr />
+
+          <div class="theory">
+            <h5>Theory</h5>
+            <%= @behavior[:theory] unless @behavior[:theory].blank? %>
+          </div>
+          <div class="references">
+            <h5>References</h5>
+            <%= @behavior[:references] unless @behavior[:references].blank? %>
+          </div>
+          <div class="clear"></div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

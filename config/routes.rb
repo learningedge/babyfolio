@@ -119,12 +119,14 @@ Babyfolio::Application.routes.draw do
         get 'current' => "children#current"
         get 'play' => "children#play"
         get 'play/adjacent/:mid/:dir' => "children#get_adjacent_activity"
-        get 'watch' => "children#watch"
+        #get 'watch' => "children#watch"
         get 'watch/adjacent/:mid/:dir' => "children#get_adjacent_behaviour"
         get 'reflect' => "children#reflect"
       end
 
       get "timeline" => "timeline#index"
+      get "watch/:mid" => "watch#show"
+      get "play/:mid" => "play#show"
       post "timeline/add_entry" => "timeline#add_entry"
       post "timeline/comment" => "timeline#add_comment"
     end

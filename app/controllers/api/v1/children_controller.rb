@@ -114,58 +114,57 @@ class Api::V1::ChildrenController < ApplicationController
 ##############
 # WATCH
 ##############
-
-
-  def watch
-    ms = []
-    @behaviours = []
-    current_questions = []
-
-    questions = current_child.max_seen_by_category
-
-    questions.each do |q|      
-      current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
-    end        
-
-    if params[:mid]
-      m = Milestone.includes(:questions).find_by_mid(params[:mid])
-    end
-
-    current_questions.each do |q|
-      if m.blank? || q.category != m.questions.first.category
-        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
-      else
-        time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
-        ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
-      end
-    end
-
-    ms.each do |m|
-        selected = true if m[:milestone].mid == params[:mid]
-        @behaviours << {
-                         :category => m[:category],
-                         :mid => m[:milestone].mid,
-                         :ms_title => current_child.api_replace_forms(m[:milestone].title, 35),
-                         :title => current_child.api_replace_forms(m[:milestone].get_title, 60),
-                         :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.api_replace_forms(m[:milestone].observation_subtitle),
-                         :desc => current_child.api_replace_forms(m[:milestone].observation_desc),
-                         :examples =>  current_child.api_replace_forms(m[:milestone].other_occurances),
-                         :activity_1_title => current_child.api_replace_forms(m[:milestone].activity_1_title, 40),
-                         :activity_2_title => current_child.api_replace_forms(m[:milestone].activity_2_title, 40),
-                         :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
-                         :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
-                         :why_important => current_child.api_replace_forms(m[:milestone].observation_what_it_means),
-                         :theory => current_child.api_replace_forms(m[:milestone].research_background),
-                         :references => current_child.api_replace_forms(m[:milestone].research_references),
-                         :time => m[:time],
-                         :selected => selected || false
-                        }
-    end
-    @behaviours.first[:selected] = true unless @behaviours.any? { |a| a[:selected] == true }
-
-    render :json => { behaviours: @behaviours }
-  end
-
+#
+#  def watch
+#    ms = []
+#    @behaviours = []
+#    current_questions = []
+#
+#    questions = current_child.max_seen_by_category
+#
+#    questions.each do |q|      
+#      current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
+#    end        
+#
+#    if params[:mid]
+#      m = Milestone.includes(:questions).find_by_mid(params[:mid])
+#    end
+#
+#    current_questions.each do |q|
+#      if m.blank? || q.category != m.questions.first.category
+#        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
+#      else
+#        time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
+#        ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
+#      end
+#    end
+#
+#    ms.each do |m|
+#        selected = true if m[:milestone].mid == params[:mid]
+#        @behaviours << {
+#                         :category => m[:category],
+#                         :mid => m[:milestone].mid,
+#                         :ms_title => current_child.api_replace_forms(m[:milestone].title, 35),
+#                         :title => current_child.api_replace_forms(m[:milestone].get_title, 60),
+#                         :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.api_replace_forms(m[:milestone].observation_subtitle),
+#                         :desc => current_child.api_replace_forms(m[:milestone].observation_desc),
+#                         :examples =>  current_child.api_replace_forms(m[:milestone].other_occurances),
+#                         :activity_1_title => current_child.api_replace_forms(m[:milestone].activity_1_title, 40),
+#                         :activity_2_title => current_child.api_replace_forms(m[:milestone].activity_2_title, 40),
+#                         :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
+#                         :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
+#                         :why_important => current_child.api_replace_forms(m[:milestone].observation_what_it_means),
+#                         :theory => current_child.api_replace_forms(m[:milestone].research_background),
+#                         :references => current_child.api_replace_forms(m[:milestone].research_references),
+#                         :time => m[:time],
+#                         :selected => selected || false
+#                        }
+#    end
+#    @behaviours.first[:selected] = true unless @behaviours.any? { |a| a[:selected] == true }
+#
+#    render :json => { behaviours: @behaviours }
+#  end
+#
   def get_adjacent_behaviour
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])
 

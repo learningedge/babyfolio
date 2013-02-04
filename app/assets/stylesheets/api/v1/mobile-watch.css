@@ -1,0 +1,43 @@
+/*
+ * This CSS is used by api/v1/watch/show.html.erb
+ * It converts the watch view to a percentage-based layout
+ * It is used in the mobile app
+ * It begins with duplicate CSS to protect against future CSS changes on the main site
+ *
+*/
+
+
+/*    ORIGINAL TIMELINE   */
+
+.play-popup { display: none; width: 610px; padding-left: 31px; background: none; position: relative;}
+.play-popup .pointing-arrow { position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: 0;}
+.play-popup .popup-wrapper { background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px;}
+.play-popup.future .popup-wrapper .show-future { display: block; padding-left: 42px; background: url(/images/sun1.png) no-repeat left center; line-height: 37px; font-size: 12px; margin-bottom: 10px}
+.play-popup.past .popup-wrapper .show-past { display: block; padding-left: 36px; background: url(/images/tick_green.png) no-repeat left center; line-height: 26px; font-size: 12px; margin-bottom: 10px}
+.play-popup.past .popup-wrapper .show-past span { color: #45b649; }
+.play-popup .popup-wrapper hr { border-color: #777; margin: 30px 0 20px; }
+.play-popup .popup-wrapper .theory,
+.play-popup .popup-wrapper .references { float: left; width: 45%; font-size: 15px;}
+.play-popup .popup-wrapper .theory { margin-right: 5%;}
+#activities-wrapper .single-activity.selected { border-color: #f7a266; border-right: 1px solid #f36c21; background-color: #fdfbe2;}
+.single-activity.selected .play-popup { }
+.play-popup .popup-wrapper h4 { font: bold 18px Arial; color: #f26722; margin-bottom: 10px;}
+.play-popup .popup-wrapper h5{ font: bold 15px Arial; color: #f26722; margin-bottom: 10px;}
+.play-popup .popup-wrapper p { font-size: 15px; margin-bottom: 10px; }
+.play-popup .popup-wrapper p span { font-weight: bold;}
+.play-popup .popup-wrapper ul.play-popup-ms { list-style: disc; padding-left: 20px; margin-bottom: 20px}
+.play-popup .popup-wrapper ul.play-popup-ms li { color: #1FA9BB }
+.play-popup .popup-wrapper .play-final-header { margin-bottom: 0; }
+
+/*    END ORIGINAL TIMELINE   */
+
+/*    MOBILE OVERRIDES   */
+
+#bf-mobile > br { margin-bottom: 10px; }
+#bf-mobile > .play-popup { display: block; width:100%; padding:0px; }
+#bf-mobile > .play-popup .popup-wrapper { border-width:0px; }
+.play-popup .popup-wrapper .theory,
+.play-popup .popup-wrapper .references { float: none; width: 100%; font-size: 15px;}
+
+
+/*    END MOBILE OVERRIDES   */
