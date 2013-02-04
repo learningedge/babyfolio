@@ -26,9 +26,42 @@ class Api::V1::TimelineController < ApplicationController
     end
   end
 
-  def create
-  end
+  def add_entry    
 
+    # entry_type is "play", "watch", "reflect", "likes", "dislikes" 
+    # did_what is a description of the activity
+    # details are the 'body' of a timeline post
+    # category is not used atm
+    # te_mid is not used atm
+    
+    @user = current_user
+    if params[:image]
+      @image = Media.new(:image => params[:image], :user => @user)
+      if @image.save
+        image_id = @image.id
+      end
+    else
+      image_id = nil
+    end
+ 
+    te = TimelineEntry.build_entry(params[:entry_type], 
+                                   params[:did_what],
+                                   current_child,
+                                   current_user,
+                                   params[:details],
+                                   params[:category],
+                                   image_id,
+                                   current_user.id,
+                                   params[:te_mid]
+                                 )
+    te.save
+    
+    respond_to do |format|
+      format.json { render :json => { :success => true } } 
+    end
+  end  
+
+ 
   def add_comment
     te = TimelineEntry.find_by_id(params[:te_id])
 

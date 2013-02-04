@@ -112,6 +112,7 @@ Babyfolio::Application.routes.draw do
         get 'current' => "users#current"
         post 'login' => "users#login"
         post 'logout' => "users#logout"
+        post 'name_and_pic' => "users#name_and_pic"
       end
 
       resource :children, :only => [:create] do
@@ -124,6 +125,7 @@ Babyfolio::Application.routes.draw do
       end
 
       get "timeline" => "timeline#index"
+      post "timeline/add_entry" => "timeline#add_entry"
       post "timeline/comment" => "timeline#add_comment"
     end
   end
