@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_email_updated_later_than title, last_updated    
-    subscribed.joins(:user_emails).where(["user_emails.title = ? AND user_emails.updated_at <= ?", title, last_updated]).group('users.id')
+    subscribed.joins(:user_emails).where(["user_emails.title = ? AND user_emails.updated_at <= ?", title, last_updated]).uniq
   end
   
   def self.inactive_from_to date_one, date_two
