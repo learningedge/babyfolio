@@ -145,18 +145,14 @@ class UserTest < ActiveSupport::TestCase
 
   test 'resend_registration_completed - all correct' do
     @user_one.update_attribute(:last_login_at, DateTime.now - 8.days - 1.minute)
-
     @user_one.user_option.update_attribute(:subscribed, true)
-
-    user_email = user_emails(:one)
-    user_email.user = @user_one
-    user_email.title = 'initial_questionnaire_completed'
-    user_email.count = 0
-    user_email.save
-
-    assert_equal 1, user_email.count
     
-    Child.stubs(:get_first_answer_for_one_of_the_categories).returns(answers(:one))
+    user_email = UserEmail.create(:title => 'initial_questionnaire_completed', :user => @user_one)
+    assert_equal 1, user_email.count
+    assert_equal @user_one, user_email.user
+    assert_equal 2, @user_one.children.count
+    
+    @user_one.children.first.answers.create(:question_id => 964)
 
     counts = UserEmail.sum(:count)
 
@@ -165,6 +161,7 @@ class UserTest < ActiveSupport::TestCase
     User.resend_registration_completed
 
     user_email.reload
+    
     assert_equal 2, user_email.count
     assert_equal counts+1, UserEmail.sum(:count)
 

@@ -141,14 +141,12 @@ class User < ActiveRecord::Base
 
 
   def self.resend_registration_completed
-    users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < ?", DateTime.now - 7.days])
-
+    users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < ?", DateTime.now - 7.days])        
+    
     users.each do |user|
-      child = user.children.first
-      answer = child.get_first_answer_for_one_of_the_categories
-
-      question = nil
-      question = answer.question if answer
+      child = user.children.first      
+      question = child.get_first_answered_question      
+      
       if question
         UserMailer.registration_completed(user, child, question).deliver
         ue = user.user_emails.find_by_user_id_and_title(user.id, 'initial_questionnaire_completed')
