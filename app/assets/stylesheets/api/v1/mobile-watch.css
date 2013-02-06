@@ -36,8 +36,22 @@
 #bf-mobile > br { margin-bottom: 10px; }
 #bf-mobile > .play-popup { display: block; width:100%; padding:0px; }
 #bf-mobile > .play-popup .popup-wrapper { border-width:0px; }
+#bf-mobile > .play-popup .popup-wrapper h4 { margin-left:44px; }
+#bf-mobile .btn { display:block; margin-bottom: 10px; padding:6px; }
 .play-popup .popup-wrapper .theory,
 .play-popup .popup-wrapper .references { float: none; width: 100%; font-size: 15px;}
 
 
 /*    END MOBILE OVERRIDES   */
+
+/* ICONS */
+#bf-mobile .reflect-icon { width: 26px; height: 23px; float: left; padding: 0 9px; }
+#bf-mobile .reflect-icon-s { background: url(/images/icon_teal_s.png) no-repeat center center; }
+#bf-mobile .reflect-icon-l { background: url(/images/icon_teal_l.png) no-repeat center center; }
+#bf-mobile .reflect-icon-ln { background: url(/images/icon_teal_ln.png) no-repeat center center; }
+#bf-mobile .reflect-icon-m { background: url(/images/icon_teal_m.png) no-repeat center center; }
+#bf-mobile .reflect-icon-mv { background: url(/images/icon_teal_mv.png) no-repeat center center; }
+#bf-mobile .reflect-icon-v { background: url(/images/icon_teal_v.png) no-repeat center center; }
+#bf-mobile .reflect-icon-e { background: url(/images/icon_teal_e.png) no-repeat center center; }
+
+/* END ICONS */

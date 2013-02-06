@@ -8,6 +8,7 @@
     <div id="bf-mobile">
       <div class="play-popup <%= @activity[:time] %>">
         <div class="popup-wrapper">            
+          <div class="reflect-icon reflect-icon-<%= @activity[:category] %>"></div>
           <h4><%= @activity[:title] %></h4>
           <div class="show-future">future activity</div>
           <div class="show-past">completed activity <span><%= current_child.first_name.capitalize %> already did this with you.</span></div>
@@ -27,9 +28,7 @@
           <% end %>
 
           <h5 class="play-final-header">This Is Good For <%= current_child.first_name.capitalize %> Because <%= current_child.replace_forms("#He/She#") %>  Has: </h5>
-          <ul class="play-popup-ms">
-            <li><a href="/api/v1/watch/<%= @activity[:mid] %>"><%= truncate(@activity[:ms_title], :length => 40) %></a></li>
-          </ul>
+          <a class="btn" href="/api/v1/watch/<%= @activity[:mid] %>"><%= truncate(@activity[:ms_title], :length => 40) %></a>
         </div>
       </div>
     </div>

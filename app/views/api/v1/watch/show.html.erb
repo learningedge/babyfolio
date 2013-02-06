@@ -9,6 +9,7 @@
 
       <div class="play-popup <%= @behavior[:time] %>">
         <div class="popup-wrapper">
+          <div class="reflect-icon reflect-icon-<%= @behavior[:category] %>"></div>
           <h4><%= @behavior[:title] %></h4>
           <div class="show-future">future behavior</div>
           <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
