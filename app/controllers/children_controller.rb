@@ -278,7 +278,7 @@ class ChildrenController < ApplicationController
     
     if qs_current && qs_current.age < qs.age
       time = "future"
-    elsif qs_current && qs_current.age > qs.age
+    elsif qs_current && qs_current.age >= qs.age
       time = "past"
     else
       time = "current"
