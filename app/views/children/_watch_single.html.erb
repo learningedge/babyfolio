@@ -13,8 +13,8 @@
     <div class="single-activity-right">
       <div class="single-activity-nav">
           <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
-          <a href="#" class="activity-title-link"><%= item[:title] %></a>
-          <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
+          <a href="#" class="activity-title-link"><%= item[:title] %></a>  
+          <%= link_to( "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link') if item[:is_next] %>
       </div>
       <div class="activity-setup"><%= item[:subtitle] %></div>
       <div class="play-icons-corner">

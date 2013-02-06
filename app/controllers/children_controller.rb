@@ -217,9 +217,10 @@ class ChildrenController < ApplicationController
     questions = current_child.max_seen_by_category
 
     questions.each do |q|      
-      current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
+      question = Question.get_next_questions_for_category(q.category, q.age, 1).first
+      current_questions << (question || q)
     end        
-
+    
     if params[:mid]
       m = Milestone.includes(:questions).find_by_mid(params[:mid])
     end
@@ -229,12 +230,12 @@ class ChildrenController < ApplicationController
         time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
         ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
       else
-        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
+        ms  << {:category => q.category, :milestone => q.milestone, :time => "current", :is_next => Question.get_next_questions_for_category(q.category,q.age,1).first.present? }
       end
     end
 
     ms.each do |m|
-        selected = true if m[:milestone].mid == params[:mid]
+        selected = m[:milestone].mid == params[:mid]
         @behaviours << {
                          :category => m[:category],
                          :mid => m[:milestone].mid,
@@ -251,6 +252,7 @@ class ChildrenController < ApplicationController
                          :theory => current_child.replace_forms(m[:milestone].research_background),
                          :references => current_child.replace_forms(m[:milestone].research_references),
                          :time => m[:time],
+                         :is_next => m[:is_next],
                          :selected => selected || false
                         }
     end
@@ -272,11 +274,11 @@ class ChildrenController < ApplicationController
 
     qs = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age #{dir} ?", ms.questions.first.age], :order => "questions.age #{order}", :limit => 1)
     max_ans_age = current_child.questions.where(["questions.category = ? ", qs.category]).order('questions.age DESC').limit(1).first.age
-    qs_current = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age > ?", max_ans_age], :order => "questions.age ASC", :limit => 1)
+    qs_current = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age >= ?", max_ans_age], :order => "questions.age ASC", :limit => 1)
     
-    if qs_current.age < qs.age
+    if qs_current && qs_current.age < qs.age
       time = "future"
-    elsif qs_current.age > qs.age
+    elsif qs_current && qs_current.age > qs.age
       time = "past"
     else
       time = "current"
@@ -297,7 +299,8 @@ class ChildrenController < ApplicationController
                :why_important => current_child.replace_forms(qs.milestone.observation_what_it_means),
                :theory => current_child.replace_forms(qs.milestone.research_background),
                :references => current_child.replace_forms(qs.milestone.research_references),
-               :selected => true
+               :selected => true,
+               :is_next => Question.get_next_questions_for_category(qs.category,qs.age,1).first.present?
               }
               respond_to do |format|
                 format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }
