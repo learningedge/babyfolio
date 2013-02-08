@@ -8,7 +8,8 @@ class Child < ActiveRecord::Base
   attr_accessor :profile_image
 
   has_many :relations
-  has_many :users, :through => :relations
+  has_many :users, :through => :relations, :conditions => "relations.accepted = 1"
+  has_many :admins, :through => :relations, :conditions => ["relations.accepted = 1 AND relations.is_admin = ?", true], :source => :user
 
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment  
@@ -16,6 +17,9 @@ class Child < ActiveRecord::Base
   has_many :questions, :through => :answers
   has_many :timeline_entries, :class_name => "TimelineEntry"
   has_many :likes
+  has_many :user_emails
+
+  belongs_to :user_action
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true
@@ -40,7 +44,13 @@ class Child < ActiveRecord::Base
     /(#)+his\/hers(#)+/ => ['his', 'hers'],
     /(#)+His\/Hers(#)+/ => ['His', 'Hers'],
     /(#)+himself\/herself(#)+/ => ['himself', 'herself'],
-    /(#)+Himself\/Herself(#)+/ => ['Himself', 'Herself']
+    /(#)+Himself\/Herself(#)+/ => ['Himself', 'Herself'],
+    /(<)+His\/Her(>)+/ => ['His', 'Her'],
+    /(<)+his\/her(>)+/ => ['his', 'her'],
+    /(<)+Him\/Her(>)+/ => ['Him', 'Her'],
+    /(<)+him\/her(>)+/ => ['him', 'her'],
+    /(<)+He\/She(>)+/ => ['He', 'She'],
+    /(<)+he\/she(>)+/ => ['he', 'she']
   }
 
 
@@ -51,6 +61,40 @@ class Child < ActiveRecord::Base
       result << self.questions.includes(:milestone).find_by_age_and_category(q.age, q.category)
     end
     result
+  end
+
+  def max_seen_for_category category
+    question = self.questions.where(["answers.value = 'seen' AND questions.category =?", category]).select('questions.category, questions.age').order('age desc').limit(1).first
+    result = self.questions.includes(:milestone).find_by_age_and_category(question.age, question.category)
+    return result
+  end
+
+  def get_next_category_question_with_milestone user, current_category
+    question = nil    
+    current_category ||= Question::CATS_ORDER.first
+
+    user.user_option.get_next_newsletter_categories(current_category).each do |category|
+      answer = self.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first
+      question = answer.question unless answer.nil?
+      break unless answer.nil?
+    end
+
+    return question
+  end
+
+  def get_first_answer_for_one_of_the_categories
+    a = nil
+    Question::CATS_ORDER.each do |category|
+      a = self.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first.question
+      break unless a.nil?
+    end
+
+    return a
+  end
+
+  def user_is_admin? user
+    relation = self.relations.find_by_user_id(user.id)
+    return relation.is_admin if relation
   end
 
   def relation_to_current_user user

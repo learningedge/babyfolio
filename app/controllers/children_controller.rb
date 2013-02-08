@@ -25,6 +25,7 @@ class ChildrenController < ApplicationController
       rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
       rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
       rel.save
+      UserAction.find_or_create_by_user_id_and_title(current_user.id, "child_added", :child_id => @child.id)
       current_user.reset_perishable_token!            
       set_current_child @child.id
       redirect_to registration_initial_questionnaire_path
@@ -69,9 +70,11 @@ class ChildrenController < ApplicationController
 
     first_str = categorized_qs.values[0]
     last_weak = categorized_qs.values[-1]
-    
-    @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
-    @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+
+    unless first_str.age == last_weak.age
+      @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
+      @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+    end
     @avg_answers = categorized_qs
     @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
     @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
@@ -101,6 +104,9 @@ class ChildrenController < ApplicationController
                   <p>TIP: Recently #{current_child.first_name} <WTitlePast>. So watch for this behavior and exercise it as much as possible. Here is a parenting tip to take advantage of this “Learning Window” and help build a strong <INTELLIGENCE> foundation:</p>
                   <p><PTip></p>
                   <h5>Here are specific examples and play activities we recommend:</h5>")
+
+    @reflect_visited = current_user.done_action?('reflect_visited')
+    current_user.do_action!('reflect_visited')
   end
 
   def play

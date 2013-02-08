@@ -10,7 +10,7 @@ gem 'will_paginate'
 gem 'authlogic'
 gem 'execjs'
 gem 'json'
-# gem 'mysql2'
+gem 'mysql2'
 gem 'pg', '~> 0.14.1'
 gem 'therubyracer', '~> 0.10.2'
 gem 'jquery-rails'
@@ -23,6 +23,7 @@ gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'rack-rewrite'
+gem 'exception_notification'
 
 group :test do
 

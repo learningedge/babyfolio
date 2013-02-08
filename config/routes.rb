@@ -11,6 +11,8 @@ Babyfolio::Application.routes.draw do
     end    
   end
 
+  get '/user/settings/invite' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }
+  post '/user/settings/update_options/:token' => "users#update_options", :as => :update_user_options
   get '/user/settings(/:chid)' => "users#settings", :as => :settings
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
@@ -29,12 +31,13 @@ Babyfolio::Application.routes.draw do
   post "update_seen/:child_id/:question/:start_age/:value" => "questions#update_seen", :as => :update_seen
   post "update_watch/:mid" => "questions#update_watched", :as => :update_watched
   post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
-  get "initial_questionnaire_completed" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
+  get "initial_questionnaire_completed/(:add_child)" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
 #  QUESTIONNAIRES
 
   get "confirmation" => "confirmation#index", :as => :confirmation
   get "confirmation/resend" => "confirmation#re_send_email"
-  get "confirmation/confirm_email"
+#  get "confirmation/confirm_email"
+  get "confirmation/email_confirmed" => "confirmation#email_confirmed", :as => :email_confirmed
   get "confirmation/accept_invitation" => "confirmation#accept_invitation"
   get "confirmation/accept_relations" => "confirmation#accept_relations"
   post "confirmation/update_relation" => "confirmation#update_relation"  
@@ -78,7 +81,11 @@ Babyfolio::Application.routes.draw do
   post 'timeline/add-basic-timeline-entry' => "timeline#add_from_popup", :as => :add_basic_entry
   post 'timeline/reflect_to_timeline' => "timeline#reflect_to_timeline", :as => :reflect_to_timeline
   post 'timeline/add-comment' => "timeline#add_comment", :as => :add_timeline_comment
+  post 'timeline/invite' => "timeline#invite_redirect", :as => :timeline_invite_redirect
+  post 'timeline/remind_later' => "timeline#remind_later", :as => :timeline_remind_later
+  post 'timeline/dont_remind' => "timeline#dont_remind", :as => :timeline_dont_remind
   get 'timeline/(:child_id)' => "timeline#show_timeline", :as => :show_timeline
+  
 
   # TIMELINE 
 
@@ -101,7 +108,8 @@ Babyfolio::Application.routes.draw do
       get 'change-password' => "users#change_password"
       put 'update-password' => "users#update_password"
       post 'create_temp_user' => "users#create_temp_user"
-    end
+      get '/unsubscribe/:token' => "users#unsubscribe", :as => :unsubscribe
+    end    
   end
 #  USERS    
 

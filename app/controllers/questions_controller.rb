@@ -11,7 +11,6 @@ class QuestionsController < ApplicationController
     @questions.each do |k,v|
       @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
     end
-    session[:reflect_popup] = true
     @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
   end
 
@@ -25,7 +24,7 @@ class QuestionsController < ApplicationController
         next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
       end      
     else
-      unless @q_age < question.age        
+      unless @q_age < question.age
         next_question = Question.find_by_category(question.category, :conditions => ['age < ?', question.age], :order => 'age DESC', :limit => 1)
       end      
     end
@@ -40,7 +39,13 @@ class QuestionsController < ApplicationController
 
   def update_watched
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])
-    Answer.find_or_create_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
+    a = Answer.find_or_initialize_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
+    if a.new_record?
+      current_child.users.each do |relative|
+        UserMailer.child_entered_learning_window(relative, current_child, ms).deliver unless relative.id == current_user.id
+      end
+      a.save
+    end    
     respond_to do |format|
         format.html { render :text => 'success' }
     end
@@ -64,8 +69,21 @@ class QuestionsController < ApplicationController
       te.save
     end
 
-    session[:reflect_popup] = true
-    redirect_to child_reflect_children_path
+    current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
+
+    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
+    if qs
+      unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
+        UserMailer.registration_completed(current_user, current_child, qs).deliver if current_user.user_option.subscribed
+        current_user.user_emails.create(:title => 'initial_questionnaire_completed')
+      end      
+    end
+
+    if params[:add_child].present?
+      redirect_to registration_new_child_path
+    else
+      redirect_to child_reflect_children_path
+    end
   end
 
 end

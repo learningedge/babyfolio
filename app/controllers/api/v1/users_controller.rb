@@ -43,7 +43,7 @@ class Api::V1::UsersController < ApplicationController
       @status = false
     end
 
-    render :json => { success: @status }
+    render :json => { :success => @status }
   end
 
   def logout

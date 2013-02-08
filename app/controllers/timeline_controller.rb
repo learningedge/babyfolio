@@ -3,7 +3,7 @@ class TimelineController < ApplicationController
   layout "child"
   before_filter :require_user
   before_filter :require_child
-  before_filter :require_seen_behaviours, :only => [:show]
+  before_filter :require_seen_behaviours, :only => [:show_timeline]  
 
   def show_timeline
     @children = current_user.children    
@@ -16,8 +16,38 @@ class TimelineController < ApplicationController
     @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0] && max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
     @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title) if max_by_cat[-1] && max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
 
-    @timeline_visited = current_user.timeline_visited
-    current_user.update_attribute(:timeline_visited, true)
+    @timeline_visited = current_user.done_action?('timeline_visited')
+    current_user.do_action!('timeline_visited') unless @timeline_visited
+
+    @show_reminder = false
+    if current_user.login_count >= 3 && !session[:remind_timeline]
+      unless current_user.done_action?('timeline_dont_remind')
+        @show_reminder = true
+        @show_dont_btn = true if current_user.done_action?('timeline_remind')
+      end
+    end   
+  end
+
+  def invite_redirect
+    current_user.do_action!('timeline_dont_remind')
+    session[:remind_timeline] = true
+    redirect_to settings_invite_path
+  end
+
+  def dont_remind
+    session[:remind_timeline] = true
+    current_user.do_action!('timeline_dont_remind')
+    respond_to do |format|
+      format.html { render :nothing => true }
+    end    
+  end
+
+  def remind_later
+    session[:remind_timeline] = true
+    current_user.do_action!('timeline_remind')
+    respond_to do |format|
+      format.html { render :nothing => true }
+    end    
   end
 
   def add_entry    
@@ -68,7 +98,7 @@ class TimelineController < ApplicationController
     te.save
 
     respond_to do |format|
-      format.html { render :text =>  "Success"  }
+      format.html { render :text => "Success" }
     end
   end
 
@@ -82,6 +112,11 @@ class TimelineController < ApplicationController
     
     te.comments.build({:text => params[:text], :author => current_user})
     te.save
+
+    current_child.admins.each do |admin|
+      UserMailer.timeline_comment(current_child, current_user, admin).deliver unless admin.id == current_user.id
+    end
+    
     redirect_to show_timeline_path
   end
 
