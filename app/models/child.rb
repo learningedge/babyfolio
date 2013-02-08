@@ -82,11 +82,14 @@ class Child < ActiveRecord::Base
     return question
   end
 
-  def get_first_answer_for_one_of_the_categories
+  def get_first_answered_question
     a = nil
     Question::CATS_ORDER.each do |category|
-      a = self.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first.question
-      break unless a.nil?
+      a = self.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first
+      unless a.nil?
+        a = a.question
+        break
+      end
     end
 
     return a

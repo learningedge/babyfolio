@@ -68,22 +68,30 @@ class ChildrenController < ApplicationController
       uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
     end
 
-    first_str = categorized_qs.values[0]
-    last_weak = categorized_qs.values[-1]
-
-    unless first_str.age == last_weak.age
-      @str_answers = categorized_qs.reject{ |k,v| v.age != first_str.age } unless first_str.nil?
-      @weak_answers = categorized_qs.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+    @avg_answers = categorized_qs.map{|k,v| v}
+    unless @avg_answers.first.age == @avg_answers.last.age
+        @weak_answers = [@avg_answers.pop]
+        @str_answers = [@avg_answers.shift]
     end
-    @avg_answers = categorized_qs
-    @avg_answers = categorized_qs.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
-    @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
+    @avg_answers = @avg_answers.sort_by{|q| Question::CATS_ORDER.index(q.category)  }
 
-    @empty_answers = ActiveSupport::OrderedHash.new
-    Question::CATS.each do |k,v|
-      @empty_answers[k] = nil if categorized_qs[k].nil?
+#    first_str = categorized_qs.values[0]
+#    last_weak = categorized_qs.values[-1]
+#
+#    unless first_str.age == last_weak.age
+#      @str_answers = categorized_qs.to_a.first #reject{ |k,v| v.age != first_str.age } unless first_str.nil?
+#      @weak_answers = categorized_qs.to_a.reverse.first #.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
+#    end
+#    @avg_answers = categorized_qs
+#    @avg_answers = categorized_qs.reject{|k,v| @str_answers[0] == k} if @str_answers.present?
+#    @avg_answers = @avg_answers.reject{|k,v| @weak_answers[0] == k} if @weak_answers.present?
+
+    @empty_answers = []
+    Question::CATS_ORDER.each do |k,v|
+      @empty_answers << k if categorized_qs[k].nil?
     end
-    
+
+#    render :xml => @avg_answers
     @str_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
                   <p>Current Strength - #{current_child.first_name} is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>
@@ -209,24 +217,25 @@ class ChildrenController < ApplicationController
     questions = current_child.max_seen_by_category
 
     questions.each do |q|      
-      current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
+      question = Question.get_next_questions_for_category(q.category, q.age, 1).first
+      current_questions << (question || q)
     end        
-
+    
     if params[:mid]
       m = Milestone.includes(:questions).find_by_mid(params[:mid])
     end
 
     current_questions.each do |q|
-      if m.blank? || q.category != m.questions.first.category
-        ms  << {:category => q.category, :milestone => q.milestone, :time => "current" }
-      else
+      if m.present? && q.category == m.questions.first.category
         time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
         ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
+      else
+        ms  << {:category => q.category, :milestone => q.milestone, :time => "current", :is_next => Question.get_next_questions_for_category(q.category,q.age,1).first.present? }
       end
     end
 
     ms.each do |m|
-        selected = true if m[:milestone].mid == params[:mid]
+        selected = m[:milestone].mid == params[:mid]
         @behaviours << {
                          :category => m[:category],
                          :mid => m[:milestone].mid,
@@ -243,6 +252,7 @@ class ChildrenController < ApplicationController
                          :theory => current_child.replace_forms(m[:milestone].research_background),
                          :references => current_child.replace_forms(m[:milestone].research_references),
                          :time => m[:time],
+                         :is_next => m[:is_next],
                          :selected => selected || false
                         }
     end
@@ -264,11 +274,11 @@ class ChildrenController < ApplicationController
 
     qs = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age #{dir} ?", ms.questions.first.age], :order => "questions.age #{order}", :limit => 1)
     max_ans_age = current_child.questions.where(["questions.category = ? ", qs.category]).order('questions.age DESC').limit(1).first.age
-    qs_current = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age > ?", max_ans_age], :order => "questions.age ASC", :limit => 1)
+    qs_current = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age >= ?", max_ans_age], :order => "questions.age ASC", :limit => 1)
     
-    if qs_current.age < qs.age
+    if qs_current && qs_current.age < qs.age
       time = "future"
-    elsif qs_current.age > qs.age
+    elsif qs_current && qs_current.age >= qs.age
       time = "past"
     else
       time = "current"
@@ -289,7 +299,8 @@ class ChildrenController < ApplicationController
                :why_important => current_child.replace_forms(qs.milestone.observation_what_it_means),
                :theory => current_child.replace_forms(qs.milestone.research_background),
                :references => current_child.replace_forms(qs.milestone.research_references),
-               :selected => true
+               :selected => true,
+               :is_next => Question.get_next_questions_for_category(qs.category,qs.age,1).first.present?
               }
               respond_to do |format|
                 format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }

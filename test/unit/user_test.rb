@@ -145,18 +145,14 @@ class UserTest < ActiveSupport::TestCase
 
   test 'resend_registration_completed - all correct' do
     @user_one.update_attribute(:last_login_at, DateTime.now - 8.days - 1.minute)
-
     @user_one.user_option.update_attribute(:subscribed, true)
-
-    user_email = user_emails(:one)
-    user_email.user = @user_one
-    user_email.title = 'initial_questionnaire_completed'
-    user_email.count = 0
-    user_email.save
-
-    assert_equal 1, user_email.count
     
-    Child.stubs(:get_first_answer_for_one_of_the_categories).returns(answers(:one))
+    user_email = UserEmail.create(:title => 'initial_questionnaire_completed', :user => @user_one)
+    assert_equal 1, user_email.count
+    assert_equal @user_one, user_email.user
+    assert_equal 2, @user_one.children.count
+    
+    @user_one.children.first.answers.create(:question_id => 964)
 
     counts = UserEmail.sum(:count)
 
@@ -165,6 +161,7 @@ class UserTest < ActiveSupport::TestCase
     User.resend_registration_completed
 
     user_email.reload
+    
     assert_equal 2, user_email.count
     assert_equal counts+1, UserEmail.sum(:count)
 
@@ -395,19 +392,19 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, User.select_inactive_users.count
 
     #  user one inactive for 16 days (no inactive email) - send first email
-    @user_one.update_column(:last_login_at, DateTime.now - 16.days)    
+    @user_one.update_column(:last_request_at, DateTime.now - 16.days)
     
     users = User.select_inactive_users
     assert_equal 1, users.count
     assert_equal @user_one, users[0]
 
     #  user two inactive for 16 days (no inactive email) - send first email
-    @user_two.update_column(:last_login_at, DateTime.now - 16.days)
+    @user_two.update_column(:last_request_at, DateTime.now - 16.days)
     users = User.select_inactive_users
     assert_equal 2, users.count
 
     #  user three inactive for 25 days - over 3 weeks (email sent 8.days.ago) - send reminder
-    @user_three.update_column(:last_login_at, DateTime.now - 22.days)    
+    @user_three.update_column(:last_request_at, DateTime.now - 22.days)
     assert_equal 2, User.select_inactive_users.count
 
     email = @user_three.send_email!('inactive')
@@ -421,18 +418,18 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 3, User.select_inactive_users.count
 
     # user 3 has been inactive for 1 month
-    @user_three.update_column(:last_login_at, DateTime.now - 1.months)
+    @user_three.update_column(:last_request_at, DateTime.now - 1.months)
     assert_equal 2, User.select_inactive_users.count
 
     # user 3 has been inactive for 1 week ( inactive email sent 7 days ago )
-    @user_three.update_column(:last_login_at, DateTime.now - 1.weeks)
+    @user_three.update_column(:last_request_at, DateTime.now - 1.weeks)
     assert_equal 2, User.select_inactive_users.count
         
   end
 
   test 'send_inactive' do    
     #  user one inactive for 16 days (no inactive email) - send first email    
-    @user_one.update_column(:last_login_at, DateTime.now - 16.days)
+    @user_one.update_column(:last_request_at, DateTime.now - 16.days)
     assert_equal 1, User.select_inactive_users.count
 
     User.send_inactive
@@ -446,7 +443,7 @@ class UserTest < ActiveSupport::TestCase
     sleep(1)
 
     # 7 days after - send reminder
-    @user_one.update_column(:last_login_at, @user_one.last_login_at - 7.days)
+    @user_one.update_column(:last_request_at, @user_one.last_request_at - 7.days)
     email.update_column(:updated_at, email.updated_at - 7.days)
     assert_equal 1, User.select_inactive_users.count
     
@@ -460,7 +457,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, User.select_inactive_users.count
 
     # after another week - dont send reminder anymore
-    @user_one.update_column(:last_login_at, @user_one.last_login_at - 7.days)
+    @user_one.update_column(:last_request_at, @user_one.last_request_at - 7.days)
     assert_equal 0, User.select_inactive_users.count
     User.send_inactive
     email.reload

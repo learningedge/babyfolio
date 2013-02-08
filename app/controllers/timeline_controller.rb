@@ -120,5 +120,8 @@ class TimelineController < ApplicationController
     redirect_to show_timeline_path
   end
 
+  def error
+    User.testing_user_function
+  end
 
 end
