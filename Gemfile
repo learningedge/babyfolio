@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.11'
+gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,7 +10,7 @@ gem 'will_paginate'
 gem 'authlogic'
 gem 'execjs'
 gem 'json'
-# gem 'mysql2'
+gem 'mysql2'
 gem 'pg', '~> 0.14.1'
 gem 'therubyracer', '~> 0.10.2'
 gem 'jquery-rails'
@@ -23,6 +23,7 @@ gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'rack-rewrite'
+gem 'exception_notification', :git => 'git://github.com/alanjds/exception_notification.git'
 
 group :test do
 

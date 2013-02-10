@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>Welcome to BabyFolio, the exciting new app that helps your baby thrive!</h4>
+
+    <p>BabyFolio is centered around your individual baby- identifying the most important developments and providing the right play at the right time. For example, since you identified that <%= @child.first_name %> is currently <%= @child.replace_forms(@milestone.get_title).html_safe %>, you can support this important Language Learning Window with new experiences and the right kind of play:</p>
+
+    <p><%= @child.replace_forms(@milestone.get_title) %> Parenting Tip: <%= @child.replace_forms(@milestone.get_parenting_tip).html_safe %></p>
+
+    <p>In the <%= link_to "PLAY", play_children_url(:confirm => true, :token => @user.persistence_token) %> section of the site, we give you these Activity Ideas:</p>
+    <ol>
+      <% unless @milestone.activity_1_title.blank? %>
+          <li><a href="<%= play_children_url(:mid => @milestone.mid, :no => 1) %>"><%= @child.replace_forms(@milestone.activity_1_title).html_safe %></a></li>
+      <% end %>
+      <% unless @milestone.activity_2_title.blank? %>
+          <li><a href="<%= play_children_url(:mid => @milestone.mid, :no => 2) %>"><%= @child.replace_forms(@milestone.activity_2_title).html_safe %></a></li>
+      <% end %>
+    </ol>
+
+    <p>In <%= link_to "WATCH", watch_children_url(:confirm => true, :token => @user.persistence_token)  %> , we help you keep on the look out for the next important developments. For example, for <%= @child.first_name %>'s language development, you should be looking for this next behavior: <%= @child.replace_forms(@milestone.get_title).html_safe %></p>
+    <p>In <%= link_to "TIMELINE", show_timeline_url(:confirm => true, :token => @user.persistence_token)  %>, we automatically archive your child's development over time, creating a 21st century babybook. You can post what <%= @child.first_name %> responds to and likes the most and reflect and build upon their profile with your own posts.</p>
+    <p>In <%= link_to "REFLECT", child_reflect_children_url(:confirm => true, :token => @user.persistence_token)  %>, we provide a summary of your baby's profile across the multiple intelligences.</p>
+    <p>In <%= link_to "SETTINGS/MORE", settings_url(:confirm => true, :token => @user.persistence_token) %>, we enable you to manage your account. We encourage you to give acess to, <%= link_to "INVITE", settings_invite_url(:confirm => true, :token => @user.persistence_token) %>, the family and friends that spend time with and care about <%= @child.first_name %>. That way, everyone who is involved in the baby's life  can learn from and contribute to a better understanding of who this precious person is. Everyone can then better support <%= @child.first_name %>'s optimal learning and development.</p>
+
+    <p>To get started, please confirm your email address by clicking on any link above or <%= link_to "clicking here", root_url(:confirm => true, :token => @user.persistence_token) %>. You can also copy/paste the link below:</p>
+    <p><%=  root_url(:confirm => true, :token => @user.persistence_token) %></p>
+
+    <p>If you have any questions or concerns, please email us at <a href="mailto:tickets@baby1.uservoice.com">tickets@baby1.uservoice.com</a>.</p>
+
+    <p>Best,</p>
+    <p>BabyFolio Team</p>
+<%= render :partial => 'unsubscribe' %>
+
+  </body>
+</html>
+
+

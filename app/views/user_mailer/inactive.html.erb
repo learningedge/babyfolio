@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h4>Hey there,</h4>
+    
+    <p>We noticed you haven't been to BabyFolio in a while to actively supporting <%= @child.first_name %>'s learning & development.  BabyFolio provides the highest level of personalizded development support, so please try to find some time to check in on what is happening with <%= @child.first_name %>'s important developments.</p>
+
+    <p>You can access/sign into your account by <%= link_to "clicking here", root_url %>.</p>
+
+    <p>We recommend checking out the <%= link_to "REFLECT", child_reflect_children_url %> page to review <%= @child.first_name %>'s last reported developments across each intelligence and the <%= link_to "WATCH", watch_children_url %> page to see if you have seen any new behaviors.  Then with a fresh update, you can view the <%= link_to "PLAY", play_children_url %> page for recommendations on "the right play at the right time".</p>
+
+    <p>We also strive to continually improve our services, so if there are reasons you are not coming back, we would love to hear them; or If you have any questions or concerns, please email us at <a href="mailto:tickets@baby1.uservoice.com">tickets@baby1.uservoice.com</a>.</p>
+    
+
+    <p>Best,</p>
+    <p>BabyFolio Team</p>
+    <%= render :partial => 'unsubscribe' %>
+
+  </body>
+</html>
+
+
+
