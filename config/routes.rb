@@ -139,6 +139,14 @@ Babyfolio::Application.routes.draw do
       get "reflect/:cat" => "reflect#show"
       post "timeline/add_entry" => "timeline#add_entry"
       post "timeline/comment" => "timeline#add_comment"
+        
+      #  QUESTIONS
+      get "questionnaire/initial" => "questions#initial_questionnaire", :as => :initial_questionnaire
+      post "update_seen/:child_id/:question/:start_age/:value" => "questions#update_seen", :as => :update_seen
+      post "update_watch/:mid" => "questions#update_watched", :as => :update_watched
+      post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
+      get "initial_questionnaire_completed/(:add_child)" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
+
     end
   end
 #  API

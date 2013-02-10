@@ -1,5 +1,6 @@
 /*
  * This CSS is used by api/v1/watch/show.html.erb
+ * as well as api/v1/play/show.html.erb
  * It converts the watch view to a percentage-based layout
  * It is used in the mobile app
  * It begins with duplicate CSS to protect against future CSS changes on the main site
@@ -7,7 +8,7 @@
 */
 
 
-/*    ORIGINAL TIMELINE   */
+/*    ORIGINAL    */
 
 .play-popup { display: none; width: 610px; padding-left: 31px; background: none; position: relative;}
 .play-popup .pointing-arrow { position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: 0;}
