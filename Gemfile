@@ -1,12 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.11'
+gem 'rails', '~>3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'will_paginate'
 
+gem 'authlogic'
+gem 'execjs'
 gem 'json'
 gem 'mysql2'
 gem 'pg', '~> 0.14.1'
@@ -29,8 +31,6 @@ group :test do
   gem 'mocha'
 
 end
-gem 'execjs'
-gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -45,7 +45,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+#gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
