@@ -1,13 +1,13 @@
     <% if answers %>
-      <% answers.each_with_index do |(k,v), idx| %>
+      <% answers.each_with_index do |v, idx| %>
         <% f = true if type == "str" %>
         <% l = true if type == "weak" %>
         <% curr_width = type == "empty" ? 0 : @lengths[v.age] %>
 
         <div class="single-reflected-item">
-          <div class="cat-name"><%= category_name(k) %></div>
+          <div class="cat-name"><%= category_name(v.category) %></div>
 
-          <div class="reflect-icon reflect-icon-<%=  k %>"></div>
+          <div class="reflect-icon reflect-icon-<%=  v.category %>"></div>
           <div class="reflect-bar-wrapper">
               <div class="reflect-bar" style="width: <%= curr_width %>px <%= ';border: none' if type=="empty"%>">
                   <div class="reflect-popup">                    
@@ -16,11 +16,11 @@
                       <% m = v.milestone unless v.nil? %>
                       <% if m %>
                           <% if f %>
-                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+                              <%= @str_text.gsub('<INTELLIGENCE>', category_name(v.category)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% elsif l %>
-                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+                              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(v.category)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% else %>
-                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(k)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+                              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(v.category)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
                           <% end %>
 
                           <% unless m.activity_1_title.blank? %> 
@@ -29,7 +29,7 @@
                           <% unless true %>
                               <p><a href="<%= play_children_path(:mid => m.mid, :no => 2) %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_2_title, :length => 40)).html_safe %></a></p>
                           <% end %>
-                          <a href="#" class="behaviour-details hidden" data-category="<%= k %>" data-behaviour="<%= m.get_title %>" data-mid="<%= m.mid %>"></a>
+                          <a href="#" class="behaviour-details hidden" data-category="<%= v.category %>" data-behaviour="<%= m.get_title %>" data-mid="<%= m.mid %>"></a>
                       <% else %>
                           <div class="unfinished-questionnaire-notice">
                             <h4>Hey there, to see information about these intelligences, you'll have to complete your baby's registration first.  Would you like to do that now?</h4>

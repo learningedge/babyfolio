@@ -9,7 +9,7 @@
         <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
         <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
-        <%= render :partial => 'reflect_bars', :locals => { :answers => @empty_answers, :type => 'empty' } %>
+        <%= render :partial => 'reflect_bars_empty', :locals => { :answers => @empty_answers, :type => 'empty' } %>
       </div>      
   </div>
   <div id="reflect-content-window" class="left">    
@@ -20,7 +20,7 @@
   </div>
   <div id="reflect-to-timeline" class="left">
             <%= render :partial => "reflect_timeline"  %>
-    <div id="reflect-to-timeline-cover"><span>You have successfully posted to <span class="bold"><%= current_child.first_name %></span> Timeline</span><span class="vertical-aligner"></span></div>
+    <div id="reflect-to-timeline-cover"><span>You have successfully posted to <span class="bold"><%= current_child.first_name %>'s</span> Timeline</span><span class="vertical-aligner"></span></div>
   </div>
   
   <div class="clear"></div>
@@ -38,14 +38,12 @@
       <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <span class="bold"><%= current_child.first_name %>’s</span> strengths and areas for improvement in his development, and find activities to help those areas.</li>
     </ul>
     <p>View <span class="bold"><%= current_child.first_name %>’s</span> development progress now or invite close friends and family to join his circle!</p>
-    <div><%= link_to "Send Invites", settings_path, :class => 'btn' %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
+    <div><%= link_to "Send Invites", settings_invite_path, :class => 'btn' %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
     <a href="#" class="close-popup-icon jqmClose">Close</a>
   </div>
 </div>
-
   
- <% if session[:reflect_popup] %>
-      <% session[:reflect_popup] = nil %>
+ <% unless @reflect_visited %>      
       <%= javascript_include_tag 'jqModal' -%>
       <script type="text/javascript">
         $(function() {
@@ -85,7 +83,7 @@
         $('#reflect-to-timeline-cover').hide();
         $('.img-wrapper').html('');
       } else {
-         $('#reflect-to-timeline').hide();
+         <%#*$('#reflect-to-timeline').hide();%>
          $('.single-reflected-item').removeClass('active-item');
          $(item).addClass('active-item');
          $('#reflect-content-window').html($(item).find('.unfinished-questionnaire-notice').html());

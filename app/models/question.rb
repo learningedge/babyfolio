@@ -72,6 +72,14 @@ class Question < ActiveRecord::Base
     return order_categories(hash)
   end
 
+  def self.get_next_questions_for_category category, age, number
+    includes(:milestone).find_all_by_category(category, :conditions => ["questions.age > ?", age], :order => 'questions.age ASC', :limit => number)
+  end
+
+  def self.get_next_2_questions_for_category category, age
+    get_next_questions_for_category(category, age, 2)
+  end
+
   def self.get_questions_for_age_range age, below, above, categories = nil
     hash = Hash.new
     categories = get_all_categories unless categories

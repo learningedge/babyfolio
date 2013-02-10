@@ -1,2 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+one: 
+  id: 1
+  question_id: 964
+  value: "seen"

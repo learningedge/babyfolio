@@ -5,29 +5,26 @@
 # below each fixture, per the syntax in the comments below
 #
 one: 
-  id: 1
-  first_name: Albert
-  last_name: Einstein
-  birth_date: <%= Date.today %>
-  family_id: 1
+  id: 1,
+  first_name: Albert,
+  last_name: Einstein,
+  birth_date: <%= Date.today - 5.months %>
 
-
-# column: value
-#
-two: {
+two: 
   id: 2,
   first_name: Kamil,
   last_name: K,
-  birth_date: <%= Date.today %>,
-  family_id: 1
-}
+  birth_date: <%= Date.today - 2.months %>,
 
-three: {
+three: 
   id: 3,
-  first_name: Adam,
+  first_name: Janusz,
   last_name: Sztaba,
+  birth_date: <%= Date.today - 6.months %>,  
+
+four: 
+  id: 4,
+  first_name: Adam,
+  last_name: Malysz,
   birth_date: <%= Date.today %>,
-  family_id: 1
-}
-#  column: value
 

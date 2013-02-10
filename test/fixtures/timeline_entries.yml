@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  type: 
+one:  
   title: MyString
   description: MyText
   child_id: 1
 
 two:
-  type: 
   title: MyString
   description: MyText
   child_id: 1

@@ -6,40 +6,24 @@ class UsersController < ApplicationController
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]
   before_filter :require_seen_behaviours, :only => [:settings]
 
-  def new    
-    if !current_user and session[:temporary_user_id]
-      @user = User.find(session[:temporary_user_id])
-      @user.email = ''
-      @user.first_name = ''
-      @user.last_name = ''
-    else
-      clear_session
-      @user = User.new
-    end
-    @accept_terms = false
+  def new        
+    clear_session
+    @user = User.new
   end
 
-  def create
-    if session[:temporary_user_id]
-      @user = User.find(session[:temporary_user_id])
-      @user.update_attributes(params[:user])      
-    else
-      @user = User.new(params[:user])      
-      @user.reset_single_access_token
-    end
+  def create    
+    @user = User.new(params[:user])    
+    @user.reset_single_access_token
 
     @user.reset_perishable_token
     @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
     
     if @user.valid?
       @user.email_confirmed = false
+      @user.user_actions.new(:title => "account_created")
       @user.save      
-      UserMailer.confirmation_email(@user).deliver
-
-      flash[:notice] = "Your account has been created. Confirmation email has been sent."
       redirect_to registration_new_child_path
     else
-      flash[:notice] = "There was a problem creating your account."
       render :action => :new
     end
   end
@@ -81,15 +65,9 @@ class UsersController < ApplicationController
     end        
   end
 
-#  def show
-#    @user = current_user
-#
-#    @families = @user.families
-#    @selected_family = current_family
-#
-#    @children = @selected_family.children
-#    @selected_child = params[:child_id].present? ? (@children.select { |c| c.id == params[:child_id].to_i }.first || @children.first) : @children.first
-#  end
+  def update_options
+    
+  end
 
   def edit
     @user = current_user
@@ -211,6 +189,16 @@ class UsersController < ApplicationController
       redirect_to child_new_moment_url(:child_id => child.id )
     else      
       redirect_to questions_url(:child => child.id, :level => 'basic' )
+    end
+  end
+
+  def unsubscribe
+    @user = User.find_by_persistence_token(params[:token])
+    if @user
+      @user.user_option.subscribed = false
+      @user.save
+    else
+      render :text => "<h4>There were some errors unsubscribing.</h4>", :layout => true
     end
   end
   

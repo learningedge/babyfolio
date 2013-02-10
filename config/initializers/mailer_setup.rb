@@ -6,7 +6,6 @@ ActionMailer::Base.smtp_settings = {
   :domain         => 'yourapp.heroku.com',
   :authentication => :plain,
 }
-ActionMailer::Base.delivery_method = :smtp
 
 #ActionMailer::Base.smtp_settings = {
 #  :address => "smtp.gmail.com",

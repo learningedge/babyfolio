@@ -16,25 +16,28 @@ class ConfirmationController < ApplicationController
   end
 
   def confirm_email
-    @token = params[:token]
-    @user = User.find_by_perishable_token @token
-    if @user.nil?
-      flash[:error] = "We can't find the user, try resending email"
-      current_user_session.destroy if current_user_session
-      reset_session
-      redirect_to confirmation_path
-    else
-      @user.email_confirmed = 1
-      @user.save
-      UserSession.create(@user)
-      @user.reset_perishable_token!
-      flash[:notice] = "Email successfuly confirmed."
-      redirect_to child_profile_children_url      
-    end
+#    @token = params[:token]
+#    @user = User.find_by_persistence_token @token
+#    if @user.nil?
+#      flash[:error] = "We can't find the user, try resending email"
+#      current_user_session.destroy if current_user_session
+#      reset_session
+#      redirect_to confirmation_path
+#    else
+#      @user.email_confirmed = 1
+#      @user.save
+#      UserSession.create(@user)
+#      @user.reset_perishable_token!
+#
+#      redirect_to child_reflect_children_path
+#    end
+  end
+
+  def email_confirmed
   end
 
   def accept_invitation    
-    @relation = Relation.includes(:inviter).find_by_token(params[:token], :include => [:user])
+    @relation = Relation.find_by_token(params[:token], :include => [:user, :inviter])
     @user = @relation.user
     @edit = true
     @edit_password = true
@@ -44,12 +47,29 @@ class ConfirmationController < ApplicationController
     unless current_user.is_temporary
       redirect_to confirmation_accept_relations_path
     end
-
     
-    rescue NoMethodError
-      flash[:notice] = "Ooops, there is something wrong with your invitation."
+    rescue NoMethodError      
       redirect_to login_url
   end
+
+  def update_user
+    @relation = Relation.find_by_token(params[:token], :include => [:user])
+    @user = @relation.user
+    @edit = true
+
+    @user.profile_media = Media.find_by_id(params[:user_profile_media])
+    params[:user][:is_temporary] = 0
+    @user.assign_attributes(params[:user])
+    @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?
+
+    if @user.errors.empty? && @user.save
+        @user.user_actions.create(:title => "account_created")
+        redirect_to confirmation_accept_relations_path
+    else
+        render :accept_invitation
+    end
+  end
+
 
   def accept_relations
     @relations = current_user.relations.find_all_by_accepted(0, :include => [:child, :user])
@@ -59,10 +79,11 @@ class ConfirmationController < ApplicationController
 
     if params[:token].present?
       token = params[:token]
-      rel = Relation.find_by_token(token)
+      rel = Relation.find_by_token(token, :include => [:child, :user, :inviter])
 
       if params[:accept].present?
         rel.update_attribute(:accepted, params[:accept])
+        UserMailer.invitation_accepted(rel).deliver
       else
         rel.destroy
       end
@@ -73,32 +94,5 @@ class ConfirmationController < ApplicationController
       end
     end
   end
-  
-
-  def update_user    
-    @relation = Relation.find_by_token(params[:token], :include => [:user])
-    @user = @relation.user
-    @edit = true
-
-    @user.profile_media = Media.find_by_id(params[:user_profile_media])
-    params[:user][:is_temporary] = 0
-    @user.assign_attributes(params[:user])        
-    @user.errors.add(:password, "can't be blank") if params[:user][:password].blank?
-
-    if @user.errors.empty? && @user.save
-        redirect_to confirmation_accept_relations_path
-    else
-        render :accept_invitation
-    end     
-  end
-
-#  private
-#
-#  def require_no_confirmation
-#    if current_user.email_confirmed
-#      redirect_to child_profile_children_url
-#      flash[:notice] = "Your email is confirmed already."
-#    end
-#  end
 
 end

@@ -13,7 +13,6 @@ class Milestone < ActiveRecord::Base
     [child.replace_forms(activity_2_title), child.replace_forms(activity_2_subtitle), child.replace_forms(smart_truncate(activity_2_response)), child.replace_forms(smart_truncate(activity_2_modification))].find{|i| i.present?}
   end
 
-
   def get_title
     self.title.blank? ? "Title goes here" : self.title
   end
