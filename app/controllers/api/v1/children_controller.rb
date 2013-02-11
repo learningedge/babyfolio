@@ -234,6 +234,15 @@ class Api::V1::ChildrenController < ApplicationController
       @reflections << serialized
     end
 
+    uniq_ages = categorized_qs.map{ |k,v| v.age }.uniq.sort
+    @lengths = Hash.new
+    if uniq_ages.size == 1
+      @lengths[uniq_ages[0]] = 125
+    else
+      uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
+    end
+
+
     third_from_start = categorized_qs.values[2] 
     third_from_end = categorized_qs.values[-3]
     
@@ -243,6 +252,7 @@ class Api::V1::ChildrenController < ApplicationController
     @avg_answers = @reflections - @str_answers - @weak_answers
 
     render :json => {
+      :lengths => @lengths,
       :reflections => @reflections,
       :strong => @str_answers,
       :weak => @weak_answers,

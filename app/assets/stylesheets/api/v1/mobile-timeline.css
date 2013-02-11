@@ -130,6 +130,7 @@
 
 #mobile-timeline { margin:3px; }
 #mobile-timeline > #timeline-wrapper #timeline-right { margin:0px; width:100%; }
+#mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry { background:url(/images/timeline_bg.png) repeat-y 11% center; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .timeline-desc { padding-left:10px; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-category { margin-bottom: 5px; }
 #mobile-timeline > #timeline-wrapper .entry-avatar { width:10%; }
