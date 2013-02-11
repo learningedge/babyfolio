@@ -2,15 +2,21 @@ class Api::V1::QuestionsController < ApplicationController
   layout false
 
   def initial_questionnaire    
-    @step = 1    
-    @age = current_child.months_old
-    @q_age = Question.select_ages(@age, '<=', 1, 'DESC').first.age    
-    @questions = Question.find_all_by_age(@q_age).group_by{|q| q.category}
-    @questions.each do |k,v|
-      @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
-    end
-    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
-    @question = @questions.first
+    cookies[:current_category] ||= Question::CATS_ORDER.first
+
+    @category = cookies[:current_category]
+
+    @q_age = question_age
+    @question = current_question_for @category
+#    @age = current_child.months_old
+#    @q_age = Question.select_ages(@age, '<=', 1, 'DESC').first.age    
+#    @questions = Question.find_all_by_age(@q_age).group_by{|q| q.category}
+#    @questions.each do |k,v|
+#      @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
+#    end
+#    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
+
+
   end
 
   def update_seen
@@ -23,18 +29,31 @@ class Api::V1::QuestionsController < ApplicationController
         next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
       end      
     else
-      unless @q_age < question.age
-        next_question = Question.find_by_category(question.category, :conditions => ['age < ?', question.age], :order => 'age DESC', :limit => 1)
-      end      
+            
     end
     
-    gray_out = true unless next_question
     next_question ||= question
-           
+    @question = next_question
+
     respond_to do |format|
-        format.html { render :partial => 'single_question', :locals => { :question => next_question, :category => question.category, :completed => gray_out } }
+      format.js     
     end
+
   end
+
+  def not_seen
+    cats = Question::CATS_ORDER
+    old_index = cats.index(cookies[:current_category])
+    if ((old_index + 1) < cats.count)
+      cookies[:current_category] = cats[old_index + 1]
+      next_category = true
+    else
+      #we have run through all categories
+    end
+    redirect_to api_v1_initial_questionnaire_path
+  end
+
+
 
   def update_watched
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])
@@ -83,6 +102,21 @@ class Api::V1::QuestionsController < ApplicationController
     else
       redirect_to child_reflect_children_path
     end
+  end
+
+private
+
+  def question_age
+    age = current_child.months_old
+    q_age = Question.select_ages(age, '<=', 1, 'DESC').first.age    
+    return q_age
+  end
+ 
+  def current_question_for(category)
+    q_age = question_age
+    questions = Question.find_all_by_age(q_age).select{ |q| q.category == category }
+    unseen_qs = questions.map{|q| current_child.questions.include?(q) == false}
+    return questions.first
   end
 
 end

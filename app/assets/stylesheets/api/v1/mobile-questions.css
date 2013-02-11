@@ -92,7 +92,11 @@
   #bf-mobile #registration-third .right-column #questionnaire-column { width:100%; }
   #bf-mobile #registration-third .right-column #instruction-column #tip-number1 { float:left; width:23px; margin: 0 10px; }
   #bf-mobile #registration-third .right-column #instruction-column #tip-number2 { float:left; width:23px; margin: 0 10px; }
-  #bf-mobile #registration-third .right-column #instruction-column p { margin: 0 10px 15px 10px; font-weight: normal; }
-
+  #bf-mobile #registration-third .right-column #instruction-column p { margin: 0 10px 15px 10px; font-weight: normal; font-size: 12px; }
+  #bf-mobile #registration-third .right-column #questionnaire-column .single-question { background-position: left 10px; }
+  #bf-mobile #registration-third .right-column #questionnaire-column .single-question p { width:100%; margin:0px 0px; }
+  #bf-mobile #registration-third .seen-btn-wrapper { width:100% }
+  #bf-mobile #all-initial-questions { margin:0 10px; }
+  #bf-mobile #registration-third .seen-btn-wrapper a.btn { padding:10px; margin:20px; }
 
 

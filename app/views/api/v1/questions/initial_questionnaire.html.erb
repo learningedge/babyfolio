@@ -19,7 +19,7 @@
               <p>If you clicked "I have seen this!" in the first step, keep going until you haven't seen a behavior and then click "I haven't see this yet!"  If you clicked "I haven't seen this yet!" keep going until you've seen a behavior and click "I have seen this!"  Follow the same process for the next intelligence.  Once you've completed the last intelligence, you'll be asked to either continue or add another baby.</p>      
             </div>
             <div id="questionnaire-column">
-              <%= render :partial => 'questions_listing', :locals => {:questions => @questions, :step => @step, :categories_answered => Array.new} %>
+              <%= render :partial => 'questions_listing', :locals => {:question => @question} %>
             </div>
             <div class="clear"></div>
 

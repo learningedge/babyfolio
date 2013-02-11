@@ -142,6 +142,7 @@ Babyfolio::Application.routes.draw do
         
       #  QUESTIONS
       get "questionnaire/initial" => "questions#initial_questionnaire", :as => :initial_questionnaire
+      post "not_seen" => "questions#not_seen"
       post "update_seen/:child_id/:question/:start_age/:value" => "questions#update_seen", :as => :update_seen
       post "update_watch/:mid" => "questions#update_watched", :as => :update_watched
       post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire

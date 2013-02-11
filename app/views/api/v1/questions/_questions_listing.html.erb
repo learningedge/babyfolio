@@ -1,29 +1,12 @@
     <div id="all-initial-questions">
-        <% questions.each do |key, qc| %>
-          <div class="single-question single-<%= key %>">
-            <%= render :partial => 'single_question', :locals => { :question => qc[0], :category => key, :completed => qc[1] } %>
+      <%if question.present? %>
+          <div class="single-question single-<%= question.category %>">
+            <%= render :partial => 'single_question', :locals => { :question => question } %>
           </div>
-        <% end %>      
-      <!--div id="finish-link-wrapper"><%#= link_to "Finish", initial_questionnaire_completed_path , :class => 'not-seen-link hidden' %></div-->
+      <% else %>
+        No Question Present
+      <% end %>
     </div>
-
-  <script type="text/javascript">
-    $(function() {
-      $('.not-seen-form').bind('ajax:complete', function(){
-            $('.preloader').fadeOut();
-      });      
-      $('.single-question-cover:not(.completed)').addClass('shown').first().removeClass('shown');
-      showFinish();
-    });
-
-    function showFinish() {
-      if($('.single-question-cover').length == $('.single-question-cover.completed').length) {
-        $('#questionniare-completed-popup').dialog({modal: true,  closeOnEscape: false, width: "auto", dialogClass: "questionniare-completed-popup"});
-        $('.questionniare-completed-popup .ui-dialog-titlebar').hide();
-        //$('.not-seen-link').removeClass('hidden');
-      }
-    }
-  </script>
 
 
 
