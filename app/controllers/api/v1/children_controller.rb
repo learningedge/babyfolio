@@ -23,6 +23,13 @@ class Api::V1::ChildrenController < ApplicationController
     render :json => @child
   end
 
+  def change_current
+    @child = current_user.children.find params[:id]
+    status = @child ? true : false
+    set_current_child @child.id if @child
+    render :json => { :success => status }
+  end
+
 
 ##############
 # PLAY
@@ -31,7 +38,7 @@ class Api::V1::ChildrenController < ApplicationController
   def play
     answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
-    answers.each do |v|
+    answers.each do |k,v|
       max_age = v.max_by{ |a| a.question.age}.question.age
       v.delete_if{|a| a.question.age != max_age}
     end

@@ -17,8 +17,10 @@ class Api::V1::TimelineController < ApplicationController
     @child_has_str = current_child.replace_forms(max_by_cat[0].milestone.title) if max_by_cat[0] && max_by_cat[0].milestone && max_by_cat[0].milestone.title.present?
     @child_has_weak = current_child.replace_forms(max_by_cat[-1].milestone.title) if max_by_cat[-1] && max_by_cat[-1].milestone && max_by_cat[-1].milestone.title.present?
 
-    @timeline_visited = current_user.timeline_visited
-    current_user.update_attribute(:timeline_visited, true)
+
+    @timeline_visited = current_user.done_action?('timeline_visited')
+    current_user.do_action!('timeline_visited') unless @timeline_visited
+
 
     respond_to do |format|
       format.json { render :json => @timeline_entries }

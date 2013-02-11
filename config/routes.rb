@@ -126,6 +126,7 @@ Babyfolio::Application.routes.draw do
 
       resource :children, :only => [:create] do
         get 'current' => "children#current"
+        post 'change_current/:id' => "children#change_current"
         get 'play' => "children#play"
         get 'play/adjacent/:mid/:dir' => "children#get_adjacent_activity"
         get 'watch' => "children#watch"
