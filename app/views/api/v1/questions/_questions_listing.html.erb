@@ -1,0 +1,12 @@
+    <div id="all-initial-questions">
+      <%if question.present? %>
+          <div class="single-question single-<%= question.category %>">
+            <%= render :partial => 'single_question', :locals => { :question => question } %>
+          </div>
+      <% else %>
+        No Question Present
+      <% end %>
+    </div>
+
+
+

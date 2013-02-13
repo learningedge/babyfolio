@@ -23,6 +23,13 @@ class Api::V1::ChildrenController < ApplicationController
     render :json => @child
   end
 
+  def change_current
+    @child = current_user.children.find params[:id]
+    status = @child ? true : false
+    set_current_child @child.id if @child
+    render :json => { :success => status }
+  end
+
 
 ##############
 # PLAY
@@ -31,7 +38,7 @@ class Api::V1::ChildrenController < ApplicationController
   def play
     answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
-    answers.each do |v|
+    answers.each do |k,v|
       max_age = v.max_by{ |a| a.question.age}.question.age
       v.delete_if{|a| a.question.age != max_age}
     end
@@ -114,7 +121,6 @@ class Api::V1::ChildrenController < ApplicationController
 ##############
 # WATCH
 ##############
-
 
   def watch
     ms = []
@@ -228,6 +234,15 @@ class Api::V1::ChildrenController < ApplicationController
       @reflections << serialized
     end
 
+    uniq_ages = categorized_qs.map{ |k,v| v.age }.uniq.sort
+    @lengths = Hash.new
+    if uniq_ages.size == 1
+      @lengths[uniq_ages[0]] = 125
+    else
+      uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
+    end
+
+
     third_from_start = categorized_qs.values[2] 
     third_from_end = categorized_qs.values[-3]
     
@@ -237,6 +252,7 @@ class Api::V1::ChildrenController < ApplicationController
     @avg_answers = @reflections - @str_answers - @weak_answers
 
     render :json => {
+      :lengths => @lengths,
       :reflections => @reflections,
       :strong => @str_answers,
       :weak => @weak_answers,

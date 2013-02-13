@@ -147,6 +147,7 @@ class Child < ActiveRecord::Base
         question_text = truncate(question_text, :length => truncate, :separator => ' ')
       end
       question_text = question_text.gsub(/#first#|#Nickname#/, "#{self.first_name}")
+      question_text = question_text.gsub("<br />", "\n")
       return question_text.html_safe
   end
 
