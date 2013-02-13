@@ -1,0 +1,48 @@
+<div class="setting-block">      
+      <div class="invitees-image round-corners" style="<%= "background-image: url(#{relation.user.get_image_src(:profile_small_invites)})" %>"></div>
+      <div class="relative-info">
+        <div class="bold"><%= relation.user.get_user_name %></div>
+        <div><span class="bold"><%=  relation.member_type %></span></div>
+        <div><%= relation.user.email %></div>
+        
+        <%# admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{@family.name}'s family, edit or delete posts, and other awesome powers." %>
+        <%# remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name} from your account?" %>
+        <div class="invitees-buttons">
+          <%= link_to "Remove From Account", remove_user_path(:relation_id => relation.id), :class => "btn btn-grey right remove-user-btn", :data_user => relation.user.get_user_name, :data_family => @family.name  %>
+          <%= link_to "Edit", edit_relation_path(:relation_id => relation.id), :class => "btn right edit-user-relation-btn" %>
+          <%= link_to "Make Admin", make_admin_path(:relation_id => relation.id), :class => "btn right make-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.name unless admin %>
+          <%= link_to "Remove Admin Powers", remove_admin_path(:relation_id => relation.id), :class => "btn right remove-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.name if admin %>                    
+        </div>
+
+        <div class="clear"></div>
+        <div class="child-access-wrapper">
+          <a href="#" class="has-access-btn btn">Has Access to &rArr;</a>
+          <div class="access-select-wrapper round-corners">
+            <table>
+                  <thead>
+                    <th></th><th>Yes</th><th>No</th>
+                  </thead>
+            </table>
+            <% @children.each do |child| %>              
+              <%= form_tag update_access_path(:child_id => child.id, :user_id => relation.user_id) do %>
+                <% has_access = @children_access[relation.user_id].detect{|r| r.child.id == child.id}.access %>
+                <table>
+                  <thead>
+                    <th></th><th></th><th></th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= child.first_name %></td>
+                      <td><%= radio_button_tag "child_access", true, has_access, :class => "access-radio" %></td>
+                      <td><%= radio_button_tag "child_access", false, !has_access, :class => "access-radio" %></td>
+                    </tr>
+                  </tbody>
+                </table>                                                                
+              <% end %>            
+            <% end %>
+          </div>
+        </div>
+       
+        <div class="clear"></div>
+      </div>
+</div>

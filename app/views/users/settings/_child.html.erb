@@ -1,0 +1,13 @@
+<div class="single-family-child">
+    <%= image_tag child.get_image_src(:profile_medium), :class => "round-corners left"  %>
+    <div id="childs-details-right" class="left">
+      <div><span class="child-details-label">Name:</span><%= child.first_name %></div>
+      <div><span class="child-details-label">Birth date:</span><%= child.birth_date.strftime('%B %-d, %Y') %></div>
+      <div><span class="child-details-label">Gender:</span><%= child.gender.capitalize %></div>
+      <div class="edit-buttons">
+        <%= link_to "Edit", edit_child_path(:id => child.id), :class => "btn" %>
+        <%= link_to "Remove", delete_child_children_path(:child_id => child.id), :class => "btn", :method => 'delete', :confirm => "Are you sure you want to remove #{child.first_name.capitalize}?" %>
+      </div>
+    </div>    
+</div>
+<div class="clear"></div>

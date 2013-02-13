@@ -1,0 +1,44 @@
+
+        <div id="invite-others" class="tab">
+          <div class="tab-inner-right first">
+            <div class="pointing-arrow"></div>
+            <div id="invite-others-wrapper">
+              <%= render :partial => "families/invitations/invitations_form" %>
+            </div>
+          </div>
+
+          <% if false %>
+            <div class="tab-inner-left" class="hidden">
+
+              <div id="invite-others-prompt">
+                <h4>You have no invites at this time.</h4>
+                <p>
+                  Want to join someone's BabyFolio?<br/>
+                  Ask them to invite you!
+                </p>
+              </div>
+
+
+
+                <% @pending_invitations.each_with_index do |r,idx| %>
+                  <div class="single-relation setting-block">
+                    <div class="invitation-child-image round-corners left" style="<%= "background-image: url(#{r.child.get_image_src(:profile_small_invites)})" %>"></div>
+                    <div class="invitation-child-details">
+                        <div class="bold"><%= r.child.first_name %> <%= r.child.last_name %></div>
+                        <div><%= r.get_opposite_relation_type.downcase %> of <%= r.inviter.get_user_name %></div>
+
+                        <div class="invitation-buttons">
+                          <%= link_to "Decline", confirmation_update_relation_path(:token => r.token), :remote => true, :method => :post, :class => 'btn decline-btn relation-btn' %>
+                          <%= link_to "Accept", confirmation_update_relation_path(:token => r.token, :accept => 1), :remote => true, :method => :post, :class => 'btn relation-btn' %>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                <% end %>
+
+
+
+            </div>
+          <% end %>
+        </div>
+

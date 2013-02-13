@@ -13,17 +13,25 @@ class User < ActiveRecord::Base
   has_many :user_emails, :autosave => true
   has_many :user_actions, :autosave => true
 
-  has_many :relations, :autosave => true
+  has_many :relations, :autosave => true  
   has_many :invites, :class_name => 'Relation'
-  has_many :children, :through => :relations, :conditions => "relations.accepted = 1"
-  has_many :my_children, :through => :relations, :conditions => ["relations.accepted = 1 AND relations.is_admin = ?", true], :source => :child
-  has_many :all_children, :through => :relations
-  has_many :logs
-  has_many :media, :class_name => "Media"
+
+  has_many :accessible_relations, :class_name => 'Relation', :conditions => {"accepted" => 1, "access" => true }
+  has_many :all_children, :through => :relations, :source => :child
+  has_many :children, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.access" => true }, :source => :child
+  has_many :own_children, :through => :relations, :conditions => {"relations.accepted" => 1 , "relations.is_admin" => true, "relations.access" => true}, :source => :child
+  has_many :other_children, :through => :relations, :conditions => {"relations.accepted" => 1 , "relations.is_admin" => false, "relations.access" => true}, :source => :child
+  has_many :families, :through => :children, :source => :family,:uniq => true
+  has_many :own_families, :through => :own_children, :source => :family, :uniq => true
+  has_many :other_families, :through => :other_children, :source => :family, :uniq => true
   
+  has_many :media, :class_name => "Media"  
   has_one :attachment, :as => :object
   has_one :profile_media, :through => :attachment, :source => :media
+  
   has_many :timeline_entries, :class_name => "TimelineEntry"
+
+  has_many :logs
 
   before_create :add_options
   
@@ -120,7 +128,7 @@ class User < ActiveRecord::Base
   def send_step_3_email
     user_action = UserAction.find_by_user_id_and_title(self.id, 'child_added')
     if user_action && (user_action.created_at + 30.minutes < DateTime.now)
-      child = user_action.child || self.children.first
+      child = user_action.child || self.own_children.first
 
       question = Question.includes(:milestone).find_by_category('l', :conditions => ["questions.age <= ? ", child.months_old], :order => 'questions.age DESC')
       milestone = question.milestone if question
@@ -144,7 +152,7 @@ class User < ActiveRecord::Base
     users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < ?", DateTime.now - 7.days])        
     
     users.each do |user|
-      child = user.children.first      
+      child = user.own_children.first
       question = child.get_first_answered_question      
       
       if question
@@ -172,7 +180,7 @@ class User < ActiveRecord::Base
     users = User.select_users_for_newsletter
 
     users.each do |user|
-      user.my_children.each do |child|
+      user.own_children.each do |child|
         if child.answers.any?
           email = user.user_emails.find_or_initialize_by_title_and_child_id('newsletter', child.id)
           current_category = email.description unless email.new_record?
@@ -198,7 +206,7 @@ class User < ActiveRecord::Base
     users = User.select_inactive_users
 
     users.each do |user|
-      child = user.my_children.first
+      child = user.own_children.first
       if child
         UserMailer.inactive(user, child).deliver
         user.send_email!('inactive', :updated_at => DateTime.now)

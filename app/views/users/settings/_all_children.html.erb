@@ -1,0 +1,29 @@
+<div class="tab-inner-right pending-invitations">
+  <h3>Invites you've accepted:</h3>
+  <% @all_children_relations.each do |family, relations| %>
+    <div class="setting-block">
+      <div class="family-name-block bold left">
+        <%= family %>'s:
+      </div>
+      <div class="children-block left">
+        <% relations.each do |relation| %>
+          <div class="single-child-relation">
+            <div class="invitees-image round-corners" style="<%= "background-image: url(#{relation.child.get_image_src(:profile_small_invites)})" %>"></div>
+            <div class="relative-info">
+              <p><%= relation.child.first_name %></p>
+              <p><%= relation.child.birth_date.to_date %></p>
+              <p><%= relation.child.gender %></p>
+              
+            </div>
+            <div class="relative-info visit-timeline-btn">
+              <%= link_to "Visit Timeline", visit_timeline_path(:child_id => relation.child.id), :class => "btn right" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="clear"></div>
+      
+      
+    </div>
+  <% end %>
+</div>

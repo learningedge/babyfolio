@@ -1,0 +1,23 @@
+<div id="family-select-wrapper">  
+  <%= form_tag change_family_path do  %>
+    <span>Family: </span>
+    <select id="family-select" name="family_id">
+      <% if current_user.own_families.any? %>
+        <optgroup label="-- My Families --">
+            <% current_user.own_families.each do |of| %>
+                <option value="<%= of.id %>" <%= "selected" if @family.id == of.id %>><%= of.name %>'s</option>
+            <% end %>
+        </optgroup>
+      <% end %>
+
+      <% if current_user.other_families.any? %>
+        <optgroup label="-- Other Families --">
+            <% current_user.other_families.each do |of| %>
+                <option value="<%= of.id %>"  <%= "selected" if @family.id == of.id %>><%= of.name %>'s</option>
+            <% end %>
+        </optgroup>
+      <% end %>
+
+    </select>
+  <% end %>
+</div>

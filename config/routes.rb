@@ -13,7 +13,9 @@ Babyfolio::Application.routes.draw do
 
   get '/user/settings/invite' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }
   post '/user/settings/update_options/:token' => "users#update_options", :as => :update_user_options
-  get '/user/settings(/:chid)' => "users#settings", :as => :settings
+  post '/user/settings/update_zipcode/user_id' => "users#update_zipcode", :as => :update_user_zipcode
+  get '/user/settings/tab/:tab' => "users#settings_tab", :as => :settings_tab
+  get '/user/settings(/:family_id)' => "users#settings", :as => :settings  
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
   get "contact" => "home#contact", :as => :contact, :defaults => { :is_contact => true }
@@ -62,6 +64,7 @@ Babyfolio::Application.routes.draw do
     collection do
       get 'change-child' => "children#switch_child", :as => :switch
       get '/add' => "children#new", :as => :new_child
+      delete '/delete/:child_id' => "children#destroy", :as => :delete_child
 #      get '/add_friends' => "children#add_friends", :as => :add_friends
 #      get '/add_family' => "children#add_family", :as => :add_family
       post '/create_relations' => "children#create_relations", :as => :create_relations
@@ -84,20 +87,32 @@ Babyfolio::Application.routes.draw do
   post 'timeline/invite' => "timeline#invite_redirect", :as => :timeline_invite_redirect
   post 'timeline/remind_later' => "timeline#remind_later", :as => :timeline_remind_later
   post 'timeline/dont_remind' => "timeline#dont_remind", :as => :timeline_dont_remind
-  get 'timeline/(:child_id)' => "timeline#show_timeline", :as => :show_timeline
-  
-
+  get 'timeline' => "timeline#show_timeline", :as => :show_timeline
+  get 'visit-timeline/:child_id' => "timeline#visit_timeline", :as => :visit_timeline
   # TIMELINE 
 
 
 #  RELATIONS
-  resources :relations, :only => [:destroy, :create] do      
-      get 'make-admin' => "relations#make_admin", :as => :make_admin
-  end
-  get 'new-relation/:child_id' => "relations#new", :as => :new_relation
-  post 'invite-users' => "relations#invite_users", :as => :invite_users
-  get 'invitations-form' => "relations#show_invitations_form", :as => :show_invitations_form
+#  resources :relations, :only => [:destroy, :create] do
+#  end
+#  get 'new-relation/:child_id' => "relations#new", :as => :new_relation
 #  RELATIONS
+
+#  FAMILIES
+    post 'invite-users' => "families#invite_users", :as => :invite_users
+    get 'invitations-form' => "families#show_invitations_form", :as => :show_invitations_form
+    get 'make-admin' => "families#make_admin", :as => :make_admin
+    get 'remove-admin' => "families#remove_admin", :as => :remove_admin
+    delete 'remove-user-from-family' => "families#remove_user", :as => :remove_user
+    post 'change-family' => "families#change_family", :as => :change_family
+    post 'update-access/:child_id/:user_id' => "families#update_access", :as => :update_access
+    get 'resend-invitation/:relation_id' =>  "families#resend_invitation", :as => :resend_invitation
+    get 'rescind-invitation/:relation_id' =>  "families#rescind_invitation", :as => :rescind_invitation
+    get 'edit-family-relation/:relation_id' => "families#edit_relation", :as => :edit_relation
+    post 'update-family-relation' => "families#update_relation", :as => :update_relation
+#  FAMILIES
+
+
   
 #  USERS
   resource :user, :as => 'account' do

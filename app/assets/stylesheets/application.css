@@ -659,21 +659,46 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 
 /* SETTINGS */
 
+#settings-left { width: 331px; float: left; margin-top: 10px; }
+#settings-left #family-select-wrapper { margin-bottom: 20px; }
 
-#settings-tabs-ul { background-color: #d6ebf8; box-shadow: 2px 2px 3px #bbb; padding: 12px 8px; position: relative; width: 315px; float: left; margin-top: 10px; }
+/*#permissions-header {  text-align: center; margin-top: 20px; }*/
+#settings-permissions-info { width: 100%; margin-top: 20px; padding: 12px 8px; box-shadow: 2px 2px 3px #bbb; background-color: #d6ebf8;}
+#settings-permissions-info #permissions-top-header { padding-bottom: 15px; }
+#settings-permissions-info #permissions-headers th{  border-bottom: 1px solid #777;  border-top: 1px solid #777; width: 28%; padding: 6px 0; font-size: 14px; text-align: left; padding-left: 10px; background-color: #fdfbe2;}
+#settings-permissions-info #permissions-headers th:first-child { border-right: 1px solid #777; width: 44%;}
+#settings-permissions-info #permissions-headers th:last-child { border-left: 1px solid #777; }
+#settings-permissions-info .checkmark { background: url(/images/tick.png) no-repeat center center #fdfbe2;; }
+#settings-permissions-info td { padding: 6px 0; font-size: 14px; border-bottom: 1px solid #777;  background-color: #fdfbe2;}
+#settings-permissions-info tr { border-top: 10px solid #777; }
+#settings-permissions-info tr td:first-child { padding-left: 10px; padding-right: 5px; border-right: 1px solid #777;}
+#settings-permissions-info tr td:last-child { border-left: 1px solid #777; }
+
+#settings-tabs-ul { background-color: #d6ebf8; box-shadow: 2px 2px 3px #bbb; padding: 12px 8px; position: relative; width: 315px; }
 #settings-tabs-ul li a { display: inline-block; width: 272px; border: 1px solid #d6ebf8; text-decoration: none !important; color: #006666; font: 15px/32px Arial; padding: 0 20px; margin-bottom: 5px;}
 #settings-tabs-ul li a:hover,
 #settings-tabs-ul .ui-tabs-active a{ border-left: 1px solid #f7a266; border-top: 1px solid #f7a266; border-right: 1px solid #f36c21; border-bottom: 1px solid #f36c21; background-color: #fdfbe2; color: #0c8a9a;}
 #settings-tabs-ul .settings-child-link,
 #settings-tabs-ul li a.new-child-link { cursor: pointer; }
 #settings-wrapper .tab .tab-inner-right { float: right; position: relative;  width: 570px; padding: 15px 15px 30px; margin-right: 50px; margin-top: 10px; margin-bottom: 20px; border-left: 1px solid #f7a266; border-top: 1px solid #f7a266; border-right: 1px solid #f36c21; border-bottom: 1px solid #f36c21; background-color: #fdfbe2; min-height: 133px;}
+#settings-wrapper .tab .tab-inner-right h3 { text-align: center; margin-bottom: 20px; }
 #settings-wrapper .tab .tab-inner-left { background-color: #d6ebf8; box-shadow: 2px 2px 3px #bbb; padding: 12px 8px; position: relative; width: 315px; float: left; margin-top: 30px; }
 #settings-wrapper .tab .tab-inner-left p { padding: 10px 6px; }
 #settings-wrapper .tab .tab-inner-right  .pointing-arrow{ position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: -32px; top: 0;}
 #settings-wrapper #your-information .pointing-arrow { top: 15px; }
 #settings-wrapper #your-information #user-details-right { height: 155px; margin-left: 20px; position:relative;}
-#settings-wrapper #current-child #childs-details-right { height: 155px; margin-left: 20px; position: relative;}
-#settings-wrapper .tab .edit-buttons { position: absolute; left: 0; bottom: 0; width: 645px;  }
+
+.family-no-admin { text-align: center; }
+.family-no-admin .create-own-bf-btn { margin-top: 20px; padding: 5px 10px; background-image: none !important; }
+
+#settings-wrapper #my-family .my-family-header { text-align: center; }
+#settings-wrapper #my-family .single-family-child { padding-top: 10px; margin-top: 15px;  border-top: 1px solid #f7a266; }
+#settings-wrapper #my-family #childs-details-right { height: 155px; margin-left: 20px; position: relative; }
+#settings-wrapper #your-information #user-details-right .my-info-label,
+#settings-wrapper #my-family #childs-details-right .child-details-label { display: inline-block; width: 120px; line-height: 22px; font-weight: bold; }
+#settings-wrapper #your-information #user-details-right .my-info-label { line-height: 30px; }
+#settings-wrapper #my-family .my-family-buttons { margin-top: 15px; padding-top: 10px; border-top: 1px solid #f7a266; text-align: right; }
+*#settings-wrapper .tab .edit-buttons { position: absolute; left: 0; bottom: 0; width: 645px;  }
 #settings-wrapper .error-header { color: #ED1F24; margin: 15px 0;  }
 #settings-wrapper #invite-others #success-message { text-align: center; margin-top: 20px; }
 #settings-wrapper #invite-others .error-message { color: #ED1F24; font-size: 12px; }
@@ -685,11 +710,30 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #settings-wrapper #invite-others .invitation-buttons a { padding: 3px 10px; margin-right: 5px; }
 #settings-wrapper #invite-others #invite-others-prompt { text-align: center; }
 #settings-wrapper #invite-others .invite-more-btn-wrapper { text-align: center; margin-top: 30px;}
-#settings-wrapper #current-child .setting-block { margin-bottom: 20px; border-bottom: 1px solid #F36C21; padding-bottom: 15px; }
-#settings-wrapper #current-child .invitees-image  { display: inline-block; width: 75px; height: 75px; background-size: cover; background-position: center center; background-repeat: no-repeat; vertical-align: middle;}
-#settings-wrapper #current-child .setting-block .relative-info { margin-left: 20px; display: inline-block; vertical-align: middle; max-width: 450px;}
-#settings-wrapper #current-child .setting-block .relative-info .invitees-buttons { float: left; margin-top: 10px; }
-#settings-wrapper #current-child .setting-block .relative-info .invitees-buttons a { margin-right: 15px; }
+#settings-wrapper #family-friends-information .setting-block { margin-bottom: 20px; border-bottom: 1px solid #F36C21; padding-bottom: 15px; }
+#settings-wrapper #family-friends-information .invitees-image  { display: inline-block; width: 75px; height: 75px; background-size: cover; background-position: center center; background-repeat: no-repeat; vertical-align: middle;}
+#settings-wrapper #family-friends-information .setting-block .relative-info { margin-left: 20px; display: inline-block; vertical-align: middle; max-width: 450px;}
+#settings-wrapper #family-friends-information .setting-block .relative-info .invitees-buttons { float: left; margin-top: 10px; }
+#settings-wrapper #family-friends-information .setting-block .relative-info .invitees-buttons a { margin-right: 15px; }
+
+#settings-wrapper #family-friends-information .family-name-block { width: 100px; }
+#settings-wrapper #family-friends-information .single-child-relation { margin-bottom: 15px; }
+#settings-wrapper #family-friends-information .single-child-relation .relative-info { width: 208px; }
+#settings-wrapper #family-friends-information .single-child-relation .visit-timeline-btn { width: auto; }
+
+.child-access-wrapper { position: relative; margin-top: 10px; display: inline-block;}
+.access-select-wrapper { display: none; position: absolute; left: 100%; top: 0; border: 1px solid #F7A266; padding: 5px 10px; background-color: #FDFBE2}
+.access-select-wrapper table { width: 160px; font-size: 14px;}
+.access-select-wrapper table th:first-child{ width: 100px; }
+.access-select-wrapper table tr td { text-align: center; }
+.access-select-wrapper table tr td:first-child { text-align: left; }
+.child-access-wrapper:hover .access-select-wrapper { display: block; }
+
+.pending-invitations .btn { margin-left: 15px;}
+
+.my-pending-invitations p{ text-align: center; padding: 30px; }
+.my-pending-invitations .single-relation p { text-align: left; padding: 0; padding-bottom: 10px; }
+.my-pending-invitations .single-relation { border-bottom: 1px solid #F36C21; padding-bottom: 20px;}
 
 #user-children-settings .user-settings-details,
 #user-children-settings .child-settings-details { height: 158px; font: 15px/25px Arial; }
@@ -719,6 +763,8 @@ h4.arvo.relation-added { width: 400px; padding-top: 40px; }
 .dialog h4 { text-align: center; font-size: 18px; margin-bottom: 20px }
 .dialog p { padding: 0 20px; }
 .dialog .dialog-buttons { padding: 0 20px; text-align: right; margin-top: 15px;}
+.dialog-inner-content { position: relative; }
+.dialog-inner-content .dialog-inner-cover { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: #fff; }
 
 #change-password-wrapper input[type="password"] { width: 175px; }
 #change-password-wrapper .row { margin-bottom: 10px; }
@@ -726,10 +772,21 @@ h4.arvo.relation-added { width: 400px; padding-top: 40px; }
 #change-password-wrapper .submit .btn { margin-right: 46px }
 #change-password-wrapper { text-align: center; }
 
+/* RELATION EDIT */
+
+.update-relation-form { margin-top: 20px; }
+.update-relation-form .label { text-align: left; }
+.update-relation-form .update-relation-back-btn { padding: 5px 10px; margin-right: 10px; margin-left: 153px; }
+.update-relation-form .update-relation-btn { background-position: 78px center; }
+
+
 /* USER EDIT */
 
 #user-edit .btn-big { background-position: 80px center; margin-top: 30px; }
-#user-edit #edit-user-buttons { margin-left: 150px; }
+#user-edit .btn-big.show-password-change { padding: 5px 10px; background-image: none; margin-right: 10px;}
+#user-edit #edit-user-buttons,
+#user-edit #deactivate-btn { margin-left: 150px; }
+#user-edit #deactivate-btn { display: inline-block; margin-top: 10px; }
 
 /* CHILD EDIT */
 

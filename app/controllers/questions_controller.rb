@@ -1,7 +1,5 @@
 class QuestionsController < ApplicationController
   before_filter :require_child
-  skip_before_filter :clear_family_registration
-
 
   def initial_questionnaire    
     @step = 1    

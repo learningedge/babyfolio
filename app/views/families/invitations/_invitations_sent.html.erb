@@ -1,0 +1,10 @@
+<%#*<h4 id="success-message">Invitations have been sent.</h4>%>
+<h4>Invitations have been sent. If you want to make someone (e.g. Mom) an admin like yourself, you can do that by clicking the button below.</h4>
+
+<div class="invite-more-btn-wrapper">  
+  <%= link_to "Change Admin Status", settings_tab_path(:tab => 'family-friends-information'), :class => "btn invite-more-btn" %><br/>
+  or<br/>
+  <%= link_to "Invite more family and friends", show_invitations_form_path, :remote => true, :disable_with => "Please wait...", :class => "btn invite-more-btn" %>
+</div>
+
+

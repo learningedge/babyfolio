@@ -5,6 +5,11 @@ class TimelineController < ApplicationController
   before_filter :require_child
   before_filter :require_seen_behaviours, :only => [:show_timeline]  
 
+  def visit_timeline
+    set_current_child params[:child_id]
+    redirect_to show_timeline_path
+  end
+
   def show_timeline
     @children = current_user.children    
     @selected_child = @children.find_by_id(current_child.id)

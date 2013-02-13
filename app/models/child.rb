@@ -7,9 +7,9 @@ class Child < ActiveRecord::Base
  
   attr_accessor :profile_image
 
-  has_many :relations
-  has_many :users, :through => :relations, :conditions => "relations.accepted = 1"
-  has_many :admins, :through => :relations, :conditions => ["relations.accepted = 1 AND relations.is_admin = ?", true], :source => :user
+  has_many :relations, :dependent => :destroy
+  has_many :users, :through => :relations, :conditions => {"relations.accepted" => 1}, :source => :user
+  has_many :admins, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.is_admin" => true}, :source => :user
 
   has_one :attachment, :as => :object
   has_one :media, :through => :attachment  
@@ -20,6 +20,7 @@ class Child < ActiveRecord::Base
   has_many :user_emails
 
   belongs_to :user_action
+  belongs_to :family, :autosave => true
 
   validates :first_name, :presence => true
   validates :birth_date, :presence => true

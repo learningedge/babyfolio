@@ -18,10 +18,10 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "Forgot password")
   end
 
-  def invite_user relation
+  def invite_user relation, family
     @user = relation.user
     @inviter = relation.inviter
-    @child = relation.child
+    @family = family
     @url = confirmation_accept_invitation_url
     @url += "?token=" + relation.token
     mail(:to => @user.email, :subject => "You've been invited to join BabyFolio!")
@@ -77,6 +77,7 @@ class UserMailer < ActionMailer::Base
 
   def invitation_accepted relation
     @user = relation.user
+    @family = relation.child.family
     @inviter = relation.inviter
     @child = relation.child
     mail(:to => @user.email, :subject => "#{@user.get_user_name} has joined #{@child.first_name}'s BabyFolio!")

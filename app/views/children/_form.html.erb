@@ -16,9 +16,13 @@
       </div>
       <div class="row">
         <span class="label">
-            <%= f.label :last_name, "Baby's Last Name" %>
+            <%= label_tag "family_name", "Family Name" %>
         </span>
-        <%= f.text_field :last_name, :value => child.last_name %>
+        <% if current_user.own_families.empty? %>
+          <%= text_field_tag "family_name", child.last_name %>
+        <% else %> 
+          <%= select_tag "family_name", options_for_select(current_user.own_families.map { |fam| fam.name }) -%>
+        <% end %>
       </div>
       <div class="row">
         <span class="label">

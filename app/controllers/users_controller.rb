@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   layout "child", :only => [:settings, :edit]
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload, :settings, :update_password]
-  before_filter :require_child, :only => [:settings]
+  before_filter :require_family, :only => [:settings]
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]
   before_filter :require_seen_behaviours, :only => [:settings]
 
@@ -46,27 +46,57 @@ class UsersController < ApplicationController
     end
   end
 
+  def settings_tab
+    flash[:tab] = params[:tab]
+    redirect_to settings_path
+  end
+
   def settings
-    @children = current_user.children    
-    @selected_child = @children.find_by_id(params[:chid])
-    @selected_child ||= current_child
-    set_current_child(@selected_child.id)
-    @current_relation = @selected_child.relations.find_by_user_id(current_user.id)
+    @family = current_family
+    @is_admin = @family.is_admin?(current_user)
+
+    if @is_admin
+      @children = current_user.children.where('children.family_id' => @family.id).all
+
+      @family_admin_users = @family.admin_relations.includes(:user).where(['relations.user_id != ?', current_user.id]).uniq_by{|r| r.user.id}
+      @family_member_users = @family.member_relations.includes(:user).where(['relations.user_id != ?', current_user.id]).uniq_by{|r| r.user.id}
+
+      @children_access = []
+      (@family_admin_users.map{|r| r.user} + @family_member_users.map{|r| r.user}).each do |user|
+        @children_access[user.id] = user.relations.joins(:child).where({"children.family_id" => @family.id}).all
+      end
+
+      @awaiting_family_invitations = @family.awaiting_relations.includes(:user).uniq_by{|r| r.user_id}
+    end
     
-    @invited_by_me = Relation.find_all_by_inviter_id_and_accepted_and_child_id(current_user.id, [0, 1], @selected_child.id, :include => [:child, :inviter])
-    @pending_invitations = current_user.relations.find_all_by_accepted(0, :include => [:user, :child])
-
-    @child = Child.new
-    @child.last_name = current_user.last_name if current_user.last_name.present?
-
+    @all_children_relations = current_user.accessible_relations.includes([:child => :family]).where('relations.inviter_id IS NOT NULL').group_by{|r| r.child.family.name}
+    @my_pending_invitations = current_user.relations.includes([:child, :user]).find_all_by_accepted(0).uniq_by{|r| r.child.family_id}
+    
+    
+    case flash[:tab]
+      when "my_family"
+        @current_tab = 1
+      when "family-friends-information"
+        @current_tab = @is_admin ? 2 : 1
+      else
+        @current_tab = 0
+    end
+    @current_tab = 3 if params[:is_invite] && @is_admin
+    
     @invitation_emails = []
     Relation::TYPE_KEYS.each do |k|
       @invitation_emails << {:email => '', :type => k, :error => nil }
-    end        
+    end
+    render :template => "users/settings/settings"
   end
 
-  def update_options
-    
+  def update_options    
+  end
+
+  def update_zipcode
+    current_user.zipcode = params[:zipcode] if params[:zipcode].present?
+    current_user.save    
+    redirect_to params[:return_url]
   end
 
   def edit

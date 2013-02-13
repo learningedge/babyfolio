@@ -1,0 +1,10 @@
+<div class="tab-inner-right my-pending-invitations">
+  <% if @my_pending_invitations.present? %>
+    <h3>Invites you've received:</h3>
+    <%= render :partial => "confirmation/accept_relations", :locals => {:relations => @my_pending_invitations} %>
+  <% else %>
+    <h3>You have no invites at this time.</h3>
+    <p>Want to join someone's BabyFolio?  Ask them to invite you!</p>
+  <% end %>
+  
+</div>

@@ -19,14 +19,11 @@ class ChildrenController < ApplicationController
 
   def create
     @child = Child.new(params[:child])
-    @child.media = MediaImage.find_by_id(params[:child_profile_media])    
+    @child.media = MediaImage.find_by_id(params[:child_profile_media])
+    if @child.valid?
+      # ==> add new relation for user and all family admins/members
+      Family.user_added_child(current_user, @child, params[:family_name], params[:relation_type])  
 
-    if @child.save
-      rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
-      rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
-      rel.save
-      UserAction.find_or_create_by_user_id_and_title(current_user.id, "child_added", :child_id => @child.id)
-      current_user.reset_perishable_token!            
       set_current_child @child.id
       redirect_to registration_initial_questionnaire_path
     else
@@ -54,6 +51,10 @@ class ChildrenController < ApplicationController
     end
   end
 
+  def destroy
+    
+  end
+
   def reflect
     categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category}
     categorized_qs.each do |k,v|
@@ -73,25 +74,13 @@ class ChildrenController < ApplicationController
         @weak_answers = [@avg_answers.pop]
         @str_answers = [@avg_answers.shift]
     end
-    @avg_answers = @avg_answers.sort_by{|q| Question::CATS_ORDER.index(q.category)  }
-
-#    first_str = categorized_qs.values[0]
-#    last_weak = categorized_qs.values[-1]
-#
-#    unless first_str.age == last_weak.age
-#      @str_answers = categorized_qs.to_a.first #reject{ |k,v| v.age != first_str.age } unless first_str.nil?
-#      @weak_answers = categorized_qs.to_a.reverse.first #.reject{ |k,v| v.age != last_weak.age } unless last_weak.nil?
-#    end
-#    @avg_answers = categorized_qs
-#    @avg_answers = categorized_qs.reject{|k,v| @str_answers[0] == k} if @str_answers.present?
-#    @avg_answers = @avg_answers.reject{|k,v| @weak_answers[0] == k} if @weak_answers.present?
+    @avg_answers = @avg_answers.sort_by{|q| Question::CATS_ORDER.index(q.category)  }.sort_by{|q| q.age}.reverse
 
     @empty_answers = []
     Question::CATS_ORDER.each do |k,v|
       @empty_answers << k if categorized_qs[k].nil?
     end
 
-#    render :xml => @avg_answers
     @str_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
                   <p>Current Strength - #{current_child.first_name} is developing more quickly at <INTELLIGENCE> development based on the actual behaviors #he/she# has already exhibited. Continue to strengthen this strength.</p>
@@ -115,6 +104,7 @@ class ChildrenController < ApplicationController
 
     @reflect_visited = current_user.done_action?('reflect_visited')
     current_user.do_action!('reflect_visited')
+
   end
 
   def play
@@ -216,8 +206,9 @@ class ChildrenController < ApplicationController
 
     questions = current_child.max_seen_by_category
 
-    questions.each do |q|      
-      current_questions << Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC", :limit => 1)
+    questions.each do |q|
+      question = Question.includes(:milestone).find_by_category(q.category, :conditions => ["questions.age > ?", q.age], :order => "questions.age ASC")
+      current_questions << question if question
     end        
 
     if params[:mid]
@@ -307,6 +298,7 @@ class ChildrenController < ApplicationController
 
   def edit
     @child = Child.find(params[:id])
+    flash[:tab] = 'my_family'
     render :layout => "child"
   end
 

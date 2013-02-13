@@ -1,0 +1,338 @@
+<% content_for :middle_bar do %> 
+    <span>You can change your account settings and manage your circles here.</span>
+<% end %>
+
+<div id="settings-wrapper">  
+  <div id="settings-left">
+    <%= render :partial => "users/settings/family_select" %>
+
+    <ul id="settings-tabs-ul">
+      <% if @is_admin %>
+        <li><a href="#your-information">My Information</a></li>
+        <li><a href="#my-family" class="my-family-tab-link">My Family</a></li>
+        <li><a data-href="<%= new_child_children_path %>" class="new-child-link">Add Another Baby To My Family</a></li>
+        <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
+        <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+      <% else %>
+        <li><a href="#your-information">My Information</a></li>
+        <li><a data-href="<%= new_child_children_path %>" class="new-child-link">Set Up My Own Babyfolios</a></li>
+        <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
+      <% end %>
+    </ul>
+
+    <%= render :partial => "users/settings/permissions_info" if @is_admin %>
+  </div>
+
+  <!------------------->
+  <!-- YOUR INFO TAB -->
+  <!------------------->
+  <div id="your-information" class="tab">
+    <div class="tab-inner-right">
+      <div class="pointing-arrow"></div>
+      <%= image_tag current_user.get_image_src(:profile_medium), :class => "round-corners left"  %>
+      <div id="user-details-right" class="left">
+          <div><span class="my-info-label">Name: </span><%= current_user.get_user_name %></div>
+
+          <div><span class="my-info-label">Email: </span><%= current_user.email %></div>
+          <div>              
+              <%= form_tag update_user_zipcode_path do %>
+                <%= hidden_field_tag "return_url", request.url  %>            
+                <span class="my-info-label">Zipcode: </span><%= text_field_tag 'zipcode', current_user.zipcode, :placeholder => "Zipcode" %>
+                <%= submit_tag "Submit", :class => "btn" %>
+              <% end %>
+          </div>
+
+          <div class="edit-buttons">
+            <%= link_to "Edit", edit_account_path, :class => "btn" %>            
+          </div>
+          
+      </div>
+    </div>
+  </div>
+
+
+  <% if @is_admin %>
+      <div id="my-family" class="tab">
+        <div class="tab-inner-right first">
+            <div class="pointing-arrow"></div>
+            <h3 class="my-family-header"><%= @family.name %>'s Family</h3>
+            <% @children.each do |child| %>
+              <%= render :partial => "users/settings/child", :locals => {:child => child} %>
+            <% end %>
+
+            <div class="my-family-buttons">
+              <a href="<%= new_child_children_path %>" class="btn">Add a Baby</a>
+            </div>
+        </div>
+      </div>
+  <% end %>
+
+
+  <div id="family-friends-information" class="tab">
+    <div class="tab-inner-right first">
+        <div class="pointing-arrow"></div>
+
+        <% if @is_admin %>
+            <h3>Friends and Family invited to your Babyfolio</h3>
+            <% if @family_admin_users.present? %>
+                <h4>Admins</h4>
+                <% @family_admin_users.each do |relation| %>
+                  <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => true }%>
+                <% end %>
+            <% end %>
+            <% if @family_member_users.present? %>
+                <h4>Members</h4>
+                <% @family_member_users.each do |relation| %>
+                  <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => false }%>
+                <% end %>
+            <% end %>
+        <% else %>
+            <div class="family-no-admin">
+              <h4>You currently don't have a BabyFolio for your family. If you'd like to create one for your baby, just click on the button below.</h4>
+              <%= link_to "Create BabyFolio", new_child_children_path, :class => "btn btn-big create-own-bf-btn" %>
+            </div>
+        <% end %>
+    </div>
+    <%= render :partial => "users/settings/awaiting_invitations" if @is_admin && @awaiting_family_invitations.present?  %>
+    <%= render :partial => "users/settings/all_children" if @all_children_relations.present?  %>
+    <%= render :partial => "users/settings/my_pending_invites" %>
+              
+  </div>
+
+  <!----------------->
+  <!-- INVITES TAB -->
+  <!----------------->
+  <%= render :partial => "users/settings/invite_others" if @is_admin %>
+
+</div>
+
+<!--------------->
+<!--- Dialogs  -->
+<!--------------->
+
+
+<% if @is_admin %>
+  <div id="confirm-removal-dialog" class="dialog">
+    <h4 class="arvo">Remove <span class="user-to-remove arvo-bold"></span>?</h4>
+    <p>
+      Are you sure you want to remove <span class="user-to-remove bold"></span>? They will no longer be able to be part of <span class="family-to-remove bold"></span> family.
+    </p>
+    <div class="dialog-buttons">
+      <%= link_to "Yes", "#", :method => :delete, :disable_with => 'Processing...', :class => "btn yes-remove-user" %>
+      <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+    </div>
+  </div>
+
+  <div id="confirm-admin-dialog" class="dialog">
+    <h4 class="arvo">Make <span class="user-to-remove arvo-bold"></span> Admin?</h4>
+    <p>
+      Are you sure you want to make <span class="user-to-remove bold"></span> an admin? They will be able to invite and remove people from <span class="family-to-remove bold"></span> family, edit or delete posts, and other awesome powers.
+    </p>
+    <div class="dialog-buttons">
+      <%= link_to "Yes", "#", :disable_with => 'Processing...', :class => "btn yes-remove-user" %>
+      <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+    </div>
+  </div>
+
+  <div id="confirm-admin-remove-dialog" class="dialog">
+    <h4 class="arvo">Remove <span class="user-to-remove arvo-bold"></span>'s Admin Powers?</h4>
+    <p>
+      Are you sure you want to remove Admin Powers from <span class="user-to-remove bold"></span>? They will become a casual family members.
+    </p>
+    <div class="dialog-buttons">
+      <%= link_to "Yes", "#", :disable_with => 'Processing...', :class => "btn yes-remove-user" %>
+      <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+    </div>
+  </div>
+
+  <div id="confirm-resend-invite-dialog" class="dialog">
+    <h4 class="arvo">Resend invitation</h4>
+    <div class="dialog-inner-content">
+      <p>
+        Want to send a reminder email to <span class="user-to-remove bold"></span>?
+      </p>
+      <div class="dialog-buttons">
+        <%= link_to "Yes", "#", :remote => true, :disable_with => 'Processing...', :class => "btn yes-resend-invite" %>
+        <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+      </div>
+      <div class="dialog-inner-cover hidden">
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="confirm-rescind-invite-dialog" class="dialog">
+    <h4 class="arvo">Rescind invitation</h4>
+    <div class="dialog-inner-content">
+      <p>
+        Want to rescind <span class="user-to-remove bold"></span> invitation?
+      </p>
+      <div class="dialog-buttons">
+        <%= link_to "Yes", "#", :disable_with => 'Processing...', :class => "btn yes-rescind-invite" %>
+        <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+      </div>      
+    </div>
+  </div>
+<% end %>
+
+
+<!--------------->
+<!--- Dialogs  -->
+<!--------------->
+
+  <script type="text/javascript">
+    var currentFamily = <%= @family.id %>;
+    $(function() {
+        setTabs();
+
+        $('.relation-btn').bind('ajax:before', function() {
+          $(this).parents('.single-relation').fadeOut(function() {
+              $(this).remove();
+              if($('.single-relation').length == 0) { $('#invite-others-prompt').removeClass('hidden'); window.location = "<%=  settings_path %>"; }
+           });
+        });
+
+        $('#invite-others .btn').removeAttr('disabled');
+    
+        $('#invite-others-form').live("ajax:success", function(xhr, data) {        
+          $('#invite-others-wrapper').html(data);
+        });
+
+        $('.invite-more-btn').live('click', function() {
+          $('.invite-others-tab-link').click();
+        });
+        
+        $('.invite-more-btn').live('ajax:success', function(xhr, data) {
+          $('#invite-others-wrapper').html(data);
+        });
+
+        $('.clone-relation').live('click', function() {
+          row = $(this).parents('.row');
+          cl = $(row).clone();
+          $(cl).find('#emails_').val('');
+          $(cl).find('.error-message').text('');
+          cl.insertBefore(row);
+        });
+
+        $('#family-select').change(function() {
+          if($(this).val() != currentFamily) {
+            $(this).parents('form').submit();
+          }
+        });        
+        
+        $('.pointing-arrow').css({top : $('#settings-tabs-ul .ui-tabs-active a').position().top + 45});
+
+        $('#settings-tabs-ul > li > a').click(function() {
+          $('.pointing-arrow').css({top : $('#settings-tabs-ul .ui-tabs-active a').position().top + 45});
+        });
+                            
+        $('.tab-inner-right.first').css({minHeight : $('#settings-tabs-ul').height() + 20});
+
+        $('.settings-child-link, .new-child-link').click(function() {
+          document.location = $(this).attr('data-href');
+          return false;
+        });
+
+        $('.remove-user-btn').click(function() {
+          userName = $(this).attr('data_user');
+          familyName = $(this).attr('data_family') + "'s";
+          $('#confirm-removal-dialog .user-to-remove').text(userName);
+          $('#confirm-removal-dialog .family-to-remove').text(familyName);
+          $('#confirm-removal-dialog .yes-remove-user').attr('href', $(this).attr('href'));
+          $('#confirm-removal-dialog').dialog('open');
+          return false;
+        });
+
+        $('.make-admin-btn').click(function() {
+          userName = $(this).attr('data_user');
+          familyName = $(this).attr('data_family') + "'s";
+          $('#confirm-admin-dialog .user-to-remove').text(userName);
+          $('#confirm-admin-dialog .family-to-remove').text(familyName);
+          $('#confirm-admin-dialog .yes-remove-user').attr('href', $(this).attr('href'));
+          $('#confirm-admin-dialog').dialog('open');
+          return false;
+        });
+
+        $('.remove-admin-btn').click(function() {
+          userName = $(this).attr('data_user');
+          familyName = $(this).attr('data_family') + "'s";
+          $('#confirm-admin-remove-dialog .user-to-remove').text(userName);
+          $('#confirm-admin-remove-dialog .family-to-remove').text(familyName);
+          $('#confirm-admin-remove-dialog .yes-remove-user').attr('href', $(this).attr('href'));
+          $('#confirm-admin-remove-dialog').dialog('open');
+          return false;
+        });
+
+        $('.remind-btn').click(function() {          
+          email = $(this).attr('email_data');
+          $('.yes-resend-invite').attr('href', $(this).attr('href'));
+          $('#confirm-resend-invite-dialog .dialog-inner-cover').addClass('hidden');
+          $('#confirm-resend-invite-dialog .user-to-remove').text(email);          
+          $('#confirm-resend-invite-dialog').dialog('open');
+          return false;
+        });
+              
+        $('.rescind-btn').click(function() {
+          email = $(this).attr('email_data');
+          $('.yes-rescind-invite').attr('href', $(this).attr('href'));
+          $('#confirm-rescind-invite-dialog .user-to-remove').text(email);
+          $('#confirm-rescind-invite-dialog').dialog('open');
+          return false;
+        });
+
+        $('#confirm-removal-dialog, #confirm-admin-dialog, #confirm-admin-remove-dialog, #confirm-resend-invite-dialog, #confirm-rescind-invite-dialog').dialog({
+            autoOpen: false,
+            modal: true
+        });
+
+        $('.relation-btn').bind('ajax:before', function() {
+          $(this).parents('.single-relation').fadeOut(function() {
+              $(this).remove();
+           });
+        });
+
+        $('.access-radio').change(function() {
+          var form = $(this).parents('form');
+          $.post($(form).attr('action'), $(form).serialize(), function(data) {
+            console.log(data);
+          });
+
+        });
+
+        <%#*$('#add-relation-btn').live('ajax:success', function(xhr, data) {%>
+          <%#*$('#add-relation-wrapper').html(data).dialog({modal: true});%>
+          <%#*$('#add-relation-wrapper select').selectbox();%>
+        <%#*});%>
+
+        <%#*$('#new-relation-form').live('ajax:success', function(xhr, data) {%>
+          <%#*$('#add-relation-wrapper').html(data);%>
+          <%#*$('#add-relation-wrapper select').selectbox();%>
+        <%#*});%>
+
+    });
+
+    function closeDialog(closeBtn) {
+      $(closeBtn).parents('.dialog').dialog('close');
+    }
+
+    // ======================================
+    // =========== Tab Handling =============
+    // ======================================
+    var onTabChange = function(event, ui) {
+                          if($(ui.panel).is('#invite-others') || $(ui.panel).is('#family-friends-information')) {
+                            $('#settings-permissions-info').removeClass('hidden');
+                          } else { $('#settings-permissions-info').addClass('hidden'); }
+                      }
+
+    function setTabs(){
+      $('#settings-wrapper').tabs({active: <%= @current_tab %>,
+                                   select: onTabChange
+                                 });
+    }
+    // ======================================
+    // =========== Tab Handling =============
+    // ======================================
+  </script>
+
+
+

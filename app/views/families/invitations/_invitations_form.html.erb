@@ -1,5 +1,6 @@
 <%= form_tag invite_users_path, :remote => true, :id => "invite-others-form" do %>
-<p>Invite family and friends to share in <span class="bold"><%= current_child.first_name %>'s</span> unique story. Enter their email and we'll send them a eprsonal invitation.</p>
+<%= hidden_field_tag "family_id", current_family.id %>
+<p>Invite family and friends to the <span class="bold"><%= current_family.name %>'s</span> family. Enter their email and we'll send them a personal invitation.</p>
 <h4 class="error-header"><%= @error %></h4>
   <% @invitation_emails.each do |i| %>
     <div class="email row <%= "error-row" if i[:error].present? %>">

@@ -70,28 +70,16 @@ class ConfirmationController < ApplicationController
     end
   end
 
-
   def accept_relations
-    @relations = current_user.relations.find_all_by_accepted(0, :include => [:child, :user])
+    @relations = current_user.relations.includes([:child, :user]).find_all_by_accepted(0).uniq_by{|r| r.child.family_id}
   end
 
   def update_relation
+    Relation.update_relation(params[:token], current_user, params[:accept].present?)
+    count = Relation.count(:all, :conditions => ['user_id = ? AND accepted = 0', current_user.id])
 
-    if params[:token].present?
-      token = params[:token]
-      rel = Relation.find_by_token(token, :include => [:child, :user, :inviter])
-
-      if params[:accept].present?
-        rel.update_attribute(:accepted, params[:accept])
-        UserMailer.invitation_accepted(rel).deliver
-      else
-        rel.destroy
-      end
-      count = Relation.count(:all, :conditions => ['user_id = ? AND accepted = 0', current_user.id])
-
-      respond_to do |format|        
-          format.html { render :text => count }   
-      end
+    respond_to do |format|
+        format.html { render :text => count }
     end
   end
 
