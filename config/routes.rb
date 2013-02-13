@@ -136,16 +136,34 @@ Babyfolio::Application.routes.draw do
         get 'current' => "users#current"
         post 'login' => "users#login"
         post 'logout' => "users#logout"
+        post 'name_and_pic' => "users#name_and_pic"
       end
 
       resource :children, :only => [:create] do
         get 'current' => "children#current"
+        post 'change_current/:id' => "children#change_current"
         get 'play' => "children#play"
         get 'play/adjacent/:mid/:dir' => "children#get_adjacent_activity"
         get 'watch' => "children#watch"
         get 'watch/adjacent/:mid/:dir' => "children#get_adjacent_behaviour"
         get 'reflect' => "children#reflect"
       end
+
+      get "timeline" => "timeline#index"
+      get "watch/:mid" => "watch#show"
+      get "play/:mid" => "play#show"
+      get "reflect/:cat" => "reflect#show"
+      post "timeline/add_entry" => "timeline#add_entry"
+      post "timeline/comment" => "timeline#add_comment"
+        
+      #  QUESTIONS
+      get "questionnaire/initial" => "questions#initial_questionnaire", :as => :initial_questionnaire
+      post "not_seen" => "questions#not_seen"
+      post "update_seen/:child_id/:question/:start_age/:value" => "questions#update_seen", :as => :update_seen
+      post "update_watch/:mid" => "questions#update_watched", :as => :update_watched
+      post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
+      get "initial_questionnaire_completed/(:add_child)" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
+
     end
   end
 #  API

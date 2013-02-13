@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Reflect</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+  </head>
+  <body>
+    <div id="bf-mobile">
+
+      <div class="play-popup">
+        <div class="popup-wrapper">
+          <div class="reflect-icon reflect-icon-<%= @cat %>"></div>
+          <% m = @answer.milestone %>
+          <% if m %>
+            <% if @type == "strong" %>
+              <%= @str_text.gsub('<INTELLIGENCE>', category_name(@cat)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+            <% elsif @type == "weak" %>
+              <%= @weak_text.gsub('<INTELLIGENCE>', category_name(@cat)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+            <% else %>
+              <%= @avg_text.gsub('<INTELLIGENCE>', category_name(@cat)).gsub('<WTitle>', m.get_title).gsub('<WTitlePast>', m.get_title).gsub('<PTip>', current_child.replace_forms(m.get_parenting_tip)).html_safe %>
+            <% end %>
+
+            <% unless m.activity_1_title.blank? %> 
+              <p><a href="/api/v1/play/<%= m.mid %>" class="btn"><%= current_child.replace_forms(truncate(m.activity_1_title, :length => 40)).html_safe %></a></p>
+            <% end %>
+            <a href="#" class="behaviour-details hidden" data-category="<%= @cat %>" data-behaviour="<%= m.get_title %>" data-mid="<%= m.mid %>"></a>
+          <% else %>
+            <div class="unfinished-questionnaire-notice">
+              <h4>Hey there, to see information about these intelligences, you'll have to complete your baby's registration first.  </h4>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
+

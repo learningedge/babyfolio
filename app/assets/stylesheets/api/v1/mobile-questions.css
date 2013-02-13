@@ -1,0 +1,102 @@
+/*
+ * This CSS is used by api/v1/questions
+ * It converts the watch view to a percentage-based layout
+ * It is used in the mobile app
+ * It begins with duplicate CSS to protect against future CSS changes on the main site
+ *
+*/
+
+
+/*    ORIGINAL    */
+
+  /* REGISTRATION - 1ST STEP */
+  #content-wrapper #left-column-tooltip { padding: 8px; border: 1px solid #989898; }
+  #content-wrapper #left-column-tooltip.annie-highlight { background-color: #c4dbdf; }
+  #content-wrapper #left-column-tooltip img { float: left; display: block;}
+
+  #content-wrapper #left-column-tooltip h4{ border-bottom: 1px solid #989898; margin-left: 83px; padding: 6px 0; margin-bottom: 6px;}
+  #content-wrapper #left-column-tooltip p{ font-size: 12px; margin-left: 83px;}
+  #content-wrapper #left-column-tooltip p a { font-size: 12px; }
+  #middle-bar .right-column { position: relative; height: 47px; padding-bottom: 4px; }
+  #middle-bar .right-column .step-arrow { position: absolute; top: 0; width: 249px; line-height: 47px; background: url(/images/step_arrow_white.png) no-repeat right center; text-align: center; }
+  #middle-bar .right-column .step-arrow span { color: #f26a21; font-weight: 500; }
+  #middle-bar .right-column .step-arrow.active { background-image: url(/images/step_arrow.png); }
+  #middle-bar .right-column .step-arrow.active.done span { background: url(/images/tick.png) no-repeat left center; padding-left: 26px; }
+  #middle-bar .right-column #create-acc { left: 0; padding-left: 50px; width: 169px; padding: 0 40px 0 10px; border-left: 1px solid #aaa;}
+  #middle-bar .right-column #add-baby { left: 195px; padding: 0 20px; width: 209px;}
+  #middle-bar .right-column #watching-baby { left: 420px; padding: 0 20px; width: 209px;}
+  #registration-first .btn-big { background-position: 95px center; margin-left: 230px; margin-top: 30px;}
+  /* REGISTRATION - 1ST STEP - ACCEPT INVITATION*/
+  #content-wrapper #new-user-accept .btn-big { background-position: 95px center; margin-left: 152px; margin-top: 30px;}
+  #content-wrapper #new-user-accept .already-accepted-btn-big { background-position: 90px center; margin-left: 0;}
+  /* REGISTRATION - 1ST STEP */
+
+  /* REGISTRATION - 2ND STEP - ADD CHILD */
+  #content-wrapper #left-column-tooltip p.reg-second-ttip { font-size: 15px; }
+  #add-child-buttons { margin-left: 150px; }
+  #registration-second .btn-big { background-position: 92px center; margin-top: 30px; }
+  #new_child_form .qq-uploader .qq-img-preview { background: url(/images/img_upload_child.png) no-repeat left top; }
+  #new_child_form .photo-upload-row.missing-image .label{ color: #ED1F24; }
+  #new_child_form .photo-upload-row.missing-image .qq-uploader .qq-img-preview { width: 159px; border: 1px solid #ED1F24;}
+
+
+  /* REGISTRATION - 2ND STEP - ACCEPT INVITATIONS */
+  #content-wrapper #accept-relations-wrapper #left-column-tooltip p { font-size: 15px; margin-left: 70px;}
+  #content-wrapper #accept-relations-wrapper #left-column-tooltip h4 { margin-left: 70px;}
+  #content-wrapper #accept-relations-wrapper .right-column h4 { margin-bottom: 20px; }
+  #content-wrapper #accept-relations-wrapper .right-column .single-relation { border: 2px solid #70a9b9; padding: 10px; background-color: #d6ebf8; margin-bottom: 15px; }
+  #content-wrapper #accept-relations-wrapper .right-column .single-relation img { float: left; margin-right: 14px; border-radius: 4px; }
+  #content-wrapper #accept-relations-wrapper .right-column .single-relation > div { width: 300px; margin-top: 10px;}
+  #content-wrapper #accept-relations-wrapper .right-column .single-relation .btn { margin-top: 10px; margin-right: 8px; padding: 5px 7px; }
+  #content-wrapper .btn.decline-btn { background-color: #989898 !important; border-color: #676767 !important}
+  #content-wrapper .btn.decline-btn:hover { background-color: #b8b8b8 !important; border-color: #676767 !important}
+  #content-wrapper #accept-relations-wrapper .right-column .btn-big { background-position: 90px center; }
+  /* REGISTRATION - 2ND STEP */
+
+  /* REGISTRATION - 3RD STEP */
+  #content-wrapper #registration-third #left-column-tooltip p { font-size: 15px; margin-left: 0; }
+  #content-wrapper #registration-third .right-column #instruction-column { width: 200px; margin-right: 15px; float: left; }
+  #content-wrapper #registration-third .right-column #instruction-column #tip-number1 { height: 24px; background: url(/images/instr_circle1.png) no-repeat center top; margin-bottom: 5px}
+  #content-wrapper #registration-third .right-column #instruction-column #tip-number2 { height: 24px; background: url(/images/instr_circle2.png) no-repeat center top; margin-bottom: 5px; margin-top: 15px}
+  #content-wrapper #registration-third .right-column #instruction-column #tip-number3 { height: 24px; background: url(/images/instr_circle3.png) no-repeat center top; margin-bottom: 5px; margin-top: 15px}
+  #content-wrapper #registration-third .right-column #instruction-column p { font-weight: bold;font-size: 15px; }
+  #content-wrapper #registration-third .right-column #questionnaire-column { float: left; }
+  #content-wrapper #registration-third .right-column #questionnaire-column .single-question {  border: 2px solid #f08a47; background-color: #fdfbe2; margin-bottom: 7px; padding: 10px 7px 10px 60px; background-position: 5px center; background-repeat: no-repeat;}
+  #content-wrapper #registration-third .right-column #questionnaire-column .single-question p { min-height: 55px; margin: 0 10px; width: 190px; display: inline-block; vertical-align: middle;}
+  #content-wrapper #registration-third .single-question.single-e { background-image: url(/images/circle_e.png) }
+  #content-wrapper #registration-third .single-question.single-l { background-image: url(/images/circle_l.png) }
+  #content-wrapper #registration-third .single-question.single-ln { background-image: url(/images/circle_ln.png) }
+  #content-wrapper #registration-third .single-question.single-m { background-image: url(/images/circle_m.png) }
+  #content-wrapper #registration-third .single-question.single-mv { background-image: url(/images/circle_mv.png) }
+  #content-wrapper #registration-third .single-question.single-v { background-image: url(/images/circle_v.png) }
+  #content-wrapper #registration-third .single-question.single-s { background-image: url(/images/circle_s.png) }
+  #content-wrapper #registration-third .seen-btn-wrapper { display: inline-block; vertical-align: middle;}
+  #content-wrapper #registration-third .seen-btn-wrapper a { display: block; text-align: center; margin-bottom: 6px;}
+  #content-wrapper #registration-third .right-column #questionnaire-column #finish-link-wrapper { text-align: center; }
+  #content-wrapper #registration-third .right-column #questionnaire-column .not-seen-link { color: #0c8a9a; background: none; border: none; width: 100%; text-align: center; font-size: 15px; margin: 15px 0; cursor: pointer; }
+  #content-wrapper #registration-third .single-question { position: relative; }
+  #content-wrapper #registration-third .single-question .single-question-cover.current,
+  #content-wrapper #registration-third .single-question .single-question-cover { width: 100%; height: 100%; position: absolute; top:0 ; left: 0; background-color: #fff; display: none; opacity: 0.7;}
+  #content-wrapper #registration-third .single-question .single-question-cover.shown,
+  #content-wrapper #registration-third .single-question .single-question-cover.completed { display: inline-block; }
+
+  #questionniare-completed-popup { width: 352px !important; text-align: center; padding: 9px; border: 3px solid #f26722; border-radius: 5px;}
+  #questionniare-completed-popup .btn { margin-top: 20px; width: 160px; padding: 10px 0; }
+  /* REGISTRATION - 3RD STEP */
+
+
+/* END ORIGINAL */
+
+  #bf-mobile #registration-third .right-column { width:100%; margin-top:10px; }
+  #bf-mobile #registration-third .right-column #instruction-column { width:100%; }
+  #bf-mobile #registration-third .right-column #questionnaire-column { width:100%; }
+  #bf-mobile #registration-third .right-column #instruction-column #tip-number1 { float:left; width:23px; margin: 0 10px; }
+  #bf-mobile #registration-third .right-column #instruction-column #tip-number2 { float:left; width:23px; margin: 0 10px; }
+  #bf-mobile #registration-third .right-column #instruction-column p { margin: 0 10px 15px 10px; font-weight: normal; font-size: 12px; }
+  #bf-mobile #registration-third .right-column #questionnaire-column .single-question { background-position: left 10px; }
+  #bf-mobile #registration-third .right-column #questionnaire-column .single-question p { width:100%; margin:0px 0px; }
+  #bf-mobile #registration-third .seen-btn-wrapper { width:100% }
+  #bf-mobile #all-initial-questions { margin:0 10px; }
+  #bf-mobile #registration-third .seen-btn-wrapper a.btn { padding:10px; margin:20px; }
+
+
