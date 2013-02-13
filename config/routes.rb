@@ -80,6 +80,7 @@ Babyfolio::Application.routes.draw do
   end
 
   # TIMELINE
+  get 'timeline/error' => "timeline#error", :as => :error_timeline
   post 'timeline/add-timeline-entry' => "timeline#add_entry", :as => :add_timeline_entry
   post 'timeline/add-basic-timeline-entry' => "timeline#add_from_popup", :as => :add_basic_entry
   post 'timeline/reflect_to_timeline' => "timeline#reflect_to_timeline", :as => :reflect_to_timeline
