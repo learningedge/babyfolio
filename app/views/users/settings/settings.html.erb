@@ -86,6 +86,10 @@
                   <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => false }%>
                 <% end %>
             <% end %>
+
+            <% if @family_admin_users.blank? && @family_admin_users.blank? %>
+                <h4>Seems like there aren't any users in your family. Use "Invite Family and Friends" button to invite some.</h4>
+            <% end %>
         <% else %>
             <div class="family-no-admin">
               <h4>You currently don't have a BabyFolio for your family. If you'd like to create one for your baby, just click on the button below.</h4>
