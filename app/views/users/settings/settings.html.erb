@@ -194,7 +194,7 @@
 
         $('#invite-others .btn').removeAttr('disabled');
     
-        $('#invite-others-form').live("ajax:success", function(xhr, data) {        
+        $('#invite-others-form').bind("ajax:success", function(xhr, data) {
           $('#invite-others-wrapper').html(data);
         });
 
