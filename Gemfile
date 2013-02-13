@@ -13,7 +13,7 @@ gem 'json'
 gem 'mysql2'
 gem 'pg', '~> 0.14.1'
 gem 'therubyracer', '~> 0.10.2'
-gem 'jquery-rails'
+gem 'jquery-rails', "~> 2.1.4"
 gem 'paperclip', '~> 2.8.0'
 gem 'flickraw'
 #gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
