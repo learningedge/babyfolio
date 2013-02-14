@@ -11,13 +11,13 @@ class Child < ActiveRecord::Base
   has_many :users, :through => :relations, :conditions => {"relations.accepted" => 1}, :source => :user
   has_many :admins, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.is_admin" => true}, :source => :user
 
-  has_one :attachment, :as => :object
-  has_one :media, :through => :attachment  
-  has_many :answers
+  has_one :attachment, :as => :object, :dependent => :destroy
+  has_one :media, :through => :attachment 
+  has_many :answers, :dependent => :destroy
   has_many :questions, :through => :answers
-  has_many :timeline_entries, :class_name => "TimelineEntry"
-  has_many :likes
-  has_many :user_emails
+  has_many :timeline_entries, :class_name => "TimelineEntry", :dependent => :destroy
+  has_many :likes, :dependent => :destroy
+  has_many :user_emails, :dependent => :destroy
 
   belongs_to :user_action
   belongs_to :family, :autosave => true
@@ -26,6 +26,15 @@ class Child < ActiveRecord::Base
   validates :birth_date, :presence => true
 
   scope :ids, select(:id)
+
+  def delete        
+    user_actions = UserAction.find_all_by_child_id(self.id)
+    user_actions.each do |ua|
+      ua.destroy
+    end
+
+    self.destroy
+  end
 
   GENDERS = {
     'Male' => 'male',
