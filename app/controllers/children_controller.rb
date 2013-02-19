@@ -55,7 +55,8 @@ class ChildrenController < ApplicationController
     relation = Relation.find_by_user_id_and_child_id(current_user.id, params[:child_id])
 
     if relation && relation.is_admin
-      relation.child.delete
+      relation.child.destroy_child
+      clear_current_child
     end
 
     redirect_to settings_tab_path(:tab => "my_family")

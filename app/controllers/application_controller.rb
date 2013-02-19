@@ -84,7 +84,8 @@ end
       if session[:current_child]
         @current_child = current_user.children.find_by_id(session[:current_child]);
       else
-        @current_child = current_user.children.first if current_user.children.present?
+        @current_child = current_user.own_children.first if current_user.own_children.any?
+        @current_child = current_user.other_children.first if @current_child.nil? && current_user.other_children.any?
         set_current_child @current_child.id if @current_child
       end
       @current_child
@@ -96,10 +97,14 @@ end
       set_current_family(@current_child.family_id)
     end
 
+    def clear_current_child
+      session[:current_child] = nil
+      @current_child = nil
+    end
+
     def require_child
       redirect_to registration_new_child_path unless current_child
     end
-
 
     # ==============================
     # ====== LOCATION METHODS ======
@@ -118,7 +123,6 @@ end
       session[:return_to] = nil
       back_url
     end
-
 
     def require_seen_behaviours
         redirect_to registration_initial_questionnaire_path if current_child.answers.where(:value => 'seen').count == 0

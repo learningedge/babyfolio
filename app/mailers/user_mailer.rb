@@ -89,5 +89,19 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(:to => @user.email, :subject => "#{ @commenter.get_user_name } commented on #{@child.first_name}'s timeline.")
   end
+
+  def account_deactivation data
+    @data = data
+
+    mail(:to => @data[:user_email], :subject => "Account Deactivation Confirmed")
+  end
+
+  def account_deactivation_survey data    
+    @data = data
+    
+    mail(:to => ENV['CONTACT_EMAIL'] || "tickets@baby1.uservoice.com", :subject => "User Deactivate Account Survey")
+  end
+
+  
   
 end

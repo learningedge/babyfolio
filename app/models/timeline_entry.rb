@@ -1,7 +1,7 @@
 class TimelineEntry < ActiveRecord::Base
-  has_many :meta_entries, :class_name => "TimelineMeta"
-  has_many :comments, :through => :meta_entries, :source => :object, :source_type => "Comment", :dependent => :destroy
-  has_many :media, :through => :meta_entries, :source => :object, :source_type => "Media", :dependent => :destroy
+  has_many :meta_entries, :class_name => "TimelineMeta", :dependent => :destroy
+  has_many :comments, :through => :meta_entries, :source => :object, :source_type => "Comment"
+  has_many :media, :through => :meta_entries, :source => :object, :source_type => "Media"
   has_one :meta_entry, :class_name => "TimelineMeta"
   has_one :behaviour, :through => :meta_entry, :source => :object, :source_type => "Milestone"
   has_one :child

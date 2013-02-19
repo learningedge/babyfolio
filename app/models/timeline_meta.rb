@@ -1,5 +1,5 @@
 class TimelineMeta < ActiveRecord::Base
   belongs_to :timeline_entry
-  belongs_to :object, :polymorphic => true
+  belongs_to :object, :polymorphic => true, :dependent => :destroy
 
 end

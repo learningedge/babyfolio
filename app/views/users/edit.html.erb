@@ -10,7 +10,7 @@
         <%= link_to "Change password", "#change-password-wrapper", :class => "show-password-change btn btn-big" %>
         <%= f.submit "Update", :class => 'btn btn-big' %>
       </div>
-      <%= link_to "de-activate account" , "#", :id => "deactivate-btn" %>
+      <%= link_to "de-activate account" , "#" , :id => "deactivate-btn" %>
 
     
     <% end %>
@@ -21,23 +21,64 @@
 
   </div>
   <div class="clear"></div>
+
+
+  <div id="confirm-account-deactivation-dialog" class="dialog">
+    <h4 class="arvo">Deactivate account?</h4>
+    <p>
+      Are you sure you want to de-activate your account? All information will be deleted and will not be retrieved should you decide to create a BabyFolio in the future.
+    </p>
+    <div class="dialog-buttons">
+      <%= link_to "Yes", deactivate_user_account_path, :disable_with => 'Processing...', :class => "btn yes-remove-user", :remote => true %>
+      <%= link_to "No", "#", :class => "btn btn-grey", :onclick => 'closeDialog(this); return false;' %>
+    </div>
+  </div>
 </div>
 
 
-<script type="text/javascript">
-      $(function() {
-        $('.show-password-change').click(function() {
-          $($(this).attr('href')).dialog({modal: true});
-          return false;
-        });
+<style type="text/css">
+</style>
 
-        $('#change-password-form').live('ajax:success', function(xhr, data) {
-          $('#change-password-wrapper').html(data);
-        });
+<script type="text/javascript">
+    $(function() {
+
+
+      $('.show-password-change').click(function() {
+        $($(this).attr('href')).dialog({modal: true});
+        return false;
       });
+
+      $('#change-password-form').live('ajax:success', function(xhr, data) {
+        $('#change-password-wrapper').html(data);
+      });
+
+
+      $('#confirm-account-deactivation-dialog').dialog({
+          autoOpen: false,
+          modal: true,
+          dialogClass: 'deactivate-confirm',
+          closeOnEscape: false
+      });
+
+      $('#deactivate-btn').click(function() {
+        $('#confirm-account-deactivation-dialog').dialog('open');        
+      });
+
+      $('.yes-remove-user, #confirm-account-deactivation-dialog').live('ajax:success', function(xhr, data) {
+        $('#confirm-account-deactivation-dialog').html(data);
+        centerDialog($('.deactivate-confirm'));
+      });
+      
+    });
 
 
     function closeDialog(closeBtn) {
       $(closeBtn).parents('.dialog').dialog('close');
+    }
+
+    function centerDialog(dialog) {
+        var dh = $(dialog).height();
+        var windowHeight = $(window).height();
+        $(dialog).css({ top: (windowHeight - dh) / 2 });
     }
 </script>

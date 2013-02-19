@@ -788,6 +788,12 @@ h4.arvo.relation-added { width: 400px; padding-top: 40px; }
 #user-edit #deactivate-btn { margin-left: 150px; }
 #user-edit #deactivate-btn { display: inline-block; margin-top: 10px; }
 
+.deactivate-confirm .ui-dialog-titlebar { display: none; }
+.deactivate-confirm #confirm-account-deactivation-dialog ol { padding-left: 20px; }
+.deactivate-confirm #confirm-account-deactivation-dialog textarea{ width: 350px; margin-top: 10px; margin-bottom: 20px;}
+.deactivate-confirm #confirm-account-deactivation-dialog .submit-deactivation-survey-btn { float: right; margin-right: 10px; }
+.deactivate-confirm #confirm-account-deactivation-dialog .deactivate-complete-btn { float: right; margin-top: 15px; margin-right: 20px; }
+
 /* CHILD EDIT */
 
 .edit_child .btn-big { background-position: 120px center; margin-top: 30px; margin-bottom: 40px;}

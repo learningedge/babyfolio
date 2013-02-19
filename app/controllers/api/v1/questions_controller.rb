@@ -8,14 +8,6 @@ class Api::V1::QuestionsController < ApplicationController
 
     @q_age = question_age
     @question = current_question_for @category
-#    @age = current_child.months_old
-#    @q_age = Question.select_ages(@age, '<=', 1, 'DESC').first.age    
-#    @questions = Question.find_all_by_age(@q_age).group_by{|q| q.category}
-#    @questions.each do |k,v|
-#      @questions[k] = [v.first, current_child.questions.joins(:answers).exists?("answers.child_id" => current_child.id, "questions.category" => v.first.category, "answers.value" => "seen")]
-#    end
-#    @questions = @questions.sort_by{|k,v| Question::CATS_ORDER.index(k)  }
-
 
   end
 

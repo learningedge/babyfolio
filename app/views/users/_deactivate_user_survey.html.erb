@@ -1,0 +1,29 @@
+<div>
+  <h4>We're sorry to see you leave. Please fill out this brief survey to help us better improve BabyFolio:</h4>
+
+  <%= form_tag deactivate_user_survey_account_path,:class => "deactivate-survey-form", :remote => true do  %>
+    <%= hidden_field_tag "user_name", @user_name %>
+    <%= hidden_field_tag "user_email", @user_email %>
+    <ol>
+      <li>
+        <div>Why have you decided to deactivate the account?</div>
+        <div><textarea name="why_leave"></textarea></div>
+      </li>
+      <li>
+        <div>What could BabyFolio have done differently to make you want to keep your account or better serve you and your children needs?</div>
+        <div><textarea name="what_different"></textarea></div>
+      </li>
+      <li>
+        <div>Do you have any further feedback or comments?</div>
+        <div><textarea name="other_feedback"></textarea></div>
+      </li>
+
+    </ol>
+    <%= submit_tag "Submit", :disable_with => "Processing...", :class => "btn submit-deactivation-survey-btn" %>
+    <div class="clear"></div>
+    
+  <% end %>
+
+
+
+</div>

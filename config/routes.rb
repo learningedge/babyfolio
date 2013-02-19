@@ -125,6 +125,8 @@ Babyfolio::Application.routes.draw do
       put 'update-password' => "users#update_password"
       post 'create_temp_user' => "users#create_temp_user"
       get '/unsubscribe/:token' => "users#unsubscribe", :as => :unsubscribe
+      get 'deactivate-user' => "users#deactivate_user", :as => :deactivate_user
+      post 'deactivate-user-survey' => "users#deactivate_user_survey", :as => :deactivate_user_survey
     end    
   end
 #  USERS    

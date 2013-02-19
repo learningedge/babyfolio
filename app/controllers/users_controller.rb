@@ -28,6 +28,35 @@ class UsersController < ApplicationController
     end
   end
 
+  def deactivate_user
+    @user_name = current_user.get_user_name
+    @user_email = current_user.email
+
+    current_user.destroy_user
+    clear_session
+
+    respond_to do |format|
+      format.html { render :partial => "deactivate_user_survey" }
+    end
+    
+  end
+
+  def deactivate_user_survey
+    email_data = {
+      :user_name => params[:user_name],
+      :user_email => params[:user_email],
+      :why_leave => params[:why_leave],
+      :what_different => params[:what_different],
+      :other_feedback => params[:other_feedback]
+    }                    
+
+    UserMailer.account_deactivation(email_data).deliver
+    UserMailer.account_deactivation_survey(email_data).deliver
+    respond_to do |format|
+      format.html { render :partial => "deactivate_final_message" }
+    end
+  end
+
   def create_profile_photo
     if params[:qqfile].kind_of? String
       ext = '.' + params[:qqfile].split('.').last

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    User has deactivated his/her BabyFolio account:
+
+    <div><span style="display:inline-block; width: 90px; font-weight: bold;">User Name</span><%= @data[:user_name] %></div>
+    <div><span style="display:inline-block; width: 90px; font-weight: bold;">User Email</span><%= @data[:user_email] %></div>
+    
+    <h4>Survey answers:</h4>
+
+    <div style="font-weight: bold; margin-top: 20px;">Why have you decided to deactivate the account?</div>
+    <div style="font-style:italic"><%= @data[:why_leave] %></div>
+
+    <div style="font-weight: bold; margin-top: 20px;">What could BabyFolio have done differently to make you want to keep your account or better serve you and your children needs?</div>
+    <div style="font-style:italic"><%= @data[:what_different] %></div>
+
+    <div style="font-weight: bold; margin-top: 20px;">Do you have any further feedback or comments?</div>
+    <div style="font-style:italic"><%= @data[:other_feedback] %></div>
+
+    <br/>
+    <br/>
+    Thanks!
+    <div>Babyfolio</div>
+  </body>
+</html>

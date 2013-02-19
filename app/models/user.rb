@@ -13,8 +13,8 @@ class User < ActiveRecord::Base
   has_many :user_emails, :autosave => true
   has_many :user_actions, :autosave => true
 
-  has_many :relations, :autosave => true  
-  has_many :invites, :class_name => 'Relation'
+  has_many :relations, :autosave => true, :dependent => :destroy
+  has_many :invites, :class_name => 'Relation', :foreign_key => :inviter_id, :dependent => :nullify
 
   has_many :accessible_relations, :class_name => 'Relation', :conditions => {"accepted" => 1, "access" => true }
   has_many :all_children, :through => :relations, :source => :child
@@ -26,16 +26,28 @@ class User < ActiveRecord::Base
   has_many :other_families, :through => :other_children, :source => :family, :uniq => true
   
   has_many :media, :class_name => "Media"  
-  has_one :attachment, :as => :object
+  has_one :attachment, :as => :object, :dependent => :destroy
   has_one :profile_media, :through => :attachment, :source => :media
   
-  has_many :timeline_entries, :class_name => "TimelineEntry"
-
+  has_many :timeline_entries, :dependent => :destroy
   has_many :logs
 
   before_create :add_options
   
   scope :ids, select("users.id")
+
+  #===================================================#
+  #===== REMOVE USER WITH ALL ASSOCIATED DATA ======= #
+  #===================================================#
+  def destroy_user
+    self.own_children.each do |child|
+      unless child.admins.where(["relations.user_id != ?", self.id]).any?
+        child.destroy_child
+      end
+    end
+    self.destroy
+  end
+
 
   #=====================#
   #===== EMAILS ======= #

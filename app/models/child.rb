@@ -8,8 +8,8 @@ class Child < ActiveRecord::Base
   attr_accessor :profile_image
 
   has_many :relations, :dependent => :destroy
-  has_many :users, :through => :relations, :conditions => {"relations.accepted" => 1}, :source => :user
-  has_many :admins, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.is_admin" => true}, :source => :user
+  has_many :users, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.access" => true}, :source => :user
+  has_many :admins, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.is_admin" => true, "relations.access" => true}, :source => :user
 
   has_one :attachment, :as => :object, :dependent => :destroy
   has_one :media, :through => :attachment 
@@ -18,8 +18,8 @@ class Child < ActiveRecord::Base
   has_many :timeline_entries, :class_name => "TimelineEntry", :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :user_emails, :dependent => :destroy
-
-  belongs_to :user_action
+  has_many :user_actions, :dependent => :destroy
+  
   belongs_to :family, :autosave => true
 
   validates :first_name, :presence => true
@@ -27,12 +27,10 @@ class Child < ActiveRecord::Base
 
   scope :ids, select(:id)
 
-  def delete        
-    user_actions = UserAction.find_all_by_child_id(self.id)
-    user_actions.each do |ua|
-      ua.destroy
+  def destroy_child
+    unless self.family.children.where("children.id != ?", self.id ).any?
+      self.family.delete
     end
-
     self.destroy
   end
 
