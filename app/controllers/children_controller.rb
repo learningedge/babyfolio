@@ -236,26 +236,28 @@ class ChildrenController < ApplicationController
     end
 
     ms.each do |m|
-        selected = m[:milestone].mid == params[:mid]
-        @behaviours << {
-                         :category => m[:category],
-                         :mid => m[:milestone].mid,
-                         :ms_title => current_child.replace_forms(m[:milestone].title, 35),
-                         :title => current_child.replace_forms(m[:milestone].get_title, 60),
-                         :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
-                         :desc => current_child.replace_forms(m[:milestone].observation_desc),
-                         :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
-                         :activity_1_title => current_child.replace_forms(m[:milestone].activity_1_title, 40),
-                         :activity_2_title => current_child.replace_forms(m[:milestone].activity_2_title, 40),
-                         :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
-                         :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
-                         :why_important => current_child.replace_forms(m[:milestone].observation_what_it_means),
-                         :theory => current_child.replace_forms(m[:milestone].research_background),
-                         :references => current_child.replace_forms(m[:milestone].research_references),
-                         :time => m[:time],
-                         :is_next => m[:is_next],
-                         :selected => selected || false
-                        }
+        if m[:milestone]
+          selected = m[:milestone].mid == params[:mid]
+          @behaviours << {
+                           :category => m[:category],
+                           :mid => m[:milestone].mid,
+                           :ms_title => current_child.replace_forms(m[:milestone].title, 35),
+                           :title => current_child.replace_forms(m[:milestone].get_title, 60),
+                           :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
+                           :desc => current_child.replace_forms(m[:milestone].observation_desc),
+                           :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
+                           :activity_1_title => current_child.replace_forms(m[:milestone].activity_1_title, 40),
+                           :activity_2_title => current_child.replace_forms(m[:milestone].activity_2_title, 40),
+                           :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
+                           :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
+                           :why_important => current_child.replace_forms(m[:milestone].observation_what_it_means),
+                           :theory => current_child.replace_forms(m[:milestone].research_background),
+                           :references => current_child.replace_forms(m[:milestone].research_references),
+                           :time => m[:time],
+                           :is_next => m[:is_next],
+                           :selected => selected || false
+                          }
+        end
     end
     @behaviours.first[:selected] = true unless @behaviours.any? { |a| a[:selected] == true }
 
