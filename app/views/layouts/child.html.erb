@@ -57,7 +57,7 @@
                     <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
                     <% admin_families = current_user.own_families.where(condition).all %>
                     <% admin_families.each do |admin_family|%>
-                      <a href="<%= settings_path(:family_id => admin_family.id) %>"><%= admin_family.full_name %>'s  Family</a>
+                      <a href="<%= settings_path(:family_id => admin_family.id) %>"><%= admin_family.get_display_name(current_user) %>'s  Family</a>
                     <% end %>
                   </div>
               <% end %>
@@ -67,7 +67,7 @@
                 <div class="orange-subnav-item">
                   <div class="subnav-header">Member of:</div>
                   <% member_families.each do |member_family|%>
-                    <a href="<%= settings_path(:family_id => member_family.id) %>"><%= member_family.full_name %>'s Family</a>
+                    <a href="<%= settings_path(:family_id => member_family.id) %>"><%= member_family.get_display_name(current_user) %>'s Family</a>
                   <% end %>
                 </div>
               <% end %>

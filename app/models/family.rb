@@ -17,6 +17,16 @@ class Family < ActiveRecord::Base
     return f_admin.present? && (f_admin.is_family_admin || f_admin.member_type == "Father" || f_admin.member_type == "Mother")
   end
 
+  def get_display_name user
+    families = user.families.where(["families.id != ?", self.id] ).all
+    families = families.reject { |f| self.id == f.id }
+    if families.any? { |f| f.name == self.name }
+      return self.full_name
+    else
+      return self.name
+    end
+  end
+
   #=================================================
   #================ INVITING USERS =================
   #=================================================

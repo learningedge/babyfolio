@@ -80,7 +80,7 @@ class UserMailer < ActionMailer::Base
     @family = relation.child.family
     @inviter = relation.inviter
     @child = relation.child
-    mail(:to => @user.email, :subject => "#{@user.get_user_name} has joined #{@child.first_name}'s BabyFolio!")
+    mail(:to => @inviter.email, :subject => "#{@user.get_user_name} has joined #{@child.first_name}'s BabyFolio!")
   end
 
   def timeline_comment child, comment_author, user

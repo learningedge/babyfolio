@@ -15,12 +15,12 @@
               <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
               <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
           <% elsif @is_admin %>
-            <li><a href="#my-family" class="my-family-tab-link"><%= @family.full_name  %>'s Family</a></li>
+            <li><a href="#my-family" class="my-family-tab-link"><%= @family.get_display_name(current_user)  %>'s Family</a></li>
             <li><a data-href="<%= new_child_children_path(:return_to => request.url, :family_id => @family.id) %>" class="new-child-link">Add Another Baby</a></li>
             <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
             <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
           <% else %>
-            <li><a href="#my-family" class="my-family-tab-link"><%= @family.full_name  %>'s Family</a></li>
+            <li><a href="#my-family" class="my-family-tab-link"><%= @family.get_display_name(current_user)  %>'s Family</a></li>
           <% end %>            
       <% else %>
             <li><a href="#your-information">My Information</a></li>
@@ -70,7 +70,7 @@
         <% if @is_family_admin || @is_admin %>
         <div class="tab-inner-right first">
             <div class="pointing-arrow"></div>
-            <h3 class="my-family-header"><%= @family.full_name %>'s Family</h3>
+            <h3 class="my-family-header"><%= @family.get_display_name(current_user) %>'s Family</h3>
             <% @children.each do |child| %>
               <%= render :partial => "users/settings/child", :locals => {:child => child} %>
             <% end %>
