@@ -1,4 +1,7 @@
 <div class="tab-inner-right pending-invitations">
+  <% if  @display_arrow  %>
+    <div class="pointing-arrow"></div>
+  <% end %>
   <h3>Invites you've accepted:</h3>
   <% @all_children_relations.each do |family, relations| %>
     <div class="setting-block">

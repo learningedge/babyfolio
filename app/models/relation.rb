@@ -85,8 +85,11 @@ class Relation < ActiveRecord::Base
 
       relations_to_update.each do |rel|
         rel.update_attribute(:is_admin, true)
-      end      
-    end   
+      end
+
+    end
+
+    return relation.child.family.id
   end
 
   # ===========================================
@@ -102,6 +105,8 @@ class Relation < ActiveRecord::Base
         rel.update_attribute(:is_admin, false)
       end
     end
+
+    return relation.child.family.id
   end
 
   # ===========================================
@@ -150,6 +155,8 @@ class Relation < ActiveRecord::Base
         rel.destroy
       end
     end
+
+    return relation.child.family.id
   end
 
 

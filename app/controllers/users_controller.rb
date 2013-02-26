@@ -77,14 +77,32 @@ class UsersController < ApplicationController
 
   def settings_tab
     flash[:tab] = params[:tab]
-    redirect_to settings_path
+    redirect_to settings_path(:family_id => params[:family_id])
   end
 
-  def settings
-    @family = current_family
-    @is_admin = @family.is_admin?(current_user)
+  def settings   
+    @very_own_family = current_user.get_first_very_own_family
 
-    if @is_admin
+    unless params[:is_about_me]
+      @family = current_user.families.find_by_id(params[:family_id])
+      @family = current_user.select_first_family unless @family
+      @is_admin = @family.is_admin?(current_user)
+      @is_family_admin = @very_own_family && @family.id == @very_own_family.id      
+    else
+      @family = @very_own_family
+      @is_family_admin = true if @family
+    end
+
+    case flash[:tab]
+        when "my_family"
+          @current_tab = 1
+        when "family-friends-information"
+          @current_tab = @is_admin ? 2 : 1
+        else
+          @current_tab = 0
+    end
+    
+    if @is_admin || @is_family_admin
       @children = current_user.children.where('children.family_id' => @family.id).all
 
       @family_admin_users = @family.admin_relations.includes(:user).where(['relations.user_id != ?', current_user.id]).uniq_by{|r| r.user.id}
@@ -119,9 +137,6 @@ class UsersController < ApplicationController
     render :template => "users/settings/settings"
   end
 
-  def update_options    
-  end
-
   def update_zipcode
     current_user.zipcode = params[:zipcode] if params[:zipcode].present?
     current_user.save    
@@ -139,7 +154,7 @@ class UsersController < ApplicationController
     @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
     if @user.update_attributes(params[:user])
       flash[:notice] = "Account updated!"
-      redirect_to settings_path
+      redirect_to settings_about_path
     else
       render :action => :edit
     end

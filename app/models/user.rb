@@ -16,13 +16,15 @@ class User < ActiveRecord::Base
   has_many :relations, :autosave => true, :dependent => :destroy
   has_many :invites, :class_name => 'Relation', :foreign_key => :inviter_id, :dependent => :nullify
 
-  has_many :accessible_relations, :class_name => 'Relation', :conditions => {"accepted" => 1, "access" => true }
+  has_many :accessible_relations, :class_name => 'Relation', :conditions => ["relations.access = ? AND accepted = ? ", true, 1]
   has_many :all_children, :through => :relations, :source => :child
-  has_many :children, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.access" => true }, :source => :child
-  has_many :own_children, :through => :relations, :conditions => {"relations.accepted" => 1 , "relations.is_admin" => true, "relations.access" => true}, :source => :child
-  has_many :other_children, :through => :relations, :conditions => {"relations.accepted" => 1 , "relations.is_admin" => false, "relations.access" => true}, :source => :child
+  has_many :children, :through => :accessible_relations, :source => :child
+  has_many :own_children, :through => :accessible_relations, :conditions => {"relations.is_admin" => true}, :source => :child
+  has_many :very_own_children, :through => :accessible_relations, :conditions => ["relations.is_admin = ? AND (relations.is_family_admin = ? OR relations.member_type = ? OR relations.member_type = ?)", true, true, "Father", "Mother"], :source => :child
+  has_many :other_children, :through => :accessible_relations, :conditions => {"relations.is_admin" => false}, :source => :child
   has_many :families, :through => :children, :source => :family,:uniq => true
   has_many :own_families, :through => :own_children, :source => :family, :uniq => true
+  has_many :very_own_families, :through => :very_own_children, :source => :family, :uniq => true
   has_many :other_families, :through => :other_children, :source => :family, :uniq => true
   
   has_many :media, :class_name => "Media"  
@@ -279,7 +281,23 @@ class User < ActiveRecord::Base
   end
 
 
+  def select_first_family
+    family = self.very_own_families.first if self.very_own_families.any?
+    family = self.own_families.first if family.nil? && self.own_families.any?
+    family = self.other_families.first if family.nil? && self.other_families.any?
 
+    return family
+  end
+
+  def get_first_very_own_family
+    result = nil
+    if self.very_own_families.any?
+       result = self.very_own_families.where(["relations.inviter_id IS NULL"]).first
+       result = self.very_own_families.first unless result
+    end
+
+    return result
+  end
 
   private
   def add_options

@@ -20,6 +20,6 @@
         <label for="is_admin_false">No</label>
     </div>
 
-    <%= link_to "Back", settings_tab_path(:tab => "family-friends-information"), :class => "btn btn-big update-relation-back-btn" %>
+    <%= link_to "Back", settings_tab_path(:tab => "family-friends-information", :family_id => @relation.child.family.id), :class => "btn btn-big update-relation-back-btn" %>
     <%= submit_tag "Update", :class => "btn btn-big update-relation-btn" %>
 <% end %>

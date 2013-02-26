@@ -8,6 +8,7 @@
 <%= form_for child do |f| -%>
       <%= f.hidden_field :id, :value => child.id if edit %>
       <%= hidden_field_tag :is_registration, params[:is_registration] %>
+      <%= hidden_field_tag :return_to, params[:return_to] %>
       <div class="row">
         <span class="label">
             <%= f.label :first_name, "Baby's First Name" %>
@@ -18,10 +19,10 @@
         <span class="label">
             <%= label_tag "family_name", "Family Name" %>
         </span>
-        <% if current_user.own_families.empty? %>
+        <% if @destination_family_id.blank? && current_user.very_own_families.empty? %>
           <%= text_field_tag "family_name", child.last_name %>
         <% else %> 
-          <%= select_tag "family_name", options_for_select(current_user.own_families.map { |fam| fam.name }) -%>
+          <%= select_tag "family_id", options_from_collection_for_select(current_user.own_families, 'id', 'name', @destination_family_id) -%>
         <% end %>
       </div>
       <div class="row">
@@ -55,7 +56,7 @@
   
       <div class="clear"></div>
       <div id="add-child-buttons">
-        <%= link_to "Back", settings_path, :class => 'btn btn-big btn-big-back' if params[:is_registration].blank? %>
+        <%= link_to "Back", params[:return_to].present? ?  params[:return_to] : settings_tab_path(:tab => "my_family", :family_id => @destination_family_id), :class => 'btn btn-big btn-big-back' if params[:is_registration].blank? %>
         <% if edit %>
             <%= f.submit "Update Child", :class => 'btn btn-big' %>
         <% else %>

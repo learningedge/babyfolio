@@ -1,46 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <script type="text/javascript">
-    var _kmq = _kmq || [];
-    var _kmk = _kmk || '<%= ENV['KISSMETRICS_API_KEY'] || '2917a0b57032da8bc8288dbaad7467c7268cba32' %>';
-
-   <% if current_user %>
-    _kmq.push(['identify', '<%= current_user.get_user_name + "(#{current_user.email})" %>']);
-   <% end %>
-
-   _kmq.push(['record', 'Page View']);
-
-    function _kms(u){
-      setTimeout(function(){
-        var d = document, f = d.getElementsByTagName('script')[0],
-        s = d.createElement('script');
-        s.type = 'text/javascript'; s.async = true; s.src = u;
-        f.parentNode.insertBefore(s, f);
-      }, 1);
-    }
-    _kms('//i.kissmetrics.com/i.js');
-    _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
-
-  </script>
-
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-36979084-1']);
-   <% if current_user %>
-     _gaq.push(['_setCustomVar', 1, 'User Identity', '<%= current_user.get_user_name + "(#{current_user.email})" %>', 2 ]);
-   <% end %>
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script');
-      ga.type = 'text/javascript';
-      ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-     })();
-
-  </script>
+    <%= render :partial => "layouts/analitics_scripts" %>
 
   <title>Babyfolio</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
@@ -70,7 +31,51 @@
           <li id="orange-play">Play<a href="<%= play_children_path %>" class="<%= 'active' if controller.action_name == "play" %>"></a></li>
           <li id="orange-watch">Watch<a href="<%= watch_children_path %>" class="<%= 'active' if controller.action_name == "watch" %>"></a></li>
           <li id="orange-reflect">Reflect<a href="<%= child_reflect_children_path %>" class="<%= 'active' if controller.action_name == "reflect" %>"></a></li>
-          <li id="orange-more">More<span id="more-arrow"></span><a href="<%= settings_path %>"></a></li>
+          <li id="orange-more"><span id="settings-nav-text">Settings</span><span id="more-arrow"></span><a href="<%= settings_about_path %>"></a>
+            <!-- SETTINGS SUBNAV -->
+            <!-- SETTINGS SUBNAV -->
+            <!-- SETTINGS SUBNAV -->
+            <div class="orange-subnav">
+              <div class="orange-subnav-item">
+                <div class="subnav-header">About me:</div>
+                <% @my_first_family = current_user.get_first_very_own_family %>
+                <% if @my_first_family  %>
+                  <a href="<%= settings_about_path %>">My Information</a>
+                  <a href="<%= settings_tab_path(:family_id => @my_first_family.id,:tab => "my_family")  %>">My family</a>
+                  <a href="<%= settings_tab_path(:family_id => @my_first_family.id,:tab => "family-friends-information") %>">Family and friends information</a>
+                <% else %>
+                  <a href="<%= settings_about_path %>">My Information</a>
+                  <a href="<%= new_child_children_path(:return_to => request.url) %>">Create own BabyFolio</a>
+                <% end %>
+              </div>
+
+              <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
+              <% admin_families = current_user.own_families.where(condition).all %>
+              <% if admin_families.present? %>
+                  <div class="orange-subnav-item">
+                    <div class="subnav-header">Admin of:</div>
+                    <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
+                    <% admin_families = current_user.own_families.where(condition).all %>
+                    <% admin_families.each do |admin_family|%>
+                      <a href="<%= settings_path(:family_id => admin_family.id) %>"><%= admin_family.full_name %>'s  Family</a>
+                    <% end %>
+                  </div>
+              <% end %>
+
+              <% member_families = current_user.other_families %>
+              <% if member_families.present? %>
+                <div class="orange-subnav-item">
+                  <div class="subnav-header">Member of:</div>
+                  <% member_families.each do |member_family|%>
+                    <a href="<%= settings_path(:family_id => member_family.id) %>"><%= member_family.full_name %>'s Family</a>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+            <!-- SETTINGS SUBNAV -->
+            <!-- SETTINGS SUBNAV -->
+            <!-- SETTINGS SUBNAV -->
+          </li>
         </ul>
       </div>
     </div>

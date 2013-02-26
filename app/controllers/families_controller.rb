@@ -4,39 +4,38 @@ class FamiliesController < ApplicationController
 
   def change_family
     set_current_family(params[:family_id])
-    redirect_to settings_path
+    redirect_to settings_path(:family_id => params[:family_id])
   end
 
-
   def make_admin      
-      Relation.make_admin(params[:relation_id], current_user)    
+      family_id = Relation.make_admin(params[:relation_id], current_user)
       flash[:tab] = "family-friends-information";
-      redirect_to settings_path
+      redirect_to settings_path(:family_id => family_id)
   end
 
   def remove_admin
-      Relation.remove_admin(params[:relation_id], current_user)
+      family_id = Relation.remove_admin(params[:relation_id], current_user)
       flash[:tab] = "family-friends-information";
-      redirect_to settings_path
+      redirect_to settings_path(:family_id => family_id)
   end
 
   def remove_user      
-      Relation.remove_from_family(params[:relation_id], current_user)    
+      family_id = Relation.remove_from_family(params[:relation_id], current_user)
       flash[:tab] = "family-friends-information";
-      redirect_to settings_path
+      redirect_to settings_path(:family_id => family_id)
   end
 
   def edit_relation
     @relation = Relation.includes([[:child => :family], :user]).find_by_id(params[:relation_id])
 
     unless @relation.child.family.is_admin?(current_user)
-      redirect_to settings_tab_path(:tab => "family-friends-information")
+      redirect_to settings_tab_path(:tab => "family-friends-information", :family_id => @relation.child.family.id)
     end
   end
 
   def update_relation
     relation = Relation.includes([[:child => :family], :user]).find_by_id(params[:relation_id])
-    display_name = params[:display_name].present? ? params[:display_name] : @relation.user.get_user_name
+    display_name = params[:display_name].present? ? params[:display_name] : relation.user.get_user_name
     is_admin = params[:is_admin]
 
     if relation.child.family.is_admin?(current_user)
@@ -50,7 +49,7 @@ class FamiliesController < ApplicationController
       end
     end
 
-    redirect_to settings_tab_path(:tab => "family-friends-information")
+    redirect_to settings_tab_path(:tab => "family-friends-information", :family_id => relation.child.family.id)
   end
 
   def update_access
@@ -125,7 +124,7 @@ class FamiliesController < ApplicationController
     end
 
     flash[:tab] = "family-friends-information";
-    redirect_to settings_path
+    redirect_to settings_path(:family_id => relation.child.family.id)
   end
 
 

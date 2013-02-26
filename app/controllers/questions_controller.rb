@@ -53,23 +53,29 @@ class QuestionsController < ApplicationController
   def initial_questionnaire_completed
     @qs_ms = current_child.max_seen_by_category    
     @qs_ms.each do |q|
-      te = TimelineEntry.build_entry("watch",
-                                   "is #{q.milestone.get_title}",
-                                   current_child,
-                                   current_user,
-                                   "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
-                                   q.category,
-                                   nil,
-                                   current_user.id,
-                                   q.milestone.mid
-                                 )
-      te.is_auto = true
-      te.save
+      if q.milestone
+        te = TimelineEntry.build_entry("watch",
+                                     "is #{q.milestone.get_title}",
+                                     current_child,
+                                     current_user,
+                                     "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
+                                     q.category,
+                                     nil,
+                                     current_user.id,
+                                     q.milestone.mid
+                                   )
+        te.is_auto = true
+        te.save
+      end
     end
 
     current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
 
     qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
+    #=========== temporary solution in case milestone for question is NIL =========
+    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.second unless qs.milestone
+    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.third unless qs.milestone
+    #=========== temporary solution in case milestone for question is NIL ====
     if qs
       unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
         UserMailer.registration_completed(current_user, current_child, qs).deliver if current_user.user_option.subscribed

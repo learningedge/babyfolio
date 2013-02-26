@@ -36,7 +36,7 @@ class TimelineController < ApplicationController
   def invite_redirect
     current_user.do_action!('timeline_dont_remind')
     session[:remind_timeline] = true
-    redirect_to settings_invite_path
+    redirect_to settings_invite_path(:family_id => current_child.family.id)
   end
 
   def dont_remind

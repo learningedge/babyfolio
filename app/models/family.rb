@@ -1,4 +1,4 @@
-class Family < ActiveRecord::Base
+class Family < ActiveRecord::Base    
   has_many :children
   has_many :awaiting_relations, :through => :children, :conditions => {"relations.accepted" => 0}, :source => :relations
   has_many :relations, :through => :children, :conditions => {"relations.accepted" => 1}, :source => :relations
@@ -6,11 +6,15 @@ class Family < ActiveRecord::Base
   has_many :admin_relations, :through => :children, :conditions => { "relations.accepted" => 1, "relations.is_admin" => true}, :source => :relations
   has_many :members, :through => :member_relations, :source => :user, :uniq => true
   has_many :admins, :through => :admin_relations, :source => :user, :uniq => true
-  has_many :admins, :through => :admin_relations, :source => :user, :uniq => true
-
+  
   def is_admin? user
-    admin = self.admin_relations.find_by_user_id(user.id)
+    admin = self.admin_relations.find_by_user_id(user.id, :conditions => {"relations.access" => true })
     return admin.present?
+  end
+
+  def is_family_admin? user
+    f_admin = self.admin_relations.find_by_user_id(user.id)
+    return f_admin.present? && (f_admin.is_family_admin || f_admin.member_type == "Father" || f_admin.member_type == "Mother")
   end
 
   #=================================================
@@ -54,7 +58,7 @@ class Family < ActiveRecord::Base
             error = "User is already a part of the family"
           else
             family_children.each do |child|
-              user.relations.build({:child => child, :member_type => ie[:type], :token => current_user.perishable_token, :inviter => current_user, :is_admin => false, :accepted => false, :display_name => user.get_user_name})
+              user.relations.build({:child => child, :member_type => ie[:type], :token => current_user.perishable_token, :inviter => current_user, :is_admin => false, :accepted => false, :access => true, :display_name => user.get_user_name})
               current_user.reset_perishable_token!
             end
             users << user
@@ -70,16 +74,28 @@ class Family < ActiveRecord::Base
   #=================================================
   #================ ADDING A CHILD =================
   #=================================================
-  def self.user_added_child user, child,family_name, relation_type
-      family_name ||= user.last_name
-      family = user.own_families.find_by_name(family_name)
-      family = Family.create(:name => family_name) unless family
-      child.family = family
+  def self.user_added_child user, child,relation_type, family_id, family_name      
+      family = user.own_families.find_by_id(family_id) if family_id
+      
+      if family
+        family_admin = family.is_family_admin?(user)
+      else
+        family_name ||= user.last_name
+        family_name = family_name.gsub(/'s$/i, '').capitalize
+        family_full_name = "#{user.first_name[0,1]}. #{family_name}"
+      
+        family = Family.create(:name => family_name, :full_name => family_full_name )
+        family_admin = true
+      end
+      
+      child.family = family      
       user.relations.create(:child => child, 
                             :member_type => relation_type,
                             :token => user.perishable_token,
                             :display_name => user.get_user_name,
                             :is_admin => true,
+                            :is_family_admin => family_admin,
+                            :access => true,
                             :accepted => 1)
       
       all_relations = family.relations.includes(:user).where("relations.user_id != ?", user.id).uniq_by{|r| r.user_id}
@@ -96,7 +112,9 @@ class Family < ActiveRecord::Base
                                         :token => relation.user.perishable_token,
                                         :display_name => relation.display_name,
                                         :is_admin => relation.is_admin,
+                                        :is_family_admin => relation.is_family_admin,
                                         :inviter_id => inviter.id,
+                                        :access => true,
                                         :accepted => 1)
         relation.user.reset_perishable_token!
       end

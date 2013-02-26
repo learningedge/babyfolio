@@ -180,17 +180,26 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #page-child #header #logo-wrapper { display: inline-block; background: url(/images/logo_med.png) no-repeat center center; height: 50px; width: 166px; float: none; vertical-align: middle;}
 #page-child #header #logo-wrapper a { width: 100%; height: 100%; display: inline-block; text-indent: -9999px; text-transform: capitalize;}
 #page-child #orange-nav { height: 38px; width: 100%; background: url(/images/top_orange_bar.png) repeat-x left center;  }
-#page-child #orange-nav ul#orange-nav-ul li {  list-style: none; float: left; color: #fffefd; font-size: 20px; width: 200px; line-height: 38px; border-right: 1px solid #f8be26; position: relative;}
-#page-child #orange-nav ul#orange-nav-ul li a { display: none; height: 100%; width: 100%; background: url(/images/orange_nav_hover.png); position: absolute; top: 0; left: 0;}
-#page-child #orange-nav ul#orange-nav-ul li a.active,
-#page-child #orange-nav ul#orange-nav-ul li:hover a { display: inline-block; }
-#page-child #orange-nav ul#orange-nav-ul li:last-child { border: none; }
+#page-child #orange-nav ul#orange-nav-ul > li {  list-style: none; float: left; color: #fffefd; font-size: 20px; width: 200px; line-height: 38px; border-right: 1px solid #f8be26; position: relative;}
+#page-child #orange-nav ul#orange-nav-ul > li > a { display: none; height: 100%; width: 100%; background: url(/images/orange_nav_hover.png); position: absolute; top: 0; left: 0;}
+#page-child #orange-nav ul#orange-nav-ul > li > a.active,
+#page-child #orange-nav ul#orange-nav-ul > li:hover > a { display: inline-block; }
+#page-child #orange-nav ul#orange-nav-ul > li:last-child { border: none; }
 #page-child #orange-nav ul #orange-timeline { background: url("/images/icon_timeline.png") no-repeat 45px center; text-indent: 88px;}
 #page-child #orange-nav ul #orange-play { background: url("/images/icon_rattle.png") no-repeat 50px center; text-indent: 90px;}
 #page-child #orange-nav ul #orange-watch { background: url("/images/icon_glasses.png") no-repeat 50px center; text-indent: 90px;}
 #page-child #orange-nav ul #orange-reflect { background: url("/images/icon_question_mark.png") no-repeat 52px center; text-indent: 86px;}
-#page-child #orange-nav ul #orange-more { background: url("/images/icon_more.png") no-repeat 50px center; text-indent: 80px;}
+#page-child #orange-nav ul #orange-more { text-indent: 40px;}
+#page-child #orange-nav ul #orange-more #settings-nav-text { background: url("/images/icon_more.png") no-repeat left center; padding-left: 30px; color: #FFFEFD;}
 #page-child #orange-nav ul #orange-more #more-arrow { display: inline-block; margin-left: 10px; width: 10px; height: 10px; background: url("/images/icon_arrow_more.png") no-repeat center center;}
+#page-child #orange-nav ul #orange-more .orange-subnav { display: none; list-style: none; position: absolute; top: 100%; left: 0; background-color: #D6EBF8; z-index: 99; width: 198px; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; padding: 0 0 20px; box-shadow: 2px 2px 3px #BBBBBB; border-style: none solid solid solid; border-width: 1px; border-color: #ccc;}
+#page-child #orange-nav ul #orange-more:hover .orange-subnav { display: block; }
+#page-child #orange-nav ul #orange-more .orange-subnav .subnav-header{ font-size: 16px; font-weight: bold; border-bottom: 1px solid #F36C21; padding: 15px 0 5px; margin-bottom: 5px; }
+#page-child #orange-nav ul #orange-more .orange-subnav .orange-subnav-item { padding: 0 10px; line-height: 20px  }
+#page-child #orange-nav ul #orange-more .orange-subnav .orange-subnav-item a { display: block; text-indent: 0; border: 1px solid #D6EBF8; text-align: left; font-size: 12px; padding: 0 5px; color: #333; line-height: 20px; text-decoration: none;}
+#page-child #orange-nav ul #orange-more .orange-subnav .orange-subnav-item a:hover { background-color: #FDFBE2; border: 1px solid #F36C21; }
+
+
 #page-child #middle-bar { background: url("/images/middle_bar_bottom_bg.png") repeat-x center bottom #1fa9bb; padding:0; }
 #page-child #middle-bar .inner-wrapper { padding: 0; text-align: center;}
 #page-child #middle-bar.timeline-middle-bar .inner-wrapper {text-align: left; }
@@ -710,16 +719,17 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 #settings-wrapper #invite-others .invitation-buttons a { padding: 3px 10px; margin-right: 5px; }
 #settings-wrapper #invite-others #invite-others-prompt { text-align: center; }
 #settings-wrapper #invite-others .invite-more-btn-wrapper { text-align: center; margin-top: 30px;}
-#settings-wrapper #family-friends-information .setting-block { margin-bottom: 20px; border-bottom: 1px solid #F36C21; padding-bottom: 15px; }
-#settings-wrapper #family-friends-information .invitees-image  { display: inline-block; width: 75px; height: 75px; background-size: cover; background-position: center center; background-repeat: no-repeat; vertical-align: middle;}
-#settings-wrapper #family-friends-information .setting-block .relative-info { margin-left: 20px; display: inline-block; vertical-align: middle; max-width: 450px;}
-#settings-wrapper #family-friends-information .setting-block .relative-info .invitees-buttons { float: left; margin-top: 10px; }
-#settings-wrapper #family-friends-information .setting-block .relative-info .invitees-buttons a { margin-right: 15px; }
 
-#settings-wrapper #family-friends-information .family-name-block { width: 100px; }
-#settings-wrapper #family-friends-information .single-child-relation { margin-bottom: 15px; }
-#settings-wrapper #family-friends-information .single-child-relation .relative-info { width: 208px; }
-#settings-wrapper #family-friends-information .single-child-relation .visit-timeline-btn { width: auto; }
+#settings-wrapper .family-name-block { width: 100px; }
+#settings-wrapper .single-child-relation { margin-bottom: 15px; }
+#settings-wrapper .single-child-relation .relative-info { width: 208px; }
+#settings-wrapper .single-child-relation .visit-timeline-btn { width: auto; }
+#settings-wrapper .setting-block { margin-bottom: 20px; border-bottom: 1px solid #F36C21; padding-bottom: 15px; }
+#settings-wrapper .invitees-image  { display: inline-block; width: 75px; height: 75px; background-size: cover; background-position: center center; background-repeat: no-repeat; vertical-align: middle;}
+#settings-wrapper .setting-block .relative-info { margin-left: 20px; display: inline-block; vertical-align: middle; max-width: 450px;}
+#settings-wrapper .setting-block .relative-info .invitees-buttons { float: left; margin-top: 10px; }
+#settings-wrapper .setting-block .relative-info .invitees-buttons a { margin-right: 15px; }
+
 
 .child-access-wrapper { position: relative; margin-top: 10px; display: inline-block;}
 .access-select-wrapper { display: none; position: absolute; left: 100%; top: 0; border: 1px solid #F7A266; padding: 5px 10px; background-color: #FDFBE2}

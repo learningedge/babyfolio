@@ -8,10 +8,10 @@
         <%# admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{@family.name}'s family, edit or delete posts, and other awesome powers." %>
         <%# remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name} from your account?" %>
         <div class="invitees-buttons">
-          <%= link_to "Remove From Account", remove_user_path(:relation_id => relation.id), :class => "btn btn-grey right remove-user-btn", :data_user => relation.user.get_user_name, :data_family => @family.name  %>
+          <%= link_to "Remove From Account", remove_user_path(:relation_id => relation.id), :class => "btn btn-grey right remove-user-btn", :data_user => relation.user.get_user_name, :data_family => @family.full_name  %>
           <%= link_to "Edit", edit_relation_path(:relation_id => relation.id), :class => "btn right edit-user-relation-btn" %>
-          <%= link_to "Make Admin", make_admin_path(:relation_id => relation.id), :class => "btn right make-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.name unless admin %>
-          <%= link_to "Remove Admin Powers", remove_admin_path(:relation_id => relation.id), :class => "btn right remove-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.name if admin %>                    
+          <%= link_to "Make Admin", make_admin_path(:relation_id => relation.id), :class => "btn right make-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.full_name unless admin %>
+          <%= link_to "Remove Admin Powers", remove_admin_path(:relation_id => relation.id), :class => "btn right remove-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.full_name if admin %>
         </div>
 
         <div class="clear"></div>

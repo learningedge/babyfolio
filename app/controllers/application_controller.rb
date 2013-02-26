@@ -55,25 +55,25 @@ end
     # ==========================
     # ===== FAMILY METHODS =====
     # ==========================
-    def current_family      
-      return @current_family if defined?(@current_family)
-      if session[:current_family]
-        @current_family = current_user.families.find_by_id(session[:current_family])
-      else
-        @current_family = current_user.own_families.first if current_user.own_families.any?
-        @current_family ||= current_user.families.first if current_user.families.any?
-        set_current_family(@current_family.id) if @current_family
-      end
-      @current_family
-    end
-
-    def set_current_family(family_id)
-      session[:current_family] = family_id
-      @current_family = current_user.families.find_by_id(family_id);
-    end
+#    def current_family
+#      return @current_family if defined?(@current_family)
+#      if session[:current_family]
+#        @current_family = current_user.families.find_by_id(session[:current_family])
+#      else
+#        @current_family = current_user.own_families.first if current_user.own_families.any?
+#        @current_family ||= current_user.families.first if current_user.families.any?
+#        set_current_family(@current_family.id) if @current_family
+#      end
+#      @current_family
+#    end
+#
+#    def set_current_family(family_id)
+#      session[:current_family] = family_id
+#      @current_family = current_user.families.find_by_id(family_id);
+#    end
 
     def require_family
-      #redirect_to registration_new_child_path unless current_family
+      redirect_to registration_new_child_path if current_user.families.empty?
     end
 
     # ===============================
@@ -94,7 +94,7 @@ end
     def set_current_child child_id
       session[:current_child] = child_id
       @current_child = Child.find_by_id(child_id);
-      set_current_family(@current_child.family_id)
+#      set_current_family(@current_child.family_id)
     end
 
     def clear_current_child

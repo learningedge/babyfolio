@@ -14,19 +14,21 @@ class ChildrenController < ApplicationController
   def new
     @child = Child.new
     @child.last_name = current_user.last_name if current_user.last_name.present?
-    
+    destination_family = Family.find_by_id(params[:family_id])
+    @destination_family_id = destination_family.id if destination_family
   end
 
   def create
     @child = Child.new(params[:child])
-    @child.media = MediaImage.find_by_id(params[:child_profile_media])
+    @child.media = MediaImage.find_by_id(params[:child_profile_media])    
     if @child.valid?
       # ==> add new relation for user and all family admins/members
-      Family.user_added_child(current_user, @child, params[:family_name], params[:relation_type])  
+      Family.user_added_child(current_user, @child, params[:relation_type], params[:family_id], params[:family_name])
 
       set_current_child @child.id
       redirect_to registration_initial_questionnaire_path
     else
+      @destination_family = Family.find_by_id(params[:family_id])
       render :action => 'new'
     end
   end
@@ -52,14 +54,15 @@ class ChildrenController < ApplicationController
   end
 
   def destroy
-    relation = Relation.find_by_user_id_and_child_id(current_user.id, params[:child_id])
+    relation = Relation.includes([:child => :family]).find_by_user_id_and_child_id(current_user.id, params[:child_id])
+    family_id = relation.child.family.id
 
     if relation && relation.is_admin
       relation.child.destroy_child
       clear_current_child
     end
 
-    redirect_to settings_tab_path(:tab => "my_family")
+    redirect_to settings_tab_path(:tab => "my_family", :family_id => family_id)
   end
 
   def reflect
@@ -319,7 +322,7 @@ class ChildrenController < ApplicationController
     relation.member_type = params[:relation_type]
     if relation.save
       flash.now[:notice] = "Child sucessfully updated"
-      redirect_to settings_path
+      redirect_to settings_path(:family_id => relation.child.family.id)
     else
       @child = relation.child
       render :edit, :layout => "child"

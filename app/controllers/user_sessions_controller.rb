@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
 
-  before_filter :require_user, :only => [:destroy, :change_family]
+  before_filter :require_user, :only => [:destroy] #, :change_family]
   before_filter :clear_session, :only => [:create]
   skip_before_filter :require_confirmation
 
@@ -26,10 +26,10 @@ class UserSessionsController < ApplicationController
     end
   end
 
-  def change_family    
-    session[:current_family] = params[:id]
-    redirect_to :back
-  end
+#  def change_family
+#    session[:current_family] = params[:id]
+#    redirect_to :back
+#  end
 
   def destroy
     Log.create_log(current_user.id, ["User logout successful!"])

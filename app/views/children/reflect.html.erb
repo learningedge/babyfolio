@@ -38,7 +38,7 @@
       <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <span class="bold"><%= current_child.first_name %>’s</span> strengths and areas for improvement in his development, and find activities to help those areas.</li>
     </ul>
     <p>View <span class="bold"><%= current_child.first_name %>’s</span> development progress now or invite close friends and family to join his circle!</p>
-    <div><%= link_to "Send Invites", settings_invite_path, :class => 'btn' %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
+    <div><%= link_to "Send Invites", settings_invite_path(:family_id => current_child.family.id), :class => 'btn' %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
     <a href="#" class="close-popup-icon jqmClose">Close</a>
   </div>
 </div>

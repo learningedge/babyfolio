@@ -11,10 +11,10 @@ Babyfolio::Application.routes.draw do
     end    
   end
 
-  get '/user/settings/invite' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }
-  post '/user/settings/update_options/:token' => "users#update_options", :as => :update_user_options
-  post '/user/settings/update_zipcode/user_id' => "users#update_zipcode", :as => :update_user_zipcode
-  get '/user/settings/tab/:tab' => "users#settings_tab", :as => :settings_tab
+  get '/user/settings/invite(/:family_id)' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }
+  post '/user/settings/update_zipcode(/:family_id)' => "users#update_zipcode", :as => :update_user_zipcode
+  get '/user/settings/tab/:tab(/:family_id)' => "users#settings_tab", :as => :settings_tab
+  get '/user/settings/about_me(/:tab)' => "users#settings", :as => :settings_about, :defaults => { :is_about_me => true}
   get '/user/settings(/:family_id)' => "users#settings", :as => :settings  
   get "/errors/permission" => "errors#permission", :as => :errors_permission
   get "home/index"
@@ -63,7 +63,7 @@ Babyfolio::Application.routes.draw do
   resources :children, :only => [:create, :edit, :update] do
     collection do
       get 'change-child' => "children#switch_child", :as => :switch
-      get '/add' => "children#new", :as => :new_child
+      get '/add(/:family_id)' => "children#new", :as => :new_child
       delete '/delete/:child_id' => "children#destroy", :as => :delete_child
 #      get '/add_friends' => "children#add_friends", :as => :add_friends
 #      get '/add_family' => "children#add_family", :as => :add_family

@@ -4,19 +4,27 @@
 
 <div id="settings-wrapper">  
   <div id="settings-left">
-    <%= render :partial => "users/settings/family_select" %>
-
+    <%#= render :partial => "users/settings/family_select" %>    
     <ul id="settings-tabs-ul">
-      <% if @is_admin %>
-        <li><a href="#your-information">My Information</a></li>
-        <li><a href="#my-family" class="my-family-tab-link">My Family</a></li>
-        <li><a data-href="<%= new_child_children_path %>" class="new-child-link">Add Another Baby To My Family</a></li>
-        <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
-        <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+
+      <% if @family %>
+          <% if @is_family_admin %>
+              <li><a href="#your-information">My Information</a></li>
+              <li><a href="#my-family" class="my-family-tab-link">My Family</a></li>
+              <li><a data-href="<%= new_child_children_path(:family_id => @family.id) %>" class="new-child-link">Add Another Baby To My Family</a></li>
+              <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
+              <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+          <% elsif @is_admin %>
+            <li><a href="#my-family" class="my-family-tab-link"><%= @family.full_name  %>'s Family</a></li>
+            <li><a data-href="<%= new_child_children_path(:return_to => request.url, :family_id => @family.id) %>" class="new-child-link">Add Another Baby</a></li>
+            <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
+            <li><a href="#invite-others" class="invite-others-tab-link">Invite Family And Friends</a></li>
+          <% else %>
+            <li><a href="#my-family" class="my-family-tab-link"><%= @family.full_name  %>'s Family</a></li>
+          <% end %>            
       <% else %>
-        <li><a href="#your-information">My Information</a></li>
-        <li><a data-href="<%= new_child_children_path %>" class="new-child-link">Set Up My Own Babyfolios</a></li>
-        <li><a href="#family-friends-information" class="family-friends-tab-link">Family and Friends Information</a></li>
+            <li><a href="#your-information">My Information</a></li>
+            <li><a data-href="<%= new_child_children_path(:return_to => request.url) %>" class="new-child-link">Create Your own BabyFolio</a></li>
       <% end %>
     </ul>
 
@@ -26,87 +34,88 @@
   <!------------------->
   <!-- YOUR INFO TAB -->
   <!------------------->
-  <div id="your-information" class="tab">
-    <div class="tab-inner-right">
-      <div class="pointing-arrow"></div>
-      <%= image_tag current_user.get_image_src(:profile_medium), :class => "round-corners left"  %>
-      <div id="user-details-right" class="left">
-          <div><span class="my-info-label">Name: </span><%= current_user.get_user_name %></div>
+  <% if (@family && @is_family_admin) || @family.nil? %>
+      <div id="your-information" class="tab">
+        <div class="tab-inner-right">
+          <div class="pointing-arrow"></div>
+          <%= image_tag current_user.get_image_src(:profile_medium), :class => "round-corners left"  %>
+          <div id="user-details-right" class="left">
+              <div><span class="my-info-label">Name: </span><%= current_user.get_user_name %></div>
 
-          <div><span class="my-info-label">Email: </span><%= current_user.email %></div>
-          <div>              
-              <%= form_tag update_user_zipcode_path do %>
-                <%= hidden_field_tag "return_url", request.url  %>            
-                <span class="my-info-label">Zipcode: </span><%= text_field_tag 'zipcode', current_user.zipcode, :placeholder => "Zipcode" %>
-                <%= submit_tag "Submit", :class => "btn" %>
-              <% end %>
-          </div>
+              <div><span class="my-info-label">Email: </span><%= current_user.email %></div>
+              <div>
+                  <% family_hash = {:family_id => @family.id} if @family %>
+                  <%= form_tag update_user_zipcode_path(family_hash) do %>
+                    <%= hidden_field_tag "return_url", request.url  %>
+                    <span class="my-info-label">Zipcode: </span><%= text_field_tag 'zipcode', current_user.zipcode, :placeholder => "Zipcode" %>
+                    <%= submit_tag "Submit", :class => "btn" %>
+                  <% end %>
+              </div>
 
-          <div class="edit-buttons">
-            <%= link_to "Edit", edit_account_path, :class => "btn" %>            
+              <div class="edit-buttons">
+                <%= link_to "Edit", edit_account_path, :class => "btn" %>
+              </div>
+
           </div>
-          
+        </div>
+
+        <%= render :partial => "users/settings/all_children" if @all_children_relations.present?  %>
+        <%= render :partial => "users/settings/my_pending_invites" %>
       </div>
-    </div>
-  </div>
+  <% end %>
 
 
-  <% if @is_admin %>
+  <% if @family %>
       <div id="my-family" class="tab">
+        <% if @is_family_admin || @is_admin %>
         <div class="tab-inner-right first">
             <div class="pointing-arrow"></div>
-            <h3 class="my-family-header"><%= @family.name %>'s Family</h3>
+            <h3 class="my-family-header"><%= @family.full_name %>'s Family</h3>
             <% @children.each do |child| %>
               <%= render :partial => "users/settings/child", :locals => {:child => child} %>
             <% end %>
 
             <div class="my-family-buttons">
-              <a href="<%= new_child_children_path %>" class="btn">Add a Baby</a>
+              <a href="<%= new_child_children_path(:family_id => @family.id) %>" class="btn">Add a Baby</a>
             </div>
         </div>
-      </div>
-  <% end %>
-
-
-  <div id="family-friends-information" class="tab">
-    <div class="tab-inner-right first">
-        <div class="pointing-arrow"></div>
-
-        <% if @is_admin %>
-            <h3>Friends and Family invited to your Babyfolio</h3>
-            <% if @family_admin_users.present? %>
-                <h4>Admins</h4>
-                <% @family_admin_users.each do |relation| %>
-                  <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => true }%>
-                <% end %>
-            <% end %>
-            <% if @family_member_users.present? %>
-                <h4>Members</h4>
-                <% @family_member_users.each do |relation| %>
-                  <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => false }%>
-                <% end %>
-            <% end %>
-
-            <% if @family_admin_users.blank? && @family_member_users.blank? %>
-                <h4>Seems like there aren't any users in your family. Use "Invite Family and Friends" button to invite some.</h4>
-            <% end %>
         <% else %>
-            <div class="family-no-admin">
-              <h4>You currently don't have a BabyFolio for your family. If you'd like to create one for your baby, just click on the button below.</h4>
-              <%= link_to "Create BabyFolio", new_child_children_path, :class => "btn btn-big create-own-bf-btn" %>
-            </div>
+          <% @display_arrow = true %>
+          <%= render :partial => "users/settings/all_children" if @all_children_relations.present?  %>
         <% end %>
-    </div>
-    <%= render :partial => "users/settings/awaiting_invitations" if @is_admin && @awaiting_family_invitations.present?  %>
-    <%= render :partial => "users/settings/all_children" if @all_children_relations.present?  %>
-    <%= render :partial => "users/settings/my_pending_invites" %>
-              
-  </div>
+      </div>
+    <% if @is_family_admin || @is_admin %>
+        <div id="family-friends-information" class="tab">
+          <div class="tab-inner-right first">
+              <div class="pointing-arrow"></div>
+
+                  <h3>Friends and Family invited to your Babyfolio</h3>
+                  <% if @family_admin_users.present? %>
+                      <h4>Admins</h4>
+                      <% @family_admin_users.each do |relation| %>
+                        <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => true }%>
+                      <% end %>
+                  <% end %>
+                  <% if @family_member_users.present? %>
+                      <h4>Members</h4>
+                      <% @family_member_users.each do |relation| %>
+                        <%= render :partial => "users/settings/family_users", :locals => {:relation => relation, :admin => false }%>
+                      <% end %>
+                  <% end %>
+
+                  <% if @family_admin_users.blank? && @family_member_users.blank? %>
+                      <h4>Seems like there aren't any users in your family. Use "Invite Family and Friends" button to invite some.</h4>
+                  <% end %>
+          </div>
+          <%= render :partial => "users/settings/awaiting_invitations" if @is_admin && @awaiting_family_invitations.present?  %>
+        </div>
+    <% end %>
+<% end %>
 
   <!----------------->
   <!-- INVITES TAB -->
   <!----------------->
-  <%= render :partial => "users/settings/invite_others" if @is_admin %>
+  <%= render :partial => "users/settings/invite_others" if @is_admin || @is_family_admin %>
 
 </div>
 
@@ -185,14 +194,14 @@
 <!--------------->
 
   <script type="text/javascript">
-    var currentFamily = <%= @family.id %>;
+    
     $(function() {
         setTabs();
 
         $('.relation-btn').bind('ajax:before', function() {
           $(this).parents('.single-relation').fadeOut(function() {
               $(this).remove();
-              if($('.single-relation').length == 0) { $('#invite-others-prompt').removeClass('hidden'); window.location = "<%=  settings_path %>"; }
+              if($('.single-relation').length == 0) { $('#invite-others-prompt').removeClass('hidden'); window.location = "<%=  settings_path(:is_about_me => true) %>"; }
            });
         });
 
@@ -218,16 +227,16 @@
           cl.insertBefore(row);
         });
 
-        $('#family-select').change(function() {
-          if($(this).val() != currentFamily) {
-            $(this).parents('form').submit();
-          }
-        });        
+        <%#*$('#family-select').change(function() {%>
+          <%#*if($(this).val() != currentFamily) {%>
+            <%#*$(this).parents('form').submit();%>
+          <%#*}%>
+        <%#*});%>
         
-        $('.pointing-arrow').css({top : $('#settings-tabs-ul .ui-tabs-active a').position().top + 45});
+        $('.pointing-arrow').css({top : $('#settings-tabs-ul .ui-tabs-active a').position().top});
 
         $('#settings-tabs-ul > li > a').click(function() {
-          $('.pointing-arrow').css({top : $('#settings-tabs-ul .ui-tabs-active a').position().top + 45});
+          $('.pointing-arrow').css({top : $('#settings-tabs-ul .ui-tabs-active a').position().top});
         });
                             
         $('.tab-inner-right.first').css({minHeight : $('#settings-tabs-ul').height() + 20});
