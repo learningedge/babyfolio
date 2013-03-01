@@ -631,6 +631,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 /*#timeline-wrapper .te-comments .single-comment { margin-top: 10px;}*/
 #timeline-wrapper .te-comments .single-comment span { display: inline-block; vertical-align: middle; }
 #timeline-wrapper .te-comments .single-comment span.comment-author-img { height: 32px; width: 32px; margin: 9px; text-align: center; background: url(/images/img_upload.png) no-repeat center center; background-size: cover;}
+#timeline-wrapper .te-comments .single-comment span.comment-author-img img { width: 100%; height: 100%;}
 #timeline-wrapper .te-comments .single-comment span.comment-date { text-align: center; width: 45px; font: italic 10px Arial; color: #999; }
 #timeline-wrapper .te-comments .single-comment span.comment-content { font: bold 12px Arial; margin-left: 10px; vertical-align: middle; max-width: 410px; }
 #timeline-wrapper .te-comments .single-comment span.comment-content span.comment-author-name { color: #1fa9bb; margin-right: 5px; }
