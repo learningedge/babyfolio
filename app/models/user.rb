@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
     t.merge_validates_length_of_password_field_options :minimum =>6, :maximum =>24
   end
 
+  validates :last_name, :presence => true
+
   disable_perishable_token_maintenance(true)
 
   has_one :user_option, :autosave => true
