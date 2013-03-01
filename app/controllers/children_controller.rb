@@ -74,44 +74,19 @@ class ChildrenController < ApplicationController
       @lengths[uniq_ages[0]] = 125
     else
       uniq_ages.each_with_index.map { |i, index| @lengths[i] =  200/(uniq_ages.size).to_f * (index +1) }
-    end
+    end    
 
-#<<<<<<< HEAD
-##<<<<<<< HEAD
-##    @avg_answers = categorized_qs.map{|k,v| v}
-##    unless @avg_answers.first.age == @avg_answers.last.age
-##        @weak_answers = [@avg_answers.pop]
-##        @str_answers = [@avg_answers.shift]
-##=======
-#    third_from_start = seen_behaviours[2]
-#    third_from_end = seen_behaviours[-3]
-#=======
-    first_str = seen_behaviours[0]
-    last_weak = seen_behaviours[-1]
-#>>>>>>> watch section updated to the new db - gutto
-
-    seen_behaviours = seen_behaviours.group_by{|q| q.category}
-    seen_behaviours.each do |k,v|
-      seen_behaviours[k] = v.first
-    end
-    
-    @str_answers = seen_behaviours.reject{ |k,v| v.age_from != first_str.age_from } unless first_str.nil?
-    @weak_answers = seen_behaviours.reject{ |k,v| v.age_from != last_weak.age_from } unless last_weak.nil?
     @avg_answers = seen_behaviours
-    @avg_answers = seen_behaviours.reject{|k,v| @str_answers.keys.include?(k)} if @str_answers.present?
-    @avg_answers = @avg_answers.reject{|k,v| @weak_answers.keys.include?(k)} if @weak_answers.present?
-
-    @empty_answers = ActiveSupport::OrderedHash.new
-    Behaviour::CATEGORIES.each do |k,v|
-      @empty_answers[k] = nil if seen_behaviours[k].nil?
-#>>>>>>> reworking db scheme , watch still to be done - gitt
-    end
-    @avg_answers = @avg_answers.sort_by{|q| Question::CATS_ORDER.index(q.category)  }.sort_by{|q| q.age}.reverse
 
     @empty_answers = []
-    Question::CATS_ORDER.each do |k,v|
-      @empty_answers << k if categorized_qs[k].nil?
+    Behaviour::CATEGORIES_ORDER.each do |cat|      
+      @empty_answers << cat unless seen_behaviours.any?{|sb| sb.category == cat}
     end
+
+    unless @avg_answers.first.age_from == @avg_answers.last.age_from
+        @weak_answers = [@avg_answers.pop]
+        @str_answers = [@avg_answers.shift]
+    end    
 
     @str_text = current_child.replace_forms("
                   <h4><WTitle>: #{current_child.first_name}’s Most Important <INTELLIGENCE> Development</h4>
@@ -228,33 +203,6 @@ class ChildrenController < ApplicationController
   end
 
   def watch
-#<<<<<<< HEAD
-#    ms = []
-#<<<<<<< HEAD
-#    @behaviours = []
-#    current_questions = []
-#
-#    questions = current_child.max_seen_by_category
-#
-#
-#    questions.each do |q|
-#      question = Question.get_next_questions_for_category(q.category, q.age, 1).first
-#      current_questions << (question || q)
-#    end
-#
-#    if params[:mid]
-#      m = Milestone.includes(:questions).find_by_mid(params[:mid])
-#    end
-#
-#    current_questions.each do |q|
-#      if m.present? && q.category == m.questions.first.category
-#        time = q.age > m.questions.first.age ? "past" : (q.age < m.questions.first.age ? "future" : "current")
-#        ms  << { :category => m.questions.first.category, :milestone => m, :time => time }
-#      else
-#        ms  << {:category => q.category, :milestone => q.milestone, :time => "current", :is_next => Question.get_next_questions_for_category(q.category,q.age,1).first.present? }
-#=======
-#=======
-#>>>>>>> watch section updated to the new db - gutto
     @behaviours = []    
 
     curr_b = Behaviour.includes(:activities).find_by_id(params[:bid]) if params[:bid].present?
@@ -265,14 +213,8 @@ class ChildrenController < ApplicationController
       time = "current"
       
       if curr_b && b.category == curr_b.category
-#<<<<<<< HEAD
-#        beh = curr_b
-#        time = curr_b.age_from > beh.age_from ? "future" : "past"
-##>>>>>>> reworking db scheme , watch still to be done - gitt
-#=======
         time = "future" if curr_b.age_from > beh.age_from
         beh = curr_b        
-#>>>>>>> watch section updated to the new db - gutto
       end
 
       unless beh
@@ -302,34 +244,6 @@ class ChildrenController < ApplicationController
                        :references => current_child.replace_forms(beh.references),
                        :selected => selected
                      }
-#<<<<<<< HEAD
-#    end
-#
-#    ms.each do |m|
-#        if m[:milestone]
-#          selected = m[:milestone].mid == params[:mid]
-#          @behaviours << {
-#                           :category => m[:category],
-#                           :mid => m[:milestone].mid,
-#                           :ms_title => current_child.replace_forms(m[:milestone].title, 35),
-#                           :title => current_child.replace_forms(m[:milestone].get_title, 60),
-#                           :subtitle =>  m[:milestone].observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(m[:milestone].observation_subtitle),
-#                           :desc => current_child.replace_forms(m[:milestone].observation_desc),
-#                           :examples =>  current_child.replace_forms(m[:milestone].other_occurances),
-#                           :activity_1_title => current_child.replace_forms(m[:milestone].activity_1_title, 40),
-#                           :activity_2_title => current_child.replace_forms(m[:milestone].activity_2_title, 40),
-#                           :activity_1_url => play_children_path(:mid => m[:milestone].mid, :no => 1),
-#                           :activity_2_url => play_children_path(:mid => m[:milestone].mid, :no => 2),
-#                           :why_important => current_child.replace_forms(m[:milestone].observation_what_it_means),
-#                           :theory => current_child.replace_forms(m[:milestone].research_background),
-#                           :references => current_child.replace_forms(m[:milestone].research_references),
-#                           :time => m[:time],
-#                           :is_next => m[:is_next],
-#                           :selected => selected || false
-#                          }
-#        end
-#=======
-#>>>>>>> watch section updated to the new db - gutto
     end
     @behaviours.first[:selected] = true unless @behaviours.any? { |b| b[:selected] == true }
   end
@@ -348,19 +262,9 @@ class ChildrenController < ApplicationController
       order = "ASC"
     end
 
-#<<<<<<< HEAD
-#    qs = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age #{dir} ?", ms.questions.first.age], :order => "questions.age #{order}", :limit => 1)
-#    max_ans_age = current_child.questions.where(["questions.category = ? ", qs.category]).order('questions.age DESC').limit(1).first.age
-#    qs_current = Question.includes(:milestone).find_by_category(ms.questions.first.category, :conditions => ["questions.age >= ?", max_ans_age], :order => "questions.age ASC", :limit => 1)
-#
-#    if qs_current && qs_current.age < qs.age
-#      time = "future"
-#    elsif qs_current && qs_current.age >= qs.age
-#=======
     beh = Behaviour.find_by_category(ref_b.category, :conditions => ["age_from #{dir} ?", ref_b.age_from], :order => "age_from #{order}")
     
     if beh            
-#>>>>>>> watch section updated to the new db - gutto
       time = "past"
       if max_b && max_b.age_from == beh.age_from
         time = "current"
@@ -390,33 +294,7 @@ class ChildrenController < ApplicationController
         respond_to do |format|
           format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }
         end
-    else
-
-#<<<<<<< HEAD
-#    item =  {
-#               :category => qs.category,
-#               :mid => qs.mid,
-#               :ms_title => current_child.replace_forms(qs.milestone.title, 35),
-#               :title =>  current_child.replace_forms(qs.milestone.get_title, 60),
-#               :subtitle =>  qs.milestone.observation_subtitle.blank? ? "Subtitle goes here" : current_child.replace_forms(qs.milestone.observation_subtitle),
-#               :desc => current_child.replace_forms(qs.milestone.observation_desc),
-#               :examples =>  current_child.replace_forms(qs.milestone.other_occurances),
-#               :activity_1_title => current_child.replace_forms(qs.milestone.activity_1_title, 40),
-#               :activity_2_title => current_child.replace_forms(qs.milestone.activity_2_title, 40),
-#               :activity_1_url => play_children_path(:mid => qs.mid, :no => 1),
-#               :activity_2_url => play_children_path(:mid => qs.mid, :no => 2),
-#               :why_important => current_child.replace_forms(qs.milestone.observation_what_it_means),
-#               :theory => current_child.replace_forms(qs.milestone.research_background),
-#               :references => current_child.replace_forms(qs.milestone.research_references),
-#               :selected => true,
-#               :is_next => Question.get_next_questions_for_category(qs.category,qs.age,1).first.present?
-#              }
-#              respond_to do |format|
-#                format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }
-#              end
-#=======
     end
-#>>>>>>> watch section updated to the new db - gutto
   end
 
 

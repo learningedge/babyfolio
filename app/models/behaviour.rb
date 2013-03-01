@@ -9,8 +9,7 @@ class Behaviour < ActiveRecord::Base
     "S" => "Social",
     "V" => "Visual and Spatial",
     "M" => "Physical and Movement",
-    "E" => "Emotion",
-#    "m" => "Music"
+    "E" => "Emotion"
   }
 
   CATEGORIES_ORDER = ["L", "N", "S", "V", "M", "E"]
@@ -22,5 +21,13 @@ class Behaviour < ActiveRecord::Base
       result << Behaviour.find_by_age_from_and_category(ac.age_from, ac.category)
     end
     result    
+  end
+
+  def self.get_next_behaviours_for_category category, age, number
+    includes(:activities).find_all_by_category(category, :conditions => ["behaviours.age_from > ?", age], :order => 'behaviours.age_from ASC', :limit => number)
+  end
+
+  def self.get_next_2_behaviours_for_category category, age
+    get_next_behaviours_for_category(category, age, 2)
   end
 end

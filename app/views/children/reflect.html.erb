@@ -7,10 +7,10 @@
   <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
   <div id="reflect-column-wrapper" class="left">
       <div id="all-reflected-items">
-        <%= render :partial => 'reflect_bars', :locals => { :answers => @str_answers, :type => 'str' } %>
-        <%= render :partial => 'reflect_bars', :locals => { :answers => @avg_answers, :type => 'avg' } %>
-        <%= render :partial => 'reflect_bars', :locals => { :answers => @weak_answers, :type => 'weak' } %>
-        <%= render :partial => 'reflect_bars_empty', :locals => { :answers => @empty_answers, :type => 'empty' } %>
+        <%= render :partial => 'reflect_bars', :locals => { :behaviours => @str_answers, :type => 'str' } %>
+        <%= render :partial => 'reflect_bars', :locals => { :behaviours => @avg_answers, :type => 'avg' } %>
+        <%= render :partial => 'reflect_bars', :locals => { :behaviours => @weak_answers, :type => 'weak' } %>
+        <%= render :partial => 'reflect_bars_empty', :locals => { :behaviours => @empty_answers, :type => 'empty' } %>
       </div>      
   </div>
   <div id="reflect-content-window" class="left">    

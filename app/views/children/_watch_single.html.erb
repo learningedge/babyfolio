@@ -12,19 +12,10 @@
     </div>
     <div class="single-activity-right">
       <div class="single-activity-nav">
-<% if false %>
-<<<<<<< HEAD
-          <%= link_to "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
-          <a href="#" class="activity-title-link"><%= item[:title] %></a>  
-          <%= link_to( "#", adjacent_behaviour_children_path(:mid => item[:mid], :dir => "next"), :remote => true,  :class => 'next-activity-link') if item[:is_next] %>
-=======
-<% end %>
+
           <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
           <a href="#" class="activity-title-link"><%= item[:title] %></a>
           <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
-<% if false %>
->>>>>>> watch section updated to the new db - gutto
-<% end %>
       </div>
       <div class="activity-setup"><%= item[:desc_short] %></div>
       <div class="play-icons-corner">
@@ -80,15 +71,8 @@
     </div>
     <div class="preloader-div"></div>
   </li>
-<% if false %>
-  <<<<<<< HEAD
-=======
-<% end %>
   <script type="text/javascript">
     $(function() {
       $('select').selectbox();
     });
   </script>
-<% if false %>
->>>>>>> watch section updated to the new db - gutto
-<% end %>

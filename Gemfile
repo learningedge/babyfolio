@@ -17,7 +17,7 @@ gem 'jquery-rails', "~> 2.1.4"
 gem 'paperclip', '~> 2.8.0'
 gem 'flickraw'
 #gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
-gem 'roo'
+gem 'roo', '~> 1.2.3'
 gem 'remotipart'
 gem 'aws-s3'
 gem 'aws-sdk'

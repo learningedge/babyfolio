@@ -146,13 +146,11 @@ class User < ActiveRecord::Base
     if user_action && (user_action.created_at + 30.minutes < DateTime.now)
       child = user_action.child || self.own_children.first
 
-      question = Question.includes(:milestone).find_by_category('l', :conditions => ["questions.age <= ? ", child.months_old], :order => 'questions.age DESC')
-      milestone = question.milestone if question
-
+      behaviour = Behaviour.includes(:activities).find_by_category('L', :conditions => ["behaviours.age_from <= ? ", child.months_old], :order => 'behaviours.age_from DESC')      
       user_email = UserEmail.find_or_initialize_by_user_id_and_title(self.id, 'child_added' )
 
-      if user_email.new_record? && milestone
-        UserMailer.step_3_pending(self, child, milestone).deliver
+      if user_email.new_record? && behaviour
+        UserMailer.step_3_pending(self, child, behaviour).deliver
         user_email.save
         return true
       end
@@ -162,7 +160,6 @@ class User < ActiveRecord::Base
   end
 
   #Need to move to categories
-
 
   def self.resend_registration_completed
     users = User.subscribed.with_email('initial_questionnaire_completed', 1).where(["users.last_login_at < ?", DateTime.now - 7.days])        
@@ -197,21 +194,17 @@ class User < ActiveRecord::Base
 
     users.each do |user|
       user.own_children.each do |child|
-        if child.answers.any?
+        if child.seen_behaviours.any?
           email = user.user_emails.find_or_initialize_by_title_and_child_id('newsletter', child.id)
           current_category = email.description unless email.new_record?
 
-          question_milestone = child.get_next_category_question_with_milestone(user, current_category)
-          if question_milestone
-            next_two_questions = []
-            next_two_questions = Question.get_next_2_questions_for_category(question_milestone.category, question_milestone.age)
-            milestone_one = next_two_questions[0].milestone if next_two_questions.length > 0
-            milestone_two = next_two_questions[1].milestone if next_two_questions.length > 1
+          behaviour = child.get_next_category_behaviour(user, current_category)
+          if behaviour
+            next_two_behaviours = []
+            next_two_behaviours = Behaviour.get_next_2_behaviours_for_category(behaviour.category, behaviour.age_from)
 
-            if question_milestone.milestone
-              UserMailer.newsletter(user, child, question_milestone, milestone_one , milestone_two).deliver
-              email.update_attributes(:description => question_milestone.category,  :updated_at => DateTime.now)
-            end
+              UserMailer.newsletter(user, child, behaviour, next_two_behaviours).deliver
+              email.update_attributes(:description => behaviour.category,  :updated_at => DateTime.now)
           end
         end
       end

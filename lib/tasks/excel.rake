@@ -1,500 +1,4 @@
 namespace :excel do
-  
-#  desc "Migrating moment_tags to db from excel file"
-#  task :moment_tags => :environment do
-#    print "------ migrating moment_tags ------\n"
-#
-#    MomentTag.delete_all
-#
-#    @file_path = 'public/SmarterFolioTagsFramework.xls'
-#
-#    print "LearnerTagsSpreadsheet: Competenses/Abilities..................................\n"
-#
-#    @main_category = MomentTag.create(:name => "A Striking Developments (Reveals Insight into who your child is)")
-#    @category_one_level0 = MomentTag.create(:name => "Competenses/Abilities", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
-#
-#    file = Excel.new(@file_path)
-#    file.default_sheet = file.sheets.at(1)
-#
-#    @index = 0
-#
-#    2.upto(file.last_row) do |line|
-#
-#      name = file.cell(line,'A')
-#      name.strip! unless name.blank?
-#
-#      require_level_affinity  = file.cell(line,'B')
-#      unless require_level_affinity.blank?
-#        require_level_affinity = require_level_affinity.downcase
-#        require_level_affinity.strip!
-#      end
-#
-#      value_type = file.cell(line,'C')
-#      value_range = file.cell(line,'D')
-#
-#      parent_question = file.cell(line,"E")
-#      parent_question.strip! unless parent_question.blank?
-#
-#      levels = Array.new
-#      levels[1] = file.cell(line,"H")
-#      levels[2] = file.cell(line,"I")
-#      levels[3] = file.cell(line,"J")
-#      levels[4] = file.cell(line,"K")
-#      levels.each {|level| level.strip! unless level.blank?}
-#
-#      moment_tags = Array.new
-#      moment_tags[0] = @category_one_level0
-#
-#      level_hierarchy = @main_category.id.to_s + ">>" + @category_one_level0.id.to_s
-#
-#      if ( !levels[1].blank? or
-#           (!levels[1].blank? and !levels[2].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?)
-#          ) and require_level_affinity == "affinity"
-#
-#        pp levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect
-#
-#        1.upto(4) do |level|
-#          unless levels[level].blank?
-#            moment_tags[level] = MomentTag.where(:name => levels[level], :level => level, :level_hierarchy => level_hierarchy).first
-#            if moment_tags[level].blank?
-#              if levels[level+1].blank?
-#
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :value_type => value_type,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#              else
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#
-#              end
-#            elsif levels[level+1].blank? and moment_tags[level].parent_question != parent_question
-#              moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :value_type => value_type,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#            end
-#            level_hierarchy += ">>" + moment_tags[level].id.to_s
-#          end
-#        end
-#      end
-#    end
-#
-#    print "DONE\n"
-#
-#    print "LearnerTagsSpreadsheet: Concepts/Subjects......................................\n"
-#
-#    file = Excel.new(@file_path)
-#    file.default_sheet = file.sheets.at(2)
-#
-#    @category_two_level0 = MomentTag.create(:name => "Concepts/Subjects", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
-#    @index = 0
-#
-#    2.upto(file.last_row) do |line|
-#
-#      name = file.cell(line,'A')
-#      name.strip! unless name.blank?
-#
-#      require_level_affinity  = file.cell(line,'B')
-#      unless require_level_affinity.blank?
-#        require_level_affinity = require_level_affinity.downcase
-#        require_level_affinity.strip!
-#      end
-#
-#      value_type = file.cell(line,'C')
-#      value_range = file.cell(line,'D')
-#
-#      parent_question = file.cell(line,"E")
-#      parent_question.strip! unless parent_question.blank?
-#
-#      levels = Array.new
-#      levels[1] = file.cell(line,"H")
-#      levels[2] = file.cell(line,"I")
-#      levels[3] = file.cell(line,"J")
-#      levels[4] = file.cell(line,"K")
-#      levels[5] = file.cell(line,"L")
-#      levels.each {|level| level.strip! unless level.blank?}
-#
-#      moment_tags = Array.new
-#      moment_tags[0] = @category_two_level0
-#
-#      level_hierarchy = @main_category.id.to_s + ">>" + @category_two_level0.id.to_s
-#
-#      if ( !levels[1].blank? or
-#           (!levels[1].blank? and !levels[2].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank?)
-#       ) and require_level_affinity == "affinity"
-#
-#        pp require_level_affinity + " :::: " + levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect + " -> " + levels[5].inspect
-#
-#        1.upto(5) do |level|
-#          unless levels[level].blank?
-#            moment_tags[level] = MomentTag.where(:name => levels[level], :level => level, :level_hierarchy => level_hierarchy).first
-#            if moment_tags[level].blank?
-#              if levels[level+1].blank?
-#
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :value_type => value_type,
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#              else
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#
-#              end
-#            elsif levels[level+1].blank? and moment_tags[level].parent_question != parent_question
-#              moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_type => value_type,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#            end
-#            level_hierarchy += ">>" + moment_tags[level].id.to_s
-#          end
-#        end
-#      end
-#    end
-#
-#
-#    print "DONE\n"
-#
-#
-#    print "LearnerTagsSpreadsheet: Charakter/Dispositions......................................\n"
-#
-#    file = Excel.new(@file_path)
-#    file.default_sheet = file.sheets.at(3)
-#
-#    @category_three_level0 = MomentTag.create(:name => "Character/Dispositions", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
-#    @index = 0
-#
-#    2.upto(file.last_row) do |line|
-#
-#      name = file.cell(line,'A')
-#      name.strip! unless name.blank?
-#
-#      require_level_affinity  = file.cell(line,'B')
-#      unless require_level_affinity.blank?
-#        require_level_affinity = require_level_affinity.downcase
-#        require_level_affinity.strip!
-#      end
-#
-#      value_type = file.cell(line,'C')
-#      value_range = file.cell(line,'D')
-#
-#      parent_question = file.cell(line,"E")
-#      parent_question.strip! unless parent_question.blank?
-#
-#      levels = Array.new
-#      levels[1] = file.cell(line,"G")
-#      levels[2] = file.cell(line,"H")
-#      levels[3] = file.cell(line,"I")
-#      levels[4] = file.cell(line,"J")
-#      levels.each {|level| level.strip! unless level.blank?}
-#
-#      moment_tags = Array.new
-#      moment_tags[0] = @category_three_level0
-#
-#      level_hierarchy = @main_category.id.to_s + ">>" + @category_three_level0.id.to_s
-#
-#      if ( !levels[1].blank? or
-#           (!levels[1].blank? and !levels[2].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?)
-#       ) and require_level_affinity == "affinity"
-#
-#        pp require_level_affinity + " :::: " + levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect
-#
-#        1.upto(4) do |level|
-#          unless levels[level].blank?
-#            moment_tags[level] = MomentTag.where(:name => levels[level], :level => level, :level_hierarchy => level_hierarchy).first
-#            if moment_tags[level].blank?
-#              if levels[level+1].blank?
-#
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :value_type => value_type,
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#              else
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#
-#              end
-#            elsif levels[level+1].blank? and moment_tags[level].parent_question != parent_question
-#              moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_type => value_type,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#            end
-#            level_hierarchy += ">>" + moment_tags[level].id.to_s
-#          end
-#        end
-#      end
-#    end
-#
-#
-#    print "DONE\n"
-#
-#
-#    print "LearnerTagsSpreadsheet: Real World Interest areas......................................\n"
-#
-#    file = Excel.new(@file_path)
-#    file.default_sheet = file.sheets.at(4)
-#
-#    @main_category = MomentTag.create(:name => "A Place, Thing or Situation of Interest")
-#    @category_one_level0 = MomentTag.create(:name => "Real World Interest areas", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
-#    @index = 0
-#
-#    2.upto(file.last_row) do |line|
-#
-#      name = file.cell(line,'A')
-#      name.strip! unless name.blank?
-#
-#      require_level_affinity  = file.cell(line,'B')
-#      unless require_level_affinity.blank?
-#        require_level_affinity = require_level_affinity.downcase
-#        require_level_affinity.strip!
-#      end
-#
-#      value_type = file.cell(line,'C')
-#      value_range = file.cell(line,'D')
-#
-#      parent_question = file.cell(line,"E")
-#      parent_question.strip! unless parent_question.blank?
-#
-#      levels = Array.new
-#      levels[1] = file.cell(line,"G")
-#      levels[2] = file.cell(line,"H")
-#      levels[3] = file.cell(line,"I")
-#      levels[4] = file.cell(line,"J")
-#      levels[5] = file.cell(line,"K")
-#      levels[6] = file.cell(line,"L")
-#      levels[7] = file.cell(line,"M")
-#      levels.each {|level| level.strip! unless level.blank?}
-#
-#      moment_tags = Array.new
-#      moment_tags[0] = @category_one_level0
-#
-#      level_hierarchy = @main_category.id.to_s + ">>" + @category_one_level0.id.to_s
-#
-#      if ( !levels[1].blank? or
-#           (!levels[1].blank? and !levels[2].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank? and !levels[6].blank?) or
-#           (!levels[1].blank? and !levels[2].blank? and !levels[3].blank? and !levels[4].blank? and !levels[5].blank? and !levels[6].blank? and !levels[7].blank?)
-#       ) and require_level_affinity == "affinity"
-#
-#        pp require_level_affinity.inspect + " :::: " + levels[1].inspect + " -> " + levels[2].inspect + " -> " + levels[3].inspect + " -> " + levels[4].inspect + " -> " + levels[5].inspect + " -> " + levels[6].inspect + " -> " + levels[7].inspect
-#
-#        1.upto(7) do |level|
-#          unless levels[level].blank?
-#            moment_tags[level] = MomentTag.where(:name => levels[level], :level => level, :level_hierarchy => level_hierarchy).first
-#            if moment_tags[level].blank?
-#              if levels[level+1].blank?
-#
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :value_type => value_type,
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#              else
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#
-#              end
-#            elsif levels[level+1].blank? and moment_tags[level].parent_question != parent_question
-#              moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_type => value_type,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#            end
-#            level_hierarchy += ">>" + moment_tags[level].id.to_s
-#          end
-#        end
-#      end
-#    end
-#
-#
-#    print "DONE\n"
-#
-#    print "LearnerTagsSpreadsheet: People/Relationships......................................\n"
-#
-#    file = Excel.new(@file_path)
-#    file.default_sheet = file.sheets.at(5)
-#
-#    @main_category = MomentTag.create(:name => "People/Relationships")
-#    @category_one_level0 = MomentTag.create(:name => "People Assets", :moment_tag_id => @main_category.id, :level => 0, :level_hierarchy => @main_category.id.to_s)
-#    @index = 0
-#
-#    2.upto(file.last_row) do |line|
-#
-#      name = file.cell(line,'A')
-#      name.strip! unless name.blank?
-#
-#      require_level_affinity  = file.cell(line,'B')
-#      unless require_level_affinity.blank?
-#        require_level_affinity = require_level_affinity.downcase
-#        require_level_affinity.strip!
-#      end
-#
-#      value_type = file.cell(line,'C')
-#      value_range = file.cell(line,'D')
-#
-#      parent_question = file.cell(line,"E")
-#      parent_question.strip! unless parent_question.blank?
-#
-#      levels = Array.new
-#      levels[1] = file.cell(line,"F")
-#      levels[2] = file.cell(line,"G")
-#      levels.each {|level| level.strip! unless level.blank?}
-#
-#      moment_tags = Array.new
-#      moment_tags[0] = @category_one_level0
-#
-#      level_hierarchy = @main_category.id.to_s + ">>" + @category_one_level0.id.to_s
-#
-#      if ( !levels[1].blank? or
-#           (!levels[1].blank? and !levels[2].blank?)
-#       ) #and require_level_affinity == "affinity"
-#
-#        pp require_level_affinity.inspect + " :::: " + levels[1].inspect + " -> " + levels[2].inspect
-#
-#        1.upto(2) do |level|
-#          unless levels[level].blank?
-#            moment_tags[level] = MomentTag.where(:name => levels[level], :level => level, :level_hierarchy => level_hierarchy).first
-#            if moment_tags[level].blank?
-#              if levels[level+1].blank?
-#
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :value_type => value_type,
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#
-#              else
-#
-#                moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#
-#              end
-#            elsif levels[level+1].blank? and moment_tags[level].parent_question != parent_question
-#              moment_tags[level] = MomentTag.create(
-#                  :name => levels[level],
-#                  :require_level_affinity => require_level_affinity,
-#                  :value_type => value_type,
-#                  :value_range => value_range,
-#                  :parent_question => parent_question,
-#                  :moment_tag_id => moment_tags[level-1].id,
-#                  :level => level,
-#                  :level_hierarchy => level_hierarchy
-#                )
-#            end
-#            level_hierarchy += ">>" + moment_tags[level].id.to_s
-#          end
-#        end
-#      end
-#    end
-#
-#
-#    print "DONE\n"
-#
-#  end
-
-#  desc "Checking updated moments"
-#  task :checking => :environment do
-#    @parent_name = "State of Matter"
-#
-#    @moment_tags = MomentTag.where(["moment_tag_id IS NULL"])
-#
-#    pp "************************************"
-#
-#    @moment_tags.each do |moment_tag|
-#      pp moment_tag.id.to_s + ":::" + moment_tag.require_level_affinity.to_s + ":::" + moment_tag.name.to_s + ":::" + moment_tag.parent_question.to_s + ":::" + moment_tag.level_hierarchy.to_s + ":::" + moment_tag.level.to_s
-#    end
-#
-#    pp "************************************"
-#    pp "Children of \"" + @parent_name + "\""
-#    pp "************************************"
-#
-#    @children_tags = @moment_tags.first.children_tags
-#    @children_tags.each do |child_tag|
-#      pp child_tag.id.to_s + ":::" + child_tag.require_level_affinity.to_s + ":::" + child_tag.name.to_s + ":::" + child_tag.value_type.to_s + ":::" + child_tag.parent_question.to_s + ":::" + child_tag.parent_tag.name + ":::" + child_tag.level_hierarchy.to_s + ":::" + child_tag.level.to_s
-#    end
-#  end
 
 
   desc "Migrating questions to database from excel file - 'ProfileQs.xls'"
@@ -589,7 +93,7 @@ namespace :excel do
   end
 
   task :load_all_data => :environment do
-    update_db('public/bf_2y.xls')
+    update_db('public/bf_complete.xls')
   end
 
 private
@@ -597,47 +101,65 @@ private
     file = Excel.new(file_path)
     file.sheets.each_with_index do |sh, idx|
       file.default_sheet = file.sheets.at(idx)
-      print "#{sh}\n"
+      print "\n\n#{sh}\n"
       if sh.downcase.include? "watch"        
         2.upto(file.last_row) do |line|
-          age = file.cell(line, 'B').split('-')
+          if file.cell(line, 'A').blank?
+            next
+          end
+          
+          age = file.cell(line, 'B')
+          if age.is_a? String
+            age = age.split('-')
+          else
+            age = [age, age]
+          end
           attr = {
             :uid => file.cell(line, 'A'),
             :age_from => age[0].to_i,
             :age_to => age[1].to_i,
-            :category => file.cell(line, 'C').scan( /\(([A-Z])\)/).first.first,
-            :learning_window => file.cell(line, 'D').scan( /LW([1-9])/).first.first.to_i,
+            :category => file.cell(line, 'C').scan( /\(([A-Z]+)\)/).first.first,
+            :learning_window => file.cell(line, 'D').scan( /LW([1-9])/).first.first,
             :expressive_interpretive => file.cell(line, 'E').scan( /\(([I|E])\)/).first.first,
             :title_present => file.cell(line, 'F'),
             :title_past => file.cell(line, 'G'),
-            :description_short => file.cell(line, 'H'),
-            :description_long => file.cell(line, 'I'),
-            :example1 => file.cell(line, 'J'),
-            :example2 => file.cell(line, 'K'),
-            :example3 => file.cell(line, 'L'),
-            :why_important => file.cell(line, 'M'),
-            :theory => file.cell(line, 'N'),
-            :references => file.cell(line, 'O'),
-            :parenting_tip1 => file.cell(line, 'P'),
-            :parenting_tip2 => file.cell(line, 'Q'),
-            :page => file.cell(line, 'R').to_i,
-            :background_research_theory => file.cell(line, 'S')
+            :step3_question => file.cell(line, 'H'),
+            :description_short => file.cell(line, 'I'),
+            :description_long => file.cell(line, 'J'),
+            :example1 => file.cell(line, 'K'),
+            :example2 => file.cell(line, 'L'),
+            :example3 => file.cell(line, 'M'),
+            :why_important => file.cell(line, 'N'),
+            :theory => file.cell(line, 'O'),
+            :references => file.cell(line, 'P'),
+            :parenting_tip1 => file.cell(line, 'Q'),
+            :parenting_tip2 => file.cell(line, 'R'),
+            :page => file.cell(line, 'S').to_i,
+            :background_research_theory => file.cell(line, 'T')
           }
 
           b = Behaviour.includes(:activities).find_or_initialize_by_uid(attr[:uid])
           b.update_attributes(attr)
-          print "#{b.uid} => #{ b.activities.size } acctivities \n"
+          print "#{b.uid} => #{b.category} => age: #{b.age_from} => lw: #{b.learning_window} || #{ b.activities.size } acctivities \n"
         end
       elsif sh.downcase.include? "play"
         2.upto(file.last_row) do |line|
-          age = file.cell(line, 'B').split('-')
+          if file.cell(line, 'A').blank?
+            next
+          end
+          age = file.cell(line, 'B')
+          if age.is_a? String
+            age = age.split('-')
+          else
+            age = [age, age]
+          end
           expr_inter = file.cell(line, 'E')
           expr_inter = expr_inter.scan( /\(([I|E])\)/).first.first if expr_inter.present?
           attr = {
             :uid => file.cell(line, 'A'),
             :age_from => age[0].to_i,
             :age_to => age[1].to_i,
-            :category => file.cell(line, 'C').scan( /\(([A-Z])\)/).first.first,
+            :category => file.cell(line, 'C').scan( /\(([A-Z]+)\)/).first.first,
             :activity_uid => file.cell(line, 'D'),
             :expressive_interpretive => expr_inter,
             :title => file.cell(line, 'F'),
@@ -657,8 +179,8 @@ private
           a = Activity.find_or_initialize_by_activity_uid(attr[:activity_uid])
           a.update_attributes(attr)
           #a.load
-          b = Behaviour.find_by_uid(a.uid)
-          print "#{a.activity_uid} => #{a.uid} => #{ b.present? ? "match" : "NO MATCH"} \n" #+ b.uid ? "-got behaviour-" : "-empty-"
+          b = a.behaviour
+          print "#{a.activity_uid} => #{a.category} => #{a.age_from} => #{ b.present? ? "match" : "NO BEHAVIOUR MATCH"}\n" #+ b.uid ? "-got behaviour-" : "-empty-"
         end
       end
     end

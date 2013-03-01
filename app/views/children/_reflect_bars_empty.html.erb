@@ -1,11 +1,11 @@
-    <% if answers %>
-      <% answers.each_with_index do |v, idx| %>        
+    <% if behaviours %>
+      <% behaviours.each_with_index do |behaviour, idx| %>
         <% curr_width = 0 %>
 
         <div class="single-reflected-item">
-          <div class="cat-name"><%= category_name(v) %></div>
+          <div class="cat-name"><%= category_name(behaviour) %></div>
 
-          <div class="reflect-icon reflect-icon-<%=  v %>"></div>
+          <div class="reflect-icon reflect-icon-<%= behaviour %>"></div>
           <div class="reflect-bar-wrapper">
               <div class="reflect-bar" style="width: <%= curr_width %>px; border: none;">
                   <div class="reflect-popup">

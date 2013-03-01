@@ -21,11 +21,8 @@ class Question < ActiveRecord::Base
     ANSWERS.sort_by{|k,v| v[:order]}
   end  
 
-#<<<<<<< HEAD
-#  CATS = {
-#=======
+
   CATEGORIES = {
-#>>>>>>> reworking db scheme , watch still to be done - gitt
     "l" => "Language",
     "ln" => "Logic",
     "s" => "Social",

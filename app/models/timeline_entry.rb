@@ -36,11 +36,7 @@ class TimelineEntry < ActiveRecord::Base
     med = Media.find_by_id(media)
     te.media << med if med
     who = User.find_by_id(who_id).get_user_name if who_id
-#<<<<<<< HEAD
-    te.behaviour = behaviour  
-#=======
     te.item = object
-#>>>>>>> reworking db scheme , watch still to be done - gitt
 
     case te.entry_type
       when "play"

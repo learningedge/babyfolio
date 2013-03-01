@@ -11,20 +11,14 @@ class Child < ActiveRecord::Base
   has_many :users, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.access" => true}, :source => :user
   has_many :admins, :through => :relations, :conditions => {"relations.accepted" => 1, "relations.is_admin" => true, "relations.access" => true}, :source => :user
 
-#<<<<<<< HEAD
-#  has_one :attachment, :as => :object, :dependent => :destroy
-#  has_one :media, :through => :attachment
-#  has_many :answers, :dependent => :destroy
-#=======
-  has_one :attachment, :as => :object
+  has_one :attachment, :as => :object, :dependent => :destroy
   has_one :media, :through => :attachment  
-  has_many :answers
+  #has_many :answers
+#  has_many :questions, :through => :answers
 
-  has_many :seen_behaviours
+  has_many :seen_behaviours, :dependent => :destroy
   has_many :behaviours, :through => :seen_behaviours
-  
-#>>>>>>> reworking db scheme , watch still to be done - gitt
-  has_many :questions, :through => :answers
+
   has_many :timeline_entries, :class_name => "TimelineEntry", :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :user_emails, :dependent => :destroy
@@ -71,23 +65,14 @@ class Child < ActiveRecord::Base
     /(<)+he\/she(>)+/ => ['he', 'she']
   }
 
-
-#  def max_seen_by_category
-#    questions = self.questions.where(["answers.value = 'seen'"]).group('questions.category').select('questions.category, max(questions.age) as age').order('age desc')
-#    result = []
-#    questions.each do |q|
-#      result << self.questions.includes(:milestone).find_by_age_and_category(q.age, q.category)
-#    end
-#    result
-#  end
-
   def max_seen_by_category
     result = []
     behaviours = self.behaviours.group('behaviours.category').select('behaviours.category, max(behaviours.age_from) as age_from').order('age_from desc')
     behaviours.each do |b|
-      result << self.behaviours.find_by_age_from_and_category(b.age_from, b.category)
+      result << self.behaviours.includes(:activities).find_by_age_from_and_category(b.age_from, b.category, :order => "learning_window DESC")
     end
-    result
+    result = result.sort_by{|b| Behaviour::CATEGORIES_ORDER.index(b.category) }.sort_by{|b| b.age_from}.reverse
+    return result
   end
 
   def max_seen_for_category category
@@ -96,17 +81,16 @@ class Child < ActiveRecord::Base
     return result
   end
 
-  def get_next_category_question_with_milestone user, current_category
-    question = nil    
-    current_category ||= Question::CATS_ORDER.first
+  def get_next_category_behaviour user, current_category
+    behaviour = nil
+    current_category ||= Behaviour::CATEGORIES_ORDER.first
 
     user.user_option.get_next_newsletter_categories(current_category).each do |category|
-      answer = self.answers.includes([:question => :milestone]).where(["questions.category = ?", category]).order('questions.age DESC').limit(1).first
-      question = answer.question unless answer.nil?
-      break unless answer.nil?
+      behaviour = self.behaviours.includes(:activities).find_by_category(category, :order => 'behaviours.age_from DESC')
+      break unless behaviour.nil?
     end
 
-    return question
+    return behaviour
   end
 
   def get_first_answered_question

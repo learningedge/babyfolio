@@ -45,8 +45,6 @@ class Api::V1::QuestionsController < ApplicationController
     redirect_to api_v1_initial_questionnaire_path
   end
 
-
-
   def update_watched
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])
     a = Answer.find_or_initialize_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')

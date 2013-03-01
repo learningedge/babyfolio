@@ -32,12 +32,12 @@ class UserMailer < ActionMailer::Base
      mail(:to => ENV['CONTACT_EMAIL'] || "tickets@baby1.uservoice.com", :subject => "New Contact Us Submission")
   end
 
-  def registration_completed user, child, question
+  def registration_completed user, child, behaviour
     @user = user
     @child = child
-    @question = question
-    @milestone = question.milestone
-    mail(:to => @user.email, :subject => "Welcome to BabyFolio & #{@child.first_name}'s #{Question::CATS[@question.category] } Development: #{@milestone.get_title}")
+    @behaviour = behaviour
+    @activities = @behaviour.activities
+    mail(:to => @user.email, :subject => "Welcome to BabyFolio & #{@child.first_name}'s #{Behaviour::CATEGORIES[@behaviour.category] } Development: #{@behaviour.title_present}")
   end
 
   def step_2_pending user
@@ -45,21 +45,19 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => "Welcome to BabyFolio")
   end
 
-  def step_3_pending user, child, milestone
+  def step_3_pending user, child, behaviour
     @user = user
     @child = child
-    @milestone = milestone
+    @behaviour = behaviour
     mail(:to => @user.email, :subject => "Welcome to BabyFolio")
   end
 
-  def newsletter user, child, question_with_milestone, milestone_one, milestone_two
+  def newsletter user, child, behaviour, next_two_behaviours
     @user = user
     @child = child
-    @question = question_with_milestone
-    @milestone = @question.milestone
-    @milestone_next_1 = milestone_one
-    @milestone_next_2 = milestone_two
-    mail(:to => @user.email, :subject => "#{@child.first_name}'s #{Question::CATS[@question.category]} Development")
+    @behaviour = behaviour
+    @next_two_behaviours = next_two_behaviours    
+    mail(:to => @user.email, :subject => "#{@child.first_name}'s #{Behaviour::CATEGORIES[@behaviour.category]} Development")
   end
 
   def inactive user, child
