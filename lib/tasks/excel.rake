@@ -98,7 +98,7 @@ namespace :excel do
 
 private
   def update_db file_path
-    file = Excel.new(file_path)
+    file = Roo::Excel.new(file_path)
     file.sheets.each_with_index do |sh, idx|
       file.default_sheet = file.sheets.at(idx)
       print "\n\n#{sh}\n"
