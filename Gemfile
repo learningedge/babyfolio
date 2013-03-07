@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'rake', '~>10.0.2'
 gem 'rails', '~>3.2.11'
 
 # Bundle edge Rails instead:
@@ -7,7 +8,6 @@ gem 'rails', '~>3.2.11'
 
 gem 'will_paginate'
 
-gem 'rake', '~> 10.0.2'
 gem 'authlogic'
 gem 'execjs'
 gem 'json'
