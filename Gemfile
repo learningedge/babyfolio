@@ -24,6 +24,7 @@ gem 'aws-sdk'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'rack-rewrite'
 gem 'exception_notification', :git => 'git://github.com/alanjds/exception_notification.git'
+gem 'hoe', '1.2.1'
 
 group :test do
 
