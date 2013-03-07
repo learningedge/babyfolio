@@ -93,7 +93,7 @@ namespace :excel do
   end
 
   task :load_all_data => :environment do
-    update_db('public/bf_complete.xls')
+    update_db('app/assets/bf_complete.xls')
   end
 
 private
