@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rake', '10.0.2'
+#gem 'rake', '10.0.2'
 gem 'rails', '~>3.2.11'
 
 # Bundle edge Rails instead:
@@ -18,15 +18,15 @@ gem 'jquery-rails', "~> 2.1.4"
 gem 'paperclip', '~> 2.8.0'
 gem 'flickraw'
 #gem 'yettings', :git => "https://github.com/charlotte-ruby/yettings.git", :branch =>"ruby187"
-gem 'roo', '~> 1.2.3'
+gem 'roo'#, '~> 1.2.3'
 gem 'remotipart'
 gem 'aws-s3'
 gem 'aws-sdk'
 gem "active_model_serializers", :git => "git://github.com/rails-api/active_model_serializers.git"
 gem 'rack-rewrite'
 gem 'exception_notification', :git => 'git://github.com/alanjds/exception_notification.git'
-gem 'hoe', '1.2.1'
-gem 'tilt', '1.3.3'    
+#gem 'hoe', '1.2.1'
+#gem 'tilt', '1.3.3'
 
 group :test do
 
