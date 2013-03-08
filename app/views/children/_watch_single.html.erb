@@ -38,32 +38,34 @@
             
             <p><%= item[:desc_long] %></p>            
             <h5>Examples</h5>
-            <ul>
-              <%= content_tag(:li, item[:example1]) if item[:example1].present? %>
-              <%= content_tag(:li, item[:example2]) if item[:example2].present? %>
-              <%= content_tag(:li, item[:example3]) if item[:example3].present? %>              
+            <ul class="variations">
+              <%= content_tag(:li, item[:example1], {}, false) if item[:example1].present? %>
+              <%= content_tag(:li, item[:example2], {}, false) if item[:example2].present? %>
+              <%= content_tag(:li, item[:example3], {}, false) if item[:example3].present? %>              
             </ul>
           
             <h5>Recommanded Play Activities</h5>
+	    <p>
             <% item[:activities].each do |a| %>
               <%= link_to a.title, play_children_path(:aid => a.id), :class => "btn" %>
             <% end %>
+	    </p>
                           
             <h5>Why Is This Important?</h5>
             <p><%= item[:why_important] %></p>
-
-            <%= content_tag(:p, "TIP: " + item[:parenting_tip1]) if item[:parenting_tip1].present? %>
-            <%= content_tag(:p, item[:parenting_tip2]) if item[:parenting_tip2].present? %>          
+	    
+            <%= content_tag(:p, "TIP: " + item[:parenting_tip1], {}, false) if item[:parenting_tip1].present? %>
+            <%= content_tag(:p, item[:parenting_tip2], {}, false) if item[:parenting_tip2].present? %>          
 
              <hr />
 
              <div class="theory">
                <h5>Theory</h5>
-               <%= item[:theory] unless item[:theory].blank? %>
+               <%= content_tag(:p, item[:theory], {}, false) unless item[:theory].blank? %>
              </div>
              <div class="references">
                 <h5>References</h5>
-                <%= item[:references] unless item[:references].blank? %>
+                <%= content_tag(:p, item[:references], {}, false) unless item[:references].blank? %>
              </div>
              <div class="clear"></div>
 

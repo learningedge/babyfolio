@@ -49,6 +49,7 @@ class Child < ActiveRecord::Base
   FORMS = {
     /(#)+he\/she(#)+/ => ['he', 'she'],
     /(#)+He\/[S,s]he(#)+/ => ['He', 'She'],
+    /(#)+HIS\/HER(#)+/ => ['his', 'her'],
     /(#)+his\/her(#)+/ => ['his', 'her'],
     /(#)+His\/Her(#)+/ => ['His', 'Her'],
     /(#)+him\/her(#)+/ => ['him', 'her'],
@@ -150,7 +151,7 @@ class Child < ActiveRecord::Base
       if truncate > 0
         question_text = truncate(question_text, :length => truncate, :separator => ' ')
       end
-      question_text = question_text.gsub(/#first#|#Nickname#|<NAME>/, "<span class='bold'>#{self.first_name}</span>")
+      question_text = question_text.gsub(/#first#|#Nickname#|<NAME>|<name>/, "<span class='bold'>#{self.first_name}</span>")
       return question_text.html_safe
   end
 
@@ -161,7 +162,7 @@ class Child < ActiveRecord::Base
       if truncate > 0
         question_text = truncate(question_text, :length => truncate, :separator => ' ')
       end
-      question_text = question_text.gsub(/#first#|#Nickname#/, "#{self.first_name}")
+      question_text = question_text.gsub(/#first#|#Nickname#|<name>/, "#{self.first_name}")
       question_text = question_text.gsub("<br />", "\n")
       return question_text.html_safe
   end

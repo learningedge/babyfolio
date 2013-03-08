@@ -382,7 +382,7 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #reflect-info-popup #reflect-info-popup-inner div .btn {margin-right: 10px; padding: 6px 15px; font-size: 14px; }
 #reflect-info-popup #reflect-info-popup-inner .close-popup-icon { display: inline-block; position: absolute; width: 25px; height: 26px; right: 10px; top: 10px; background: url(/images/close_dialog.png) no-repeat center center; text-indent: -9999px; text-transform: capitalize;}
 
-h4.reflect-header { font-weight: bold; margin: 15px 0; }
+h4.reflect-header { font-weight: bold; margin: 15px 0 0px;padding-left:15px; }
 /*.all-even #reflect-column-wrapper { float: left; }
 .all-even #even-reflect { display: block !important; float: left; width: 500px; margin-left: 40px;}
 .all-even #even-reflect #reflect-column-wrapper { width: 450px; }
@@ -514,6 +514,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0; }
 .play-popup .popup-wrapper p { font-size: 15px; margin-bottom: 10px; }
 .play-popup .popup-wrapper p span { font-weight: bold;}
 .play-popup .popup-wrapper ul.play-popup-ms { list-style: disc; padding-left: 20px; margin-bottom: 20px}
+.play-popup .popup-wrapper ul.variations{list-style: disc; padding-left: 20px; margin-bottom: 20px}
 .play-popup .popup-wrapper ul.play-popup-ms li { color: #1FA9BB }
 .play-popup .popup-wrapper .play-final-header { margin-bottom: 0; }
 

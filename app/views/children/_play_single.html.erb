@@ -47,15 +47,17 @@
             <p><%= a[:desc_long] %></p>
             
             <h5>Variations</h5>
-            <p><%= a[:variation1] %></p>
-            <p><%= a[:variation2] %></p>
+	    <ul class="variations">
+            <li><%= a[:variation1] %></li>
+            <li><%= a[:variation2] %></li>
+	    </ul>
 
             <h5>What Did We Just Do?</h5>
             <p><%= a[:learning_benefit] %></p>
 
             <h5 class="play-final-header">This Is Good For <%= current_child.first_name.capitalize %> Because <%= current_child.replace_forms("#He/She#") %>  Has: </h5>
             <ul class="play-popup-ms">
-              <li><a href="<%= watch_children_path(:bid => a[:bid])  %>"><%= truncate(a[:b_title]) %></a></li>
+              <li><a class="btn" href="<%= watch_children_path(:bid => a[:bid])  %>"><%= truncate(a[:b_title]) %></a></li>
             </ul>
       </div>
     </div>

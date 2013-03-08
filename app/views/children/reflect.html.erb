@@ -4,7 +4,10 @@
 <% end %>
   
 <div>
+
   <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
+  <p id="left-column-additional-info">
+    Click on any bar in the graph for more information.</p>
   <div id="reflect-column-wrapper" class="left">
       <div id="all-reflected-items">
         <%= render :partial => 'reflect_bars', :locals => { :behaviours => @str_answers, :type => 'str' } %>
@@ -27,18 +30,17 @@
   <div class="clear"></div>
 </div>
 
-
 <div id="reflect-info-popup" class="hidden">
   <div id="reflect-info-popup-inner">
     <h3>Welcome to BabyFolio!</h3>
-    <p>There are four important activities that are part of <span class="bold"><%= current_child.first_name %>'s</span>  BabyFolio.</p>
+    <p>We help your baby thrive by identifying the most important developments and providing the right play at the right time. There are four important activities that are part of <span class="bold"><%= current_child.first_name %>'s</span> BabyFolio.</p>
     <ul>
-      <li id="li-1">In the <span class="bold">WATCH</span> section, you can see what developments <span class="bold"><%= current_child.first_name %></span> may be making soon, so you know what to be on the lookout for.</li>
-      <li id="li-2">In the <span class="bold">PLAY</span> section, you can find fun activities and games to do with <span class="bold"><%= current_child.first_name %></span> that support his development and build on the skills they already have.</li>
-      <li id="li-3">In the <span class="bold">TIMELINE</span> section, you can see what's happened so far and share it with close friends and family so that everyone can participate in the development of <span class="bold"><%= current_child.first_name %></span></li>
-      <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <span class="bold"><%= current_child.first_name %>’s</span> strengths and areas for improvement in his development, and find activities to help those areas.</li>
+      <li id="li-1">In the <span class="bold">WATCH</span> section, you can see a list of the next possible behaviors that <span class="bold"><%= current_child.first_name %></span> may be emerging soon, making it easy to know what to be on the "watch" for.</li>
+      <li id="li-2">In the <span class="bold">PLAY</span> section, you can find the right play at the right time -- fun activities and games to do with <span class="bold"><%= current_child.first_name %></span> that support <%= current_child.replace_forms('#HIS/HER#') %> development and provide the best possible start.</li>
+      <li id="li-3">In the <span class="bold">TIMELINE</span> section, you can see what's happened so far and share it with close friends and family so that everyone can participate in the development of <span class="bold"><%= current_child.first_name %></span>.</li>
+      <li id="li-4">In the <span class="bold">REFLECT</span> section, you can see <span class="bold"><%= current_child.first_name %></span>'s strengths and areas for improvement in <%= current_child.replace_forms('#HIS/HER#') %> development, and find insights and tips to help those areas.</li>
     </ul>
-    <p>View <span class="bold"><%= current_child.first_name %>’s</span> development progress now or invite close friends and family to join his circle!</p>
+    <p>View your baby's development progress now, in REFLECT!</p>
     <div><%= link_to "Send Invites", settings_invite_path(:family_id => current_child.family.id), :class => 'btn' %> <%= link_to "Reflect", child_reflect_children_path, :class => 'btn jqmClose' %></div>
     <a href="#" class="close-popup-icon jqmClose">Close</a>
   </div>
