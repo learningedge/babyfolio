@@ -24,7 +24,7 @@
 	
         <%= link_to "Timeline", "#dialog-timeline-#{item[:bid]}", :class => "show-dialog timeline-btn" %>
         <%#= link_to "Seen this", update_watched_path(:bid => item[:bid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
-	<% if time == "past" %>
+	<% if item[:checked] %>
           <%= link_to "Seen this", delete_watched_path(:bid => item[:bid]) , :class => "seen-tick-btn", :remote => true, :method => :post, "data-dialog" => "#dialog-timeline-#{item[:bid]}" -%>
 	<% else %>
 	  <%= link_to "Seen this", "#dialog-timeline-#{item[:bid]}" , :class => "show-dialog seen-tick-btn"  %>
