@@ -59,12 +59,8 @@
   <script type="text/javascript">
     $(function() {
       $('#reflect-content-window').css({ minHeight :  $('#reflect-column-wrapper').height()});
-      if(1 != <%=  @lengths.size %>) {
-        updatePopup($('.single-reflected-item').first());
-        updateArrowPosition();
-      } else {
-        $('#reflect-to-timeline').hide();
-      }
+      updatePopup($('.single-reflected-item').first());
+      updateArrowPosition();
       
       $('.single-reflected-item').click(function() {
         updatePopup($(this));

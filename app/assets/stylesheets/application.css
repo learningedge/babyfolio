@@ -461,7 +461,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0 0px;padding-left:15px; }
 .show-past,
 .show-future { display: none; }
 #activities-wrapper .single-activity.future .show-future { display: block; }
-#activities-wrapper .single-activity.past .show-past { display: block; }
+#activities-wrapper .single-activity.checked .show-past { display: block; }
 #activities-wrapper .single-activity:last-child { margin-bottom: 0; }
 #activities-wrapper .single-activity .single-activity-left { float: left; width: 48px; padding-right: 7px; border-right: 1px solid #aaa; min-height: 100px; text-align: center; }
 #activities-wrapper .single-activity .single-activity-left div,
@@ -479,7 +479,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0 0px;padding-left:15px; }
 #activities-wrapper .single-activity .single-activity-right .activity-setup { font-size: 12px; padding: 0 5px;}
 #activities-wrapper .single-activity.current .single-activity-left .category-corner{ color: #1FA9BB }
 #activities-wrapper .single-activity.future .single-activity-left  .category-corner{ color: #cc3333; }
-#activities-wrapper .single-activity.past .single-activity-left .category-corner{ color: #46b649; }
+#activities-wrapper .single-activity.checked .single-activity-left .category-corner{ color: #46b649; }
 
 #activities-wrapper .single-activity .play-icons-corner { position: absolute; bottom: 5px; right: 10px;   }
 #activities-wrapper .single-activity .play-icons-corner a { display: inline-block; width: 35px; height: 35px; margin-left: 5px; text-indent: -9999px; text-transform: capitalize;}
@@ -490,7 +490,7 @@ h4.reflect-header { font-weight: bold; margin: 15px 0 0px;padding-left:15px; }
 #activities-wrapper .single-activity .play-icons-corner .likes-btn:hover { background: url(/images/thumb_up_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .likes-btn.active { background: url(/images/thumb_up_active.png) no-repeat center center !important;}
 #activities-wrapper .single-activity .play-icons-corner .seen-tick-btn { background: url(/images/tick_btn.png) no-repeat center center;}
-#activities-wrapper .single-activity.past .play-icons-corner .seen-tick-btn { background: url(/images/tick_btn_active.png) no-repeat center center !important;}
+#activities-wrapper .single-activity.checked .play-icons-corner .seen-tick-btn { background: url(/images/tick_btn_active.png) no-repeat center center !important;}
 #activities-wrapper .single-activity .play-icons-corner .seen-tick-btn:hover { background: url(/images/tick_btn_hover.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn { background: url(/images/thumb_down.png) no-repeat center center;}
 #activities-wrapper .single-activity .play-icons-corner .dislikes-btn:hover { background: url(/images/thumb_down_hover.png) no-repeat center center;}
@@ -501,8 +501,9 @@ h4.reflect-header { font-weight: bold; margin: 15px 0 0px;padding-left:15px; }
 .play-popup .pointing-arrow { position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: 0;}
 .play-popup .popup-wrapper { background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px;}
 .play-popup.future .popup-wrapper .show-future { display: block; padding-left: 42px; background: url(/images/sun1.png) no-repeat left center; line-height: 37px; font-size: 12px; margin-bottom: 10px}
-.play-popup.past .popup-wrapper .show-past { display: block; padding-left: 36px; background: url(/images/tick_green.png) no-repeat left center; line-height: 26px; font-size: 12px; margin-bottom: 10px}
-.play-popup.past .popup-wrapper .show-past span { color: #45b649; }
+.play-popup.past .popup-wrapper .show-past { display: none; padding-left: 36px; background: url(/images/tick_green.png) no-repeat left center; line-height: 26px; font-size: 12px; margin-bottom: 10px}
+.play-popup.past.checked .popup-wrapper .show-past {display:block}
+.play-popup.past.checked .popup-wrapper .show-past span { color: #45b649; }
 .play-popup .popup-wrapper hr { border-color: #777; margin: 30px 0 20px; }
 .play-popup .popup-wrapper .theory,
 .play-popup .popup-wrapper .references { float: left; width: 45%; font-size: 15px;}

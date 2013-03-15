@@ -14,7 +14,7 @@
 .play-popup .pointing-arrow { position: absolute; width: 33px; height: 26px; background: url(/images/pointing_arrow.png) no-repeat left center; left: 0;}
 .play-popup .popup-wrapper { background-color: #fdfbe2; border-style: solid; border-color: #f37121; border-width: 1px; padding: 10px;}
 .play-popup.future .popup-wrapper .show-future { display: block; padding-left: 42px; background: url(/images/sun1.png) no-repeat left center; line-height: 37px; font-size: 12px; margin-bottom: 10px}
-.play-popup.past .popup-wrapper .show-past { display: block; padding-left: 36px; background: url(/images/tick_green.png) no-repeat left center; line-height: 26px; font-size: 12px; margin-bottom: 10px}
+.play-popup.past .popup-wrapper .show-past { display: none; padding-left: 36px; background: url(/images/tick_green.png) no-repeat left center; line-height: 26px; font-size: 12px; margin-bottom: 10px}
 .play-popup.past .popup-wrapper .show-past span { color: #45b649; }
 .play-popup .popup-wrapper hr { border-color: #777; margin: 30px 0 20px; }
 .play-popup .popup-wrapper .theory,

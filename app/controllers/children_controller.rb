@@ -116,42 +116,41 @@ class ChildrenController < ApplicationController
 
   def play
     @activities = []
+    
     if params[:aid]
       curr_a = Activity.includes(:behaviour).find_by_id(params[:aid])
     end
     
-    seen_behaviours = current_child.max_seen_by_category
-      
+    seen_behaviours = current_child.max_seen_by_cat
+    
     seen_behaviours.each do |sb|
       if curr_a.nil? || sb.category != curr_a.category
-          a = sb.activities.first
+        a = sb.activities.first
       else
-          a = curr_a          
+        a = curr_a          
       end
       selected = a.id == params[:aid].to_i ? true : false
       a_likes = a.likes.find_by_child_id(current_child.id)
       likes = a_likes.value unless a_likes.nil?
       @activities << {
-                         :category => a.category,
-                         :aid => a.id,
-                         :b_title => current_child.replace_forms(a.behaviour.title_past),
-                         :bid => a.behaviour.id,
-                         :title => current_child.replace_forms(a.title),
-                         :action => current_child.replace_forms(a.action),
-                         :actioned => current_child.replace_forms(a.actioned),
-                         :desc_short => current_child.replace_forms(a.description_short),
-                         :desc_long => current_child.replace_forms(a.description_long),
-                         :variation1 => current_child.replace_forms(a.variation1),
-                         :variation2 => current_child.replace_forms(a.variation2),                         
-                         :learning_benefit => current_child.replace_forms(a.learning_benefit),
-                         :selected => selected || false,
-                         :likes => likes
-                    }
+        :category => a.category,
+        :aid => a.id,
+        :b_title => current_child.replace_forms(a.behaviour.title_past),
+        :bid => a.behaviour.id,
+        :title => current_child.replace_forms(a.title),
+        :action => current_child.replace_forms(a.action),
+        :actioned => current_child.replace_forms(a.actioned),
+        :desc_short => current_child.replace_forms(a.description_short),
+        :desc_long => current_child.replace_forms(a.description_long),
+        :variation1 => current_child.replace_forms(a.variation1),
+        :variation2 => current_child.replace_forms(a.variation2),                         
+        :learning_benefit => current_child.replace_forms(a.learning_benefit),
+        :selected => selected || false,
+        :likes => likes
+      }
     end
     @activities.first[:selected] = true unless @activities.any? { |a| a[:selected] == true }
   end
-
-  
 
   def get_adjacent_activity 
     curr_a = Activity.includes(:behaviour).find_by_id(params[:aid])
@@ -206,11 +205,12 @@ class ChildrenController < ApplicationController
     @behaviours = []    
 
     curr_b = Behaviour.includes(:activities).find_by_id(params[:bid]) if params[:bid].present?
-    seen_behaviours = current_child.max_seen_by_category
+    seen_behaviours = current_child.max_seen_by_cat;
+    @seen_behaviours = seen_behaviours;
 
     seen_behaviours.each do |b|
       beh = Behaviour.includes(:activities).find_by_category(b.category, :conditions => ["age_from > ?", b.age_from], :order => "age_from ASC")
-      time = "current"
+      time = "current"     
       
       if curr_b && b.category == curr_b.category
         time = "future" if curr_b.age_from > beh.age_from
@@ -221,9 +221,9 @@ class ChildrenController < ApplicationController
         beh = b
       end
 
+      checked = current_child.seen_behaviours.find_by_behaviour_id(beh.id) ? true : false
       time = "past" if beh.age_from <= b.age_from
       
-
       selected = beh.id == params[:bid].to_i ? true : false
       @behaviours << {
                        :category => beh.category,
@@ -242,7 +242,8 @@ class ChildrenController < ApplicationController
                        :parenting_tip2 => current_child.replace_forms(beh.parenting_tip2),
                        :theory => current_child.replace_forms(beh.theory),
                        :references => current_child.replace_forms(beh.references),
-                       :selected => selected
+                       :selected => selected,
+                       :checked => checked
                      }
     end
     @behaviours.first[:selected] = true unless @behaviours.any? { |b| b[:selected] == true }
@@ -252,8 +253,8 @@ class ChildrenController < ApplicationController
     ref_b = Behaviour.includes(:activities).find_by_id(params[:bid])
     
     curr_b = current_child.behaviours.find_by_category(ref_b.category, :order => 'age_from DESC')
-    max_b = Behaviour.includes(:activities).find_by_category(curr_b.category, :conditions => ["age_from > ?", curr_b.age_from], :order => "age_from ASC")
-
+    max_b = Behaviour.includes(:activities).find_by_category(curr_b.category, :conditions => ["age_from > ?", curr_b.age_from], :order => "age_from ASC") if curr_b
+    
     if params[:dir] == 'prev'
       dir = "<"
       order = "DESC"
@@ -261,8 +262,10 @@ class ChildrenController < ApplicationController
       dir = ">"
       order = "ASC"
     end
-
-    beh = Behaviour.find_by_category(ref_b.category, :conditions => ["age_from #{dir} ?", ref_b.age_from], :order => "age_from #{order}")
+    
+    beh = Behaviour.find_by_category(ref_b.category, :conditions => ["age_from #{dir} ?", ref_b.age_from], :order => "age_from #{order}, id ASC")
+    beh ||= ref_b
+    
     
     if beh            
       time = "past"
@@ -271,39 +274,40 @@ class ChildrenController < ApplicationController
       elsif max_b && beh.age_from > max_b.age_from
         time = "future"
       end
-
+      checked = current_child.seen_behaviours.find_by_behaviour_id(beh.id) ? true : false
       item =  {
-                         :category => beh.category,
-                         :time => time,
-                         :bid => beh.id,
-                         :title => current_child.replace_forms(beh.title_present),
-                         :title_past => current_child.replace_forms(beh.title_past),
-                         :desc_short => current_child.replace_forms(beh.description_short),
-                         :desc_long => current_child.replace_forms(beh.description_long),
-                         :example1 => current_child.replace_forms(beh.example1),
-                         :example2 => current_child.replace_forms(beh.example2),
-                         :example3 => current_child.replace_forms(beh.example3),
-                         :activities => beh.activities,
-                         :why_important => current_child.replace_forms(beh.why_important),
-                         :parenting_tip1 => current_child.replace_forms(beh.parenting_tip1),
-                         :parenting_tip2 => current_child.replace_forms(beh.parenting_tip2),
-                         :theory => current_child.replace_forms(beh.theory),
-                         :references => current_child.replace_forms(beh.references),
-                         :selected => true
-                }
-        respond_to do |format|
-          format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }
-        end
-    end
+        :category => beh.category,
+        :time => time,
+        :bid => beh.id,
+        :title => current_child.replace_forms(beh.title_present),
+        :title_past => current_child.replace_forms(beh.title_past),
+        :desc_short => current_child.replace_forms(beh.description_short),
+        :desc_long => current_child.replace_forms(beh.description_long),
+        :example1 => current_child.replace_forms(beh.example1),
+        :example2 => current_child.replace_forms(beh.example2),
+        :example3 => current_child.replace_forms(beh.example3),
+        :activities => beh.activities,
+        :why_important => current_child.replace_forms(beh.why_important),
+        :parenting_tip1 => current_child.replace_forms(beh.parenting_tip1),
+        :parenting_tip2 => current_child.replace_forms(beh.parenting_tip2),
+        :theory => current_child.replace_forms(beh.theory),
+        :references => current_child.replace_forms(beh.references),
+        :selected => true,
+        :checked => checked
+      }
+      respond_to do |format|
+        format.html { render :partial => "watch_single", :locals => { :item => item, :time => time} }
+      end
+    end 
   end
-
-
+  
+  
   def edit
     @child = Child.find(params[:id])
     flash[:tab] = 'my_family'
     render :layout => "child"
   end
-
+  
   def update
     relation = current_user.relations.includes(:child).find_by_child_id(params[:id])
     relation.child.assign_attributes(params[:child])    

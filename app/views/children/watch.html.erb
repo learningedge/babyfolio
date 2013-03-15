@@ -19,7 +19,9 @@
   <div class="clear"></div>
 
   <script type="text/javascript">
+
     $(function() {
+
       showPlayPopup($('.selected .activity-title-link'));
 
       $('.previous-activity-link, .next-activity-link').live("ajax:before", function() {
@@ -43,26 +45,52 @@
 
       $('.show-dialog').live('click', function() {
         $($(this).attr('href')).dialog({modal: true});
+        if ($(this).hasClass("seen-tick-btn")){
+          $($(this).attr('href')).find("input[name='submit_type']").val("seen_tick");
+        } else {
+          $($(this).attr('href')).find("input[name='submit_type']").val("timeline");
+        }
         return false;
       });
 
       $('.te-form').live("ajax:success", function(xhr,data) {
-          $(this).parents('.play-dialog').html(data);
+          if (data == "success") {
+            var bid = $(this).parents('.ui-dialog-content').attr("id");
+            $(this).parents('.ui-dialog-content').dialog("close");
+            $(".seen-tick-btn[href='#"+bid+"']").parents('.single-activity').find('.next-activity-link').click();
+          } else {
+            $(this).parents('.play-dialog').html(data);
+          }
       });
 
       $('.seen-tick-btn').live('ajax:before',function() {
+
+/*
         $('.single-activity').removeClass('selected');
         $(this).parents('.single-activity').removeClass('current future').addClass('past selected');
         $(this).parents('.single-activity').find('.play-popup').removeClass('current future').addClass('past');
         showPlayPopup($(this).parents('.single-activity').find('.activity-title-link'));
+*/
+
       });
 
       $('.seen-tick-btn').live('ajax:success',function() {
-        $(this).parents('.single-activity').find('.next-activity-link').click();
+
+        $('.single-activity').removeClass('selected');
+        $(this).parents('.single-activity').removeClass('past selected checked').addClass('current');
+        $(this).parents('.single-activity').find('.play-popup').removeClass('past checked').addClass('current');
+        $(this).attr('data-remote', false);
+        $(this).addClass('show-dialog');
+        $(this).attr('href',$(this).attr('data-dialog'));
+        $(this).parents('.single-activity').find('.previous-activity-link').click();
+        showPlayPopup($(this).parents('.single-activity').find('.activity-title-link'));
+
       });
+
     });
 
     function showPlayPopup(title) {
+
         $(title).parents('.single-activity').addClass('selected');
 
         var sa = $(title).parents('.single-activity').find('.play-popup');
@@ -70,9 +98,7 @@
 
         $('.right-column').find('.pointing-arrow').css({top : $('.single-activity.selected').position().top});
         $('.right-column .popup-wrapper').css({minHeight: $('#activities-wrapper').height() });
+
     }
-
-
-
 
   </script>

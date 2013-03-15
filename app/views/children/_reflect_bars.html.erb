@@ -13,14 +13,23 @@
                     <div class="popup-wrapper">
                         <div class="reflect-pointing-arrow"></div>
 
-                        <% if type == "str" %>
-                            <%= @str_text.gsub('<INTELLIGENCE>', category_name(behaviour.category)).gsub('<WTitle>', behaviour.title_present).gsub('<WTitlePast>', behaviour.title_past).gsub('<PTip>', current_child.replace_forms(behaviour.parenting_tip1)).html_safe %>
-                        <% elsif type == "weak" %>
-                            <%= @weak_text.gsub('<INTELLIGENCE>', category_name(behaviour.category)).gsub('<WTitle>', behaviour.title_present).gsub('<WTitlePast>', behaviour.title_past).gsub('<PTip>', current_child.replace_forms(behaviour.parenting_tip1)).html_safe %>
-                        <% else %>
-                            <%= @avg_text.gsub('<INTELLIGENCE>', category_name(behaviour.category)).gsub('<WTitle>', behaviour.title_present).gsub('<WTitlePast>', behaviour.title_past).gsub('<PTip>', current_child.replace_forms(behaviour.parenting_tip1)).html_safe %>
-                        <% end %>
+			<% if @lengths.size != 1 %>
 
+                          <% if type == "str" %>
+                            <%= @str_text.gsub('<INTELLIGENCE>', category_name(behaviour.category)).gsub('<WTitle>', behaviour.title_present).gsub('<WTitlePast>', behaviour.title_past).gsub('<PTip>', current_child.replace_forms(behaviour.parenting_tip1)).html_safe %>
+                          <% elsif type == "weak" %>
+                            <%= @weak_text.gsub('<INTELLIGENCE>', category_name(behaviour.category)).gsub('<WTitle>', behaviour.title_present).gsub('<WTitlePast>', behaviour.title_past).gsub('<PTip>', current_child.replace_forms(behaviour.parenting_tip1)).html_safe %>
+                          <% else %>
+                            <%= @avg_text.gsub('<INTELLIGENCE>', category_name(behaviour.category)).gsub('<WTitle>', behaviour.title_present).gsub('<WTitlePast>', behaviour.title_past).gsub('<PTip>', current_child.replace_forms(behaviour.parenting_tip1)).html_safe %>
+                          <% end %>
+
+                        <% else %>
+
+			 <h4><%= current_child.first_name %> also has <%= category_name(behaviour.category) %> development based on the behavioral milestones he has already exhibited.</h4>
+			 <p>Recently, <%= current_child.first_name %> Prentended While Playing.</p>
+			 <h5>Support their development with these activites:</h5>
+
+			<% end %>
                         <p>
                           <% behaviour.activities.each do |activity| %>
                               <a href="<%= play_children_path(:aid => activity.id) %>" class="btn"><%= current_child.replace_forms(truncate(activity.title, :length => 40)).html_safe %></a>

@@ -85,9 +85,15 @@ class TimelineController < ApplicationController
                                    a || b
                                   )
     te.save
-
-    respond_to do |format|
-      format.html { render :text => '<h4 class="arvo success">Sucessfully submitted Timeline entry</h4>' }
+    if (params[:submit_type] == "timeline")
+      respond_to do |format|      
+        format.html { render :text => '<h4 class="arvo success">Sucessfully submitted Timeline entry</h4>' }
+      end
+    else
+      current_child.seen_behaviours.find_or_create_by_behaviour_id(b.id, :user => current_user)
+      respond_to do |format|
+        format.html { render :text => 'success' }
+      end
     end
   end
 

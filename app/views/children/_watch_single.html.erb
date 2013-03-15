@@ -1,40 +1,49 @@
-<li class="single-activity <%= "selected" if item[:selected] %> <%= time %>" >
+<li class="single-activity <%= "selected" if item[:selected] %> <%= time %> <%= 'checked' if item[:checked] -%>" >
     <div class="single-activity-left">
-
+      
       <div class="category-corner">
         <img src="/images/icon_teal_<%= item[:category] %>.png" />
         <div><a href="#"><%= category_name(item[:category]) %></a></div>
-
+	
         <div class="show-future">keep trying!</div>
         <div class="show-past">good work!</div>
-          
+        
       </div>
     </div>
+
     <div class="single-activity-right">
       <div class="single-activity-nav">
-
-          <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
+	
+        <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "prev"), :remote => true, :class => 'previous-activity-link' %>
           <a href="#" class="activity-title-link"><%= item[:title] %></a>
-          <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
+        <%= link_to "#", adjacent_behaviour_children_path(:bid => item[:bid], :dir => "next"), :remote => true,  :class => 'next-activity-link' %>
+	
       </div>
       <div class="activity-setup"><%= item[:desc_short] %></div>
       <div class="play-icons-corner">
+	
         <%= link_to "Timeline", "#dialog-timeline-#{item[:bid]}", :class => "show-dialog timeline-btn" %>
-        <%= link_to "Seen this", update_watched_path(:bid => item[:bid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
+        <%#= link_to "Seen this", update_watched_path(:bid => item[:bid]) , :class => "seen-tick-btn", :remote => true, :method => :post %>
+	<% if time == "past" %>
+          <%= link_to "Seen this", delete_watched_path(:bid => item[:bid]) , :class => "seen-tick-btn", :remote => true, :method => :post, "data-dialog" => "#dialog-timeline-#{item[:bid]}" -%>
+	<% else %>
+	  <%= link_to "Seen this", "#dialog-timeline-#{item[:bid]}" , :class => "show-dialog seen-tick-btn"  %>
+	<% end %>
 
         <div id="dialog-timeline-<%= item[:bid] %>" class="play-dialog">
-            <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title_past].gsub('"' , ' ').strip , :category => item[:category], :aid => nil, :bid => item[:bid] } %>
+          <%= render :partial => 'timeline_popup', :locals => { :type => "watch", :did_what => item[:title_past].gsub('"' , ' ').strip , :category => item[:category], :aid => nil, :bid => item[:bid] } %>
         </div>                
       </div>
     </div>
     <div class="clear"></div>
-
-    <div class="play-popup <%= time %>">
+    
+    <div class="play-popup <%= time %> <%= "checked" if item[:checked] %>">
       <div class="pointing-arrow"></div>
       <div class="popup-wrapper">
-            <h4><%= item[:title] %></h4>
-            <div class="show-future">future behavior</div>
-            <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
+        <h4><%= item[:title] %></h4>
+	
+          <div class="show-future">future behavior</div>
+          <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
             
             <p><%= item[:desc_long] %></p>            
             <h5>Examples</h5>
@@ -43,7 +52,7 @@
               <%= content_tag(:li, item[:example2], {}, false) if item[:example2].present? %>
               <%= content_tag(:li, item[:example3], {}, false) if item[:example3].present? %>              
             </ul>
-          
+             
             <h5>Recommanded Play Activities</h5>
 	    <p>
             <% item[:activities].each do |a| %>

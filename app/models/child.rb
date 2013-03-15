@@ -14,7 +14,7 @@ class Child < ActiveRecord::Base
   has_one :attachment, :as => :object, :dependent => :destroy
   has_one :media, :through => :attachment  
   #has_many :answers
-#  has_many :questions, :through => :answers
+  #has_many :questions, :through => :answers
 
   has_many :seen_behaviours, :dependent => :destroy
   has_many :behaviours, :through => :seen_behaviours
@@ -67,14 +67,28 @@ class Child < ActiveRecord::Base
   }
 
   def max_seen_by_category
+    result = self.max_seen
+    result = result.sort_by{|b| Behaviour::CATEGORIES_ORDER.index(b.category) }.sort_by{|b| b.age_from}.reverse
+    return result
+  end
+
+  def max_seen
     result = []
     behaviours = self.behaviours.group('behaviours.category').select('behaviours.category, max(behaviours.age_from) as age_from').order('age_from desc')
     behaviours.each do |b|
       result << self.behaviours.includes(:activities).find_by_age_from_and_category(b.age_from, b.category, :order => "learning_window DESC")
     end
-    result = result.sort_by{|b| Behaviour::CATEGORIES_ORDER.index(b.category) }.sort_by{|b| b.age_from}.reverse
-    return result
+    return result;
   end
+
+  def max_seen_by_cat
+    result = self.max_seen
+    return result.sort_by{|b| Behaviour::CATEGORIES_ORDER.index(b.category) }
+  end
+
+  def has_behaviours_for_cateogry? category
+    self.behaviours.exists?(:category => category);
+  end 
 
   def max_seen_for_category category
     question = self.questions.where(["answers.value = 'seen' AND questions.category =?", category]).select('questions.category, questions.age').order('age desc').limit(1).first
