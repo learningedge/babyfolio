@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
     if params[:value].to_i == 1 and !current_child.has_behaviours_for_cateogry?(behaviour.category)
       
       behaviours = Behaviour.find(:all, 
-                                  :select => "id, min(id) AS min_id, age_from",
+                                  :select => "min(id) AS min_id, age_from",
                                   :order => "age_from DESC",
                                   :group => "age_from",
                                   :conditions => ["age_from < ? AND category = ?", behaviour.age_from, behaviour.category])
@@ -28,6 +28,7 @@ class QuestionsController < ApplicationController
       behaviours.each do |beh|
         SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, beh.min_id, :user => current_user)
       end
+
     end
     
     next_args = {
