@@ -3,7 +3,7 @@
 
 <% end %>
 
-  <h4 class="reflect-header">Have you seen do this yet?</h4>
+  <h4 class="reflect-header">Have you seen <%= current_child.first_name -%> do this yet?</h4>
   <p id="left-column-additional-info">if yes, click on the checkmark. Or click on a title for more information. You can also uncheck a behavior.</p>
   <div class="left-column">              
         <ul id="activities-wrapper">
@@ -45,10 +45,10 @@
 
       $('.show-dialog').live('click', function() {
         $($(this).attr('href')).dialog({modal: true});
-        if ($(this).hasClass("seen-tick-btn")){
-          $($(this).attr('href')).find("input[name='submit_type']").val("seen_tick");
+        if ($(this).hasClass("timeline-btn")){
+          $("input[name='submit_type']").val("timeline");
         } else {
-          $($(this).attr('href')).find("input[name='submit_type']").val("timeline");
+          $("input[name='submit_type']").val("seen_tick");
         }
         return false;
       });
@@ -76,14 +76,23 @@
 
       $('.seen-tick-btn').live('ajax:success',function() {
 
+        showPlayPopup($(this).parents('.single-activity').find('.activity-title-link'));
+
         $('.single-activity').removeClass('selected');
         $(this).parents('.single-activity').removeClass('past selected checked').addClass('current');
         $(this).parents('.single-activity').find('.play-popup').removeClass('past checked').addClass('current');
-        $(this).attr('data-remote', false);
+        $(this).attr('href',$(this).attr('data-dialog'));        
         $(this).addClass('show-dialog');
-        $(this).attr('href',$(this).attr('data-dialog'));
-        $(this).parents('.single-activity').find('.previous-activity-link').click();
-        showPlayPopup($(this).parents('.single-activity').find('.activity-title-link'));
+        
+        $(this).removeAttr('data-remote');
+        $(this).removeAttr('data-method');
+        $(this).removeAttr('rel');
+        $(this).removeAttr('data-dialog');
+        
+//        var this_clone = $(this).clone();
+//       $(this).before(this_clone);
+//        $(this).remove();
+
 
       });
 
