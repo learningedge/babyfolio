@@ -69,7 +69,7 @@ class TimelineController < ApplicationController
     te.save
     
     redirect_to show_timeline_path
-  end  
+  end    
 
   def add_from_popup
     b = Behaviour.find_by_id(params[:bid]) if params[:bid].present?
@@ -113,6 +113,24 @@ class TimelineController < ApplicationController
 
     respond_to do |format|
       format.html { render :text => "Success" }
+    end
+  end
+
+  def update_entry
+    if current_child.user_is_admin?(current_user)
+      @entry = current_child.timeline_entries.find(params[:id])
+      @entry.update_entry(params[:details], params[:media_id])
+    end
+    redirect_to show_timeline_path
+  end    
+
+  def get_timeline_entry_edit_popup
+    if current_child.user_is_admin?(current_user)
+      @entry = current_child.timeline_entries.find(params[:id])    
+    
+      render :partial => 'children/timeline_edit_popup'
+    else
+      render :text => 'No permission'
     end
   end
 

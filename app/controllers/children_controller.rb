@@ -66,7 +66,7 @@ class ChildrenController < ApplicationController
   end
 
   def reflect
-    seen_behaviours = current_child.max_seen_by_category
+    seen_behaviours = current_child.max_seen_by_cat
 
     uniq_ages = seen_behaviours.map{ |b| b.age_from }.uniq.sort
     @lengths = Hash.new
@@ -83,7 +83,7 @@ class ChildrenController < ApplicationController
       @empty_answers << cat unless seen_behaviours.any?{|sb| sb.category == cat}
     end
 
-    unless @avg_answers.first.age_from == @avg_answers.last.age_from
+    if false && @avg_answers.first.age_from != @avg_answers.last.age_from
         @weak_answers = [@avg_answers.pop]
         @str_answers = [@avg_answers.shift]
     end    

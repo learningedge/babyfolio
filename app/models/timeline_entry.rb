@@ -56,6 +56,12 @@ class TimelineEntry < ActiveRecord::Base
     return te
   end
 
+  def update_entry description, media_id
+    media = Media.find_by_id(media_id)
+    self.media = [media] if media
+    self.description = description
+    self.save
+  end
 
   def published   
     if(Time.now.to_date == self.created_at.to_date)

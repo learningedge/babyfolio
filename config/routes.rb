@@ -89,6 +89,8 @@ Babyfolio::Application.routes.draw do
   post 'timeline/invite' => "timeline#invite_redirect", :as => :timeline_invite_redirect
   post 'timeline/remind_later' => "timeline#remind_later", :as => :timeline_remind_later
   post 'timeline/dont_remind' => "timeline#dont_remind", :as => :timeline_dont_remind
+  post 'timeline/update_entry/:id' => "timeline#update_entry", :as => :update_timeline_entry
+  get 'timline/get_edit_popup' => "timeline#get_timeline_entry_edit_popup", :as => :get_timeline_entry_edit_popup
   get 'timeline' => "timeline#show_timeline", :as => :show_timeline
   get 'visit-timeline/:child_id' => "timeline#visit_timeline", :as => :visit_timeline
   # TIMELINE 

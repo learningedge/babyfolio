@@ -64,10 +64,16 @@ class QuestionsController < ApplicationController
 
   def delete_watched
     beh = Behaviour.find_by_id(params[:bid])
-    seen_behaviour = current_child.seen_behaviours.find_by_behaviour_id(beh.id)
-    seen_behaviour.destroy
-    respond_to do |format|
-      format.html { render :text => 'deleted' }
+    if current_child.user_is_admin?(current_user)
+      seen_behaviour = current_child.seen_behaviours.find_by_behaviour_id(beh.id)
+      seen_behaviour.destroy
+      respond_to do |format|
+        format.html { render :text => 'deleted' }
+      end
+    else
+      respond_to do |format|
+        format.html { render :text => 'no permission' }
+      end
     end
   end
 

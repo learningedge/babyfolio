@@ -7,7 +7,7 @@ class UpdateRelations < ActiveRecord::Migration
       family = Family.create(:name => relation.user.last_name) unless family
       
       child = relation.child
-      if child.family.nil?
+      if child and child.family and child.family.nil?
         child.family = family
         child.save
       end

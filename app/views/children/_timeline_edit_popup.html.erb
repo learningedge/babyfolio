@@ -1,0 +1,33 @@
+<div id="dialog-edit-timeline" class="play-dialog" style="display:block">
+  <%= form_tag update_timeline_entry_path(@entry.id), :class => 'te-form' do %>
+
+    <h4 class="arvo">Post to <span class="arvo-bold">Ewa's</span> Timeline</h4>
+    <div class="popup-frame">
+      <div class="popup-frame-inner">
+        <div class="watch-offset-wrapper">
+          <p class="row	"><%= @entry.title %></p>
+        </div>
+
+        <p class="text-area-row"><%= text_area_tag "details", @entry.description, :class => "row" %></p>
+
+        <div class="popup-buttons-wrapper">
+          <%= submit_tag "Post", :class => 'btn' %>
+          <div id="edit-entry-image-uploader" class="entry-image-uploader"></div>
+          <div class="clear"></div>
+          <div class="img-wrapper">
+	    <% if(@entry.media.count > 0) %>
+	     <% media = @entry.media.first %>
+	     <img src="<%= media.image.url(:profile_medium) %>" />
+	     <%= hidden_field_tag :media_id, media.id %>
+	    <% end %>
+	  </div>          
+          
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    
+
+  <% end %>
+  
+</div>
