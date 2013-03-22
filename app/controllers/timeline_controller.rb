@@ -134,6 +134,17 @@ class TimelineController < ApplicationController
     end
   end
 
+  def delete_timeline_entry
+    if current_child.user_is_admin?(current_user)
+      @entry = current_child.timeline_entries.find(params[:id])
+      @entry.destroy
+      
+      render :text => 'Success'
+    else
+      render :text => 'No permission'
+    end
+  end
+
   def add_comment
     te = TimelineEntry.find_by_id(params[:te_id])
 

@@ -53,7 +53,7 @@
 
     <ul id="timeline-right">
       <% @timeline_entries.each do |te| %>
-      <li class="single-timeline-entry <%#= 'is-auto' if te.is_auto %>">
+      <li class="single-timeline-entry <%#= 'is-auto' if te.is_auto %>" id="entry_<%= te.id %>">
           <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %></span>
           <div class="single-timeline-entry-inner">
             <div class="te-arrow-left"></div>
@@ -80,7 +80,12 @@
                   <div class="timeline-desc"><%= te.description %></div>
                 <% end %>
 		<% if current_child.user_is_admin?(current_user) %>
-		 <div class="te-options"><a href="#" data-id="<%= te.id %>">Edit</a></div>
+		 <div class="te-options">
+		   <div class="te-sub-options">
+		     <a href="#" class="edit" data-id="<%= te.id %>">Edit</a>
+		     <a href="#" class="delete" data-id="<%= te.id %>">Delete</a>
+		   </div>
+		 </div>
 		<% end %>
               </div>
 
@@ -166,6 +171,23 @@
       <div class="loading"><img src="assets/loading.gif" /></div>
       <div class="inner-popup-content"></div>
     </div>
+
+
+    <div id="timeline-remove-popup" class="hidden">
+      <div class="inner-popup-content">
+	<div id="dialog-edit-timeline" class="play-dialog confirmation" style="display:block">
+	  <h4 class="arvo">Confirmation</h4>
+	  <div class="popup-frame">
+	    <div class="popup-frame-inner">	      
+	      Are you sure?<br /><br />
+	      <a href="#" class="btn btn-confirm">Yes</a>&nbsp;&nbsp;<a href="#" class="btn btn-cancel">No</a>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+    
+    
     <div id="timeline-info-dialog" class="hidden timeline-info-dialog">
       <div class="timeline-info-popup-inner">
             <h4 class="arvo">Hey there!</h4>
@@ -247,7 +269,7 @@
             }
         });
       
-      $('.te-options a').click(function() {
+      $('.te-options a.edit').click(function() {
         var entry_id = $(this).attr('data-id');
         $('#timeline-edit-popup .loading').show();
         $('#timeline-edit-popup .inner-popup-content').html('');
@@ -258,6 +280,23 @@
         });
         return false;
       });
+
+      $('.te-options a.delete').click(function() {
+        var entry_id = $(this).attr('data-id');
+        $('#timeline-remove-popup a.btn-confirm').attr('data-id', entry_id);
+        $('#timeline-remove-popup').dialog({modal: true, dialogClass: 'remove-timeline'});
+      });
+        $('#timeline-remove-popup a.btn-confirm').click(function() {
+          var entry_id = $(this).attr('data-id');
+          $.post('<%= delete_timeline_entry_path %>?id='+entry_id);
+          $('#entry_'+entry_id).fadeOut();
+          $('#timeline-remove-popup').dialog('close');
+        });
+
+        $('#timeline-remove-popup a.btn-cancel').click(function() {
+          $('#timeline-remove-popup').dialog("close");
+        });
+
     });
 
     function setup_upload_fields() {
