@@ -35,43 +35,45 @@
             <!-- SETTINGS SUBNAV -->
             <!-- SETTINGS SUBNAV -->
             <!-- SETTINGS SUBNAV -->
-            <div class="orange-subnav">
-              <div class="orange-subnav-item">
-                <div class="subnav-header">About me:</div>
-                <% @my_first_family = current_user.get_first_very_own_family %>
-                <% if @my_first_family  %>
-                  <a href="<%= settings_about_path %>">My Information</a>
-                  <a href="<%= settings_tab_path(:family_id => @my_first_family.id,:tab => "my_family")  %>">My family</a>
-                  <a href="<%= settings_tab_path(:family_id => @my_first_family.id,:tab => "family-friends-information") %>">Family and friends information</a>
-                <% else %>
-                  <a href="<%= settings_about_path %>">My Information</a>
-                  <a href="<%= new_child_children_path(:return_to => request.url) %>">Create own BabyFolio</a>
-                <% end %>
-              </div>
-
-              <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
-              <% admin_families = current_user.own_families.where(condition).all %>
-              <% if admin_families.present? %>
+            <% if current_user %>
+                <div class="orange-subnav">
                   <div class="orange-subnav-item">
-                    <div class="subnav-header">Admin of:</div>
-                    <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
-                    <% admin_families = current_user.own_families.where(condition).all %>
-                    <% admin_families.each do |admin_family|%>
-                      <a href="<%= settings_path(:family_id => admin_family.id) %>"><%= admin_family.get_display_name(current_user) %>'s  Family</a>
+                    <div class="subnav-header">About me:</div>
+                    <% @my_first_family = current_user.get_first_very_own_family %>
+                    <% if @my_first_family  %>
+                      <a href="<%= settings_about_path %>">My Information</a>
+                      <a href="<%= settings_tab_path(:family_id => @my_first_family.id,:tab => "my_family")  %>">My family</a>
+                      <a href="<%= settings_tab_path(:family_id => @my_first_family.id,:tab => "family-friends-information") %>">Family and friends information</a>
+                    <% else %>
+                      <a href="<%= settings_about_path %>">My Information</a>
+                      <a href="<%= new_child_children_path(:return_to => request.url) %>">Create own BabyFolio</a>
                     <% end %>
                   </div>
-              <% end %>
 
-              <% member_families = current_user.other_families %>
-              <% if member_families.present? %>
-                <div class="orange-subnav-item">
-                  <div class="subnav-header">Member of:</div>
-                  <% member_families.each do |member_family|%>
-                    <a href="<%= settings_path(:family_id => member_family.id) %>"><%= member_family.get_display_name(current_user) %>'s Family</a>
+                  <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
+                  <% admin_families = current_user.own_families.where(condition).all %>
+                  <% if admin_families.present? %>
+                      <div class="orange-subnav-item">
+                        <div class="subnav-header">Admin of:</div>
+                        <% condition = ["families.id != ?", @my_first_family.id] if @my_first_family %>
+                        <% admin_families = current_user.own_families.where(condition).all %>
+                        <% admin_families.each do |admin_family|%>
+                          <a href="<%= settings_path(:family_id => admin_family.id) %>"><%= admin_family.get_display_name(current_user) %>'s  Family</a>
+                        <% end %>
+                      </div>
+                  <% end %>
+
+                  <% member_families = current_user.other_families %>
+                  <% if member_families.present? %>
+                    <div class="orange-subnav-item">
+                      <div class="subnav-header">Member of:</div>
+                      <% member_families.each do |member_family|%>
+                        <a href="<%= settings_path(:family_id => member_family.id) %>"><%= member_family.get_display_name(current_user) %>'s Family</a>
+                      <% end %>
+                    </div>
                   <% end %>
                 </div>
-              <% end %>
-            </div>
+            <% end %>
             <!-- SETTINGS SUBNAV -->
             <!-- SETTINGS SUBNAV -->
             <!-- SETTINGS SUBNAV -->
