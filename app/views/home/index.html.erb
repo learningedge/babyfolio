@@ -1,7 +1,10 @@
 <% content_for :middle_bar do %>
   <div id="middle-bar-inner-wrapper" class="arvo">
-      <strong class="arvo-bold">BabyFolio</strong> helps you identify your child’s important developments and provide the right play at the right time.
-      <a href="<%= signup_path %>" class="btn btn-big" id="get-started-btn">Get Started</a>
+    <strong class="arvo-bold">BabyFolio</strong> provides the best tools for you to raise a happy, smart child with the foundations to thrive in the 21st century.
+    <div class="get-started-container">
+      <a href="<%= signup_path %>" class="btn btn-big" id="get-started-btn">Get Started</a><br />
+      (It's Free)
+    </div>
   </div>
 <% end %>
 
@@ -9,7 +12,7 @@
 
   <div class="left-column">
     <img src="images/home_img.jpg" alt="Home image" />    
-    <p id="featured-in-text">Just like snowflakes, children are unique. <span class="bold">Baby-Folio</span> helps parents discover what is special about their baby and where their baby is developmentally. It then provides tips, activities and resources tailored to who their baby is and what their baby is working on. </p>
+    <p id="featured-in-text">Created with experts from Harvard University and the Brazelton Institute, and Reggio Emilia programs.  It's FREE!</p>
     <div><%= link_to "Find out more", about_path , :class => "btn" %></div>
   </div>
 
@@ -21,15 +24,15 @@
       </div>
       <div id="reflect-display">
         <h1 class="arvo">Reflect</h1>
-        <p class="arvo">Understand your baby’s strengths and weaknesses and how you can build on them.</p>
+        <p class="arvo">Understand your baby's profile of development and how you can help.</p>
       </div>
       <div id="play-display">
         <h1 class="arvo">Play</h1>
-        <p class="arvo">Get tips and activity ideas to best support the important developments.</p>
+        <p class="arvo">Get the right play at the right time to support your baby's specific developments.</p>
       </div>
       <div id="plus-display">
         <h1 class="arvo">*Plus you can share your Babyfolio!</h1>
-        <p class="arvo">Let friends and family participate and contribute as your baby learns and develops.</p>
+        <p class="arvo">Better coordinate with close family & friends who truly care about your baby.</p>
       </div>
     </div>
   </div>
