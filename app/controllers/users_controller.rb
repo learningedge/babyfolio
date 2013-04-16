@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_filter :require_seen_behaviours, :only => [:settings]
 
   def new        
+    @page = Page.find_by_slug("signup_step_1")
     clear_session
     @user = User.new
   end
@@ -109,7 +110,7 @@ class UsersController < ApplicationController
       @family_member_users = @family.member_relations.includes(:user).where(['relations.user_id != ?', current_user.id]).uniq_by{|r| r.user.id}
 
       @children_access = []
-      (@family_admin_users.map{|r| r.user} + @family_member_users.map{|r| r.user}).each do |user|
+      (@family_admin_users.map{|r| r.user} + @family_member_users.map{|r| r.user}).uniq.each do |user|
         @children_access[user.id] = user.relations.joins(:child).where({"children.family_id" => @family.id}).all
       end
 

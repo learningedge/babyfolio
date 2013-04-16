@@ -1,0 +1,53 @@
+<p class="hint">(<b class="red">*</b> - Required Fields.)</p>
+<h2>BASICS</h2>
+
+<%= form_for([:admin, @page], :html => { :multipart => true } ) do |f| %>
+<fieldset class="basics">
+  <% if @page.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@page.errors.count, "error") %> prohibited this admin_blog from being saved:</h2>
+    
+    <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  
+  <div class="row">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  
+  <%= f.fields_for :custom_fields do |f_cf| %>
+  
+  <% if f_cf.object.field_type == "image" %>
+  
+  <div class="image_tag">
+    <%= image_tag f_cf.object.custom_image.url(:admin) -%>
+  </div>
+  <div class="row">    
+    <%= f_cf.label :custom_image, f_cf.object.label -%>
+    <%= f_cf.file_field :custom_image -%>
+  </div>
+
+  <% else %>
+  
+  <div class="row">
+    <%= f_cf.label :content, f_cf.object.label -%>
+    <%= f_cf.text_field :content -%>
+  </div>
+  
+  <% end %>
+  
+  <% end %>
+  
+</fieldset>
+
+
+<%= link_to 'Back', admin_pages_path, :class => 'btn gray' %>
+<br />
+<input type="submit" value="Update Page" />
+<% end %>
+

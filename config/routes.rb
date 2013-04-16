@@ -9,6 +9,12 @@ Babyfolio::Application.routes.draw do
         get '/:user_id/logs' => "users#logs", :as => :logs
       end
     end    
+    
+    resources :activities, :only => [:index, :edit, :update ]
+    resources :behaviours, :only => [:index, :edit, :update ]
+    resources :pages, :only => [:index, :edit, :update]
+    resources :custom_fields
+
   end
 
   get '/user/settings/invite(/:family_id)' => "users#settings", :as => :settings_invite, :defaults => { :is_invite => true }

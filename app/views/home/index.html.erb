@@ -1,6 +1,6 @@
 <% content_for :middle_bar do %>
-  <div id="middle-bar-inner-wrapper" class="arvo">
-    <strong class="arvo-bold">BabyFolio</strong> provides the best tools for you to raise a happy, smart child with the foundations to thrive in the 21st century.
+  <div id="middle-bar-inner-wrapper" class="arvo">    
+    <%= @page.cf "title" -%>
     <div class="get-started-container">
       <a href="<%= signup_path %>" class="btn btn-big" id="get-started-btn">Get Started</a><br />
       (It's Free)
@@ -11,8 +11,8 @@
 <div id="home">
 
   <div class="left-column">
-    <img src="images/home_img.jpg" alt="Home image" />    
-    <p id="featured-in-text">Created with experts from Harvard University and the Brazelton Institute, and Reggio Emilia programs.  It's FREE!</p>
+    <%= image_tag @page.cf("left_sidebar_image","homepage") -%>
+    <p id="featured-in-text"><%= @page.cf("left_sidebar_text") -%></p>
     <div><%= link_to "Find out more", about_path , :class => "btn" %></div>
   </div>
 
@@ -20,19 +20,19 @@
     <div id="circle-display">
       <div id="watch-display">
         <h1 class="arvo">Watch</h1>
-        <p class="arvo">Identify your baby's important developments.</p>
+        <p class="arvo"><%= @page.cf("watch_text") -%></p>
       </div>
       <div id="reflect-display">
         <h1 class="arvo">Reflect</h1>
-        <p class="arvo">Understand your baby's profile of development and how you can help.</p>
+        <p class="arvo"><%= @page.cf("reflect_text") -%></p>
       </div>
       <div id="play-display">
         <h1 class="arvo">Play</h1>
-        <p class="arvo">Get the right play at the right time to support your baby's specific developments.</p>
+        <p class="arvo"><%= @page.cf("play_text") -%></p>
       </div>
       <div id="plus-display">
-        <h1 class="arvo">*Plus you can share your Babyfolio!</h1>
-        <p class="arvo">Better coordinate with close family & friends who truly care about your baby.</p>
+        <h1 class="arvo"><%= @page.cf("plus_display_headline") -%></h1>
+        <p class="arvo"><%= @page.cf("plus_display_text") -%></p>
       </div>
     </div>
   </div>

@@ -1,0 +1,101 @@
+<p class="hint">(<b class="red">*</b> - Required Fields.)</p>
+<h2>BASICS</h2>
+
+<%= form_for([:admin, @activity]) do |f| %>
+<fieldset class="basics">
+  <% if @activity.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@activity.errors.count, "error") %> prohibited this admin_blog from being saved:</h2>
+
+    <ul>
+      <% @activity.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  
+  <div class="row">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :age_from %>      
+    <%= f.number_field :age_from %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :age_to %>
+    <%= f.number_field :age_to %>
+  </div>
+
+  <div class="row">
+    <%= f.label :category -%>
+    <%= f.select :category, options_for_select(Behaviour::CATEGORIES.invert, f.object.category) -%>
+  </div>
+  
+  <div class="row">
+    <%= f.label :expressive_interpretive -%>
+    <%= f.text_field :expressive_interpretive -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :action %>
+    <%= f.text_field :action %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :actioned %>
+    <%= f.text_field :actioned %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :description_short %>
+    <%= f.text_area :description_short %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :description_long %>
+    <%= f.text_area :description_long %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :variation1%>
+    <%= f.text_area :variation1 %>
+  </div>
+
+  <div class="row">
+    <%= f.label :variation2 -%>
+    <%= f.text_area :variation2 -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :variation3 -%>
+    <%= f.text_area :variation3 -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :learning_benefit -%>
+    <%= f.text_area :learning_benefit -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :note -%>
+    <%= f.text_area :note -%>    
+  </div>
+
+  <div class="row">
+    <%= f.label :real_world_interests -%>
+    <%= f.text_area :real_world_interests -%>    
+  </div>
+  
+</fieldset>
+
+
+<%= link_to 'Back', admin_activities_path, :class => 'btn gray' %>
+<%#= link_to "User logs", logs_admin_users_path(:user_id => f.object.id), :class => 'btn gray' -%>
+<br />
+<input type="submit" value="Update Activity" />
+<% end %>
+

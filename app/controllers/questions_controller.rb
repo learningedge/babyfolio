@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   before_filter :require_child
 
   def initial_questionnaire    
+    @page = Page.find_by_slug("signup_step_3")
     @behaviours = Behaviour.get_by_age(current_child.months_old).group_by{|b| b.category}
     @behaviours.each do |k,v|
       @behaviours[k] = [v.first, current_child.behaviours.exists?("behaviours.category" => v.first.category)]

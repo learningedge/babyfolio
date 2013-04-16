@@ -1,0 +1,46 @@
+<div id="all_products" class="float-none">
+
+  <% if @title %>
+    <div><h1><%= @title -%> <%= link_to "(View All)", admin_users_path, :style => "font-size: 16px"  %></h1> </div>
+  <% end %>
+
+  <div class="pagination">
+    <i><%= @custom_fields.count -%> Users</i>
+    <div><%= will_paginate @custom_fields, :container => false, :previous_label => '', :next_label => '', :separator => " | " -%></div>
+  </div>
+
+  <table class="products">
+    <thead>
+      <tr>
+        <th>PAGE TITLE</th>
+        <th><%= sort_link 'LABEL', 'custom_fields.label' -%></th>
+	<th><%= sort_link 'TYPE', 'custom_fields.type' -%></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @custom_fields.each do |custom_field| %>
+        <tr>
+          <td><a href="<%= edit_admin_custom_field_path(custom_field) -%>"><%= custom_field.page.title -%></a></td>
+          <td><a href="<%= edit_admin_custom_field_path(custom_field) -%>"><%= custom_field.label -%></a></td>
+          <td><a href="<%= edit_admin_custom_field_path(custom_field) -%>"><%= custom_field.field_type -%></a></td>
+          <td>
+              <div class="action">
+                <span>Action</span>
+                <div>
+                  <ul>
+                    <li>Action</li>
+                    <li><%= link_to 'Edit', edit_admin_custom_field_path(custom_field) %></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+
+

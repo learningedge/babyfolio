@@ -113,6 +113,7 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 #middle-bar { background: url(/images/content_border_top.png) repeat-x center bottom #fff; }
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper { padding: 25px 50px 25px 23px; }
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper { font-size: 40px; position: relative;}
+#middle-bar .inner-wrapper #middle-bar-inner-wrapper.arvo > strong {font-family: 'ArvoBold', Arial, sans-serif;}
 #middle-bar .inner-wrapper #middle-bar-inner-wrapper .get-started-container { position: absolute; bottom: 10px; right: 65px;font-size:16px;font-weight:700;text-align:center;}
 
 .inner-wrapper { width: 1004px; margin: 0 auto;}

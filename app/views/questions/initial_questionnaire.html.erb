@@ -14,7 +14,7 @@
 <div class="left-column">
 
     <div id="left-column-tooltip">
-      <p><span class="bold">We're almost finished!</span> We just need to know what your baby is actually doing so we can identify the most important developments and tailor the site to your specific baby."</p>
+      <p><%= @page.cf("left_sidebar_text") -%></p>
       <div class="clear"></div>
     </div>
 </div>
@@ -22,9 +22,9 @@
 <div class="right-column">
   <div id="instruction-column">
       <div id="tip-number1"></div>
-      <p>Starting with the first intelligence, Language, if you've seen the behavior listed, click "I have seen this!"  If you haven't seen the behavior, click "I haven't seen this yet!"</p>
+      <p><%= @page.cf("point_1") -%></p>
       <div id="tip-number2"></div>
-      <p>If you clicked "I have seen this!" in the first step, keep going until you haven't seen a behavior and then click "I haven't see this yet!"  If you clicked "I haven't seen this yet!" keep going until you've seen a behavior and click "I have seen this!"  Follow the same process for the next intelligence.  Once you've completed the last intelligence, you'll be asked to either continue or add another baby.</p>      
+      <p><%= @page.cf("point_2") -%></p>      
   </div>
   <div id="questionnaire-column">
     <%= render :partial => 'questions_listing', :locals => {:behaviours => @behaviours, :categories_answered => Array.new} %>

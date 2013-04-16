@@ -12,6 +12,7 @@ class ChildrenController < ApplicationController
   end
 
   def new
+    @page = Page.find_by_slug("signup_step_2")
     @child = Child.new
     @child.last_name = current_user.last_name if current_user.last_name.present?
     destination_family = Family.find_by_id(params[:family_id])

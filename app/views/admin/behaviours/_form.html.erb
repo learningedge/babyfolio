@@ -1,0 +1,116 @@
+<p class="hint">(<b class="red">*</b> - Required Fields.)</p>
+<h2>BASICS</h2>
+
+<%= form_for([:admin, @behaviour]) do |f| %>
+<fieldset class="basics">
+  <% if @behaviour.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@behaviour.errors.count, "error") %> prohibited this admin_blog from being saved:</h2>
+
+    <ul>
+      <% @behaviour.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  
+  <div class="row">
+    <%= f.label :title_present %>
+    <%= f.text_field :title_present %>
+  </div>
+
+  <div class="row">
+    <%= f.label :title_past %>
+    <%= f.text_field :title_past %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :age_from %>      
+    <%= f.number_field :age_from %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :age_to %>
+    <%= f.number_field :age_to %>
+  </div>
+
+  <div class="row">
+    <%= f.label :category -%>
+    <%= f.select :category, options_for_select(Behaviour::CATEGORIES.invert, f.object.category) -%>
+  </div>
+  
+  <div class="row">
+    <%= f.label :expressive_interpretive -%>
+    <%= f.text_field :expressive_interpretive -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :description_short %>
+    <%= f.text_area :description_short %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :description_long %>
+    <%= f.text_area :description_long %>
+  </div>
+  
+  <div class="row">
+    <%= f.label :example1 -%>
+    <%= f.text_area :example2 %>
+  </div>
+
+  <div class="row">
+    <%= f.label :example2 -%>
+    <%= f.text_area :example2 -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :example3 -%>
+    <%= f.text_area :example3 -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :why_important -%>
+    <%= f.text_area :why_important -%>
+  </div>
+
+  <div class="row">
+    <%= f.label :theory -%>
+    <%= f.text_area :theory -%>    
+  </div>
+
+  <div class="row">
+    <%= f.label :references -%>
+    <%= f.text_area :references -%>    
+  </div>
+
+  <div class="row">
+    <%= f.label :parenting_tip1 -%>
+    <%= f.text_area :parenting_tip1 -%>    
+  </div>
+
+  <div class="row">
+    <%= f.label :parenting_tip2 -%>
+    <%= f.text_area :parenting_tip2 -%>    
+  </div>
+
+  <div class="row">
+    <%= f.label :background_research_theory -%>
+    <%= f.text_area :background_research_theory -%>    
+  </div>
+
+  <div class="row">
+    <%= f.label :step3_question -%>
+    <%= f.text_area :step3_question -%>    
+  </div>
+
+  
+</fieldset>
+
+
+<%= link_to 'Back', admin_behaviours_path, :class => 'btn gray' %>
+<br />
+<input type="submit" value="Update Behaviour" />
+<% end %>
+

@@ -15,8 +15,8 @@
   <div class="left-column">
     <div id="left-column-tooltip">
       <img src="/images/dream_catcher.png" alt=""/>
-      <h4>Joining BabyFolios</h4>
-      <p class="reg-second-ttip">Want to join a BabyFolio that already exists?  Ask the parents to invite you with the email address you just submitted (<%= current_user.email %>)</p>
+      <h4><%= @page.cf("left_sidebar_headline") -%></h4>
+      <p class="reg-second-ttip"><%= @page.cf("left_sidebar_content") -%> (<%= current_user.email %>)</p>
       <div class="clear"></div>
     </div>
   </div>

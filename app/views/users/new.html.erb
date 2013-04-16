@@ -12,9 +12,9 @@
 <div id="registration-first">
   <div class="left-column">
     <div id="left-column-tooltip" class="<%= "annie-highlight" unless @user.errors.empty? %>">
-      <img src="/images/annie.jpg" />
-      <h4>Have a question?</h4>
-      <p><a href="<%= contact_path %>">Send us an email</a> and Annie, our Community Manager, will be happy to help you!</p>
+      <%= image_tag @page.cf("left_sidebar_image","reg_step1") -%>
+      <h4><%= @page.cf("left_sidebar_headline") -%></h4>
+      <p><%= @page.cf("left_sidebar_content") -%></p>
       <div class="clear"></div>
     </div>
   </div>

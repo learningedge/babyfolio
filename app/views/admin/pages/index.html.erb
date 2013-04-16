@@ -1,0 +1,46 @@
+<div id="all_products" class="float-none">
+
+  <% if @title %>
+    <div><h1><%= @title -%> <%= link_to "(View All)", admin_pages_path, :style => "font-size: 16px"  %></h1> </div>
+  <% end %>
+
+  <div class="pagination">
+    <i><%= @pages.count -%> Users</i>
+    <div><%= will_paginate @pages, :container => false, :previous_label => '', :next_label => '', :separator => " | " -%></div>
+  </div>
+
+  <table class="products">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= sort_link "TITLE", 'pages.title'  -%></th>
+        <!--th>CONFIRMED</th-->
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pages.each do |page| %>
+        <tr>
+          <td><a href="<%= edit_admin_page_path(page) -%>"><%= page.title -%></a></td>
+          <td>
+              <div class="action">
+                <span>Action</span>
+                <div>
+                  <ul>
+                    <li>Action</li>
+                    <li><%= link_to 'Edit', edit_admin_page_path(page) %></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+        </tr>
+      <% end %>
+
+
+    </tbody>
+  </table>
+  
+</div>
+
+
+

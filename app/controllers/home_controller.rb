@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   
   def index
     redirect_to show_timeline_path if current_user
+    @page = Page.find_by_slug("homepage")
     @user_session = UserSession.new
   end
 

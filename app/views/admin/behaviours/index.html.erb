@@ -1,0 +1,52 @@
+<div id="all_products" class="float-none">
+
+  <% if @title %>
+    <div><h1><%= @title -%> <%= link_to "(View All)", admin_behaviours_path, :style => "font-size: 16px"  %></h1> </div>
+  <% end %>
+
+  <div class="pagination">
+    <i><%= @behaviours.count -%> Users</i>
+    <div><%= will_paginate @behaviours, :container => false, :previous_label => '', :next_label => '', :separator => " | " -%></div>
+  </div>
+
+  <table class="products">
+    <thead>
+      <tr>
+        <th><%= sort_link 'AGE FROM (in months)', 'behaviours.age_from'  -%></th>
+        <th><%= sort_link 'AGE TO (in months)', 'behaviours.age_to' -%></th>
+        <th><%= sort_link 'CATEGORY', 'behaviours.category' -%></th>
+        <th><%= sort_link 'TITLE PRESENT', 'behaviours.title_present' -%></th>
+        <th><%= sort_link 'TITLE PAST', 'behaviours.title_past' -%></th>
+        <!--th>CONFIRMED</th-->
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @behaviours.each do |behaviour| %>
+        <tr>
+          <td><%= behaviour.age_from -%></td>
+          <td><%= behaviour.age_to -%></td>
+          <td><a href="<%= edit_admin_behaviour_path(behaviour) -%>"><%= behaviour.category -%></a></td>
+          <td><a href="<%= edit_admin_behaviour_path(behaviour) -%>"><%= behaviour.title_present -%></a></td>          
+          <td><a href="<%= edit_admin_behaviour_path(behaviour) -%>"><%= behaviour.title_past -%></a></td>          
+          <td>
+            <div class="action">
+              <span>Action</span>
+              <div>
+                <ul>
+                  <li>Action</li>
+                  <li><%= link_to 'Edit', edit_admin_behaviour_path(behaviour) %></li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+	<% end %>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+

@@ -18,15 +18,17 @@
 
           <%= link_to 'View Site', root_path , :class => 'view_site', :target => '_blank' -%>
       
-          <!--ul id="nav">
-            <li><a href="<%#= admin_root_path -%>">Dashboard</a></li>
-            <li><a href="<%#= admin_users_path -%>">Users</a></li>
-          </ul-->
+          <ul id="nav">
+            <li><a href="<%= admin_users_path -%>">Users</a></li>
+	    <li><a href="<%= admin_activities_path -%>">Activities</a></li>
+	    <li><a href="<%= admin_behaviours_path -%>">Behaviours</a></li>
+	    <li><a href="<%= admin_pages_path -%>">Pages</a></li>
+          </ul>
 
           <%= form_tag(admin_search_path, { :id => "search" }) do %>
             <fieldset>
               <%= text_field_tag :search_term, params[:search_term] || "Search", :placeholder => "Search" %>
-              <span class="hidden"><%= select_tag :type, options_for_select([["User","user"]]) -%></span>
+              <span><%= select_tag :type, options_for_select([["User","user"],["Activity","activity"],["Behaviour","behaviour"],["Page","page"]]) -%></span>
               <%= submit_tag "Search" %>
             </fieldset>
           <% end -%>

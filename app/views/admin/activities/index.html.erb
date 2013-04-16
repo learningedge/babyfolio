@@ -1,0 +1,52 @@
+<div id="all_products" class="float-none">
+
+  <% if @title %>
+    <div><h1><%= @title -%> <%= link_to "(View All)", admin_activities_path, :style => "font-size: 16px"  %></h1> </div>
+  <% end %>
+
+  <div class="pagination">
+    <i><%= @activities.count -%> Users</i>
+    <div><%= will_paginate @activities, :container => false, :previous_label => '', :next_label => '', :separator => " | " -%></div>
+  </div>
+
+  <table class="products">
+    <thead>
+      <tr>
+        <th><%= sort_link 'AGE FROM (in months)', 'activities.age_from'  -%></th>
+        <th><%= sort_link 'AGE TO (in months)', 'activities.age_to' -%></th>
+        <th><%= sort_link 'CATEGORY', 'activities.category' -%></th>
+        <th><%= sort_link 'TITLE', 'activities.title' -%></th>
+        <!--th>CONFIRMED</th-->
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @activities.each do |activity| %>
+        <tr>
+          <td><%= activity.age_from -%></td>
+          <td><%= activity.age_to -%></td>
+          <td><a href="<%= edit_admin_activity_path(activity) -%>"><%= activity.category -%></a></td>
+          <td><a href="<%= edit_admin_activity_path(activity) -%>"><%= activity.title -%></a></td>          
+          <td>
+              <div class="action">
+                <span>Action</span>
+                <div>
+                  <ul>
+                    <li>Action</li>
+                    <li><%= link_to 'Edit', edit_admin_activity_path(activity) %></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+        </tr>
+      <% end %>
+
+
+    </tbody>
+  </table>
+
+</div>
+
+
+
+
