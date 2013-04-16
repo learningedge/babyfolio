@@ -8,7 +8,7 @@ class CustomField < ActiveRecord::Base
   has_attached_file :custom_image,
   :styles => {
     :admin => "300x300>",
-    :homepage => "326x295#",
+    :homepage => "326x395#",
     :reg_step1 => "67x98#"
   },
   :storage => :s3,
