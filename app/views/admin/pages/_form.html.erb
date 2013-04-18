@@ -24,7 +24,8 @@
   
   <% if f_cf.object.field_type == "image" %>
   
-  <div class="image_tag">
+  <div class="row">
+    <%= label_tag "Image" -%>
     <%= image_tag f_cf.object.custom_image.url(:admin) -%>
   </div>
   <div class="row">    
@@ -36,7 +37,7 @@
   
   <div class="row">
     <%= f_cf.label :content, f_cf.object.label -%>
-    <%= f_cf.text_area :content, :class => "tinymce" -%>
+    <%= f_cf.text_area :content, :class => "tinymce", :rows => 20 -%>
   </div>  
 
   <% else %>
