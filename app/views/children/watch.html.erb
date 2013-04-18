@@ -1,10 +1,9 @@
 <% content_for :middle_bar do %>
-  <span>Here are upcoming developmental behaviors <%= current_child.first_name %> will exhibit.</span>
-
+<span><%= format_text @page.cf("title") -%></span>
 <% end %>
-
-  <h4 class="reflect-header">Have you seen <%= current_child.first_name -%> do this yet?</h4>
-  <p id="left-column-additional-info">if yes, click on the checkmark. Or click on a title for more information. You can also uncheck a behavior.</p>
+  
+  <div class="reflect-header"><%= format_text @page.cf("left_sidebar_headline") -%></div>
+  <div id="left-column-additional-info"><%= format_text @page.cf("left_sidebar_text") -%></div>
   <div class="left-column">              
         <ul id="activities-wrapper">
           <% @behaviours.each do |a| %>

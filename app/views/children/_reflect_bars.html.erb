@@ -27,7 +27,7 @@
 
 			 <h4><%= current_child.first_name %> also has <%= category_name(behaviour.category) %> development based on the behavioral milestones he has already exhibited.</h4>
 			 <p>Recently, <%= current_child.first_name %> Prentended While Playing.</p>
-			 <h5>Support their development with these activites:</h5>
+			 <%= format_text (@page.cf("right_sidebar_activities")); -%>
 
 			<% end %>
                         <p>

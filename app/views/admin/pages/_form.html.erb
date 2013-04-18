@@ -17,7 +17,7 @@
   
   <div class="row">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.object.title %>
   </div>
   
   <%= f.fields_for :custom_fields do |f_cf| %>

@@ -50,21 +50,21 @@
           <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
             
             <p><%= item[:desc_long] %></p>            
-            <h5>Examples</h5>
+	    <%= format_text @page.cf("right_sidebar_examples") -%>
             <ul class="variations">
               <%= content_tag(:li, item[:example1], {}, false) if item[:example1].present? %>
               <%= content_tag(:li, item[:example2], {}, false) if item[:example2].present? %>
               <%= content_tag(:li, item[:example3], {}, false) if item[:example3].present? %>              
             </ul>
-             
-            <h5>Recommanded Play Activities</h5>
+
+	    <%= format_text @page.cf("right_sidebar_recommended") -%>
 	    <p>
             <% item[:activities].each do |a| %>
               <%= link_to a.title, play_children_path(:aid => a.id), :class => "btn" %>
             <% end %>
 	    </p>
-                          
-            <h5>Why Is This Important?</h5>
+
+	    <%= format_text @page.cf("right_sidebar_why_important") -%>                          
             <p><%= item[:why_important] %></p>
 	    
             <%= content_tag(:p, "TIP: " + item[:parenting_tip1], {}, false) if item[:parenting_tip1].present? %>
@@ -73,11 +73,11 @@
              <hr />
 
              <div class="theory">
-               <h5>Theory</h5>
+	       <%= format_text @page.cf("right_sidebar_theory") -%>                          
                <%= content_tag(:p, item[:theory], {}, false) unless item[:theory].blank? %>
              </div>
              <div class="references">
-                <h5>References</h5>
+	       <%= format_text @page.cf("right_sidebar_references") -%>                          
                 <%= content_tag(:p, item[:references], {}, false) unless item[:references].blank? %>
              </div>
              <div class="clear"></div>

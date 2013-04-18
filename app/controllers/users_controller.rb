@@ -81,7 +81,8 @@ class UsersController < ApplicationController
     redirect_to settings_path(:family_id => params[:family_id])
   end
 
-  def settings   
+  def settings 
+    @page = Page.find_by_slug("settings")
     @very_own_family = current_user.get_first_very_own_family
 
     unless params[:is_about_me]

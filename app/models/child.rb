@@ -66,6 +66,8 @@ class Child < ActiveRecord::Base
     /(<)+he\/she(>)+/ => ['he', 'she']
   }
 
+  
+
   def max_seen_by_category
     result = self.max_seen
     result = result.sort_by{|b| Behaviour::CATEGORIES_ORDER.index(b.category) }.sort_by{|b| b.age_from}.reverse

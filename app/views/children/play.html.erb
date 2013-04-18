@@ -1,9 +1,7 @@
 <% content_for :middle_bar do %>
-  <span>Here is a list of recommended play activities for <%= current_child.first_name %> based on <%= current_child.replace_forms("#his/her#") %> current development.</span>
-  
+  <span><%= format_text(@page.cf("title")) -%></span>
 <% end %>
-
-  <p id="left-column-additional-info">Click on the title for a detailed description and associated behavioral milestones.</p>
+  <div id="left-column-additional-info"><%= format_text(@page.cf("left_sidebar_text")) -%></div>
   <div class="left-column">       
         <ul id="activities-wrapper">          
           <% @activities.each do |a| %>

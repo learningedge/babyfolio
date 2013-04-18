@@ -67,6 +67,7 @@ class ChildrenController < ApplicationController
   end
 
   def reflect
+    @page = Page.find_by_slug("reflect")
     seen_behaviours = current_child.max_seen_by_cat
 
     uniq_ages = seen_behaviours.map{ |b| b.age_from }.uniq.sort
@@ -116,6 +117,7 @@ class ChildrenController < ApplicationController
   end
 
   def play
+    @page = Page.find_by_slug("play");
     @activities = []
     
     if params[:aid]
@@ -203,6 +205,7 @@ class ChildrenController < ApplicationController
   end
 
   def watch
+    @page = Page.find_by_slug("watch");
     @behaviours = []    
 
     curr_b = Behaviour.includes(:activities).find_by_id(params[:bid]) if params[:bid].present?

@@ -1,12 +1,16 @@
 <% content_for :middle_bar do %>
+<span><%= format_text @page.cf("title") -%></span>
   <span>Here are <%= current_child.first_name %>’s most important developments:</span>
 <% end %>  
 
 <div>
   
-  <h4 class="reflect-header"><%= current_child.first_name %>’s Development</h4>
-  <p id="left-column-additional-info">
-    Click on any bar in the graph for more information.</p>
+  <div class="reflect-header">
+    <%= format_text @page.cf("left_sidebar_headline") -%>
+  </div>
+  <div id="left-column-additional-info">
+    <%= format_text @page.cf("left_sidebar_text") -%>
+  </div>
   <div id="reflect-column-wrapper" class="left">
     <div id="all-reflected-items">
       <%= render :partial => 'reflect_bars', :locals => { :behaviours => @str_answers, :type => 'str' } %>

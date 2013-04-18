@@ -12,9 +12,11 @@ class HomeController < ApplicationController
   end
 
   def about    
+    @page = Page.find_by_slug("about")
   end
 
   def privacy    
+    @page = Page.find_by_slug("privacy_policy");
   end
 
   def contact

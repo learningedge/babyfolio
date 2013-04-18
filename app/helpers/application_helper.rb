@@ -66,5 +66,18 @@ module ApplicationHelper
     a[0..n].join(' ') + (a.size > n ? '...' : '')
   end
 
-
+  def format_text text
+    return nil if text.blank?
+    if current_child
+      Page::FORMS.each do |key, val|
+        text = text.gsub(key, val[current_child.gender_index])
+      end
+      text = text.gsub(/\[CHILD_NAME\]/,current_child.first_name)
+    end
+    if current_user
+      text = text.gsub(/\[USER_NAME\]/,current_user.first_name)
+    end
+    return text.html_safe
+  end
+  
 end
