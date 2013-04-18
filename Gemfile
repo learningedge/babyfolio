@@ -27,6 +27,7 @@ gem 'rack-rewrite'
 gem 'exception_notification', :git => 'git://github.com/alanjds/exception_notification.git'
 #gem 'hoe', '1.2.1'
 gem 'tilt', '1.3.3'
+gem 'tinymce-rails'
 
 group :test do
 

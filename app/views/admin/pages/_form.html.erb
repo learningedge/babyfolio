@@ -32,8 +32,15 @@
     <%= f_cf.file_field :custom_image -%>
   </div>
 
-  <% else %>
+  <% elsif f_cf.object.field_type == "wysiwyg" %>
   
+  <div class="row">
+    <%= f_cf.label :content, f_cf.object.label -%>
+    <%= f_cf.text_area :content, :class => "tinymce" -%>
+  </div>  
+
+  <% else %>
+
   <div class="row">
     <%= f_cf.label :content, f_cf.object.label -%>
     <%= f_cf.text_field :content -%>
@@ -42,7 +49,7 @@
   <% end %>
   
   <% end %>
-  
+  <%= tinymce %>
 </fieldset>
 
 
