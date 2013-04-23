@@ -25,6 +25,8 @@ class Admin::ActivitiesController < Admin::ApplicationController
       @title = "Search results for \"#{params[:search_term]}\""
     end    
 
+    params[:sort] ||= "activities.age_from asc, activities.age_to";
+
     if params[:see_all]
       @activities = Activity.paginate :all, :page => params[:page], :per_page => 1000000, :order => params[:sort], :conditions => conditions
     else
