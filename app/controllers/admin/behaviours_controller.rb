@@ -27,12 +27,12 @@ class Admin::BehavioursController < Admin::ApplicationController
       @title = "Search results for \"#{params[:search_term]}\""
     end    
 
-    params[:sort] ||= "behaviours.age_from ASC, behaviours.age_to ASC"
+    sort_value = params[:sort] ? params[:sort] : "behaviours.age_from ASC, behaviours.age_to ASC"
 
     if params[:see_all]
-      @behaviours = Behaviour.paginate :all, :page => params[:page], :per_page => 1000000, :order => params[:sort], :conditions => conditions
+      @behaviours = Behaviour.paginate :all, :page => params[:page], :per_page => 1000000, :order => sort_value, :conditions => conditions
     else
-      @behaviours = Behaviour.paginate :page => params[:page], :order => params[:sort], :per_page => 100, :conditions => conditions
+      @behaviours = Behaviour.paginate :page => params[:page], :order => sort_value, :per_page => 100, :conditions => conditions
     end    
   end
 
