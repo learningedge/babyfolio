@@ -68,7 +68,7 @@ module ApplicationHelper
 
   def format_text text
     return nil if text.blank?
-    if current_child
+    if current_user and current_child
       Page::FORMS.each do |key, val|
         text = text.gsub(key, val[current_child.gender_index])
       end
