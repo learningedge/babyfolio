@@ -29,6 +29,7 @@ class ChildrenController < ApplicationController
       set_current_child @child.id
       redirect_to registration_initial_questionnaire_path
     else
+      @page = Page.find_by_slug("signup_step_2")
       @destination_family = Family.find_by_id(params[:family_id])
       render :action => 'new'
     end

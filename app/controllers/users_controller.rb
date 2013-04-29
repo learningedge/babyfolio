@@ -25,6 +25,7 @@ class UsersController < ApplicationController
       @user.save      
       redirect_to registration_new_child_path
     else
+      @page = Page.find_by_slug("signup_step_1")
       render :action => :new
     end
   end
