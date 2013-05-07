@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 class ChildrenController < ApplicationController
   layout "child", :only => [:reflect, :play, :watch]
-  before_filter :require_user
+  before_filter :require_user, :except => [:update_temporary, :create_photo]
+  before_filter :require_temp_user, :only => [:update_temporary]
   before_filter :require_child, :except => [:new,:create,:create_photo]
   before_filter :require_seen_behaviours, :except => [:new,:create,:create_photo]
 
@@ -34,6 +35,31 @@ class ChildrenController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def update_temporary
+    @child = current_child
+    @child.first_name = ''
+    @child.second_name = ''
+
+    @child.media = MediaImage.find_by_id(params[:child_profile_media])    
+    
+    if params[:child]
+      relation = current_user.relations.includes(:child).find_by_child_id(current_child.id)
+      relation.child.assign_attributes(params[:child])
+      relation.child.media = Media.find_by_id(params[:child_profile_media])
+      relation.member_type = params[:relation_type]
+      if relation.save
+        flash.now[:notice] = "Child sucessfully updated"
+        redirect_to registration_update_temporary_user_path
+        return
+      end
+    end
+
+    @page = Page.find_by_slug("signup_step_2")
+    @page_step_1 = Page.find_by_slug("signup_step_1")
+    render :action => 'new'    
+  end
+    
 
   def create_photo
     size = params[:size].to_sym if params[:size]

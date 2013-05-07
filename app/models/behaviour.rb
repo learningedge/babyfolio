@@ -30,4 +30,5 @@ class Behaviour < ActiveRecord::Base
   def self.get_next_2_behaviours_for_category category, age
     get_next_behaviours_for_category(category, age, 2)
   end
+
 end

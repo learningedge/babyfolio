@@ -1,11 +1,30 @@
 <% content_for :middle_bar do %>
-  <div id="middle-bar-inner-wrapper" class="arvo">    
+  <div class="middle-bar-left arvo">
     <%= @page.cf "title" -%>
     <div class="get-started-container">
       <a href="<%= signup_path %>" class="btn btn-big" id="get-started-btn">Get Started</a><br />
       (It's Free)
     </div>
   </div>
+  <div class="middle-bar-right">    
+    <div class="header"><h2>FREE DEVELOPMENT PROFILE</h2></div>
+    <div class="free-profile-content">
+      <p>Discover your child's Multiple Intelligences!</p>
+      <p>Give us 5 minutes and we'll give you insights into your child's world, for free!<p>
+    </div>
+    <div class="quick-form">
+      <% unless flash[:notice].blank? -%>
+      <div class="form-row error"><%= flash[:notice] -%></div>
+      <% end -%>
+    <%= form_tag(create_temp_user_account_path) do -%>
+      <div class="form-row"><span>Enter your Child's Birth Date</span></div>
+      <div class="form-row"><%= select_date(Date.current, {:end_year => Time.now.year, :start_year => Time.now.year - 10}, {}) -%></div>
+      <div class="form-row"><%= radio_button_tag 'gender', 'male', true -%> Male <%= radio_button_tag 'gender', 'male' -%> Female</div>
+      <div class="form-row"><%= submit_tag("START PROFILE NOW", { :class => "btn"}) -%></div>
+    <% end -%>    
+    </div>
+  </div>
+  <div class="clear"></div>
 <% end %>
 
 <div id="home">

@@ -1,9 +1,15 @@
 <% content_for :middle_bar do %>
  
   <div class="right-column">
+    <% if current_user && current_user.is_temporary -%>
+    <div class="step-arrow temporary active" id="step3-breadcrumb"><span>What is your name?</span></div>
+    <div class="step-arrow active done temporary" id="step2-breadcrumb"><span>What is you baby's name?</span></div>
+    <div class="step-arrow active done temporary" id="step1-breadcrumb"><span>What is your baby doing?</span></div>
+    <% else -%>
     <div class="step-arrow" id="watching-baby"><span>Describe Your Baby</span></div>
     <div class="step-arrow" id="add-baby"><span>Add/Join a BabyFolio</span></div>
     <div class="step-arrow active" id="create-acc"><span>Create Account</span></div>
+    <% end -%>
   </div>
   <div class="clear"></div>
 
@@ -21,7 +27,7 @@
 
   <div class="right-column">
     <div class="user-form">
-      <%= form_for @user, :url => account_path(@user), :method => :post do |f| -%>        
+      <%= form_for @user, :url => ((current_user && current_user.is_temporary) ? registration_update_temporary_user_path : account_path(@user)), :method => :post do |f| -%>        
 
         <div id="login_right">
           <%= render :partial => "form", :object => f, :locals => { :user => @user } -%>

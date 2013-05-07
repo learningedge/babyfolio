@@ -43,7 +43,8 @@ class Child < ActiveRecord::Base
     'Female' => 'female'
   }
   DEFAULTS = {
-    :first_name => "__first_name"
+    :first_name => "__first_name",
+    :last_name => "__last_name"
   }
 
   FORMS = {

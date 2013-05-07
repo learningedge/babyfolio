@@ -90,10 +90,8 @@ class Family < ActiveRecord::Base
       if family
         family_admin = family.is_family_admin?(user)
       else
-        family_name ||= user.last_name
-        family_name = family_name.gsub(/'s$/i, '').capitalize
-        family_full_name = "#{user.first_name[0,1]}. #{family_name}"
-      
+        family_name, family_full_name = Family.get_family_name_format user
+        
         family = Family.create(:name => family_name, :full_name => family_full_name )
         family_admin = true
       end
@@ -113,6 +111,13 @@ class Family < ActiveRecord::Base
       
       UserAction.find_or_create_by_user_id_and_title(user.id, "child_added", :child_id => child.id)
       user.reset_perishable_token!   
+  end
+
+  def self.get_family_name_format user
+        family_name ||= user.last_name
+        family_name = family_name.gsub(/'s$/i, '').capitalize
+        family_full_name = "#{user.first_name[0,1]}. #{family_name}"
+    return [family_name, family_full_name]
   end
 
   def self.add_relations_for_new_child relations, child, inviter

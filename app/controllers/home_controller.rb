@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   skip_before_filter :require_confirmation
   
   def index
-    redirect_to show_timeline_path if current_user
+    redirect_to show_timeline_path if current_user and !current_user.is_temporary
     @page = Page.find_by_slug("homepage")
     @user_session = UserSession.new
   end

@@ -1,41 +1,63 @@
 <% content_for :middle_bar do %>
 
-  <div class="left-column"></div>
   <div class="right-column">
+    <% if current_user.is_temporary -%>
+    <div class="step-arrow temporary" id="step3-breadcrumb"><span>What is your name?</span></div>
+    <div class="step-arrow temporary" id="step2-breadcrumb"><span>What is you baby's name?</span></div>
+    <div class="step-arrow active temporary" id="step1-breadcrumb"><span>What is your baby doing?</span></div>
+    <% else -%>
     <div class="step-arrow active" id="watching-baby"><span>Describe Your Baby</span></div>
     <div class="step-arrow active done" id="add-baby"><span>Add/Join a BabyFolio</span></div>
     <div class="step-arrow active done" id="create-acc"><span>Create Account</span></div>
+    <% end -%>
   </div>
   <div class="clear"></div>
 
 <% end %>
 
-  <div id="registration-third">
-<div class="left-column">
-
-    <div id="left-column-tooltip">
-      <p><%= @page.cf("left_sidebar_text") -%></p>
-      <div class="clear"></div>
-    </div>
+  <div id="registration-third" class="<%= current_user.is_temporary ? 'temporary' : '' -%>">
+<div class="left-column <%= current_user.is_temporary ? 'wide' : '' -%>">
+  
+  <div id="left-column-tooltip">
+    <% if current_user.is_temporary -%>
+    <h3>To get a free Development Profile, we just need to know what your baby is already doing so we can let you know what to expect next.</h3>
+    <p>Step 1: Starting with the first intelligence, Language, if you've seen the behavior listed, click "I have seen this!"  If you haven't seen the behavior, click "I haven't seen this yet!"</p>
+    <p>Step 2: If you clicked "I have seen this!" in the first step, keep going until you haven't seen a behavior and then click "I haven't see this yet!"  If you clicked "I haven't seen this yet!" keep going until you've seen a behavior and click "I have seen this!"  Follow the same process for the next intelligence.  Once you've completed the last intelligence, you'll be asked to either continue or add another baby.</p>
+    <% else -%>
+    <p><%= @page.cf("left_sidebar_text") -%></p>
+    <% end -%>
+    <div class="clear"></div>
+  </div>
 </div>
 
 <div class="right-column">
+  <% unless current_user.is_temporary -%>
   <div id="instruction-column">
       <div id="tip-number1"></div>
       <p><%= @page.cf("point_1") -%></p>
       <div id="tip-number2"></div>
       <p><%= @page.cf("point_2") -%></p>      
   </div>
+  <% end -%>
   <div id="questionnaire-column">
     <%= render :partial => 'questions_listing', :locals => {:behaviours => @behaviours, :categories_answered => Array.new} %>
   </div>
   <div class="clear"></div>
 
   <div id="questionniare-completed-popup" class="hidden">    
+    <% if current_user.is_temporary -%>
+
+    <p>Thanks for filling out our questions about your baby.</p>
+    <%= link_to "Continue", initial_questionnaire_completed_path, :class => "btn continue-btn" %>
+
+    <% else -%>
+
     <p>Thanks for filling out our questions about <span class="bold"><%= current_child.first_name %></span>.  Would you like to add another baby to your account now or continue?</p>
     <%= link_to "Add Another Baby", initial_questionnaire_completed_path(:add_child => true), :class => "btn add-baby-btn" %>
     <div class="clear"></div>
     <%= link_to "Continue", initial_questionnaire_completed_path, :class => "btn continue-btn" %>
+
+    <% end -%>
   </div>
 
 </div>

@@ -72,4 +72,23 @@ class TimelineEntry < ActiveRecord::Base
       self.created_at.strftime("%-m/%-d/%y")
     end
   end
+
+  def self.generate_initial_timeline_entires child, user
+    @behaviours = child.max_seen_by_category
+    @behaviours.each do |b|
+      te = TimelineEntry.build_entry("watch",
+                                     child.replace_forms(b.title_past),
+                                     child,
+                                     user,
+                                     nil,
+                                     b.category,
+                                     nil,
+                                     user.id,
+                                     b
+                                     )
+      te.is_auto = true
+      te.save
+    end    
+  end
+
 end

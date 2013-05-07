@@ -79,31 +79,15 @@ class QuestionsController < ApplicationController
   end
 
   def initial_questionnaire_completed
-    @behaviours = current_child.max_seen_by_category
-    @behaviours.each do |b|
-      te = TimelineEntry.build_entry("watch",
-                                      current_child.replace_forms(b.title_past),
-                                      current_child,
-                                      current_user,
-                                      nil,
-                                      b.category,
-                                      nil,
-                                      current_user.id,
-                                      b
-                                    )
-      te.is_auto = true
-      te.save
-    end
-
-    current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
-
-    unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
-      UserMailer.registration_completed(current_user, current_child, @behaviours.first).deliver if current_user.user_option.subscribed
-      current_user.user_emails.create(:title => 'initial_questionnaire_completed')
+    unless current_user.is_temporary
+      TimelineEntry.generate_initial_timeline_entires current_child, current_user
+      current_user.create_initial_actions_and_emails current_child
     end
 
     if params[:add_child].present?
       redirect_to registration_new_child_path
+    elsif current_user.is_temporary
+      redirect_to registration_update_temporary_child_path
     else
       redirect_to child_reflect_children_path
     end

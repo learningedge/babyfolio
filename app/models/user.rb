@@ -230,10 +230,11 @@ class User < ActiveRecord::Base
   
   def get_user_name
     if first_name.blank?
-      return email.split('@').first.capitalize unless email.nil?
+      return email.split('@').first.capitalize unless email.blank?      
     else
       return first_name.capitalize + " " + last_name.capitalize
-    end
+    end    
+    return ''
   end
 
   def get_image_src size, default = "/images/img_upload.png"
@@ -292,6 +293,18 @@ class User < ActiveRecord::Base
     end
 
     return result
+  end
+
+  def create_initial_actions_and_emails child
+    self.user_actions.find_or_create_by_title('initial_questionnaire_completed')    
+
+    if !self.user_emails.find_by_title('initial_questionnaire_completed')
+      @behaviours = child.max_seen_by_category
+      
+      UserMailer.registration_completed(self, child, @behaviours.first).deliver if self.user_option.subscribed
+      self.user_emails.create(:title => 'initial_questionnaire_completed')
+    end
+    
   end
 
   private

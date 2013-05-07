@@ -30,6 +30,42 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_temporary
+    @user = current_user
+    @user.first_name = ''
+    @user.last_name = ''
+    @user.email = ''   
+    
+    @user.profile_media = Media.find_by_id(params[:user_profile_media]) if params[:user_profile_media].present?
+    
+    if params[:user]
+      @user.assign_attributes(params[:user])
+      
+      if @user.valid?
+        @family = current_child.family
+        family_name, family_full_name = Family.get_family_name_format @user
+        @family.name = family_name
+        @family.full_name = family_full_name
+        @family.save        
+
+        @user.user_actions.new(:title => "account_created")
+        @user.email_confirmed = false
+        @user.is_temporary = false
+        @user.save
+
+        TimelineEntry.generate_initial_timeline_entires current_child, @user
+        @user.create_initial_actions_and_emails current_child
+        
+        redirect_to child_reflect_children_path
+        return
+      end
+    end
+    
+    @page = Page.find_by_slug("signup_step_1")
+    render :action => :new
+  end
+
+
   def deactivate_user
     @user_name = current_user.get_user_name
     @user_email = current_user.email
@@ -210,41 +246,50 @@ class UsersController < ApplicationController
     redirect_to edit_account_url
   end
 
-  def create_temp_user
-    y = params[:birth_year].to_i if params[:birth_year].present?
-    m = params[:birth_month].to_i if params[:birth_month].present?
-    d = params[:birth_day].to_i if params[:birth_day].present?
+  def create_temp_user    
+    current_user_session.destroy if current_user
+    reset_session
+    
+    y = m = d = 0;
+
+    if params[:date]
+      y = params[:date][:year].to_i if params[:date][:year].present?
+      m = params[:date][:month].to_i if params[:date][:month].present?
+      d = params[:date][:day].to_i if params[:date][:day].present?
+    end
    
     date = DateTime.new(y, m, d) if DateTime.valid_date?(y,m,d) if d && m && y
     gender = params[:gender] || Child::GENDERS['Male']
-    ft = params[:form_type]
+    form_type = params[:form_type]
 
-    if ft.nil? && date.nil?
+    if (form_type.nil? && date.nil?) || date > Time.now
       flash[:notice] = "Incorrect child's birth date."
       redirect_to root_url
       return
     end
     
     unless current_user
-        if date || ft.present?
+        if date || form_type.present?
           timeStamp =  DateTime.now.to_f.to_s
           new_user = User.new({
-                  :first_name => 'Temporary',
-                  :last_name => 'User',
-                  :email => timeStamp + '@babyfolio.com',
-                  :email_confirmed => true,
-                  :password => timeStamp,
-                  :password_confirmation => timeStamp,
-                  :is_temporary => true
-          })
+                                :first_name => 'Temporary',
+                                :last_name => 'User',
+                                :email => timeStamp + '@babyfolio.com',
+                                :email_confirmed => true,
+                                :password => timeStamp,
+                                :password_confirmation => timeStamp,
+                                :is_temporary => true
+                              })
 
           new_user.reset_perishable_token
           if new_user.save
-            family = Family.create({:name => Family::DEFAULTS[:family_name], :zip_code => Family::DEFAULTS[:zipcode] })
-            child = family.children.build({:first_name => Child::DEFAULTS[:first_name], :last_name => family.name, :birth_date => date || DateTime.now , :gender => gender  })
-            family.save
+            child = Child.new({:first_name => Child::DEFAULTS[:first_name], :last_name => Child::DEFAULTS[:last_name], :birth_date => date || DateTime.now , :gender => gender  })
+            child.save
 
-            new_user.relations.build({ :family => family, :member_type => "Father", :accepted => true, :display_name => "TheParent", :token => timeStamp })
+            set_current_child child.id
+
+            Family.user_added_child(new_user, child, Relation::TYPE_KEYS[0], nil, nil)
+
             if new_user.save
               session[:temporary_user_created] = true
               UserSession.new(new_user)
@@ -256,16 +301,16 @@ class UsersController < ApplicationController
          end
       end
     else
-      if ft.blank?
+      if form_type.blank?
         flash[:notice] = "You have your profile already."
       end
       child = current_user.own_children.first
     end
 
-    unless ft.blank?
+    unless form_type.blank?
       redirect_to child_new_moment_url(:child_id => child.id )
     else      
-      redirect_to questions_url(:child => child.id, :level => 'basic' )
+      redirect_to registration_initial_questionnaire_url
     end
   end
 

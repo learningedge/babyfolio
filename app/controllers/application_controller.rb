@@ -45,8 +45,15 @@ end
     end
 
     def require_user
-      unless current_user
+      if !current_user || current_user.is_temporary
         store_location
+        redirect_to login_url
+        return false
+      end
+    end
+
+    def require_temp_user
+      if !current_user || !current_user.is_temporary
         redirect_to login_url
         return false
       end
@@ -80,12 +87,12 @@ end
     # ======== CHILD METHODS ========
     # ===============================
     def current_child
-      return @current_child if defined?(@current_child)
+      return @current_child if defined?(@current_child)      
       if session[:current_child]
-        @current_child = current_user.children.find_by_id(session[:current_child]);
+        @current_child = (current_user || current_temp_user).children.find_by_id(session[:current_child]);
       else
-        @current_child = current_user.own_children.first if current_user.own_children.any?
-        @current_child = current_user.other_children.first if @current_child.nil? && current_user.other_children.any?
+        @current_child = (current_user || current_temp_user).own_children.first if current_user.own_children.any?
+        @current_child = (current_user || current_temp_user).other_children.first if @current_child.nil? && (current_user || current_temp_user).other_children.any?
         set_current_child @current_child.id if @current_child
       end
       @current_child
@@ -125,7 +132,7 @@ end
     end
 
     def require_seen_behaviours
-        redirect_to initial_questionnaire_path if current_child.seen_behaviours.count == 0
+      redirect_to initial_questionnaire_path if current_child.seen_behaviours.count == 0
     end
 
     def category_name(str)
