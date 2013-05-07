@@ -305,20 +305,20 @@ body .sbOptions li:last-child a{ border-bottom: none; }
 #content-wrapper #left-column-tooltip p{ font-size: 12px; margin-left: 83px;}
 #content-wrapper #left-column-tooltip p a { font-size: 12px; }
 #middle-bar .right-column { position: relative; height: 47px; padding-bottom: 4px; }
-#middle-bar .right-column .step-arrow { position: absolute; top: 0; width: 249px; line-height: 47px; background: url(/images/step_arrow_white.png) no-repeat right center; text-align: center; }
+#middle-bar .right-column .step-arrow { position: absolute; top: 0; width: 249px; line-height: 47px; background: url(/images/step_arrow_white2.png) no-repeat right center; text-align: center; }
 #middle-bar .right-column .step-arrow span { color: #f26a21; font-weight: 500; }
-#middle-bar .right-column .step-arrow.active { background-image: url(/images/step_arrow.png); }
+#middle-bar .right-column .step-arrow.active { background-image: url(/images/step_arrow2.png); }
 #middle-bar .right-column .step-arrow.active.done span { background: url(/images/tick.png) no-repeat left center; padding-left: 26px; }
 
 #middle-bar .right-column #step1-breadcrumb,
 #middle-bar .right-column #create-acc { left: 0; padding-left: 50px; width: 169px; padding: 0 40px 0 10px; border-left: 1px solid #aaa;}
-#middle-bar .right-column #step1-breadcrumb.temporary{width:205px;}
+#middle-bar .right-column #step1-breadcrumb.temporary{width:215px;}
 #middle-bar .right-column #step2-breadcrumb,
 #middle-bar .right-column #add-baby { left: 195px; padding: 0 20px; width: 209px;}
-#middle-bar .right-column #step2-breadcrumb.temporary{left:229px;width:220px;}
+#middle-bar .right-column #step2-breadcrumb.temporary{left:240px;width:230px;}
 #middle-bar .right-column #step3-breadcrumb,
 #middle-bar .right-column #watching-baby { left: 420px; padding: 0 20px; width: 209px;}
-#middle-bar .right-column #step3-breadcrumb.temporary{left:460px;}
+#middle-bar .right-column #step3-breadcrumb.temporary{left:480px;}
 #registration-first .btn-big { background-position: 95px center; margin-left: 230px; margin-top: 30px;}
 /* REGISTRATION - 1ST STEP - ACCEPT INVITATION*/
 #content-wrapper #new-user-accept .btn-big { background-position: 95px center; margin-left: 152px; margin-top: 30px;}
