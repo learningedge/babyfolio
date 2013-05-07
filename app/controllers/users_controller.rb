@@ -247,7 +247,7 @@ class UsersController < ApplicationController
   end
 
   def create_temp_user    
-    current_user_session.destroy if current_user
+    current_user_session.destroy if current_user_session
     reset_session
     
     y = m = d = 0;

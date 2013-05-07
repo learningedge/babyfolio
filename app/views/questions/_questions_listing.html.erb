@@ -18,9 +18,13 @@
 
     function showFinish() {
       if($('.single-question-cover').length == $('.single-question-cover.completed').length) {
+      <% if current_user && !current_user.is_temporary -%>      
         $('#questionniare-completed-popup').dialog({modal: true,  closeOnEscape: false, width: "auto", dialogClass: "questionniare-completed-popup"});
         $('.questionniare-completed-popup .ui-dialog-titlebar').hide();
         //$('.not-seen-link').removeClass('hidden');
+      <% else -%>
+        document.location = '<%= initial_questionnaire_completed_path -%>';
+      <% end -%>
       }
     }
   </script>

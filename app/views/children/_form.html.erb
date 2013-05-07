@@ -26,7 +26,6 @@
           <%= select_tag "family_id", options_from_collection_for_select(current_user.own_families, 'id', 'name', @destination_family_id) -%>
         <% end %>
       </div>
-      <% end -%>
       <div class="row">
         <span class="label">
             <%= f.label :gender, "Baby's Gender" %>
@@ -39,7 +38,7 @@
         </span>
         <%= f.date_select :birth_date, {:default => f.object.formated_birth_date}, :class => "select-layout" -%>
       </div>
-
+      <% end -%>
       <div class="row">
         <span class="label">
             Your relationship
