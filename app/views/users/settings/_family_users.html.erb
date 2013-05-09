@@ -25,7 +25,7 @@
             </table>
             <% @children.each do |child| %>              
               <%= form_tag update_access_path(:child_id => child.id, :user_id => relation.user_id) do %>
-                <% has_access = @children_access[relation.user_id].detect{|r| r.child.id == child.id}.access %>
+                <% has_access = @children_access[relation.user_id].detect{|r| r.child_id == child.id && r.access}.present? %>
                 <table>
                   <thead>
                     <th></th><th></th><th></th>

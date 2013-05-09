@@ -111,7 +111,7 @@ class UsersController < ApplicationController
       @family_admin_users = @family.admin_relations.includes(:user).where(['relations.user_id != ?', current_user.id]).uniq_by{|r| r.user.id}
       @family_member_users = @family.member_relations.includes(:user).where(['relations.user_id != ?', current_user.id]).uniq_by{|r| r.user.id}
 
-      @children_access = []
+      @children_access = {}
       (@family_admin_users.map{|r| r.user} + @family_member_users.map{|r| r.user}).uniq.each do |user|
         @children_access[user.id] = user.relations.joins(:child).where({"children.family_id" => @family.id}).all
       end
