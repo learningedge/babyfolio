@@ -43,6 +43,7 @@ GEM
     activesupport (3.2.12)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    addressable (2.3.4)
     arel (3.0.2)
     authlogic (3.2.0)
       activerecord (>= 3.0.0)
@@ -67,6 +68,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.1)
+    css_parser (1.3.4)
+      addressable
     erubis (2.7.0)
     eventmachine (1.0.1)
     execjs (1.4.0)
@@ -132,6 +135,11 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     remotipart (1.0.5)
+    roadie (2.3.4)
+      actionmailer (> 3.0.0, < 3.3.0)
+      css_parser
+      nokogiri (>= 1.4.4)
+      sprockets
     roo (1.10.3)
       nokogiri (>= 1.5.6)
       rubyzip (>= 0.9.9)
@@ -203,6 +211,7 @@ DEPENDENCIES
   rack-rewrite
   rails (~> 3.2.11)
   remotipart
+  roadie
   roo
   sass-rails (~> 3.2.3)
   therubyracer (~> 0.10.2)

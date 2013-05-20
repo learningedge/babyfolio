@@ -466,4 +466,34 @@ class UserTest < ActiveSupport::TestCase
     
   end
 
+  test 'with_and_without_action' do
+    @user_one.user_actions = []
+    @user_two.user_actions = []
+    @user_three.user_actions = []
+    @user_four.user_actions = []
+
+    @user_one.user_actions.find_or_create_by_title('action_one')
+    @user_one.user_actions.find_or_create_by_title('action_two')
+
+    @user_two.user_actions.find_or_create_by_title('action_one')
+
+    @user_three.user_actions.find_or_create_by_title('action_two')
+
+    @user_four.user_actions.find_or_create_by_title('action_three')
+
+    users = User.with_and_without_action ['action_one', 'action_three'], []
+
+    assert_equal 3, users.size 
+    assert users.include?(@user_one)
+    assert users.include?(@user_two)
+    assert users.include?(@user_four)
+
+    users = User.with_and_without_action ['action_one', 'action_three'], ['action_two']
+    
+    assert_equal 2, users.size 
+    assert users.include?(@user_two)
+    assert users.include?(@user_four)    
+    
+  end
+
 end

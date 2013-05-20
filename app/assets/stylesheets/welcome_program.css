@@ -1,0 +1,38 @@
+body{font-family:Arial;font-size:14px;}
+a{color:#0C8A9A;text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.container{width:728px;margin:0px auto;}
+
+.header{font-size:18px;font-family:Georgia, Arial;color:#666;text-align:right;padding-top:50px;}
+.header strong{color:#000;}
+
+.content{padding-bottom:30px;}
+.content h1{color:#1FA9BB;font-size:24px;}
+.content h2{color:#F26722;font-size:18px;}
+.content p{}
+.content ul{margin:5px;}
+.content ol{margin:5px;padding-left:20px;}
+.content ol.with-spacing li{margin-bottom:20px;}
+
+.content .blue{color:#1FA9BB;}
+.content .center{text-align:center;}
+.content .percent-80{width:80%;}
+.content .percent-80.center{margin-left:auto;margin-right:auto;}
+
+.content p.no-spacing{margin-bottom:0px;}
+.content p.signature{font-weight:700;}
+.content .blue-box{background-color:#E3F4FC;padding:20px 30px;}
+
+.three-cols{width:100%;}
+
+.reflect-table{width:100%;}
+.reflect-table td{width:50%;}
+.reflect-table .text{background-color:#E3F4FC;padding:20px 30px;}
+
+.steps-table{}
+.steps-table .col-1{width:20%;vertical-align:top;padding:20px 30px;font-size:18px;}
+.steps-table .col-2{width:80%;vertical-align:top;background-color:#E3F4FC;padding:20px 30px;}
+.steps-table .tr{margin:5px;}
+
+.footer{font-size:12px;}

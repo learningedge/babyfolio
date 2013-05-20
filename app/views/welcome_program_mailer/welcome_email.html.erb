@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <link rel="stylesheet" href="welcome_program.css" />
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="header right">
+	Jumpstart BabyFolio: <strong>5 Day Program</strong>
+	</div>
+      <div class="content">
+	<h1>BIG IDEA:</h1>
+	<h2 class="watch">Your baby as "Master Player & Explorer"</h2>
+	<p>Welcome <%= @user.get_user_name -%>!</p>
+
+	<p>Welcome to BabyFolio, the exciting new parenting app that helps your baby thrive in this 21st century--  a tool for raising happy, smart and accomplished children!</p>
+
+	<p><strong>The research is clear: Babies thrive as they become "master players"</strong> and build the two key components of intelligence- their ability to take in and record information and their ability to process & adapt that information to new situations as they figure things out, solve problems and create. Our little ones are exercising these important abilities as they explore and play with the world. The quantity and quality of PLAY makes a big difference to their development & learning.</p>
+
+	<p><strong>So how can we as parents and caregivers help- be active "PlayPartners".</strong> Traditional educational practices and schooling have focused on the first part of recording information & memory. However, the 21st century puts much higher demands on the second part of intelligence, adapting information to figure things out, solve problems and create stuff. These are largely the 21st century skills proclaimed as "STEAM" capabilities- Science, Technology, Engineering, Arts and Math. Today's world demands we nurture our children's desire to explore, their creativity & imagination, practical problem-solving, self control, and the like. Our role is to be active PLAYPARTNERS as they exercise these mental muscles.</p>
+
+	<p><strong>Our 5 Day Jumpstart Program</strong> that begins tomorrow will help you do just that. We know that every child is different and has a unique profile of intelligences they employ to record and adapt the information the world presents. That's why  BabyFolio is centered around your individual baby- identifying the most important developments and providing the right play at the right time. </p>
+
+	<p><strong>Invite Someone</strong> to do the program with you. It is always more fun to get started with a partner, so think who would be the best to invite- dad, grandma, godparent. You can invite more than one. First step is to <a href="<%= visit_timeline_url(:child_id => @child.id) -%>">add them to <%= @child.first_name -%>'s Folio</a>.</p>
+
+
+<p><strong>The BabyFol.io web site and mobile app:</strong><br/>
+In addition to our Jumpstart Program and emails, you can use the free BabyFolio site and app at any time which is all customized to your individual child. For example, since you identified that <%= @child.first_name -%> is currently <%= @child.replace_forms(@max_seen.title_present) %>, you can support this important <%= Behaviour::CATEGORIES[@max_seen.category] -%> Learning Window with new experiences and the right kind of play:  </p>
+
+<p><%= @child.replace_forms(@max_seen.title_present) %> Parenting Tip: <%= @child.replace_forms(@max_seen.parenting_tip1).html_safe %></p>
+
+<p class="no-spacing">In the <a href="<%= play_children_url() -%>">PLAY</a> section of the site, we give you these Activity Ideas:</p>
+ <ol>
+   <% @max_seen.activities.each do |activity| %>
+   <li><a href="<%= play_children_url(:aid => activity.id, :no => 1) %>"><%= @child.replace_forms(activity.title).html_safe %></a> - <%= @child.replace_forms(activity.description_short).html_safe %></li>
+   <% end %>
+ </ol>
+
+<p>In <a href="<%= watch_children_url() -%>">WATCH</a>, we help you keep on the look out for the next important developments. <% if @next_behaviour -%>For example, for <%= @child.first_name -%>'s <%= Behaviour::CATEGORIES[@max_seen.category].downcase -%> development, you should be looking for this next behavior: <a href="<%= watch_children_url(:bid => @next_behaviour.id) -%>"><%= @child.replace_forms(@next_behaviour.title_present) %></a><% end -%></p>
+
+<p>In <a href="<%= show_timeline_url() -%>">TIMELINE</a>, we automatically archive your child's development over time, creating a 21st century babybook. You can post what <%= @child.first_name -%> responds to and likes the most and reflect and build upon their profile with your own posts. </p>
+
+<p>In <a href="<%= child_reflect_children_url() -%>">REFLECT</a>, we provide a summary of your baby's profile across the multiple intelligences. </p>
+
+<p>In <a href="<%= settings_url() -%>">SETTINGS/MORE</a>, we enable you to manage your account. We encourage you to give acess to, <a href="<%= settings_invite_url() -%>">INVITE</a>, the family and friends that spend time with and care about <%= @child.first_name -%>. That way, everyone who is involved in the baby's life  can learn from and contribute to a better understanding of who this precious person is. Everyone can then better support <%= @child.first_name -%>'s optimal learning and development.</p>
+
+<p>To get started, please confirm your email address by clicking on any link above or clicking <a href="<%= show_timeline_url(:confirm => true, :token => @user.persistence_token) -%>">here</a>. You can also copy/paste the link below: 
+<%= show_timeline_url(:confirm => true, :token => @user.persistence_token) -%></a></p>
+
+<p>If you have any questions or concerns, please email us at <a href="mailto:tickets@baby1.uservoice.com">tickets@baby1.uservoice.com</a>.</p>
+
+<p class="signature">Best,<br />
+BabyFolio Team</p>
+</div>
+      <div class="footer">
+	  <%= render :partial => '/user_mailer/unsubscribe' %>
+	</div>
+      </div>
+
+  </body>
+</html>

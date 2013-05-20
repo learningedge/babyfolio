@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <link rel="stylesheet" href="welcome_program.css" />
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="header right">
+	Jumpstart BabyFolio: <strong>Day 1</strong>
+	</div>
+      <div class="content">
+	<h1>BIG IDEA:</h1>
+	<h2 class="watch">Watch</h2>
+	<p>Welcome <%= @user.get_user_name -%>!</p>
+
+	<p>Helping your baby thrive starts with "reading" <%= @child.replace_forms("#his/her#") %> behaviors and recognizing what's up and what it means. Imagine if you could look at <%= @child.first_name -%>'s daily play and easily see so much more about <%= @child.replace_forms("#his/her#") %> important developments and learning opportunities? You can get to the next level and we can help!  </p>
+
+	<p>We know parents are very busy and overwhelmed with information. So instead of having to read everything and become a child development expert, we filter through and deliver just the information you need at just the right time. All we ask is for you to bring your knowledge about your child, which leads us to the Big Idea: Watching & Noticing (WATCH)</p>
+
+	<p>Every child is unique. No general ages & stages information applies to your specific child. Our approach is tailored to your individual child based on what they are actually doing. We give you concrete and clear behaviors to watch for in each of your child's multiple intelligences (MI). As you practice, you will be able to better utilize these MI lenses to watch for and notice differences in your child's behavior and development.</p>
+	
+	<p class="no-spacing">Here's a quick list:</p>
+	<table><tr>
+	    <td>
+	      <ul>
+		<li><a href="<%= watch_children_url(:bid => (@behaviours['L'] ? @behaviours['L'].id : nil)) -%>">Language & Communication Intelligence</a></li>
+		<li><a href="<%= watch_children_url(:bid => (@behaviours['N'] ? @behaviours['N'].id : nil)) -%>">Logic & Sequential Intelligence</a.</li>
+		<li><a href="<%= watch_children_url(:bid => (@behaviours['S'] ? @behaviours['S'].id : nil)) -%>">Social Intelligence</a></li>
+		</ul>
+	      </td>
+	    <td>
+	      <ul>
+		<li><a href="<%= watch_children_url(:bid => (@behaviours['V'] ? @behaviours['V'].id : nil)) -%>">Visual & Spatial Intelligence</a></li>
+		<li><a href="<%= watch_children_url(:bid => (@behaviours['M'] ? @behaviours['M'].id : nil)) -%>">Movement & Bodily Intelligence</a></li>
+		<li><a href="<%= watch_children_url(:bid => (@behaviours['E'] ? @behaviours['E'].id : nil)) -%>">Emotional Intelligence</a></li>
+		</ul>
+	      </td>
+	    </tr>
+	  </table>
+
+	<p>This BabyFolio Journey you are embarking on is both rewarding and challenging. We promise that as a result of this 5 day program, you will begin to better know your baby--  watching and noticing at deeper levels. Try it out, experiment and explore climbing into the mind of your child. You will experience the joy of getting to know their world reading more from their daily behaviors. </p>
+ 
+	<p>So take a deep breath, smile, and commit to give it a try for at least these 5 days.</p>
+
+	<p>We'll be there to support you each step of the way and we know you will be pleased with the results.</p>
+
+	<p class="blue">Annie<br/>
+	  Community Manager
+	  </p>
+
+
+	</div>
+      </div>
+
+  </body>
+</html>

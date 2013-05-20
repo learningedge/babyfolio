@@ -3,6 +3,9 @@ class Behaviour < ActiveRecord::Base
   has_many :timeline_entries, :as => :item
   has_many :seen_behaviours 
 
+  scope :max_for_category, lambda { |category| where(:category => category).order("age_from desc, learning_window desc").limit(1) }
+  scope :for_category, lambda { |category| where(:category => category) }
+
   CATEGORIES = {
     "L" => "Language",
     "N" => "Logic and Number",
@@ -27,6 +30,10 @@ class Behaviour < ActiveRecord::Base
     includes(:activities).find_all_by_category(category, :conditions => ["behaviours.age_from > ?", age], :order => 'behaviours.age_from ASC', :limit => number)
   end
 
+  def self.get_next_behaviours_for_category category, age, number
+    includes(:activities).find_all_by_category(category, :conditions => ["behaviours.age_from > ?", age], :order => 'behaviours.age_from ASC', :limit => number)
+  end
+ 
   def self.get_next_2_behaviours_for_category category, age
     get_next_behaviours_for_category(category, age, 2)
   end

@@ -94,7 +94,7 @@ class Child < ActiveRecord::Base
   end 
 
   def max_seen_for_category category
-    question = self.questions.where(["answers.value = 'seen' AND questions.category =?", category]).select('questions.category, questions.age').order('age desc').limit(1).first
+    question = self.questions.where(["answers.value = 'seen' AND questions.category =? ", category]).select('questions.category, questions.age').order('age desc').limit(1).first
     result = self.questions.includes(:milestone).find_by_age_and_category(question.age, question.category)
     return result
   end
@@ -152,6 +152,10 @@ class Child < ActiveRecord::Base
     return mnths > 0 ? mnths-1 : 0
   end
 
+  def years_old
+    return (months_old / 12)
+  end
+
   def current_behaviours
     self.behaviours.group("behaviours.category").where(["behaviours.age_from <= ?", self.months_old])
   end
@@ -168,7 +172,7 @@ class Child < ActiveRecord::Base
       if truncate > 0
         question_text = truncate(question_text, :length => truncate, :separator => ' ')
       end
-      question_text = question_text.gsub(/#first#|#Nickname#|<NAME>|<name>/, "<span class='bold'>#{self.first_name}</span>")
+      question_text = question_text.gsub(/#first#|#Nickname#|<NAME>|<name>|<babyname>/i, "<span class='bold'>#{self.first_name}</span>")
       return question_text.html_safe
   end
 
