@@ -12,8 +12,14 @@
 	</div>
       <div class="content">
 	<h1>BIG IDEA:</h1>
-	<h2 class="play">Play</h2>
+	<h2 class="icon play">Play</h2>
 	<p>Let's focus on our next big idea: Play.  </p>
+
+	<% if @user.profile_media -%>
+	 <%= image_tag @user.get_image_src(:profile_medium), { :align => "right", :class => "portrait" } %>
+	<% else -%>
+	 <%= image_tag WelcomeProgramMailer.get_random_baby_image_src, { :align => "right", :class => "portrait" } -%>
+	<% end -%>
 
 	<p>As you strengthen your "Watch" muscles, you will also see more opportunities to join in and enhance <%= @child.replace_forms("#his/her#") %> play and exploration. Imagine if you could provide just the right play at the right time so <%= @child.first_name -%> could better exercise their most important developments and build stronger foundations across <%= @child.replace_forms("#his/her#") %> multiple intelligences? You can get to the next level and we can help! </p>
 
@@ -44,23 +50,20 @@
 	<table class="steps-table">
 	  <tr>
 	    <td class="col-1">STEP 1:</td>
-	    <td class="col-2">Bring out a toy or game that <%= @child.replace_forms("#he/she#") %> loves and has had previous success with (i.e. puzzle or blocks). Encourage <%= @child.first_name -%> to play with the toy for 10-15 minutes. Watch for any changes or new discoveries that <%= @child.first_name -%> makes with this toy.</td>
+	    <td class="col-2">Bring out a toy or game that <%= @child.replace_forms("#he/she#") %> loves and has had previous success with (i.e. puzzle or blocks). Encourage <%= @child.first_name -%> to play with the toy for 10-15 minutes. What features of the toy is <%= @child.replace_forms("#he/she#") %> most interested in? What is <%= @child.replace_forms("#he/she#") %> trying to do with the toy: what are <%= @child.replace_forms("#his/her#") %> intentions or goals?</td>
 	    </tr>
 	  <tr>
-	    <td class="col-1">STEP 2:</td>
-	    <td class="col-2">Then replace the toy with a toy that <%= @child.first_name -%> has never played with before. Try to select a toy that is slightly ahead of <%= @child.replace_forms("#his/her#") %> stage/age level. If possible, prepare an extra toy (the same toy) for yourself. When <%= @child.first_name -%> does not seem interested in the toy or has problems succeeding with it, bring out your toy and play with it. Don't say anything but play in close proximity to <%= @child.first_name -%>. See if <%= @child.first_name -%> picks up on what you do and tries to apply it in <%= @child.replace_forms("#his/her#") %> play strategies.</td>
+	    <td class="col-1">STEP 2: <br>Mirror &amp; Echo</td>
+	    <td class="col-2">Then begin playing with your own toy in front of <%= @child.first_name -%>. Try this for awhile and see what effect that has on <%= @child.first_name -%>.</td>
 	  </tr>
 	  <tr>
-	    <td class="col-1">STEP 3:</td>
-	    <td class="col-2">Once <%= @child.first_name -%> has a solid grasp on how to play with the new toy, bring out the previous toy and place it in front of <%= @child.first_name -%>. Stop playing and think about these question:
-		  <ol>
-		    <li>Which toy does <%= @child.first_name -%> play with when presented with both options?</li>
-		    <li>Why do you think <%= @child.first_name -%> chose one over the other?</li>
-		    <li>Which toy do you think <%= @child.first_name -%> was more interested in? Why?</li>
-		    <li>Which toy do you think <%= @child.first_name -%> learned more from? Why?</li>
-		    <li>Does <%= @child.first_name -%> use the same strategies when playing with both toys?</li>
-		    </ol>
+	    <td class="col-1">STEP 3:<br>Modeling</td>
+	    <td class="col-2">Then try a new behavior that you want to do with the toy and describe what you're doing out loud. For example, let's say you are rolling a ball back and forth between your hands. Your new behavior can be rolling the ball under a nearby chair.
 		  </td>
+	  </tr>
+	  <tr>
+	    <td class="col-1">STEP 4:<br>Scaffolding</td>
+	    <td class="col-2">Hand the toy over to <%= @child.first_name -%> and encourage <%= @child.replace_forms("#him/her#") %> to do the same thing you did. You can scaffold your new behavior by either making it harder or easier for <%= @child.replace_forms("#him/her#") %> to succeeed. For example, after rolling the ball under the chair, you can make it harder by putting obstacles in front of the chair or you can make it easier by moving the chair closer to <%= @child.first_name -%>.</td>
 	  </tr>
 	  </table>
 	
@@ -70,8 +73,8 @@
 	<h1>Available Resources (optional): </h1>
 	<p>Books:</p>
 	<p>
-	  <a href="#">Einstein Never Used Flashcards</a> - How our children REALLY Learn, Kathy Hirsh-Pasek<br />
-	  <a href="#">The Power of Play</a> - how spontaneous, imaginative activities lead to happier, healthier children, David Elkind
+	  <ul><li><a href="#">Einstein Never Used Flashcards</a> - How our children REALLY Learn, Kathy Hirsh-Pasek<br /></li></ul>
+	  <ul><li><a href="#">The Power of Play</a> - how spontaneous, imaginative activities lead to happier, healthier children, David Elkind</li></ul>
 	  </p>
 	<p></p>
 	<p class="no-spacing">Videos:</p>
@@ -79,6 +82,8 @@
 	<p>Classic example of how parental reading of the baby's behavior (Watch) and a parent's responsiveness (Play) effects the baby, their emotions, experiences and development. It demonstrates how important your "responsiveness" is when playing with your baby.</p>
 	<ul><li>eebee's Adventures Introduction - <a href="http://www.youtube.com/watch?v=eL4hyx1g4Gk">http://www.youtube.com/watch?v=eL4hyx1g4Gk</a></li></ul>
 	<p>Eebee's Adventures provide a wonderful model for the type of play and learning that you and your baby can do with everything around the house. There is a series of "Adventures" (socially responsible video for babies) that you can enjoy in addition to the introduction video. Master all this play and your baby will be a "Master Player" and future Master of Life.</p>
+	<p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
+
 	</div>
       
       </div>

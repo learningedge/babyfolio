@@ -12,8 +12,14 @@
 	</div>
       <div class="content">
 	<h1>BIG IDEA:</h1>
-	<h2 class="watch">Watch</h2>
+	<h2 class="icon watch">Watch</h2>
 	<p>Welcome <%= @user.get_user_name -%>!</p>
+
+	<% if @user.profile_media -%>
+	 <%= image_tag @user.get_image_src(:profile_medium), { :align => "right", :class => "portrait" } %>
+	<% else -%>
+	 <%= image_tag WelcomeProgramMailer.get_random_baby_image_src, { :align => "right", :class => "portrait" } -%>
+	<% end -%>
 
 	<p>Helping your baby thrive starts with "reading" <%= @child.replace_forms("#his/her#") %> behaviors and recognizing what's up and what it means. Imagine if you could look at <%= @child.first_name -%>'s daily play and easily see so much more about <%= @child.replace_forms("#his/her#") %> important developments and learning opportunities? You can get to the next level and we can help!  </p>
 
@@ -50,6 +56,7 @@
 	  Community Manager
 	  </p>
 
+	<p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
 
 	</div>
       </div>

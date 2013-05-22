@@ -408,8 +408,12 @@ class User < ActiveRecord::Base
       child = user_action ? user_action.child : user.own_children.first        
       
       if child
-        WelcomeProgramMailer.day_3_email(user, child).deliver
-        user.user_actions.find_or_create_by_title(UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"])
+        behaviour = @child.behaviours.max_for_category("L").first
+
+        if behaviour
+          WelcomeProgramMailer.day_3_email(user, child, behaviour).deliver
+          user.user_actions.find_or_create_by_title(UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"])
+        end
       end
     end
   end

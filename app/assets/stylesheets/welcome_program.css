@@ -2,13 +2,28 @@ body{font-family:Arial;font-size:14px;}
 a{color:#0C8A9A;text-decoration:none;}
 a:hover{text-decoration:underline;}
 
+.portrait {width: 150px;height: 200px;margin: 0 0 10px 20px ;border: 1px solid #F26722;}
+
 .container{width:728px;margin:0px auto;}
 
 .header{font-size:18px;font-family:Georgia, Arial;color:#666;text-align:right;padding-top:50px;}
 .header strong{color:#000;}
 
+h2.icon{line-height:26px;padding-left:40px;}
+h2.icon-small{line-height:20px;padding-left:25px;}
+h2.watch{background:url(/images/welcome_program/watch_icon.png) no-repeat 0 0;}
+h2.logo{background:url(/images/welcome_program/babyfolio-email-logo.png) no-repeat 0 0;line-height:40px;padding-left:45px;}
+h2.play{background:url(/images/welcome_program/play_icon.png) no-repeat 0 0;line-height:35px;padding-left:46px;}
+h2.reflect{background:url(/images/welcome_program/reflect_icon.png) no-repeat 0 0;line-height:31px;}
+h2.icon_l{background:url(/images/welcome_program/icon_teal_L.png) no-repeat 0 0;}
+h2.icon_v{background:url(/images/welcome_program/icon_teal_V.png) no-repeat 0 0;}
+h2.icon_e{background:url(/images/welcome_program/icon_teal_E.png) no-repeat 0 0;}
+h2.icon_m{background:url(/images/welcome_program/icon_teal_M.png) no-repeat 0 0;}
+h2.icon_s{background:url(/images/welcome_program/icon_teal_S.png) no-repeat 0 0;}
+h2.icon_n{background:url(/images/welcome_program/icon_teal_N.png) no-repeat 0 0;padding-left:35px;}
+
 .content{padding-bottom:30px;}
-.content h1{color:#1FA9BB;font-size:24px;}
+.content h1{color:#1FA9BB;font-size:28px;}
 .content h2{color:#F26722;font-size:18px;}
 .content p{}
 .content ul{margin:5px;}
@@ -36,3 +51,6 @@ a:hover{text-decoration:underline;}
 .steps-table .tr{margin:5px;}
 
 .footer{font-size:12px;}
+
+.image_ref {font-size: 9px;}
+.centeredImage{text-align:center;display:block;margin: auto auto 20px auto;}

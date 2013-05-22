@@ -12,8 +12,14 @@
 	</div>
       <div class="content">
 	<h1>BIG IDEA:</h1>
-	<h2 class="play">Reflect</h2>
+	<h2 class="icon reflect">Reflect</h2>
 	<p>Congrats, you've made it to the third day and the next big idea: Reflect! </p>
+
+	<% if @user.profile_media -%>
+	 <%= image_tag @user.get_image_src(:profile_medium), { :align => "right", :class => "portrait" } %>
+	<% else -%>
+	 <%= image_tag WelcomeProgramMailer.get_random_baby_image_src, { :align => "right", :class => "portrait" } -%>
+	<% end -%>
 
 	<p>As you Watch & Play at the next level, you will start to see patterns and signals about who <%= @child.first_name -%> truly is. </p>
 
@@ -21,20 +27,18 @@
 
 	<p>Imagine if you could better see the big picture about who your child truly is and match opportunities to their interests and needs. You can get to the next level and we can help. </p>
 	
-	<p>Put on your thinking cap because today you're going to be brainstorming. We call this section Reflect because that's exactly what you'll be doing: You'll be reflecting on what kind of parent you want to be and how your child's interests and abilities are developing on what you've watched your child do and how you played with your child. What's awesome is you'll start to understand and improve your role and interactions. </p>
+	<p>We call this section Reflect because that's exactly what you'll be doing: You'll be thinking about what kind of parent you want to be and how your child's interests and abilities are developing on what you've watched your child do and how you played with your child. What's awesome is you'll start to understand and improve your role and interactions. </p>
 	
-	<p>Did you know that your interactions support your child's very capacity to think, learn and act in the world?  </p>
+	<p>Did you know that your interactions and responsiveness support your child's very capacity to think, learn and act in the world?  </p>
+
+	<p>Our Reflect section is designed to help you discover your child's abilities and match the right experiences to help them flourish.</p>	
 	
-	<p>Our Reflect section is designed to help you discover your child's interests and abilities and match the right experiences to help them flourish. </p>
-	
-	<p class="no-spacing">There are three important areas of reflection:</p>
+<!--	<p class="no-spacing">There are three important areas of reflection:</p>
 	<table class="three-cols"><tr>
 	    <td><ul><li><strong><a href="#">Your Child</a></strong></li></ul></td><td><ul><li><strong><a href="#">Your Role</a></strong></li></ul></td><td><ul><li><strong><a href="#">Materials</a></strong></li></ul></td>
-	    </tr></table>
+	    </tr></table> -->
 	
-	<p>We've included some very thought-provoking questions for Today's Challenge. These questions are meant for you to think about your interactions with <%= @child.first_name -%> and draw out meaning for a deeper understanding of <%= @child.first_name -%>.s development.</p>
-	
-	<p>While thinking about these questions, also take the time to think about which intelligences you want to work on for the next two days. Which areas of development mean the most to you? Is it Language or Movement? Or perhaps, Logic and Number or Emotional? You'll be able to choose your preference by clicking on this <a href="<%= settings_url() -%>">link</a>, which will guide you to a Preference Management area in your account settings.</p>
+	<p>We've included some very thought-provoking questions for Today's Challenge. These questions are meant for you to think about your interactions with <%= @child.first_name -%> and draw out meaning for a deeper understanding of <%= @child.first_name -%>.s development.</p>	
 
 	<p class="blue">Annie<br/>
 	  Community Manager
@@ -45,46 +49,63 @@
       
       <div class="content">
 	<h1 class="center">Today's Game/Challenge:</h1>
-	<h2 class="center percent-80">Take a look at the three groups of questions below. Here we encourage you to think on a deeper level about your vision for both your parenting and <%= @child.first_name -%>.s development.</h2>
+	<h2 class="center percent-80">We've included <%= @child.first_name -%>'s intelligence bar graph from <%= @child.replace_forms("#his/her#") %> Reflect section. Take a look at the three groups of questions below, designed to encourage you to think on a deeper level about <%= @child.first_name -%>'s development.</h2>
+
+	<%= image_tag "/images/welcome_program/Reflect_bar.png", { :alt => "", :align => "middle", :class => "centeredImage" } -%>
+
 	
-	<table class="reflect-table">
+	<table class="steps-table">
 	  <tr>
-	    <td class="text">
-	      YOUR CHILD:
-	      <ol>
-		<li>How well does your child react to new toys or a new environment? </li>
-		<li>Has your child taken a strong approach to problem solving and exploration or communication and socializing, or both?</li>
-		</ol>
-	      </td>
-	    <td class="image"></td>
+	    <td class="col-1">1.</td>
+	    <td class="col-2">
+	      Reflect and think about <%= @child.first_name -%>'s profile:<br />
+		&bull; Currently in <%= @child.first_name -%>'s Language development, <%= @child.replace_forms("#he/she#") %> is <%= @child.replace_forms(@behaviour.title_present) %>.<br />
+		      &bull; What other types of language developments have you seen?<br />
+		      &bull; Describe them in the timeline.<br /><br />
+		      Also think about the other intelligences such as Logic & Number and Movement etc. What are some of those behaviors that stand out to you?<br />
+		      &bull; Please describe them in the BabyFolio timeline.
+		      </td>
 	    </tr>
 	  <tr>
-	    <td class="image"></td>
-	    <td class="text">
-	      YOUR CHILD:
-	      <ol>
-		<li>How active are you in your interactions with your child?</li>
-		<li>If when your child has difficulty doing something, how do you respond and support overcoming the difficulty?</li>
-		</ol>
-	      </td>
+	    <td class="col-1">2.</td>
+	    <td class="col-2">
+	      What do you think your own intelligence profile is and how is it similar or different to your baby? <br />
+	      Where do you think your strengths and weaknesses are? 
+	      In which areas of <%= @child.first_name -%>'s development do you think you can help enrich?
+		</td>
 	  </tr>
 	  <tr>
-	    <td class="text">
-	      MATERIALS:
-	      <ol>
-		<li>What kinds of materials do you provide your child with when playing and learning? </li>
-		<li>Do you encourage your child's expression in a variety of different plays?</li>
-		</ol>
-	      </td>
-	    <td class="image"></td>
-	  </tr>
+	    <td class="col-1">3.</td>
+	    <td class="col-2">
+	      What do you think your partner's intelligence profile is and how is it similar or different to your's and your baby? <br />
+	      Where do you think <%= @child.replace_forms("#his/her#") %> strengths and weaknesses are? <br />
+	      In which areas of <%= @child.first_name -%>'s development do you think he/she can help enrich? <br />
+		What about <%= @child.first_name -%>'s grandparents or other people that spend time with <%= @child.first_name -%>? How can they enrich <%= @child.first_name -%>'s development? <br />
+		      </td>
+	    </tr>
 	  </table>
+	
+	<p>
+	  Your parenting and interactions have a profound effect on <%= @child.first_name -%>'s development. Think about your role and what you can do to help your baby grow. Think about those that are close to <%= @child.first_name -%> and how their roles affect <%= @child.first_name -%>.
+		</p>
+	
+	<p>
+	  Be sure to provide <%= @child.first_name -%> a diversity of playdates so that they are exposed a borad profile of everyone's intelligences. 
+	    </p>
+	
+	<p>
+	  Invite <%= @child.first_name -%>'s friends and playmates to BabyFolio so that they can share and partake of the activities in the PLAY section.
+	    </p>
+	
 	
 	<h1>Available Resources (optional): </h1>
 	<p>Books:</p>
 	<p>
 	  <a href="#">The Element</a> - How finding your passion changes everythng, Ken Robinson<br />
 	</p>
+
+	<p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
+
 	</div>
       
       </div>

@@ -31,9 +31,10 @@ class WelcomeProgramMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Day 2")
   end
 
-  def day_3_email user, child
+  def day_3_email user, child, behaviour
     @user = user
     @child = child
+    @behaviour = behaviour
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Day 3")
   end
@@ -56,6 +57,12 @@ class WelcomeProgramMailer < ActionMailer::Base
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Day 5")
   end
+
+  def self.get_random_baby_image_src
+    "/images/welcome_program/"+BABY_IMAGES[rand(BABY_IMAGES.size)]
+  end
+
+  BABY_IMAGES = ["baby_towel.jpg", "baby_playing_duck.jpg", "baby_playing_toy.jpg", "baby_playing_toy_1.jpg"]
 
   EMAIL_CATEGORIES = {
     "L" => "Language",
@@ -91,7 +98,7 @@ class WelcomeProgramMailer < ActionMailer::Base
   EMAIL_COL_NAMES = 
     { "L" => ["Receptive Language", "Expressive Language Opportunities", "Making Marks & Writing"],
       "N" => ["Attention & Memory", "Ordering Their World", "Reasoning & High Order Thinking"],
-      "S" => ["Learning From Your Actions", "Stranger Danger", "Learning Sense of Self and Independence"],
+      "S" => ["Learning From Your Actions", "Social Obstacles", "Learning Sense of Self and Independence"],
       "V" => ["Mentally Processing Objects and Their Purposes", "Mapping Their World", "Keeping Object Images in Mind (Object Permanence)"],
       "M" => ["Gross Motor Developments", "Fine Motor Developments"],
       "E" => ["Emotional Development", "Self-Soothe and Coping Skills"] }
