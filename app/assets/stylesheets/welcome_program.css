@@ -2,7 +2,7 @@ body{font-family:Arial;font-size:14px;}
 a{color:#0C8A9A;text-decoration:none;}
 a:hover{text-decoration:underline;}
 
-.portrait {width: 150px;height: 200px;margin: 0 0 10px 20px ;border: 1px solid #F26722;}
+.portrait {width: 150px;margin: 0 0 10px 20px ;border: 1px solid #F26722;}
 
 .container{width:728px;margin:0px auto;}
 

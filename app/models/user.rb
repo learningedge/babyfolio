@@ -352,7 +352,7 @@ class User < ActiveRecord::Base
       if child
         max_seen = nil
         Behaviour::CATEGORIES_ORDER.each do |key|
-          max_seen = @child.behaviours.max_for_category(key).first if !max_seen
+          max_seen = child.behaviours.max_for_category(key).first if !max_seen
         end
         
         if max_seen
