@@ -157,6 +157,7 @@ class ChildrenController < ApplicationController
   end
 
   def get_adjacent_activity 
+    @page = Page.find_by_slug("play");
     curr_a = Activity.includes(:behaviour).find_by_id(params[:aid])
 
     if params[:dir] == 'prev'
@@ -255,6 +256,7 @@ class ChildrenController < ApplicationController
   end
 
   def get_adjacent_behaviour
+    @page = Page.find_by_slug("watch")
     ref_b = Behaviour.includes(:activities).find_by_id(params[:bid])
     
     curr_b = current_child.behaviours.find_by_category(ref_b.category, :order => 'age_from DESC')
