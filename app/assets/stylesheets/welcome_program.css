@@ -29,6 +29,7 @@ h2.icon_n{background:url(/images/welcome_program/icon_teal_N.png) no-repeat 0 0;
 .content ul{margin:5px;}
 .content ol{margin:5px;padding-left:20px;}
 .content ol.with-spacing li{margin-bottom:20px;}
+.content .indent{padding:5px 20px;display:inline-block;}
 
 .content .blue{color:#1FA9BB;}
 .content .center{text-align:center;}

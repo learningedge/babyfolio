@@ -23,8 +23,13 @@ namespace :emails do
   task :send_inactive => :environment do
     User.send_inactive
   end
+
+  desc "Send Welcome Program emails"
+  task :send_welcome_program_emails => :environment do
+   # User.send_welcome_program_emails
+  end  
   
-  task :half_hour => [:send_step_2_pending, :send_step_3_pending]
+  task :half_hour => [:send_step_2_pending, :send_step_3_pending, :send_welcome_program_emails]
   task :daily => [:resend_registration_completed , :send_newsletters, :send_inactive]
 
   task :all => [:half_hour, :daily]

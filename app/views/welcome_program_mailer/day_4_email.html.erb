@@ -49,8 +49,9 @@
       </div>
       
       <div class="content">
-	<h1 class="center">Today's Game/Challenge:</h1>
-	<h2 class="">PLAY activities for <%= @child.first_name -%> to exercise <%= @child.replace_forms("#his/her#") %> <%= Behaviour::CATEGORIES[@category] -%> muscles.</h2>
+	<h1 class="center">Today's Game/Challenge:</h1>	
+	<h2 class="">WATCH out for how <%= @child.first_name -%>'s <%= Behaviour::CATEGORIES[@category] -%> behaviors will emerge. </h2>
+
 	
 	<div class="blue-box">
 	  <p><strong><%= @child.first_name -%> is currently <%= @child.replace_forms(@behaviour.title_present) -%>: <%= @child.replace_forms(@behaviour.description_short) -%> <a href='<%= watch_children_url(:bid => @behaviour.id) -%>'>(read more)</a><srong></p>
@@ -65,12 +66,13 @@
 	  <ul>
 	    <li>Think about when you have seen <%= @child.first_name -%> <%= @child.replace_forms(@behaviour.title_present) -%>. Describe a few different situations.</li>
 	    <li>Have there been other behaviors where <%= @child.first_name -%> was trying to communicate with you?<br />
-		<a href="<%= show_timeline_url() -%>">Describe what you see</a></li>
-	    </ul>
-	  </div>
+	      <a href="<%= show_timeline_url() -%>">Describe what you see</a></li>
+	  </ul>
+	</div>
 	
-	<h2 class="">WATCH out for how <%= @child.first_name -%>'s <%= Behaviour::CATEGORIES[@category] -%> behaviors will emerge. </h2>
 	
+	<h2 class="">PLAY activities for <%= @child.first_name -%> to exercise <%= @child.replace_forms("#his/her#") %> <%= Behaviour::CATEGORIES[@category] -%> muscles.</h2>
+
 	<div class="blue-box">
 	  <p class="no-spacing"><strong>Set aside some playtime for:</strong></p>
 	  <ul>
@@ -83,12 +85,11 @@
 
 	  <p><strong>Play Explorations of the Day:</strong></p>
 	  <ul>
-	    <li>Post to the timeline how well the activities worked for you and <%= @child.first_name -%></li>
+	    <li><a href="<%= visit_timeline_url(:child_id => @child.id) -%>">Post to the timeline</a> how well the activities worked for you and <%= @child.first_name -%></li>
 	    <li>Try inventing your own Play idea and then try it out with <%= @child.first_name -%>.</li>
 	    </ul>
 	</div>
 
-	
 	<h2 class="">REFLECT on what you watched and played with <%= @child.first_name -%>.</h2>
 	
 	<div class="blue-box">
@@ -100,7 +101,7 @@
 	  
 	  <p><strong><a href="<%= visit_timeline_url(:child_id => @child.id) -%>">Post your thoughts to the Timeline.</a></strong></p>
 
-	  <p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
+	  <% unless @user.profile_media -%><p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p><% end -%>
 	</div>
 	
 	</div>

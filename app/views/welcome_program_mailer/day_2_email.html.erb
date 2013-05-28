@@ -45,7 +45,7 @@
       
       <div class="content">
 	<h1 class="center">Today's Game/Challenge:</h1>
-	<h2 class="center percent-80">The Art of Playing & Learning - Helping your child succeed and pushing <%= @child.replace_forms("#his/her#") %> to go further.</h2>
+	<h2 class="center percent-80">The Art of Playing & Learning - Helping your child succeed and encouraging <%= @child.replace_forms("#his/her#") %> to go further.</h2>
 	
 	<table class="steps-table">
 	  <tr>
@@ -82,8 +82,8 @@
 	<p>Classic example of how parental reading of the baby's behavior (Watch) and a parent's responsiveness (Play) effects the baby, their emotions, experiences and development. It demonstrates how important your "responsiveness" is when playing with your baby.</p>
 	<ul><li>eebee's Adventures Introduction - <a href="http://www.youtube.com/watch?v=eL4hyx1g4Gk">http://www.youtube.com/watch?v=eL4hyx1g4Gk</a></li></ul>
 	<p>Eebee's Adventures provide a wonderful model for the type of play and learning that you and your baby can do with everything around the house. There is a series of "Adventures" (socially responsible video for babies) that you can enjoy in addition to the introduction video. Master all this play and your baby will be a "Master Player" and future Master of Life.</p>
-	<p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
 
+   <% unless @user.profile_media -%><p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p><% end -%>
 	</div>
       
       </div>

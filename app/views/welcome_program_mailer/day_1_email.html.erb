@@ -55,10 +55,47 @@
 	<p class="blue">Annie<br/>
 	  Community Manager
 	  </p>
-
-	<p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
-
 	</div>
+
+
+      
+      <div class="content">
+	<h1 class="center">Today's Game/Challenge:</h1>
+	<h2 class="center percent-80">The Art of Watching & Noticing - Reading behavior & taking your child's POV.</h2>
+	
+	<h1>Take Action</h1>
+	
+	<ul><li>Watch for and identify a behaviour that strikes you. It could be any behavior or moment, but best when <%= @child.replace_forms("#he/she#") %> is most animated, happy and laughing or engaged in the activity.</li></ul>
+	
+	<p>No worries about addressing all these questions just dive in and speculate about the ones that make the most sense to you. Experiment, speculate, </p>
+	
+	<p class="blue-box no-spacing">&bull; Spend a minimum of a 30 minute chunk of time giving <%= @child.first_name -%> your full undivided attention. Pull out a few of their favorite toys or things to do. Start playing, exploring, interacting-- get down on the floor and participate at <%= @child.replace_forms("#his/her#") %> level. Have fun with it!</p>
+	
+	<p class="no-spacing">there are no wrong answers. As you try it out you will be putting yourself into the mind of your baby.</p>
+	
+	<p class="blue-box">&bull; Try to crawl into <%= @child.first_name -%>'s mind for that moment. Take a guess at what you think is happening. Babies are intentional beings just like us, they all have some intent and reasons for their actions and behaviors. Think about these following questions about the behavior, situation or activity: <br />
+	    <span class="indent">
+	      1. What was your child interested in? Where was <%= @child.replace_forms("#his/her#") %> attention?<br />
+	      2. What do you think he/she> was trying to do; what was <%= @child.replace_forms("#his/her#") %> goal?<br />
+3. What was <%= @child.replace_forms("#his/her#") %> strategy (action taken) to achieve their goal. How did they go about trying to accomplish <%= @child.replace_forms("#his/her#") %> intent or goal?<Br />
+4. Were any personality or character traits (eg persistence, curiosity, etc) required/revealed?  <br />
+5. What emotions arose during the experience? How did they ebb and flow?<br />
+</span>
+</p>
+
+<h1>Check out Available Resources (optional): </h1>
+
+<p>Books:</p>
+
+<p class="blue-box">When you have completed the above game/adventure. Take a shot at writing up your findings and posting them to <%= @child.first_name -%>'s Timeline.</p>
+
+<ul><li><a herf="#">The Diary of A Baby, Daniel N. Stern</a> - Excellent book written from the baby's point of view so really helps you climb into the mind of your child.</li></ul>
+<ul><li><a href="#">The Theory of Multiple Intelligences, Howard Gardner</a> - This book describes in detail why we humans have multiple intelligences and we are all born and develop an individual profile that makes us unique.</li></ul>
+
+   <% unless @user.profile_media -%><p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p><% end -%>
+
+</div>
+
       </div>
 
   </body>

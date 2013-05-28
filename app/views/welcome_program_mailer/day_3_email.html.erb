@@ -51,7 +51,7 @@
 	<h1 class="center">Today's Game/Challenge:</h1>
 	<h2 class="center percent-80">We've included <%= @child.first_name -%>'s intelligence bar graph from <%= @child.replace_forms("#his/her#") %> Reflect section. Take a look at the three groups of questions below, designed to encourage you to think on a deeper level about <%= @child.first_name -%>'s development.</h2>
 
-	<%= image_tag "/images/welcome_program/Reflect_bar.png", { :alt => "", :align => "middle", :class => "centeredImage" } -%>
+	<a href="<%= child_reflect_children_url() -%>"><%= image_tag "/images/welcome_program/Reflect_bar.png", { :alt => "", :align => "middle", :class => "centeredImage" } -%></a>
 
 	
 	<table class="steps-table">
@@ -104,7 +104,8 @@
 	  <a href="#">The Element</a> - How finding your passion changes everythng, Ken Robinson<br />
 	</p>
 
-	<p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p>
+   <% unless @user.profile_media -%><p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p><% end -%>
+ 
 
 	</div>
       
