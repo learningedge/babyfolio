@@ -481,19 +481,29 @@ class UserTest < ActiveSupport::TestCase
 
     @user_four.user_actions.find_or_create_by_title('action_three')
 
-    users = User.with_and_without_action ['action_one', 'action_three'], []
+    users = User.with_and_without_action ['action_one', 'action_three'], [], Date.today - 1.month
 
     assert_equal 3, users.size 
     assert users.include?(@user_one)
     assert users.include?(@user_two)
     assert users.include?(@user_four)
 
-    users = User.with_and_without_action ['action_one', 'action_three'], ['action_two']
+    users = User.with_and_without_action ['action_one', 'action_three'], ['action_two'], Date.today - 1.month
     
     assert_equal 2, users.size 
     assert users.include?(@user_two)
     assert users.include?(@user_four)    
+
+    @user_two.user_option.subscribed = 0 
+    @user_two.user_option.save
+
+    @user_four.user_option.subscribed = 1
+    @user_four.user_option.save
     
+    users = User.with_and_without_action ['action_one', 'action_three'], ['action_two'], Date.today - 1.month, Date.today, "user_options.subscribed = 1"
+
+    assert_equal 1, users.size 
+    assert users.include?(@user_four)    
   end
 
 end

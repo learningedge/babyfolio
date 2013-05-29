@@ -62,6 +62,10 @@ class User < ActiveRecord::Base
   def self.subscribed
     joins(:user_option).includes(:user_option).where(['user_options.subscribed = ?', true])
   end
+
+  def self.welcome_program_disabled
+    joins(:user_option).includes(:user_option).where(['user_options.is_welcome_program_enabled = ?', false])
+  end
   
   def self.with_email title, count
     subscribed.joins(:user_emails).where(["user_emails.title = ? AND user_emails.count = ?", title, count])
@@ -136,7 +140,7 @@ class User < ActiveRecord::Base
     
     user_ids = include_users - exclude_users
     
-    User.find(user_ids, :conditions => additional_user_conditions, :includes => [:user_option])
+    User.find_all_by_id(user_ids, :conditions => additional_user_conditions, :include => [:user_option])
   end
 
   def self.with_and_without_action_subscribers include_actions, exclude_actions, no_older_than, not_newer_than = Date.today
@@ -205,13 +209,13 @@ class User < ActiveRecord::Base
 
   def self.select_users_for_newsletter
     users = []
-    users += User.subscribed.with_email_title_for_frequency 'newsletter', 'weekly'
-    users += User.subscribed.with_email_title_for_frequency 'newsletter', 'daily'
-    users += User.subscribed.with_email_title_for_frequency 'newsletter', 'monthly'
+    users += User.welcome_program_disabled.subscribed.with_email_title_for_frequency 'newsletter', 'weekly'
+    users += User.welcome_program_disabled.subscribed.with_email_title_for_frequency 'newsletter', 'daily'
+    users += User.welcome_program_disabled.subscribed.with_email_title_for_frequency 'newsletter', 'monthly'
 
-    users += User.subscribed.without_newsletter_email_for_frequency 'weekly'
-    users += User.subscribed.without_newsletter_email_for_frequency 'daily'
-    users += User.subscribed.without_newsletter_email_for_frequency 'monthly'
+    users += User.welcome_program_disabled.subscribed.without_newsletter_email_for_frequency 'weekly'
+    users += User.welcome_program_disabled.subscribed.without_newsletter_email_for_frequency 'daily'
+    users += User.welcome_program_disabled.subscribed.without_newsletter_email_for_frequency 'monthly'
     
     return users
   end
@@ -343,9 +347,12 @@ class User < ActiveRecord::Base
   def self.send_welcome_email
     include_actions = ['initial_questionnaire_completed', "account_created"]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_INITIAL_EMAIL"] ]
-    @welcome_email_users = User.with_and_without_action( include_actions, exclude_actions, User::WELCOME_PROGRAM_START_DATE)
+    @welcome_email_users = User.with_and_without_action_subscribers( include_actions, exclude_actions, User::WELCOME_PROGRAM_START_DATE)
     
     @welcome_email_users.each do |user|      
+      user.user_option.is_welcome_program_enabled = true
+      user.user_option.save 
+
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
       
       child = user_action ? user_action.child : user.own_children.first        
@@ -367,7 +374,7 @@ class User < ActiveRecord::Base
   def self.send_day_1_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_INITIAL_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
-    @day_1_users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    @day_1_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @day_1_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -384,7 +391,7 @@ class User < ActiveRecord::Base
   def self.send_day_2_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
-    @day_2_users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    @day_2_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @day_2_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -401,7 +408,7 @@ class User < ActiveRecord::Base
   def self.send_day_3_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"] ]
-    @day_3_users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    @day_3_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @day_3_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -420,7 +427,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_intelligence_email include_actions, exclude_actions, category, mark_action
-    @users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -460,6 +467,9 @@ class User < ActiveRecord::Base
 
   def self.send_day_9_email
     self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"]
+
+    user.user_option.is_welcome_program_enabled = false
+    user.user_option.save 
   end
 
   private
