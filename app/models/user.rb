@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  WELCOME_PROGRAM_START_DATE = ENV['WELCOME_PROGRAM_START_DATE'] || (Date.today - 1.month)
+  WELCOME_PROGRAM_START_DATE = (ENV['WELCOME_PROGRAM_START_DATE'] ? Date.parse(ENV['WELCOME_PROGRAM_START_DATE']) : nil) || (Date.today - 1.month)
 
   self.per_page = 5
 
@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
     return users
   end
 
-  def self.with_and_without_action include_actions, exclude_actions, no_older_than, not_newer_than = Date.today    
+  def self.with_and_without_action include_actions, exclude_actions, no_older_than, not_newer_than = Date.today, additional_user_conditions = ""
     include_users = []
     include_actions.each do |action_title|
       if no_older_than
@@ -136,7 +136,11 @@ class User < ActiveRecord::Base
     
     user_ids = include_users - exclude_users
     
-    User.find(user_ids)
+    User.find(user_ids, :conditions => additional_user_conditions, :includes => [:user_option])
+  end
+
+  def self.with_and_without_action_subscribers include_actions, exclude_actions, no_older_than, not_newer_than = Date.today
+    self.with_and_without_action include_actions, exclude_actions, no_older_than, not_newer_than, "user_options.subscribed = 1"
   end
 
   def self.send_step_2_pending_emails
@@ -333,9 +337,6 @@ class User < ActiveRecord::Base
 
   def self.send_welcome_program_emails
     self.send_welcome_email
-  end
-
-  def self.send_welcome_program_other_emails
     self.send_day_1_email
   end
 
@@ -344,7 +345,7 @@ class User < ActiveRecord::Base
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_INITIAL_EMAIL"] ]
     @welcome_email_users = User.with_and_without_action( include_actions, exclude_actions, User::WELCOME_PROGRAM_START_DATE)
     
-    @welcome_email_users.each do |user|
+    @welcome_email_users.each do |user|      
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
       
       child = user_action ? user_action.child : user.own_children.first        
@@ -418,55 +419,47 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.send_day_4_email
-    include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"] ]
-    exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_4_EMAIL"] ]
-    @day_4_users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+  def self.send_intelligence_email include_actions, exclude_actions, category, mark_action
+    @users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
-    @day_4_users.each do |user|
+    @users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
-      
-      child = user_action ? user_action.child : user.own_children.first        
+      child = user_action ? user_action.child : user.own_children.first
       
       if child
-        @max_seen = nil
+        @behaviour = child.behaviours.max_for_category(category).first 
         
-        Behaviour::CATEGORIES_ORDER.each do |key|
-          @max_seen = child.behaviours.max_for_category(key).first if !@max_seen
+        if behaviour
+          WelcomeProgramMailer.day_4_email(user, child, @max_seen).deliver          
         end
-        
-        if @max_seen
-          WelcomeProgramMailer.day_4_email(user, child, @max_seen).deliver 
-          user.user_actions.find_or_create_by_title(UserAction::ACTIONS["WELCOME_PROGRAM_DAY_4_EMAIL"])
-        end
+        user.user_actions.find_or_create_by_title(mark_action)
       end
     end
   end
 
+  def self.send_day_4_email
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_LANGUAGE_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_LANGUAGE_EMAIL"]
+  end
+
 
   def self.send_day_5_email
-    include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_4_EMAIL"] ]
-    exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_5_EMAIL"] ]
-    @day_5_users = User.with_and_without_action(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
-    
-    @day_5_users.each do |user|
-      user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
-      
-      child = user_action ? user_action.child : user.own_children.first        
-      
-      if child
-        @max_seen = []
-        
-        Behaviour::CATEGORIES_ORDER.each do |key|
-          @max_seen << child.behaviours.max_for_category(key).first
-        end
-        
-        @second_max_seen = @max_seen.compact.sort{ |a,b| a.age_from <=> b.age_from }.reverse[1]
-        
-        WelcomeProgramMailer.day_4_email(user, child, @second_max_seen).deliver
-        user.user_actions.find_or_create_by_title(UserAction::ACTIONS["WELCOME_PROGRAM_DAY_5_EMAIL"])
-      end
-    end
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_LANGUAGE_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_LOGIC_EMAIL"] ], "N", UserAction::ACTIONS["WELCOME_PROGRAM_LOGIC_EMAIL"]
+  end
+
+  def self.send_day_6_email
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_LOGIC_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"]
+  end
+
+  def self.send_day_7_email
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"]
+  end
+
+  def self.send_day_8_email
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"]
+  end
+
+  def self.send_day_9_email
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"]
   end
 
   private
