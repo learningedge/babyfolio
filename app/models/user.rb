@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
   end
 
   def self.with_and_without_action_subscribers include_actions, exclude_actions, no_older_than, not_newer_than = Date.today
-    self.with_and_without_action include_actions, exclude_actions, no_older_than, not_newer_than, "user_options.subscribed = 1"
+    self.with_and_without_action include_actions, exclude_actions, no_older_than, not_newer_than, ["user_options.subscribed = ?", true]
   end
 
   def self.send_step_2_pending_emails
