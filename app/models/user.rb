@@ -434,7 +434,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.send_intelligence_email include_actions, exclude_actions, category, mark_action
+  def self.send_intelligence_email include_actions, exclude_actions, category, mark_action, last_email = false
     @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @users.each do |user|
@@ -448,6 +448,11 @@ class User < ActiveRecord::Base
           WelcomeProgramMailer.day_4_email(user, child, @max_seen).deliver          
         end
         user.user_actions.find_or_create_by_title(mark_action)
+      end
+      
+      if last_email
+        user.user_option.is_welcome_program_enabled = false
+        user.user_option.save 
       end
     end
   end
@@ -474,10 +479,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_day_9_email
-    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"]
-
-    user.user_option.is_welcome_program_enabled = false
-    user.user_option.save 
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"], true
   end
 
   private
