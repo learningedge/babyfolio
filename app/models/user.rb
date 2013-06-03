@@ -467,19 +467,19 @@ class User < ActiveRecord::Base
   end
 
   def self.send_day_6_email
-    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_LOGIC_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"]
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_LOGIC_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"] ], "S", UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"]
   end
 
   def self.send_day_7_email
-    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"]
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_SOCIAL_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"] ], "V", UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"]
   end
 
   def self.send_day_8_email
-    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"]
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_VISUAL_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], "M", UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"]
   end
 
   def self.send_day_9_email
-    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "L", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"], true
+    self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "E", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"], true
   end
 
   private
