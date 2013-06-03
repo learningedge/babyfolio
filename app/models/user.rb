@@ -424,7 +424,7 @@ class User < ActiveRecord::Base
       child = user_action ? user_action.child : user.own_children.first        
       
       if child
-        behaviour = @child.behaviours.max_for_category("L").first
+        behaviour = child.behaviours.max_for_category("L").first
 
         if behaviour
           WelcomeProgramMailer.day_3_email(user, child, behaviour).deliver
