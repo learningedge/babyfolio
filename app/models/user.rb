@@ -442,10 +442,10 @@ class User < ActiveRecord::Base
       child = user_action ? user_action.child : user.own_children.first
       
       if child
-        @behaviour = child.behaviours.max_for_category(category).first 
+        behaviour = child.behaviours.max_for_category(category).first 
         
         if behaviour
-          WelcomeProgramMailer.day_4_email(user, child, @max_seen).deliver          
+          WelcomeProgramMailer.day_4_email(user, child, behaviour).deliver          
         end
         user.user_actions.find_or_create_by_title(mark_action)
       end
