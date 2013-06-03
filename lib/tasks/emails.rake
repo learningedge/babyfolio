@@ -26,7 +26,7 @@ namespace :emails do
 
   desc "Send Welcome Program emails"
   task :send_welcome_program_emails => :environment do
-   # User.send_welcome_program_emails
+   User.send_welcome_program_emails
   end  
   
   task :half_hour => [:send_step_2_pending, :send_step_3_pending, :send_welcome_program_emails]

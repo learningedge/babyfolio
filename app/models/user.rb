@@ -342,6 +342,14 @@ class User < ActiveRecord::Base
   def self.send_welcome_program_emails
     self.send_welcome_email
     self.send_day_1_email
+    self.send_day_2_email
+    self.send_day_3_email
+    self.send_day_4_email
+    self.send_day_5_email
+    self.send_day_6_email
+    self.send_day_7_email
+    self.send_day_8_email
+    self.send_day_9_email
   end
 
   def self.send_welcome_email
