@@ -24,7 +24,7 @@
 	<p class="no-spacing"><strong>Your Baby's <%= Behaviour::CATEGORIES[@category] -%> Development: In the <%= WelcomeProgramMailer::EMAIL_YEARS[@year] -%> Year:</strong></p>
 	<ul>
 	  <li><strong>Amazing Changes:</strong> <%=raw @child.replace_forms(WelcomeProgramMailer::EMAIL_AMAZING_CHANGES[@category][@year]) -%></li>
-	  <li><strong>New Behaviors</strong>: <%=raw @child.replace_forms(WelcomeProgramMailer::EMAIL_NEW_BEHAVIOURS[@category][@year]) -%>
+	  <li><strong>New Behaviors</strong>: <%=raw @child.replace_forms_with_behaviour(WelcomeProgramMailer::EMAIL_NEW_BEHAVIOURS[@category][@year], @behaviour) -%>
 	  <li><strong>Learning Opportunities</strong>: <%=raw @child.replace_forms(WelcomeProgramMailer::EMAIL_LEARNING_OPPORTUNITIES[@category][@year]) -%>
 	  </ul>
 

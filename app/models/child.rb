@@ -176,6 +176,15 @@ class Child < ActiveRecord::Base
       return question_text.html_safe
   end
 
+  def replace_forms_with_behaviour text, behaviour, truncate = 0
+    return nil if text.blank?
+    
+    text = self.replace_forms(text, truncate)
+
+    text = text.gsub(/<LWtitle>/i, behaviour.title_present)
+    return text.html_safe
+  end
+
   def api_replace_forms(question_text, truncate = 0)
       FORMS.each do |key, val|
         question_text = question_text.gsub(key, val[gender_index])
