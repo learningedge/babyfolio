@@ -88,7 +88,7 @@ class WelcomeProgramMailer < ActionMailer::Base
     "S" => "Let's help <babyname> build strong social skills!",
     "V" => "",
     "M" => "",
-    "E" => "Let's begin supporting <babyname>.s emotional development!"
+    "E" => "Let's begin supporting <babyname>'s emotional development!"
   }
 
 
