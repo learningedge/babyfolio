@@ -432,7 +432,7 @@ class User < ActiveRecord::Base
   def self.send_day_1_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_INITIAL_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
-    @day_1_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today)# - 1.day)
+    @day_1_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @day_1_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -449,7 +449,7 @@ class User < ActiveRecord::Base
   def self.send_day_2_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
-    @day_2_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today)# - 1.day)
+    @day_2_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @day_2_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -466,7 +466,7 @@ class User < ActiveRecord::Base
   def self.send_day_3_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"] ]
-    @day_3_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today)# - 1.day)
+    @day_3_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @day_3_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -485,7 +485,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_intelligence_email include_actions, exclude_actions, category, mark_action, last_email = false
-    @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today)# - 1.day)
+    @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
     
     @users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
