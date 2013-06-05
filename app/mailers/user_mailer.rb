@@ -100,6 +100,9 @@ class UserMailer < ActionMailer::Base
     mail(:to => ENV['CONTACT_EMAIL'] || "tickets@baby1.uservoice.com", :subject => "User Deactivate Account Survey")
   end
 
-  
+  def error_email exception
+    @exception = exception
+    mail(:to => "team@codephonic.com", :subject => "[Babyfolio Exception] Error Occured while sending welcome program emails")
+  end
   
 end

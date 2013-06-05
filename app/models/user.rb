@@ -340,16 +340,66 @@ class User < ActiveRecord::Base
   end
 
   def self.send_welcome_program_emails
-    self.send_welcome_email
-    self.send_day_1_email
-    self.send_day_2_email
-    self.send_day_3_email
-    self.send_day_4_email
-    self.send_day_5_email
-    self.send_day_6_email
-    self.send_day_7_email
-    self.send_day_8_email
-    self.send_day_9_email
+    begin
+      self.send_welcome_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+    
+    begin
+      self.send_day_1_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+    
+    begin 
+      self.send_day_2_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_3_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_4_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_5_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_6_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_7_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_8_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
+    begin
+      self.send_day_9_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
+
   end
 
   def self.send_welcome_email
