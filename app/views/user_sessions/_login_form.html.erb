@@ -14,6 +14,9 @@
         </span>
         <%= f.submit "Login", :class => "btn" %>
   <% end %>
-  <p class="forgot-password-link"><a href="<%= new_forgot_password_url %>">Forgot Password?</a></p>
+<p class="forgot-password-link">  <% unless flash[:notice].blank? -%>
+  <span class="error"><%= flash[:notice] -%></span> 
+  <% end -%>
+<a href="<%= new_forgot_password_url %>">Forgot Password?</a></p>
   
 <% end %>
