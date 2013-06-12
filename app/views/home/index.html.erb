@@ -1,56 +1,163 @@
 <% content_for :middle_bar do %>
-  <div class="middle-bar-left arvo">
-    <%= @page.cf "title" -%>
-    <div class="get-started-container">
-      <a href="<%= signup_path %>" class="btn btn-big" id="get-started-btn">Get Started</a><br />
-      (It's Free)
+  <div id="slides">
+    <div class="slide">
+      <div class="container">
+	<div class="slide-left arvo">
+	  <div class="header"><h2>Free Development Profile</h2></div>
+	  <div class="free-profile-content">
+	    <%= @page.cf("first_slide") -%>
+	  </div>
+	  
+	  <div class="quick-form">
+	    <% unless flash[:notice].blank? -%>
+	    <div class="form-row error"><%= flash[:notice] -%></div>
+	    <% end -%>
+	    <%= form_tag(create_temp_user_account_path) do -%>
+	    <div class="form-row"><p>Enter your Child's Birth Date</p></div>
+	    <div class="form-row"><%= select_date(Date.current, {:end_year => Time.now.year, :start_year => Time.now.year - 10}, {}) -%></div>
+	    <div class="form-row"><%= radio_button_tag 'gender', 'male', true -%> Male <%= radio_button_tag 'gender', 'male' -%> Female</div>
+	    <div class="form-row"><%= submit_tag("START PROFILE NOW", { :class => "btn"}) -%></div>
+	    <% end -%>    
+	  </div>
+	  
+	</div>
+	<div class="slide-right">
+	  <%= image_tag '/images/mother-with-baby.png' -%>	
+	</div>
+      </div>
+
     </div>
+    <div class="slide second">
+      <div class="container">
+	<div class="slide-left arvo">
+	  <p></p>
+	  <span class="bigger"><%= @page.cf("second_slide") -%></span>
+	  <p>&nbsp;</p>
+	  <a href="<%= signup_path %>" class="btn btn-big2 right" style="margin-right:80px;" id="get-started-btn">Get Started</a><br />
+
+	</div>
+	<div class="slide-right">
+	  <%= image_tag '/images/baby-playing.png' -%>	
+	</div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container">
+	<div class="slide-left arvo">
+	  <div class="header"><h2>Your 21st Century Baby<br/>It's a changed world</h2></div>
+	  <%= @page.cf("third_slide") -%>
+	  <a href="<%= signup_path %>" class="btn btn-big2 right" style="margin-right:80px" id="get-started-btn">Try it now, it's free</a><br />
+
+	</div>
+	<div class="slide-right">
+	  <%= image_tag '/images/mother-with-baby2.png' -%>	
+	</div>
+      </div>
+    </div>
+
+
+    <a href="#" class="next slidesjs-next slidesjs-navigation"><span>Next</span></a>
+    <a href="#" class="previous slidesjs-previous slidesjs-navigation"><span>Previous</span></a>
+
   </div>
-  <div class="middle-bar-right">    
-    <div class="header"><h2>FREE DEVELOPMENT PROFILE</h2></div>
-    <div class="free-profile-content">
-      <p>Discover your child's Multiple Intelligences!</p>
-      <p>Give us 5 minutes and we'll give you insights into your child's world, for free!<p>
-    </div>
-    <div class="quick-form">
-      <% unless flash[:notice].blank? -%>
-      <div class="form-row error"><%= flash[:notice] -%></div>
-      <% end -%>
-    <%= form_tag(create_temp_user_account_path) do -%>
-      <div class="form-row"><span>Enter your Child's Birth Date</span></div>
-      <div class="form-row"><%= select_date(Date.current, {:end_year => Time.now.year, :start_year => Time.now.year - 10}, {}) -%></div>
-      <div class="form-row"><%= radio_button_tag 'gender', 'male', true -%> Male <%= radio_button_tag 'gender', 'male' -%> Female</div>
-      <div class="form-row"><%= submit_tag("START PROFILE NOW", { :class => "btn"}) -%></div>
-    <% end -%>    
-    </div>
-  </div>
+
+
+<!--
+      <div class="middle-bar-left arvo">
+	<%= @page.cf "title" -%>
+	<div class="get-started-container">
+	  <a href="<%= signup_path %>" class="btn btn-big" id="get-started-btn">Get Started</a><br />
+	  (It's Free)
+      </div>
+      </div>
+      <div class="middle-bar-right">    
+	<div class="header"><h2>FREE DEVELOPMENT PROFILE</h2></div>
+	<div class="free-profile-content">
+	  <p>Discover your child's Multiple Intelligences!</p>
+	  <p>Give us 5 minutes and we'll give you insights into your child's world, for free!<p>
+	</div>
+	<div class="quick-form">
+	  <% unless flash[:notice].blank? -%>
+	  <div class="form-row error"><%= flash[:notice] -%></div>
+	  <% end -%>
+	  <%= form_tag(create_temp_user_account_path) do -%>
+	  <div class="form-row"><span>Enter your Child's Birth Date</span></div>
+	  <div class="form-row"><%= select_date(Date.current, {:end_year => Time.now.year, :start_year => Time.now.year - 10}, {}) -%></div>
+	  <div class="form-row"><%= radio_button_tag 'gender', 'male', true -%> Male <%= radio_button_tag 'gender', 'male' -%> Female</div>
+	  <div class="form-row"><%= submit_tag("START PROFILE NOW", { :class => "btn"}) -%></div>
+	  <% end -%>    
+	</div>
+      </div>
+-->
+
+  <script>
+    $(function(){
+      $("#slides").slidesjs({
+        width: 1004,
+        height: 295,
+        pagination: {
+            active: false
+        },
+        navigation: {
+            active: false
+        },
+        play: {
+            active: false,
+            effect: "slide",
+            interval: 10000000,
+            auto: true,
+            pauseOnHover: false,
+            swap: false,
+            restartDelay: 10000
+        },
+        effect: {
+            slide: {
+                speed: 1000
+            }
+        }
+      });
+    });
+  </script>
   <div class="clear"></div>
 <% end %>
 
 <div id="home">
 
-  <div class="left-column">
-    <%= image_tag @page.cf("left_sidebar_image","homepage") -%>
-    <p id="featured-in-text"><%= @page.cf("left_sidebar_text") -%></p>
-    <div><%= link_to "Find out more", about_path , :class => "btn" %></div>
+  <div class="home-center">
+    <div class="left">
+      <%= image_tag @page.cf("left_sidebar_image","homepage") -%>
+    </div>
+    <div class="right-info avro">
+      <table><tr><td>
+	<%= @page.cf "title" -%>      
+	<a href="<%= signup_path %>" class="btn btn-big2 right" id="get-started-btn">Get Started</a><br />
+      </td></tr></table>
+    </div>
+    <div class="clear"></div>
+    <div class="how-it-works">
+      <%= link_to "How it Works", about_path+'#how-tab' %>
+    </div>
   </div>
+  
+  <div class="clear"></div>
 
   <div class="right-column">
     <div id="circle-display">
       <div id="watch-display">
-        <h1 class="arvo">Watch</h1>
+        <h1>Watch</h1>
         <p class="arvo"><%= @page.cf("watch_text") -%></p>
       </div>
-      <div id="reflect-display">
-        <h1 class="arvo">Reflect</h1>
-        <p class="arvo"><%= @page.cf("reflect_text") -%></p>
-      </div>
       <div id="play-display">
-        <h1 class="arvo">Play</h1>
+        <h1>Play</h1>
         <p class="arvo"><%= @page.cf("play_text") -%></p>
       </div>
+      <div id="reflect-display">
+        <h1>Reflect</h1>
+        <p class="arvo"><%= @page.cf("reflect_text") -%></p>
+      </div>
       <div id="plus-display">
-        <h1 class="arvo"><%= @page.cf("plus_display_headline") -%></h1>
+        <span class="headline arvo"><%= @page.cf("plus_display_headline") -%></span>
         <p class="arvo"><%= @page.cf("plus_display_text") -%></p>
       </div>
     </div>

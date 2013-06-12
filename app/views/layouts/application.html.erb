@@ -22,7 +22,7 @@
 
    <div id="content-wrapper">
           <div id="middle-bar">
-            <div class="inner-wrapper">
+            <div class="inner-wrapper <%= @page and @page.slug == 'homepage' ? 'home' : '' -%>">
                   <%= yield :middle_bar %>
             </div>
           </div>

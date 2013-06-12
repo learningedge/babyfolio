@@ -18,3 +18,4 @@
 //= require jquery.iframe-transport
 //= require jquery.remotipart
 //= require jquery.selectbox-0.2.min.js
+//= require jquery.slides.min.js
