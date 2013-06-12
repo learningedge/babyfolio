@@ -119,8 +119,8 @@ body { position: relative; min-height: 100%;  background: url(/images/content_wr
 
 #middle-bar .inner-wrapper .slide-left{padding:10px 100px;float:left;width:420px;}
 #middle-bar .inner-wrapper .slide-left .header{padding-top:20px;}
-#middle-bar .inner-wrapper .slide-left h2{text-align:center;margin-bottom:20px;font-size:19px}
-#middle-bar .inner-wrapper .slide-left p{margin-bottom:16px;font-size:16px}
+#middle-bar .inner-wrapper .slide-left h2{text-align:center;margin-bottom:20px;font-size:20px}
+#middle-bar .inner-wrapper .slide-left p{margin-bottom:16px;font-size:15px}
 #middle-bar .inner-wrapper .slide-left .bigger p{font-size:23px;font-weight:bold;}
 #middle-bar .inner-wrapper .slide-left .quick-form{text-align:center;font-size:15px}
 #middle-bar .inner-wrapper .slide-left .sbOptions,
