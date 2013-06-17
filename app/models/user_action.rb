@@ -15,7 +15,8 @@ class UserAction < ActiveRecord::Base
     "WELCOME_PROGRAM_SOCIAL_EMAIL" => 'welcome_program_social_email_sent',   
     "WELCOME_PROGRAM_VISUAL_EMAIL" => 'welcome_program_visual_email_sent',   
     "WELCOME_PROGRAM_MOVEMENT_EMAIL" => 'welcome_program_movement_email_sent',   
-    "WELCOME_PROGRAM_EMOTIONAL_EMAIL" => 'welcome_program_emotional_email_sent'
+    "WELCOME_PROGRAM_EMOTIONAL_EMAIL" => 'welcome_program_emotional_email_sent',
+    "WELCOME_PROGRAM_WRAP_UP_EMAIL" => 'welcome_program_wrap_up_email_sent'
   }
 
   def self.no_older_than date

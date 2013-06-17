@@ -332,8 +332,8 @@ class User < ActiveRecord::Base
 
     if !self.user_emails.find_by_title('initial_questionnaire_completed')
       @behaviours = child.max_seen_by_category
-      
-      UserMailer.registration_completed(self, child, @behaviours.first).deliver if self.user_option.subscribed
+            
+      UserMailer.registration_completed(self, child, @behaviours.first).deliver if self.user_option.subscribed and !self.user_option.is_welcome_program_enabled 
       self.user_emails.create(:title => 'initial_questionnaire_completed')
     end
     
@@ -400,6 +400,11 @@ class User < ActiveRecord::Base
       UserMailer.error_email(e).deliver
     end
 
+    begin
+      self.send_day_10_email
+    rescue Exception => e
+      UserMailer.error_email(e).deliver
+    end
   end
 
   def self.send_welcome_email
@@ -432,7 +437,8 @@ class User < ActiveRecord::Base
   def self.send_day_1_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_INITIAL_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
-    @day_1_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    @day_1_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_1_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -449,7 +455,8 @@ class User < ActiveRecord::Base
   def self.send_day_2_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
-    @day_2_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    @day_2_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_2_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -466,7 +473,8 @@ class User < ActiveRecord::Base
   def self.send_day_3_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"] ]
-    @day_3_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    @day_3_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_3_users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -485,7 +493,8 @@ class User < ActiveRecord::Base
   end
 
   def self.send_intelligence_email include_actions, exclude_actions, category, mark_action, last_email = false
-    @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, Date.today - 1.day)
+    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @users.each do |user|
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
@@ -530,6 +539,18 @@ class User < ActiveRecord::Base
 
   def self.send_day_9_email
     self.send_intelligence_email [ UserAction::ACTIONS["WELCOME_PROGRAM_MOVEMENT_EMAIL"] ], [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ], "E", UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"], true
+  end
+
+  def self.send_day_10_email
+    include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ]
+    exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_WRAP_UP_EMAIL"] ]
+    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    @day_10_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
+    
+    @day_10_users.each do |user|
+      WelcomeProgramMailer.wrap_up_email(user).deliver 
+      user.user_actions.find_or_create_by_title(UserAction::ACTIONS["WELCOME_PROGRAM_WRAP_UP_EMAIL"])
+    end
   end
 
   private

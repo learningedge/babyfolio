@@ -7,7 +7,7 @@ class WelcomeProgramMailer < ActionMailer::Base
     @max_seen = max_seen
     
     @next_behaviour = Behaviour.get_next_behaviours_for_category(@max_seen.category, @max_seen.age_from, 1).first
-    mail(:to => user.email, :subject => "Jumpstart BabyFolio: 5 Day Program")
+    mail(:to => user.email, :subject => "Jumpstart BabyFolio: 10 Day Program")
   end
 
   def day_1_email user, child
@@ -50,6 +50,12 @@ class WelcomeProgramMailer < ActionMailer::Base
     @next_behaviours = Behaviour.find(next_behaviour_ids, :order => "age_from asc, learning_window asc", :limit =>2)
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: #{EMAIL_CATEGORIES[@category]}")
+  end
+
+  def wrap_up_email user
+    @user = user
+    
+    mail(:to => user.email, :subject => "Jumpstart BabyFolio: Congratulations")
   end
 
   def day_5_email user
