@@ -3,6 +3,32 @@ class Api::V1::PlayController < ApplicationController
   before_filter :require_user
 
   def show
+    @page = Page.find_by_slug("play");
+    
+    a = Activity.includes(:behaviour).find_by_id(params[:aid])
+
+    a_likes = a.likes.find_by_child_id(current_child.id)
+    likes = a_likes.value unless a_likes.nil?
+    @activity = {
+      :category => a.category,
+      :aid => a.id,
+      :b_title => current_child.replace_forms(a.behaviour.title_past),
+      :bid => a.behaviour.id,
+      :title => current_child.replace_forms(a.title),
+      :action => current_child.replace_forms(a.action),
+      :actioned => current_child.replace_forms(a.actioned),
+      :desc_short => current_child.replace_forms(a.description_short),
+      :desc_long => current_child.replace_forms(a.description_long),
+      :variation1 => current_child.replace_forms(a.variation1),
+      :variation2 => current_child.replace_forms(a.variation2),                         
+      :learning_benefit => current_child.replace_forms(a.learning_benefit),
+      :likes => likes
+    }
+  end
+
+
+=begin
+  def show
     milestone = Milestone.find_by_mid(params[:mid])
     @activity = {
       :category => milestone.questions.first.category,
@@ -18,5 +44,6 @@ class Api::V1::PlayController < ApplicationController
     }
 
   end
+=end
 
 end

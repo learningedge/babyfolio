@@ -36,6 +36,37 @@ class Api::V1::ChildrenController < ApplicationController
 ##############
 
   def play
+    @page = Page.find_by_slug("play");
+    @activities = []
+    
+    if params[:aid]
+      curr_a = Activity.includes(:behaviour).find_by_id(params[:aid])
+    end
+    
+    seen_behaviours = current_child.max_seen_by_cat
+    
+    seen_behaviours.each do |sb|
+      if curr_a.nil? || sb.category != curr_a.category
+        a = sb.activities.first
+      else
+        a = curr_a          
+      end
+      a_likes = a.likes.find_by_child_id(current_child.id)
+      likes = a_likes.value unless a_likes.nil?
+      @activities << {
+        :category => a.category,
+        :aid => a.id.to_s,
+        :title => current_child.api_replace_forms(a.title),
+        :subtitle => current_child.api_replace_forms(a.description_short),
+        :likes => likes
+      }
+    end
+    render :json => { :activities => @activities }
+  end
+
+
+=begin
+  def play
     answers = current_child.answers.includes(:question).find_all_by_value('seen').group_by{|a| a.question.category }
     answers = answers.sort_by{ |k,v| v.max_by{|a| a.question.age }.question.age }
     answers.each do |k,v|
@@ -78,6 +109,7 @@ class Api::V1::ChildrenController < ApplicationController
 
     render :json => { :activities => @activities }
   end
+=end
 
   def get_adjacent_activity 
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])    
@@ -122,6 +154,44 @@ class Api::V1::ChildrenController < ApplicationController
 # WATCH
 ##############
 
+  def watch
+    @page = Page.find_by_slug("watch");
+    @behaviours = []    
+
+    curr_b = Behaviour.includes(:activities).find_by_id(params[:bid]) if params[:bid].present?
+    seen_behaviours = current_child.max_seen_by_cat;
+    @seen_behaviours = seen_behaviours;
+
+    seen_behaviours.each do |b|
+      beh = Behaviour.includes(:activities).find_by_category(b.category, :conditions => ["age_from > ?", b.age_from], :order => "age_from ASC")
+      time = "current"     
+      
+      if curr_b && b.category == curr_b.category
+        time = "future" if curr_b.age_from > beh.age_from
+        beh = curr_b        
+      end
+
+      unless beh
+        beh = b
+      end
+
+      checked = current_child.seen_behaviours.find_by_behaviour_id(beh.id) ? true : false
+      time = "past" if beh.age_from <= b.age_from
+      
+      @behaviours << {
+                       :category => beh.category,
+                       :bid => beh.id.to_s,
+                       :title => current_child.api_replace_forms(beh.title_present),
+                       :subtitle => current_child.api_replace_forms(beh.description_short),
+                       :references => current_child.api_replace_forms(beh.references),
+                       :checked => checked
+                     }
+    end
+    render :json => { :behaviours => @behaviours }
+  end
+
+
+=begin
   def watch
     ms = []
     @behaviours = []
@@ -171,6 +241,7 @@ class Api::V1::ChildrenController < ApplicationController
 
     render :json => { :behaviours => @behaviours }
   end
+=end
 
   def get_adjacent_behaviour
     ms = Milestone.includes(:questions).find_by_mid(params[:mid])
@@ -227,14 +298,10 @@ class Api::V1::ChildrenController < ApplicationController
 
     @reflections = []
 
-    categorized_qs = current_child.max_seen_by_category.group_by{|q| q.category}
-    categorized_qs.each do |k,v|
-      categorized_qs[k] = v.first
-      serialized = QuestionSerializer.new(v.first, :scope => current_child, :root => false)
-      @reflections << serialized
-    end
+    seen_behaviours = current_child.max_seen_by_cat
 
-    uniq_ages = categorized_qs.map{ |k,v| v.age }.uniq.sort
+    uniq_ages = seen_behaviours.map{ |b| b.age_from }.uniq.sort
+
     @lengths = Hash.new
     if uniq_ages.size == 1
       @lengths[uniq_ages[0]] = 125
@@ -243,13 +310,22 @@ class Api::V1::ChildrenController < ApplicationController
     end
 
 
-    third_from_start = categorized_qs.values[2] 
-    third_from_end = categorized_qs.values[-3]
-    
-    @str_answers = @reflections.reject{ |v| v.age <= third_from_start.age } unless third_from_start.nil?
+    @avg_answers = seen_behaviours
 
-    @weak_answers = @reflections.reject{ |v| v.age >= third_from_end.age } unless third_from_end.nil?
-    @avg_answers = @reflections - @str_answers - @weak_answers
+    @empty_answers = []
+    Behaviour::CATEGORIES_ORDER.each do |cat|      
+      @empty_answers << cat unless seen_behaviours.any?{|sb| sb.category == cat}
+    end
+
+    if false && @avg_answers.first.age_from != @avg_answers.last.age_from
+      @weak_answers = [@avg_answers.pop]
+      @str_answers = [@avg_answers.shift]
+    end    
+
+    @reflections = @avg_answers + @empty_answers
+    @reflections += @weak_answers if @weak_answers
+    @reflections += @strong_answers if @strong_answers
+    @reflections.flatten!
 
     render :json => {
       :lengths => @lengths,

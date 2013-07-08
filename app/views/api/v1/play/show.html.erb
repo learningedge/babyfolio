@@ -6,29 +6,29 @@
   </head>
   <body>
     <div id="bf-mobile">
-      <div class="play-popup <%= @activity[:time] %>">
+      <div class="play-popup">
         <div class="popup-wrapper">            
-          <div class="reflect-icon reflect-icon-<%= @activity[:category] %>"></div>
           <h4><%= @activity[:title] %></h4>
           <div class="show-future">future activity</div>
           <div class="show-past">completed activity <span><%= current_child.first_name.capitalize %> already did this with you.</span></div>
 
-          <% unless @activity[:response].blank? %>
-            <p><%= @activity[:response] %></p>
-          <% end %>
+          <p><%= @activity[:desc_long] %></p>
 
-          <% unless @activity[:variations].blank? %>
-            <h5>Variations</h5>
-            <p><%= @activity[:variations] %></p>
-          <% end %>
+          <%= format_text(@page.cf("right_sidebar_variations")) -%>
+          <ul class="variations">
+            <li><%= @activity[:variation1] %></li>
+            <li><%= @activity[:variation2] %></li>
+          </ul>
 
-          <% unless @activity[:learning_benefits].blank? %>
-            <h5>What Did We Just Do?</h5>
-            <p><%= @activity[:learning_benefits] %></p>
-          <% end %>
+          <%= format_text(@page.cf("right_sidebar_what_did_we_just_do")) -%>
+          <p><%= @activity[:learning_benefit] %></p>
 
-          <h5 class="play-final-header">This Is Good For <%= current_child.first_name.capitalize %> Because <%= current_child.replace_forms("#He/She#") %>  Has: </h5>
-          <a class="btn" href="/api/v1/watch/<%= @activity[:mid] %>"><%= truncate(@activity[:ms_title], :length => 40) %></a>
+          <div class="play-final-header">
+            <%= format_text(@page.cf("right_sidebar_watch")) -%>
+          </div>
+          <ul class="play-popup-ms">
+            <li><a class="btn" href="<%= api_v1_watch_path(:bid => @activity[:bid])  %>"><%= truncate(@activity[:b_title]) %></a></li>
+          </ul>
         </div>
       </div>
     </div>

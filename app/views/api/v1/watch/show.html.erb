@@ -6,47 +6,43 @@
   </head>
   <body>
     <div id="bf-mobile">
-
-      <div class="play-popup <%= @behavior[:time] %>">
+      <div class="play-popup <%= @behaviour[:time] %> <%= "checked" if @behaviour[:checked] %>">
         <div class="popup-wrapper">
-          <div class="reflect-icon reflect-icon-<%= @behavior[:category] %>"></div>
-          <h4><%= @behavior[:title] %></h4>
+          <h4><%= @behaviour[:title] %></h4>
+
           <div class="show-future">future behavior</div>
           <div class="show-past">exhibited behavior. <span><%= current_child.first_name.capitalize %> already performed this action for you.</span></div>
 
-          <% unless @behavior[:desc].blank? %>                
-            <p><%= @behavior[:desc] %></p>
-          <% end %>
+          <p><%= @behaviour[:desc_long] %></p>            
+          <%= format_text @page.cf("right_sidebar_examples") -%>
+          <ul class="variations">
+            <%= content_tag(:li, @behaviour[:example1], {}, false) if @behaviour[:example1].present? %>
+            <%= content_tag(:li, @behaviour[:example2], {}, false) if @behaviour[:example2].present? %>
+            <%= content_tag(:li, @behaviour[:example3], {}, false) if @behaviour[:example3].present? %>              
+          </ul>
 
-          <% unless @behavior[:examples].blank? %>
-            <h5>Examples</h5>
-            <p><%= @behavior[:examples] %></p>
-          <% end %>
-
-          <h5>Recommanded Play Activities</h5>
+          <%= format_text @page.cf("right_sidebar_recommended") -%>
           <p>
-          <% unless @behavior[:activity_1_title].blank? %>
-            <a href="<%= @behavior[:activity_1_url] %>" class="btn"><%= @behavior[:activity_1_title] %></a>
-          <% end %>
-          <% unless @behavior[:activity_2_title].blank? %>
-            <a href="<%= @behavior[:activity_2_url] %>" class="btn"><%= @behavior[:activity_2_title] %></a>
+          <% @behaviour[:activities].each do |a| %>
+            <%= link_to a.title, api_v1_play_path(:aid => a.id), :class => "btn" %>
           <% end %>
           </p>
 
-          <% unless @behavior[:why_important].blank? %>
-            <h5>Why Is This Important?</h5>
-            <p><%= @behavior[:why_important] %></p>
-          <% end %>
+          <%= format_text @page.cf("right_sidebar_why_important") -%>                          
+          <p><%= @behaviour[:why_important] %></p>
+
+          <%= content_tag(:p, "TIP: " + @behaviour[:parenting_tip1], {}, false) if @behaviour[:parenting_tip1].present? %>
+          <%= content_tag(:p, @behaviour[:parenting_tip2], {}, false) if @behaviour[:parenting_tip2].present? %>          
 
           <hr />
 
           <div class="theory">
-            <h5>Theory</h5>
-            <%= @behavior[:theory] unless @behavior[:theory].blank? %>
+            <%= format_text @page.cf("right_sidebar_theory") -%>                          
+            <%= content_tag(:p, @behaviour[:theory], {}, false) unless @behaviour[:theory].blank? %>
           </div>
           <div class="references">
-            <h5>References</h5>
-            <%= @behavior[:references] unless @behavior[:references].blank? %>
+            <%= format_text @page.cf("right_sidebar_references") -%>                          
+            <%= content_tag(:p, @behaviour[:references], {}, false) unless @behaviour[:references].blank? %>
           </div>
           <div class="clear"></div>
 

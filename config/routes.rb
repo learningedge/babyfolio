@@ -164,8 +164,8 @@ Babyfolio::Application.routes.draw do
       end
 
       get "timeline" => "timeline#index"
-      get "watch/:mid" => "watch#show"
-      get "play/:mid" => "play#show"
+      get "watch/:bid" => "watch#show", :as => :watch
+      get "play/:aid" => "play#show", :as => :play
       get "reflect/:cat" => "reflect#show"
       post "timeline/add_entry" => "timeline#add_entry"
       post "timeline/comment" => "timeline#add_comment"
