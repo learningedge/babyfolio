@@ -298,7 +298,7 @@ class Api::V1::ChildrenController < ApplicationController
 
     @reflections = []
 
-    seen_behaviours = current_child.max_seen_by_cat
+    seen_behaviours = current_child.max_seen_by_cat.sort{ |x,y| x.age_from <=> y.age_from }
 
     uniq_ages = seen_behaviours.map{ |b| b.age_from }.uniq.sort
 
@@ -310,29 +310,42 @@ class Api::V1::ChildrenController < ApplicationController
     end
 
 
-    @avg_answers = seen_behaviours
 
-    @empty_answers = []
+    @empty = []
     Behaviour::CATEGORIES_ORDER.each do |cat|      
-      @empty_answers << cat unless seen_behaviours.any?{|sb| sb.category == cat}
+      @empty << cat unless seen_behaviours.any?{|sb| sb.category == cat}
     end
 
-    if false && @avg_answers.first.age_from != @avg_answers.last.age_from
-      @weak_answers = [@avg_answers.pop]
-      @str_answers = [@avg_answers.shift]
-    end    
+    @answers = seen_behaviours
 
-    @reflections = @avg_answers + @empty_answers
-    @reflections += @weak_answers if @weak_answers
-    @reflections += @strong_answers if @strong_answers
-    @reflections.flatten!
+    low = @answers.first.age_from
+    high = @answers.last.age_from
+
+    @weakest = []
+    @strongest = []
+    @average = []
+
+    @answers.each do |answer|
+      unless low == high
+        if answer.age_from == low
+          @weakest << answer
+        elsif answer.age_from == high
+          @strongest << answer
+        else
+          @average << answer
+        end
+      else
+        @average << answer
+      end
+    end
+
 
     render :json => {
       :lengths => @lengths,
-      :reflections => @reflections,
-      :strong => @str_answers,
-      :weak => @weak_answers,
-      :avg => @avg_answers
+      :strong => @strongest.map{ |a| a.category },
+      :weak => @weakest.map{ |a| a.category },
+      :avg => @average.map{ |a| a.category },
+      :empty => @empty
     }
   end
 

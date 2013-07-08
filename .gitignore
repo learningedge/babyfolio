@@ -43,5 +43,3 @@ Gemfile.lock
 # Ignore folder with images
 /public/system/images/*
 
-# Bizarre merge conflict
-/public/images/icon_teal_M.png
