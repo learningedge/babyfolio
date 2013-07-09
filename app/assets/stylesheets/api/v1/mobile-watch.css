@@ -34,15 +34,15 @@
 
 /*    MOBILE OVERRIDES   */
 
+#bf-mobile { padding: 10px; }
 #bf-mobile > br { margin-bottom: 10px; }
 #bf-mobile > .play-popup { display: block; width:100%; padding:0px; }
-#bf-mobile > .play-popup .popup-wrapper { border-width:0px; }
-#bf-mobile > .play-popup .popup-wrapper { border-width:0px; }
+#bf-mobile > .play-popup .popup-wrapper { background:none; border-width:0px; }
 #bf-mobile .btn { display:block; margin-bottom: 10px; padding:6px; }
 #bf-mobile > .play-popup ul.play-popup-ms { list-style-type:none; margin-left: 0px; padding-left:0px; } 
 #bf-mobile > .play-popup .popup-wrapper .references { float: left; width: 100%; font-size: 15px;}
 #bf-mobile > .play-popup .popup-wrapper .theory { float: left; width: 100%; font-size: 15px;}
-#bf-mobile > #reflect-content-window { width: 100%; border: none; margin-left: 0px; padding: 0px; }
+#bf-mobile > #reflect-content-window { background: none; width: 100%; border: none; margin-left: 0px; padding: 0px; }
 #bf-mobile > #reflect-content-window .popup-wrapper { padding: 10px; }
 
 

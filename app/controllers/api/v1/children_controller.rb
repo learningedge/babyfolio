@@ -316,39 +316,56 @@ class Api::V1::ChildrenController < ApplicationController
       @empty << cat unless seen_behaviours.any?{|sb| sb.category == cat}
     end
 
-    @answers = seen_behaviours
 
-    low = @answers.first.age_from
-    high = @answers.last.age_from
+    @answers = sort_answers(seen_behaviours)
+    @strongest = @answers[:strong] 
+    @weakest = @answers[:weak] 
+    @average = @answers[:avg] 
 
-    @weakest = []
-    @strongest = []
-    @average = []
+    @sorted_avg = sort_answers(@average)
+    @high_avg = @sorted_avg[:strong]
+    @low_avg = @sorted_avg[:weak]
+    @middle_avg = @sorted_avg[:avg]
 
-    @answers.each do |answer|
+    @results = Hash.new
+    @strongest.each { |a| @results["#{a.category}"] = 250 }
+    @high_avg.each { |a| @results["#{a.category}"] = 200 }
+    @middle_avg.each { |a| @results["#{a.category}"] = 150 }
+    @low_avg.each { |a| @results["#{a.category}"] = 100 }
+    @weakest.each { |a| @results["#{a.category}"] = 50 }
+    @empty.each { |a| @results["#{a}"] = 0 } 
+
+    render :json => { results: @results }
+  end
+
+
+  private
+
+  def sort_answers(answers)
+    sorted = answers.sort{ |x,y| x.age_from <=> y.age_from }
+    low = sorted.first.age_from
+    high = sorted.last.age_from
+
+    weakest = []
+    strongest = []
+    average = []
+
+    sorted.each do |answer|
       unless low == high
         if answer.age_from == low
-          @weakest << answer
+          weakest << answer
         elsif answer.age_from == high
-          @strongest << answer
+          strongest << answer
         else
-          @average << answer
+          average << answer
         end
       else
-        @average << answer
+        average << answer
       end
     end
 
-
-    render :json => {
-      :lengths => @lengths,
-      :strong => @strongest.map{ |a| a.category },
-      :weak => @weakest.map{ |a| a.category },
-      :avg => @average.map{ |a| a.category },
-      :empty => @empty
-    }
+    return { strong: strongest, weak: weakest, avg: average }
   end
-
 
 
 end

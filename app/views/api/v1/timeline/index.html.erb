@@ -20,7 +20,15 @@
         <ul id="timeline-right">
           <% @timeline_entries.each do |te| %>
             <li class="single-timeline-entry <%#= 'is-auto' if te.is_auto %>">
-            <span class="entry-avatar round-corners"><%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %></span>
+            <div class="avatar-wrapper">
+              <div class="entry-avatar round-corners">
+                <%= image_tag te.user.get_image_src(:profile_small, ' ') if te.user.present? && te.user.profile_media  %>
+
+              </div>
+              <div class="te-date">
+                <%= te.published %>
+              </div>
+            </div>
             <div class="single-timeline-entry-inner">
               <div class="te-arrow-left"></div>
               <div class="te-box">
@@ -28,9 +36,6 @@
                   <span class="te-category">
                     <%= image_tag "/images/icon_teal_#{te.category}.png" if te.category%>                  
                     <p><%= category_name(te.category) if te.category %></p>
-                  </span>
-                  <span class="te-date">
-                    <%= te.published %>
                   </span>
                   <span class="te-title">
                     <% if te.item_kind == "behaviour" %>

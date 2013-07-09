@@ -130,11 +130,14 @@
 
 #mobile-timeline { margin:3px; }
 #mobile-timeline > #timeline-wrapper #timeline-right { margin:0px; width:100%; }
-#mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry { background:url(/images/timeline_bg.png) repeat-y 11% center; }
+#mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry { background:none; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .timeline-desc { padding-left:10px; }
-#mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-category { margin-bottom: 5px; }
-#mobile-timeline > #timeline-wrapper .entry-avatar { width:10%; }
-#mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry-inner { width:75%; }
+#mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-category { margin-bottom: 5px; float:left; }
+#mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-title { display:block; }
+#mobile-timeline > #timeline-wrapper .entry-avatar { display:block; float:left; }
+#mobile-timeline > #timeline-wrapper .avatar-wrapper { display:block; float:left; width:50px; }
+#mobile-timeline > #timeline-wrapper .te-date { float:left; color: #999; width:50px; margin-top:5px; text-align: center; }
+#mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry-inner { width:75%; margin-left: 0px; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box { width:100%; padding: 5px 5px 5px 5px; }
 #mobile-timeline .comment-form { width:100%; margin-top:5px; }
 #mobile-timeline > #timeline-wrapper .te-comments .comment-input { width:75%; }
