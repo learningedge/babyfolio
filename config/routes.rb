@@ -178,6 +178,9 @@ Babyfolio::Application.routes.draw do
       post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
       get "initial_questionnaire_completed/(:add_child)" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
 
+      get "signup" => "signup#user", :as => :signup
+
+
     end
   end
 #  API

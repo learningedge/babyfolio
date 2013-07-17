@@ -15,13 +15,12 @@ class Api::V1::UsersController < ApplicationController
     
     if @user.valid?
       @user.email_confirmed = false
-      @user.save      
-      UserMailer.confirmation_email(@user).deliver
+      @user.user_actions.new(:title => "account_created")
+      @user.save!
 
       message = "Your account has been created. Confirmation email has been sent."
       @status = true
     else
-      @user.save
       message = "There was a problem creating your account."
       @status = false
     end

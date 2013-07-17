@@ -1,0 +1,110 @@
+<% if current_user && current_user.profile_media.present? %>
+  <style type="text/css">
+    .edit_user .qq-uploader .qq-img-preview {  background-image: url(<%= current_user.profile_media.image.url(:profile_medium) %> ); }
+  </style>
+<% end %>
+
+
+<div class="first-name row">
+  <span class="label">
+    <%= form.label :first_name, "Your First Name" %>
+  </span>
+  <span class="field">
+    <%= form.text_field :first_name %>
+  </span>
+</div>
+<div class="last-name row">
+  <span class="label">
+    <%= form.label :last_name, "Your Last Name" %>
+  </span>
+  <span class="field">
+    <%= form.text_field :last_name %>
+  </span>
+</div>
+
+<% unless @edit %>
+  <div class="email row">
+    <span class="label">
+      <%= form.label :email, "Your Email" %>
+    </span>
+    <span class="field">
+      <%= form.text_field :email %>
+    </span>
+  </div>
+<% else %>
+  <div class="row">
+    <span class="label">
+      <%= form.label :email %>
+    </span>
+    <span class="field">
+      <%= user.email %>
+    </span>
+  </div>
+  <div class="row">
+    <span class="label">
+      <%= form.label :zipcode %>
+    </span>
+    <span class="field">
+      <%= form.text_field :zipcode %>
+    </span>
+  </div>
+<% end %>
+
+<% if user.new_record? || current_user.is_temporary %>
+    <div class="password row">
+      <span class="label">
+        <%= form.label :password, "Password" %>
+      </span>
+      <span class="field">
+        <%= form.password_field :password %>
+      </span>
+      <div class="italic" style="text-align: right;">(at least 6 characters)</div>
+    </div>
+
+    <div class="row">
+      <span class="label">
+        <%= form.label :password_confirmation, "Confirm Password" %>
+      </span>
+      <span class="field">
+        <%= form.password_field :password_confirmation  %>
+      </span>
+    </div>
+<% end %>
+
+<%= hidden_field_tag 'user_profile_media' %>
+<div class="row photo-upload-row">
+  <span class="label">Please upload a photo of yourself</span>
+  <div id="file-registration-uploader">
+    <div class="clear"></div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var key_t = '<%= Rails.application.config.session_options[:key] %>';
+var forg_prot = "<%= form_authenticity_token %>";
+
+  $(function() {
+    var uploader = new qq.FileUploader({
+        element: document.getElementById('file-registration-uploader'),
+        action: '<%= create_profile_photo_path -%>',
+        params: { key : key_t, "<%= request_forgery_protection_token %>" : forg_prot },
+        onComplete: function(id, fileName, responseJSON){
+
+          $('.qq-upload-list li').each(function() {
+            if($(this).find('.qq-upload-file').text() == fileName);
+            $(this).fadeOut('slow');
+          });
+                    
+          $('#user_profile_media').val(responseJSON.media_id);
+          $('.qq-uploader .qq-upload-button .qq-img-preview').css({backgroundImage : 'url(' + responseJSON.img_url + ')'})
+        }
+    });
+
+  });
+</script>
+
+
+
+
+
