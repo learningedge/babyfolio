@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Invite Others</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+    <div id="bf-mobile">
+
+
+      <div id="invite-others" class="tab">
+        <div class="tab-inner-right first">
+          <div class="pointing-arrow"></div>
+          <div id="invite-others-wrapper">
+            <%= form_tag invite_users_path, :remote => true, :id => "invite-others-form" do %>
+              <%= hidden_field_tag "family_id", @family.id %>
+              <p>Invite family and friends to the <span class="bold"><%= @family.name %>'s</span> family. Enter their email and we'll send them a personal invitation.</p>
+              <h4 class="error-header"><%= @error %></h4>
+              <% @invitation_emails.each do |i| %>
+                <div class="email row <%= "error-row" if i[:error].present? %>">
+                  <%= hidden_field_tag "types[]", i[:type] %>
+                  <label>
+                    <%= i[:type] %>
+                    <a href="#" class="clone-relation">Add another</a>
+                  </label>
+                  <div class="field">
+                    <%= text_field_tag "emails[]", i[:email] %>
+                  </div>
+                  <div class="error-message"><span class="label"></span><%=  i[:error] %></div>
+                </div>
+              <% end %>
+              <div class="row">
+                <span class="label"></span><%= submit_tag "Send invites!", :disable_with => "Inviting...", :class => "btn" %>
+              </div>
+
+
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  <script type="text/javascript">
+    
+    $(function() {
+        $('.clone-relation').live('click', function() {
+          row = $(this).parents('.row');
+          cl = $(row).clone();
+          $(cl).find('#emails_').val('');
+          $(cl).find('.error-message').text('');
+          cl.insertBefore(row);
+        });
+    });
+
+  </script>
+
+
+
+  </body>
+</html>

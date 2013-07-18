@@ -153,6 +153,13 @@ Babyfolio::Application.routes.draw do
         post 'name_and_pic' => "users#name_and_pic"
       end
 
+      namespace :settings do
+        get 'info'
+        get 'family'
+        get 'invite' 
+        get 'f_and_f'
+      end
+
       resource :children, :only => [:create] do
         get 'current' => "children#current"
         post 'change_current/:id' => "children#change_current"
