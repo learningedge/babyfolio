@@ -7,7 +7,7 @@
           <%= hidden_field_tag "types[]", i[:type] %>
           <span class="label"><%= i[:type] %></span>
           <span class="field">
-            <%= text_field_tag "emails[]", i[:email], { autocomplete="off" } %>
+            <%= text_field_tag "emails[]", i[:email], { :autocomplete => "off" } %>
           </span>
           <a href="#" class="clone-relation">Add another</a>
           <div class="error-message"><span class="label"></span><%=  i[:error] %></div>
