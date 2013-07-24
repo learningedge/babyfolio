@@ -48,6 +48,9 @@ class ConfirmationController < ApplicationController
       redirect_to confirmation_accept_relations_path
     end
     
+    @user.first_name = ''
+    @user.last_name = ''
+    
     rescue NoMethodError      
       redirect_to login_url
   end
