@@ -4,18 +4,16 @@ class Api::V1::ChildrenController < ApplicationController
 
   def create
     @child = Child.new(params[:child])
-    if @child.save
-      rel = Relation.find_or_create_by_user_id_and_child_id(current_user.id, @child.id)
-      rel.assign_attributes(:member_type => params[:relation_type], :accepted => 1, :token => current_user.perishable_token, :is_admin => true)
-      rel.save
-      current_user.reset_perishable_token!            
+    if @child.valid?
+      # ==> add new relation for user and all family admins/members
+      Family.user_added_child(current_user, @child, params[:relation_type], params[:family_id], params[:family_name])
+
       set_current_child @child.id
       @status = true
     else
       @status = false
     end
-
-    render :json => { :success => @status }
+     render :json => { :success => @status }
   end
 
   def current

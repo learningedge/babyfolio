@@ -2,111 +2,95 @@ class Api::V1::QuestionsController < ApplicationController
   layout false
 
   def initial_questionnaire    
-    cookies[:current_category] ||= Question::CATS_ORDER.first
-
-    @category = cookies[:current_category]
-
-    @q_age = question_age
-    @question = current_question_for @category
-
+    @page = Page.find_by_slug("signup_step_3")
+    @behaviours = Behaviour.get_by_age(current_child.months_old).group_by{|b| b.category}
+    @behaviours.each do |k,v|
+      @behaviours[k] = [v.first, current_child.behaviours.exists?("behaviours.category" => v.first.category)]
+    end
+    @q_age = @behaviours.first[1][0].age_from
+    @behaviours = @behaviours.sort_by{|k,v| Behaviour::CATEGORIES_ORDER.index(k) }
   end
 
   def update_seen
-    question = Question.find_by_id(params[:question])
+    behaviour = Behaviour.find_by_id(params[:behaviour])
     @q_age = params[:start_age].to_i
     
-    if params[:value].to_i == 1
-      Answer.find_or_create_by_child_id_and_question_id(params[:child_id], question.id, :value => 'seen')
-      unless @q_age > question.age        
-        next_question = Question.find_by_category(question.category, :conditions => ['age > ?', question.age], :order => 'age ASC', :limit => 1)
-      end      
-    else
-            
+    ###############################################################
+    # UPDATE ALL EARLIR SeenBehaviours WHEN USER GO TO NEXT CATEGORY
+    
+    if params[:value].to_i == 1 and !current_child.has_behaviours_for_cateogry?(behaviour.category)
+      
+      behaviours = Behaviour.find(:all, 
+                                  :select => "min(id) AS min_id, age_from",
+                                  :order => "age_from DESC",
+                                  :group => "age_from",
+                                  :conditions => ["age_from < ? AND category = ?", behaviour.age_from, behaviour.category])
+      
+      behaviours.each do |beh|
+        SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, beh.min_id, :user => current_user)
+      end
+
     end
     
-    next_question ||= question
-    @question = next_question
+    next_args = {
+      :order => "age_from ASC, id ASC",
+      :limit => 1}    
 
-    respond_to do |format|
-      format.js     
-    end
-
-  end
-
-  def not_seen
-    cats = Question::CATS_ORDER
-    old_index = cats.index(cookies[:current_category])
-    if ((old_index + 1) < cats.count)
-      cookies[:current_category] = cats[old_index + 1]
-      next_category = true
+    if params[:value].to_i == 1
+      SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, behaviour.id, :user => current_user)      
+      unless @q_age > behaviour.age_from
+        next_behaviour = Behaviour.find_by_category(behaviour.category, :order => "age_from ASC, id ASC", :limit => 1, :conditions => ["age_from > ?", behaviour.age_from] )
+      end      
     else
-      #we have run through all categories
+      unless @q_age < behaviour.age_from
+        next_behaviour = Behaviour.find_by_category(behaviour.category, :order => "age_from DESC, id ASC", :limit => 1, :conditions => ["age_from < ?", behaviour.age_from] )
+      end
     end
-    redirect_to api_v1_initial_questionnaire_path
+    
+    gray_out = true unless next_behaviour
+    next_behaviour ||= behaviour
+           
+    respond_to do |format|
+        format.html { render :partial => 'single_question', :locals => { :behaviour => next_behaviour, :category => behaviour.category, :completed => gray_out } }
+    end
   end
 
   def update_watched
-    ms = Milestone.includes(:questions).find_by_mid(params[:mid])
-    a = Answer.find_or_initialize_by_child_id_and_question_id(current_child.id, ms.questions.first.id, :value => 'seen')
-    if a.new_record?
-      current_child.users.each do |relative|
-        UserMailer.child_entered_learning_window(relative, current_child, ms).deliver unless relative.id == current_user.id
-      end
-      a.save
-    end    
+    beh = Behaviour.find_by_id(params[:bid])
+    current_child.seen_behaviours.find_or_create_by_behaviour_id(beh.id, :user => current_user)
     respond_to do |format|
         format.html { render :text => 'success' }
     end
   end
 
+  def delete_watched
+    beh = Behaviour.find_by_id(params[:bid])
+    if current_child.user_is_admin?(current_user)
+      seen_behaviour = current_child.seen_behaviours.find_by_behaviour_id(beh.id)
+      seen_behaviour.destroy
+      respond_to do |format|
+        format.html { render :text => 'deleted' }
+      end
+    else
+      respond_to do |format|
+        format.html { render :text => 'no permission' }
+      end
+    end
+  end
 
   def initial_questionnaire_completed
-    @qs_ms = current_child.max_seen_by_category    
-    @qs_ms.each do |q|
-      te = TimelineEntry.build_entry("watch",
-                                   "is #{q.milestone.get_title}",
-                                   current_child,
-                                   current_user,
-                                   "Please describe a recent time when #{current_child.first_name} #{q.milestone.get_title}",   #Please describe a recent time when BABYNAME WTitlePast
-                                   q.category,
-                                   nil,
-                                   current_user.id,
-                                   q.milestone.mid
-                                 )
-      te.is_auto = true
-      te.save
-    end
-
-    current_user.user_actions.find_or_create_by_title('initial_questionnaire_completed')
-
-    qs = @qs_ms.sort_by{|q| Question::CATS_ORDER.index(q.category)}.first
-    if qs
-      unless current_user.user_emails.find_by_title('initial_questionnaire_completed')
-        UserMailer.registration_completed(current_user, current_child, qs).deliver if current_user.user_option.subscribed
-        current_user.user_emails.create(:title => 'initial_questionnaire_completed')
-      end      
+    unless current_user.is_temporary
+      TimelineEntry.generate_initial_timeline_entires current_child, current_user
+      current_user.create_initial_actions_and_emails current_child
     end
 
     if params[:add_child].present?
       redirect_to registration_new_child_path
+    elsif current_user.is_temporary
+      redirect_to registration_update_temporary_child_path
     else
       redirect_to child_reflect_children_path
     end
-  end
-
-private
-
-  def question_age
-    age = current_child.months_old
-    q_age = Question.select_ages(age, '<=', 1, 'DESC').first.age    
-    return q_age
-  end
- 
-  def current_question_for(category)
-    q_age = question_age
-    questions = Question.find_all_by_age(q_age).select{ |q| q.category == category }
-    unseen_qs = questions.map{|q| current_child.questions.include?(q) == false}
-    return questions.first
   end
 
 end

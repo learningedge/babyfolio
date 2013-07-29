@@ -7,9 +7,6 @@
 */
 
 
-/*    ORIGINAL    */
-
-  /* REGISTRATION - 1ST STEP */
   #content-wrapper #left-column-tooltip { padding: 8px; border: 1px solid #989898; }
   #content-wrapper #left-column-tooltip.annie-highlight { background-color: #c4dbdf; }
   #content-wrapper #left-column-tooltip img { float: left; display: block;}
@@ -99,4 +96,51 @@
   #bf-mobile #all-initial-questions { margin:0 10px; }
   #bf-mobile #registration-third .seen-btn-wrapper a.btn { padding:10px; margin:20px; }
 
+  #bf-mobile > #registration-third .single-question.single-e { background-image: none; }
+  #bf-mobile > #registration-third .single-question.single-m { background-image: none; }
+  #bf-mobile > #registration-third .single-question.single-v { background-image: none; }
+  #bf-mobile > #registration-third .single-question.single-s { background-image: none; }
+  #bf-mobile > #registration-third .single-question.single-n { background-image: none; }
+  #bf-mobile > #registration-third .single-question.single-l { background-image: none; }
 
+  #bf-mobile > #registration-third #instruction-column p { margin-bottom: 15px; }
+  #bf-mobile > #registration-third .single-question.single-e p { 
+    background: url(/images/circle_e.png) no-repeat 0px 10px;
+    padding: 25px 0px 25px 70px;
+    margin-top:10px;
+    margin-left:10px;
+  }
+  #bf-mobile > #registration-third .single-question.single-m p { 
+    background: url(/images/circle_m.png) no-repeat 0px 10px;
+    padding: 25px 0px 25px 70px;
+    margin-top:10px;
+    margin-left:10px;
+  }
+  #bf-mobile > #registration-third .single-question.single-v p { 
+    background: url(/images/circle_v.png) no-repeat 0px 10px;
+    padding: 25px 0px 25px 70px;
+    margin-top:10px;
+    margin-left:10px;
+  }
+  #bf-mobile > #registration-third .single-question.single-s p { 
+    background: url(/images/circle_s.png) no-repeat 0px 10px;
+    padding: 25px 0px 25px 70px;
+    margin-top:10px;
+    margin-left:10px;
+  }
+  #bf-mobile > #registration-third .single-question.single-n p { 
+    background: url(/images/circle_n.png) no-repeat 0px 10px;
+    padding: 25px 0px 25px 70px;
+    margin-top:10px;
+    margin-left:10px;
+  }
+  #bf-mobile > #registration-third .single-question.single-l p { 
+    background: url(/images/circle_l.png) no-repeat 0px 10px;
+    padding: 25px 0px 25px 70px;
+    margin-top:10px;
+    margin-left:10px;
+  }
+
+  #bf-mobile > #registration-third .single-question.completed {
+    display:none;
+  }

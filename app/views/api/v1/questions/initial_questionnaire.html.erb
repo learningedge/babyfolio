@@ -9,36 +9,47 @@
 
     <div id="content-wrapper">
       <div id="bf-mobile">
-
         <div id="registration-third">
-          <div class="right-column">
-            <div id="instruction-column">
-              <div id="tip-number1"></div>
-              <p>Starting with the first intelligence, Language, if you've seen the behavior listed, click "I have seen this!"  If you haven't seen the behavior, click "I haven't seen this yet!"</p>
-              <div id="tip-number2"></div>
-              <p>If you clicked "I have seen this!" in the first step, keep going until you haven't seen a behavior and then click "I haven't see this yet!"  If you clicked "I haven't seen this yet!" keep going until you've seen a behavior and click "I have seen this!"  Follow the same process for the next intelligence.  Once you've completed the last intelligence, you'll be asked to either continue or add another baby.</p>      
-            </div>
-            <div id="questionnaire-column">
-              <%= render :partial => 'questions_listing', :locals => {:question => @question} %>
-            </div>
+        <div id="instruction-column">
+          <div id="tip-number1"></div>
+          <p><%= @page.cf("point_1") -%></p>
+          <div id="tip-number2"></div>
+          <p><%= @page.cf("point_2") -%></p>      
+        </div>
+        <div id="questionnaire-column">
+          <%= render :partial => 'questions_listing', :locals => {:behaviours => @behaviours, :categories_answered => Array.new} %>
+        </div>
+        <div class="clear"></div>
+
+        <div id="questionniare-completed-popup" class="hidden">    
+          <% if current_user.is_temporary -%>
+
+            <p>Thanks for filling out our questions about your baby.</p>
+            <%= link_to "Continue", initial_questionnaire_completed_path, :class => "btn continue-btn" %>
+
+          <% else -%>
+
+            <p>Thanks for filling out our questions about <span class="bold"><%= current_child.first_name %></span>.  Would you like to add another baby to your account now or continue?</p>
+            <%= link_to "Add Another Baby", initial_questionnaire_completed_path(:add_child => true), :class => "btn add-baby-btn" %>
             <div class="clear"></div>
+            <%= link_to "Continue", initial_questionnaire_completed_path, :class => "btn continue-btn" %>
 
-          </div>
-
+          <% end -%>
         </div>
 
-        <script type="text/javascript">
-          $(function() {
-              $('.not-seen-form').live('ajax:success', function(xhr, data){
-                if(!(data.indexOf('window.location') > -1)) {
-                $('.not-seen-form').parents('#all-initial-questions').replaceWith(data);
-                }
-                }).live('ajax:before', function(){
-                  $('.preloader').fadeIn();
-                  });
+
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(function() {
+          $('.not-seen-form').live('ajax:success', function(xhr, data){
+            if(!(data.indexOf('window.location') > -1)) {
+            $('.not-seen-form').parents('#all-initial-questions').replaceWith(data);
+            }
+            }).live('ajax:before', function(){
+              $('.preloader').fadeIn();
               });
-            </script>
-          </div>
-        </div>
-      </body>
-    </html>
+          });
+    </script>
+  </body>
+</html>

@@ -1,12 +1,20 @@
     <div id="all-initial-questions">
-      <%if question.present? %>
-          <div class="single-question single-<%= question.category %>">
-            <%= render :partial => 'single_question', :locals => { :question => question } %>
+        <% behaviours.each do |key, bc| %>
+          <div class="single-question single-<%= key %> <%= 'completed-t' if bc[1] %>">
+            <%= render :partial => 'single_question', :locals => { :behaviour => bc[0], :category => key, :completed => bc[1] } %>
           </div>
-      <% else %>
-        No Question Present
-      <% end %>
+        <% end %>      
+      <!--div id="finish-link-wrapper"><%#= link_to "Finish", initial_questionnaire_completed_path , :class => 'not-seen-link hidden' %></div-->
     </div>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.not-seen-form').bind('ajax:complete', function(){
+            $('.preloader').fadeOut();
+      });      
+      showFinish();
+    });
+  </script>
 
 
 
