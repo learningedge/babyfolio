@@ -47,7 +47,12 @@ class Api::V1::QuestionsController < ApplicationController
       end
     end
     
-    @gray_out = true unless @next_behaviour
+    if params[:value].to_i == 0
+      @next_category = true
+    else
+      @next_category = false
+    end
+    @gray_out = true if @next_behaviour
     @next_behaviour ||= @behaviour
            
     respond_to do |format|

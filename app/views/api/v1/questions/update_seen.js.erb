@@ -1,3 +1,33 @@
-console.log("<%= @behaviour.id %>");
-$("#question-<%= @behaviour.category %>").html("<%= escape_javascript( render :partial => 'single_question', :locals => { :behaviour => @next_behaviour, :category => @behaviour.category, :completed => @gray_out }) %>");
+(function(){
 
+  function updateSeen(){
+    var question = $("#question-<%= @behaviour.category %>");
+    if(<%= @next_category %> == true) {
+      nextCategory(question);
+    } else {
+      nextQuestion(question);
+    }
+  }
+
+  function nextQuestion(question){
+    // fade out
+    question.fadeOut('fast',
+      function(){
+        question.html("<%= escape_javascript( render :partial => 'single_question', :locals => { :behaviour => @next_behaviour, :category => @behaviour.category, :completed => @gray_out }) %>");
+        question.fadeIn('fast');
+
+      });
+  }
+
+  function nextCategory(question){
+    var width = question.width();
+    question.animate({
+      // slide left
+      right: width
+    },300,function(){
+      question.hide();
+      question.next('.single-question').fadeIn('400');
+    });
+  }
+  updateSeen();
+})();

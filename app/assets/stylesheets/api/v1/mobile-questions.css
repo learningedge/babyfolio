@@ -103,42 +103,59 @@
   #bf-mobile > #registration-third .single-question.single-n { background-image: none; }
   #bf-mobile > #registration-third .single-question.single-l { background-image: none; }
 
-  #bf-mobile > #registration-third #instruction-column p { margin-bottom: 15px; }
+  #bf-mobile > #registration-third #instruction-column p { 
+    margin-bottom: 15px;
+    padding: 0 10px;
+    color: #999;
+  }
+ 
   #bf-mobile > #registration-third .single-question.single-e p { 
-    background: url(/images/circle_e.png) no-repeat 0px 10px;
+    background: url(/images/circle_e.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;
     margin-top:10px;
     margin-left:10px;
+    line-height: 1.3em;
+    font-size:15px;
   }
   #bf-mobile > #registration-third .single-question.single-m p { 
-    background: url(/images/circle_m.png) no-repeat 0px 10px;
+    background: url(/images/circle_m.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;
     margin-top:10px;
     margin-left:10px;
+    line-height: 1.3em;
+    font-size:15px;
   }
   #bf-mobile > #registration-third .single-question.single-v p { 
-    background: url(/images/circle_v.png) no-repeat 0px 10px;
+    background: url(/images/circle_v.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;
     margin-top:10px;
     margin-left:10px;
+    line-height: 1.3em;
+    font-size:15px;
   }
   #bf-mobile > #registration-third .single-question.single-s p { 
-    background: url(/images/circle_s.png) no-repeat 0px 10px;
+    background: url(/images/circle_s.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;
     margin-top:10px;
     margin-left:10px;
+    line-height: 1.3em;
+    font-size:15px;
   }
   #bf-mobile > #registration-third .single-question.single-n p { 
-    background: url(/images/circle_n.png) no-repeat 0px 10px;
+    background: url(/images/circle_ln.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;
     margin-top:10px;
     margin-left:10px;
+    line-height: 1.3em;
+    font-size:15px;
   }
   #bf-mobile > #registration-third .single-question.single-l p { 
-    background: url(/images/circle_l.png) no-repeat 0px 10px;
+    background: url(/images/circle_l.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;
     margin-top:10px;
     margin-left:10px;
+    line-height: 1.3em;
+    font-size:15px;
   }
 
   #bf-mobile > #registration-third .single-question.completed {

@@ -1,5 +1,3 @@
-<html>
-  <head>
     <title>Initial Questionaire</title>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
@@ -21,26 +19,12 @@
         </div>
         <div class="clear"></div>
 
-        <div id="questionniare-completed-popup" class="hidden">    
-          <% if current_user.is_temporary -%>
-
-            <p>Thanks for filling out our questions about your baby.</p>
-            <%= link_to "Continue", initial_questionnaire_completed_path, :class => "btn continue-btn" %>
-
-          <% else -%>
-
-            <p>Thanks for filling out our questions about <span class="bold"><%= current_child.first_name %></span>.  Would you like to add another baby to your account now or continue?</p>
-            <%= link_to "Add Another Baby", initial_questionnaire_completed_path(:add_child => true), :class => "btn add-baby-btn" %>
-            <div class="clear"></div>
-            <%= link_to "Continue", initial_questionnaire_completed_path, :class => "btn continue-btn" %>
-
-          <% end -%>
-        </div>
-
 
       </div>
     </div>
     <script type="text/javascript">
+      $('.single-question').first().show();
+
       $(function() {
           $('.not-seen-form').live('ajax:success', function(xhr, data){
             if(!(data.indexOf('window.location') > -1)) {

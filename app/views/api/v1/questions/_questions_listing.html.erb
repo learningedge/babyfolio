@@ -1,13 +1,22 @@
     <div id="all-initial-questions">
         <% behaviours.each do |key, bc| %>
-          <div id="question-<%=key %>" class="single-question single-<%= key %> <%= 'completed-t' if bc[1] %>">
+          <div id="question-<%=key %>" class="single-question hidden single-<%= key %> <%= 'completed-t' if bc[1] %>">
             <%= render :partial => 'single_question', :locals => { :behaviour => bc[0], :category => key, :completed => bc[1] } %>
           </div>
         <% end %>      
-      <!--div id="finish-link-wrapper"><%#= link_to "Finish", initial_questionnaire_completed_path , :class => 'not-seen-link hidden' %></div-->
+
+        <div id="questionniare-completed-popup" class="single-question hidden">    
+
+          <p>Thanks for filling out our questions about your baby.</p>
+          <%= link_to "Continue", api_v1_initial_questionnaire_completed_path, :class => "btn continue-btn" %>
+
+        </div>
+
+
     </div>
 
   <script type="text/javascript">
+    $(function() {
     $(function() {
       $('.not-seen-form').bind('ajax:complete', function(){
             $('.preloader').fadeOut();
