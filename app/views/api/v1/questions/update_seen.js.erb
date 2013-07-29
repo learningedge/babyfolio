@@ -1,2 +1,3 @@
-$('#questionnaire-column').html("<%= escape_javascript( render :partial => 'questions_listing', :locals => {:question => @question} ).html_safe %>");
+console.log("<%= @behaviour.id %>");
+$("#question-<%= @behaviour.category %>").html("<%= escape_javascript( render :partial => 'single_question', :locals => { :behaviour => @next_behaviour, :category => @behaviour.category, :completed => @gray_out }) %>");
 

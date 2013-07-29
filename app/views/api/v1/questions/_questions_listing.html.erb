@@ -1,6 +1,6 @@
     <div id="all-initial-questions">
         <% behaviours.each do |key, bc| %>
-          <div class="single-question single-<%= key %> <%= 'completed-t' if bc[1] %>">
+          <div id="question-<%=key %>" class="single-question single-<%= key %> <%= 'completed-t' if bc[1] %>">
             <%= render :partial => 'single_question', :locals => { :behaviour => bc[0], :category => key, :completed => bc[1] } %>
           </div>
         <% end %>      

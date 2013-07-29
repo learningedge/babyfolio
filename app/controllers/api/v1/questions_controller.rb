@@ -12,19 +12,19 @@ class Api::V1::QuestionsController < ApplicationController
   end
 
   def update_seen
-    behaviour = Behaviour.find_by_id(params[:behaviour])
+    @behaviour = Behaviour.find_by_id(params[:behaviour])
     @q_age = params[:start_age].to_i
     
     ###############################################################
     # UPDATE ALL EARLIR SeenBehaviours WHEN USER GO TO NEXT CATEGORY
     
-    if params[:value].to_i == 1 and !current_child.has_behaviours_for_cateogry?(behaviour.category)
+    if params[:value].to_i == 1 and !current_child.has_behaviours_for_cateogry?(@behaviour.category)
       
       behaviours = Behaviour.find(:all, 
                                   :select => "min(id) AS min_id, age_from",
                                   :order => "age_from DESC",
                                   :group => "age_from",
-                                  :conditions => ["age_from < ? AND category = ?", behaviour.age_from, behaviour.category])
+                                  :conditions => ["age_from < ? AND category = ?", @behaviour.age_from, @behaviour.category])
       
       behaviours.each do |beh|
         SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, beh.min_id, :user => current_user)
@@ -37,21 +37,21 @@ class Api::V1::QuestionsController < ApplicationController
       :limit => 1}    
 
     if params[:value].to_i == 1
-      SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, behaviour.id, :user => current_user)      
-      unless @q_age > behaviour.age_from
-        next_behaviour = Behaviour.find_by_category(behaviour.category, :order => "age_from ASC, id ASC", :limit => 1, :conditions => ["age_from > ?", behaviour.age_from] )
+      SeenBehaviour.find_or_create_by_child_id_and_behaviour_id(current_child.id, @behaviour.id, :user => current_user)      
+      unless @q_age > @behaviour.age_from
+        @next_behaviour = Behaviour.find_by_category(@behaviour.category, :order => "age_from ASC, id ASC", :limit => 1, :conditions => ["age_from > ?", @behaviour.age_from] )
       end      
     else
-      unless @q_age < behaviour.age_from
-        next_behaviour = Behaviour.find_by_category(behaviour.category, :order => "age_from DESC, id ASC", :limit => 1, :conditions => ["age_from < ?", behaviour.age_from] )
+      unless @q_age < @behaviour.age_from
+        @next_behaviour = Behaviour.find_by_category(@behaviour.category, :order => "age_from DESC, id ASC", :limit => 1, :conditions => ["age_from < ?", @behaviour.age_from] )
       end
     end
     
-    gray_out = true unless next_behaviour
-    next_behaviour ||= behaviour
+    @gray_out = true unless @next_behaviour
+    @next_behaviour ||= @behaviour
            
     respond_to do |format|
-        format.html { render :partial => 'single_question', :locals => { :behaviour => next_behaviour, :category => behaviour.category, :completed => gray_out } }
+      format.js
     end
   end
 
