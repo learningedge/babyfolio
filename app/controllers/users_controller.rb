@@ -137,6 +137,8 @@ class UsersController < ApplicationController
           @current_tab = 1
         when "family-friends-information"
           @current_tab = @is_admin ? 2 : 1
+        when "invite-others"
+          @current_tab = @is_admin ? 3 : 2
         else
           @current_tab = 0
     end
@@ -164,6 +166,8 @@ class UsersController < ApplicationController
         @current_tab = 1
       when "family-friends-information"
         @current_tab = @is_admin ? 2 : 1
+    when "invite-others"
+      @current_tab = @is_admin ? 3 : 2
       else
         @current_tab = 0
     end

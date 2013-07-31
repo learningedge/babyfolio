@@ -4,7 +4,7 @@
 <div class="invite-more-btn-wrapper">  
   <%= link_to "Change Admin Status", settings_tab_path(:tab => 'family-friends-information', :family_id => @family.id), :class => "btn invite-more-btn" %><br/>
   or<br/>
-  <%= link_to "Invite more family and friends", show_invitations_form_path, :remote => true, :disable_with => "Please wait...", :class => "btn invite-more-btn" %>
+  <%= link_to "Invite more family and friends", settings_tab_path(:tab => 'invite-others', :family_id => @family.id), :disable_with => "Please wait...", :class => "btn invite-more-btn" %>
 </div>
 
 
