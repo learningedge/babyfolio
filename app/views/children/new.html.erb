@@ -2,9 +2,9 @@
   <% unless params[:add_child] %>
     <div class="left-column"></div>
     <div class="right-column">
-      <% if current_user.is_temporary -%>
-      <div class="step-arrow temporary" id="step3-breadcrumb"><span>What is your name?</span></div>
-      <div class="step-arrow active temporary" id="step2-breadcrumb"><span>What is your baby's name?</span></div>
+      <% if current_user.is_temporary || current_child.is_temporary-%>
+      <div class="step-arrow temporary active" id="step3-breadcrumb"><span>What is your baby's name?</span></div>
+      <div class="step-arrow active done temporary" id="step2-breadcrumb"><span>What is your name?</span></div>
       <div class="step-arrow active done temporary" id="step1-breadcrumb"><span>What is your baby doing?</span></div>
       <% else -%>
       <div class="step-arrow" id="watching-baby"><span>Describe Your Baby</span></div>
@@ -20,7 +20,7 @@
 <div id="registration-second">
   <div class="left-column">
     <div id="left-column-tooltip">
-      <% if current_user.is_temporary -%>
+      <% if current_user.is_temporary || current_child.is_temporary -%>
       <div id="left-column-tooltip" class="<%= "annie-highlight" unless @child.errors.empty? %>">
 	<%= image_tag @page_step_1.cf("left_sidebar_image","reg_step1") -%>
 	<h4><%= @page_step_1.cf("left_sidebar_headline") -%></h4>

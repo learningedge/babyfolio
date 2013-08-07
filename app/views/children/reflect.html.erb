@@ -48,7 +48,8 @@
   </div>
 </div>
   
- <% unless @reflect_visited %>      
+ <%# unless @reflect_visited %>      
+ <% if true %>
       <%= javascript_include_tag 'jqModal' -%>
       <script type="text/javascript">
         $(function() {

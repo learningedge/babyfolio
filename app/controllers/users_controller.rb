@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update, :add_image, :upload, :settings, :update_password]
   before_filter :require_family, :only => [:settings]
   skip_before_filter :require_confirmation, :only => [:new, :create, :create_temp_user]
-  before_filter :require_seen_behaviours, :only => [:settings]
+  before_filter :require_seen_behaviours, :only => [:settings, :update_temporary]  
 
   def new        
     @page = Page.find_by_slug("signup_step_1")
@@ -47,16 +47,16 @@ class UsersController < ApplicationController
         @family.name = family_name
         @family.full_name = family_full_name
         @family.save        
-
+        
         @user.user_actions.new(:title => "account_created")
         @user.email_confirmed = false
         @user.is_temporary = false
         @user.save
-
-        TimelineEntry.generate_initial_timeline_entires current_child, @user
-        @user.create_initial_actions_and_emails current_child
         
-        redirect_to child_reflect_children_path
+        current_user.create_initial_actions_and_emails current_child
+
+        redirect_to registration_update_temporary_child_path
+
         return
       end
     end
@@ -287,7 +287,7 @@ class UsersController < ApplicationController
 
           new_user.reset_perishable_token
           if new_user.save
-            child = Child.new({:first_name => Child::DEFAULTS[:first_name], :last_name => Child::DEFAULTS[:last_name], :birth_date => date || DateTime.now , :gender => gender  })
+            child = Child.new({:first_name => Child::DEFAULTS[:first_name], :last_name => Child::DEFAULTS[:last_name], :birth_date => date || DateTime.now , :gender => gender, :is_temporary => true  })
             child.save
 
             set_current_child child.id

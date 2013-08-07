@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 class ChildrenController < ApplicationController
   layout "child", :only => [:reflect, :play, :watch]
-  before_filter :require_user, :except => [:update_temporary, :create_photo]
-  before_filter :require_temp_user, :only => [:update_temporary]
-  before_filter :require_child, :except => [:new,:create,:create_photo]
+  before_filter :require_user, :except => [:create_photo]
+  before_filter :require_temp_child, :only => [:update_temporary]
+  #  before_filter :require_user, :except => [:update_temporary, :create_photo]
+  #  before_filter :require_temp_user, :only => [:update_temporary]
+  before_filter :require_child, :except => [:new,:create,:create_photo,:update_temporary]
   before_filter :require_seen_behaviours, :except => [:new,:create,:create_photo]
 
   def switch_child
@@ -23,6 +25,7 @@ class ChildrenController < ApplicationController
   def create
     @child = Child.new(params[:child])
     @child.media = MediaImage.find_by_id(params[:child_profile_media])    
+    @child.is_temporary = false
     if @child.valid?
       # ==> add new relation for user and all family admins/members
       Family.user_added_child(current_user, @child, params[:relation_type], params[:family_id], params[:family_name])
@@ -41,16 +44,23 @@ class ChildrenController < ApplicationController
     @child.first_name = ''
     @child.second_name = ''
 
+
     @child.media = MediaImage.find_by_id(params[:child_profile_media])    
     
     if params[:child]
       relation = current_user.relations.includes(:child).find_by_child_id(current_child.id)
       relation.child.assign_attributes(params[:child])
+      relation.child.is_temporary = false
       relation.child.media = Media.find_by_id(params[:child_profile_media])
       relation.member_type = params[:relation_type]
       if relation.save
         flash.now[:notice] = "Child sucessfully updated"
-        redirect_to registration_update_temporary_user_path
+
+        TimelineEntry.generate_initial_timeline_entires current_child, current_user
+#        current_user.create_initial_actions_and_emails current_child
+
+        redirect_to child_reflect_children_path
+
         return
       end
     end

@@ -2,8 +2,8 @@
  
   <div class="right-column">
     <% if current_user && current_user.is_temporary -%>
-    <div class="step-arrow temporary active" id="step3-breadcrumb"><span>What is your name?</span></div>
-    <div class="step-arrow active done temporary" id="step2-breadcrumb"><span>What is your baby's name?</span></div>
+    <div class="step-arrow temporary" id="step3-breadcrumb"><span>What is your baby's name?</span></div>
+    <div class="step-arrow active temporary" id="step2-breadcrumb"><span>What is your name?</span></div>
     <div class="step-arrow active done temporary" id="step1-breadcrumb"><span>What is your baby doing?</span></div>
     <% else -%>
     <div class="step-arrow" id="watching-baby"><span>Describe Your Baby</span></div>
@@ -43,3 +43,26 @@
   </div>
   <div class="clear"></div>
 </div>
+<% if current_user && current_user.is_temporary %>
+
+<div id="user-free-dev-popup" class="hidden">
+  <div id="user-free-dev-popup-inner">
+    <h3>Great, thanks for completing the profile</h3>
+    <p>Based on our answers,we can now identify the most important developments across your child's multiple intelligence, e.g. Language and Logic.</p>
+    <p>While we generate the profile results, please take a moment to completeregistration</p>
+    <div><%= link_to "Okay", child_reflect_children_path, :class => 'btn jqmClose' %></div>
+    <a href="#" class="close-popup-icon jqmClose">Close</a>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'jqModal' -%>
+<script type="text/javascript">
+  $(function() {
+  $('#user-free-dev-popup').jqm({modal:true});
+  $('#user-free-dev-popup').jqmShow();
+  });
+</script>
+
+
+<% end %>
