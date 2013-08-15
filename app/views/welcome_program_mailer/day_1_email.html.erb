@@ -1,3 +1,12 @@
+<% @content.gsub!(/\[UserTimelineURL\]/i, visit_timeline_url(:child_id => @child.id)) %>
+<% @content.gsub!(/\[ChildFirstName\]/i, @child.first_name) %>
+<% @content = @child.replace_forms(@content) %>
+
+<% @content2.gsub!(/\[UserTimelineURL\]/i, visit_timeline_url(:child_id => @child.id)) %>
+<% @content2.gsub!(/\[ChildFirstName\]/i, @child.first_name) %>
+<% @content2 = @child.replace_forms(@content2) %>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,6 +30,8 @@
 	 <%= image_tag WelcomeProgramMailer.get_random_baby_image_src, { :align => "right", :class => "portrait" } -%>
 	<% end -%>
 
+	<%=raw @content %>
+<!--
 	<p>Helping your baby thrive starts with "reading" <%= @child.replace_forms("#his/her#") %> behaviors and recognizing what's up and what it means. Imagine if you could look at <%= @child.first_name -%>'s daily play and easily see so much more about <%= @child.replace_forms("#his/her#") %> important developments and learning opportunities? You can get to the next level and we can help!  </p>
 
 	<p>We know parents are very busy and overwhelmed with information. So instead of having to read everything and become a child development expert, we filter through and deliver just the information you need at just the right time. All we ask is for you to bring your knowledge about your child, which leads us to the Big Idea: Watching & Noticing (WATCH)</p>
@@ -52,6 +63,8 @@
 
 	<p>We'll be there to support you each step of the way and we know you will be pleased with the results.</p>
 
+-->
+
 	<p class="blue">Annie<br/>
 	  Community Manager
 	  </p>
@@ -61,8 +74,11 @@
       
       <div class="content">
 	<h1 class="center">Today's Game/Challenge:</h1>
-	<h2 class="center percent-80">The Art of Watching & Noticing - Reading behavior & taking your child's POV.</h2>
+	<h2 class="center percent-80"><%= @page.cf("email-header-2") %></h2>
 	
+	<%=raw @content2 %>
+
+<!--
 	<h1>Take Action</h1>
 	
 	<ul><li>Watch for and identify a behaviour that strikes you. It could be any behavior or moment, but best when <%= @child.replace_forms("#he/she#") %> is most animated, happy and laughing or engaged in the activity.</li></ul>
@@ -91,6 +107,8 @@
 
 <ul><li><a herf="#">The Diary of A Baby, Daniel N. Stern</a> - Excellent book written from the baby's point of view so really helps you climb into the mind of your child.</li></ul>
 <ul><li><a href="#">The Theory of Multiple Intelligences, Howard Gardner</a> - This book describes in detail why we humans have multiple intelligences and we are all born and develop an individual profile that makes us unique.</li></ul>
+
+-->
 
    <% unless @user.profile_media -%><p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p><% end -%>
 

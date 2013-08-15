@@ -1,3 +1,21 @@
+<% @content.gsub!(/\[UserTimelineURL\]/i, visit_timeline_url(:child_id => @child.id)) %>
+<% @content.gsub!(/\[ChildFirstName\]/i, @child.first_name) %>
+<% @content.gsub!(/\[CurrentBehaviour\]/i, @child.replace_forms(@max_seen.title_present)) %>
+<% @content.gsub!(/\[CurrentBehaviourCategory\]/i, Behaviour::CATEGORIES[@max_seen.category]) %>
+<% @content.gsub!(/\[CurrentBehaviourTip\]/i, @child.replace_forms(@max_seen.parenting_tip1).html_safe) %>
+<% @content.gsub!(/\[CurrentActivitiesList\]/i, WelcomeProgramMailer.get_activities_list_html(@max_seen.activities, @child) ) %>
+<% @content.gsub!(/\[NextBehaviourURL\]/i, watch_children_url(:bid => @next_behaviour.id)) %>
+<% @content.gsub!(/\[NextBehaviour\]/i, @child.replace_forms(@next_behaviour.title_present)) %>
+<% @content.gsub!(/\[ConfirmEmailURL\]/i, show_timeline_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content.gsub!(/\[PlayURL\]/i, play_children_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content.gsub!(/\[WatchURL\]/i, watch_children_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content.gsub!(/\[TimelineURL\]/i, show_timeline_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content.gsub!(/\[ReflectURL\]/i, child_reflect_children_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content.gsub!(/\[SettingsURL\]/i, settings_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content.gsub!(/\[InviteURL\]/i, settings_invite_url(:confirm => true, :token => @user.persistence_token)) %>
+<% @content = @child.replace_forms(@content) %>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,6 +30,13 @@
 	</div>
       <div class="content">
 	<h1>BIG IDEA:</h1>
+
+	<h2 class="icon logo"><%= @page.cf("email-header") %></h2>
+	<p>Welcome <%= @user.get_user_name -%>!</p>
+	
+	<%=raw @content %>
+<!--
+
 	<h2 class="icon logo">Your baby as "Master Player & Explorer"</h2>
 	<p>Welcome <%= @user.get_user_name -%>!</p>
 
@@ -50,6 +75,8 @@ In addition to our Jumpstart Program and emails, you can use the free BabyFolio 
 <%= show_timeline_url(:confirm => true, :token => @user.persistence_token) -%></a></p>
 
 <p>If you have any questions or concerns, please email us at <a href="mailto:tickets@baby1.uservoice.com">tickets@baby1.uservoice.com</a>.</p>
+
+-->
 
 <p class="signature">Best,<br />
 BabyFolio Team</p>

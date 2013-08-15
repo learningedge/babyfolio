@@ -1,3 +1,14 @@
+<% @content.gsub!(/\[UserTimelineURL\]/i, visit_timeline_url(:child_id => @child.id)) %>
+<% @content.gsub!(/\[ChildFirstName\]/i, @child.first_name) %>
+<% @content.gsub!(/\[CurrentBehaviour\]/i, @child.replace_forms(@behaviour.title_present)) %>
+<% @content = @child.replace_forms(@content) %>
+
+<% @content2.gsub!(/\[UserTimelineURL\]/i, visit_timeline_url(:child_id => @child.id)) %>
+<% @content2.gsub!(/\[ChildFirstName\]/i, @child.first_name) %>
+<% @content.gsub!(/\[CurrentBehaviour\]/i, @child.replace_forms(@behaviour.title_present)) %>
+<% @content2 = @child.replace_forms(@content2) %>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,13 +24,17 @@
       <div class="content">
 	<h1>BIG IDEA:</h1>
 	<h2 class="icon reflect">Reflect</h2>
-	<p>Congrats, you've made it to the third day and the next big idea: Reflect! </p>
+	<p><%= @page.cf("email-header") %></p>
 
 	<% if @user.profile_media -%>
 	 <%= image_tag @user.get_image_src(:profile_medium), { :align => "right", :class => "portrait" } %>
 	<% else -%>
 	 <%= image_tag WelcomeProgramMailer.get_random_baby_image_src, { :align => "right", :class => "portrait" } -%>
 	<% end -%>
+
+	<%=raw @content %>
+
+<!--
 
 	<p>As you Watch & Play at the next level, you will start to see patterns and signals about who <%= @child.first_name -%> truly is. </p>
 
@@ -32,13 +47,15 @@
 	<p>Did you know that your interactions and responsiveness support your child's very capacity to think, learn and act in the world?  </p>
 
 	<p>Our Reflect section is designed to help you discover your child's abilities and match the right experiences to help them flourish.</p>	
-	
+-->	
 <!--	<p class="no-spacing">There are three important areas of reflection:</p>
 	<table class="three-cols"><tr>
 	    <td><ul><li><strong><a href="#">Your Child</a></strong></li></ul></td><td><ul><li><strong><a href="#">Your Role</a></strong></li></ul></td><td><ul><li><strong><a href="#">Materials</a></strong></li></ul></td>
 	    </tr></table> -->
-	
+<!--	
 	<p>We've included some very thought-provoking questions for Today's Challenge. These questions are meant for you to think about your interactions with <%= @child.first_name -%> and draw out meaning for a deeper understanding of <%= @child.first_name -%>.s development.</p>	
+
+-->
 
 	<p class="blue">Annie<br/>
 	  Community Manager
@@ -49,11 +66,14 @@
       
       <div class="content">
 	<h1 class="center">Today's Game/Challenge:</h1>
-	<h2 class="center percent-80">We've included <%= @child.first_name -%>'s intelligence bar graph from <%= @child.replace_forms("#his/her#") %> Reflect section. Take a look at the three groups of questions below, designed to encourage you to think on a deeper level about <%= @child.first_name -%>'s development.</h2>
+	<h2 class="center percent-80"><%= @page.cf("email-header-2") %></h2>
 
 	<a href="<%= child_reflect_children_url() -%>"><%= image_tag "/images/welcome_program/Reflect_bar.png", { :alt => "", :align => "middle", :class => "centeredImage" } -%></a>
 
-	
+	<%=raw @content2 %>
+
+<!--	
+
 	<table class="steps-table">
 	  <tr>
 	    <td class="col-1">1.</td>
@@ -103,6 +123,8 @@
 	<p>
 	  <a href="#">The Element</a> - How finding your passion changes everythng, Ken Robinson<br />
 	</p>
+
+-->
 
    <% unless @user.profile_media -%><p class="image_ref">Image courtesy of photostock / <a href="http://www.freedigitalphotos.net" target="_blank">FreeDigitalPhotos.net</a></p><% end -%>
  

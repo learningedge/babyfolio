@@ -1,4 +1,6 @@
 class UserMailer < ActionMailer::Base
+  include Rails.application.routes.url_helpers
+  
   default :from => ENV['EMAIL_FROM'] || "test@babyfolio.qa.codephonic.com"  
 
   def confirmation_email(user)
@@ -36,6 +38,10 @@ class UserMailer < ActionMailer::Base
     @child = child
     @behaviour = behaviour
     @activities = @behaviour.activities
+
+    @page = Page.find_by_slug('registration-completed-email')
+    @content = @page.cf('email-content')
+
     mail(:to => @user.email, :subject => "Welcome to BabyFolio & #{@child.first_name}'s #{Behaviour::CATEGORIES[@behaviour.category] } Development: #{@behaviour.title_present}")
   end
 

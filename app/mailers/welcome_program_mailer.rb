@@ -1,12 +1,18 @@
 class WelcomeProgramMailer < ActionMailer::Base
+  include Rails.application.routes.url_helpers
+
   default :from => ENV['EMAIL_FROM'] || "test@babyfolio.qa.codephonic.com"
   
   def welcome_email user, child, max_seen
     @user = user
     @child = child
     @max_seen = max_seen
-    
+
     @next_behaviour = Behaviour.get_next_behaviours_for_category(@max_seen.category, @max_seen.age_from, 1).first
+    
+    @page = Page.find_by_slug('welcome-email')
+    @content = @page.cf('email-content')
+
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: 10 Day Program")
   end
 
@@ -20,6 +26,10 @@ class WelcomeProgramMailer < ActionMailer::Base
       current_behaviour = @child.behaviours.max_for_category(key).first
       @behaviours[key] = Behaviour.get_next_behaviours_for_category(key, (current_behaviour ? current_behaviour.age_from : 0), 1).first
     end
+
+    @page = Page.find_by_slug('day-1-email')
+    @content = @page.cf('email-content')
+    @content2 = @page.cf('email-content-2')
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Day 1")
   end
@@ -27,6 +37,10 @@ class WelcomeProgramMailer < ActionMailer::Base
   def day_2_email user, child
     @user = user
     @child = child
+
+    @page = Page.find_by_slug('day-2-email')
+    @content = @page.cf('email-content')
+    @content2 = @page.cf('email-content-2')
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Day 2")
   end
@@ -35,6 +49,10 @@ class WelcomeProgramMailer < ActionMailer::Base
     @user = user
     @child = child
     @behaviour = behaviour
+
+    @page = Page.find_by_slug('day-3-email')
+    @content = @page.cf('email-content')
+    @content2 = @page.cf('email-content-2')
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Day 3")
   end
@@ -54,6 +72,9 @@ class WelcomeProgramMailer < ActionMailer::Base
 
   def wrap_up_email user
     @user = user
+
+    @page = Page.find_by_slug('wrap-up-email')
+    @content = @page.cf('email-content')
     
     mail(:to => user.email, :subject => "Jumpstart BabyFolio: Congratulations")
   end
@@ -66,6 +87,16 @@ class WelcomeProgramMailer < ActionMailer::Base
 
   def self.get_random_baby_image_src
     "/images/welcome_program/"+BABY_IMAGES[rand(BABY_IMAGES.size)]
+  end
+  
+  def self.get_activities_list_html activities, child, list_type = 'ol'
+    html = "<#{list_type}>"
+    activities.each do |activity|
+      html += "<li><a href=\"#{Rails.application.routes.url_helpers.play_children_url(:aid => activity.id, :no => 1, :host => ENV['EMAIL_DOMAIN'] || 'babyfolio.qa.codephonic.com')}\">#{child.replace_forms(activity.title).html_safe}</a> - #{child.replace_forms(activity.description_short).html_safe}</li>"
+    end
+    html += "</#{list_type}>"
+
+    return html
   end
 
   BABY_IMAGES = ["baby_towel.jpg", "baby_playing_duck.jpg", "baby_playing_toy.jpg", "baby_playing_toy_1.jpg"]

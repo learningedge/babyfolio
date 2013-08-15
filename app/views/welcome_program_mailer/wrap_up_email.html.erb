@@ -11,9 +11,12 @@
 	Jumpstart BabyFolio: <strong>10 Day Program</strong>
 	</div>
       <div class="content">
-	<h2>Congratulations, you've completed the BabyFolio Jumpstart!</h2>
+	<h2><%= @page.cf("email-header") %></h2>
 	<p>Dear <%= @user.get_user_name -%>,</p>
-	
+
+	<%=raw @content %>
+<!--
+
 	<p>We hope that you have a better understanding of what BabyFolio can do to help your baby exercise his multiple intelligence muscles and become a 21st century baby while giving you the insights and tools to you to be the best  "play partner"  and scientific assistant you can be as your child explores and masters their world.</p>
 	
 	<p>Remember, all these types of interactions should happen naturally throughout the day as you play and share daily rountines such as mealtime, changing and dressing, bathtime and such. You will be able to embed richer types of multiple intelligence muscle building while you interact throught the day.  Your baby is highly motivated to master their world. You just need to provide a little help along the way as any good scientific assistant would do.</p>
@@ -23,6 +26,8 @@
 	<p>Now that the Jumpstart program is complete, instead of the daily emails, we'll be sending you weekly newsletters updating you on your child's multiple intelligences.</p>
 	
 	<p>Don't forget, BabyFolio is here to help and we love hearing from you, so if you have any questions or comments, please email us at <a href="mailto:tickets@baby1.uservoice.com.">tickets@baby1.uservoice.com</a>.</p>
+
+-->
 	
 	<p class="signature">Best,<br />
 	  BabyFolio Team</p>
