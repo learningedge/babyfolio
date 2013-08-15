@@ -53,7 +53,10 @@ class UsersController < ApplicationController
         @user.is_temporary = false
         @user.save
         
-        current_user.create_initial_actions_and_emails current_child
+        @user.user_option.is_welcome_program_enabled = true
+        @user.user_option.save 
+        
+        @user.create_initial_actions
 
         redirect_to registration_update_temporary_child_path
 
