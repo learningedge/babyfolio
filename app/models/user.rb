@@ -436,7 +436,7 @@ class User < ActiveRecord::Base
   def self.send_day_1_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_INITIAL_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
-    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    date_today_pacific = ActiveSupport::TimeZone["Pacific Time (US & Canada)"].now.to_date
     @day_1_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_1_users.each do |user|
@@ -454,7 +454,7 @@ class User < ActiveRecord::Base
   def self.send_day_2_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_1_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
-    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    date_today_pacific = ActiveSupport::TimeZone["Pacific Time (US & Canada)"].now.to_date
     @day_2_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_2_users.each do |user|
@@ -472,7 +472,7 @@ class User < ActiveRecord::Base
   def self.send_day_3_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_2_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_DAY_3_EMAIL"] ]
-    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    date_today_pacific = ActiveSupport::TimeZone["Pacific Time (US & Canada)"].now.to_date
     @day_3_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_3_users.each do |user|
@@ -492,7 +492,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_intelligence_email include_actions, exclude_actions, category, mark_action, last_email = false
-    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    date_today_pacific = ActiveSupport::TimeZone["Pacific Time (US & Canada)"].now.to_date
     @users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @users.each do |user|
@@ -543,7 +543,7 @@ class User < ActiveRecord::Base
   def self.send_day_10_email
     include_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_EMOTIONAL_EMAIL"] ]
     exclude_actions = [ UserAction::ACTIONS["WELCOME_PROGRAM_WRAP_UP_EMAIL"] ]
-    date_today_pacific = Time.now.getlocal(ActiveSupport::TimeZone["Pacific Time (US & Canada)"].utc_offset).to_date
+    date_today_pacific = ActiveSupport::TimeZone["Pacific Time (US & Canada)"].now.to_date
     @day_10_users = User.with_and_without_action_subscribers(include_actions, exclude_actions, Date.today - 1.month, date_today_pacific - 1.day)
     
     @day_10_users.each do |user|

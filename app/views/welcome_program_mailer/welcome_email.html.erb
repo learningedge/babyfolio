@@ -4,8 +4,8 @@
 <% @content.gsub!(/\[CurrentBehaviourCategory\]/i, Behaviour::CATEGORIES[@max_seen.category]) %>
 <% @content.gsub!(/\[CurrentBehaviourTip\]/i, @child.replace_forms(@max_seen.parenting_tip1).html_safe) %>
 <% @content.gsub!(/\[CurrentActivitiesList\]/i, WelcomeProgramMailer.get_activities_list_html(@max_seen.activities, @child) ) %>
-<% @content.gsub!(/\[NextBehaviourURL\]/i, watch_children_url(:bid => @next_behaviour.id)) %>
-<% @content.gsub!(/\[NextBehaviour\]/i, @child.replace_forms(@next_behaviour.title_present)) %>
+<% @content.gsub!(/\[NextBehaviourURL\]/i, watch_children_url(:bid => @next_behaviour.id)) if @next_behaviour %>
+<% @content.gsub!(/\[NextBehaviour\]/i, @child.replace_forms(@next_behaviour.title_present)) if @next_behaviour %>
 <% @content.gsub!(/\[ConfirmEmailURL\]/i, show_timeline_url(:confirm => true, :token => @user.persistence_token)) %>
 <% @content.gsub!(/\[PlayURL\]/i, play_children_url(:confirm => true, :token => @user.persistence_token)) %>
 <% @content.gsub!(/\[WatchURL\]/i, watch_children_url(:confirm => true, :token => @user.persistence_token)) %>
