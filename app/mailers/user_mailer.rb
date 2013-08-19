@@ -22,8 +22,7 @@ class UserMailer < ActionMailer::Base
     @user = relation.user
     @inviter = relation.inviter
     @family = family
-    @url = confirmation_accept_invitation_url
-    @url += "?token=" + relation.token
+    @url = confirmation_accept_invitation_url( :token => relation.token )
     mail(:to => @user.email, :subject => "You've been invited to join BabyFolio!")
   end
   

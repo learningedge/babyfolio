@@ -5,7 +5,7 @@
 <% end %>
 
 <div id="new_child_form">
-<%= form_for child, { :url => ( current_user.is_temporary ? registration_update_temporary_child_path : nil )} do |f| -%>
+<%= form_for child, { :url => ( (current_user.is_temporary || current_child.is_temporary) ? registration_update_temporary_child_path : nil )} do |f| -%>
       <%= f.hidden_field :id, :value => child.id if edit %>
       <%= hidden_field_tag :is_registration, params[:is_registration] %>
       <%= hidden_field_tag :return_to, params[:return_to] %>
@@ -15,7 +15,7 @@
         </span>
         <%= f.text_field :first_name, :value => child.first_name %>
       </div>
-      <% unless current_user.is_temporary -%>
+      <% if !(current_user.is_temporary || current_child.is_temporary) -%>
       <div class="row">
         <span class="label">
             <%= label_tag "family_name", "Family Name" %>

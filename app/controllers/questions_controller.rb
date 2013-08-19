@@ -87,7 +87,7 @@ class QuestionsController < ApplicationController
     if params[:add_child].present?
       redirect_to registration_new_child_path
     elsif current_user.is_temporary
-      redirect_to registration_update_temporary_child_path
+      redirect_to registration_update_temporary_user_path
     else
       redirect_to child_reflect_children_path
     end

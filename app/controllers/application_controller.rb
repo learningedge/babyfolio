@@ -110,7 +110,20 @@ end
     end
 
     def require_child
-      redirect_to registration_new_child_path unless current_child
+      unless current_child
+        redirect_to registration_new_child_path
+      else
+        if current_child.is_temporary && current_user && !current_user.is_temporary && current_child.seen_behaviours.count > 0
+          redirect_to registration_update_temporary_child_path
+        end
+      end
+    end
+
+    def require_temp_child
+      if !current_child || !current_child.is_temporary
+        redirect_to login_url
+        return false
+      end
     end
 
     # ==============================

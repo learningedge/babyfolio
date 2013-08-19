@@ -56,6 +56,8 @@ class Family < ActiveRecord::Base
           user = User.find_or_initialize_by_email(ie[:email], :is_temporary => true, :email_confirmed => false)
 
           if user.new_record?
+            user.first_name = 'Temporary'
+            user.last_name = 'User'
             user.reset_password
             user.reset_single_access_token
             user.reset_perishable_token
