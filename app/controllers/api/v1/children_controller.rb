@@ -1,6 +1,8 @@
 class Api::V1::ChildrenController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
   respond_to :json
   before_filter :require_user
+
 
   def create
     @child = Child.new(params[:child])
@@ -54,8 +56,8 @@ class Api::V1::ChildrenController < ApplicationController
       @activities << {
         :category => a.category,
         :aid => a.id.to_s,
-        :title => current_child.api_replace_forms(a.title),
-        :subtitle => current_child.api_replace_forms(a.description_short),
+        :title => strip_tags(current_child.replace_forms(a.title)),
+        :subtitle => strip_tags(current_child.replace_forms(a.description_short)),
         :likes => likes
       }
     end
@@ -135,12 +137,12 @@ class Api::V1::ChildrenController < ApplicationController
     @item =  {
                :category => qs.category,
                :mid => qs.milestone.mid,               
-               :ms_title => current_child.api_replace_forms(qs.milestone.title, 35),
-               :title => qs.milestone.activity_1_title.blank? ? "Title goes here" : current_child.api_replace_forms(qs.milestone.activity_1_title, 60),
-               :setup => current_child.api_replace_forms(qs.milestone.activity_1_set_up, 90),
-               :response => current_child.api_replace_forms(qs.milestone.activity_1_response),
-               :variations => current_child.api_replace_forms(qs.milestone.activity_1_modification),
-               :learning_benefits => current_child.api_replace_forms(qs.milestone.activity_1_learning_benefits),
+               :ms_title => strip_tags(current_child.replace_forms(qs.milestone.title, 35)),
+               :title => qs.milestone.activity_1_title.blank? ? "Title goes here" : strip_tags(current_child.replace_forms(qs.milestone.activity_1_title, 60)),
+               :setup => strip_tags(current_child.replace_forms(qs.milestone.activity_1_set_up, 90)),
+               :response => strip_tags(current_child.replace_forms(qs.milestone.activity_1_response)),
+               :variations => strip_tags(current_child.replace_forms(qs.milestone.activity_1_modification)),
+               :learning_benefits => strip_tags(current_child.replace_forms(qs.milestone.activity_1_learning_benefits)),
                :selected => true,
                :likes => likes
               }
@@ -179,9 +181,9 @@ class Api::V1::ChildrenController < ApplicationController
       @behaviours << {
                        :category => beh.category,
                        :bid => beh.id.to_s,
-                       :title => current_child.api_replace_forms(beh.title_present),
-                       :subtitle => current_child.api_replace_forms(beh.description_short),
-                       :references => current_child.api_replace_forms(beh.references),
+                       :title => strip_tags(current_child.replace_forms(beh.title_present)),
+                       :subtitle => strip_tags(current_child.replace_forms(beh.description_short)),
+                       :references => strip_tags(current_child.replace_forms(beh.references)),
                        :checked => checked
                      }
     end
@@ -267,18 +269,18 @@ class Api::V1::ChildrenController < ApplicationController
     @item =  {
                :category => qs.category,
                :mid => qs.mid,
-               :ms_title => current_child.api_replace_forms(qs.milestone.title, 35),
-               :title =>  current_child.api_replace_forms(qs.milestone.get_title, 60),
-               :subtitle =>  qs.milestone.observation_subtitle.blank? ? "Subtitle goes here" : current_child.api_replace_forms(qs.milestone.observation_subtitle),
-               :desc => current_child.api_replace_forms(qs.milestone.observation_desc),
-               :examples =>  current_child.api_replace_forms(qs.milestone.other_occurances),
-               :activity_1_title => current_child.api_replace_forms(qs.milestone.activity_1_title, 40),
-               :activity_2_title => current_child.api_replace_forms(qs.milestone.activity_2_title, 40),
+               :ms_title => strip_tags(current_child.replace_forms(qs.milestone.title, 35)),
+               :title =>  strip_tags(current_child.replace_forms(qs.milestone.get_title, 60)),
+               :subtitle =>  qs.milestone.observation_subtitle.blank? ? "Subtitle goes here" : strip_tags(current_child.replace_forms(qs.milestone.observation_subtitle)),
+               :desc => strip_tags(current_child.replace_forms(qs.milestone.observation_desc)),
+               :examples =>  strip_tags(current_child.replace_forms(qs.milestone.other_occurances)),
+               :activity_1_title => strip_tags(current_child.replace_forms(qs.milestone.activity_1_title, 40)),
+               :activity_2_title => strip_tags(current_child.replace_forms(qs.milestone.activity_2_title, 40)),
                :activity_1_url => play_children_path(:mid => qs.mid, :no => 1),
                :activity_2_url => play_children_path(:mid => qs.mid, :no => 2),
-               :why_important => current_child.api_replace_forms(qs.milestone.observation_what_it_means),
-               :theory => current_child.api_replace_forms(qs.milestone.research_background),
-               :references => current_child.api_replace_forms(qs.milestone.research_references),
+               :why_important => strip_tags(current_child.replace_forms(qs.milestone.observation_what_it_means)),
+               :theory => strip_tags(current_child.replace_forms(qs.milestone.research_background)),
+               :references => strip_tags(current_child.replace_forms(qs.milestone.research_references)),
                :selected => true
               }
 
@@ -320,7 +322,7 @@ class Api::V1::ChildrenController < ApplicationController
     @weakest = @answers[:weak] 
     @average = @answers[:avg] 
 
-    @sorted_avg = sort_answers(@average)
+    @sorted_avg = sort_answers(@average) 
     @high_avg = @sorted_avg[:strong]
     @low_avg = @sorted_avg[:weak]
     @middle_avg = @sorted_avg[:avg]
@@ -340,26 +342,30 @@ class Api::V1::ChildrenController < ApplicationController
   private
 
   def sort_answers(answers)
-    sorted = answers.sort{ |x,y| x.age_from <=> y.age_from }
-    low = sorted.first.age_from
-    high = sorted.last.age_from
+    if answers
+      sorted = answers.sort{ |x,y| x.age_from <=> y.age_from }
+      low = sorted.first.age_from if sorted.first
+      high = sorted.last.age_from if sorted.last
 
-    weakest = []
-    strongest = []
-    average = []
+      weakest = []
+      strongest = []
+      average = []
 
-    sorted.each do |answer|
-      unless low == high
-        if answer.age_from == low
-          weakest << answer
-        elsif answer.age_from == high
-          strongest << answer
+      sorted.each do |answer|
+        unless low == high
+          if answer.age_from == low
+            weakest << answer
+          elsif answer.age_from == high
+            strongest << answer
+          else
+            average << answer
+          end
         else
           average << answer
         end
-      else
-        average << answer
       end
+    else
+      strong, weak, avg = nil, nil, nil
     end
 
     return { strong: strongest, weak: weakest, avg: average }
