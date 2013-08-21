@@ -58,11 +58,15 @@ class Api::V1::TimelineController < ApplicationController
                                  )
     te.save
     
+    if params[:bid].present? 
+      b = Behaviour.find_by_id(params[:bid])
+      current_child.seen_behaviours.find_or_create_by_behaviour_id(b.id, :user => current_user) if b
+    end
+ 
     respond_to do |format|
       format.json { render :json => { :success => true } } 
     end
   end  
-
  
   def add_comment
     te = TimelineEntry.find_by_id(params[:te_id])
