@@ -103,12 +103,37 @@
   #bf-mobile > #registration-third .single-question.single-n { background-image: none; }
   #bf-mobile > #registration-third .single-question.single-l { background-image: none; }
 
+  /* REGISTRATION - 3RD STEP */
+
+
+  #bf-mobile #questionniare-completed-popup {
+    width:100% !important;
+    padding: 0px;
+    border: none;
+  }
+
+  #bf-mobile #questionniare-completed-popup .btn {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  #bf-mobile > #registration-third #instruction-column { 
+    margin-top:5px;
+    font-size: 15px;
+    line-height: 1.3em;
+  }
   #bf-mobile > #registration-third #instruction-column p { 
     margin-bottom: 15px;
     padding: 0 10px;
-    color: #999;
+    color: #555;
   }
  
+  #bf-mobile > #registration-third #instruction-column a { 
+    text-align: center;
+    margin-top:15px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
   #bf-mobile > #registration-third .single-question.single-e p { 
     background: url(/images/circle_e.png) no-repeat 0px 25px;
     padding: 25px 0px 25px 70px;

@@ -6,12 +6,22 @@ class Api::V1::ChildrenController < ApplicationController
 
   def create
     @child = Child.new(params[:child])
+    @child.is_temporary = false
     if @child.valid?
       # ==> add new relation for user and all family admins/members
       Family.user_added_child(current_user, @child, params[:relation_type], params[:family_id], params[:family_name])
 
       set_current_child @child.id
+
+      if params[:image]
+        @image = Media.new(:image => params[:image])
+        @image.save!
+        @child.media = @image
+        @child.save!
+      end
+ 
       @status = true
+
     else
       @status = false
     end

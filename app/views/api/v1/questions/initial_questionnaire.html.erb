@@ -13,6 +13,7 @@
           <p><%= @page.cf("point_1") -%></p>
           <div id="tip-number2"></div>
           <p><%= @page.cf("point_2") -%></p>      
+          <%= link_to "Start the Questionnaire", "#", :id => "hide_instructions", :class => "btn" %>
         </div>
         <div id="questionnaire-column">
           <%= render :partial => 'questions_listing', :locals => {:behaviours => @behaviours, :categories_answered => Array.new} %>
@@ -23,7 +24,12 @@
       </div>
     </div>
     <script type="text/javascript">
-      $('.single-question').first().show();
+      $("#hide_instructions").click(function(){
+          $("#instruction-column").hide();
+          $('.single-question').first().show();
+      });
+      
+
 
       $(function() {
           $('.not-seen-form').live('ajax:success', function(xhr, data){

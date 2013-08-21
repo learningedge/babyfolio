@@ -9,6 +9,7 @@ class Api::V1::QuestionsController < ApplicationController
     end
     @q_age = @behaviours.first[1][0].age_from
     @behaviours = @behaviours.sort_by{|k,v| Behaviour::CATEGORIES_ORDER.index(k) }
+    
   end
 
   def update_seen
@@ -84,18 +85,10 @@ class Api::V1::QuestionsController < ApplicationController
   end
 
   def initial_questionnaire_completed
-    unless current_user.is_temporary
-      TimelineEntry.generate_initial_timeline_entires current_child, current_user
-      current_user.create_initial_actions_and_emails current_child
-    end
+    TimelineEntry.generate_initial_timeline_entires current_child, current_user
+    current_user.create_initial_actions_and_emails current_child
 
-    if params[:add_child].present?
-      redirect_to registration_new_child_path
-    elsif current_user.is_temporary
-      redirect_to registration_update_temporary_child_path
-    else
-      redirect_to child_reflect_children_path
-    end
+    redirect_to root_path
   end
 
 end

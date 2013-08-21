@@ -20,6 +20,15 @@ class Api::V1::UsersController < ApplicationController
 
       message = "Your account has been created. Confirmation email has been sent."
       @status = true
+      UserSession.create(@user, true)
+
+      if params[:image]
+        @image = Media.new(:image => params[:image], :user => @user)
+        @image.save!
+        @user.profile_media = @image
+        @user.save!
+      end
+ 
     else
       message = "There was a problem creating your account."
       @status = false
