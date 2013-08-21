@@ -17,6 +17,10 @@ class Behaviour < ActiveRecord::Base
 
   CATEGORIES_ORDER = ["L", "N", "S", "V", "M", "E"]
 
+  def category_name
+    Behaviour::CATEGORIES[self.category]
+  end
+
   def self.get_by_age age
     result = []
     age_category = select('behaviours.category, max(age_from) as age_from').group('behaviours.category').where(["age_from <= ?", age ])

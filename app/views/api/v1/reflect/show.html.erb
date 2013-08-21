@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Reflect</title>
+    <title><%= @behaviour ? @behaviour.category_name : "Reflect" %></title>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
   </head>
@@ -10,8 +10,8 @@
         <div class="popup-wrapper">
           <% if @behaviour == nil %>
             <div class="unfinished-questionnaire-notice">
-              <h4>Hey there, to see information about these intelligences, you'll have to complete your baby's registration first.  Would you like to do that now?</h4>
-              <%= link_to "Yes", initial_questionnaire_path, :class => "btn" %> <%= link_to "No", "#", :class => "btn" %>
+              <h4>Hey there, to see information about these intelligences, you'll have to complete your baby's registration first.</h4>
+              <%= link_to "Finish Questionnaire", api_v1_initial_questionnaire_path, :class => "btn" %> 
             </div>
 
           <% else %>
