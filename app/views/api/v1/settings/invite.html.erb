@@ -9,6 +9,7 @@
     <div id="bf-mobile">
 
 
+
       <div id="invite-others" class="tab">
         <div class="tab-inner-right first">
           <div class="pointing-arrow"></div>
@@ -20,18 +21,16 @@
               <% @invitation_emails.each do |i| %>
                 <div class="email row <%= "error-row" if i[:error].present? %>">
                   <%= hidden_field_tag "types[]", i[:type] %>
-                  <label>
-                    <%= i[:type] %>
-                    <a href="#" class="clone-relation">Add another</a>
-                  </label>
-                  <div class="field">
-                    <%= text_field_tag "emails[]", i[:email] %>
-                  </div>
+                  <span class="label"><%= i[:type] %></span>
+                  <span class="field">
+                    <%= text_field_tag "emails[]", i[:email], { :autocomplete => "off" } %>
+                  </span>
+                  <a href="#" class="clone-relation">Add another</a>
                   <div class="error-message"><span class="label"></span><%=  i[:error] %></div>
                 </div>
               <% end %>
               <div class="row">
-                <span class="label"></span><%= submit_tag "Send invites!", :disable_with => "Inviting...", :class => "btn" %>
+                <span class="label"></span><%= submit_tag "Send invites!", :disable_with => "Inviting...", :id => "send-invite-btn", :class => "btn" %>
               </div>
 
 
@@ -40,22 +39,36 @@
         </div>
 
       </div>
+      <div id="sent-invites">
+        <h4>Invitations have been sent. If you want to make someone (e.g. Mom) an admin like yourself, you can do that by clicking the button below.</h4>
+
+        <div class="invite-more-btn-wrapper">  
+
+          <%= link_to "Invite more family and friends", api_v1_settings_invite_path(:tab => 'invite-others', :family_id => @family.id), :disable_with => "Please wait...", :class => "btn invite-more-btn" %>
+        </div>
+      </div>
+
+
     </div>
 
 
-  <script type="text/javascript">
-    
-    $(function() {
-        $('.clone-relation').live('click', function() {
-          row = $(this).parents('.row');
-          cl = $(row).clone();
-          $(cl).find('#emails_').val('');
-          $(cl).find('.error-message').text('');
-          cl.insertBefore(row);
-        });
-    });
+    <script type="text/javascript">
+      $('#send-invite-btn').click(function(){
+          $('#invite-others').hide();
+          $('#sent-invites').show();
+      });
 
-  </script>
+      $(function() {
+          $('.clone-relation').live('click', function() {
+            row = $(this).parents('.row');
+            cl = $(row).clone();
+            $(cl).find('#emails_').val('');
+            $(cl).find('.error-message').text('');
+            cl.insertBefore(row);
+            });
+          });
+
+</script>
 
 
 
