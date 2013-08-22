@@ -7,6 +7,30 @@ class Api::V1::UsersController < ApplicationController
     render :json => @user
   end
 
+  def update
+    @user = current_user    
+
+    if @user.update_attributes(params[:user])
+      @status = true
+      UserSession.create(@user, true)
+
+      if params[:image]
+        @image = Media.new(:image => params[:image], :user => @user)
+        @image.save!
+        @user.profile_media = @image
+        @user.save!
+      end
+ 
+    else
+      message = "There was a problem updating your account."
+      @status = false
+    end
+
+    render :json => { :message => message, :success => @status }
+  end
+ 
+
+
   def create
     @user = User.new(params[:user])      
     @user.reset_single_access_token

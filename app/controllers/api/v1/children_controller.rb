@@ -3,6 +3,29 @@ class Api::V1::ChildrenController < ApplicationController
   respond_to :json
   before_filter :require_user
 
+  def update
+    relation = current_user.relations.includes(:child).find_by_child_id(params[:id])
+    relation.child.assign_attributes(params[:child])    
+    relation.member_type = params[:relation_type]
+    if relation.save
+
+      
+      @child = Child.find(params[:id])
+      if params[:image]
+        @image = Media.new(:image => params[:image])
+        @image.save!
+        @child.media = @image
+        @child.save!
+      end
+ 
+      @status = true
+    else
+      @status = false
+    end   
+
+    render :json => { :success => @status }
+ 
+  end
 
   def create
     @child = Child.new(params[:child])

@@ -168,6 +168,7 @@ Babyfolio::Application.routes.draw do
         get 'watch' => "children#watch"
         get 'watch/adjacent/:mid/:dir' => "children#get_adjacent_behaviour"
         get 'reflect' => "children#reflect"
+        put ':id' => "children#update"
       end
 
       get "timeline" => "timeline#index"
