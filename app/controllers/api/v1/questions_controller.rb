@@ -87,8 +87,8 @@ class Api::V1::QuestionsController < ApplicationController
 
   def initial_questionnaire_completed
     TimelineEntry.generate_initial_timeline_entires current_child, current_user
-    current_user.create_initial_actions_and_emails current_child
-
+    current_user.create_initial_actions
+    current_user.create_initial_emails current_child
     redirect_to root_path
   end
 
