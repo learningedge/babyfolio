@@ -81,7 +81,8 @@ class QuestionsController < ApplicationController
   def initial_questionnaire_completed
     unless current_user.is_temporary
       TimelineEntry.generate_initial_timeline_entires current_child, current_user
-      current_user.create_initial_actions_and_emails current_child
+      current_user.create_initial_actions
+      current_user.create_initial_emails current_child
     end
 
     if params[:add_child].present?

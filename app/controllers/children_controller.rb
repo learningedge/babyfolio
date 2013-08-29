@@ -57,7 +57,7 @@ class ChildrenController < ApplicationController
         flash.now[:notice] = "Child sucessfully updated"
 
         TimelineEntry.generate_initial_timeline_entires current_child, current_user
-#        current_user.create_initial_actions_and_emails current_child
+        current_user.create_initial_emails current_child.reload
 
         redirect_to child_reflect_children_path
 

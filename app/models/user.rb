@@ -326,10 +326,12 @@ class User < ActiveRecord::Base
     return result
   end
 
-  def create_initial_actions_and_emails child
+  def create_initial_actions 
     self.user_actions.find_or_create_by_title('initial_questionnaire_completed')    
     self.user_actions.find_or_create_by_title("account_created")
-
+  end
+  
+  def create_initial_emails child
     if !self.user_emails.find_by_title('initial_questionnaire_completed')
       @behaviours = child.max_seen_by_category
             
@@ -413,14 +415,11 @@ class User < ActiveRecord::Base
     @welcome_email_users = User.with_and_without_action_subscribers( include_actions, exclude_actions, User::WELCOME_PROGRAM_START_DATE)
     
     @welcome_email_users.each do |user|      
-      user.user_option.is_welcome_program_enabled = true
-      user.user_option.save 
-
       user_action = UserAction.find_by_user_id_and_title(user.id, 'child_added')
       
       child = user_action ? user_action.child : user.own_children.first        
       
-      if child
+      if child and !child.is_temporary
         max_seen = nil
         Behaviour::CATEGORIES_ORDER.each do |key|
           max_seen = child.behaviours.max_for_category(key).first if !max_seen
