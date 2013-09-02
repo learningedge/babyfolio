@@ -38,12 +38,12 @@
                     <p><%= category_name(te.category) if te.category %></p>
                   </span>
                   <span class="te-title">
-                    <% if te.item_kind == "behaviour" %>
+                    <% if te.item_kind == "behaviour" && te.title %>
                       <%= link_to te.title.html_safe, watch_children_path(:bid => te.item_id) %>
-                    <% elsif te.item_kind == "activity" %>
+                    <% elsif te.item_kind == "activity" && te.title %>
                       <%= link_to te.title.html_safe, play_children_path(:aid => te.item_id) %>
                     <% else %>
-                      <%= te.title.html_safe %>
+                      <%= te.title.html_safe if te.title %>
                     <% end %>
                   </span>                               
                   <div class="clear"></div>
