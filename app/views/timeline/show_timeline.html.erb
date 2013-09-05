@@ -68,11 +68,11 @@
                 </span>
                 <span class="te-title">
                   <% if te.item_kind == "behaviour" %>
-                    <%= link_to te.title.html_safe, watch_children_path(:bid => te.item_id) %>
+                    <%= link_to te.title.html_safe, watch_children_path(:bid => te.item_id) if te.title %>
                   <% elsif te.item_kind == "activity" %>
-                    <%= link_to te.title.html_safe, play_children_path(:aid => te.item_id) %>
+                    <%= link_to te.title.html_safe, play_children_path(:aid => te.item_id) if te.title %>
                   <% else %>
-                    <%= te.title.html_safe %>
+                    <%= te.title.html_safe if te.title %>
                   <% end %>
                 </span>                               
                 <div class="clear"></div>
