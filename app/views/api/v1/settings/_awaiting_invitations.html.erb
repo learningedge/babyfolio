@@ -1,0 +1,16 @@
+<div class="tab-inner-right pending-invitations">
+  <h3>Invites that friends and family have not yet accepted:</h3>
+  <% @awaiting_family_invitations.each do |relation| %>
+    <div class="setting-block">
+      <div class="awaiting-email">
+        <h4>
+          <%= relation.user.email %>(<%= relation.member_type %>)
+        </h4>
+      </div>
+      <div class="invite-buttons">
+        <%= link_to "Remind", api_v1_resend_invitation_path(:relation_id => relation.id), :class => "btn remind-btn", :email_data => relation.user.email %>
+        <%= link_to "Rescind", api_v1_rescind_invitation_path(:relation_id => relation.id), :class => "btn btn-grey rescind-btn", :email_data => relation.user.email %>
+      </div>
+    </div>
+  <% end %>    
+</div>

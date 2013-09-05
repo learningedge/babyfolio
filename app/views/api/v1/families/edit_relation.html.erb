@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Family and Friends</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+
+    <div id="bf-mobile">
+      <% if flash[:notice] %>
+        <div class="notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <h2>Edit family relation for </h2>
+      <h2><%= (@relation.display_name || @relation.user.get_user_name) %></h2>
+      <h2>(<%= @relation.user.email %>)</h2>
+
+      <%= form_tag api_v1_update_relation_path, :class => "update-relation-form" do %>
+        <%= hidden_field_tag "relation_id", @relation.id %>
+        <div class="row">
+          <span class="label"><%= label_tag "Display Name" %></span>
+          <%= text_field_tag :display_name, @relation.display_name -%>
+        </div>
+
+        <div class="row">
+          <span class="label"><%= label_tag "Relationship" %></span>
+          <%= select_tag :relation_type, options_for_select(Relation::TYPE_KEYS, @relation.member_type), {:class => "select-layout" } -%>
+        </div>
+
+        <div class="row">
+          <span class="label"><%= label_tag "Is Admin" %></span>
+          <%= radio_button_tag "is_admin", true, @relation.is_admin %>
+          <label for="is_admin_true">Yes</label>
+          <%= radio_button_tag "is_admin", false, !(@relation.is_admin) %>
+          <label for="is_admin_false">No</label>
+        </div>
+
+        <%= submit_tag "Update", :class => "btn update-btn" %>
+        <%= link_to "Cancel", api_v1_settings_f_and_f_path, :class => "btn btn-grey" %>
+
+      <% end %>
+    </div>
+  </body>
+</html>

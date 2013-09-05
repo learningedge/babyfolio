@@ -7,4 +7,15 @@
 #bf-mobile > #invite-others .row .label { text-align: left; }
 #bf-mobile > #sent-invites { display:none; }
 #bf-mobile > #sent-invites h4 { margin-bottom:25px; }
-
+#bf-mobile > #family-friends-information h3 { margin-bottom:20px;}
+#bf-mobile #add-to-family { margin-bottom:20px; padding-bottom: 20px; border-bottom: 1px solid #ccc; }
+#bf-mobile #add-to-family { margin-bottom:20px; padding-bottom: 20px; border-bottom: 1px solid #ccc; }
+#bf-mobile .setting-block { margin:40px 0; }
+#bf-mobile .invite-buttons { margin:10px 0; }
+#bf-mobile .relative-info { margin:10px 0; }
+#bf-mobile .child-access-wrapper { display: block; width: 100%; }
+#bf-mobile .access-select-wrapper table { width: 100%; }
+#bf-mobile .access-select-wrapper { display: block; position: relative; left: 0; width: 100%; padding: 5px 0px;}
+#bf-mobile .invitees-buttons { margin-top: 20px; }
+#bf-mobile .notice { text-align: center; margin-bottom: 10px; font-style: italic; }
+#bf-mobile .update-btn { padding: 15px 0px; width: 100%; text-align: left; margin-bottom:15px; }

@@ -187,6 +187,18 @@ Babyfolio::Application.routes.draw do
       post "update_initial_questionnaire" => "questions#update_initial_questionnaire", :as => :update_initial_questionnaire
       get "initial_questionnaire_completed/(:add_child)" => "questions#initial_questionnaire_completed", :as => :initial_questionnaire_completed
 
+      post 'invite-users' => "families#invite_users", :as => :invite_users
+      get 'invitations-form' => "families#show_invitations_form", :as => :show_invitations_form
+      get 'make-admin' => "families#make_admin", :as => :make_admin
+      get 'remove-admin' => "families#remove_admin", :as => :remove_admin
+      delete 'remove-user-from-family' => "families#remove_user", :as => :remove_user
+      post 'change-family' => "families#change_family", :as => :change_family
+      post 'update-access/:child_id/:user_id' => "families#update_access", :as => :update_access
+      get 'resend-invitation/:relation_id' =>  "families#resend_invitation", :as => :resend_invitation
+      get 'rescind-invitation/:relation_id' =>  "families#rescind_invitation", :as => :rescind_invitation
+      get 'edit-family-relation/:relation_id' => "families#edit_relation", :as => :edit_relation
+      post 'update-family-relation' => "families#update_relation", :as => :update_relation
+
 
     end
   end

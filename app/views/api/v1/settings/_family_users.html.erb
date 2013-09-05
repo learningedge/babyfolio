@@ -1,0 +1,48 @@
+<div class="setting-block">      
+      <div class="invitees-image round-corners" style="<%= "background-image: url(#{relation.user.get_image_src(:profile_small_invites)})" %>"></div>
+      <div class="relative-info">
+        <div class="bold"><%= relation.user.get_user_name %></div>
+        <div><span class="bold"><%=  relation.member_type %></span></div>
+        <div><%= relation.user.email %></div>
+        
+        <%# admin_confirm_msg = "Are you sure you want to make #{relation.user.first_name} an admin?  They will be able to invite and remove people from #{@family.name}'s family, edit or delete posts, and other awesome powers." %>
+        <%# remove_confirm_msg = "Are you sure you want to remove #{relation.user.first_name} from your account?" %>
+        <div class="invitees-buttons">
+          <%= link_to "Edit", api_v1_edit_relation_path(:relation_id => relation.id), :class => "btn edit-user-relation-btn" %>
+          <%= link_to "Make Admin", api_v1_make_admin_path(:relation_id => relation.id), :class => "btn make-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.get_display_name(current_user) unless admin %>
+          <%= link_to "Remove Admin Powers", api_v1_remove_admin_path(:relation_id => relation.id), :class => "btn remove-admin-btn", :data_user => relation.user.get_user_name, :data_family => @family.get_display_name(current_user) if admin %>
+          <%= link_to "Remove From Account", api_v1_remove_user_path(:relation_id => relation.id), :class => "btn btn-grey remove-user-btn", :data_user => relation.user.get_user_name, :data_family => @family.get_display_name(current_user)  %>
+        </div>
+
+        <div class="clear"></div>
+        <div class="child-access-wrapper">
+          <h4>Has access to: </h4>
+          <div class="access-select-wrapper round-corners">
+            <table>
+                  <thead>
+                    <th></th><th>Yes</th><th>No</th>
+                  </thead>
+            </table>
+            <% @children.each do |child| %>              
+              <%= form_tag update_access_path(:child_id => child.id, :user_id => relation.user_id) do %>
+                <% has_access = @children_access[relation.user_id].detect{|r| r.child_id == child.id && r.access}.present? %>
+                <table>
+                  <thead>
+                    <th></th><th></th><th></th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= child.first_name %></td>
+                      <td><%= radio_button_tag "child_access", true, has_access, :class => "access-radio" %></td>
+                      <td><%= radio_button_tag "child_access", false, !has_access, :class => "access-radio" %></td>
+                    </tr>
+                  </tbody>
+                </table>                                                                
+              <% end %>            
+            <% end %>
+          </div>
+        </div>
+       
+        <div class="clear"></div>
+      </div>
+</div>

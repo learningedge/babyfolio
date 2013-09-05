@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Family and Friends</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+
+    <div id="bf-mobile">
+      <% if flash[:notice] %>
+        <div class="notice">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if @is_family_admin || @is_admin %>
+        <div id="family-friends-information" class="tab">
+          <div class="tab-inner-right first">
+            <div class="pointing-arrow"></div>
+
+            <h3>Friends and Family invited to your Babyfolio</h3>
+            <% if @family_admin_users.present? %>
+              <h4>Admins</h4>
+              <% @family_admin_users.each do |relation| %>
+                <%= render :partial => "api/v1/settings/family_users", :locals => {:relation => relation, :admin => true }%>
+              <% end %>
+            <% end %>
+            <% if @family_member_users.present? %>
+              <h4>Members</h4>
+              <% @family_member_users.each do |relation| %>
+                <%= render :partial => "api/v1/settings/family_users", :locals => {:relation => relation, :admin => false }%>
+              <% end %>
+            <% end %>
+
+            <% if @family_admin_users.blank? && @family_member_users.blank? %>
+              <div id="add-to-family">
+                <h4>Seems like there aren't any users in your family. Use "Invite Family and Friends" button to invite some.</h4>
+              </div>
+            <% end %>
+          </div>
+          <%= render :partial => "api/v1/settings/awaiting_invitations" if @is_admin && @awaiting_family_invitations.present?  %>
+        </div>
+      <% end %>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('.access-radio').change(function() {
+          var form = $(this).parents('form');
+          $.post($(form).attr('action'), $(form).serialize(), function(data) {
+          });
+
+        });
+      });
+    </script>
+  </body>
+</html>
