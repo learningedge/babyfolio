@@ -193,7 +193,7 @@ Babyfolio::Application.routes.draw do
       get 'invitations-form' => "families#show_invitations_form", :as => :show_invitations_form
       get 'make-admin' => "families#make_admin", :as => :make_admin
       get 'remove-admin' => "families#remove_admin", :as => :remove_admin
-      delete 'remove-user-from-family' => "families#remove_user", :as => :remove_user
+      match 'remove-user-from-family' => "families#remove_user", :as => :remove_user
       post 'change-family' => "families#change_family", :as => :change_family
       post 'update-access/:child_id/:user_id' => "families#update_access", :as => :update_access
       get 'resend-invitation/:relation_id' =>  "families#resend_invitation", :as => :resend_invitation
