@@ -28,6 +28,22 @@ class Api::V1::TimelineController < ApplicationController
     end
   end
 
+  def edit
+    if current_child.user_is_admin?(current_user)
+      @entry = current_child.timeline_entries.find(params[:id])    
+    else
+      render :text => 'No permission'
+    end
+  end
+  def update_entry
+    if current_child.user_is_admin?(current_user)
+      @entry = current_child.timeline_entries.find(params[:id])
+      @entry.update_entry(params[:details], params[:media_id])
+    end
+    redirect_to api_v1_timeline_path
+  end    
+
+
   def add_entry    
 
     # entry_type is "play", "watch", "reflect", "likes", "dislikes" 

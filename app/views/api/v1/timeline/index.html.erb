@@ -3,6 +3,7 @@
     <title>Timeline</title>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
   </head>
   <body>
 
@@ -50,6 +51,10 @@
                   <% if  te.description.present? %>
                     <div class="timeline-desc"><%= te.description %></div>
                   <% end %>
+                  <% if current_child.user_is_admin?(current_user) %>
+                     <%= link_to "", api_v1_timeline_edit_path(te.id), :class => 'te-options' %>
+                  <% end %>
+
                 </div>
 
                 <div class="te-image-wrapper">
@@ -147,5 +152,5 @@
         </ul>
       </div>
     </div>
-  </body>
+   </body>
 </html>

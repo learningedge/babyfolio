@@ -133,7 +133,7 @@
 #mobile-timeline > #timeline-wrapper #timeline-right .single-timeline-entry { background:none; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .timeline-desc { padding-left:10px; }
 #mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-category { margin-bottom: 5px; float:left; }
-#mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-title { display:block; }
+#mobile-timeline > #timeline-wrapper .single-timeline-entry-inner .te-box .te-header .te-title { display:block; max-width: 185px;}
 #mobile-timeline > #timeline-wrapper .entry-avatar { display:block; float:left; }
 #mobile-timeline > #timeline-wrapper .avatar-wrapper { display:block; float:left; width:50px; }
 #mobile-timeline > #timeline-wrapper .te-date { float:left; color: #999; width:50px; margin-top:5px; text-align: center; }
@@ -147,6 +147,7 @@
 #mobile-timeline .mobile-comment-meta > div { float:left; }
 #mobile-timeline .mobile-comment-content { width:100%; float:left; margin-bottom:15px; }
 #mobile-timeline .mobile-comment-content > div { float:left; }
-
+#mobile-timeline input.btn { padding: 6px; background-color: #0c8a9a !important; width:100%; text-align: left; }
+#mobile-timeline textarea { width:100%; margin:15px 0; }
 
 /*    END MOBILE OVERRIDES   */

@@ -172,6 +172,8 @@ Babyfolio::Application.routes.draw do
       end
 
       get "timeline" => "timeline#index"
+      get 'timline/edit/:id' => "timeline#edit", :as => :timeline_edit
+      post 'timeline/update_entry/:id' => "timeline#update_entry", :as => :update_timeline_entry
       get "watch/:bid" => "watch#show", :as => :watch
       get "play/:aid" => "play#show", :as => :play
       get "reflect/:cat" => "reflect#show"

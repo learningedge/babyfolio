@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Timeline</title>
+
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+    <div id="bf-mobile">
+      <div id="mobile-timeline">
+
+
+        <%= form_tag api_v1_update_timeline_entry_path(@entry.id), :id => 'edit-form', :class => 'te-form' do %>
+
+          <h4 class="arvo">Post to <span class="arvo-bold">Ewa's</span> Timeline</h4>
+          <p><%= @entry.title %></p>
+
+          <%= text_area_tag "details", @entry.description, :class => "row" %>
+
+          <!-- anchor instead of submit because ios styles it as a button otherwise -->
+          <a class="btn" id="submit-form" title="Submit" href="#">Submit</a>
+          <%= link_to "Cancel", api_v1_timeline_path, :class => 'btn btn-grey' %>
+        <% end %>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $("#submit-form").click(function(){
+          $("#edit-form").submit();
+      });
+    </script>
+
+
+  </body>
+</html>
