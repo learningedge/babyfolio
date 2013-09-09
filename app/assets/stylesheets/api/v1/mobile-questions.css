@@ -60,14 +60,14 @@
   #content-wrapper #registration-third .right-column #questionnaire-column { float: left; }
   #content-wrapper #registration-third .right-column #questionnaire-column .single-question {  border: 2px solid #f08a47; background-color: #fdfbe2; margin-bottom: 7px; padding: 10px 7px 10px 60px; background-position: 5px center; background-repeat: no-repeat;}
   #content-wrapper #registration-third .right-column #questionnaire-column .single-question p { min-height: 55px; margin: 0 10px; width: 190px; display: inline-block; vertical-align: middle;}
-  #content-wrapper #registration-third .single-question.single-e { background-image: url(/images/circle_e.png) }
-  #content-wrapper #registration-third .single-question.single-l { background-image: url(/images/circle_l.png) }
-  #content-wrapper #registration-third .single-question.single-ln { background-image: url(/images/circle_ln.png) }
-  #content-wrapper #registration-third .single-question.single-m { background-image: url(/images/circle_m.png) }
-  #content-wrapper #registration-third .single-question.single-mv { background-image: url(/images/circle_mv.png) }
-  #content-wrapper #registration-third .single-question.single-v { background-image: url(/images/circle_v.png) }
-  #content-wrapper #registration-third .single-question.single-s { background-image: url(/images/circle_s.png) }
-  #content-wrapper #registration-third .seen-btn-wrapper { display: inline-block; vertical-align: middle;}
+#content-wrapper #registration-third .single-question.single-E { background-image: url(/images/circle_e.png) }
+#content-wrapper #registration-third .single-question.single-L { background-image: url(/images/circle_l.png) }
+#content-wrapper #registration-third .single-question.single-N { background-image: url(/images/circle_ln.png) }
+#content-wrapper #registration-third .single-question.single-m { background-image: url(/images/circle_m.png) }
+#content-wrapper #registration-third .single-question.single-M { background-image: url(/images/circle_mv.png) }
+#content-wrapper #registration-third .single-question.single-V { background-image: url(/images/circle_v.png) }
+#content-wrapper #registration-third .single-question.single-S { background-image: url(/images/circle_s.png) }
+ #content-wrapper #registration-third .seen-btn-wrapper { display: inline-block; vertical-align: middle;}
   #content-wrapper #registration-third .seen-btn-wrapper a { display: block; text-align: center; margin-bottom: 6px;}
   #content-wrapper #registration-third .right-column #questionnaire-column #finish-link-wrapper { text-align: center; }
   #content-wrapper #registration-third .right-column #questionnaire-column .not-seen-link { color: #0c8a9a; background: none; border: none; width: 100%; text-align: center; font-size: 15px; margin: 15px 0; cursor: pointer; }
